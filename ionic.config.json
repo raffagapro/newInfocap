@@ -1,0 +1,7 @@
+{
+  "name": "newInfocap",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
