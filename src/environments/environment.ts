@@ -6,6 +6,8 @@ export const environment = {
   production: false
 };
 
+export const WEB_KEY = 'com.googleusercontent.apps.30514470553-9iop802o4obarpv3no5s1ng5kcnblne7';
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

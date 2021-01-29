@@ -1,0 +1,141 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/user/profesional-detail" text="" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title-toolbar">SOLICITUD DE SERVICIO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- profesional card item -->
+  <div class="no-border">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <!-- profile img -->
+        <ion-col size="4" offset="1">
+          <ion-avatar class="profileImg">
+            <img src="/assets/images/avatar.png"/>
+          </ion-avatar>
+        </ion-col>
+
+        <!-- title -->
+        <ion-col size="7">
+          <ion-text>
+            <span class="titleSelect main-color">Juan Alcayaga</span><br>
+            <ion-badge color="primary" class="badge-text">Soldador</ion-badge><br>
+            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">Santiago Qta. normal.</p>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-grid>
+
+    <!-- title -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color title"><b>Cuéntale al profesional qué necesitas</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- text-area -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="border ion-text-center">
+        <ion-item lines="none">
+           <ion-textarea rows="3" cols="20" placeholder="Describe lo más posible y claro el trabajo, así podremos dar respuesta más rápido."></ion-textarea>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- text -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color regText"><b>Agrega imágenes que ayudarán al profesional a responder mejor a tu solicitud.</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- images -->
+    <ion-row class="ion-align-items-center">
+      <ion-col size="4" offset="1">
+        <img src="/assets/images/unavailable-image.png" class="imgSingle">
+      </ion-col>
+      <ion-col size="4">
+        <img src="/assets/images/unavailable-image.png" class="imgSingle">
+      </ion-col>
+      <ion-col size="3">
+        <div class="locate-cont">
+          <ion-icon name="add" color="light" class="rating-text"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- Fecha requerida -->
+    <ion-row>
+      <ion-col size="11">
+        <ion-item>
+          <ion-label class="main-color">
+            <ion-icon name="calendar" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
+          </ion-label>
+          <ion-datetime placeholder="Definir fecha"></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- Rango de horas -->
+    <!-- text -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color regText"><b>Rango de horas</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- pickers -->
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label class="main-color">
+            <ion-icon name="time" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">Hora inicial</ion-text>
+          </ion-label>
+          <ion-datetime display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="5">
+        <ion-item>
+          <ion-label class="main-color">
+            <ion-icon name="time" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">Hora final</ion-text>
+          </ion-label>
+          <ion-datetime display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- enviar solicitud BTN -->
+    <ion-row class="ion-margin-top ion-margin-bottom">
+      <ion-col size="1"></ion-col>
+      <ion-col>
+        <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="confirmRequest()">
+          CONFIRMAR SOLICITUD
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

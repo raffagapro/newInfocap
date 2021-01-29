@@ -1,0 +1,255 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/user/home" text="" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title-toolbar">ESTADO DE SOLICITUD</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- filter bar -->
+  <ion-grid>
+    <ion-row class="ion-margin-top">
+      <ion-col size="10" offset="1">
+        <ion-item lines="none" class="main-color border">
+          <ion-icon name="search" slot="start" class="main-color"></ion-icon>
+          <ion-input type="text" placeholder="Buscar" class="ion-no-padding"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- solicitud item -->
+  <div class="prof-cont ion-margin-top no-border" (click)="solicitudDetail()">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+
+        <!-- title -->
+        <ion-col size="8" class="ion-justify-content-center">
+          <ion-text>
+            <span class="titleSelect main-color">Juan Alcayaga </span><br>
+            <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp;
+            <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge><br>
+            <span class="textSelect">
+              Necesito un soldador para realizar una reja perimetral, solo para frontis de casa...
+            </span><br>
+            <small class="main-color">Contactado hace 1 día</small>
+          </ion-text>
+        </ion-col>
+
+        <!-- rating -->
+        <ion-col size="4" class="ion-text-center">
+          <div class="ion-text-end">
+            <small class="ticket">Ticket #100091234</small>
+          </div>
+          <ion-text>
+            <!-- icons -->
+            <div class="locate-cont">
+              <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText main-color ion-text-center">
+              SERVICIO ACEPTADO
+            </small>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- solicitud item -->
+  <div class="prof-cont ion-margin-top no-border" (click)="solicitudDetail()">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+
+        <!-- title -->
+        <ion-col size="8" class="ion-justify-content-center">
+          <ion-text>
+            <span class="titleSelect main-color">Cecilia Riquelme </span><br>
+            <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp;
+            <ion-badge color="medium" class="badge-text">Electrico</ion-badge>&nbsp;
+            <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge><br>
+            <span class="textSelect">
+              Necesito un soldador para realizar una reja perimetral, solo para frontis de casa...
+            </span><br>
+            <small class="main-color">Contactado hace 2 días</small>
+          </ion-text>
+        </ion-col>
+
+        <!-- rating -->
+        <ion-col size="4" class="ion-text-center">
+          <div class="ion-text-end">
+            <small class="ticket">Ticket #100091234</small>
+          </div>
+          <ion-text>
+            <!-- icons -->
+            <div class="locate-cont">
+              <ion-icon name="send" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText main-color ion-text-center">
+              SOLICITUD ENVIADA
+            </small>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- solicitud item -->
+  <div class="prof-cont ion-margin-top no-border" (click)="solicitudDetail()">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+
+        <!-- title -->
+        <ion-col size="8" class="ion-justify-content-center">
+          <ion-text>
+            <span class="titleSelect main-color">Carlos Cheuqueman </span><br>
+            <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp;
+            <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge><br>
+            <span class="textSelect">
+              Necesito un soldador para realizar una reja perimetral, solo para frontis de casa...
+            </span><br>
+            <small class="main-color">Contactado hace 2 días</small>
+          </ion-text>
+        </ion-col>
+
+        <!-- rating -->
+        <ion-col size="4" class="ion-text-center">
+          <div class="ion-text-end">
+            <small class="ticket">Ticket #100091234</small>
+          </div>
+          <ion-text>
+            <!-- icons -->
+            <div class="locate-cont bg-green-color">
+              <ion-icon name="build" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText green-color ion-text-center">
+              SERVICIO ENPROCESO
+            </small>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- solicitud item -->
+  <div class="prof-cont ion-margin-top no-border" (click)="solicitudDetail()">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+
+        <!-- title -->
+        <ion-col size="8" class="ion-justify-content-center">
+          <ion-text>
+            <span class="titleSelect main-color">Diego Zapata </span><br>
+            <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp;
+            <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge><br>
+            <span class="textSelect">
+              Necesito un soldador para realizar una reja perimetral, solo para frontis de casa...
+            </span><br>
+            <small class="main-color">Contactado hace 2 días</small>
+          </ion-text>
+        </ion-col>
+
+        <!-- rating -->
+        <ion-col size="4" class="ion-text-center">
+          <div class="ion-text-end">
+            <small class="ticket">Ticket #100091234</small>
+          </div>
+          <ion-text>
+            <!-- icons -->
+            <div class="locate-cont bg-grey-color">
+              <ion-icon name="build" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText grey-color ion-text-center">
+              SERVICIO REALIZADO
+            </small>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- solicitud item -->
+  <div class="prof-cont ion-margin-top no-border" (click)="solicitudDetail()">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+
+        <!-- title -->
+        <ion-col size="8" class="ion-justify-content-center">
+          <ion-text>
+            <span class="titleSelect main-color">Franco Pardo </span><br>
+            <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp;
+            <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp;
+            <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge><br>
+            <span class="textSelect">
+              Necesito un soldador para realizar una reja perimetral, solo para frontis de casa...
+            </span><br>
+            <small class="main-color">Contactado hace 2 días</small>
+          </ion-text>
+        </ion-col>
+
+        <!-- rating -->
+        <ion-col size="4" class="ion-text-center">
+          <div class="ion-text-end">
+            <small class="ticket">Ticket #100091234</small>
+          </div>
+          <ion-text>
+            <!-- icons -->
+            <div class="locate-cont bg-red-color">
+              <ion-icon name="close" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText red-color ion-text-center">
+              SOLICITUD RECHAZADA
+            </small>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- solicitud item -->
+  <div class="prof-cont ion-margin-top no-border" (click)="solicitudDetail()">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+
+        <!-- title -->
+        <ion-col size="8" class="ion-justify-content-center">
+          <ion-text>
+            <span class="titleSelect main-color">Raúl Parra </span><br>
+            <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp;
+            <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp;
+            <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge><br>
+            <span class="textSelect">
+              Necesito un soldador para realizar una reja perimetral, solo para frontis de casa...
+            </span><br>
+            <small class="main-color">Contactado hace 2 días</small>
+          </ion-text>
+        </ion-col>
+
+        <!-- rating -->
+        <ion-col size="4" class="ion-text-center">
+          <div class="ion-text-end">
+            <small class="ticket">Ticket #100091234</small>
+          </div>
+          <ion-text>
+            <!-- icons -->
+            <div class="locate-cont bg-main-color">
+              <ion-icon name="calendar" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText main-color ion-text-center">
+              SOLICITUD VISITA
+            </small>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+
+</ion-content>

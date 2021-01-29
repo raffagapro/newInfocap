@@ -24,3 +24,54 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+@font-face {
+  font-family: 'Poppins';    //This is what we are going to call
+  src: url('assets/font/Poppins-Regular.ttf');
+}
+body{
+  background-color: #fff;
+  font-family: 'Poppins'
+}
+.main-color{
+  color: #009ACE;
+
+}
+.bg-main-color{
+  --background: #009ACE;
+}
+ion-header {
+  --background: #fff;
+  -webkit-box-shadow: -1px -8px 25px 0px rgba(0, 0, 0, 0.47);
+  -moz-box-shadow: -1px -8px 25px 0px rgba(0, 0, 0, 0.47);
+  box-shadow: -1px -8px 25px 0px rgba(0, 0, 0, 0.47);
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+ion-toolbar {
+  --padding-bottom: 25px;
+  --padding-top: 25px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  --background: #fff;
+}
+ion-back-button{
+  --color: #E54360;
+  font-size: 20px;
+  padding-left: 15px;
+}
+ion-menu-button{
+  --color: #E54360;
+  padding-left: 15px;
+}
+.title-toolbar{
+  font-size: 17px;
+  font-family: Poppins;
+}
+
+ion-item {
+  --background: none;
+  opacity:1;
+  --border-color: #009ACE;
+}

@@ -1,0 +1,119 @@
+<ion-content class="ion-padding">
+  <div style="height: 5%"></div>
+  <ion-grid>
+    <!-- Main Logo -->
+    <ion-row>
+      <ion-col size="10" offset="1">
+        <img src="assets/logos/logo.svg" alt="">
+      </ion-col>
+    </ion-row>
+
+    <!-- Subtitle -->
+    <ion-row class="subtitle">
+      <ion-col size="2" offset="2">
+        <hr>
+      </ion-col>
+      <ion-col size="4" class="ion-text-center">
+        <ion-text class="main-color ion-text-uppercase">Ingresa con</ion-text>
+      </ion-col>
+      <ion-col size="2">
+        <hr>
+      </ion-col>
+    </ion-row>
+
+    <!-- Social Icons -->
+    <ion-row class="ion-margin-top">
+      <!-- facebook -->
+      <ion-col size="2" offset="2">
+        <div class="logo-facebook">
+          <ion-icon name="logo-facebook" (click)="loginFacebook()" color="light"></ion-icon>
+        </div>
+      </ion-col>
+      <!-- apple -->
+      <ion-col size="1"></ion-col>
+      <ion-col size="2">
+        <div class="logo-apple">
+          <ion-icon name="logo-apple" (click)="loginApple()" color="light"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+      <!-- google -->
+      <ion-col size="2">
+        <div class="logo-google">
+          <ion-icon name="logo-google" (click)="loginGoogle()" color="light"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- Login Inputs -->
+    <form>
+      <!-- email -->
+      <ion-row>
+        <ion-col size="11">
+          <ion-item>
+            <ion-label position="floating">
+              <ion-icon name="mail" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Email</ion-text>
+            </ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- password -->
+      <ion-row>
+        <ion-col size="11">
+          <ion-item>
+            <ion-label position="floating" class="main-color">
+              <ion-icon name="lock-closed" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Contraseña</ion-text>
+            </ion-label>
+            <ion-input type="password"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </form>
+
+    <!-- Login BTN -->
+    <ion-row class="ion-margin-top">
+      <ion-col>
+        <ion-button expand="block" class="ion-text-uppercase" (click)="login()">Ingresar</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <!-- forgot password link -->
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-text class="main-color">¿Olvidaste tu contraseña?</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- Registration Btns -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="6" offset="1">
+        <ion-button expand="block" class="outline-btn">
+          <small>
+            Ingresar como invitado
+          </small>
+        </ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <ion-button expand="block" [routerLink]="['/','register']" routerDirection="forward">
+          <small>
+            Registrarme
+          </small>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+    <!-- forgot password link -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="5" class="ion-text-right">
+        <ion-text class="main-color">Una empresa</ion-text>
+      </ion-col>
+      <ion-col size="6">
+        <img src="assets/logos/info_logo.png" alt="">
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

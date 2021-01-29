@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="user"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="main-color title-toolbar">CATEGORÍAS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <!-- category item -->
+    <ion-row class="category-item ion-align-items-end" style="background-image: url('/assets/images/carp_cat.png');" (click)="map()">
+      <ion-col class="cat-bar">
+        <ion-text color="light">
+          <h1 class="cat-title">Carpintería</h1>
+          <p class="cat-text">Lorem ipsum dolor sit amet, consectetuer</p>
+          <!-- rating circle -->
+          <div class="rate-cont">
+            <ion-label color="primary" class="rating-text ml-1">4.8</ion-label>
+            <ion-icon name="star" color="primary" class="rating-text"></ion-icon>
+          </div>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- category item -->
+    <ion-row class="category-item ion-align-items-end" style="background-image: url('/assets/images/elect-cat.png');" (click)="map()">
+      <ion-col class="cat-bar">
+        <ion-text color="light">
+          <h1 class="cat-title">Electricidad</h1>
+          <p class="cat-text">Lorem ipsum dolor sit amet, consectetuer</p>
+          <!-- rating circle -->
+          <div class="rate-cont">
+            <ion-label color="primary" class="rating-text ml-1">4.6</ion-label>
+            <ion-icon name="star" color="primary" class="rating-text"></ion-icon>
+          </div>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- category item -->
+    <ion-row class="category-item ion-align-items-end" style="background-image: url('/assets/images/plom_elec.png');" (click)="map()">
+      <ion-col class="cat-bar">
+        <ion-text color="light">
+          <h1 class="cat-title">Plomería</h1>
+          <p class="cat-text">Lorem ipsum dolor sit amet, consectetuer</p>
+          <!-- rating circle -->
+          <div class="rate-cont">
+            <ion-label color="primary" class="rating-text ml-1">4.5</ion-label>
+            <ion-icon name="star" color="primary" class="rating-text"></ion-icon>
+          </div>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-no-padding">
+    <ion-grid>
+      <!-- footer text -->
+      <ion-row class="subtitle ion-margin-top">
+        <ion-col size="8" offset="2" class="ion-text-center">
+          <ion-text class="footer-text main-color" ><b>¿No encuentras la categoría que buscabas?</b></ion-text>
+        </ion-col>
+      </ion-row>
+
+      <!-- enviar mensaje BTN -->
+      <ion-row class="ion-margin-top ion-margin-bottom">
+        <ion-col size="1" offset="1"></ion-col>
+        <ion-col>
+          <ion-button size="6" expand="block" class="ion-text-uppercase" (click)="login()">
+            ENVÍANOS UN MENSAJE
+            <ion-icon slot="end" name="send"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
