@@ -18,10 +18,7 @@ export class SolicitudServicioPage implements OnInit {
   }
 
   async confirmRequest(){
-    // this.modalController.create({component: SuccessModalComponent})
-    // .then(modalElement => {
-    //   modalElement.present();
-    // });
+
     const alert = await this.alertController.create({
       header: 'SOLICITUD EVIADA',
       message: 'Pronto el profesional se contactará contigo',

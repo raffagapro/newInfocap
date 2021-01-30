@@ -16,7 +16,15 @@ export class SolicitudesPage implements OnInit {
   }
 
   solicitudDetail(){
+    this.router.navigate(['/user/solicitud-status']);
+  }
+
+  solicitudInProgress(){
     this.router.navigate(['/user/solicitud-detail']);
+  }
+
+  servAccepted(){
+    // this.router.navigate(['/user/solicitud-detail']);
   }
 
 }

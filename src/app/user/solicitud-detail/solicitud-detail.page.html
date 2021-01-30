@@ -3,10 +3,173 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/user/solicitudes" text="" icon="arrow-back"></ion-back-button>
     </ion-buttons>
-    <ion-title class="title-toolbar">ESTADO DE SOLICITUD</ion-title>
+    <ion-title class="title-toolbar">DEFINICIÓN DEL SERVICIO</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <!-- profesional card item -->
+  <div class="no-border">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <!-- profile img -->
+        <ion-col size="4" offset="1">
+          <ion-avatar class="profileImg">
+            <img src="/assets/images/avatar.png"/>
+          </ion-avatar>
+        </ion-col>
+
+        <!-- title -->
+        <ion-col size="7">
+          <ion-text>
+            <span class="titleSelect main-color">Juan Alcayaga</span><br>
+            <ion-badge color="primary">Soldador</ion-badge><br>
+            <p class="main-color" style="margin-top: 0; margin-bottom: 0;">Santiago Qta. normal.</p>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-grid>
+    
+    <!-- title -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color title"><b>Trabajo a realizar</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="titleText">Cambio de chapas</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- Slider -->
+    <ion-row class="minusMargin">
+      <ion-col size="12">
+        <ion-slides [options]="slideOptions">
+          <!-- slide -->
+          <ion-slide>
+            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+          </ion-slide>
+
+          <!-- slide -->
+          <ion-slide>
+            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+          </ion-slide>
+
+          <!-- slide -->
+          <ion-slide>
+            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+          </ion-slide>
+
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+
+    <!-- Fecha de visita -->
+    <ion-row class="minusMargin">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color subtitle"><b>Fecha de visita</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-icon name="calendar-outline" class="main-color iconFix"></ion-icon>
+        <ion-text class="main-color subText"> Viernes 20 de noviembre de 2020</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- Rango de horas -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color subtitle"><b>Rango de horas</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-icon name="time" class="main-color iconFix"></ion-icon>
+        <ion-text class="main-color subText"> 8:00 - 16:00 horas</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- Costo -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color subtitle"><b>Costo</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-icon name="wallet-outline" class="main-color iconFix"></ion-icon>
+        <ion-text class="main-color subText"> $30 USD</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- Costo & pay BTNS-->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color subtitle"><b>¿Cómo desea pagar?</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="12" class="ion-text-center">
+        <section>
+          <!-- btn -->
+          <ion-button size="small">
+            <ion-icon slot="start" src="assets/icon/visa.svg"></ion-icon>
+            Crédito
+          </ion-button>
+
+          <!-- btn -->
+          <ion-button size="small" fill="outline">
+            <ion-icon slot="start" src="assets/icon/mastercard.svg"></ion-icon>
+            Débito
+          </ion-button>
+
+          <!-- btn -->
+          <ion-button size="small" fill="outline">
+            <ion-icon slot="start" name="cash-outline"></ion-icon>
+            Débito
+          </ion-button>
+
+          <!-- btn -->
+          <ion-button size="small" fill="outline">
+            <ion-icon slot="start" name="sync-outline"></ion-icon>
+            Transferencia
+          </ion-button>
+
+        </section>
+      </ion-col>
+
+    </ion-row>
+
+    <!-- enviar solicitud BTN -->
+    <ion-row class="ion-margin-top ion-margin-bottom">
+      <ion-col size="1"></ion-col>
+      <ion-col>
+        <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="confirmSolicitud()">
+          ACEPTAR VISITA
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+  </ion-grid>
 </ion-content>

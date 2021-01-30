@@ -47,6 +47,10 @@ const routes: Routes = [
     path: 'user/solicitud-detail',
     loadChildren: () => import('./user/solicitud-detail/solicitud-detail.module').then( m => m.SolicitudDetailPageModule)
   },
+  {
+    path: 'user/solicitud-status',
+    loadChildren: () => import('./user/solicitud-status/solicitud-status.module').then( m => m.SolicitudStatusPageModule)
+  },
 ];
 
 @NgModule({
