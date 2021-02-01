@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from "@ionic/angular";
+import { ModalController } from "@ionic/angular";
 import { Router } from '@angular/router';
+
+import { ConfirmSuccessModalComponent } from './confirm-success-modal/confirm-success-modal.component';
 
 @Component({
   selector: 'app-solicitud-servicio',
@@ -10,24 +12,20 @@ import { Router } from '@angular/router';
 export class SolicitudServicioPage implements OnInit {
 
   constructor(
-    private alertController: AlertController,
+    private modalController: ModalController,
     private router: Router,
   ) { }
 
   ngOnInit() {
   }
 
-  async confirmRequest(){
-
-    const alert = await this.alertController.create({
-      header: 'SOLICITUD EVIADA',
-      message: 'Pronto el profesional se contactará contigo',
-      buttons: ['ACEPTAR'],
+  confirmRequest(){
+    this.modalController.create({
+      component: ConfirmSuccessModalComponent,
+      cssClass: 'modalSuccess',
+    }).then(modalEl => {
+      modalEl.present();
     });
-    await alert.present();
-    let result = await alert.onDidDismiss();
-    // console.log(result);
-    this.router.navigate(['/user/solicitudes']);
   }
 
 }

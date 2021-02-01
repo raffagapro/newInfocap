@@ -1,0 +1,139 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/user/solicitud-status" text="" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title-toolbar">MÉTODO DE PAGO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+
+    <!-- OMITIR POR EL MOMENTO BTN -->
+    <ion-row class="ion-margin-bottom">
+      <ion-col size="1"></ion-col>
+      <ion-col>
+        <ion-button size="5" expand="block" fill="outline" (click)="nothing()">
+          <ion-icon  slot="start" name="document-text-outline"></ion-icon>
+          Ver informe de los servicios
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- title  -->
+    <ion-row>
+      <ion-col size="11" offset="1">
+        <ion-text color="primary" class="title">
+          <b>Detalle del pago</b>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- servicios pactados  -->
+    <ion-row>
+      <ion-col size="11" offset="1">
+        <ion-text class="text">
+          <b>Servicios pactados</b>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- costo  -->
+    <ion-row>
+      <ion-col size="11" offset="1">
+        <ion-text color="primary" class="title">
+          <b>$0</b>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- servicios adicionales  -->
+    <ion-row>
+      <ion-col size="11" offset="1">
+        <ion-text class="text">
+          <b>Servicios adicionales</b>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- costo  -->
+    <ion-row>
+      <ion-col size="11" offset="1">
+        <ion-text color="primary" class="title">
+          <b>$0</b>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- servicios adicionales  -->
+    <ion-row>
+      <ion-col size="11" offset="1">
+        <ion-text class="text ion-text-uppercase">
+          <b>TOTAL</b>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- costo  -->
+    <ion-row>
+      <ion-col size="11" offset="1">
+        <ion-text color="danger" class="title">
+          <b>$30.00</b>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- Costo & pay BTNS-->
+    <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color subtitle"><b>¿Cómo desea pagar?</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="12" class="ion-text-center">
+        <section>
+          <!-- btn -->
+          <ion-button size="small">
+            <ion-icon slot="start" src="assets/icon/visa.svg"></ion-icon>
+            Crédito
+          </ion-button>
+
+          <!-- btn -->
+          <ion-button size="small" fill="outline">
+            <ion-icon slot="start" src="assets/icon/mastercard.svg"></ion-icon>
+            Débito
+          </ion-button>
+
+          <!-- btn -->
+          <ion-button size="small" fill="outline">
+            <ion-icon slot="start" name="cash-outline"></ion-icon>
+            Débito
+          </ion-button>
+
+          <!-- btn -->
+          <ion-button size="small" fill="outline">
+            <ion-icon slot="start" name="sync-outline"></ion-icon>
+            Transferencia
+          </ion-button>
+
+        </section>
+      </ion-col>
+
+    </ion-row>
+
+    <!-- CONFIRMAR BTN -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col>
+        <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="paymentForm()">
+          PAGAR
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

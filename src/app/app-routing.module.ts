@@ -51,6 +51,22 @@ const routes: Routes = [
     path: 'user/solicitud-status',
     loadChildren: () => import('./user/solicitud-status/solicitud-status.module').then( m => m.SolicitudStatusPageModule)
   },
+  {
+    path: 'user/servicio-pagar',
+    loadChildren: () => import('./user/servicio-pagar/servicio-pagar.module').then( m => m.ServicioPagarPageModule)
+  },
+  {
+    path: 'user/servicio-pagar-forma',
+    loadChildren: () => import('./user/servicio-pagar-forma/servicio-pagar-forma.module').then( m => m.ServicioPagarFormaPageModule)
+  },
+  {
+    path: 'user/seval-prof',
+    loadChildren: () => import('./user/eval-prof/eval-prof.module').then( m => m.EvalProfPageModule)
+  },
+  {
+    path: 'user/visita-detail',
+    loadChildren: () => import('./user/visita-detail/visita-detail.module').then( m => m.VisitaDetailPageModule)
+  },
 ];
 
 @NgModule({

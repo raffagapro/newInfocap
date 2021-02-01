@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SolicitudStatusPageRoutingModule } from './solicitud-status-routing.module';
 
 import { SolicitudStatusPage } from './solicitud-status.page';
+import { SolicitudEnviadaModalComponent } from './solicitud-enviada-modal/solicitud-enviada-modal.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { SolicitudStatusPage } from './solicitud-status.page';
     IonicModule,
     SolicitudStatusPageRoutingModule
   ],
-  declarations: [SolicitudStatusPage]
+  declarations: [SolicitudStatusPage, SolicitudEnviadaModalComponent]
 })
 export class SolicitudStatusPageModule {}

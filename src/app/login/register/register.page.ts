@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from "@ionic/angular";
+import { ModalController } from '@ionic/angular';
+import { SuccessModalComponent } from './success-modal/success-modal.component';
+
 
 @Component({
   selector: 'app-register',
@@ -9,24 +11,19 @@ import { AlertController } from "@ionic/angular";
 export class RegisterPage implements OnInit {
 
   constructor(
-    private alertController: AlertController,
+    private modalController: ModalController,
   ) { }
 
   ngOnInit() {
   }
 
-  async onRegister(){
-    // this.modalController.create({component: SuccessModalComponent})
-    // .then(modalElement => {
-    //   modalElement.present();
-    // });
-    const alert = await this.alertController.create({
-      header: 'REGISTRO EXITOSO',
-      buttons: ['ACEPTAR'],
+  onRegister(){
+    this.modalController.create({
+      component: SuccessModalComponent,
+      cssClass: 'modalSuccess',
+    }).then(modalEl => {
+      modalEl.present();
     });
-    await alert.present();
-    let result = await alert.onDidDismiss();
-    // console.log(result);
   }
 
 }

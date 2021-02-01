@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertController } from "@ionic/angular";
+import { ModalController } from "@ionic/angular";
 import { Router } from '@angular/router';
+import { ConfirmSuccessModalComponent } from './confirm-success-modal/confirm-success-modal.component';
 
 
 @Component({
@@ -17,24 +18,20 @@ export class SolicitudDetailPage implements OnInit {
   };
 
   constructor(
-    private alertController: AlertController,
+    private modalController: ModalController,
     private router: Router,
   ) { }
 
   ngOnInit() {
   }
 
-  async confirmSolicitud(){
-
-    const alert = await this.alertController.create({
-      header: 'HAZ CONFIRMADO EL SERVICIO',
-      message: 'El cobro se realizará cuando se finalice el servicio.',
-      buttons: ['ACEPTAR'],
+  confirmSolicitud(){
+    this.modalController.create({
+      component: ConfirmSuccessModalComponent,
+      cssClass: 'modalSuccess',
+    }).then(modalEl => {
+      modalEl.present();
     });
-    await alert.present();
-    let result = await alert.onDidDismiss();
-    // console.log(result);
-    this.router.navigate(['/user/solicitudes']);
   }
 
 }

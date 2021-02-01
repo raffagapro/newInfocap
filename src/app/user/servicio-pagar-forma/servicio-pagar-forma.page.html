@@ -1,0 +1,124 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/user/servicio-pagar" text="" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title-toolbar">INGRESA TU PAGO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- profesional card item -->
+  <div class="no-border">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <!-- profile img -->
+        <ion-col size="4" offset="1">
+          <ion-avatar class="profileImg">
+            <img src="/assets/images/avatar.png"/>
+          </ion-avatar>
+        </ion-col>
+
+        <!-- title -->
+        <ion-col size="7">
+          <ion-text>
+            <span class="titleSelect main-color">Juan Alcayaga</span><br>
+            <p class="main-color subtitleSelect" style="margin-top: 0; margin-bottom: 0;">Santiago Qta. normal.</p>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <ion-text class="miniTitle">Instalación de clóset</ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-grid fixed>
+
+    <!-- total a pagar  -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="12" class="ion-text-center">
+        <ion-text class="text main-color">
+          <b>TOTAL A PAGAR</b>
+        </ion-text>
+      </ion-col>
+
+      <ion-col size="12" class="ion-text-center">
+        <ion-text class="total" color="danger">
+          <b>$550</b>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- nombre -->
+    <ion-row>
+      <ion-col size="11">
+        <ion-item>
+          <ion-label position="floating" class="main-color">
+            <ion-icon name="person" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Nombre del titular</ion-text>
+          </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- numero tarjeta -->
+    <ion-row>
+      <ion-col size="11">
+        <ion-item>
+          <ion-label position="floating" class="main-color">
+            <ion-icon name="card" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Número de tarjeta</ion-text>
+          </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- exp date -->
+    <div style="height: 10px"></div>
+    <ion-row class="ion-margin-top">
+      <ion-col size="11">
+        <ion-item>
+          <ion-label class="main-color">
+            <ion-icon name="calendar" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha expiración</ion-text>
+          </ion-label>
+          <ion-datetime></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- CVV -->
+    <ion-row>
+      <ion-col size="11">
+        <ion-item>
+          <ion-label position="floating" class="main-color">
+            <ion-icon name="lock-closed" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">&nbsp;CVV</ion-text>
+          </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- CONFIRMAR BTN -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col>
+        <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="submitPayment()">
+          PAGAR
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

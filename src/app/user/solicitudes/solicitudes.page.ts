@@ -15,7 +15,7 @@ export class SolicitudesPage implements OnInit {
   ngOnInit() {
   }
 
-  solicitudDetail(){
+  solicitudEnviada(){
     this.router.navigate(['/user/solicitud-status']);
   }
 
@@ -25,6 +25,18 @@ export class SolicitudesPage implements OnInit {
 
   servAccepted(){
     // this.router.navigate(['/user/solicitud-detail']);
+  }
+
+  servRealizado(){
+    this.router.navigate(['/user/servicio-pagar']);
+  }
+
+  solicitudRechazada(){
+    this.router.navigate(['/user/solicitud-status']);
+  }
+
+  solicitudVisita(){
+    this.router.navigate(['/user/visita-detail']);
   }
 
 }

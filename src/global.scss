@@ -77,3 +77,18 @@ ion-item {
   opacity:1;
   --border-color: #009ACE;
 }
+
+.modalSE{
+  --height: 70%;
+}
+.modalSA{
+  --height: 90%;
+}
+.modalSuccess{
+  --height: 40%;
+  --width: 90%;
+}
+.modalServRechazado{
+  --height: 50%;
+  --width: 90%;
+}

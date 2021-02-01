@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/user/servicio-pagar" text="" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title-toolbar">EVALUA AL PROFESIONAL</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    
+    <!-- title -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="10" offset="1" class="ion-text-center">
+        <ion-text class="main-color title"><b>¿Qué te pareció el servicio entregado por Juan Alcayaga?</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- rating  -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="12" class="ion-text-center">
+        <ion-icon name="star" color="primary" class="rating-icon"></ion-icon>
+        <ion-icon name="star" color="primary" class="rating-icon"></ion-icon>
+        <ion-icon name="star" color="primary" class="rating-icon"></ion-icon>
+        <ion-icon name="star-outline" color="medium" class="rating-icon"></ion-icon>
+        <ion-icon name="star-outline" color="medium" class="rating-icon"></ion-icon>
+      </ion-col>
+    </ion-row>
+
+    <!-- title -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="10" offset="1" class="ion-text-center">
+        <ion-text class="main-color title"><b>¿Qué reconocimiento le otorgarías?</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- Icons -->
+    <ion-row>
+      <!-- tecnico -->
+      <ion-col size="3" class="ion-text-center">
+        <ion-text>
+          <div class="locate-cont">
+            <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
+          </div><br>
+          <span class="label-text">Técnico</span>
+        </ion-text>
+      </ion-col>
+
+      <!-- Puntualidad -->
+      <ion-col size="3" class="ion-text-center">
+        <ion-text>
+          <div class="locate-cont">
+            <ion-icon name="time" color="light" class="rating-text"></ion-icon>
+          </div><br>
+          <span class="label-text">Puntualidad</span>
+        </ion-text>
+      </ion-col>
+
+      <!-- Cordialidad -->
+      <ion-col size="3" class="ion-text-center">
+        <ion-text>
+          <div class="locate-cont">
+            <ion-icon name="heart" color="light" class="rating-text"></ion-icon>
+          </div><br>
+          <span class="label-text">Cordialidad</span>
+        </ion-text>
+      </ion-col>
+
+      <!-- Cordialidad -->
+      <ion-col size="3" class="ion-text-center">
+        <ion-text>
+          <div class="locate-cont">
+            <ion-icon name="trophy" color="light" class="rating-text"></ion-icon>
+          </div><br>
+          <span class="label-text">Servicio y Satisfacción</span>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- title -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="10" offset="1" class="ion-text-center">
+        <ion-text class="main-color title"><b>Deja un comentario para el profesional</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- text-area -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="border ion-text-center">
+        <ion-item lines="none">
+           <ion-textarea rows="3" cols="20" placeholder="Agrega una descripción."></ion-textarea>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- BTNs -->
+    <ion-row class="ion-margin-top ion-margin-bottom">
+      <ion-col size="1"></ion-col>
+      <ion-col size="4">
+        <ion-button size="5" expand="block" fill="outline" class="btn-text ion-text-uppercase" (click)="confirmRequest()">
+          Omitir
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+      <ion-col size="5">
+        <ion-button size="5" expand="block" class="btn-text ion-text-uppercase" (click)="confirmRequest()">
+          Aceptar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    
+  </ion-grid>
+
+</ion-content>
