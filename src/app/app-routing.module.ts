@@ -67,6 +67,26 @@ const routes: Routes = [
     path: 'user/visita-detail',
     loadChildren: () => import('./user/visita-detail/visita-detail.module').then( m => m.VisitaDetailPageModule)
   },
+  {
+    path: 'user/notificaciones',
+    loadChildren: () => import('./user/notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+  },
+  {
+    path: 'user/prof-contactados-list',
+    loadChildren: () => import('./user/prof-contactados-list/prof-contactados-list.module').then( m => m.ProfContactadosListPageModule)
+  },
+  {
+    path: 'user/urgen-service',
+    loadChildren: () => import('./user/urgen-service/urgen-service.module').then( m => m.UrgenServicePageModule)
+  },
+  {
+    path: 'profesional/home',
+    loadChildren: () => import('./profesional/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'profesional/notificaciones',
+    loadChildren: () => import('./profesional/notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
+  },
 ];
 
 @NgModule({

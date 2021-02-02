@@ -21,4 +21,8 @@ export class LoginPage implements OnInit {
     this.router.navigate(['/user/home']);
   }
 
+  loginProfesional(){
+    this.router.navigate(['/profesional/home']);
+  }
+
 }

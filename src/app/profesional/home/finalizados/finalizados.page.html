@@ -1,0 +1,153 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    
+    <ion-buttons slot="start">
+      <ion-button class="homeBtn" (click)="openMenu()">
+        <ion-icon name="menu" class="homeBtn"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="title-toolbar">FINALIZADOS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- title -->
+  <ion-grid fixed>
+    <ion-row class="ion-margin-top">
+      <ion-col size="11" class="ion-text-left">
+        <ion-text class="main-color title"><b>Buenos días Juan Alcayaga, tienes los siguientes trabajos en tu agenda.</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- pago pendiente card item -->
+  <div class="prof-cont no-border" (click)="solicitudDetail()">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+
+        <!-- title -->
+        <ion-col size="7" class="ion-justify-content-center">
+          <ion-text>
+            <span class="titleSelect main-color">Emmy Mut </span>
+            <br>
+            <ion-text class="mainText">
+              Pasaje Estral Poniente<br>
+              666 Maipú, Chile
+            </ion-text>
+            <br>
+            <ion-text class="miniText" color="primary">Cambio de chapas</ion-text>
+          </ion-text>
+        </ion-col>
+
+        <!-- rating -->
+        <ion-col size="5">
+          <ion-badge color="primary" class="badgeText">Carpintería</ion-badge>
+          <ion-grid class="ion-no-padding ion-no-margin">
+            <ion-row class="ion-align-items-center">
+              <ion-col size="3">
+                <div class="locate-cont">
+                  <ion-icon name="card" color="light" class="rating-text"></ion-icon>
+                </div>
+              </ion-col>
+              <ion-col size="9">
+                <ion-text color="danger" class="endText">
+                  PAGO PENDIENTE
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- pago finalizado card item -->
+  <div class="prof-cont no-border" (click)="solicitudDetail()">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+
+        <!-- title -->
+        <ion-col size="7" class="ion-justify-content-center">
+          <ion-text>
+            <span class="titleSelect main-color">Irving Castillo </span>
+            <br>
+            <ion-text class="mainText">
+              Pasaje Estral Poniente<br>
+              666 Maipú, Chile
+            </ion-text>
+            <br>
+            <ion-text class="miniText" color="primary">Cambio de chapas</ion-text>
+          </ion-text>
+        </ion-col>
+
+        <!-- rating -->
+        <ion-col size="5">
+          <ion-badge color="primary" class="badgeText">Cerrajería</ion-badge>
+          <ion-grid class="ion-no-padding ion-no-margin">
+            <ion-row class="ion-align-items-center">
+              <ion-col size="3">
+                <div class="locate-cont-green">
+                  <ion-icon name="card" color="light" class="rating-text"></ion-icon>
+                </div>
+              </ion-col>
+              <ion-col size="9">
+                <ion-text color="success" class="endText">
+                  PAGO REALIZADO
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- pago pendiente card item -->
+  <div class="prof-cont no-border" (click)="solicitudDetail()">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+
+        <!-- title -->
+        <ion-col size="7" class="ion-justify-content-center">
+          <ion-text>
+            <span class="titleSelect main-color">María Rodríguez </span>
+            <br>
+            <ion-text class="mainText">
+              Pasaje Estral Poniente<br>
+              666 Maipú, Chile
+            </ion-text>
+            <br>
+            <ion-text class="miniText" color="primary">Cambio de chapas</ion-text>
+          </ion-text>
+        </ion-col>
+
+        <!-- rating -->
+        <ion-col size="5">
+          <ion-badge color="primary" class="badgeText">Plomero</ion-badge>
+          <ion-grid class="ion-no-padding ion-no-margin">
+            <ion-row class="ion-align-items-center">
+              <ion-col size="3">
+                <div class="locate-cont">
+                  <ion-icon name="thumbs-up" color="light" class="rating-text"></ion-icon>
+                </div>
+              </ion-col>
+              <ion-col size="9">
+                <ion-text color="danger" class="endText">
+                  EVALUACIÓN PENDIENTE
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+
+</ion-content>

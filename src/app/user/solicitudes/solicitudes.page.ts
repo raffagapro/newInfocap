@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-solicitudes',
@@ -10,9 +11,18 @@ export class SolicitudesPage implements OnInit {
 
   constructor(
     private router: Router,
+    private menuController: MenuController,
   ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(){
+    this.menuController.enable(true, 'user');
+  }
+
+  openMenu(){
+    this.menuController.open();
   }
 
   solicitudEnviada(){

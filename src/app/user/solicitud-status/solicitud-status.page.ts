@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { MenuController, ModalController } from '@ionic/angular';
 
 import { ServicioAgendadoModalComponent } from './servicio-agendado-modal/servicio-agendado-modal.component';
 import { SolicitudEnviadaModalComponent } from './solicitud-enviada-modal/solicitud-enviada-modal.component';
@@ -16,9 +16,18 @@ export class SolicitudStatusPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private router: Router,
+    private menuController: MenuController,
   ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(){
+    this.menuController.enable(true, 'user');
+  }
+
+  openMenu(){
+    this.menuController.open();
   }
 
   seModal(){

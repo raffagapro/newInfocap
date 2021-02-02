@@ -1,4 +1,6 @@
 <ion-app>
+  
+  <!-- Menu User -->
   <ion-menu side="start" menuId="user" contentId="main">
     <ion-content>
       <ion-grid>
@@ -31,43 +33,43 @@
           <!-- home -->
           <ion-item lines="none" href="/user/home">
             <ion-icon slot="start" name="home" color="primary"></ion-icon>
-            <ion-label color="primary">Inicio</ion-label>
+            <ion-label color="primary" class="label-text">Inicio</ion-label>
           </ion-item>
 
           <!-- profesionales contactados -->
-          <ion-item lines="none">
+          <ion-item lines="none" href="/user/prof-contactados-list">
             <ion-icon slot="start" name="people" color="primary"></ion-icon>
-            <ion-label color="primary">Profesionales contactados</ion-label>
+            <ion-label color="primary" class="label-text">Profesionales contactados</ion-label>
           </ion-item>
 
           <!-- Estado de solicitud -->
           <ion-item lines="none" href="/user/solicitudes">
             <ion-icon slot="start" name="clipboard" color="primary"></ion-icon>
-            <ion-label color="primary">Estado de solicitud</ion-label>
+            <ion-label color="primary" class="label-text">Estado de solicitud</ion-label>
           </ion-item>
 
           <!-- Método de pago -->
           <ion-item lines="none">
             <ion-icon slot="start" name="card" color="primary"></ion-icon>
-            <ion-label color="primary">Método de pago</ion-label>
+            <ion-label color="primary" class="label-text">Método de pago</ion-label>
           </ion-item>
 
           <!-- Notificaciones -->
-          <ion-item lines="none">
+          <ion-item lines="none" href="/user/notificaciones">
             <ion-icon slot="start" name="notifications" color="primary"></ion-icon>
-            <ion-label color="primary">Notificaciones</ion-label>
+            <ion-label color="primary" class="label-text">Notificaciones</ion-label>
           </ion-item>
 
           <!-- Soporte -->
           <ion-item lines="none">
             <ion-icon slot="start" name="headset" color="primary"></ion-icon>
-            <ion-label color="primary">Soporte</ion-label>
+            <ion-label color="primary" class="label-text">Soporte</ion-label>
           </ion-item>
 
           <!-- Términos y condiciones -->
           <ion-item lines="none">
             <ion-icon slot="start" name="reader" color="primary"></ion-icon>
-            <ion-label color="primary">Términos y condiciones</ion-label>
+            <ion-label color="primary" class="label-text">Términos y condiciones</ion-label>
           </ion-item>
 
         </ion-menu-toggle>
@@ -87,21 +89,95 @@
     </ion-footer>
   </ion-menu>
 
+  <!-- Menu Profesional  -->
   <ion-menu side="start" menuId="profesional" contentId="main">
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>Profesional Menu</ion-title>
-      </ion-toolbar>
-    </ion-header>
     <ion-content>
-      <ion-list>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
-        <ion-item>Menu Item</ion-item>
+      <!-- Top Section  -->
+      <ion-grid>
+        <!-- profile Img -->
+        <ion-row class="imgCont">
+          <ion-col>
+            <ion-avatar class="ion-margin-start profileImg">
+              <img class="" src="/assets/images/avatar.png">
+            </ion-avatar>
+          </ion-col>
+        </ion-row>
+        <!-- edit icon -->
+        <ion-row>
+          <ion-col>
+            <div class="rate-cont" (click)="profile()">
+              <ion-icon name="pencil" class="profileIcon"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="8" offset="2" class="ion-text-center">
+            <ion-text class="name-text"><b>Juan José Pérez Sosa</b></ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-list class="ion-margin-top">
+        <ion-menu-toggle menu="profesional">
+
+          <!-- mis trabajos -->
+          <ion-item lines="none" href="/profesional/home">
+            <ion-icon slot="start" name="briefcase" color="primary"></ion-icon>
+            <ion-label color="primary" class="label-text">Mis trabajos</ion-label>
+          </ion-item>
+
+          <!-- Notificaciones -->
+          <ion-item lines="none" href="/profesional/notificaciones">
+            <ion-icon slot="start" name="notifications" color="primary"></ion-icon>
+            <ion-label color="primary" class="label-text">
+              Notificaciones
+              <div class="locate-cont">
+                <ion-text color="light" class="rating-text">
+                  +9
+                </ion-text>
+              </div>
+            </ion-label>
+          </ion-item>
+
+          <!-- calificacion -->
+          <ion-item lines="none">
+            <ion-icon slot="start" name="star" color="primary"></ion-icon>
+            <ion-label color="primary" class="label-text">Calificación</ion-label>
+          </ion-item>
+
+          <!-- Soporte -->
+          <ion-item lines="none">
+            <ion-icon slot="start" name="headset" color="primary"></ion-icon>
+            <ion-label color="primary" class="label-text">Soporte</ion-label>
+          </ion-item>
+
+          <!-- Mi billetera -->
+          <ion-item lines="none">
+            <ion-icon slot="start" name="wallet" color="primary"></ion-icon>
+            <ion-label color="primary" class="label-text">Mi billetera</ion-label>
+          </ion-item>
+
+          <!-- Términos y condiciones -->
+          <ion-item lines="none">
+            <ion-icon slot="start" name="reader" color="primary"></ion-icon>
+            <ion-label color="primary" class="label-text">Términos y condiciones</ion-label>
+          </ion-item>
+
+        </ion-menu-toggle>
       </ion-list>
     </ion-content>
+
+    <ion-footer class="ion-no-border">
+      <ion-toolbar>
+
+        <!-- Términos y condiciones -->
+        <ion-item lines="none" (click)="logout()" menuClose>
+          <ion-icon slot="start" name="exit-outline" class="footer-text"></ion-icon>
+          <ion-label class="footer-text">Cerrar sesión</ion-label>
+        </ion-item>
+
+      </ion-toolbar>
+    </ion-footer>
   </ion-menu>
 
   <ion-router-outlet id="main"></ion-router-outlet>

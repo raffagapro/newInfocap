@@ -1,8 +1,13 @@
 <ion-header>
   <ion-toolbar color="primary">
+    
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/user/home" text="" icon="arrow-back"></ion-back-button>
+      <ion-button class="homeBtn" (click)="openMenu()">
+        <ion-icon name="menu" class="homeBtn"></ion-icon>
+      </ion-button>
     </ion-buttons>
+
     <ion-title class="title-toolbar">ELIGE AL PROFESIONAL</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -46,7 +51,7 @@
   </ion-grid>
 
   <!-- emergency message -->
-  <div class="prof-cont ion-margin-top no-border">
+  <div class="prof-cont ion-margin-top no-border" (click)="eRequest()">
     <ion-grid>
       <ion-row>
 
