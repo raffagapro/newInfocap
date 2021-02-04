@@ -1,0 +1,67 @@
+<ion-content>
+  <ion-grid fixed>
+    <!-- SERVICIO REALIZADO  -->
+    <div style="height: 10px;"></div>
+    <ion-row class="ion-margin-top">
+      <ion-col size="10"  offset="1" class="ion-text-center ion-margin-top">
+        <ion-text class="status-text" color="danger"><b>RECHAZO DE LA SOLICITUD</b></ion-text><br>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- profesional card item -->
+  <div class="no-border ion-margin-top">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <!-- profile img -->
+        <ion-col size="4" offset="1">
+          <ion-avatar class="profileImg">
+            <img src="/assets/images/avatar.png"/>
+          </ion-avatar>
+        </ion-col>
+
+        <!-- title -->
+        <ion-col size="6">
+          <ion-text>
+            <small class="ticket">Ticket #100091234</small><br>
+            <span class="titleSelect main-color">Cerrajería para <br> Juan Alcayaga</span><br>
+            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">18 nov 2020</p>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-grid fixed>
+    <!-- subtitle  -->
+    <ion-row>
+      <ion-col size="10"  offset="1" class="ion-text-center ion-margin-top">
+        <ion-text class="subtitle" color="danger">Motivo de cierre</ion-text><br>
+      </ion-col>
+    </ion-row>
+
+    <!-- text-area -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="border ion-text-center">
+        <ion-item lines="none">
+           <ion-textarea rows="3" cols="20" placeholder="Describe aquí el motivo del cierre."></ion-textarea>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- finalizar trabajo BTN -->
+    <ion-row class="ion-margin-top ion-margin-bottom">
+      <ion-col size="1"></ion-col>
+      <ion-col>
+        <ion-button size="5" expand="block" class="ion-text-uppercase" color="danger" (click)="cancelSolicitud()">
+          CERRAR SOLICITUD
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

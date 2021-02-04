@@ -1,0 +1,212 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/profesional/home" text="" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title-toolbar">EDITAR PROFESIONAL</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- cat selection -->
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="9" offset="1">
+        <ion-item>
+          <ion-label class="catText">CATEGORÍAS</ion-label>
+          <ion-select interface="popover">
+            <ion-select-option value="nes" class="main-color ion-text-center">Cerrajería</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Carpinteria</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Electricista</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <!-- profile Img -->
+    <ion-row class="imgCont">
+      <ion-col>
+        <ion-avatar class="ion-margin-start profileImg">
+          <img class="" src="/assets/images/avatar.png">
+        </ion-avatar>
+      </ion-col>
+    </ion-row>
+    <!-- edit icon -->
+    <ion-row>
+      <ion-col>
+        <div class="rate-cont" (click)="imgProfile()">
+          <ion-icon name="pencil" class="profileIcon"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- text -->
+    <ion-row class="minusMargin">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10">
+        <ion-text class="main-color regText"><b>Descripción profesionales</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- text-area -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="border ion-text-center">
+        <ion-item lines="none">
+           <ion-textarea rows="3" cols="20" placeholder="Agrega tu descripción. Máximo 140 caracteres con espacios."></ion-textarea>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- vehiculo -->
+    <ion-row>
+      <ion-col size="11">
+        <ion-item>
+          <ion-label position="floating" class="main-color">
+            <ion-icon name="car-sport" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Vehículo</ion-text>
+          </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- text -->
+    <ion-row class="ion-margin-top ion-text-center">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10">
+        <ion-text class="main-color regText"><b>Horario laboral</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- pickers -->
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label class="main-color">
+            <ion-icon name="time" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">Inicio</ion-text>
+          </ion-label>
+          <ion-datetime display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="5">
+        <ion-item>
+          <ion-label class="main-color">
+            <ion-icon name="time" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">Final</ion-text>
+          </ion-label>
+          <ion-datetime display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-margin-top ion-text-center">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10">
+        <ion-text class="main-color regText"><b>Días laborales</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- dias -->
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label class="catText">DIAS</ion-label>
+          <ion-select interface="popover">
+            <ion-select-option value="nes" class="main-color ion-text-center">Lunes</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Martes</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Miercoles</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Jueves</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Viernes</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Sabado</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Domingo</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="5">
+        <ion-item>
+          <ion-label class="catText">DIAS</ion-label>
+          <ion-select interface="popover">
+            <ion-select-option value="nes" class="main-color ion-text-center">Lunes</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Martes</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Miercoles</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Jueves</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Viernes</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Sabado</ion-select-option>
+            <ion-select-option value="nes" class="main-color ion-text-center">Domingo</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- map -->
+    <ion-row>
+      <ion-col size="11">
+        <ion-item>
+          <ion-label position="floating" class="main-color">
+            <ion-icon name="map" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Sector</ion-text>
+          </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- text -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10">
+        <ion-text class="main-color regText"><b>Descripción del oficio</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+     <!-- text-area -->
+     <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="border ion-text-center">
+        <ion-item lines="none">
+           <ion-textarea rows="3" cols="20" placeholder="Agrega una descripción de tu oficio. Máximo 140 caracteres con espacios."></ion-textarea>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- images -->
+    <ion-row class="ion-align-items-center">
+      <ion-col size="4" offset="1">
+        <img src="/assets/images/unavailable-image.png" class="imgSingle">
+      </ion-col>
+      <ion-col size="4">
+        <img src="/assets/images/unavailable-image.png" class="imgSingle">
+      </ion-col>
+      <ion-col size="3">
+        <div class="locate-cont">
+          <ion-icon name="add" color="light" class="rating-text"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- Registrar BTN -->
+    <!-- Login BTN -->
+    <ion-row class="ion-margin-bottom">
+      <ion-col offset="1">
+        <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="login()">
+          GUARDAR CAMBIOS
+        </ion-button>
+      </ion-col>
+      <ion-col size="2"></ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

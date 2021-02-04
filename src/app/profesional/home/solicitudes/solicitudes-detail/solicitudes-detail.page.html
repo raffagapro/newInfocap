@@ -1,0 +1,187 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/profesional/home/home-tabs/solicitudes" text="" icon="arrow-back"></ion-back-button>
+      <ion-button class="homeBtn" (click)="openMenu()">
+        <ion-icon name="menu" class="homeBtn"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="title-toolbar">SOLICITUDES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- profesional card item -->
+  <div class="no-border">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <!-- profile img -->
+        <ion-col size="4" offset="1">
+          <ion-avatar class="profileImg">
+            <img src="/assets/images/avatar.png"/>
+          </ion-avatar>
+        </ion-col>
+
+        <!-- title -->
+        <ion-col size="6">
+          <ion-text>
+            <small class="ticket">Ticket #100091234</small><br>
+            <span class="titleSelect main-color">Cerrajería para <br> Juan Alcayaga</span><br>
+            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">18 nov 2020</p>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-grid>
+    
+    <!-- title -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-icon name="build" class="main-color"></ion-icon>
+        <ion-text class="main-color title"><b> Trabajo requerido</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="titleText">Cambio de chapas</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- Slider -->
+    <ion-row class="minusMargin">
+      <ion-col size="12">
+        <ion-slides [options]="slideOptions">
+          <!-- slide -->
+          <ion-slide>
+            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+          </ion-slide>
+
+          <!-- slide -->
+          <ion-slide>
+            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+          </ion-slide>
+
+          <!-- slide -->
+          <ion-slide>
+            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+          </ion-slide>
+
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+
+    <!-- Fecha de visita -->
+    <ion-row class="minusMargin">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-icon name="calendar-outline" class="main-color iconFixTitle"></ion-icon>
+        <ion-text class="main-color subtitle"><b> Fecha de visita</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="subText"> Viernes 20 de noviembre de 2020</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- Rango de horas -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-icon name="time" class="main-color iconFixTitle"></ion-icon>
+        <ion-text class="main-color subtitle"><b> Rango de horas</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="subText"> 8:00 - 16:00 horas</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- Costo -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-icon name="wallet-outline" class="main-color iconFixTitle"></ion-icon>
+        <ion-text class="main-color subtitle"><b> Costo</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="subText"> $30 USD</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- Contactar -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color subtitle"><b>Contactar</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <!-- icons -->
+        <div class="locate-cont bg-green-color">
+          <ion-icon name="call" color="light" class="rating-text"></ion-icon>
+        </div>
+        <div class="locate-cont bg-green-color">
+          <ion-icon name="logo-whatsapp" color="light" class="rating-text"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- Visita de valoracion -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color subtitle"><b>¿Requieres una visita de valoración?</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col>
+        <ion-button size="5" expand="block" class="ion-text-uppercase" color="primary" fill="outline" (click)="confirmVisit()">
+          <ion-icon slot="start" name="calendar"></ion-icon>
+          VISITA DE VALORACIÓN
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- Visita de valoracion -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color subtitle"><b>Si no requieres una visita de valoración, agenda el trabajo final.</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col>
+        <ion-button size="5" expand="block" class="ion-text-uppercase" color="success" (click)="accceptSolicitud()">
+          ACEPTAR TRABAJO FINAL
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/profesional/home" text="" icon="arrow-back"></ion-back-button>
+      <ion-button class="homeBtn" (click)="openMenu()">
+        <ion-icon name="menu" class="homeBtn"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="title-toolbar">MI BILLETERA</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+
+    <!-- Ingresos semanales -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="10" offset="1">
+        <ion-text class="title"><b>Ingresos semanales</b></ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="10" offset="1">
+        <ion-text class="titleUnder main-color"><b>$ 0.00</b></ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- Servicios realizados -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="10" offset="1">
+        <ion-text class="title"><b>Servicios realizados</b></ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="10" offset="1">
+        <ion-text class="titleUnder main-color"><b>23</b></ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- buttons -->
+    <ion-row>
+      <ion-col size="5" offset="1">
+        <ion-button (click)="onClick()" expand="block" fill="outline" class="btnTitle">
+          Balance general
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="5">
+        <ion-button (click)="onClick()" expand="block" fill="outline" class="btnTitle">
+          Datos bancarios
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+</ion-content>

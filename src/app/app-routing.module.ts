@@ -87,6 +87,18 @@ const routes: Routes = [
     path: 'profesional/notificaciones',
     loadChildren: () => import('./profesional/notificaciones/notificaciones.module').then( m => m.NotificacionesPageModule)
   },
+  {
+    path: 'profesional/wallet',
+    loadChildren: () => import('./profesional/wallet/wallet.module').then( m => m.WalletPageModule)
+  },
+  {
+    path: 'profesional/rating',
+    loadChildren: () => import('./profesional/rating/rating.module').then( m => m.RatingPageModule)
+  },
+  {
+    path: 'profesional/perfil',
+    loadChildren: () => import('./profesional/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
 ];
 
 @NgModule({

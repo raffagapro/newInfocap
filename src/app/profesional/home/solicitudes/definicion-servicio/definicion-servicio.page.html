@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/profesional/home/home-tabs/solicitudes/solicitudes-detail" text="" icon="arrow-back"></ion-back-button>
+      <ion-button class="homeBtn" (click)="openMenu()">
+        <ion-icon name="menu" class="homeBtn"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+    <ion-title class="title-toolbar">DEFINICIÓN DEL SERVICIO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- profesional card item -->
+  <div class="no-border">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <!-- profile img -->
+        <ion-col size="4" offset="1">
+          <ion-avatar class="profileImg">
+            <img src="/assets/images/avatar.png"/>
+          </ion-avatar>
+        </ion-col>
+
+        <!-- title -->
+        <ion-col size="6">
+          <ion-text>
+            <small class="ticket">Ticket #100091234</small><br>
+            <span class="titleSelect main-color">Cerrajería para <br> Juan Alcayaga</span><br>
+            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">18 nov 2020</p>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-grid>
+
+    <!-- title -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-icon name="build" class="main-color"></ion-icon>
+        <ion-text class="main-color title"><b> Trabajo requerido</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="titleText">Cambio de chapas</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- Slider -->
+    <ion-row class="minusMargin">
+      <ion-col size="12">
+        <ion-slides [options]="slideOptions">
+          <!-- slide -->
+          <ion-slide>
+            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+          </ion-slide>
+
+          <!-- slide -->
+          <ion-slide>
+            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+          </ion-slide>
+
+          <!-- slide -->
+          <ion-slide>
+            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+          </ion-slide>
+
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+
+    <!-- Fecha requerida -->
+    <ion-row>
+      <ion-col size="11">
+        <ion-item>
+          <ion-label class="main-color">
+            <ion-icon name="calendar" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
+          </ion-label>
+          <ion-datetime placeholder="Definir fecha"></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- Rango de horas -->
+
+    <!-- pickers -->
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label class="main-color">
+            <ion-icon name="time" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">Hora inicial</ion-text>
+          </ion-label>
+          <ion-datetime display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="5">
+        <ion-item>
+          <ion-label class="main-color">
+            <ion-icon name="time" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">Hora final</ion-text>
+          </ion-label>
+          <ion-datetime display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- costo -->
+    <ion-row>
+      <ion-col size="11">
+        <ion-item>
+          <ion-label position="floating">
+            <ion-icon name="wallet" slot="start" class="main-color"></ion-icon>
+            <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Costo</ion-text>
+          </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- enviar solicitud BTN -->
+    <ion-row class="ion-margin-top ion-margin-bottom">
+      <ion-col size="1"></ion-col>
+      <ion-col>
+        <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="confirmRequest()">
+          ACEPTAR SOLICITUD
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

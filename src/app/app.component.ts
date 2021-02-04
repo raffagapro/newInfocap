@@ -38,4 +38,9 @@ export class AppComponent {
     this.menuCtrl.close();
     this.router.navigate(['/user/perfil']);
   }
+
+  profilePro(){
+    this.menuCtrl.close();
+    this.router.navigate(['profesional/perfil']);
+  }
 }

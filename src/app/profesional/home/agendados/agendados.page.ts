@@ -25,4 +25,8 @@ export class AgendadosPage implements OnInit {
     this.menuController.open();
   }
 
+  solicitudDetail(){
+    this.router.navigate(['/profesional/home/home-tabs/agendados/agendados-detail']);
+  }
+
 }

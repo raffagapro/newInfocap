@@ -1,0 +1,60 @@
+<ion-content>
+  <ion-grid fixed>
+    <!-- SERVICIO REALIZADO  -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="10"  offset="1" class="ion-text-center ion-margin-top">
+        <ion-text class="status-text" color="primary"><b>CONFIRMACIÓN DE VISITA TÉCNICA</b></ion-text><br>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid fixed>
+    <!-- subtitle  -->
+    <ion-row>
+      <ion-col size="10"  offset="1" class="ion-text-center ion-margin-top">
+        <ion-text class="subtitle">Estos son los datos que quedarán registrados sobre tu visita de valoración.</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="10"  offset="1" class="ion-text-center ion-margin-top">
+        <ion-text class="subtitle" color="primary">Debes haberlo acordado previamente con el cliente.</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- date of work -->
+    <ion-row>
+      <ion-col size="10"  offset="1" class="ion-text-center ion-margin-top">
+        <ion-icon name="calendar" color="primary" class="iconSet"></ion-icon>
+        <br>
+        <ion-text class="subtitle" color="primary">viernes 20 de noviembre de 2020</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- time of work -->
+    <ion-row>
+      <ion-col size="10"  offset="1" class="ion-text-center ion-margin-top">
+        <ion-icon name="time" color="primary" class="iconSet"></ion-icon>
+        <br>
+        <ion-text class="subtitle" color="primary">8:00 - 16:00 horas</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- finalizar trabajo BTN -->
+    <ion-row class="ion-margin-top ion-margin-bottom">
+      <ion-col size="1"></ion-col>
+      <ion-col size="5">
+        <ion-button expand="block" class="btn-text ion-text-uppercase" fill="outline" color="primary" (click)="dismiss()">
+          REGRESAR
+        </ion-button>
+      </ion-col>
+      <ion-col size="5">
+        <ion-button expand="block" class="btn-text ion-text-uppercase" color="primary" (click)="confirmVisita()">
+          CONFIRMAR
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

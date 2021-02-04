@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../infocap_api"
+		},
+		{
+			"path": "../infocap-api-old"
+		},
+		{
+			"path": "../infocap-admin"
+		}
+	]
+}

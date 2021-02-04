@@ -11,6 +11,12 @@ import { ConfirmSuccessModalComponent } from './confirm-success-modal/confirm-su
 })
 export class SolicitudServicioPage implements OnInit {
 
+  slideOptions = {
+    initialSlide: 0,
+    slidesPerView: 2,
+    autoplay: true
+  };
+
   constructor(
     private modalController: ModalController,
     private router: Router,
