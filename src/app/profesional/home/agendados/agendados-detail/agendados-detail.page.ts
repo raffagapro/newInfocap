@@ -39,4 +39,8 @@ export class AgendadosDetailPage implements OnInit {
     this.router.navigate(['/profesional/home/home-tabs/agendados/agendados-finalizar']);
   }
 
+  confirmSolicitud(){
+    // do something awesome
+  }
+
 }

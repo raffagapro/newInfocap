@@ -12,4 +12,12 @@ export class PerfilPage implements OnInit {
   ngOnInit() {
   }
 
+  login(){
+    // do something awesome
+  }
+
+  imgProfile(){
+    // do something awesome
+  }
+
 }

@@ -26,4 +26,8 @@ export class SolicitudEnviadaModalComponent implements OnInit {
     this.modalController.dismiss();
   }
 
+  seModal(){
+    // do somethignn awsesome
+  }
+
 }

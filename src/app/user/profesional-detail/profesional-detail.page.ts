@@ -29,4 +29,8 @@ export class ProfesionalDetailPage implements OnInit {
   sendRequest(){
     this.router.navigate(['/user/solicitud-servicio']);
   }
+
+  profDetails(){
+    // do something aweseom
+  }
 }

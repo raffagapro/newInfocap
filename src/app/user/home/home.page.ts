@@ -24,4 +24,8 @@ export class HomePage implements OnInit {
   map(){
     this.router.navigate(['/user/map']);
   }
+
+  login(){
+    // do something cool 
+  }
 }

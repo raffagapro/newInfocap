@@ -24,4 +24,8 @@ export class ServicioAgendadoModalComponent implements OnInit {
     this.modalController.dismiss();
   }
 
+  confirmSolicitud(){
+    // do somethign awesome 
+  }
+
 }

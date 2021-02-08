@@ -23,4 +23,12 @@ export class WalletPage implements OnInit {
     this.menuController.open();
   }
 
+  onClick(){
+    // do something awesome
+  }
+
+  imgProfile(){
+    // do something awesome
+  }
+
 }

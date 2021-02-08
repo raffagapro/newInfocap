@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "../infocap-admin"
+		},
+		{
+			"path": "../infocap"
 		}
 	]
 }

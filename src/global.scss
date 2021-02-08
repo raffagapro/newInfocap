@@ -96,3 +96,20 @@ ion-item {
   --height: 50%;
   --width: 90%;
 }
+.ion-invalid.ion-touched ion-icon{
+  color: red;
+}
+
+.ion-invalid.ion-touched ion-text{
+  color: red;
+}
+
+.ion-invalid.ion-touched{
+  --border-color: red;
+}
+.errorMess{
+  margin-left: 18px;
+}
+.iconFixG{
+  margin-bottom: -3px;
+}

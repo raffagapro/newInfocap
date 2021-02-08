@@ -29,4 +29,8 @@ export class ServicioPagarPage implements OnInit {
     this.router.navigate(['/user/servicio-pagar-forma']);
   }
 
+  nothing(){
+    // do something awesome
+  }
+
 }

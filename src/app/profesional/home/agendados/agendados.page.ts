@@ -29,4 +29,8 @@ export class AgendadosPage implements OnInit {
     this.router.navigate(['/profesional/home/home-tabs/agendados/agendados-detail']);
   }
 
+  map(){
+    //do something awsome
+  }
+
 }
