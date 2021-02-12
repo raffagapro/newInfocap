@@ -50,8 +50,8 @@ ion-header {
 }
 
 ion-toolbar {
-  --padding-bottom: 25px;
-  --padding-top: 25px;
+  --padding-bottom: 15px;
+  --padding-top: 15px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
   --background: #fff;
@@ -63,17 +63,13 @@ ion-toolbar {
 ion-back-button{
   --color: #E54360;
   font-size: 20px;
-  padding-left: 15px;
 }
 ion-menu-button{
   --color: #E54360;
-  padding-left: 15px;
 }
 .title-toolbar{
-  font-size: 20px;
+  font-size: 16px;
   font-family: Poppins;
-  padding-left: 70px;
-  padding-right: 70px;
 }
 
 ion-item {

@@ -28,10 +28,9 @@ export class RegisterPage implements OnInit {
   }
 
   onRegister(form: NgForm){
-    // if (!form.valid) {
-    //   console.log('not valid modafucker');
-    //   return;
-    // }
+    if (!form.valid) {
+      return;
+    }
     let name = form.value.name;
     let wName = name.split(" ");
     name = wName[0];
@@ -49,7 +48,8 @@ export class RegisterPage implements OnInit {
     }
     // console.log(form);
     
-    this.http.post('http://127.0.0.1:8000/api/auth/register', {
+    this.http.post('http://workintest.herokuapp.com/api/auth/register', {
+      // this.http.post('http://127.0.0.1:8000/api/auth/register', {
       name: name,
       last_name: l_name,
       email: email,
