@@ -19,8 +19,8 @@ workflows:
                 #cvm use 9.0.0
             - |
                 # Setup Cordova iOS platform
-                ionic cordova platform remove ios --nosave
-                ionic cordova platform add ios --confirm --no-interactive --noresources
+                ionic cordova platform remove ios 
+                ionic cordova platform add ios
             - |
                 # build iOS
                 cd platforms/ios
@@ -42,8 +42,8 @@ workflows:
                 #cvm use 9.0.0
             - |
                 # Setup Cordova Android platform
-                ionic cordova platform remove android --nosave
-                ionic cordova platform add android --confirm --no-interactive --noresources
+                cordova platform rm android && cordova platform add android
+
             - |
                 # Build Android Cordova App
                 script: ionic cordova build android --debug --no-interactive --device
