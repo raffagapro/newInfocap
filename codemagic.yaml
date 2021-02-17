@@ -51,6 +51,7 @@ workflows:
 
             - |
                 # Build Android Cordova App
-                script: ionic cordova build android --debug --no-interactive --device
+                ionic cordova build android
+                #script: ionic cordova build android --debug --no-interactive --device
         artifacts:
             - platforms/android/app/build/outputs/**/*.apk
