@@ -19,7 +19,7 @@ workflows:
                 #cvm use 9.0.0
             - |
                 # Setup Cordova iOS platform
-                ionic cordova platform remove ios 
+                ionic cordova platform rm ios 
                 ionic cordova platform add ios
             - |
                 # build iOS
