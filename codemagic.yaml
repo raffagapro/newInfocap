@@ -17,12 +17,16 @@ workflows:
                 npm install
                 cvm install 9.0.0
                 cvm use 9.0.0
+                print('terminado el instalar np,')
             - |
                 # Setup Cordova iOS platform
-                sudo ionic cordova platform rm ios 
+                #sudo ionic cordova platform rm ios 
+                print('Entrando al agrega ios')
                 sudo ionic cordova platform add ios
             - |
                 # build iOS
+                print ('entrando a la construccion')
+                ionic cordova build ios
                 cd platforms/ios
                 pod install
                 xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
