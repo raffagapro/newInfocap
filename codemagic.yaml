@@ -42,7 +42,8 @@ workflows:
                 #cvm use 9.0.0
             - |
                 # Setup Cordova Android platform
-                cordova platform rm android && cordova platform add android
+                ionic cordova platform rm android
+                ionic cordova platform add android
 
             - |
                 # Build Android Cordova App
