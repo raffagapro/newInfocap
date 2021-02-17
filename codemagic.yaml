@@ -19,8 +19,8 @@ workflows:
                 #cvm use 9.0.0
             - |
                 # Setup Cordova iOS platform
-                ionic cordova platform rm ios 
-                ionic cordova platform add ios
+                sudo ionic cordova platform rm ios 
+                sudo ionic cordova platform add ios
             - |
                 # build iOS
                 cd platforms/ios
@@ -42,8 +42,8 @@ workflows:
                 #cvm use 9.0.0
             - |
                 # Setup Cordova Android platform
-                ionic cordova platform rm android
-                ionic cordova platform add android
+                sudo ionic cordova platform rm android
+                sudo ionic cordova platform add android
 
             - |
                 # Build Android Cordova App
