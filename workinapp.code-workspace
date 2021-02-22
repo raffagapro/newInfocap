@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../infocap_api"
+		},
+		{
+			"path": "../infocap"
 		}
 	]
 }
