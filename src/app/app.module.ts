@@ -1,3 +1,4 @@
+import { HttpClientModule } from  '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -18,14 +19,15 @@ import { SolicitudRechazadaModalComponent } from './user/solicitud-status/solici
 import { SolicitudEnviadaModalComponent } from './user/solicitud-status/solicitud-enviada-modal/solicitud-enviada-modal.component';
 import { ServicioAgendadoModalComponent } from './user/solicitud-status/servicio-agendado-modal/servicio-agendado-modal.component';
 import { PagoExitosoModalComponent } from './user/servicio-pagar-forma/pago-exitoso-modal/pago-exitoso-modal.component';
-import { SuccessModalComponent } from './login/register/success-modal/success-modal.component';
+import { SuccessModalComponent as CSuserPay } from './login/register/success-modal/success-modal.component';
 import { ConfirmSuccessComponent as CSprofSol } from './profesional/home/solicitudes/confirm-success/confirm-success.component';
 import { ConfirmSuccessComponent as CSprofSolDefServ } from './profesional/home/solicitudes/definicion-servicio/confirm-success/confirm-success.component';
 import { ConfirmSuccessComponent as CSprofFinRatForm } from './profesional/home/finalizados/rate-form/confirm-success/confirm-success.component';
 import { ServiceRejectModalComponent } from './profesional/home/solicitudes/service-reject-modal/service-reject-modal.component';
 import { ConfirmVisitaComponent } from './profesional/home/solicitudes/visita-tecnica/confirm-visita/confirm-visita.component';
 import { ConfirmServComponent } from './profesional/home/solicitudes/definicion-servicio/confirm-serv/confirm-serv.component';
-import { HttpClientModule } from  '@angular/common/http';
+import { SuccessModalComponent as CSUserProfileUpdate } from './user/profile-page/success-modal/success-modal.component';
+import { SuccessModalComponent as CSproProfileUpdate } from './profesional/perfil/success-modal/success-modal.component';
 
 @NgModule({
   declarations: [
@@ -40,13 +42,15 @@ import { HttpClientModule } from  '@angular/common/http';
     SolicitudEnviadaModalComponent,
     ServicioAgendadoModalComponent,
     PagoExitosoModalComponent,
-    SuccessModalComponent,
+    CSuserPay,
     CSprofSol,
     CSprofSolDefServ,
     CSprofFinRatForm,
     ServiceRejectModalComponent,
     ConfirmVisitaComponent,
-    ConfirmServComponent
+    ConfirmServComponent,
+    CSUserProfileUpdate,
+    CSproProfileUpdate,
   ],
   entryComponents: [],
   imports: [

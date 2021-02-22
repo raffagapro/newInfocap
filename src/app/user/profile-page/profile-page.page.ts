@@ -9,11 +9,11 @@ import { UserService } from 'src/app/services/user.service';
 import { SuccessModalComponent } from './success-modal/success-modal.component';
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.page.html',
-  styleUrls: ['./perfil.page.scss'],
+  selector: 'app-profile-page',
+  templateUrl: './profile-page.page.html',
+  styleUrls: ['./profile-page.page.scss'],
 })
-export class PerfilPage implements OnInit, OnDestroy {
+export class ProfilePagePage implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
   form: FormGroup;
@@ -135,7 +135,7 @@ export class PerfilPage implements OnInit, OnDestroy {
 
     });
   }
-  
+
   imgProfile(){
     // do something awseome
   }

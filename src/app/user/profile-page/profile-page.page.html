@@ -14,7 +14,7 @@
     <ion-row class="imgCont">
       <ion-col>
         <ion-avatar class="ion-margin-start profileImg">
-          <img class="" src="/assets/images/avatar.png">
+          <ion-img src="{{ grabbedUser.img_profile }}"></ion-img>
         </ion-avatar>
       </ion-col>
     </ion-row>
@@ -28,7 +28,7 @@
     </ion-row>
 
     <!-- Register Inputs -->
-    <form>
+    <form [formGroup]="form" (ngSubmit)="onUpdateUser()">
       <!-- nombre -->
       <ion-row>
         <ion-col size="11">
@@ -37,10 +37,18 @@
               <ion-icon name="person" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Nombre</ion-text>
             </ion-label>
-            <ion-input type="text"></ion-input>
+            <ion-input type="text" formControlName="name"></ion-input>
           </ion-item>
+          <!-- error  -->
+          <ion-label *ngIf="form.get('name').hasError('required')" class="errorMess">
+            <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
+            <ion-text color="danger">
+              <small> El nombre es requerido</small>
+            </ion-text>
+          </ion-label>
         </ion-col>
       </ion-row>
+
       <!-- email -->
       <ion-row>
         <ion-col size="11">
@@ -49,10 +57,25 @@
               <ion-icon name="mail" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Email</ion-text>
             </ion-label>
-            <ion-input type="text"></ion-input>
+            <ion-input type="text" formControlName="email"></ion-input>
           </ion-item>
+          <!-- error requerido  -->
+          <ion-label *ngIf="form.get('email').hasError('required')" class="errorMess">
+            <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
+            <ion-text color="danger">
+              <small> El email es requerido</small>
+            </ion-text>
+          </ion-label>
+          <!-- error email  -->
+          <ion-label *ngIf="form.get('email').hasError('email')" class="errorMess">
+            <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
+            <ion-text color="danger">
+              <small> El email no tiene el formato correcto</small>
+            </ion-text>
+          </ion-label>
         </ion-col>
       </ion-row>
+
       <!-- Número de contacto 1 -->
       <ion-row>
         <ion-col size="11">
@@ -61,10 +84,18 @@
               <ion-icon name="call" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Número de contacto 1</ion-text>
             </ion-label>
-            <ion-input type="password"></ion-input>
+            <ion-input type="string" formControlName="phone1"></ion-input>
           </ion-item>
+          <!-- error requerido  -->
+          <ion-label *ngIf="form.get('phone1').hasError('required')" class="errorMess">
+            <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
+            <ion-text color="danger">
+              <small> El Numero de contacto es requerido</small>
+            </ion-text>
+          </ion-label>
         </ion-col>
       </ion-row>
+
       <!-- Número de contacto 2 -->
       <ion-row>
         <ion-col size="11">
@@ -73,7 +104,7 @@
               <ion-icon name="call" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Número de contacto 2</ion-text>
             </ion-label>
-            <ion-input type="password"></ion-input>
+            <ion-input type="string" formControlName="phone2"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -97,7 +128,7 @@
               <ion-icon name="lock-closed" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Contraseña actual</ion-text>
             </ion-label>
-            <ion-input type="password"></ion-input>
+            <ion-input type="password" formControlName="password"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -110,7 +141,7 @@
               <ion-icon name="lock-closed" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Nueva contraseña</ion-text>
             </ion-label>
-            <ion-input type="password"></ion-input>
+            <ion-input type="password" formControlName="newPassword"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -123,22 +154,22 @@
               <ion-icon name="lock-closed" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Repetir nueva contraseña</ion-text>
             </ion-label>
-            <ion-input type="password"></ion-input>
+            <ion-input type="password" formControlName="confirmPassword"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
+
+      <!-- BTN -->
+      <ion-row class="ion-margin-top ion-margin-bottom">
+        <ion-col offset="1">
+          <ion-button size="5" expand="block" class="ion-text-uppercase" type="submit" [disabled]="!form.valid">
+            GUARDAR CAMBIOS
+          </ion-button>
+        </ion-col>
+        <ion-col size="2"></ion-col>
+      </ion-row>
     </form>
 
-    <!-- Registrar BTN -->
-    <!-- Login BTN -->
-    <ion-row class="ion-margin-top ion-margin-bottom">
-      <ion-col offset="1">
-        <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="login()">
-          GUARDAR CAMBIOS
-        </ion-button>
-      </ion-col>
-      <ion-col size="2"></ion-col>
-    </ion-row>
 
   </ion-grid>
 </ion-content>

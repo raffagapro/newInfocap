@@ -10,46 +10,22 @@
 <ion-content>
   <ion-grid>
     <!-- category item -->
-    <ion-row class="category-item ion-align-items-end" style="background-image: url('/assets/images/carp_cat.png');" (click)="map()">
+    <ion-row 
+      *ngFor="let cat of categories"
+      class="category-item ion-align-items-end"
+      style="background-image: url('http://workintest.herokuapp.com/{{ cat.image }}');" 
+      (click)="map(cat.id)">
       <ion-col class="cat-bar">
         <ion-text color="light">
-          <h1 class="cat-title">Carpintería</h1>
-          <p class="cat-text">Lorem ipsum dolor sit amet, consectetuer</p>
+          <h1 class="cat-title">{{ cat.name }}</h1>
+          <p class="cat-text">{{ cat.description }}</p>
           <!-- rating circle -->
-          <div class="rate-cont">
+          <!-- <div class="rate-cont">
             <ion-label color="primary" class="rating-text ml-1">4.8</ion-label>
             <ion-icon name="star" color="primary" class="rating-text"></ion-icon>
-          </div>
-        </ion-text>
-      </ion-col>
-    </ion-row>
-
-    <!-- category item -->
-    <ion-row class="category-item ion-align-items-end" style="background-image: url('/assets/images/elect-cat.png');" (click)="map()">
-      <ion-col class="cat-bar">
-        <ion-text color="light">
-          <h1 class="cat-title">Electricidad</h1>
-          <p class="cat-text">Lorem ipsum dolor sit amet, consectetuer</p>
-          <!-- rating circle -->
-          <div class="rate-cont">
-            <ion-label color="primary" class="rating-text ml-1">4.6</ion-label>
-            <ion-icon name="star" color="primary" class="rating-text"></ion-icon>
-          </div>
-        </ion-text>
-      </ion-col>
-    </ion-row>
-
-    <!-- category item -->
-    <ion-row class="category-item ion-align-items-end" style="background-image: url('/assets/images/plom_elec.png');" (click)="map()">
-      <ion-col class="cat-bar">
-        <ion-text color="light">
-          <h1 class="cat-title">Plomería</h1>
-          <p class="cat-text">Lorem ipsum dolor sit amet, consectetuer</p>
-          <!-- rating circle -->
-          <div class="rate-cont">
-            <ion-label color="primary" class="rating-text ml-1">4.5</ion-label>
-            <ion-icon name="star" color="primary" class="rating-text"></ion-icon>
-          </div>
+          </div> -->
+          <!-- http://workintest.herokuapp.com/images/categories/1/6032e33a1da62.png
+          http://workintest.herokuapp.com/images/categories/1/6032e33a1da62.png  -->
         </ion-text>
       </ion-col>
     </ion-row>

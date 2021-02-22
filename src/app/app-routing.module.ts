@@ -24,8 +24,8 @@ const routes: Routes = [
     // canLoad: [AuthGuard, UserGuard],
   },
   {
-    path: 'user/perfil',
-    loadChildren: () => import('./user/perfil/perfil.module').then( m => m.PerfilPageModule),
+    path: 'user/profile-page',
+    loadChildren: () => import('./user/profile-page/profile-page.module').then( m => m.ProfilePagePageModule),
     // canLoad: [AuthGuard, UserGuard],
   },
   {

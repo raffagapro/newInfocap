@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -11,14 +10,11 @@ export class SuccessModalComponent implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private router: Router,
   ) { }
 
   ngOnInit() {}
 
   dismiss(){
     this.modalController.dismiss();
-    this.router.navigate(['/login']);
   }
-
 }
