@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="babbd63d-2e35-427a-8f5a-779595f0eea2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-20x20@1x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-20x20@2x-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-20x20@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-20x20@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-29x29@1x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-29x29@2x-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-29x29@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-29x29@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-40x40@2x-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-40x40@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-40x40@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-60x60@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-60x60@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-76x76@1x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-76x76@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-83.5@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-marketing-1024x1024.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-40.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/Contents.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/LaunchImage-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/LaunchImage-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/LaunchImage.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/capacitor.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/capacitor.config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-hdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-land-hdpi/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-mdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-land-mdpi/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-xhdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-land-xhdpi/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-xxhdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-land-xxhdpi/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-xxxhdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-land-xxxhdpi/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-hdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-port-hdpi/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-mdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-port-mdpi/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-xhdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-port-xhdpi/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-xxhdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-port-xxhdpi/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-xxxhdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-port-xxxhdpi/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/splash.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/ic_launcher_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../capacitor.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../capacitor.config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/app.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/login/login/login.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/login/login/login.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/login/register/register.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/login/register/register.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/login/register/success-modal/success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/login/register/success-modal/success-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/cat-perfiles/cat-perfiles.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/cat-perfiles/cat-perfiles.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados-detail/agendados-detail.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados-detail/agendados-detail.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados-finalizar/agendados-finalizar.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados-finalizar/agendados-finalizar.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados-finalizar/confirm-success-modal/confirm-success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados-finalizar/confirm-success-modal/confirm-success-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/agendados/servicios-adicionales/servicios-adicionales.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/agendados/servicios-adicionales/servicios-adicionales.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/finalizados-details/finalizados-details.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/finalizados-details/finalizados-details.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/finalizados.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/finalizados.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/rate-form/confirm-success/confirm-success.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/rate-form/confirm-success/confirm-success.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/rate-form/rate-form.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/rate-form/rate-form.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/home.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/home.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/confirm-success/confirm-success.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/confirm-success/confirm-success.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/definicion-servicio/confirm-serv/confirm-serv.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/definicion-servicio/confirm-serv/confirm-serv.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/definicion-servicio/confirm-success/confirm-success.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/definicion-servicio/confirm-success/confirm-success.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/definicion-servicio/definicion-servicio.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/definicion-servicio/definicion-servicio.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/service-reject-modal/service-reject-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/service-reject-modal/service-reject-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/solicitudes-detail/solicitudes-detail.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/solicitudes-detail/solicitudes-detail.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/solicitudes.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/solicitudes.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/visita-tecnica/confirm-visita/confirm-visita.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/visita-tecnica/confirm-visita/confirm-visita.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/visita-tecnica/visita-tecnica.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/visita-tecnica/visita-tecnica.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/notificaciones/notificaciones.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/notificaciones/notificaciones.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/perfil/perfil.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/perfil/perfil.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/perfil/success-modal/success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/perfil/success-modal/success-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/rating/rating.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/rating/rating.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/wallet/wallet.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/wallet/wallet.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/eval-prof/confirm-success-modal/confirm-success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/eval-prof/confirm-success-modal/confirm-success-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/eval-prof/eval-prof.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/eval-prof/eval-prof.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/home/home.page.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/home/home.page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/home/home.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/home/home.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/home/home.page.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/home/home.page.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/map/map.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/map/map.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/notificaciones/notificaciones.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/notificaciones/notificaciones.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/prof-contactados-list/prof-contactados-list.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/prof-contactados-list/prof-contactados-list.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/profesional-detail/profesional-detail.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/profesional-detail/profesional-detail.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/profesional-list/profesional-list.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/profesional-list/profesional-list.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/profile-page/profile-page.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/profile-page/profile-page.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/profile-page/success-modal/success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/profile-page/success-modal/success-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/servicio-pagar-forma/pago-exitoso-modal/pago-exitoso-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/servicio-pagar-forma/pago-exitoso-modal/pago-exitoso-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/servicio-pagar-forma/servicio-pagar-forma.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/servicio-pagar-forma/servicio-pagar-forma.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/servicio-pagar/servicio-pagar.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/servicio-pagar/servicio-pagar.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-detail/confirm-success-modal/confirm-success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-detail/confirm-success-modal/confirm-success-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-detail/solicitud-detail.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-detail/solicitud-detail.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-servicio/confirm-success-modal/confirm-success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-servicio/confirm-success-modal/confirm-success-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-servicio/solicitud-servicio.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-servicio/solicitud-servicio.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-status/servicio-agendado-modal/servicio-agendado-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-status/servicio-agendado-modal/servicio-agendado-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-enviada-modal/solicitud-enviada-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-enviada-modal/solicitud-enviada-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-rechazada-modal/solicitud-rechazada-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-rechazada-modal/solicitud-rechazada-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-status.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-status.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitudes/solicitudes.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitudes/solicitudes.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/urgen-service/confirm-success-modal/confirm-success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/urgen-service/confirm-success-modal/confirm-success-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/urgen-service/urgen-service.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/urgen-service/urgen-service.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/visita-detail/confirm-success-modal/confirm-success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/visita-detail/confirm-success-modal/confirm-success-modal.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/user/visita-detail/visita-detail.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/visita-detail/visita-detail.page.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../workinapp.code-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/../workinapp.code-workspace" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1nrZjqine6Sft6oaZSDHuxOMJgO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1612550458989" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="RunManager" selected="Android App.app">
+    <configuration name="All in android.app" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
+      <module name="android.app" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="android.app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Android JUnit.All in android.app" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="babbd63d-2e35-427a-8f5a-779595f0eea2" name="Default Changelist" comment="" />
+      <created>1612150307905</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1612150307905</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="184" y="83" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1612551491247">
+      <screen x="0" y="25" width="1440" height="799" />
+    </state>
+    <state x="184" y="83" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.25.1440.799@0.25.1440.799" timestamp="1612551491247" />
+    <state x="100" y="157" width="1200" height="559" key="AVDManager" timestamp="1612561535627">
+      <screen x="0" y="25" width="1440" height="799" />
+    </state>
+    <state x="100" y="157" width="1200" height="559" key="AVDManager/0.25.1440.799@0.25.1440.799" timestamp="1612561535627" />
+    <state width="678" height="190" key="GridCell.Tab.0.bottom" timestamp="1612571081775">
+      <screen x="0" y="25" width="1440" height="799" />
+    </state>
+    <state width="678" height="190" key="GridCell.Tab.0.bottom/0.25.1440.799@0.25.1440.799" timestamp="1612571081775" />
+    <state width="1358" height="190" key="GridCell.Tab.0.bottom/0.25.1440.801@0.25.1440.801" timestamp="1612561618179" />
+    <state width="678" height="190" key="GridCell.Tab.0.center" timestamp="1612571081773">
+      <screen x="0" y="25" width="1440" height="799" />
+    </state>
+    <state width="678" height="190" key="GridCell.Tab.0.center/0.25.1440.799@0.25.1440.799" timestamp="1612571081773" />
+    <state width="1358" height="190" key="GridCell.Tab.0.center/0.25.1440.801@0.25.1440.801" timestamp="1612561618171" />
+    <state width="678" height="190" key="GridCell.Tab.0.left" timestamp="1612571081773">
+      <screen x="0" y="25" width="1440" height="799" />
+    </state>
+    <state width="678" height="190" key="GridCell.Tab.0.left/0.25.1440.799@0.25.1440.799" timestamp="1612571081773" />
+    <state width="1358" height="190" key="GridCell.Tab.0.left/0.25.1440.801@0.25.1440.801" timestamp="1612561618165" />
+    <state width="678" height="190" key="GridCell.Tab.0.right" timestamp="1612571081774">
+      <screen x="0" y="25" width="1440" height="799" />
+    </state>
+    <state width="678" height="190" key="GridCell.Tab.0.right/0.25.1440.799@0.25.1440.799" timestamp="1612571081774" />
+    <state width="1358" height="190" key="GridCell.Tab.0.right/0.25.1440.801@0.25.1440.801" timestamp="1612561618175" />
+    <state x="328" y="191" key="IDE.errors.dialog" timestamp="1612570989164">
+      <screen x="0" y="25" width="1440" height="799" />
+    </state>
+    <state x="328" y="191" key="IDE.errors.dialog/0.25.1440.799@0.25.1440.799" timestamp="1612570989164" />
+    <state x="220" y="79" width="1149" height="728" key="SettingsEditor" timestamp="1612560386144">
+      <screen x="0" y="25" width="1440" height="799" />
+    </state>
+    <state x="220" y="79" width="1149" height="728" key="SettingsEditor/0.25.1440.799@0.25.1440.799" timestamp="1612560386144" />
+  </component>
+</project>
