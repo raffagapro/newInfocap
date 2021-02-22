@@ -1,0 +1,16 @@
+{
+  "ios": {
+    "debug": {
+      "codeSignIdentity": "iPhone Developer",
+      "provisioningProfile": "GRUPO LUXIN S.A.P.I. DE C.V.",
+      "developmentTeam": "2N9LLFT9X7",
+      "packageType": "development"
+    },
+    "release": {
+      "codeSignIdentity": "iPhone Distribution",
+      "provisioningProfile": "GRUPO LUXIN S.A.P.I. DE C.V.",
+      "developmentTeam": "2N9LLFT9X7",
+      "packageType": "app-store"
+    }
+  }
+}
