@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "newInfocap",
+  "appId": "cl.dtispa.infocap.workin",
+  "appName": "Workin",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

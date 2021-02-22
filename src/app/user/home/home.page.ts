@@ -39,7 +39,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
-    console.log(this.grabbedUser.access_token);
+    // console.log(this.grabbedUser.access_token);
   }
 
   ionViewWillEnter(){
@@ -51,7 +51,7 @@ export class HomePage implements OnInit, OnDestroy {
       let headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
       this.http.get('http://workintest.herokuapp.com/api/categories', {headers: headers}).subscribe(resData => {
         loadingEl.dismiss();
-        console.log(resData['data']);
+        // console.log(resData['data']);
         this.categories = resData['data'];
       }, error =>{
         loadingEl.dismiss();

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { ConfirmSuccessModalComponent } from './confirm-success-modal.component';
@@ -7,7 +7,7 @@ describe('ConfirmSuccessModalComponent', () => {
   let component: ConfirmSuccessModalComponent;
   let fixture: ComponentFixture<ConfirmSuccessModalComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ConfirmSuccessModalComponent ],
       imports: [IonicModule.forRoot()]
