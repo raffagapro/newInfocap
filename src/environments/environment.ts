@@ -8,6 +8,11 @@ export const environment = {
 
 export const WEB_KEY = 'com.googleusercontent.apps.30514470553-9iop802o4obarpv3no5s1ng5kcnblne7';
 
+export const API = 'http://workintest.herokuapp.com/api';
+export const PATH = 'http://workintest.herokuapp.com/';
+
+
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

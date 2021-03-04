@@ -30,7 +30,7 @@ const routes: Routes = [
   },
   {
     path: 'user/map',
-    loadChildren: () => import('./user/map/map.module').then( m => m.MapPageModule),
+    loadChildren: () => import('./user/mapa/mapa.module').then( m => m.MapaPageModule),
     // canLoad: [AuthGuard, UserGuard],
   },
   {

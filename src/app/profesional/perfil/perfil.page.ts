@@ -1,12 +1,35 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
 
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
+import { API } from 'src/environments/environment';
 import { SuccessModalComponent } from './success-modal/success-modal.component';
+
+function base64toBlob(base64Data, contentType) {
+  contentType = contentType || '';
+  const sliceSize = 1024;
+  const byteCharacters = atob(base64Data);
+  const bytesLength = byteCharacters.length;
+  const slicesCount = Math.ceil(bytesLength / sliceSize);
+  const byteArrays = new Array(slicesCount);
+
+  for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+    const begin = sliceIndex * sliceSize;
+    const end = Math.min(begin + sliceSize, bytesLength);
+
+    const bytes = new Array(end - begin);
+    for (let offset = begin, i = 0; offset < end; ++i, ++offset) {
+      bytes[i] = byteCharacters[offset].charCodeAt(0);
+    }
+    byteArrays[sliceIndex] = new Uint8Array(bytes);
+  }
+  return new Blob(byteArrays, { type: contentType });
+}
 
 @Component({
   selector: 'app-perfil',
@@ -15,20 +38,30 @@ import { SuccessModalComponent } from './success-modal/success-modal.component';
 })
 export class PerfilPage implements OnInit, OnDestroy {
   grabbedUser: User;
+  headers: HttpHeaders;
   userSub: Subscription;
   form: FormGroup;
+  httpError: string;
+  passError: string;
+  @Output() imgPick = new EventEmitter<string | File>();
+  selectedImage: string;
+  @ViewChild('hiddenImgInput') hiddenImgInputRef: ElementRef<HTMLInputElement>;
+  useInputPicker = false;
 
   constructor(
     private us: UserService,
     private lc: LoadingController,
     private http: HttpClient,
     private modalController: ModalController,
+    private platform: Platform,
   ) { }
 
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
+    //api headers
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
     // updates to the most current info from DB
     this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
     let phone1: string;
@@ -69,11 +102,16 @@ export class PerfilPage implements OnInit, OnDestroy {
         updateOn: 'blur',
       }),
     });
-    // console.log(this.grabbedUser, this.form);
+    // platfrom check
+    if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
+      this.useInputPicker = true;
+    }
   }
 
   onUpdateUser(){
     // console.log(this.form);
+    this.httpError = null;
+    this.passError = null;
     let name = this.form.value.name.split(" ");
     let lname = name[1];
     if (name.length > 2) {
@@ -92,6 +130,11 @@ export class PerfilPage implements OnInit, OnDestroy {
     if (this.form.value.password === null) {
       delete modUser.password;
       delete modUser.current_password;
+    }else{
+      if (this.form.value.newPassword !== this.form.value.confirmPassword) {
+        this.passError = 'Las contraseñas no concuerdan';
+        return;
+      }
     }
     // console.log(this.form, this.form.errors.name);
     this.lc.create({
@@ -99,45 +142,111 @@ export class PerfilPage implements OnInit, OnDestroy {
     }).then(loadingEl => {
       loadingEl.present();
       let headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
-      this.http.put('http://workintest.herokuapp.com/api/account', modUser, {headers: headers})
+      this.http.put(API+'/account', modUser, {headers: headers})
       .subscribe(resData => {
         loadingEl.dismiss();
         // console.log(resData);
         if (resData['code'] === 200) {
-          let img: string;
-          if (resData['data'].img_profile === null) {
-            img = 'assets/images/avatar.png';
-          }else{
-            img = resData['data'].user.img_profile;
-          }
           //update user controler
           this.us.setUser(new User(
             this.grabbedUser.id,
             resData['data'].name,
             resData['data'].last_name,
-            img,
+            resData['data'].img_profile,
             resData['data'].email,
             resData['data'].phone1,
             resData['data'].phone2,
             this.grabbedUser.role,
             this.grabbedUser.access_token,
             ));
+            //resets values after succefull update
+            this.form.setValue({
+              name: this.form.value.name,
+              email: this.form.value.email,
+              phone1: this.form.value.phone1,
+              phone2: this.form.value.phone2,
+              password: null,
+              newPassword: null,
+              confirmPassword: null,
+            });
           this.modalController.create({
             component: SuccessModalComponent,
             cssClass: 'modalSuccess',
           }).then(modalEl => {
             modalEl.present();
           });
-        } else {
-          return false
         }
+      }, e=>{
+        // console.log(e['error'].message);
+        loadingEl.dismiss();
+        this.httpError = e['error'].message;
       });
 
     });
   }
   
-  imgProfile(){
-    // do something awseome
+  onLoadImg(){
+    if (!Capacitor.isPluginAvailable('Camera') || this.useInputPicker) {
+      this.hiddenImgInputRef.nativeElement.click();
+      return;
+    }
+    Plugins.Camera.getPhoto({
+      quality: 25,
+      source: CameraSource.Prompt,
+      correctOrientation: true,
+      height: 150,
+      // width: 200,
+      resultType: CameraResultType.DataUrl,
+    }).then(image =>{
+      console.log(image);
+      
+      // this.selectedImage = image.dataUrl;
+      // this.imgPick.emit(image.dataUrl);
+
+      // console.log(this.selectedImage);
+      //save img to api
+      this.saveImgToApi(image.dataUrl);
+      
+    }).catch(e =>{
+      console.log(e);
+    });
+  }
+
+  onLoadImgFromInput(e: Event){
+    const loadedFile = (e.target as HTMLInputElement).files[0];
+    // console.log(loadedFile);
+    this.saveImgToApi(loadedFile);
+    //save img to api
+  }
+
+  saveImgToApi(imageData: string | File){
+    let imgFile;
+    if (typeof imageData === 'string') {
+      try {
+        imgFile = base64toBlob(imageData.replace('data:image/jpeg;base64,', ''), 'image/jpeg');
+      } catch (e) {
+        console.log(e);
+        return;
+      }
+    }else{
+      imgFile = imageData;
+    }
+    this.form.patchValue({image: imgFile})
+    const formData = new FormData();
+    formData.append('image', imgFile);
+    this.http.post(API+'/account/image', formData, {headers: this.headers})
+    .subscribe(resData =>{
+      // console.log(resData);
+      this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
+      this.modalController.create({
+        component: SuccessModalComponent,
+        cssClass: 'modalSuccess',
+      }).then(modalEl =>{
+        modalEl.present();
+      });
+    }, err =>{
+      console.log(err);
+    });
   }
 
   ngOnDestroy(){

@@ -9,7 +9,7 @@
     </ion-buttons>
 
 
-    <ion-title class="title-toolbar">SOLICITUD #50</ion-title>
+    <ion-title class="title-toolbar">SOLICITUD #{{ serviceId }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -26,7 +26,6 @@
             <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp;
             <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge><br>
             <span class="textSelect">
-              Soldador - 5 años de experiencia<br>
               Santiago, Qta. normal
             </span><br>
             <small class="main-color">Contactado hace 1 día</small>
@@ -60,10 +59,8 @@
         <ion-col size="8" class="ion-justify-content-center">
           <ion-text>
             <span class="titleSelect main-color">Solicitud </span>
-            <small class="ticket">Ticket #100091234</small><br>
-            <span class="textSelect">
-              Necesito un soldador para realizar una reja perimetral, solo para frontis de casa...
-            </span>
+            <small class="ticket">Ticket #{{ loadedService.ticket_number }}</small><br>
+            <span class="textSelect">{{ loadedService.description }}</span>
           </ion-text>
         </ion-col>
 
@@ -101,13 +98,22 @@
       </ion-row>
 
       <!-- Visita tecnica agendada  -->
-      <ion-row>
+      <!-- gray -->
+      <ion-row *ngIf="loadedService.status_id < 2">
         <div class="status-cont-grey">
           <ion-icon name="checkmark" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color status-text-grey">VISITA TÉCNICA AGENDADA</ion-text><br>
-          <ion-text class="main-color status-subtext-grey">Pendiente de confirmación</ion-text>
+        </ion-col>
+      </ion-row>
+      <!-- active  -->
+      <ion-row *ngIf="loadedService.status_id >= 2">
+        <div class="status-cont">
+          <ion-icon name="checkmark" color="light" class="status-text-icon"></ion-icon>
+        </div>
+        <ion-col size="12" class="ion-text-center">
+          <ion-text class="main-color status-text">VISITA TÉCNICA AGENDADA</ion-text><br>
         </ion-col>
       </ion-row>
 

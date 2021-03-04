@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/model/user.model';
+import { API } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -40,7 +41,7 @@ export class LoginPage implements OnInit {
       message: "Validando credenciales..."
     }).then(loadingEl => {
       loadingEl.present();
-      this.http.post('http://workintest.herokuapp.com/api/auth/login', {
+      this.http.post(API+'/auth/login', {
         // this.http.post('http://127.0.0.1:8000/api/auth/login', {
           email: email,
           password: password,
@@ -78,13 +79,20 @@ export class LoginPage implements OnInit {
               this.router.navigate(['/profesional/home']);
             }
           }else{
-            this.error = 'Credenciales incorrectas'
+            this.error = 'Credenciales incorrectas';
             form.reset()
             form.setValue({
               email: email,
               password: '',
             });
           } 
+        }, err =>{
+          this.error = 'Correo no encontrado';
+          form.reset()
+          form.setValue({
+            email: email,
+            password: '',
+          });
         });
     });
   }

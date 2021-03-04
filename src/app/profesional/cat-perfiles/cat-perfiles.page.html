@@ -14,11 +14,19 @@
     <ion-row>
       <ion-col size="9" offset="1">
         <ion-item>
-          <ion-label class="catText">CATEGORÍAS</ion-label>
-          <ion-select interface="popover">
-            <ion-select-option value="nes" class="main-color ion-text-center">Cerrajería</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Carpinteria</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Electricista</ion-select-option>
+          <ion-label class="catText" position="floating">CATEGORÍAS</ion-label>
+          <ion-select 
+            interface="action-sheet" 
+            cancelText="Cancelar" 
+            (ionChange)="onCatProfileChange($event.detail.value)"
+            value="{{ selectedProPerfil }}"
+            >
+            <ion-select-option
+              *ngFor="let cat of profCategories" 
+              value="{{ cat.id }}"
+              class="main-color ion-text-center catText"
+              >{{ cat.categoryName }}
+            </ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
@@ -30,183 +38,223 @@
     <ion-row class="imgCont">
       <ion-col>
         <ion-avatar class="ion-margin-start profileImg">
-          <img class="" src="/assets/images/avatar.png">
+          <ion-img src="{{ !grabbedUser.img_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+grabbedUser.img_profile }}"></ion-img>
+          <!-- <ion-img *ngIf="grabbedUser !== undefined" src="http://workintest.herokuapp.com/{{ user.img_profile }}"></ion-img> -->
         </ion-avatar>
       </ion-col>
     </ion-row>
     <!-- edit icon -->
     <ion-row>
       <ion-col>
-        <div class="rate-cont" (click)="imgProfile()">
+        <div class="rate-cont" *ngIf="grabbedUser.id !== null" (click)="onLoadImg(true)">
           <ion-icon name="pencil" class="profileIcon"></ion-icon>
         </div>
       </ion-col>
     </ion-row>
 
-    <!-- text -->
-    <ion-row class="minusMargin">
-      <ion-col size="1"></ion-col>
-      <ion-col size="10">
-        <ion-text class="main-color regText"><b>Descripción profesional</b></ion-text>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+    <form [formGroup]="form" (ngSubmit)="onUpdateCatProfile()">
+      <!-- title -->
+      <ion-row class="minusMargin">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10">
+          <ion-text class="main-color regText"><b>Descripción profesional</b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-    <!-- text-area -->
-    <ion-row class="ion-margin-top">
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="border ion-text-center">
-        <ion-item lines="none">
-           <ion-textarea rows="3" cols="20" placeholder="Agrega tu descripción. Máximo 140 caracteres con espacios."></ion-textarea>
-        </ion-item>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- text-area -->
+      <ion-row class="ion-margin-top">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="border ion-text-center">
+          <ion-item lines="none">
+            <ion-textarea 
+              formControlName="descProf"
+              rows="3" cols="20"
+              placeholder="Agrega tu descripción. Máximo 140 caracteres con espacios.">
+            </ion-textarea>
+          </ion-item>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-    <!-- vehiculo -->
-    <ion-row>
-      <ion-col size="11">
-        <ion-item>
-          <ion-label position="floating" class="main-color">
-            <ion-icon name="car-sport" slot="start" class="main-color"></ion-icon>
-            <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Vehículo</ion-text>
-          </ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <!-- vehiculo -->
+      <ion-row>
+        <ion-col size="11">
+          <ion-item>
+            <ion-label position="floating" class="main-color">
+              <ion-icon name="car-sport" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Vehículo</ion-text>
+            </ion-label>
+              <ion-select
+                interface="popover"
+                cancelText="Cancelar"
+                (ionChange)="onTransportChange($event)"
+                value="{{ selectedTransport }}">
+              <ion-select-option
+                *ngFor="let transport of transports" 
+                value="{{ transport.id }}"
+                >{{ transport.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <!-- text -->
-    <ion-row class="ion-margin-top ion-text-center">
-      <ion-col size="1"></ion-col>
-      <ion-col size="10">
-        <ion-text class="main-color regText"><b>Horario laboral</b></ion-text>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- title -->
+      <ion-row class="ion-margin-top ion-text-center">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10">
+          <ion-text class="main-color regText"><b>Horario laboral</b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-    <!-- pickers -->
-    <ion-row>
-      <ion-col size="6">
-        <ion-item>
-          <ion-label class="main-color">
-            <ion-icon name="time" slot="start" class="main-color"></ion-icon>
-            <ion-text class="main-color">Inicio</ion-text>
-          </ion-label>
-          <ion-datetime display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
-        </ion-item>
-      </ion-col>
+      <!-- horas -->
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label class="main-color" position="floating">
+              <ion-icon name="time" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Inicio</ion-text>
+            </ion-label>
+            <ion-datetime display-format="h:mm A" picker-format="h:mm A" formControlName="sHour"></ion-datetime>
+          </ion-item>
+        </ion-col>
 
-      <ion-col size="5">
-        <ion-item>
-          <ion-label class="main-color">
-            <ion-icon name="time" slot="start" class="main-color"></ion-icon>
-            <ion-text class="main-color">Final</ion-text>
-          </ion-label>
-          <ion-datetime display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+        <ion-col size="5">
+          <ion-item>
+            <ion-label class="main-color" position="floating">
+              <ion-icon name="time" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Final</ion-text>
+            </ion-label>
+            <ion-datetime display-format="h:mm A" picker-format="h:mm A" formControlName="eHour"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-row class="ion-margin-top ion-text-center">
-      <ion-col size="1"></ion-col>
-      <ion-col size="10">
-        <ion-text class="main-color regText"><b>Días laborales</b></ion-text>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- dias -->
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label class="main-color" position="floating">
+              <ion-icon name="calendar" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Días laborales</ion-text>
+            </ion-label>
+            <ion-select
+              interface="alert"
+              multiple="true"
+              cancelText="Cancelar"
+              (ionChange)="onDaysChange($event)"
+              [value]="selectedDays"
+              formControlName="workDays"
+              >
+              <ion-select-option value="l" class="main-color ion-text-center">Lunes</ion-select-option>
+              <ion-select-option value="m" class="main-color ion-text-center">Martes</ion-select-option>
+              <ion-select-option value="mi" class="main-color ion-text-center">Miercoles</ion-select-option>
+              <ion-select-option value="j" class="main-color ion-text-center">Jueves</ion-select-option>
+              <ion-select-option value="v" class="main-color ion-text-center">Viernes</ion-select-option>
+              <ion-select-option value="s" class="main-color ion-text-center">Sabado</ion-select-option>
+              <ion-select-option value="d" class="main-color ion-text-center">Domingo</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <!-- dias -->
-    <ion-row>
-      <ion-col size="6">
-        <ion-item>
-          <ion-label class="catText">DIAS</ion-label>
-          <ion-select interface="popover">
-            <ion-select-option value="nes" class="main-color ion-text-center">Lunes</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Martes</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Miercoles</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Jueves</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Viernes</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Sabado</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Domingo</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
+      <!-- comunas -->
+      <ion-row>
+        <ion-col size="11">
+          <ion-item>
+            <ion-label position="floating" class="main-color">
+              <ion-icon name="map" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Sector</ion-text>
+            </ion-label>
+            <ion-select
+              interface="popover"
+              cancelText="Cancelar" 
+              (ionChange)="onComunaChange($event)"
+              value="{{ selectedComuna }}"
+              >
+              <ion-select-option
+                *ngFor="let comuna of comunas" 
+                value="{{ comuna.id }}"
+                class="ion-text-capitalize"
+                >{{ comuna.name }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-      <ion-col size="5">
-        <ion-item>
-          <ion-label class="catText">DIAS</ion-label>
-          <ion-select interface="popover">
-            <ion-select-option value="nes" class="main-color ion-text-center">Lunes</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Martes</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Miercoles</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Jueves</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Viernes</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Sabado</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Domingo</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <!-- title -->
+      <ion-row class="ion-margin-top">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10">
+          <ion-text class="main-color regText"><b>Descripción del oficio</b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-    <!-- map -->
-    <ion-row>
-      <ion-col size="11">
-        <ion-item>
-          <ion-label position="floating" class="main-color">
-            <ion-icon name="map" slot="start" class="main-color"></ion-icon>
-            <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Sector</ion-text>
-          </ion-label>
-          <ion-input type="text"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <!-- text-area -->
+      <ion-row class="ion-margin-top">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="border ion-text-center">
+          <ion-item lines="none">
+            <ion-textarea 
+              formControlName="descOffice"
+              rows="3" cols="20" 
+              placeholder="Agrega una descripción de tu oficio. Máximo 140 caracteres con espacios.">
+            </ion-textarea>
+          </ion-item>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-    <!-- text -->
-    <ion-row class="ion-margin-top">
-      <ion-col size="1"></ion-col>
-      <ion-col size="10">
-        <ion-text class="main-color regText"><b>Descripción del oficio</b></ion-text>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- images -->
+      <ion-row class="ion-align-items-center ion-margin-top">
+        <ion-col size="7" offset="1">
+          <ion-slides>
+            <!-- default slide -->
+            <ion-slide *ngIf="loadedImgList.length === 0">
+              <ion-img 
+                src="/assets/images/unavailable-image.png"
+                class="imgSlide">
+              </ion-img>
+            </ion-slide>
 
-     <!-- text-area -->
-     <ion-row class="ion-margin-top">
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="border ion-text-center">
-        <ion-item lines="none">
-           <ion-textarea rows="3" cols="20" placeholder="Agrega una descripción de tu oficio. Máximo 140 caracteres con espacios."></ion-textarea>
-        </ion-item>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+            <!-- loaded slides  -->
+            <ion-slide *ngFor="let image of loadedImgList">
+              <ion-img 
+                src="{{ 'http://workintest.herokuapp.com'+image.image }}"
+                class="imgSlide">
+              </ion-img>
+            </ion-slide>
 
-    <!-- images -->
-    <ion-row class="ion-align-items-center">
-      <ion-col size="4" offset="1">
-        <img src="/assets/images/unavailable-image.png" class="imgSingle">
-      </ion-col>
-      <ion-col size="4">
-        <img src="/assets/images/unavailable-image.png" class="imgSingle">
-      </ion-col>
-      <ion-col size="3">
-        <div class="locate-cont">
-          <ion-icon name="add" color="light" class="rating-text"></ion-icon>
-        </div>
-      </ion-col>
-    </ion-row>
+          </ion-slides>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button (click)="onLoadImg(false)" shape="round">
+            <ion-icon name="add" slot="end" color="light" class="rating-text"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
 
-    <!-- Registrar BTN -->
-    <!-- Login BTN -->
-    <ion-row class="ion-margin-bottom">
-      <ion-col offset="1">
-        <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="login()">
-          GUARDAR CAMBIOS
-        </ion-button>
-      </ion-col>
-      <ion-col size="2"></ion-col>
-    </ion-row>
+      <!-- hidden file input -->
+      <div style="display: none;">
+        <input type="file" #hiddenImgInput *ngIf="useInputPicker" (change)="onLoadImgFromInput($event)">
+      </div>
+  
+
+      <!-- save BTN -->
+      <ion-row class="ion-margin-bottom">
+        <ion-col offset="1">
+          <ion-button size="5" expand="block" class="ion-text-uppercase" type="submit" >
+            GUARDAR CAMBIOS
+          </ion-button>
+        </ion-col>
+        <ion-col size="2"></ion-col>
+      </ion-row>
+    </form>
 
   </ion-grid>
 </ion-content>
+<!-- [disabled]="!form.valid"  -->

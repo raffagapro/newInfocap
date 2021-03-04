@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CatPerfilesPageRoutingModule } from './cat-perfiles-routing.module';
+import { MapaPageRoutingModule } from './mapa-routing.module';
 
-import { CatPerfilesPage } from './cat-perfiles.page';
+import { MapaPage } from './mapa.page';
 
 @NgModule({
   imports: [
@@ -14,8 +14,8 @@ import { CatPerfilesPage } from './cat-perfiles.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    CatPerfilesPageRoutingModule
+    MapaPageRoutingModule
   ],
-  declarations: [CatPerfilesPage]
+  declarations: [MapaPage]
 })
-export class CatPerfilesPageModule {}
+export class MapaPageModule {}

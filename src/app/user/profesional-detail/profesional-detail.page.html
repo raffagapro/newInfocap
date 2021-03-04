@@ -16,51 +16,50 @@
 
   <!-- Slider -->
   <ion-grid>
-    <ion-row>
+    <ion-row class="ion-align-items-center ion-margin-top ion-margin-bottom">
       <ion-col size="12">
         <ion-slides>
           <!-- slide -->
-          <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
-          </ion-slide>
-
-          <!-- slide -->
-          <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
-          </ion-slide>
-
-          <!-- slide -->
-          <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+          <ion-slide *ngFor="let image of loadedImgList">
+            <img
+              src="{{ 'http://workintest.herokuapp.com'+image.image }}"
+              class="imgSlide"
+            >
           </ion-slide>
 
         </ion-slides>
       </ion-col>
     </ion-row>
   </ion-grid>
+  <div style="height: 30px;"></div>
 
   <!-- profesional card item -->
-  <div class="no-border" (click)="profDetails()">
+  <div class="no-border">
     <ion-grid>
-      <ion-row class="ion-align-items-center">
+      <ion-row class="ion-align-items-center ion-margin-top">
         <!-- profile img -->
         <ion-col size="4">
           <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png"/>
+            <ion-img src="{{ !selectedProfPhoto ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+selectedProfPhoto }}"></ion-img>
           </ion-avatar>
         </ion-col>
 
         <!-- title -->
         <ion-col size="8">
           <ion-text>
-            <span class="titleSelect main-color">Juan Alcayaga</span><br>
-            <ion-badge color="primary" class="badge-text">Soldador</ion-badge>
-            <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge>
-            <ion-badge color="medium" class="badge-text">Eléctrico</ion-badge><br>
-            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">Vehículo: camioneta</p>
-            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">8 am - 6 pm</p>
-            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">De lunes a viernes</p>
-            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">Santiago Qta. normal.</p>
+            <span class="titleSelect main-color ion-text-capitalize">
+              {{ selectedProCat.supplierName }} {{ selectedProCat.supplierLastName }}
+            </span><br>
+            <!-- se necesita extra codigo para mostar todas la profesiones  -->
+            <ion-badge color="primary" class="badge-text">
+              {{ selectedProCat.categoryName }}
+            </ion-badge><br>
+            <!-- <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge>
+            <ion-badge color="medium" class="badge-text">Eléctrico</ion-badge><br> -->
+            <p class="textSelect main-color ion-text-capitalize" style="margin-top: 0; margin-bottom: 0;">Vehículo: {{ selectedProCat.transportName}}</p>
+            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">Horario: {{ editedHours }}</p>
+            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">Dias: {{ editedDays }}</p>
+            <p class="textSelect main-color ion-text-capitalize" style="margin-top: 0; margin-bottom: 0;">{{ selectedProCat.communeName }}</p>
           </ion-text>
         </ion-col>
 
@@ -70,13 +69,25 @@
 
   <ion-grid>
 
-    <!-- main text -->
+    <!-- desc pro -->
+    <ion-row class="border-bot">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10">
+        <ion-text>
+          <p class="regText ion-text-capitalize ion-text-center">
+            {{ selectedProCat.descProf }}
+          </p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- mdesc of -->
     <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col size="10">
         <ion-text>
-          <p class="regText">
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+          <p class="regText ion-text-capitalize ion-text-center">
+            {{ selectedProCat.description }}
           </p>
         </ion-text>
       </ion-col>
@@ -111,15 +122,15 @@
     </ion-row>
 
     <!-- valoracion -->
-    <ion-row class="border-bot">
+    <!-- <ion-row class="border-bot"> -->
       <!-- Text -->
-      <ion-col size="9">
+      <!-- <ion-col size="9">
         <ion-text>
           <p class="itemText">Valoraciones en relación al trabajo</p>
         </ion-text>
-      </ion-col>
+      </ion-col> -->
       <!-- icon -->
-      <ion-col size="3">
+      <!-- <ion-col size="3">
         <ion-text>
           <p class="ratingText main-color ion-text-center">
             4.83
@@ -127,18 +138,18 @@
           </p>
         </ion-text>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <!-- capacidad tecnica -->
-    <ion-row class="border-bot">
+    <!-- <ion-row class="border-bot"> -->
       <!-- Text -->
-      <ion-col size="8">
+      <!-- <ion-col size="8">
         <ion-text>
           <p class="itemText">Capacidad Técnica</p>
         </ion-text>
-      </ion-col>
+      </ion-col> -->
       <!-- icon -->
-      <ion-col size="4">
+      <!-- <ion-col size="4">
         <ion-text>
           <p class="ratingText main-color ion-text-center">
             de 50
@@ -148,18 +159,18 @@
           </p>
         </ion-text>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <!-- Puntualidad -->
-    <ion-row class="border-bot">
+    <!-- <ion-row class="border-bot"> -->
       <!-- Text -->
-      <ion-col size="8">
+      <!-- <ion-col size="8">
         <ion-text>
           <p class="itemText">Puntualidad</p>
         </ion-text>
-      </ion-col>
+      </ion-col> -->
       <!-- icon -->
-      <ion-col size="4">
+      <!-- <ion-col size="4">
         <ion-text>
           <p class="ratingText main-color ion-text-center">
             de 50
@@ -169,18 +180,18 @@
           </p>
         </ion-text>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <!-- Cordialidad -->
-    <ion-row class="border-bot">
+    <!-- <ion-row class="border-bot"> -->
       <!-- Text -->
-      <ion-col size="8">
+      <!-- <ion-col size="8">
         <ion-text>
           <p class="itemText">Cordialidad</p>
         </ion-text>
-      </ion-col>
+      </ion-col> -->
       <!-- icon -->
-      <ion-col size="4">
+      <!-- <ion-col size="4">
         <ion-text>
           <p class="ratingText main-color ion-text-center">
             de 50
@@ -190,18 +201,18 @@
           </p>
         </ion-text>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <!-- Servicio y Satisfacción -->
-    <ion-row class="border-bot">
+    <!-- <ion-row class="border-bot"> -->
       <!-- Text -->
-      <ion-col size="8">
+      <!-- <ion-col size="8">
         <ion-text>
           <p class="itemText">Servicio y Satisfacción</p>
         </ion-text>
-      </ion-col>
+      </ion-col> -->
       <!-- icon -->
-      <ion-col size="4">
+      <!-- <ion-col size="4">
         <ion-text>
           <p class="ratingText main-color ion-text-center">
             de 50
@@ -211,12 +222,15 @@
           </p>
         </ion-text>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <!-- footer text -->
     <ion-row class="subtitle ion-margin-top">
       <ion-col size="8" offset="2" class="ion-text-center">
-        <ion-text class="lastText main-color"><b>¿Quieres enviarle una solicitud de servicio a Juan Alcayaga?</b></ion-text>
+        <ion-text class="lastText main-color"><b>
+          ¿Quieres enviarle una solicitud de servicio a 
+          <span class="ion-text-capitalize"> {{ selectedProCat.supplierName }} {{ selectedProCat.supplierLastName }}?</span>
+        </b></ion-text>
       </ion-col>
     </ion-row>
 

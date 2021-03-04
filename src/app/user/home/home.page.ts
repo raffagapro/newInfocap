@@ -7,6 +7,8 @@ import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
+import { API } from 'src/environments/environment';
+import { SolicitudService } from 'src/app/services/solicitud.service';
 
 interface Categories {
   id: string,
@@ -33,6 +35,7 @@ export class HomePage implements OnInit, OnDestroy {
     private lc: LoadingController,
     private us: UserService,
     private cs: CategoryService,
+    private solServ: SolicitudService,
   ) { }
 
   ngOnInit() {
@@ -49,7 +52,7 @@ export class HomePage implements OnInit, OnDestroy {
     }).then(loadingEl => {
       loadingEl.present();
       let headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
-      this.http.get('http://workintest.herokuapp.com/api/categories', {headers: headers}).subscribe(resData => {
+      this.http.get(API+'/categories', {headers: headers}).subscribe(resData => {
         loadingEl.dismiss();
         // console.log(resData['data']);
         this.categories = resData['data'];
@@ -61,6 +64,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   map(catId: string){
+    this.solServ.setCat(catId);
     this.router.navigate(['/user/map']);
   }
 

@@ -17,112 +17,40 @@
   <ion-grid fixed>
     <ion-row class="ion-margin-top">
       <ion-col size="11" class="ion-text-left">
-        <ion-text class="main-color title"><b>Buenos días Juan Alcayaga, tienes los siguientes trabajos en tu agenda.</b></ion-text>
+        <ion-text class="main-color title"><b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes los siguientes trabajos en tu agenda.</b></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
   </ion-grid>
 
-  <!-- solicitud card item -->
-  <div class="prof-cont no-border" (click)="solicitudDetail()">
+  <!-- servicios agendados -->
+  <div class="prof-cont no-border" *ngFor="let service of loadedServices" (click)="solicitudDetails(service.id)">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
         <ion-col size="8" class="ion-justify-content-center">
           <ion-text>
-            <span class="titleSelect main-color">Emmy Mut </span>&nbsp;&nbsp;
-            <ion-badge color="primary" class="badge-text">Cerrajería</ion-badge>
+            <span class="titleSelect main-color">{{service.clientName+" "+ service.clientLastName}} </span>&nbsp;&nbsp;
+            <ion-badge color="primary" class="badge-text">Sin Categoria: API</ion-badge>
             <br>
             <small>
               <ion-icon name="calendar" color="primary" class="iconFix"></ion-icon>
-              27 nov 2020
+              {{service.date_required}}
               <ion-icon name="time" color="primary" class="iconFix"></ion-icon>
-              8:00 - 16:00 h
+              {{service.date_required.hours}}
             </small>
           </ion-text>
         </ion-col>
 
-        <!-- rating -->
-        <ion-col size="4">
+        <!-- ticket numer -->
+        <ion-col size="4" >
           <ion-text>
-            <p class="ticketText ion-text-center ion-no-margin">Ticket #100091234</p>
-            <ion-button expand="block" fill="outline" shape="round" class="miniBtnTxt" (click)="map()">
+            <p class="ticketText ion-text-center ion-no-margin">Ticket #{{service.ticket_number}}</p>
+            <!-- <ion-button expand="block" fill="outline" shape="round" class="miniBtnTxt" (click)="map()">
               <ion-icon slot="start" name="map"></ion-icon>
               VER MAPA
-            </ion-button>
-
-          </ion-text>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <!-- solicitud card item -->
-  <div class="prof-cont no-border" (click)="solicitudDetail()">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        <!-- title -->
-        <ion-col size="8" class="ion-justify-content-center">
-          <ion-text>
-            <span class="titleSelect main-color">Pedrito Pérez </span>&nbsp;&nbsp;
-            <ion-badge color="primary" class="badge-text">Carpintero</ion-badge>
-            <br>
-            <small>
-              <ion-icon name="calendar" color="primary" class="iconFix"></ion-icon>
-              30 nov 2020
-              <ion-icon name="time" color="primary" class="iconFix"></ion-icon>
-              12:00 - 18:00 h
-            </small>
-          </ion-text>
-        </ion-col>
-
-        <!-- rating -->
-        <ion-col size="4">
-          <ion-text>
-            <p class="ticketText ion-text-center ion-no-margin">Ticket #100091234</p>
-            <ion-button expand="block" fill="outline" shape="round" class="miniBtnTxt" (click)="map()">
-              <ion-icon slot="start" name="map"></ion-icon>
-              VER MAPA
-            </ion-button>
-
-          </ion-text>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <!-- solicitud card item -->
-  <div class="prof-cont no-border" (click)="solicitudDetail()">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        <!-- title -->
-        <ion-col size="8" class="ion-justify-content-center">
-          <ion-text>
-            <span class="titleSelect main-color">Emmy Mut </span>&nbsp;&nbsp;
-            <ion-badge color="primary" class="badge-text">Cerrajería</ion-badge>
-            <br>
-            <small>
-              <ion-icon name="calendar" color="primary" class="iconFix"></ion-icon>
-              27 nov 2020
-              <ion-icon name="time" color="primary" class="iconFix"></ion-icon>
-              8:00 - 16:00 h
-            </small>
-          </ion-text>
-        </ion-col>
-
-        <!-- rating -->
-        <ion-col size="4">
-          <ion-text>
-            <p class="ticketText ion-text-center ion-no-margin">Ticket #100091234</p>
-            <ion-button expand="block" fill="outline" shape="round" class="miniBtnTxt" (click)="map()">
-              <ion-icon slot="start" name="map"></ion-icon>
-              VER MAPA
-            </ion-button>
+            </ion-button> -->
 
           </ion-text>
         </ion-col>
@@ -132,7 +60,7 @@
   </div>
 
   <!-- title -->
-  <ion-grid fixed>
+  <ion-grid fixed *ngIf="loadedVisits">
     <ion-row>
       <ion-col size="11" class="ion-text-left">
         <ion-text color="danger" class="title"><b>Tienes las siguientes visitas de evaluación agendadas.</b></ion-text>
@@ -141,7 +69,7 @@
     </ion-row>
   </ion-grid>
 
-  <!-- solicitud card item -->
+  <!-- visitas agendadas -->
   <div class="prof-cont no-border" (click)="solicitudDetail()">
     <ion-grid>
       <ion-row class="ion-align-items-center">

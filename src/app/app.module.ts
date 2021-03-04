@@ -7,6 +7,10 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+// geolocation and native-geocoder
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ConfirmSuccessModalComponent as CSprofAgendfinal } from './profesional/home/agendados/agendados-finalizar/confirm-success-modal/confirm-success-modal.component';
@@ -28,6 +32,7 @@ import { ConfirmVisitaComponent } from './profesional/home/solicitudes/visita-te
 import { ConfirmServComponent } from './profesional/home/solicitudes/definicion-servicio/confirm-serv/confirm-serv.component';
 import { SuccessModalComponent as CSUserProfileUpdate } from './user/profile-page/success-modal/success-modal.component';
 import { SuccessModalComponent as CSproProfileUpdate } from './profesional/perfil/success-modal/success-modal.component';
+import { SuccessModalComponent as CSproCatProfileUpdate } from './profesional/cat-perfiles/success-modal/success-modal.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +56,7 @@ import { SuccessModalComponent as CSproProfileUpdate } from './profesional/perfi
     ConfirmServComponent,
     CSUserProfileUpdate,
     CSproProfileUpdate,
+    CSproCatProfileUpdate,
   ],
   entryComponents: [],
   imports: [
@@ -62,7 +68,9 @@ import { SuccessModalComponent as CSproProfileUpdate } from './profesional/perfi
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    Geolocation,
+    NativeGeocoder
   ],
   bootstrap: [AppComponent]
 })

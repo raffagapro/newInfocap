@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders,  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { take, map, tap, delay } from 'rxjs/operators';
+import { API, PATH } from 'src/environments/environment';
 
 import { User } from '../model/user.model';
 
@@ -10,7 +11,7 @@ import { User } from '../model/user.model';
 })
 export class UserService {
   private _loggedUser = new BehaviorSubject<User>(
-    new User(null, null, null, 'assets/images/avatar.png', null, null, null, null, null)
+    new User(null, null, null, null, null, null, null, null, null)
   );
 
   constructor(
@@ -26,19 +27,19 @@ export class UserService {
   }
 
   rmUser(){
-    this._loggedUser.next(new User(null, null, null, 'assets/images/avatar.png', null, null, null, null, null));
+    this._loggedUser.next(new User(null, null, null, null, null, null, null, null, null));
   }
 
   dbUserGrab(token: string, role: string){
     let headers = new HttpHeaders().set('Authorization', 'Bearer '+token);
-    this.http.get('http://workintest.herokuapp.com/api/account/me', {headers: headers})
+    this.http.get(API+'/account/me', {headers: headers})
       .subscribe(resData => {
         // console.log(resData['data'].id);
         let img: string;
         if (resData['data'].img_profile === null) {
-          img = 'assets/images/avatar.png';
+          img = null;
         }else{
-          img = resData['data'].user.img_profile;
+          img = resData['data'].img_profile;
         }
         this._loggedUser.next(
           new User(

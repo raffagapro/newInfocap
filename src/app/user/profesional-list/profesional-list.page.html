@@ -14,7 +14,7 @@
 
 <ion-content>
   <!-- filter bar -->
-  <ion-grid>
+  <!-- <ion-grid>
     <ion-row class="ion-margin-top">
 
       <ion-col size="2" class="fStart">
@@ -48,22 +48,22 @@
       </ion-col>
 
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 
   <!-- emergency message -->
-  <div class="prof-cont ion-margin-top no-border" (click)="eRequest()">
+  <!-- <div class="prof-cont ion-margin-top no-border" (click)="eRequest()">
     <ion-grid>
-      <ion-row>
+      <ion-row> -->
 
         <!-- profile img -->
-        <ion-col size="3">
+        <!-- <ion-col size="3">
           <ion-avatar class="profileImg">
             <img src="/assets/images/avatar.png"/>
           </ion-avatar>
-        </ion-col>
+        </ion-col> -->
 
         <!-- title -->
-        <ion-col size="9">
+        <!-- <ion-col size="9">
           <ion-text>
             <span class="eSelect">Necesito el servicio urgente</span><br>
             <span class="textSelect">Esta solicitud  es de carácter urgente y será enviada a los 10 profesionales mejor catalogados para que puedan atender tu solicitud lo antes posible.</span>
@@ -72,33 +72,34 @@
 
       </ion-row>
     </ion-grid>
-  </div>
+  </div> -->
 
   <!-- profesional card item -->
-  <div class="prof-cont ion-margin-top no-border" (click)="profDetails()">
+  <div
+    *ngFor="let prof of profList"
+    class="prof-cont ion-margin-top no-border"
+    (click)="profDetails(prof.id, prof.img_profile)">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
         <!-- profile img -->
         <ion-col size="3">
           <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png"/>
+            <ion-img src="{{ !prof.img_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+prof.img_profile }}"></ion-img>
           </ion-avatar>
         </ion-col>
 
         <!-- title -->
-        <ion-col size="5">
+        <ion-col size="9">
           <ion-text>
-            <span class="titleSelect main-color">Juan Alcayaga</span><br>
-            <ion-badge color="primary" class="badge-text">Soldador</ion-badge><br>
-            <span class="textSelect">
-              Soldados con más de 5 años de experiencia, especialista en rejas, parrillas, etc.
-            </span>
+            <span class="titleSelect main-color ion-text-capitalize">{{ prof.supplierName }} {{ prof.supplierLastName }}</span><br>
+            <ion-badge color="primary" class="badge-text">{{ prof.categoryName }}</ion-badge><br>
+            <span class="textSelect ion-text-capitalize">{{ prof.descProf }}</span>
           </ion-text>
         </ion-col>
 
         <!-- rating -->
-        <ion-col size="4">
+        <!-- <ion-col size="4">
           <ion-text>
             <p class="ratingText main-color ion-text-center">
               4.83
@@ -106,7 +107,7 @@
               / 50
               <ion-icon name="ribbon"></ion-icon>
             </p><br>
-            <!-- icons -->
+
             <div class="locate-cont">
               <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
             </div>
@@ -120,267 +121,7 @@
               <ion-icon name="trophy" color="light" class="rating-text"></ion-icon>
             </div>
           </ion-text>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <!-- profesional card item -->
-  <div class="prof-cont ion-margin-top no-border" (click)="profDetails()">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        <!-- profile img -->
-        <ion-col size="3">
-          <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png"/>
-          </ion-avatar>
-        </ion-col>
-
-        <!-- title -->
-        <ion-col size="5">
-          <ion-text>
-            <span class="titleSelect main-color">Erick Rojas</span><br>
-            <ion-badge color="primary" class="badge-text">Soldador</ion-badge><br>
-            <span class="textSelect">
-              Soldados con más de 5 años de experiencia, especialista en rejas, parrillas, etc.
-            </span>
-          </ion-text>
-        </ion-col>
-
-        <!-- rating -->
-        <ion-col size="4">
-          <ion-text>
-            <p class="ratingText main-color ion-text-center">
-              4.83
-              <ion-icon name="star"></ion-icon>
-              / 50
-              <ion-icon name="ribbon"></ion-icon>
-            </p><br>
-            <!-- icons -->
-            <div class="locate-cont">
-              <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="time" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="heart" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="trophy" color="light" class="rating-text"></ion-icon>
-            </div>
-          </ion-text>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <!-- profesional card item -->
-  <div class="prof-cont ion-margin-top no-border" (click)="profDetails()">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        <!-- profile img -->
-        <ion-col size="3">
-          <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png"/>
-          </ion-avatar>
-        </ion-col>
-
-        <!-- title -->
-        <ion-col size="5">
-          <ion-text>
-            <span class="titleSelect main-color">Eduardo Ramírez</span><br>
-            <ion-badge color="primary" class="badge-text">Soldador</ion-badge><br>
-            <span class="textSelect">
-              Soldados con más de 5 años de experiencia, especialista en rejas, parrillas, etc.
-            </span>
-          </ion-text>
-        </ion-col>
-
-        <!-- rating -->
-        <ion-col size="4">
-          <ion-text>
-            <p class="ratingText main-color ion-text-center">
-              4.83
-              <ion-icon name="star"></ion-icon>
-              / 50
-              <ion-icon name="ribbon"></ion-icon>
-            </p><br>
-            <!-- icons -->
-            <div class="locate-cont">
-              <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="time" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="heart" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="trophy" color="light" class="rating-text"></ion-icon>
-            </div>
-          </ion-text>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <!-- profesional card item -->
-  <div class="prof-cont ion-margin-top no-border" (click)="profDetails()">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        <!-- profile img -->
-        <ion-col size="3">
-          <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png"/>
-          </ion-avatar>
-        </ion-col>
-
-        <!-- title -->
-        <ion-col size="5">
-          <ion-text>
-            <span class="titleSelect main-color">Antonio Ravelo</span><br>
-            <ion-badge color="primary" class="badge-text">Soldador</ion-badge><br>
-            <span class="textSelect">
-              Soldados con más de 5 años de experiencia, especialista en rejas, parrillas, etc.
-            </span>
-          </ion-text>
-        </ion-col>
-
-        <!-- rating -->
-        <ion-col size="4">
-          <ion-text>
-            <p class="ratingText main-color ion-text-center">
-              4.83
-              <ion-icon name="star"></ion-icon>
-              / 50
-              <ion-icon name="ribbon"></ion-icon>
-            </p><br>
-            <!-- icons -->
-            <div class="locate-cont">
-              <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="time" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="heart" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="trophy" color="light" class="rating-text"></ion-icon>
-            </div>
-          </ion-text>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <!-- profesional card item -->
-  <div class="prof-cont ion-margin-top no-border" (click)="profDetails()">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        <!-- profile img -->
-        <ion-col size="3">
-          <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png"/>
-          </ion-avatar>
-        </ion-col>
-
-        <!-- title -->
-        <ion-col size="5">
-          <ion-text>
-            <span class="titleSelect main-color">Isaac Rodríguez</span><br>
-            <ion-badge color="primary" class="badge-text">Soldador</ion-badge><br>
-            <span class="textSelect">
-              Soldados con más de 5 años de experiencia, especialista en rejas, parrillas, etc.
-            </span>
-          </ion-text>
-        </ion-col>
-
-        <!-- rating -->
-        <ion-col size="4">
-          <ion-text>
-            <p class="ratingText main-color ion-text-center">
-              4.83
-              <ion-icon name="star"></ion-icon>
-              / 50
-              <ion-icon name="ribbon"></ion-icon>
-            </p><br>
-            <!-- icons -->
-            <div class="locate-cont">
-              <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="time" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="heart" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="trophy" color="light" class="rating-text"></ion-icon>
-            </div>
-          </ion-text>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <!-- profesional card item -->
-  <div class="prof-cont ion-margin-top no-border" (click)="profDetails()">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        <!-- profile img -->
-        <ion-col size="3">
-          <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png"/>
-          </ion-avatar>
-        </ion-col>
-
-        <!-- title -->
-        <ion-col size="5">
-          <ion-text>
-            <span class="titleSelect main-color">Camilo Figueroa</span><br>
-            <ion-badge color="primary" class="badge-text">Soldador</ion-badge><br>
-            <span class="textSelect">
-              Soldados con más de 5 años de experiencia, especialista en rejas, parrillas, etc.
-            </span>
-          </ion-text>
-        </ion-col>
-
-        <!-- rating -->
-        <ion-col size="4">
-          <ion-text>
-            <p class="ratingText main-color ion-text-center">
-              4.83
-              <ion-icon name="star"></ion-icon>
-              / 50
-              <ion-icon name="ribbon"></ion-icon>
-            </p><br>
-            <!-- icons -->
-            <div class="locate-cont">
-              <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="time" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="heart" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="trophy" color="light" class="rating-text"></ion-icon>
-            </div>
-          </ion-text>
-        </ion-col>
+        </ion-col> -->
 
       </ion-row>
     </ion-grid>

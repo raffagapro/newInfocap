@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/user/home" text="" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="main-color title-toolbar">¿DÓNDE NOS NECESITAS?</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div #map id="map"></div>
+
+  <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+    <ion-fab-button color="primary" (click)="loadMap()">
+      <ion-icon name="locate" color="light"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+  <!-- throw alert with cords  -->
+  <!-- <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="showCords()" ion-fab color="tertiary">
+      <ion-icon name="information-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+
+  <!-- nombre -->
+  <ion-grid class="top-center">
+    <ion-row>
+      <ion-col size="10" offset="1">
+        <ion-searchbar
+          color="primary"
+          placeholder="¿Cuál es la dirección?"
+          [(ngModel)]="autocomplete.input"
+          (ionChange)="updateSearchResults($event)" 
+          (ionClear)="clearAutocomplete()"
+          animated
+          >
+        </ion-searchbar>
+        <ion-list [hidden]="autocompleteItems.length == 0">
+          <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+            {{ item.description }}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-no-padding">
+    <ion-grid>
+
+      <!-- title -->
+      <!-- <ion-row class="ion-no-padding ion-no-margin">
+        <ion-col size="10" offset="1" class="ion-text-center">
+          <ion-text class="main-color ion-text-uppercase title">CONFIRMA TU DIRECCIÓN</ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+        <ion-col size="1" offset="1"></ion-col>
+        <ion-col size="8" class="ion-text-center">
+          <ion-text><hr></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row> -->
+
+      <form [formGroup]="form" (ngSubmit)="searchPro()">
+        <!-- detalles de la direccion -->
+        <ion-row class="ion-no-padding ion-no-margion">
+          <ion-col size="10" offset="1">
+            <ion-item>
+              <ion-label position="floating" class="main-color">
+                <ion-icon name="pricetag" slot="start" class="main-color"></ion-icon>
+                <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Dirección</ion-text>
+              </ion-label>
+              <ion-input 
+                type="text"
+                formControlName="address"
+                disabled
+                ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <!-- find BTN -->
+        <ion-row class="ion-margin-top">
+          <ion-col size="1"></ion-col>
+          <ion-col>
+            <ion-button size="10" expand="block" class="ion-text-uppercase" type="submit" [disabled]="!form.valid">
+              CONTINUAR
+            </ion-button>
+          </ion-col>
+          <ion-col size="1"></ion-col>
+        </ion-row>
+    </form>
+
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

@@ -21,16 +21,18 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png"/>
+            <ion-img src="{{ !selectedProfPhoto ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+selectedProfPhoto }}"></ion-img>
           </ion-avatar>
         </ion-col>
 
         <!-- title -->
         <ion-col size="7">
           <ion-text>
-            <span class="titleSelect main-color">Juan Alcayaga</span><br>
-            <ion-badge color="primary" class="badge-text">Soldador</ion-badge><br>
-            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">Santiago Qta. normal.</p>
+            <span class="titleSelect main-color ion-text-capitalize">
+              {{ selectedProfesional.supplierName }}  {{ selectedProfesional.supplierLastName }}
+            </span><br>
+            <ion-badge color="primary" class="badge-text ion-text-capitalize">{{ selectedProfesional.categoryName }}</ion-badge><br>
+            <p class="textSelect main-color badge-text ion-text-capitalize" style="margin-top: 0; margin-bottom: 0;">{{ selectedProfesional.communeName }}</p>
           </ion-text>
         </ion-col>
 
@@ -48,90 +50,123 @@
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
+    <form [formGroup]="form" (ngSubmit)="confirmRequest()">
+      <!-- text-area -->
+      <ion-row class="ion-margin-top">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="border ion-text-center">
+          <ion-item lines="none">
+            <ion-textarea
+              rows="3" cols="20"
+              formControlName="description"
+              placeholder="Describe lo más posible y claro el trabajo, así podremos dar respuesta más rápido."
+              >
+            </ion-textarea>
+          </ion-item>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-    <!-- text-area -->
-    <ion-row class="ion-margin-top">
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="border ion-text-center">
-        <ion-item lines="none">
-           <ion-textarea rows="3" cols="20" placeholder="Describe lo más posible y claro el trabajo, así podremos dar respuesta más rápido."></ion-textarea>
-        </ion-item>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- text -->
+      <ion-row class="ion-margin-top">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="ion-text-center">
+          <ion-text class="main-color regText"><b>Agrega imágenes que ayudarán al profesional a responder mejor a tu solicitud.</b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-    <!-- text -->
-    <ion-row class="ion-margin-top">
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color regText"><b>Agrega imágenes que ayudarán al profesional a responder mejor a tu solicitud.</b></ion-text>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- images -->
+      <ion-row class="ion-align-items-center">
+        <ion-col size="7" offset="1">
+          <ion-slides>
 
-    <!-- images -->
-    <ion-row class="ion-align-items-center">
-      <ion-col size="4" offset="1">
-        <img src="/assets/images/unavailable-image.png" class="imgSingle">
-      </ion-col>
-      <ion-col size="4">
-        <img src="/assets/images/unavailable-image.png" class="imgSingle">
-      </ion-col>
-      <ion-col size="3">
-        <div class="locate-cont">
-          <ion-icon name="add" color="light" class="rating-text"></ion-icon>
-        </div>
-      </ion-col>
-    </ion-row>
+            <!-- slide -->
+            <ion-slide *ngFor="let image of loadedImagesDisplay" [loadedImagesDisplay]='loadedImagesDisplay'>
+              <ion-img 
+                src="{{ image }}"
+                class="imgSlide"
+              >
+              </ion-img>
+            </ion-slide>
 
-    <!-- Fecha requerida -->
-    <ion-row>
-      <ion-col size="11">
-        <ion-item>
-          <ion-label class="main-color">
-            <ion-icon name="calendar" slot="start" class="main-color"></ion-icon>
-            <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
-          </ion-label>
-          <ion-datetime placeholder="Definir fecha"></ion-datetime>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+          </ion-slides>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button (click)="onLoadImg()" shape="round">
+            <ion-icon name="add" slot="end" color="light" class="rating-text"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
 
-    <!-- Rango de horas -->
+      <!-- hidden file input -->
+      <div style="display: none;">
+        <input type="file" #hiddenImgInput *ngIf="useInputPicker" (change)="onLoadImgFromInput($event)">
+      </div>
 
-    <!-- pickers -->
-    <ion-row>
-      <ion-col size="6">
-        <ion-item>
-          <ion-label class="main-color">
-            <ion-icon name="time" slot="start" class="main-color"></ion-icon>
-            <ion-text class="main-color">Hora inicial</ion-text>
-          </ion-label>
-          <ion-datetime display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
-        </ion-item>
-      </ion-col>
+      <!-- Fecha requerida -->
+      <ion-row>
+        <ion-col size="11">
+          <ion-item>
+            <ion-label class="main-color" position="floating">
+              <ion-icon name="calendar" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
+            </ion-label>
+            <ion-datetime 
+              formControlName="date_required"
+              placeholder="Definir fecha"
+              >
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-      <ion-col size="5">
-        <ion-item>
-          <ion-label class="main-color">
-            <ion-icon name="time" slot="start" class="main-color"></ion-icon>
-            <ion-text class="main-color">Hora final</ion-text>
-          </ion-label>
-          <ion-datetime display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <!-- Rango de horas -->
 
-    <!-- enviar solicitud BTN -->
-    <ion-row class="ion-margin-top ion-margin-bottom">
-      <ion-col size="1"></ion-col>
-      <ion-col>
-        <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="confirmRequest()">
-          CONFIRMAR SOLICITUD
-        </ion-button>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- pickers -->
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label class="main-color" position="floating">
+              <ion-icon name="time" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">Hora inicial</ion-text>
+            </ion-label>
+            <ion-datetime 
+              formControlName="sHour"
+              display-format="h:mm A" 
+              picker-format="h:mm A"
+              >
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="5">
+          <ion-item>
+            <ion-label class="main-color" position="floating">
+              <ion-icon name="time" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">Hora final</ion-text>
+            </ion-label>
+            <ion-datetime
+              formControlName="eHour"
+              display-format="h:mm A" 
+              picker-format="h:mm A"
+              >
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!-- enviar solicitud BTN -->
+      <ion-row class="ion-margin-top ion-margin-bottom">
+        <ion-col size="1"></ion-col>
+        <ion-col>
+          <ion-button size="5" expand="block" class="ion-text-uppercase" type="submit" [disabled]="!form.valid">
+            CONFIRMAR SOLICITUD
+          </ion-button>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+    </form>
 
   </ion-grid>
 

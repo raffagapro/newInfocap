@@ -5,10 +5,12 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Observable } from 'rxjs';
+import { Plugins, Capacitor } from '@capacitor/core'
 
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { User } from './model/user.model';
+import { API } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -35,8 +37,11 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      // this.statusBar.styleDefault();
+      if (Capacitor.isPluginAvailable('SplashScreen')) {
+        Plugins.SplashScreen.hide();
+      }
+      // this.splashScreen.hide();
     });
   }
 
@@ -54,7 +59,7 @@ export class AppComponent {
   logout(){
     this.menuCtrl.close();
     this.as.logout();
-    this.router.navigate(['/']);
+    this.router.navigateByUrl('/');
   }
 
   profile(){

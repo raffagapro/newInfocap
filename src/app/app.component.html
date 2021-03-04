@@ -8,8 +8,7 @@
         <ion-row class="imgCont">
           <ion-col>
             <ion-avatar class="ion-margin-start profileImg">
-              <ion-img *ngIf="!user" src="assets/images/avatar.png"></ion-img>
-              <ion-img *ngIf="user !== undefined" src="{{ user.img_profile }}"></ion-img>
+              <ion-img src="{{ !user ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}"></ion-img>
             </ion-avatar>
           </ion-col>
         </ion-row>
@@ -33,19 +32,19 @@
         <ion-menu-toggle menu="user">
 
           <!-- home -->
-          <ion-item lines="none" href="/user/home">
+          <ion-item lines="none" routerLink="/user/home">
             <ion-icon slot="start" name="home" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Inicio</ion-label>
           </ion-item>
 
           <!-- profesionales contactados -->
-          <ion-item lines="none" href="/user/prof-contactados-list">
+          <ion-item lines="none" routerLink="/user/prof-contactados-list">
             <ion-icon slot="start" name="people" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Profesionales contactados</ion-label>
           </ion-item>
 
           <!-- Estado de solicitud -->
-          <ion-item lines="none" href="/user/solicitudes">
+          <ion-item lines="none" routerLink="/user/solicitudes">
             <ion-icon slot="start" name="clipboard" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Estado de solicitud</ion-label>
           </ion-item>
@@ -57,7 +56,7 @@
           </ion-item>
 
           <!-- Notificaciones -->
-          <ion-item lines="none" href="/user/notificaciones">
+          <ion-item lines="none" routerLink="/user/notificaciones">
             <ion-icon slot="start" name="notifications" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Notificaciones</ion-label>
           </ion-item>
@@ -100,8 +99,7 @@
         <ion-row class="imgCont">
           <ion-col>
             <ion-avatar class="ion-margin-start profileImg">
-              <ion-img *ngIf="!user" src="assets/images/avatar.png"></ion-img>
-              <ion-img *ngIf="user !== undefined" src="{{ user.img_profile }}"></ion-img>
+              <ion-img src="{{ !user ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}"></ion-img>
             </ion-avatar>
           </ion-col>
         </ion-row>
@@ -125,13 +123,13 @@
         <ion-menu-toggle menu="profesional">
 
           <!-- mis trabajos -->
-          <ion-item lines="none" href="/profesional/home">
+          <ion-item lines="none" routerLink="/profesional/home">
             <ion-icon slot="start" name="briefcase" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Mis trabajos</ion-label>
           </ion-item>
 
           <!-- Notificaciones -->
-          <ion-item lines="none" href="/profesional/notificaciones">
+          <ion-item lines="none" routerLink="/profesional/notificaciones">
             <ion-icon slot="start" name="notifications" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">
               Notificaciones
@@ -144,13 +142,13 @@
           </ion-item>
 
           <!-- calificacion -->
-          <ion-item lines="none" href="/profesional/rating">
+          <ion-item lines="none" routerLink="/profesional/rating">
             <ion-icon slot="start" name="star" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Calificación</ion-label>
           </ion-item>
 
           <!-- perfil -->
-          <ion-item lines="none" href="/profesional/cat-perfiles">
+          <ion-item lines="none" routerLink="/profesional/cat-perfiles">
             <ion-icon slot="start" name="people-circle" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Mis Perfiles</ion-label>
           </ion-item>
@@ -162,7 +160,7 @@
           </ion-item>
 
           <!-- Mi billetera -->
-          <ion-item lines="none" href="/profesional/wallet">
+          <ion-item lines="none" routerLink="/profesional/wallet">
             <ion-icon slot="start" name="wallet" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Mi billetera</ion-label>
           </ion-item>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LoadingController, ModalController } from '@ionic/angular';
+import { API } from 'src/environments/environment';
 import { SuccessModalComponent } from './success-modal/success-modal.component';
 
 
@@ -55,7 +56,7 @@ export class RegisterPage implements OnInit {
       message: 'Creando usuario...'
     }).then(loadingEl => {
       loadingEl.present();
-      this.http.post('http://workintest.herokuapp.com/api/auth/register', {
+      this.http.post(API+'/auth/register', {
         // this.http.post('http://127.0.0.1:8000/api/auth/register', {
         name: name,
         last_name: l_name,
