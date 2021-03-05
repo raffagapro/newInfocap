@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ProfCategory } from '../model/profCategory.model';
+import { ProSolicitud } from '../model/proSolicitud.model';
 import { Solicitud } from '../model/solicitud.model';
+import { SolicitudObject } from '../model/solicitudObject.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SolicitudService {
-  private _solicitud: Solicitud = new Solicitud(null, null, null, null, null, null, null);
+  private _solicitud: Solicitud = new Solicitud(null, null, null, null, null, null, null, null, null);
 
   constructor() { }
 
@@ -37,7 +39,15 @@ export class SolicitudService {
     this._solicitud.solicitudID = servId;
   }
 
+  setServiceObj(serObj: SolicitudObject){
+    this._solicitud.solicitudOBJ = serObj;
+  }
+
+  setProServiceObj(serObj: ProSolicitud){
+    this._solicitud.solicitudProOBJ = serObj;
+  }
+
   clearSolicitud(){
-    this._solicitud = new Solicitud(null, null, null, null, null, null, null);
+    this._solicitud = new Solicitud(null, null, null, null, null, null, null, null, null);
   }
 }

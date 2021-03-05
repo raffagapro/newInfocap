@@ -21,8 +21,30 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
   headers: HttpHeaders;
-  loadedService;
+  loadedService = {
+    categoryName: null,
+    category_id: null,
+    created_date: null,
+    date_required: null,
+    descProf: null,
+    description: null,
+    hours_professional: null,
+    hours_requestservice: null,
+    img_profile: null,
+    professional_profiles_id: null,
+    request_id: null,
+    status_id: null,
+    status_name: null,
+    status_order: null,
+    supplierLastName: null,
+    supplierName: null,
+    supplier_id: null,
+    ticket_number: null,
+    user_client_id: null,
+    work_days: null,
+  };
   serviceId: string;
+  wDate;
 
   constructor(
     private modalController: ModalController,
@@ -57,6 +79,9 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
         loadingEl.dismiss();
         console.log(resData['data']);
         this.loadedService = resData['data'];
+        this.solServ.setServiceObj(resData['data']);
+        let worDate = this.loadedService.created_date.split(" ");
+        this.wDate = worDate[0];
       }, err =>{
         loadingEl.dismiss();
         console.log(err);

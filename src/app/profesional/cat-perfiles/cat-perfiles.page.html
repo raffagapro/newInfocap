@@ -14,7 +14,6 @@
     <ion-row>
       <ion-col size="9" offset="1">
         <ion-item>
-          <ion-label class="catText" position="floating">CATEGORÍAS</ion-label>
           <ion-select 
             interface="action-sheet" 
             cancelText="Cancelar" 
@@ -163,25 +162,28 @@
       <!-- comunas -->
       <ion-row>
         <ion-col size="11">
-          <ion-item>
-            <ion-label position="floating" class="main-color">
-              <ion-icon name="map" slot="start" class="main-color"></ion-icon>
-              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Sector</ion-text>
-            </ion-label>
-            <ion-select
-              interface="popover"
-              cancelText="Cancelar" 
-              (ionChange)="onComunaChange($event)"
-              value="{{ selectedComuna }}"
-              >
-              <ion-select-option
-                *ngFor="let comuna of comunas" 
-                value="{{ comuna.id }}"
-                class="ion-text-capitalize"
-                >{{ comuna.name }}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
+
+          <ion-searchbar
+            placeholder="Sector"
+            (ionChange)="onSearchChange($event)"
+            [(ngModel)]="searchValue"
+            [ngModelOptions]="{standalone: true}"
+            >
+          </ion-searchbar>
+          <ion-list [hidden]="comunas.length === 0">
+            <ion-item *ngFor="let comuna of comunas" class="ion-text-capitalize" tappable (click)="selectComuna(comuna.id)">
+              {{ comuna.name }}
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <!-- badges row  -->
+        <ion-col size="10" offset="1">
+          <div>
+            <ion-badge color="primary" *ngFor="let sComuna of selectedComunas" class="ion-text-capitalize">
+              {{ sComuna.name }}
+              <ion-icon name="close-outline" color="danger" tappable (click)="onRemoveComuna(sComuna.id)"></ion-icon>
+            </ion-badge>
+          </div>
         </ion-col>
       </ion-row>
 

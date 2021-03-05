@@ -5,11 +5,11 @@
     <ion-row>
       <ion-col size="12">
         <ion-text color="danger" class="ticketText">
-          Ticket #100091234
+          Ticket #{{ loadedService.ticket_number }}
         </ion-text>
         <br>
         <ion-text color="primary" class="dateText">
-          18 nov 2020
+          {{ wDate }}
         </ion-text>
       </ion-col>
     </ion-row>
@@ -22,28 +22,22 @@
         </div>
         <ion-text class="main-color title"><b> Trabajo requerido</b></ion-text>
         <br>
-        <ion-text class="subtitle">Cambio de chapas</ion-text>
+        <ion-text class="subtitle">{{ loadedService.description }}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
 
     <!-- Slider -->
-    <ion-row class="minusMargin">
+    <ion-row class="">
       <ion-col size="12">
         <ion-slides [options]="slideOptions">
-          <!-- slide -->
-          <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
-          </ion-slide>
 
           <!-- slide -->
-          <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
-          </ion-slide>
-
-          <!-- slide -->
-          <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+          <ion-slide *ngFor="let image of loadedImgList">
+            <img
+              src="{{ 'http://workintest.herokuapp.com'+image.image }}"
+              class="imgSlide"
+            >
           </ion-slide>
 
         </ion-slides>
@@ -59,7 +53,7 @@
         <ion-icon name="calendar-outline" color="primary" class="icon-only"></ion-icon>
         <ion-text class="main-color title"><b> Fecha de realización</b></ion-text>
         <br>
-        <ion-text class="subtitle">viernes 27 de noviembre de 2020</ion-text>
+        <ion-text class="subtitle">{{ loadedService.date_required }}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -73,7 +67,7 @@
         <ion-icon name="time-outline" color="primary" class="icon-only"></ion-icon>
         <ion-text class="main-color title"><b> Rango de horas</b></ion-text>
         <br>
-        <ion-text class="subtitle">8:00 a 16:00 h</ion-text>
+        <ion-text class="subtitle">{{ p(loadedService.hours_requestservice) }} h</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>

@@ -18,8 +18,9 @@ export class AgendadosPage implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
   headers: HttpHeaders;
-  loadedServices;
-  loadedVisits;
+  loadedServices = [];
+  loadedVisits = [];
+  parsedHours = null;
 
   constructor(
     private router: Router,
@@ -27,7 +28,6 @@ export class AgendadosPage implements OnInit, OnDestroy {
     private http: HttpClient,
     private us: UserService,
     private lc: LoadingController,
-    private solServ: SolicitudService,
   ) { }
 
   ngOnInit() {
@@ -40,10 +40,11 @@ export class AgendadosPage implements OnInit, OnDestroy {
     this.menuController.enable(true, 'profesional');
     this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
     // load agendados
-    this.loadedServices = this.loadServices("1");
+    this.loadServices("2");    
     //2
+
     // load visitas
-    this.loadedVisits = this.loadServices("1");
+    this.loadServices("3");
     //3
   }
 
@@ -56,13 +57,30 @@ export class AgendadosPage implements OnInit, OnDestroy {
       .subscribe(resData =>{
         console.log(resData['data']);
         loadingEl.dismiss();
-        this.loadedServices = resData["data"];
-        return resData['data'];
+        if (statusID === "2") {
+          this.loadedServices = resData["data"];
+          // console.log(this.loadedServices);
+        }
+        if (statusID === "3") {
+          this.loadedVisits = resData["data"];
+          // console.log(this.loadedVisits);
+        }
       }, err =>{
         console.log(err);
         loadingEl.dismiss();
       });
     });
+  }
+
+  p(hours: string){
+    let wHours = hours.split("/");
+    let sHour = wHours[0].split("T");
+    let sHour2 = sHour[1];
+    sHour2 = sHour2.substring(0, 5);
+    let eHour = wHours[1].split("T");
+    let eHour2 = eHour[1];
+    eHour2 = eHour2.substring(0, 5);
+    return sHour2+" - "+eHour2;
   }
 
   openMenu(){

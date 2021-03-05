@@ -1,4 +1,6 @@
 import { ProfCategory } from "./profCategory.model";
+import { ProSolicitud } from "./proSolicitud.model";
+import { SolicitudObject } from "./solicitudObject.model";
 
 export class Solicitud{
     constructor(
@@ -9,5 +11,7 @@ export class Solicitud{
             public proPerfil: ProfCategory,
             public proPhoto: string,
             public solicitudID: string,
+            public solicitudOBJ: SolicitudObject,
+            public solicitudProOBJ: ProSolicitud,
     ) {}
 }

@@ -17,84 +17,59 @@
   <ion-grid fixed>
     <ion-row class="ion-margin-top">
       <ion-col size="11" class="ion-text-left">
-        <ion-text class="main-color title"><b>Buenos días Juan Alcayaga, tienes los siguientes trabajos en tu agenda.</b></ion-text>
+        <ion-text class="main-color title" *ngIf="loadedServices.length > 0">
+          <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes los siguientes trabajos finalizados.</b>
+        </ion-text>
+        <ion-text class="main-color title" *ngIf="loadedServices.length === 0">
+          <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no tienes trabajos finalizados.</b>
+        </ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
   </ion-grid>
 
-  <!-- pago pendiente card item -->
-  <div class="prof-cont no-border" (click)="finalizadosDetail()">
+  <!-- pendiente pago -->
+  <div class="prof-cont no-border" *ngFor="let service of loadedServices" (click)="finalizadosDetail(service.id)">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
         <ion-col size="7" class="ion-justify-content-center">
           <ion-text>
-            <span class="titleSelect main-color">Emmy Mut </span>
+            <span class="titleSelect main-color ion-text-capitalize">{{ service.clientName+" "+service.clientLastName }}</span>
             <br>
             <ion-text class="mainText">
-              Pasaje Estral Poniente<br>
-              666 Maipú, Chile
+              {{ service.adress }}<br>
+              API: address missing
             </ion-text>
             <br>
-            <ion-text class="miniText" color="primary">Cambio de chapas</ion-text>
+            <ion-text class="miniText ion-text-capitalize" color="primary">{{ service.description }}</ion-text>
           </ion-text>
         </ion-col>
 
         <!-- rating -->
         <ion-col size="5">
-          <ion-badge color="primary" class="badgeText">Carpintería</ion-badge>
+          <ion-badge color="primary" class="badgeText">API: Cat missing</ion-badge>
           <ion-grid class="ion-no-padding ion-no-margin">
             <ion-row class="ion-align-items-center">
-              <ion-col size="3">
+              <!-- pendiente  -->
+              <ion-col size="3" *ngIf="service.status_id === 5">
                 <div class="locate-cont">
                   <ion-icon name="card" color="light" class="rating-text"></ion-icon>
                 </div>
               </ion-col>
-              <ion-col size="9">
+              <ion-col size="9" *ngIf="service.status_id === 5">
                 <ion-text color="danger" class="endText">
                   PAGO PENDIENTE
                 </ion-text>
               </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <!-- pago finalizado card item -->
-  <div class="prof-cont no-border" (click)="finalizadosDetail()">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        <!-- title -->
-        <ion-col size="7" class="ion-justify-content-center">
-          <ion-text>
-            <span class="titleSelect main-color">Irving Castillo </span>
-            <br>
-            <ion-text class="mainText">
-              Pasaje Estral Poniente<br>
-              666 Maipú, Chile
-            </ion-text>
-            <br>
-            <ion-text class="miniText" color="primary">Cambio de chapas</ion-text>
-          </ion-text>
-        </ion-col>
-
-        <!-- rating -->
-        <ion-col size="5">
-          <ion-badge color="primary" class="badgeText">Cerrajería</ion-badge>
-          <ion-grid class="ion-no-padding ion-no-margin">
-            <ion-row class="ion-align-items-center">
-              <ion-col size="3">
+               <!-- pagados  -->
+               <ion-col size="3" *ngIf="service.status_id === 6">
                 <div class="locate-cont-green">
                   <ion-icon name="card" color="light" class="rating-text"></ion-icon>
                 </div>
               </ion-col>
-              <ion-col size="9">
+              <ion-col size="9" *ngIf="service.status_id === 6">
                 <ion-text color="success" class="endText">
                   PAGO REALIZADO
                 </ion-text>
@@ -107,38 +82,51 @@
     </ion-grid>
   </div>
 
-  <!-- pago pendiente card item -->
-  <div class="prof-cont no-border" (click)="finalizadosDetail()">
+  <!-- pagados -->
+  <div class="prof-cont no-border" *ngFor="let service of paidServices" (click)="finalizadosDetail(service.id)">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
         <ion-col size="7" class="ion-justify-content-center">
           <ion-text>
-            <span class="titleSelect main-color">María Rodríguez </span>
+            <span class="titleSelect main-color ion-text-capitalize">{{ service.clientName+" "+service.clientLastName }}</span>
             <br>
             <ion-text class="mainText">
-              Pasaje Estral Poniente<br>
-              666 Maipú, Chile
+              {{ service.adress }}<br>
+              API: address missing
             </ion-text>
             <br>
-            <ion-text class="miniText" color="primary">Cambio de chapas</ion-text>
+            <ion-text class="miniText ion-text-capitalize" color="primary">{{ service.description }}</ion-text>
           </ion-text>
         </ion-col>
 
         <!-- rating -->
         <ion-col size="5">
-          <ion-badge color="primary" class="badgeText">Plomero</ion-badge>
+          <ion-badge color="primary" class="badgeText">API: Cat missing</ion-badge>
           <ion-grid class="ion-no-padding ion-no-margin">
             <ion-row class="ion-align-items-center">
+              <!-- pendiente  -->
+
               <ion-col size="3">
                 <div class="locate-cont">
-                  <ion-icon name="thumbs-up" color="light" class="rating-text"></ion-icon>
+                  <ion-icon name="card" color="light" class="rating-text"></ion-icon>
                 </div>
               </ion-col>
               <ion-col size="9">
                 <ion-text color="danger" class="endText">
-                  EVALUACIÓN PENDIENTE
+                  PAGO PENDIENTE
+                </ion-text>
+              </ion-col>
+               <!-- pagados  -->
+               <ion-col size="3" *ngIf="false">
+                <div class="locate-cont-green">
+                  <ion-icon name="card" color="light" class="rating-text"></ion-icon>
+                </div>
+              </ion-col>
+              <ion-col size="9" *ngIf="false">
+                <ion-text color="success" class="endText">
+                  PAGO REALIZADO
                 </ion-text>
               </ion-col>
             </ion-row>
@@ -148,6 +136,5 @@
       </ion-row>
     </ion-grid>
   </div>
-
 
 </ion-content>

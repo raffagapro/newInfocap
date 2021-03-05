@@ -45,7 +45,9 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
         {headers: this.headers}
       ).subscribe(resData =>{
         this.profList = resData['data'];
-        // console.log(this.profList);
+        console.log(this.profList);
+        console.log(resData);
+        
         loadingEl.dismiss();
       }, e =>{
         console.log(e);

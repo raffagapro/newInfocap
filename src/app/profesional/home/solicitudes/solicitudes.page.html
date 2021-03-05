@@ -17,38 +17,43 @@
   <ion-grid fixed>
     <ion-row class="ion-margin-top">
       <ion-col size="11" class="ion-text-left">
-        <ion-text class="main-color title"><b>Buenos días Juan Alcayaga, tienes los siguientes trabajos en tu agenda.</b></ion-text>
+        <ion-text class="main-color title" *ngIf="loadedServices.length > 0">
+          <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes las siguientes solicitudes por aceptar.</b>
+        </ion-text>
+        <ion-text class="main-color title" *ngIf="loadedServices.length === 0">
+          <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no tienes solicitudes pendientes.</b>
+        </ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
   </ion-grid>
 
   <!-- solicitud card item -->
-  <div class="prof-cont no-border">
+  <div class="prof-cont no-border" *ngFor="let service of loadedServices">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
         <ion-col size="7" class="ion-justify-content-center">
           <ion-text>
-            <ion-badge color="primary" class="titleSelect">Cerrajería</ion-badge>
+            <ion-badge color="primary" class="titleSelect">Sin Categoria: API</ion-badge>
             <br>
             <ion-text class="mainText">
-              Pasaje Estral Poniente<br>
-              666 Maipú, Chile
+              {{ service.adress }}<br>
+              API: address missing
             </ion-text>
             <br>
-            <ion-text class="miniText" color="primary">Instalación de clóset</ion-text>
+            <ion-text class="miniText ion-text-capitalize" color="primary">{{ service.description }}</ion-text>
           </ion-text>
         </ion-col>
 
         <!-- rating -->
         <ion-col size="5">
-          <ion-button expand="block" shape="round" color="success" class="miniBtnTxt" (click)="aceptarSolicitud()">
+          <ion-button expand="block" shape="round" color="success" class="miniBtnTxt" (click)="aceptarSolicitud(service.id)">
             <ion-icon slot="start" name="checkmark" class="iconSize"></ion-icon>
             ACEPTAR
           </ion-button>
-          <ion-button expand="block" fill="outline" color="danger" shape="round" class="miniBtnTxt" (click)="rechazarSolicitud()">
+          <ion-button expand="block" fill="outline" color="danger" shape="round" class="miniBtnTxt" (click)="rechazarSolicitud(service.id)">
             <ion-icon slot="start" name="close" class="iconSize"></ion-icon>
             RECHAZAR
           </ion-button>
@@ -59,12 +64,12 @@
   </div>
 
   <!-- solicitud rechazada card item -->
-  <div class="prof-cont no-border">
+  <!-- <div class="prof-cont no-border">
     <ion-grid>
-      <ion-row class="ion-align-items-center">
+      <ion-row class="ion-align-items-center"> -->
 
         <!-- title -->
-        <ion-col size="7" class="ion-justify-content-center">
+        <!-- <ion-col size="7" class="ion-justify-content-center">
           <ion-text>
             <ion-badge color="danger" class="titleSelect">Carpintería</ion-badge>&nbsp;
             <ion-icon color="danger" name="alert-circle" class="iconS"></ion-icon>
@@ -80,10 +85,10 @@
               16 dic 2020
             </ion-text>
           </ion-text>
-        </ion-col>
+        </ion-col> -->
 
         <!-- rating -->
-        <ion-col size="5">
+        <!-- <ion-col size="5">
           <ion-button expand="block" shape="round" color="success" class="miniBtnTxt" (click)="aceptarSolicitud()">
             <ion-icon slot="start" name="checkmark" class="iconSize"></ion-icon>
             ACEPTAR
@@ -96,41 +101,6 @@
 
       </ion-row>
     </ion-grid>
-  </div>
-
-  <!-- solicitud card item -->
-  <div class="prof-cont no-border">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        <!-- title -->
-        <ion-col size="7" class="ion-justify-content-center">
-          <ion-text>
-            <ion-badge color="primary" class="titleSelect">Cerrajería</ion-badge>
-            <br>
-            <ion-text class="mainText">
-              Pasaje Estral Poniente<br>
-              666 Maipú, Chile
-            </ion-text>
-            <br>
-            <ion-text class="miniText" color="primary">Instalación de clóset</ion-text>
-          </ion-text>
-        </ion-col>
-
-        <!-- rating -->
-        <ion-col size="5">
-          <ion-button expand="block" shape="round" color="success" class="miniBtnTxt" (click)="aceptarSolicitud()">
-            <ion-icon slot="start" name="checkmark" class="iconSize"></ion-icon>
-            ACEPTAR
-          </ion-button>
-          <ion-button expand="block" fill="outline" color="danger" shape="round" class="miniBtnTxt" (click)="rechazarSolicitud()">
-            <ion-icon slot="start" name="close" class="iconSize"></ion-icon>
-            RECHAZAR
-          </ion-button>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div>
+  </div> -->
 
 </ion-content>

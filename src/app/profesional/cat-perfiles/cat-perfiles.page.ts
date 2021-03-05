@@ -52,15 +52,17 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   selectedCatId;
   selectedProPerfil;
   comunas = [];
+  comunasBU = [];
   transports = [];
   selectedTransport;
-  selectedComuna;
+  selectedComunas = [];
   selectedDays = [];
   @Output() imgPick = new EventEmitter<string | File>();
   selectedImage: string;
   @ViewChild('hiddenImgInput') hiddenImgInputRef: ElementRef<HTMLInputElement>;
   useInputPicker = false;
   profilePhoto = true;
+  searchValue:string;
 
   constructor(
     private lc: LoadingController,
@@ -69,7 +71,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     private modalController: ModalController,
     private platform: Platform,
     private ils: ImgListService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
@@ -89,7 +91,8 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     //comunas
     this.http.get(API+'/location/communes', {headers: this.headers})
     .subscribe(resData =>{
-      this.comunas = resData['data'];
+      // this.comunas = resData['data'];
+      this.comunasBU = resData['data'];
     });
 
     //transports
@@ -190,7 +193,8 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     this.selectedCatId = info.category_id;
     // console.log(info);
     this.selectedTransport = info.transport_id;
-    this.selectedComuna = +info.commune_id;
+    this.selectedComunas = info.communes;
+    // console.log(this.selectedComunas);
     let descPro;
     if (info.descProf === 'empty') {
       descPro = null;
@@ -241,8 +245,51 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     this.selectedTransport = +e.detail.value; 
   }
 
-  onComunaChange(e){
-    this.selectedComuna = +e.detail.value; 
+  onSearchChange(e){
+    // this.selectedComunas = +e.detail.value;
+    // console.log(e.srcElement.value);
+    if (e.srcElement.value === '') {
+      return
+    }
+    this.comunas = this.comunasBU;
+    const searchTerm = e.srcElement.value;
+    if (!searchTerm) {
+      return;
+    }
+    this.comunas = this.comunas.filter(currentComuna => {
+      if (currentComuna.name && searchTerm) {
+        return (currentComuna.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+      }
+    });
+  }
+
+  selectComuna(comunaID: string){
+    let go = true;
+    this.selectedComunas.forEach(c =>{
+      if (c.id === +comunaID) {
+        go = false;
+        return
+      }
+    });
+    if (go) {
+      this.comunasBU.forEach(c => {
+        if (c.id === +comunaID) {
+          this.selectedComunas.push(c);
+        }
+      });
+    }
+    this.searchValue = "";
+    this.comunas = [];
+  }
+
+  onRemoveComuna(comunaID: string){
+    // console.log(this.selectedComunas);
+    for( var i = 0; i < this.selectedComunas.length; i++){ 
+      if ( this.selectedComunas[i].id === +comunaID) { 
+        this.selectedComunas.splice(i, 1); 
+      }
+    }
+    console.log(this.selectedComunas);
   }
 
   onDaysChange(e){
@@ -254,16 +301,23 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     // console.log(this.form);
     let strDays = this.selectedDays.join('-');
     // console.log(strDays);
+    let aComunas = [];
+    let packedComunas;
+    console.log(this.selectedComunas);
+    this.selectedComunas.forEach(c => {
+      aComunas.push(c.id);
+    });
+    packedComunas = aComunas.join(", ");
     const body = {
       category_id: this.selectedCatId.toString(),
-      commune_id: this.selectedComuna.toString(),
-      transport_id: this.selectedTransport.toString(),
+      communes: packedComunas,
+      transport_id: this.selectedTransport,
       descProf: this.form.value.descProf,
       description: this.form.value.descOffice,
       hours: this.form.value.sHour+'/'+this.form.value.eHour,
       work_days: strDays,
     }
-    // console.log(body);
+    console.log(body);
     this.lc.create({
       message: 'Actualizando la informacion...'
     }).then(loadingEl =>{
@@ -365,8 +419,8 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
         const formData = new FormData();
         formData.append('images[]', imgFile);
         formData.append('category_id', this.selectedCatId.toString());
-        formData.append('transport_id', this.selectedTransport.toString());
-        formData.append('commune_id', this.selectedComuna.toString());
+        formData.append('transport_id', this.selectedTransport);
+        // formData.append('communes', this.selectedComunas;
         this.http.post(API+`/supplier/profession/${this.selectedProPerfil}`, formData, {headers: this.headers})
         .subscribe(resData =>{
           // console.log(resData);
