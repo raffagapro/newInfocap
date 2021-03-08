@@ -46,7 +46,7 @@ SolicitudServicioPageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/profesional-detail\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    \n    <ion-title class=\"title-toolbar\">SOLICITUD DE SERVICIO</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- profesional card item -->\n  <div class=\"no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"/assets/images/avatar.png\"/>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"7\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Juan Alcayaga</span><br>\n            <ion-badge color=\"primary\" class=\"badge-text\">Soldador</ion-badge><br>\n            <p class=\"textSelect main-color\" style=\"margin-top: 0; margin-bottom: 0;\">Santiago Qta. normal.</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Cuéntale al profesional qué necesitas</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- text-area -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"border ion-text-center\">\n        <ion-item lines=\"none\">\n           <ion-textarea rows=\"3\" cols=\"20\" placeholder=\"Describe lo más posible y claro el trabajo, así podremos dar respuesta más rápido.\"></ion-textarea>\n        </ion-item>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- text -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color regText\"><b>Agrega imágenes que ayudarán al profesional a responder mejor a tu solicitud.</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- images -->\n    <ion-row class=\"ion-align-items-center\">\n      <ion-col size=\"4\" offset=\"1\">\n        <img src=\"/assets/images/unavailable-image.png\" class=\"imgSingle\">\n      </ion-col>\n      <ion-col size=\"4\">\n        <img src=\"/assets/images/unavailable-image.png\" class=\"imgSingle\">\n      </ion-col>\n      <ion-col size=\"3\">\n        <div class=\"locate-cont\">\n          <ion-icon name=\"add\" color=\"light\" class=\"rating-text\"></ion-icon>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <!-- Fecha requerida -->\n    <ion-row>\n      <ion-col size=\"11\">\n        <ion-item>\n          <ion-label class=\"main-color\">\n            <ion-icon name=\"calendar\" slot=\"start\" class=\"main-color\"></ion-icon>\n            <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>\n          </ion-label>\n          <ion-datetime placeholder=\"Definir fecha\"></ion-datetime>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <!-- Rango de horas -->\n\n    <!-- pickers -->\n    <ion-row>\n      <ion-col size=\"6\">\n        <ion-item>\n          <ion-label class=\"main-color\">\n            <ion-icon name=\"time\" slot=\"start\" class=\"main-color\"></ion-icon>\n            <ion-text class=\"main-color\">Hora inicial</ion-text>\n          </ion-label>\n          <ion-datetime display-format=\"h:mm A\" picker-format=\"h:mm A\"></ion-datetime>\n        </ion-item>\n      </ion-col>\n\n      <ion-col size=\"5\">\n        <ion-item>\n          <ion-label class=\"main-color\">\n            <ion-icon name=\"time\" slot=\"start\" class=\"main-color\"></ion-icon>\n            <ion-text class=\"main-color\">Hora final</ion-text>\n          </ion-label>\n          <ion-datetime display-format=\"h:mm A\" picker-format=\"h:mm A\"></ion-datetime>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <!-- enviar solicitud BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"confirmRequest()\">\n          CONFIRMAR SOLICITUD\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/profesional-detail\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n    \n    <ion-title class=\"title-toolbar\">SOLICITUD DE SERVICIO</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- profesional card item -->\n  <div class=\"no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"profileImg\">\n            <ion-img src=\"{{ !selectedProfPhoto ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+selectedProfPhoto }}\"></ion-img>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"7\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">\n              {{ selectedProfesional.supplierName }}  {{ selectedProfesional.supplierLastName }}\n            </span><br>\n            <ion-badge color=\"primary\" class=\"badge-text ion-text-capitalize\">{{ selectedProfesional.categoryName }}</ion-badge><br>\n            <p class=\"textSelect main-color badge-text ion-text-capitalize\" style=\"margin-top: 0; margin-bottom: 0;\">{{ selectedProfesional.communeName }}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Cuéntale al profesional qué necesitas</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n    <form [formGroup]=\"form\" (ngSubmit)=\"confirmRequest()\">\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea\n              rows=\"3\" cols=\"20\"\n              formControlName=\"description\"\n              placeholder=\"Describe lo más posible y claro el trabajo, así podremos dar respuesta más rápido.\"\n              >\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"ion-text-center\">\n          <ion-text class=\"main-color regText\"><b>Agrega imágenes que ayudarán al profesional a responder mejor a tu solicitud.</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- images -->\n      <ion-row class=\"ion-align-items-center\">\n        <ion-col size=\"7\" offset=\"1\">\n          <ion-slides>\n\n            <!-- slide -->\n            <ion-slide *ngFor=\"let image of loadedImagesDisplay\" [loadedImagesDisplay]='loadedImagesDisplay'>\n              <ion-img \n                src=\"{{ image }}\"\n                class=\"imgSlide\"\n              >\n              </ion-img>\n            </ion-slide>\n\n          </ion-slides>\n        </ion-col>\n        <ion-col size=\"4\">\n          <ion-button (click)=\"onLoadImg()\" shape=\"round\">\n            <ion-icon name=\"add\" slot=\"end\" color=\"light\" class=\"rating-text\"></ion-icon>\n          </ion-button>\n        </ion-col>\n      </ion-row>\n\n      <!-- hidden file input -->\n      <div style=\"display: none;\">\n        <input type=\"file\" #hiddenImgInput *ngIf=\"useInputPicker\" (change)=\"onLoadImgFromInput($event)\">\n      </div>\n\n      <!-- Fecha requerida -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label class=\"main-color\" position=\"floating\">\n              <ion-icon name=\"calendar\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>\n            </ion-label>\n            <ion-datetime \n              formControlName=\"date_required\"\n              placeholder=\"Definir fecha\"\n              >\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- Rango de horas -->\n\n      <!-- pickers -->\n      <ion-row>\n        <ion-col size=\"6\">\n          <ion-item>\n            <ion-label class=\"main-color\" position=\"floating\">\n              <ion-icon name=\"time\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">Hora inicial</ion-text>\n            </ion-label>\n            <ion-datetime \n              formControlName=\"sHour\"\n              display-format=\"h:mm A\" \n              picker-format=\"h:mm A\"\n              >\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n\n        <ion-col size=\"5\">\n          <ion-item>\n            <ion-label class=\"main-color\" position=\"floating\">\n              <ion-icon name=\"time\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">Hora final</ion-text>\n            </ion-label>\n            <ion-datetime\n              formControlName=\"eHour\"\n              display-format=\"h:mm A\" \n              picker-format=\"h:mm A\"\n              >\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- enviar solicitud BTN -->\n      <ion-row class=\"ion-margin-top ion-margin-bottom\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col>\n          <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\" [disabled]=\"!form.valid\">\n            CONFIRMAR SOLICITUD\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n    </form>\n\n  </ion-grid>\n\n</ion-content>\n");
 
 /***/ }),
 
@@ -66,7 +66,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./confirm-success-modal/confirm-success-modal.component */ "00c0");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
+/* harmony import */ var _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./confirm-success-modal/confirm-success-modal.component */ "00c0");
+/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
 
 
 
@@ -74,39 +80,209 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+function base64toBlob(base64Data, contentType) {
+    contentType = contentType || '';
+    const sliceSize = 1024;
+    const byteCharacters = atob(base64Data);
+    const bytesLength = byteCharacters.length;
+    const slicesCount = Math.ceil(bytesLength / sliceSize);
+    const byteArrays = new Array(slicesCount);
+    for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+        const begin = sliceIndex * sliceSize;
+        const end = Math.min(begin + sliceSize, bytesLength);
+        const bytes = new Array(end - begin);
+        for (let offset = begin, i = 0; offset < end; ++i, ++offset) {
+            bytes[i] = byteCharacters[offset].charCodeAt(0);
+        }
+        byteArrays[sliceIndex] = new Uint8Array(bytes);
+    }
+    return new Blob(byteArrays, { type: contentType });
+}
 let SolicitudServicioPage = class SolicitudServicioPage {
-    constructor(modalController, router, menuController) {
+    // slideOptions = {
+    //   initialSlide: 0,
+    //   slidesPerView: 2,
+    //   autoplay: true
+    // };
+    constructor(modalController, router, menuController, solServ, http, us, lc, platform) {
         this.modalController = modalController;
         this.router = router;
         this.menuController = menuController;
-        this.slideOptions = {
-            initialSlide: 0,
-            slidesPerView: 2,
-            autoplay: true
+        this.solServ = solServ;
+        this.http = http;
+        this.us = us;
+        this.lc = lc;
+        this.platform = platform;
+        // selectedProfesional: ProfCategory = new ProfCategory(
+        //   null, null, null, null, null, null, null, null, null, null, null, null, null
+        // );
+        this.selectedProfesional = {
+            supplierName: null,
+            supplierLastName: null,
+            categoryName: null,
+            communeName: null,
         };
+        this.useInputPicker = false;
+        this.loadedImages = [];
+        this.loadedImagesDisplay = [];
     }
     ngOnInit() {
+        this.userSub = this.us.loggedUser.subscribe(user => {
+            this.grabbedUser = user;
+        });
+        // this.selectedProfesional = this.solServ.solicitud.proPerfil;
+        this.selectedProfesional.supplierName = this.solServ.solicitud.proPerfil.supplierName;
+        this.selectedProfesional.supplierLastName = this.solServ.solicitud.proPerfil.supplierLastName;
+        this.selectedProfesional.categoryName = this.solServ.solicitud.proPerfil.categoryName;
+        this.selectedProfesional.communeName = this.solServ.solicitud.proPerfil.communeName;
+        this.selectedProfPhoto = this.solServ.solicitud.proPhoto;
+        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+        // platfrom Checker
+        if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
+            this.useInputPicker = true;
+        }
+        //form
+        this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormGroup"]({
+            description: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"](null, {
+                updateOn: 'blur',
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required]
+            }),
+            date_required: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"](null, {
+                updateOn: 'blur',
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required]
+            }),
+            sHour: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"](null, {
+                updateOn: 'blur',
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required]
+            }),
+            eHour: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"](null, {
+                updateOn: 'blur',
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required]
+            }),
+            adress: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"](this.solServ.solicitud.address, {
+                updateOn: 'blur',
+            }),
+        });
     }
     ionViewWillEnter() {
         this.menuController.enable(true, 'user');
+        console.log(this.solServ.solicitud.address);
     }
     openMenu() {
         this.menuController.open();
     }
-    confirmRequest() {
-        this.modalController.create({
-            component: _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmSuccessModalComponent"],
-            cssClass: 'modalSuccess',
-        }).then(modalEl => {
-            modalEl.present();
+    onLoadImg() {
+        if (!_capacitor_core__WEBPACK_IMPORTED_MODULE_7__["Capacitor"].isPluginAvailable('Camera') || this.useInputPicker) {
+            this.hiddenImgInputRef.nativeElement.click();
+            return;
+        }
+        _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["Plugins"].Camera.getPhoto({
+            quality: 25,
+            source: _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["CameraSource"].Prompt,
+            correctOrientation: true,
+            height: 150,
+            // width: 200,
+            resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl,
+        }).then(image => {
+            console.log(image);
+            // this.selectedImage = image.dataUrl;
+            // this.imgPick.emit(image.dataUrl);
+            // console.log(this.selectedImage);
+            //save img to api
+            this.saveImgToApi(image.dataUrl);
+        }).catch(e => {
+            console.log(e);
         });
+    }
+    onLoadImgFromInput(e) {
+        const loadedFile = e.target.files[0];
+        // console.log(loadedFile);
+        this.saveImgToApi(loadedFile);
+        //converting images to blob for diplaying
+        const fr = new FileReader();
+        fr.onload = () => {
+            this.loadedImagesDisplay.push(fr.result.toString());
+        };
+        fr.readAsDataURL(e.target.files[0]);
+    }
+    saveImgToApi(imageData) {
+        let imgFile;
+        if (typeof imageData === 'string') {
+            try {
+                imgFile = base64toBlob(imageData.replace('data:image/jpeg;base64,', ''), 'image/jpeg');
+            }
+            catch (e) {
+                console.log(e);
+                return;
+            }
+        }
+        else {
+            imgFile = imageData;
+        }
+        this.loadedImages.push(imgFile);
+        console.log(this.loadedImages);
+    }
+    confirmRequest() {
+        // console.log(this.form);
+        //format date
+        let wDate = this.form.value.date_required.split('T');
+        wDate = wDate[0];
+        wDate = wDate.split('-');
+        wDate = wDate[2] + '/' + wDate[1] + '/' + wDate[0];
+        const formData = new FormData();
+        this.loadedImages.forEach(image => {
+            formData.append('images[]', image);
+        });
+        formData.append('cummune_id', this.solServ.solicitud.comuna_id);
+        formData.append('description', this.form.value.description);
+        formData.append('adress', this.form.value.adress);
+        formData.append('date_required', wDate);
+        formData.append('hours', this.form.value.sHour + "/" + this.form.value.eHour);
+        formData.append('professional_profile_id', this.solServ.solicitud.proPerfil_id);
+        console.log(formData.getAll);
+        this.lc.create({
+            message: 'Creando su solicitud...'
+        }).then(loadingEl => {
+            loadingEl.present();
+            this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"] + '/client/requestservice', formData, { headers: this.headers })
+                .subscribe(resData => {
+                console.log(resData);
+                loadingEl.dismiss();
+                this.modalController.create({
+                    component: _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_8__["ConfirmSuccessModalComponent"],
+                    cssClass: 'modalSuccess',
+                }).then(modalEl => {
+                    modalEl.present();
+                });
+            }, err => {
+                loadingEl.dismiss();
+                console.log(err);
+            });
+        });
+    }
+    ngOnDestroy() {
+        this.userSub.unsubscribe();
     }
 };
 SolicitudServicioPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
+    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__["SolicitudService"] },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"] }
 ];
+SolicitudServicioPage.propDecorators = {
+    hiddenImgInputRef: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"], args: ['hiddenImgInput',] }]
+};
 SolicitudServicioPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
         selector: 'app-solicitud-servicio',
@@ -150,6 +326,7 @@ SolicitudServicioPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decor
         imports: [
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
             _solicitud_servicio_routing_module__WEBPACK_IMPORTED_MODULE_5__["SolicitudServicioPageRoutingModule"]
         ],

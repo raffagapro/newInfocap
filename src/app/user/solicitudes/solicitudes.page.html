@@ -13,7 +13,7 @@
 
 <ion-content>
   <!-- filter bar -->
-  <ion-grid>
+  <!-- <ion-grid>
     <ion-row class="ion-margin-top">
       <ion-col size="10" offset="1">
         <ion-searchbar
@@ -23,7 +23,7 @@
         </ion-searchbar>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 
   <!-- servicio iterable -->
   <div class="prof-cont ion-margin-top no-border" *ngFor="let service of loadedServices" (click)="solicitudDetails(service.request_id)">
@@ -37,7 +37,7 @@
             <!-- <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp; -->
             <ion-badge color="medium" class="badge-text">{{ service.categoryName }}</ion-badge><br>
             <span class="textSelect">{{ service.description }}</span><br>
-            <small class="main-color">Contactado hace 1 día</small>
+            <small class="main-color">{{ p(service.created_date) }}</small>
           </ion-text>
         </ion-col>
 

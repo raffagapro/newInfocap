@@ -92,9 +92,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
 /* harmony import */ var _raw_loader_servicio_pagar_page_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./servicio-pagar.page.html */ "ttxk");
 /* harmony import */ var _servicio_pagar_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./servicio-pagar.page.scss */ "bmig");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+
+
+
+
 
 
 
@@ -102,14 +110,67 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ServicioPagarPage = class ServicioPagarPage {
-    constructor(router, menuController) {
+    constructor(router, menuController, http, us, lc, solServ) {
         this.router = router;
         this.menuController = menuController;
+        this.http = http;
+        this.us = us;
+        this.lc = lc;
+        this.solServ = solServ;
+        this.loadedService = {
+            categoryName: null,
+            cummunename: null,
+            category_id: null,
+            created_date: null,
+            date_required: null,
+            descProf: null,
+            description: null,
+            hours_professional: null,
+            hours_requestservice: null,
+            img_profile: null,
+            professional_profiles_id: null,
+            request_id: null,
+            status_id: null,
+            status_name: null,
+            status_order: null,
+            supplierLastName: null,
+            supplierName: null,
+            supplier_id: null,
+            ticket_number: null,
+            user_client_id: null,
+            work_days: null,
+        };
     }
     ngOnInit() {
+        this.userSub = this.us.loggedUser.subscribe(user => {
+            this.grabbedUser = user;
+        });
     }
     ionViewWillEnter() {
         this.menuController.enable(true, 'user');
+        this.menuController.enable(true, 'user');
+        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+        this.serviceId = this.solServ.solicitud.solicitudID;
+        this.loadService(this.solServ.solicitud.solicitudID);
+    }
+    loadService(solicitudId) {
+        this.lc.create({
+            message: "Cargando informacion del servicio..."
+        }).then(loadingEl => {
+            loadingEl.present();
+            this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + `/client/requestservice/${solicitudId}`, { headers: this.headers })
+                .subscribe(resData => {
+                loadingEl.dismiss();
+                console.log(resData['data']);
+                this.loadedService = resData['data'];
+                this.solServ.setServiceObj(resData['data']);
+                let worDate = this.loadedService.created_date.split(" ");
+                this.wDate = worDate[0];
+            }, err => {
+                loadingEl.dismiss();
+                console.log(err);
+            });
+        });
     }
     openMenu() {
         this.menuController.open();
@@ -120,13 +181,20 @@ let ServicioPagarPage = class ServicioPagarPage {
     nothing() {
         // do something awesome
     }
+    ngOnDestroy() {
+        this.userSub.unsubscribe();
+    }
 };
 ServicioPagarPage.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"] },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"] },
+    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"] }
 ];
 ServicioPagarPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
         selector: 'app-servicio-pagar',
         template: _raw_loader_servicio_pagar_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_servicio_pagar_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]

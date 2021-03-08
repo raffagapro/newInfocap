@@ -33,6 +33,7 @@ import { ConfirmServComponent } from './profesional/home/solicitudes/definicion-
 import { SuccessModalComponent as CSUserProfileUpdate } from './user/profile-page/success-modal/success-modal.component';
 import { SuccessModalComponent as CSproProfileUpdate } from './profesional/perfil/success-modal/success-modal.component';
 import { SuccessModalComponent as CSproCatProfileUpdate } from './profesional/cat-perfiles/success-modal/success-modal.component';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { SuccessModalComponent as CSproCatProfileUpdate } from './profesional/ca
   providers: [
     StatusBar,
     SplashScreen,
+    CallNumber,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Geolocation,
     NativeGeocoder

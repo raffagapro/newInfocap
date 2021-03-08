@@ -85,6 +85,12 @@
       var src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/app/model/user.model */
       "UbF0");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
 
       var LoginPage = /*#__PURE__*/function () {
         function LoginPage(navController, router, http, as, us, lc) {
@@ -118,7 +124,7 @@
             }).then(function (loadingEl) {
               loadingEl.present();
 
-              _this.http.post('http://workintest.herokuapp.com/api/auth/login', {
+              _this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/auth/login', {
                 // this.http.post('http://127.0.0.1:8000/api/auth/login', {
                 email: email,
                 password: password
@@ -159,6 +165,13 @@
                     password: ''
                   });
                 }
+              }, function (err) {
+                _this.error = 'Correo no encontrado';
+                form.reset();
+                form.setValue({
+                  email: email,
+                  password: ''
+                });
               });
             });
           }

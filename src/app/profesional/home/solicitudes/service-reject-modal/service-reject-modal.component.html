@@ -16,7 +16,7 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="ion-margin-start profileImg">
-            <ion-img src="{{ !loadedInfo.img_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+grabbedUser.img_profile }}"></ion-img>
+            <ion-img src="{{ !loadedInfo.img_client_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+loadedInfo.img_client_profile  }}"></ion-img>
           </ion-avatar>
         </ion-col>
 
@@ -24,8 +24,8 @@
         <ion-col size="6">
           <ion-text>
             <small class="ticket">Ticket #{{ loadedInfo.ticket_number }}</small><br>
-            <span class="titleSelect main-color">API:CatName para <br>
-              <span class="ion-text-capitalize">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName }}</span>
+            <span class="titleSelect main-color ion-text-capitalize">{{ loadedInfo.categoryName }}  <br>
+              <span class="titleName ion-text-capitalize">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName }}</span>
             </span><br>
             <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">{{ loadedInfo.date_required }}</p>
           </ion-text>
@@ -48,7 +48,11 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="border ion-text-center">
         <ion-item lines="none">
-           <ion-textarea rows="3" cols="20" placeholder="Describe aquí el motivo del cierre."></ion-textarea>
+          <ion-textarea
+            #rejectDesc
+            rows="3" cols="20"
+            placeholder="Describe aquí el motivo del cierre.">
+          </ion-textarea>
         </ion-item>
       </ion-col>
       <ion-col size="1"></ion-col>
@@ -58,12 +62,16 @@
     <ion-row class="ion-margin-top ion-margin-bottom">
       <ion-col size="1"></ion-col>
       <ion-col>
-        <ion-button size="5" expand="block" class="ion-text-uppercase" color="danger" (click)="cancelSolicitud()">
-          CERRAR SOLICITUD
+        <ion-button 
+          size="5" expand="block" 
+          class="ion-text-uppercase" color="danger" 
+          (click)="rechazarSolicitud(rejectDesc.value)">
+          RECHAZAR SOLICITUD
         </ion-button>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
+
 
   </ion-grid>
 </ion-content>

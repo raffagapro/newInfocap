@@ -20,6 +20,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_auth_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/auth.service */ "lGQG");
 /* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
 /* harmony import */ var src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/model/user.model */ "UbF0");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+
 
 
 
@@ -52,7 +54,7 @@ let LoginPage = class LoginPage {
             message: "Validando credenciales..."
         }).then(loadingEl => {
             loadingEl.present();
-            this.http.post('http://workintest.herokuapp.com/api/auth/login', {
+            this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/auth/login', {
                 // this.http.post('http://127.0.0.1:8000/api/auth/login', {
                 email: email,
                 password: password,
@@ -89,6 +91,13 @@ let LoginPage = class LoginPage {
                         password: '',
                     });
                 }
+            }, err => {
+                this.error = 'Correo no encontrado';
+                form.reset();
+                form.setValue({
+                    email: email,
+                    password: '',
+                });
             });
         });
     }

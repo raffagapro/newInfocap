@@ -84,7 +84,13 @@
       /* harmony import */
 
 
-      var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
+      /* harmony import */
+
+
+      var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! ./success-modal/success-modal.component */
       "wYVq");
 
@@ -141,7 +147,7 @@
             }).then(function (loadingEl) {
               loadingEl.present();
 
-              _this.http.post('http://workintest.herokuapp.com/api/auth/register', {
+              _this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"] + '/auth/register', {
                 // this.http.post('http://127.0.0.1:8000/api/auth/register', {
                 name: name,
                 last_name: l_name,
@@ -156,7 +162,7 @@
                   form.reset(); // modal for succes
 
                   _this.modalController.create({
-                    component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_6__["SuccessModalComponent"],
+                    component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_7__["SuccessModalComponent"],
                     cssClass: 'modalSuccess'
                   }).then(function (modalEl) {
                     modalEl.present();

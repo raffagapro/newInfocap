@@ -199,33 +199,87 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/common/http */
+      "tk/3");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @angular/core */
       "fXoL");
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/router */
       "tyNb");
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
+      /* harmony import */
+
+
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! src/app/services/solicitud.service */
+      "rLtr");
+      /* harmony import */
+
+
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! src/app/services/user.service */
+      "qfBg");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
 
       var ProfesionalListPage = /*#__PURE__*/function () {
-        function ProfesionalListPage(router, menuController) {
+        function ProfesionalListPage(router, menuController, solServ, http, us, lc) {
           _classCallCheck(this, ProfesionalListPage);
 
           this.router = router;
           this.menuController = menuController;
+          this.solServ = solServ;
+          this.http = http;
+          this.us = us;
+          this.lc = lc;
+          this.profList = [];
         }
 
         _createClass(ProfesionalListPage, [{
           key: "ngOnInit",
-          value: function ngOnInit() {}
+          value: function ngOnInit() {
+            var _this = this;
+
+            this.userSub = this.us.loggedUser.subscribe(function (user) {
+              _this.grabbedUser = user;
+            });
+            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token); // Grab prof list 
+
+            this.lc.create({
+              message: "Generando lista de profesionales..."
+            }).then(function (loadingEl) {
+              loadingEl.present();
+
+              _this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/client/professions/".concat(_this.solServ.solicitud.comuna_id, "/").concat(_this.solServ.solicitud.category_id), {
+                headers: _this.headers
+              }).subscribe(function (resData) {
+                _this.profList = resData['data'];
+                console.log(_this.profList);
+                console.log(resData);
+                loadingEl.dismiss();
+              }, function (e) {
+                console.log(e);
+                loadingEl.dismiss();
+              });
+            });
+          }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
@@ -238,13 +292,18 @@
           }
         }, {
           key: "profDetails",
-          value: function profDetails() {
+          value: function profDetails(proPerfilCatId, profilImg) {
+            this.solServ.setProPerfil(proPerfilCatId);
+            this.solServ.setProPhoto(profilImg);
             this.router.navigate(['/user/profesional-detail']);
-          }
+          } // eRequest(){
+          //   this.router.navigate(['/user/urgen-service']);
+          // }
+
         }, {
-          key: "eRequest",
-          value: function eRequest() {
-            this.router.navigate(['/user/urgen-service']);
+          key: "ngOnDestroy",
+          value: function ngOnDestroy() {
+            this.userSub.unsubscribe();
           }
         }]);
 
@@ -253,13 +312,21 @@
 
       ProfesionalListPage.ctorParameters = function () {
         return [{
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"]
+        }, {
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"]
+        }, {
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
+        }, {
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
         }];
       };
 
-      ProfesionalListPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+      ProfesionalListPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
         selector: 'app-profesional-list',
         template: _raw_loader_profesional_list_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_profesional_list_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
@@ -283,7 +350,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    \n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">ELIGE AL PROFESIONAL</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <!-- filter bar -->\n  <ion-grid>\n    <ion-row class=\"ion-margin-top\">\n\n      <ion-col size=\"2\" class=\"fStart\">\n        <ion-text class=\"text-10 main-color\">\n          <ion-icon name=\"funnel\"></ion-icon>\n          FILTROS\n        </ion-text>\n      </ion-col>\n\n      <ion-col size=\"3\">\n        <select class=\"main-color cusSelect\" name=\"\" style=\"background-color:white;\">\n          <option value=\"\">Reconocimiento</option>\n          <option value=\"\">Catidad de estrellas</option>\n          <option value=\"\">Calidad del servicio</option>\n          <option value=\"\">Puntualidad</option>\n        </select>\n      </ion-col>\n\n      <ion-col size=\"3\">\n        <select class=\"main-color cusSelect\" name=\"\" style=\"background-color:white;\">\n          <option value=\"\">Experiencia</option>\n          <option value=\"\">Puntualidad</option>\n        </select>\n      </ion-col>\n\n      <ion-col size=\"3\">\n        <ion-text class=\"text-10 main-color\">\n          <ion-icon name=\"sync\" class=\"filt-icon\"></ion-icon>\n          REESTABLECER\n        </ion-text>\n      </ion-col>\n\n    </ion-row>\n  </ion-grid>\n\n  <!-- emergency message -->\n  <div class=\"prof-cont ion-margin-top no-border\" (click)=\"eRequest()\">\n    <ion-grid>\n      <ion-row>\n\n        <!-- profile img -->\n        <ion-col size=\"3\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"/assets/images/avatar.png\"/>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"9\">\n          <ion-text>\n            <span class=\"eSelect\">Necesito el servicio urgente</span><br>\n            <span class=\"textSelect\">Esta solicitud  es de carácter urgente y será enviada a los 10 profesionales mejor catalogados para que puedan atender tu solicitud lo antes posible.</span>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- profesional card item -->\n  <div class=\"prof-cont ion-margin-top no-border\" (click)=\"profDetails()\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- profile img -->\n        <ion-col size=\"3\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"/assets/images/avatar.png\"/>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"5\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Juan Alcayaga</span><br>\n            <ion-badge color=\"primary\" class=\"badge-text\">Soldador</ion-badge><br>\n            <span class=\"textSelect\">\n              Soldados con más de 5 años de experiencia, especialista en rejas, parrillas, etc.\n            </span>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\">\n          <ion-text>\n            <p class=\"ratingText main-color ion-text-center\">\n              4.83\n              <ion-icon name=\"star\"></ion-icon>\n              / 50\n              <ion-icon name=\"ribbon\"></ion-icon>\n            </p><br>\n            <!-- icons -->\n            <div class=\"locate-cont\">\n              <ion-icon name=\"hammer\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"time\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"heart\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"trophy\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- profesional card item -->\n  <div class=\"prof-cont ion-margin-top no-border\" (click)=\"profDetails()\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- profile img -->\n        <ion-col size=\"3\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"/assets/images/avatar.png\"/>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"5\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Erick Rojas</span><br>\n            <ion-badge color=\"primary\" class=\"badge-text\">Soldador</ion-badge><br>\n            <span class=\"textSelect\">\n              Soldados con más de 5 años de experiencia, especialista en rejas, parrillas, etc.\n            </span>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\">\n          <ion-text>\n            <p class=\"ratingText main-color ion-text-center\">\n              4.83\n              <ion-icon name=\"star\"></ion-icon>\n              / 50\n              <ion-icon name=\"ribbon\"></ion-icon>\n            </p><br>\n            <!-- icons -->\n            <div class=\"locate-cont\">\n              <ion-icon name=\"hammer\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"time\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"heart\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"trophy\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- profesional card item -->\n  <div class=\"prof-cont ion-margin-top no-border\" (click)=\"profDetails()\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- profile img -->\n        <ion-col size=\"3\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"/assets/images/avatar.png\"/>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"5\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Eduardo Ramírez</span><br>\n            <ion-badge color=\"primary\" class=\"badge-text\">Soldador</ion-badge><br>\n            <span class=\"textSelect\">\n              Soldados con más de 5 años de experiencia, especialista en rejas, parrillas, etc.\n            </span>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\">\n          <ion-text>\n            <p class=\"ratingText main-color ion-text-center\">\n              4.83\n              <ion-icon name=\"star\"></ion-icon>\n              / 50\n              <ion-icon name=\"ribbon\"></ion-icon>\n            </p><br>\n            <!-- icons -->\n            <div class=\"locate-cont\">\n              <ion-icon name=\"hammer\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"time\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"heart\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"trophy\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- profesional card item -->\n  <div class=\"prof-cont ion-margin-top no-border\" (click)=\"profDetails()\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- profile img -->\n        <ion-col size=\"3\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"/assets/images/avatar.png\"/>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"5\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Antonio Ravelo</span><br>\n            <ion-badge color=\"primary\" class=\"badge-text\">Soldador</ion-badge><br>\n            <span class=\"textSelect\">\n              Soldados con más de 5 años de experiencia, especialista en rejas, parrillas, etc.\n            </span>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\">\n          <ion-text>\n            <p class=\"ratingText main-color ion-text-center\">\n              4.83\n              <ion-icon name=\"star\"></ion-icon>\n              / 50\n              <ion-icon name=\"ribbon\"></ion-icon>\n            </p><br>\n            <!-- icons -->\n            <div class=\"locate-cont\">\n              <ion-icon name=\"hammer\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"time\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"heart\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"trophy\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- profesional card item -->\n  <div class=\"prof-cont ion-margin-top no-border\" (click)=\"profDetails()\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- profile img -->\n        <ion-col size=\"3\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"/assets/images/avatar.png\"/>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"5\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Isaac Rodríguez</span><br>\n            <ion-badge color=\"primary\" class=\"badge-text\">Soldador</ion-badge><br>\n            <span class=\"textSelect\">\n              Soldados con más de 5 años de experiencia, especialista en rejas, parrillas, etc.\n            </span>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\">\n          <ion-text>\n            <p class=\"ratingText main-color ion-text-center\">\n              4.83\n              <ion-icon name=\"star\"></ion-icon>\n              / 50\n              <ion-icon name=\"ribbon\"></ion-icon>\n            </p><br>\n            <!-- icons -->\n            <div class=\"locate-cont\">\n              <ion-icon name=\"hammer\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"time\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"heart\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"trophy\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- profesional card item -->\n  <div class=\"prof-cont ion-margin-top no-border\" (click)=\"profDetails()\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- profile img -->\n        <ion-col size=\"3\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"/assets/images/avatar.png\"/>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"5\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Camilo Figueroa</span><br>\n            <ion-badge color=\"primary\" class=\"badge-text\">Soldador</ion-badge><br>\n            <span class=\"textSelect\">\n              Soldados con más de 5 años de experiencia, especialista en rejas, parrillas, etc.\n            </span>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\">\n          <ion-text>\n            <p class=\"ratingText main-color ion-text-center\">\n              4.83\n              <ion-icon name=\"star\"></ion-icon>\n              / 50\n              <ion-icon name=\"ribbon\"></ion-icon>\n            </p><br>\n            <!-- icons -->\n            <div class=\"locate-cont\">\n              <ion-icon name=\"hammer\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"time\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"heart\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"trophy\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- floating btn -->\n  <ion-fab horizontal=\"end\" vertical=\"bottom\" slot=\"fixed\">\n    <ion-fab-button color=\"primary\">\n      <ion-icon md=\"caret-up\" ios=\"add\"></ion-icon>\n    </ion-fab-button>\n    <ion-fab-list side=\"top\">\n      <ion-fab-button color=\"primary\">\n        <ion-icon name=\"map\"></ion-icon>\n      </ion-fab-button>\n      <ion-fab-button color=\"primary\">\n        <ion-icon name=\"medal\"></ion-icon>\n      </ion-fab-button>\n    </ion-fab-list>\n  </ion-fab>\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    \n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">ELIGE AL PROFESIONAL</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <!-- filter bar -->\n  <!-- <ion-grid>\n    <ion-row class=\"ion-margin-top\">\n\n      <ion-col size=\"2\" class=\"fStart\">\n        <ion-text class=\"text-10 main-color\">\n          <ion-icon name=\"funnel\"></ion-icon>\n          FILTROS\n        </ion-text>\n      </ion-col>\n\n      <ion-col size=\"3\">\n        <select class=\"main-color cusSelect\" name=\"\" style=\"background-color:white;\">\n          <option value=\"\">Reconocimiento</option>\n          <option value=\"\">Catidad de estrellas</option>\n          <option value=\"\">Calidad del servicio</option>\n          <option value=\"\">Puntualidad</option>\n        </select>\n      </ion-col>\n\n      <ion-col size=\"3\">\n        <select class=\"main-color cusSelect\" name=\"\" style=\"background-color:white;\">\n          <option value=\"\">Experiencia</option>\n          <option value=\"\">Puntualidad</option>\n        </select>\n      </ion-col>\n\n      <ion-col size=\"3\">\n        <ion-text class=\"text-10 main-color\">\n          <ion-icon name=\"sync\" class=\"filt-icon\"></ion-icon>\n          REESTABLECER\n        </ion-text>\n      </ion-col>\n\n    </ion-row>\n  </ion-grid> -->\n\n  <!-- emergency message -->\n  <!-- <div class=\"prof-cont ion-margin-top no-border\" (click)=\"eRequest()\">\n    <ion-grid>\n      <ion-row> -->\n\n        <!-- profile img -->\n        <!-- <ion-col size=\"3\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"/assets/images/avatar.png\"/>\n          </ion-avatar>\n        </ion-col> -->\n\n        <!-- title -->\n        <!-- <ion-col size=\"9\">\n          <ion-text>\n            <span class=\"eSelect\">Necesito el servicio urgente</span><br>\n            <span class=\"textSelect\">Esta solicitud  es de carácter urgente y será enviada a los 10 profesionales mejor catalogados para que puedan atender tu solicitud lo antes posible.</span>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div> -->\n\n  <!-- profesional card item -->\n  <div\n    *ngFor=\"let prof of profList\"\n    class=\"prof-cont ion-margin-top no-border\"\n    (click)=\"profDetails(prof.id, prof.img_profile)\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- profile img -->\n        <ion-col size=\"3\">\n          <ion-avatar class=\"profileImg\">\n            <ion-img src=\"{{ !prof.img_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+prof.img_profile }}\"></ion-img>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"9\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ prof.supplierName }} {{ prof.supplierLastName }}</span><br>\n            <ion-badge color=\"primary\" class=\"badge-text\">{{ prof.categoryName }}</ion-badge><br>\n            <span class=\"textSelect ion-text-capitalize\">{{ prof.descProf }}</span>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <!-- <ion-col size=\"4\">\n          <ion-text>\n            <p class=\"ratingText main-color ion-text-center\">\n              4.83\n              <ion-icon name=\"star\"></ion-icon>\n              / 50\n              <ion-icon name=\"ribbon\"></ion-icon>\n            </p><br>\n\n            <div class=\"locate-cont\">\n              <ion-icon name=\"hammer\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"time\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"heart\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont\">\n              <ion-icon name=\"trophy\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n          </ion-text>\n        </ion-col> -->\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- floating btn -->\n  <ion-fab horizontal=\"end\" vertical=\"bottom\" slot=\"fixed\">\n    <ion-fab-button color=\"primary\">\n      <ion-icon md=\"caret-up\" ios=\"add\"></ion-icon>\n    </ion-fab-button>\n    <ion-fab-list side=\"top\">\n      <ion-fab-button color=\"primary\">\n        <ion-icon name=\"map\"></ion-icon>\n      </ion-fab-button>\n      <ion-fab-button color=\"primary\">\n        <ion-icon name=\"medal\"></ion-icon>\n      </ion-fab-button>\n    </ion-fab-list>\n  </ion-fab>\n\n</ion-content>\n";
       /***/
     }
   }]);

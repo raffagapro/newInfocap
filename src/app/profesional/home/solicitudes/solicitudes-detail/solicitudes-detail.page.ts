@@ -5,10 +5,10 @@ import { LoadingController, MenuController, ModalController } from '@ionic/angul
 import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
-import { ImgListService } from 'src/app/services/img-list.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-solicitudes-detail',
@@ -19,9 +19,17 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
   headers: HttpHeaders;
-  loadedInfo;
-  loadedImgList: string[] = [];
-  imgListSub: Subscription;
+  loadedInfo = {
+    img_client_profile: null,
+    ticket_number: null,
+    clientName: null,
+    clientLastName: null,
+    date_required: null,
+    hours: null,
+    description: null,
+    images: null,
+    categoryName: null,
+  };
 
   slideOptions = {
     initialSlide: 0,
@@ -37,7 +45,6 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
     private us: UserService,
     private http: HttpClient,
     private lc: LoadingController,
-    private ils: ImgListService,
   ) { }
 
   ngOnInit() {
@@ -53,35 +60,46 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
       .subscribe(resData =>{
         console.log(resData['data']);
         loadingEl.dismiss();
-        this.loadedInfo = resData['data'];
+        this.loadedInfo.clientLastName = resData['data'].clientLastName;
+        this.loadedInfo.clientName = resData['data'].clientName;
+        this.loadedInfo.date_required = resData['data'].date_required;
+        this.loadedInfo.description = resData['data'].description;
+        this.loadedInfo.hours = resData['data'].hours;
+        this.loadedInfo.images = resData['data'].images;
+        this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
+        this.loadedInfo.ticket_number = resData['data'].ticket_number;
+        this.loadedInfo.categoryName = resData['data'].categoryName;
       }, err =>{
         console.log(err);
         loadingEl.dismiss();
         
       });
     });
-    //loading imgList
-    this.loadedImgList = this.ils.imgList;
-    this.imgListSub = this.ils.listChanged.subscribe(imgList =>{
-      this.loadedImgList = imgList;
-    });
-    console.log(this.loadedInfo.images);
-    this.ils.setImgList(this.loadedInfo.images); 
   }
 
   ionViewWillEnter(){
     this.menuController.enable(true, 'profesional');
+    console.log(this.loadedInfo);
   }
 
   p(hours: string){
-    let wHours = hours.split("/");
-    let sHour = wHours[0].split("T");
-    let sHour2 = sHour[1];
-    sHour2 = sHour2.substring(0, 5);
-    let eHour = wHours[1].split("T");
-    let eHour2 = eHour[1];
-    eHour2 = eHour2.substring(0, 5);
-    return sHour2+" - "+eHour2;
+    if (hours) {
+      let wHours = hours.split("/");
+      let sHour = wHours[0].split("T");
+      let sHour2 = sHour[1];
+      sHour2 = sHour2.substring(0, 5);
+      let eHour = wHours[1].split("T");
+      let eHour2 = eHour[1];
+      eHour2 = eHour2.substring(0, 5);
+      return sHour2+" - "+eHour2;
+    }
+  }
+
+  d(date:string){
+    if (date) {
+      let wDate = date.split(" ");
+      return wDate[0]; 
+    }
   }
 
   openMenu(){
@@ -94,11 +112,15 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
 
   accceptSolicitud(){
     this.router.navigate(['/profesional/home/home-tabs/solicitudes/definicion-servicio']);
+    // this.modalController.create({
+    //   component: ConfirmModalComponent,
+    //   cssClass: 'modalSE',
+    // }).then(modalEl =>{
+    //   modalEl.present();
+    // });
   }
 
   ngOnDestroy(){
     this.userSub.unsubscribe();
-    this.imgListSub.unsubscribe();
   }
-
 }

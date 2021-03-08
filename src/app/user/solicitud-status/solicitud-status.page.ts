@@ -23,6 +23,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
   headers: HttpHeaders;
   loadedService = {
     categoryName: null,
+    cummunename: null,
     category_id: null,
     created_date: null,
     date_required: null,
@@ -94,10 +95,29 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     this.menuController.open();
   }
 
+  serviceDetal(statusID: number){
+    switch (statusID) {
+      case 1:
+        this.seModal();
+        break;
+      
+      case 2:
+        this.srvPay();
+        break;
+
+      case 3:
+        this.srModal();
+        break;
+
+      default:
+        break;
+    }
+  }
+
   seModal(){
     this.modalController.create({
       component: SolicitudEnviadaModalComponent,
-      cssClass: 'modalSE',
+      cssClass: 'modalSA',
     }).then(modalEl => {
       modalEl.present();
     });

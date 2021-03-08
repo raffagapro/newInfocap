@@ -39,8 +39,7 @@
             <span class="titleSelect main-color ion-text-capitalize">{{ service.clientName+" "+service.clientLastName }}</span>
             <br>
             <ion-text class="mainText">
-              {{ service.adress }}<br>
-              API: address missing
+              {{ service.adress }}
             </ion-text>
             <br>
             <ion-text class="miniText ion-text-capitalize" color="primary">{{ service.description }}</ion-text>
@@ -49,7 +48,7 @@
 
         <!-- rating -->
         <ion-col size="5">
-          <ion-badge color="primary" class="badgeText">API: Cat missing</ion-badge>
+          <ion-badge color="primary" class="badgeText">{{ service.categoryName }}</ion-badge>
           <ion-grid class="ion-no-padding ion-no-margin">
             <ion-row class="ion-align-items-center">
               <!-- pendiente  -->
@@ -93,8 +92,7 @@
             <span class="titleSelect main-color ion-text-capitalize">{{ service.clientName+" "+service.clientLastName }}</span>
             <br>
             <ion-text class="mainText">
-              {{ service.adress }}<br>
-              API: address missing
+              {{ service.adress }}
             </ion-text>
             <br>
             <ion-text class="miniText ion-text-capitalize" color="primary">{{ service.description }}</ion-text>
@@ -103,28 +101,27 @@
 
         <!-- rating -->
         <ion-col size="5">
-          <ion-badge color="primary" class="badgeText">API: Cat missing</ion-badge>
+          <ion-badge color="primary" class="badgeText">{{ service.categoryName }}</ion-badge>
           <ion-grid class="ion-no-padding ion-no-margin">
             <ion-row class="ion-align-items-center">
               <!-- pendiente  -->
-
-              <ion-col size="3">
+              <ion-col size="3" *ngIf="service.status_id === 5">
                 <div class="locate-cont">
                   <ion-icon name="card" color="light" class="rating-text"></ion-icon>
                 </div>
               </ion-col>
-              <ion-col size="9">
+              <ion-col size="9" *ngIf="service.status_id === 5">
                 <ion-text color="danger" class="endText">
                   PAGO PENDIENTE
                 </ion-text>
               </ion-col>
                <!-- pagados  -->
-               <ion-col size="3" *ngIf="false">
+               <ion-col size="3" *ngIf="service.status_id === 6">
                 <div class="locate-cont-green">
                   <ion-icon name="card" color="light" class="rating-text"></ion-icon>
                 </div>
               </ion-col>
-              <ion-col size="9" *ngIf="false">
+              <ion-col size="9" *ngIf="service.status_id === 6">
                 <ion-text color="success" class="endText">
                   PAGO REALIZADO
                 </ion-text>

@@ -29,7 +29,7 @@
   </ion-grid>
 
   <!-- servicios agendados -->
-  <div class="prof-cont no-border" *ngFor="let service of loadedServices" (click)="solicitudDetails(service.id)">
+  <div class="prof-cont no-border" *ngFor="let service of loadedServices" (click)="solicitudDetail(service.id)">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
@@ -37,7 +37,7 @@
         <ion-col size="8" class="ion-justify-content-center">
           <ion-text>
             <span class="titleSelect main-color ion-text-capitalize">{{service.clientName+" "+ service.clientLastName}} </span>&nbsp;&nbsp;
-            <ion-badge color="primary" class="badge-text">Sin Categoria: API</ion-badge>
+            <ion-badge color="primary" class="badge-text">{{ service.categoryName }}</ion-badge>
             <br>
             <small>
               <ion-icon name="calendar" color="primary" class="iconFix"></ion-icon>
@@ -75,7 +75,7 @@
   </ion-grid>
 
   <!-- visitas agendadas -->
-  <div class="prof-cont no-border" *ngFor="let service of loadedVisits" (click)="solicitudDetails(service.id)">
+  <div class="prof-cont no-border" *ngFor="let service of loadedVisits" (click)="solicitudDetail(service.id)">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
@@ -83,7 +83,7 @@
         <ion-col size="8" class="ion-justify-content-center">
           <ion-text>
             <span class="titleSelect main-color ion-text-capitalize">{{service.clientName+" "+ service.clientLastName}} </span>&nbsp;&nbsp;
-            <ion-badge color="primary" class="badge-text">Sin Categoria: API</ion-badge>
+            <ion-badge color="primary" class="badge-text">{{ service.categoryName }}</ion-badge>
             <br>
             <small>
               <ion-icon name="calendar" color="primary" class="iconFix"></ion-icon>

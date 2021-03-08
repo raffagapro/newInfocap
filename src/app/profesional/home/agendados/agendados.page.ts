@@ -28,6 +28,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
     private http: HttpClient,
     private us: UserService,
     private lc: LoadingController,
+    private solServ: SolicitudService,
   ) { }
 
   ngOnInit() {
@@ -88,6 +89,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
   }
 
   solicitudDetail(serviceID: string){
+    this.solServ.setServiceID(serviceID);
     this.router.navigate(['/profesional/home/home-tabs/agendados/agendados-detail']);
   }
 

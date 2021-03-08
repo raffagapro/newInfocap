@@ -119,37 +119,112 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/common/http */
+      "tk/3");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @angular/core */
       "fXoL");
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/router */
       "tyNb");
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
+      /* harmony import */
+
+
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! src/app/services/user.service */
+      "qfBg");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
 
       var FinalizadosPage = /*#__PURE__*/function () {
-        function FinalizadosPage(router, menuController) {
+        function FinalizadosPage(router, menuController, http, us, lc) {
           _classCallCheck(this, FinalizadosPage);
 
           this.router = router;
           this.menuController = menuController;
+          this.http = http;
+          this.us = us;
+          this.lc = lc;
+          this.loadedServices = [];
+          this.paidServices = [];
+          this.parsedHours = null;
         }
 
         _createClass(FinalizadosPage, [{
           key: "ngOnInit",
-          value: function ngOnInit() {}
+          value: function ngOnInit() {
+            var _this = this;
+
+            this.userSub = this.us.loggedUser.subscribe(function (user) {
+              _this.grabbedUser = user;
+            });
+          }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
             this.menuController.enable(true, 'profesional');
+            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+            this.loadServices("5"); //5
+
+            this.loadServices("6"); //6
+          }
+        }, {
+          key: "loadServices",
+          value: function loadServices(statusID) {
+            var _this2 = this;
+
+            this.lc.create({
+              message: "Cargando lista de servicios..."
+            }).then(function (loadingEl) {
+              loadingEl.present();
+
+              _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + "/supplier/requestservice/".concat(statusID), {
+                headers: _this2.headers
+              }).subscribe(function (resData) {
+                console.log(resData['data']);
+                loadingEl.dismiss();
+
+                if (statusID === "5") {
+                  _this2.loadedServices = resData["data"]; // console.log(this.loadedServices);
+                }
+
+                if (statusID === "6") {
+                  _this2.paidServices = resData["data"]; // console.log(this.paidServices);
+                }
+              }, function (err) {
+                console.log(err);
+                loadingEl.dismiss();
+              });
+            });
+          }
+        }, {
+          key: "p",
+          value: function p(hours) {
+            var wHours = hours.split("/");
+            var sHour = wHours[0].split("T");
+            var sHour2 = sHour[1];
+            sHour2 = sHour2.substring(0, 5);
+            var eHour = wHours[1].split("T");
+            var eHour2 = eHour[1];
+            eHour2 = eHour2.substring(0, 5);
+            return sHour2 + " - " + eHour2;
           }
         }, {
           key: "openMenu",
@@ -161,6 +236,11 @@
           value: function finalizadosDetail() {
             this.router.navigate(['/profesional/home/home-tabs/finalizados/finalizados-details']);
           }
+        }, {
+          key: "ngOnDestroy",
+          value: function ngOnDestroy() {
+            this.userSub.unsubscribe();
+          }
         }]);
 
         return FinalizadosPage;
@@ -168,13 +248,19 @@
 
       FinalizadosPage.ctorParameters = function () {
         return [{
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"]
+        }, {
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
+        }, {
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
         }];
       };
 
-      FinalizadosPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+      FinalizadosPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
         selector: 'app-finalizados',
         template: _raw_loader_finalizados_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_finalizados_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
@@ -258,7 +344,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    \n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">FINALIZADOS</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- title -->\n  <ion-grid fixed>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"11\" class=\"ion-text-left\">\n        <ion-text class=\"main-color title\"><b>Buenos días Juan Alcayaga, tienes los siguientes trabajos en tu agenda.</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- pago pendiente card item -->\n  <div class=\"prof-cont no-border\" (click)=\"finalizadosDetail()\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Emmy Mut </span>\n            <br>\n            <ion-text class=\"mainText\">\n              Pasaje Estral Poniente<br>\n              666 Maipú, Chile\n            </ion-text>\n            <br>\n            <ion-text class=\"miniText\" color=\"primary\">Cambio de chapas</ion-text>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"5\">\n          <ion-badge color=\"primary\" class=\"badgeText\">Carpintería</ion-badge>\n          <ion-grid class=\"ion-no-padding ion-no-margin\">\n            <ion-row class=\"ion-align-items-center\">\n              <ion-col size=\"3\">\n                <div class=\"locate-cont\">\n                  <ion-icon name=\"card\" color=\"light\" class=\"rating-text\"></ion-icon>\n                </div>\n              </ion-col>\n              <ion-col size=\"9\">\n                <ion-text color=\"danger\" class=\"endText\">\n                  PAGO PENDIENTE\n                </ion-text>\n              </ion-col>\n            </ion-row>\n          </ion-grid>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- pago finalizado card item -->\n  <div class=\"prof-cont no-border\" (click)=\"finalizadosDetail()\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Irving Castillo </span>\n            <br>\n            <ion-text class=\"mainText\">\n              Pasaje Estral Poniente<br>\n              666 Maipú, Chile\n            </ion-text>\n            <br>\n            <ion-text class=\"miniText\" color=\"primary\">Cambio de chapas</ion-text>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"5\">\n          <ion-badge color=\"primary\" class=\"badgeText\">Cerrajería</ion-badge>\n          <ion-grid class=\"ion-no-padding ion-no-margin\">\n            <ion-row class=\"ion-align-items-center\">\n              <ion-col size=\"3\">\n                <div class=\"locate-cont-green\">\n                  <ion-icon name=\"card\" color=\"light\" class=\"rating-text\"></ion-icon>\n                </div>\n              </ion-col>\n              <ion-col size=\"9\">\n                <ion-text color=\"success\" class=\"endText\">\n                  PAGO REALIZADO\n                </ion-text>\n              </ion-col>\n            </ion-row>\n          </ion-grid>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- pago pendiente card item -->\n  <div class=\"prof-cont no-border\" (click)=\"finalizadosDetail()\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">María Rodríguez </span>\n            <br>\n            <ion-text class=\"mainText\">\n              Pasaje Estral Poniente<br>\n              666 Maipú, Chile\n            </ion-text>\n            <br>\n            <ion-text class=\"miniText\" color=\"primary\">Cambio de chapas</ion-text>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"5\">\n          <ion-badge color=\"primary\" class=\"badgeText\">Plomero</ion-badge>\n          <ion-grid class=\"ion-no-padding ion-no-margin\">\n            <ion-row class=\"ion-align-items-center\">\n              <ion-col size=\"3\">\n                <div class=\"locate-cont\">\n                  <ion-icon name=\"thumbs-up\" color=\"light\" class=\"rating-text\"></ion-icon>\n                </div>\n              </ion-col>\n              <ion-col size=\"9\">\n                <ion-text color=\"danger\" class=\"endText\">\n                  EVALUACIÓN PENDIENTE\n                </ion-text>\n              </ion-col>\n            </ion-row>\n          </ion-grid>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    \n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">FINALIZADOS</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- title -->\n  <ion-grid fixed>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"11\" class=\"ion-text-left\">\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length > 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes los siguientes trabajos finalizados.</b>\n        </ion-text>\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length === 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no tienes trabajos finalizados.</b>\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- pendiente pago -->\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedServices\" (click)=\"finalizadosDetail(service.id)\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ service.clientName+\" \"+service.clientLastName }}</span>\n            <br>\n            <ion-text class=\"mainText\">\n              {{ service.adress }}<br>\n              API: address missing\n            </ion-text>\n            <br>\n            <ion-text class=\"miniText ion-text-capitalize\" color=\"primary\">{{ service.description }}</ion-text>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"5\">\n          <ion-badge color=\"primary\" class=\"badgeText\">API: Cat missing</ion-badge>\n          <ion-grid class=\"ion-no-padding ion-no-margin\">\n            <ion-row class=\"ion-align-items-center\">\n              <!-- pendiente  -->\n              <ion-col size=\"3\" *ngIf=\"service.status_id === 5\">\n                <div class=\"locate-cont\">\n                  <ion-icon name=\"card\" color=\"light\" class=\"rating-text\"></ion-icon>\n                </div>\n              </ion-col>\n              <ion-col size=\"9\" *ngIf=\"service.status_id === 5\">\n                <ion-text color=\"danger\" class=\"endText\">\n                  PAGO PENDIENTE\n                </ion-text>\n              </ion-col>\n               <!-- pagados  -->\n               <ion-col size=\"3\" *ngIf=\"service.status_id === 6\">\n                <div class=\"locate-cont-green\">\n                  <ion-icon name=\"card\" color=\"light\" class=\"rating-text\"></ion-icon>\n                </div>\n              </ion-col>\n              <ion-col size=\"9\" *ngIf=\"service.status_id === 6\">\n                <ion-text color=\"success\" class=\"endText\">\n                  PAGO REALIZADO\n                </ion-text>\n              </ion-col>\n            </ion-row>\n          </ion-grid>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- pagados -->\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of paidServices\" (click)=\"finalizadosDetail(service.id)\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ service.clientName+\" \"+service.clientLastName }}</span>\n            <br>\n            <ion-text class=\"mainText\">\n              {{ service.adress }}<br>\n              API: address missing\n            </ion-text>\n            <br>\n            <ion-text class=\"miniText ion-text-capitalize\" color=\"primary\">{{ service.description }}</ion-text>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"5\">\n          <ion-badge color=\"primary\" class=\"badgeText\">API: Cat missing</ion-badge>\n          <ion-grid class=\"ion-no-padding ion-no-margin\">\n            <ion-row class=\"ion-align-items-center\">\n              <!-- pendiente  -->\n\n              <ion-col size=\"3\">\n                <div class=\"locate-cont\">\n                  <ion-icon name=\"card\" color=\"light\" class=\"rating-text\"></ion-icon>\n                </div>\n              </ion-col>\n              <ion-col size=\"9\">\n                <ion-text color=\"danger\" class=\"endText\">\n                  PAGO PENDIENTE\n                </ion-text>\n              </ion-col>\n               <!-- pagados  -->\n               <ion-col size=\"3\" *ngIf=\"false\">\n                <div class=\"locate-cont-green\">\n                  <ion-icon name=\"card\" color=\"light\" class=\"rating-text\"></ion-icon>\n                </div>\n              </ion-col>\n              <ion-col size=\"9\" *ngIf=\"false\">\n                <ion-text color=\"success\" class=\"endText\">\n                  PAGO REALIZADO\n                </ion-text>\n              </ion-col>\n            </ion-row>\n          </ion-grid>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n</ion-content>\n";
       /***/
     },
 

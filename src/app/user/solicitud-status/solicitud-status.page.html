@@ -23,10 +23,15 @@
         <ion-col size="8" class="ion-justify-content-center">
           <ion-text>
             <span class="titleSelect main-color ion-text-capitalize">{{ loadedService.supplierName+" "+loadedService.supplierLastName }} </span><br>
-            <!-- <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp; -->
-            <ion-badge color="medium" class="badge-text">{{ loadedService.categoryName }}</ion-badge><br>
-            <span class="textSelect">
-              Comuna / Address Missin: API
+            <!-- <ion-badge color="primary" class="badge-text">{{ loadedService.categoryName }}</ion-badge>&nbsp; -->
+            <ion-badge 
+              color="{{ loadedService.category_id === cat.id ? primary : medium }}" 
+              class="badge-text" 
+              *ngFor="let cat of loadedService.categories"
+              >{{ cat.categoryName }}
+            </ion-badge><br>
+            <span class="textSelect ion-text-capitalize">
+              {{ loadedService.cummunename }}
             </span><br>
             <small class="main-color">{{ wDate }}</small>
           </ion-text>
@@ -81,7 +86,7 @@
 
       <!-- solicitud enviada  -->
       <ion-row>
-        <div class="status-cont" (click)="seModal()">
+        <div class="status-cont" (click)="serviceDetal(1)">
           <ion-icon name="send" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
@@ -109,7 +114,7 @@
       </ion-row>
       <!-- active  -->
       <ion-row *ngIf="loadedService.status_id > 1 && loadedService.status_id !== 7">
-        <div class="status-cont">
+        <div class="status-cont" (click)="serviceDetal(1)">
           <ion-icon name="checkmark" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
@@ -138,7 +143,7 @@
       </ion-row>
       <!-- active  -->
       <ion-row *ngIf="loadedService.status_id > 2 && loadedService.status_id !== 7">
-        <div class="status-cont" (click)="saModal()">
+        <div class="status-cont" (click)="serviceDetal(1)">
           <ion-icon name="calendar" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
@@ -166,7 +171,7 @@
       </ion-row>
       <!-- active  -->
       <ion-row *ngIf="loadedService.status_id > 3 && loadedService.status_id !== 7">
-        <div class="status-cont" (click)="srvPay()">
+        <div class="status-cont" (click)="serviceDetal(2)">
           <ion-icon name="build" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
@@ -194,7 +199,7 @@
       </ion-row>
       <!-- active  -->
       <ion-row *ngIf="loadedService.status_id > 4 && loadedService.status_id !== 7">
-        <div class="status-cont" (click)="srvPay()">
+        <div class="status-cont" (click)="serviceDetal(2)">
           <ion-icon name="build" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
@@ -223,7 +228,7 @@
       </ion-row>
       <!-- active  -->
       <ion-row *ngIf="loadedService.status_id > 5 && loadedService.status_id !== 7">
-        <div class="status-cont">
+        <div class="status-cont" (click)="serviceDetal(2)">
           <ion-icon name="card" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
@@ -258,7 +263,7 @@
       </ion-row>
 
       <!-- Por que solictud rechazada  -->
-      <ion-row (click)="srModal()" *ngIf="loadedService.status_id === 7">
+      <ion-row (click)="serviceDetal(3)" *ngIf="loadedService.status_id === 7">
         <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color status-subtext-red">¿Por qué mi solicitud fue rechazada?</ion-text>
         </ion-col>

@@ -41,9 +41,15 @@ function base64toBlob(base64Data, contentType) {
   styleUrls: ['./solicitud-servicio.page.scss'],
 })
 export class SolicitudServicioPage implements OnInit, OnDestroy {
-  selectedProfesional: ProfCategory = new ProfCategory(
-    null, null, null, null, null, null, null, null, null, null, null, null, null
-  );
+  // selectedProfesional: ProfCategory = new ProfCategory(
+  //   null, null, null, null, null, null, null, null, null, null, null, null, null
+  // );
+  selectedProfesional = {
+    supplierName: null,
+    supplierLastName: null,
+    categoryName: null,
+    communeName: null,
+  }
   grabbedUser: User;
   userSub: Subscription;
   headers: HttpHeaders;
@@ -77,7 +83,12 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
-    this.selectedProfesional = this.solServ.solicitud.proPerfil;
+    // this.selectedProfesional = this.solServ.solicitud.proPerfil;
+    this.selectedProfesional.supplierName = this.solServ.solicitud.proPerfil.supplierName;
+    this.selectedProfesional.supplierLastName = this.solServ.solicitud.proPerfil.supplierLastName;
+    this.selectedProfesional.categoryName = this.solServ.solicitud.proPerfil.categoryName;
+    this.selectedProfesional.communeName = this.solServ.solicitud.proPerfil.communeName;
+
     this.selectedProfPhoto = this.solServ.solicitud.proPhoto;
     this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
     // platfrom Checker
@@ -103,11 +114,15 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
+      adress: new FormControl(this.solServ.solicitud.address, {
+        updateOn: 'blur',
+      }),
     });
   }
 
   ionViewWillEnter(){
     this.menuController.enable(true, 'user');
+    console.log(this.solServ.solicitud.address); 
   }
 
   openMenu(){
@@ -179,7 +194,9 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
     this.loadedImages.forEach(image => {
       formData.append('images[]', image);
     });
+    formData.append('cummune_id', this.solServ.solicitud.comuna_id);
     formData.append('description', this.form.value.description);
+    formData.append('adress', this.form.value.adress);
     formData.append('date_required', wDate);
     formData.append('hours', this.form.value.sHour+"/"+this.form.value.eHour);
     formData.append('professional_profile_id', this.solServ.solicitud.proPerfil_id);

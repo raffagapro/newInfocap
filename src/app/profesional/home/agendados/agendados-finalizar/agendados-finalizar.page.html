@@ -21,20 +21,18 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png"/>
+            <ion-img src="{{ !loadedInfo.img_client_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+loadedInfo.img_client_profile  }}"></ion-img>
           </ion-avatar>
         </ion-col>
 
         <!-- title -->
         <ion-col size="7">
           <ion-text>
-            <small class="ticket">Ticket #100091234</small>
-            <span class="titleSelect main-color">
-              Cerrajería para<br>
-              Emmy Mut
-            </span>
-            <br>
-            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">27 nov 2020</p>
+            <small class="ticket">Ticket #{{ loadedInfo.ticket_number }}</small><br>
+            <span class="titleSelect main-color ion-text-capitalize">{{ loadedInfo.categoryName }} para<br>
+              <span class="ion-text-capitalize titleName">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName }}</span>
+            </span><br>
+            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">{{ d(loadedInfo.created_date) }}</p>
           </ion-text>
         </ion-col>
 
@@ -69,7 +67,7 @@
     </ion-row>
 
     <!-- text -->
-    <ion-row class="minusMargin">
+    <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-text class="main-color regText"><b>Informe del trabajo</b></ion-text>

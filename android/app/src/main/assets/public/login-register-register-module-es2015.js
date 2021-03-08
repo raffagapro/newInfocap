@@ -29,7 +29,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
-/* harmony import */ var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./success-modal/success-modal.component */ "wYVq");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./success-modal/success-modal.component */ "wYVq");
+
 
 
 
@@ -77,7 +79,7 @@ let RegisterPage = class RegisterPage {
             message: 'Creando usuario...'
         }).then(loadingEl => {
             loadingEl.present();
-            this.http.post('http://workintest.herokuapp.com/api/auth/register', {
+            this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"] + '/auth/register', {
                 // this.http.post('http://127.0.0.1:8000/api/auth/register', {
                 name: name,
                 last_name: l_name,
@@ -90,7 +92,7 @@ let RegisterPage = class RegisterPage {
                     form.reset();
                     // modal for succes
                     this.modalController.create({
-                        component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_6__["SuccessModalComponent"],
+                        component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_7__["SuccessModalComponent"],
                         cssClass: 'modalSuccess',
                     }).then(modalEl => {
                         modalEl.present();

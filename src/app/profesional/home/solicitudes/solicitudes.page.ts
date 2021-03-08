@@ -21,6 +21,8 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   headers: HttpHeaders;
   loadedServices = [];
   parsedHours = null;
+  address1;
+  address2;
 
 
   constructor(
@@ -43,7 +45,6 @@ export class SolicitudesPage implements OnInit, OnDestroy {
     this.menuController.enable(true, 'profesional');
     this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
     // console.log(this.grabbedUser.access_token);
-    
     this.loadServices("1");    
     //1
   }
@@ -81,26 +82,24 @@ export class SolicitudesPage implements OnInit, OnDestroy {
     return sHour2+" - "+eHour2;
   }
 
+  d(address: string){
+    let wAdd = address.split(',')
+    // console.log(wAdd);
+    return wAdd[0]+",<br>"+wAdd[1]+", "+wAdd[2];
+    
+  }
+
   rechazarSolicitud(solicitudID: string){
-    this.lc.create({
-      message: "Procesando la solicitud..."
-    }).then(loadingEl =>{
-      loadingEl.present();
-      this.http.put(API+`/supplier/reject/requestservice/${solicitudID}`, null,  {headers: this.headers})
-      .subscribe(resData =>{
-        console.log(resData);
-        loadingEl.dismiss();
-        this.solServ.setServiceID(solicitudID);
-        this.modalController.create({
-          component: ServiceRejectModalComponent,
-          cssClass: 'modalSE',
-        }).then(modalEl => {
-          modalEl.present();
-        });
-      }, err =>{
-        loadingEl.dismiss();
-        console.log(err);
-        
+    this.solServ.setServiceID(solicitudID);
+    this.modalController.create({
+      component: ServiceRejectModalComponent,
+      cssClass: 'modalSE',
+    }).then(modalEl => {
+      modalEl.present();
+      modalEl.onDidDismiss().then(data =>{
+        if (data) {
+          this.loadServices("1");
+        }
       });
     });
   }

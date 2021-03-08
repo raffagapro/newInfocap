@@ -43,6 +43,11 @@ export class SolicitudesPage implements OnInit, OnDestroy {
     this.loadServices();
   }
 
+  p(passingDate: string){
+    let woDate = passingDate.split(" ");
+    return woDate[0];
+  }
+
   loadServices(){
     this.lc.create({
       message: "Cargando lista de servicios..."
@@ -53,11 +58,22 @@ export class SolicitudesPage implements OnInit, OnDestroy {
         console.log(resData['data']);
         loadingEl.dismiss();
         this.loadedServices = resData['data'];
+        this.loadedServices.sort( this.compare );
       }, err =>{
         console.log(err);
         loadingEl.dismiss();
       });
     });
+  }
+
+  compare( a, b ) {
+    if ( a.status_id < b.status_id ){
+      return -1;
+    }
+    if ( a.status_id > b.status_id ){
+      return 1;
+    }
+    return 0;
   }
 
   openMenu(){

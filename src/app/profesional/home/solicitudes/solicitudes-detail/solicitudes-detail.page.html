@@ -8,7 +8,7 @@
       </ion-button>
     </ion-buttons>
 
-    <ion-title class="title-toolbar">SOLICITUDES</ion-title>
+    <ion-title class="title-toolbar">DATALLES SOLICITUD</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,7 +21,7 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <ion-img src="{{ !loadedInfo.img_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+grabbedUser.img_profile }}"></ion-img>
+            <ion-img src="{{ !loadedInfo.img_client_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+loadedInfo.img_client_profile  }}"></ion-img>
           </ion-avatar>
         </ion-col>
 
@@ -29,10 +29,10 @@
         <ion-col size="6">
           <ion-text>
             <small class="ticket">Ticket #{{ loadedInfo.ticket_number }}</small><br>
-            <span class="titleSelect main-color">API:CatName para <br>
-              <span class="ion-text-capitalize">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName }}</span>
+            <span class="titleSelect main-color ion-text-capitalize">{{ loadedInfo.categoryName }} para<br>
+              <span class="ion-text-capitalize titleName">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName }}</span>
             </span><br>
-            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">API:Created_at</p>
+            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">{{ d(loadedInfo.created_date) }}</p>
           </ion-text>
         </ion-col>
 
@@ -64,7 +64,7 @@
         <ion-slides [options]="slideOptions">
           
           <!-- slide -->
-          <ion-slide *ngFor="let image of loadedImgList">
+          <ion-slide *ngFor="let image of loadedInfo.images">
             <img
               src="{{ 'http://workintest.herokuapp.com'+image.image }}"
               class="imgSlide"
@@ -172,8 +172,8 @@
 
       <ion-col size="1"></ion-col>
       <ion-col>
-        <ion-button size="5" expand="block" class="ion-text-uppercase" color="success" (click)="accceptSolicitud()">
-          ACEPTAR TRABAJO FINAL
+        <ion-button size="5" expand="block" class="ion-text-uppercase" color="primary" (click)="accceptSolicitud()">
+          ACEPTAR TRABAJO
         </ion-button>
       </ion-col>
       <ion-col size="1"></ion-col>

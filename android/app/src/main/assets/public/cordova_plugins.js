@@ -2,11 +2,43 @@
   cordova.define('cordova/plugin_list', function(require, exports, module) {
     module.exports = [
       {
+          "id": "mx.ferreyra.callnumber.CallNumber",
+          "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
+          "pluginId": "mx.ferreyra.callnumber",
+        "clobbers": [
+          "call"
+        ]
+        },
+      {
           "id": "cordova-plugin-advanced-http.http",
           "file": "plugins/cordova-plugin-advanced-http/www/advanced-http.js",
           "pluginId": "cordova-plugin-advanced-http",
         "clobbers": [
           "cordova.plugin.http"
+        ]
+        },
+      {
+          "id": "cordova-plugin-device.device",
+          "file": "plugins/cordova-plugin-device/www/device.js",
+          "pluginId": "cordova-plugin-device",
+        "clobbers": [
+          "device"
+        ]
+        },
+      {
+          "id": "cordova-plugin-nativegeocoder.NativeGeocoder",
+          "file": "plugins/cordova-plugin-nativegeocoder/www/NativeGeocoder.js",
+          "pluginId": "cordova-plugin-nativegeocoder",
+        "clobbers": [
+          "nativegeocoder"
+        ]
+        },
+      {
+          "id": "cordova-plugin-geolocation.geolocation",
+          "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+          "pluginId": "cordova-plugin-geolocation",
+        "clobbers": [
+          "navigator.geolocation"
         ]
         },
       {
@@ -141,6 +173,14 @@
         ]
         },
       {
+          "id": "cordova-plugin-statusbar.statusbar",
+          "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+          "pluginId": "cordova-plugin-statusbar",
+        "clobbers": [
+          "window.StatusBar"
+        ]
+        },
+      {
           "id": "cordova-plugin-advanced-http.cookie-handler",
           "file": "plugins/cordova-plugin-advanced-http/www/cookie-handler.js",
           "pluginId": "cordova-plugin-advanced-http"
@@ -223,6 +263,12 @@
         "runs": true
         },
       {
+          "id": "cordova-plugin-geolocation.PositionError",
+          "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+          "pluginId": "cordova-plugin-geolocation",
+        "runs": true
+        },
+      {
           "id": "cordova-plugin-file.fileSystemPaths",
           "file": "plugins/cordova-plugin-file/www/fileSystemPaths.js",
           "pluginId": "cordova-plugin-file",
@@ -251,8 +297,14 @@
     module.exports.metadata =
     // TOP OF METADATA
     {
+      "mx.ferreyra.callnumber": "0.0.2",
       "cordova-plugin-advanced-http": "3.1.0",
-      "cordova-plugin-file": "6.0.2"
+      "cordova-plugin-file": "6.0.2",
+      "cordova-plugin-geolocation": "4.1.0",
+      "cordova-plugin-nativegeocoder": "3.4.1",
+      "cordova-plugin-device": "2.0.2",
+      "cordova-plugin-statusbar": "2.4.2",
+      "cordova-plugin-whitelist": "1.3.3"
     };
     // BOTTOM OF METADATA
     });

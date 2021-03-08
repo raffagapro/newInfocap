@@ -179,37 +179,117 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/common/http */
+      "tk/3");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @angular/core */
       "fXoL");
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/router */
       "tyNb");
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
+      /* harmony import */
+
+
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! src/app/services/solicitud.service */
+      "rLtr");
+      /* harmony import */
+
+
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! src/app/services/user.service */
+      "qfBg");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
 
       var SolicitudesPage = /*#__PURE__*/function () {
-        function SolicitudesPage(router, menuController) {
+        function SolicitudesPage(router, menuController, http, us, lc, solServ) {
           _classCallCheck(this, SolicitudesPage);
 
           this.router = router;
           this.menuController = menuController;
+          this.http = http;
+          this.us = us;
+          this.lc = lc;
+          this.solServ = solServ;
         }
 
         _createClass(SolicitudesPage, [{
           key: "ngOnInit",
-          value: function ngOnInit() {}
+          value: function ngOnInit() {
+            var _this = this;
+
+            this.userSub = this.us.loggedUser.subscribe(function (user) {
+              _this.grabbedUser = user;
+            });
+          }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
+            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token); // console.log(this.grabbedUser.access_token);
+
             this.menuController.enable(true, 'user');
+            this.loadServices();
+          }
+        }, {
+          key: "p",
+          value: function p(passingDate) {
+            var woDate = passingDate.split(" ");
+            return woDate[0];
+          }
+        }, {
+          key: "loadServices",
+          value: function loadServices() {
+            var _this2 = this;
+
+            this.lc.create({
+              message: "Cargando lista de servicios..."
+            }).then(function (loadingEl) {
+              loadingEl.present();
+
+              _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/client/requestservices', {
+                headers: _this2.headers
+              }).subscribe(function (resData) {
+                console.log(resData['data']);
+                loadingEl.dismiss();
+                _this2.loadedServices = resData['data'];
+
+                _this2.loadedServices.sort(_this2.compare);
+              }, function (err) {
+                console.log(err);
+                loadingEl.dismiss();
+              });
+            });
+          }
+        }, {
+          key: "compare",
+          value: function compare(a, b) {
+            if (a.status_id < b.status_id) {
+              return -1;
+            }
+
+            if (a.status_id > b.status_id) {
+              return 1;
+            }
+
+            return 0;
           }
         }, {
           key: "openMenu",
@@ -217,33 +297,21 @@
             this.menuController.open();
           }
         }, {
-          key: "solicitudEnviada",
-          value: function solicitudEnviada() {
+          key: "onSearchChange",
+          value: function onSearchChange(e) {
+            console.log(e.target.value);
+          }
+        }, {
+          key: "solicitudDetails",
+          value: function solicitudDetails(solicitudId) {
+            this.solServ.clearSolicitud();
+            this.solServ.setServiceID(solicitudId);
             this.router.navigate(['/user/solicitud-status']);
           }
         }, {
-          key: "solicitudInProgress",
-          value: function solicitudInProgress() {
-            this.router.navigate(['/user/solicitud-detail']);
-          }
-        }, {
-          key: "servAccepted",
-          value: function servAccepted() {// this.router.navigate(['/user/solicitud-detail']);
-          }
-        }, {
-          key: "servRealizado",
-          value: function servRealizado() {
-            this.router.navigate(['/user/servicio-pagar']);
-          }
-        }, {
-          key: "solicitudRechazada",
-          value: function solicitudRechazada() {
-            this.router.navigate(['/user/solicitud-status']);
-          }
-        }, {
-          key: "solicitudVisita",
-          value: function solicitudVisita() {
-            this.router.navigate(['/user/visita-detail']);
+          key: "ngOnDestroy",
+          value: function ngOnDestroy() {
+            this.userSub.unsubscribe();
           }
         }]);
 
@@ -252,13 +320,21 @@
 
       SolicitudesPage.ctorParameters = function () {
         return [{
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"]
+        }, {
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
+        }, {
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
+        }, {
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"]
         }];
       };
 
-      SolicitudesPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+      SolicitudesPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
         selector: 'app-solicitudes',
         template: _raw_loader_solicitudes_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_solicitudes_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
@@ -302,7 +378,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">ESTADO DE SOLICITUD</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <!-- filter bar -->\n  <ion-grid>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-item lines=\"none\" class=\"main-color border\">\n          <ion-icon name=\"search\" slot=\"start\" class=\"main-color\"></ion-icon>\n          <ion-input type=\"text\" placeholder=\"Buscar\" class=\"ion-no-padding\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- servicio acceptadp -->\n  <div class=\"prof-cont ion-margin-top no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Juan Alcayaga </span><br>\n            <ion-badge color=\"medium\" class=\"badge-text\">Soldador</ion-badge>&nbsp;\n            <ion-badge color=\"medium\" class=\"badge-text\">Gasfiter</ion-badge><br>\n            <span class=\"textSelect\">\n              Necesito un soldador para realizar una reja perimetral, solo para frontis de casa...\n            </span><br>\n            <small class=\"main-color\">Contactado hace 1 d\xEDa</small>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Ticket #100091234</small>\n          </div>\n          <ion-text>\n            <!-- icons -->\n            <div class=\"locate-cont\" (click)=\"servAccepted()\">\n              <ion-icon name=\"hammer\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div><br>\n            <small class=\"ratingText main-color ion-text-center\">\n              SERVICIO ACEPTADO\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- solicitud enviada -->\n  <div class=\"prof-cont ion-margin-top no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Cecilia Riquelme </span><br>\n            <ion-badge color=\"medium\" class=\"badge-text\">Soldador</ion-badge>&nbsp;\n            <ion-badge color=\"medium\" class=\"badge-text\">Electrico</ion-badge>&nbsp;\n            <ion-badge color=\"medium\" class=\"badge-text\">Gasfiter</ion-badge><br>\n            <span class=\"textSelect\">\n              Necesito un soldador para realizar una reja perimetral, solo para frontis de casa...\n            </span><br>\n            <small class=\"main-color\">Contactado hace 2 d\xEDas</small>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Ticket #100091234</small>\n          </div>\n          <ion-text>\n            <!-- icons -->\n            <div class=\"locate-cont\" (click)=\"solicitudEnviada()\">\n              <ion-icon name=\"send\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div><br>\n            <small class=\"ratingText main-color ion-text-center\">\n              SOLICITUD ENVIADA\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- solicitud en proceso -->\n  <div class=\"prof-cont ion-margin-top no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Carlos Cheuqueman </span><br>\n            <ion-badge color=\"medium\" class=\"badge-text\">Soldador</ion-badge>&nbsp;\n            <ion-badge color=\"medium\" class=\"badge-text\">Gasfiter</ion-badge><br>\n            <span class=\"textSelect\">\n              Necesito un soldador para realizar una reja perimetral, solo para frontis de casa...\n            </span><br>\n            <small class=\"main-color\">Contactado hace 2 d\xEDas</small>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Ticket #100091234</small>\n          </div>\n          <ion-text>\n            <!-- icons -->\n            <div class=\"locate-cont bg-green-color\" (click)=\"solicitudInProgress()\">\n              <ion-icon name=\"build\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div><br>\n            <small class=\"ratingText green-color ion-text-center\">\n              SERVICIO EN\x0BPROCESO\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- servicio realizado -->\n  <div class=\"prof-cont ion-margin-top no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Diego Zapata </span><br>\n            <ion-badge color=\"medium\" class=\"badge-text\">Soldador</ion-badge>&nbsp;\n            <ion-badge color=\"medium\" class=\"badge-text\">Gasfiter</ion-badge><br>\n            <span class=\"textSelect\">\n              Necesito un soldador para realizar una reja perimetral, solo para frontis de casa...\n            </span><br>\n            <small class=\"main-color\">Contactado hace 2 d\xEDas</small>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Ticket #100091234</small>\n          </div>\n          <ion-text>\n            <!-- icons -->\n            <div class=\"locate-cont bg-grey-color\" (click)=\"servRealizado()\">\n              <ion-icon name=\"build\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div><br>\n            <small class=\"ratingText grey-color ion-text-center\">\n              SERVICIO REALIZADO\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- solicitud rechazada -->\n  <div class=\"prof-cont ion-margin-top no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Franco Pardo </span><br>\n            <ion-badge color=\"medium\" class=\"badge-text\">Soldador</ion-badge>&nbsp;\n            <ion-badge color=\"medium\" class=\"badge-text\">Soldador</ion-badge>&nbsp;\n            <ion-badge color=\"medium\" class=\"badge-text\">Gasfiter</ion-badge><br>\n            <span class=\"textSelect\">\n              Necesito un soldador para realizar una reja perimetral, solo para frontis de casa...\n            </span><br>\n            <small class=\"main-color\">Contactado hace 2 d\xEDas</small>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Ticket #100091234</small>\n          </div>\n          <ion-text>\n            <!-- icons -->\n            <div class=\"locate-cont bg-red-color\" (click)=\"solicitudRechazada()\">\n              <ion-icon name=\"close\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div><br>\n            <small class=\"ratingText red-color ion-text-center\">\n              SOLICITUD RECHAZADA\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- solicitud visita -->\n  <div class=\"prof-cont ion-margin-top no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Ra\xFAl Parra </span><br>\n            <ion-badge color=\"medium\" class=\"badge-text\">Soldador</ion-badge>&nbsp;\n            <ion-badge color=\"medium\" class=\"badge-text\">Soldador</ion-badge>&nbsp;\n            <ion-badge color=\"medium\" class=\"badge-text\">Gasfiter</ion-badge><br>\n            <span class=\"textSelect\">\n              Necesito un soldador para realizar una reja perimetral, solo para frontis de casa...\n            </span><br>\n            <small class=\"main-color\">Contactado hace 2 d\xEDas</small>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Ticket #100091234</small>\n          </div>\n          <ion-text>\n            <!-- icons -->\n            <div class=\"locate-cont bg-main-color\" (click)=\"solicitudVisita()\">\n              <ion-icon name=\"calendar\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div><br>\n            <small class=\"ratingText main-color ion-text-center\">\n              SOLICITUD VISITA\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">ESTADO DE SOLICITUD</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <!-- filter bar -->\n  <!-- <ion-grid>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-searchbar\n          placeholder=\"Buscar\"\n          (ionChange)=\"onSearchChange($event)\"\n          >\n        </ion-searchbar>\n      </ion-col>\n    </ion-row>\n  </ion-grid> -->\n\n  <!-- servicio iterable -->\n  <div class=\"prof-cont ion-margin-top no-border\" *ngFor=\"let service of loadedServices\" (click)=\"solicitudDetails(service.request_id)\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ service.supplierName+\" \"+service.supplierLastName }} </span><br>\n            <!-- <ion-badge color=\"medium\" class=\"badge-text\">Soldador</ion-badge>&nbsp; -->\n            <ion-badge color=\"medium\" class=\"badge-text\">{{ service.categoryName }}</ion-badge><br>\n            <span class=\"textSelect\">{{ service.description }}</span><br>\n            <small class=\"main-color\">{{ p(service.created_date) }}</small>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-center\">\n            <small class=\"ticket\">Ticket #{{ service.ticket_number }}</small>\n          </div>\n          <!-- itersate thru the btns-->\n\n          <!-- enviada -->\n          <ion-text *ngIf=\"service.status_id === 1\">\n            <!-- icons -->\n            <div class=\"locate-cont\">\n              <ion-icon name=\"send\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div><br>\n            <small class=\"ratingText main-color ion-text-center\">\n              SOLICITUD ENVIADA\n            </small>\n          </ion-text>\n\n          <!-- visita  -->\n          <ion-text *ngIf=\"service.status_id === 2\">\n            <!-- icons -->\n            <div class=\"locate-cont bg-main-color\">\n              <ion-icon name=\"calendar\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div><br>\n            <small class=\"ratingText main-color ion-text-center\">\n              SOLICITUD VISITA\n            </small>\n          </ion-text>\n\n          <!-- accepted  -->\n          <ion-text *ngIf=\"service.status_id === 3\">\n            <!-- icons -->\n            <div class=\"locate-cont\">\n              <ion-icon name=\"hammer\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div><br>\n            <small class=\"ratingText main-color ion-text-center\">\n              SERVICIO ACEPTADO\n            </small>\n          </ion-text>\n\n          <!-- rechazada  -->\n          <ion-text *ngIf=\"service.status_id === 7\">\n            <!-- icons -->\n            <div class=\"locate-cont bg-red-color\">\n              <ion-icon name=\"close\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div><br>\n            <small class=\"ratingText red-color ion-text-center\">\n              SOLICITUD RECHAZADA\n            </small>\n          </ion-text>\n\n          <!-- en proceso  -->\n          <ion-text *ngIf=\"service.status_id === 4\">\n            <!-- icons -->\n            <div class=\"locate-cont bg-green-color\">\n              <ion-icon name=\"build\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div><br>\n            <small class=\"ratingText green-color ion-text-center\">\n              SERVICIO EN\x0BPROCESO\n            </small>\n          </ion-text>\n\n          <!-- realizado  -->\n          <ion-text *ngIf=\"service.status_id === 5\">\n            <!-- icons -->\n            <div class=\"locate-cont bg-grey-color\">\n              <ion-icon name=\"build\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div><br>\n            <small class=\"ratingText grey-color ion-text-center\">\n              SERVICIO REALIZADO\n            </small>\n          </ion-text>\n\n          <!-- finalizado  -->\n          <ion-text *ngIf=\"service.status_id === 6\">\n            <!-- icons -->\n            <div class=\"locate-cont bg-grey-color\">\n              <ion-icon name=\"build\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div><br>\n            <small class=\"ratingText grey-color ion-text-center\">\n              SERVICIO FINALIZADO\n            </small>\n          </ion-text>\n\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </div>\n\n</ion-content>\n";
       /***/
     }
   }]);

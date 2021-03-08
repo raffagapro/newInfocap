@@ -13,10 +13,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
 /* harmony import */ var _raw_loader_confirm_serv_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./confirm-serv.component.html */ "2cAv");
 /* harmony import */ var _confirm_serv_component_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./confirm-serv.component.scss */ "RIYB");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
-/* harmony import */ var _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../confirm-success/confirm-success.component */ "Hjn/");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../confirm-success/confirm-success.component */ "Hjn/");
+
+
+
+
 
 
 
@@ -25,31 +33,96 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ConfirmServComponent = class ConfirmServComponent {
-    constructor(modalController, router) {
+    constructor(modalController, router, solServ, us, http, lc) {
         this.modalController = modalController;
         this.router = router;
+        this.solServ = solServ;
+        this.us = us;
+        this.http = http;
+        this.lc = lc;
+        this.loadedInfo = {
+            date_required: null,
+            hours: null,
+        };
     }
-    ngOnInit() { }
+    ngOnInit() {
+        this.userSub = this.us.loggedUser.subscribe(user => {
+            this.grabbedUser = user;
+        });
+        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+        this.lc.create({
+            message: "Cargando informacion del servicio..."
+        }).then(loadingEl => {
+            loadingEl.present();
+            this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: this.headers })
+                .subscribe(resData => {
+                console.log(resData['data']);
+                loadingEl.dismiss();
+                this.loadedInfo.date_required = resData['data'].date_required;
+                this.loadedInfo.hours = resData['data'].hours;
+            }, err => {
+                console.log(err);
+                loadingEl.dismiss();
+            });
+        });
+    }
+    p(hours) {
+        if (hours) {
+            let wHours = hours.split("/");
+            let sHour = wHours[0].split("T");
+            let sHour2 = sHour[1];
+            sHour2 = sHour2.substring(0, 5);
+            let eHour = wHours[1].split("T");
+            let eHour2 = eHour[1];
+            eHour2 = eHour2.substring(0, 5);
+            return sHour2 + " - " + eHour2;
+        }
+    }
+    d(date) {
+        if (date) {
+            let wDate = date.split(" ");
+            return wDate[0];
+        }
+    }
     confirmServicio() {
-        this.modalController.dismiss();
-        this.modalController.create({
-            component: _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmSuccessComponent"],
-            cssClass: 'modalSuccess',
-        }).then(modalEl => {
-            modalEl.present();
+        this.lc.create({
+            message: "Confirmando solicitud..."
+        }).then(loadingEl => {
+            loadingEl.present();
+            this.http.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + `/supplier/aprove/requestservice/${this.solServ.solicitud.solicitudID}`, null, { headers: this.headers })
+                .subscribe(resData => {
+                console.log(resData);
+                loadingEl.dismiss();
+                this.modalController.dismiss();
+                this.modalController.create({
+                    component: _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_10__["ConfirmSuccessComponent"],
+                    cssClass: 'modalSuccess',
+                }).then(modalEl => {
+                    modalEl.present();
+                });
+            }, err => {
+                loadingEl.dismiss();
+            });
         });
     }
     dismiss() {
         this.modalController.dismiss();
         // this.router.navigate(['/profesional/home/home-tabs/finalizados/']);
     }
+    ngOnDestroy() {
+        this.userSub.unsubscribe();
+    }
 };
 ConfirmServComponent.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ModalController"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
+    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"] }
 ];
 ConfirmServComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
         selector: 'app-confirm-serv',
         template: _raw_loader_confirm_serv_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_confirm_serv_component_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
@@ -231,7 +304,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE SERVICIO</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre el trabajo a realizar.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon name=\"calendar\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">viernes 20 de noviembre de 2020</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon name=\"time\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">8:00 - 16:00 horas</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmServicio()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE SERVICIO</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre el trabajo a realizar.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon name=\"calendar\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Fecha: {{ loadedInfo.date_required }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon name=\"time\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Horario: {{ p(loadedInfo.hours) }}h</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmServicio()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n");
 
 /***/ }),
 
@@ -353,13 +426,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./src/environments/environment.ts ***!
   \*****************************************/
-/*! exports provided: environment, WEB_KEY */
+/*! exports provided: environment, WEB_KEY, API, PATH */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WEB_KEY", function() { return WEB_KEY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "API", function() { return API; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PATH", function() { return PATH; });
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
@@ -367,6 +442,9 @@ const environment = {
     production: false
 };
 const WEB_KEY = 'com.googleusercontent.apps.30514470553-9iop802o4obarpv3no5s1ng5kcnblne7';
+const API = 'http://workintest.herokuapp.com/api';
+// export const API = 'http://127.0.0.1:8000/api';
+const PATH = 'http://workintest.herokuapp.com/';
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
@@ -607,6 +685,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var src_app_services_img_list_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/img-list.service */ "zakx");
+/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
+
+
 
 
 
@@ -614,26 +696,55 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SolicitudEnviadaModalComponent = class SolicitudEnviadaModalComponent {
-    constructor(modalController, router) {
+    constructor(modalController, router, solServ, ils) {
         this.modalController = modalController;
         this.router = router;
+        this.solServ = solServ;
+        this.ils = ils;
+        this.loadedImgList = [];
         this.slideOptions = {
             initialSlide: 0,
             slidesPerView: 2,
             autoplay: true
         };
     }
-    ngOnInit() { }
+    ngOnInit() {
+        this.loadedService = this.solServ.solicitud.solicitudOBJ;
+        let worDate = this.loadedService.created_date.split(" ");
+        this.wDate = worDate[0];
+        //loading imgList
+        this.loadedImgList = this.ils.imgList;
+        this.imgListSub = this.ils.listChanged.subscribe(imgList => {
+            this.loadedImgList = imgList;
+        });
+        console.log(this.loadedService);
+        this.ils.setImgList(this.loadedService.img_request);
+    }
+    p(hours) {
+        let wHours = hours.split("/");
+        let sHour = wHours[0].split("T");
+        let sHour2 = sHour[1];
+        sHour2 = sHour2.substring(0, 5);
+        let eHour = wHours[1].split("T");
+        let eHour2 = eHour[1];
+        eHour2 = eHour2.substring(0, 5);
+        return sHour2 + " - " + eHour2;
+    }
     dismiss() {
         this.modalController.dismiss();
     }
     seModal() {
         // do somethignn awsesome
     }
+    ngOnDestroy() {
+        this.imgListSub.unsubscribe();
+    }
 };
 SolicitudEnviadaModalComponent.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
+    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"] },
+    { type: src_app_services_img_list_service__WEBPACK_IMPORTED_MODULE_6__["ImgListService"] }
 ];
 SolicitudEnviadaModalComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -735,8 +846,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "54vc");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "VYYF");
-/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./services/auth.service */ "lGQG");
-/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/user.service */ "qfBg");
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/auth.service */ "lGQG");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/user.service */ "qfBg");
+
 
 
 
@@ -763,8 +876,11 @@ let AppComponent = class AppComponent {
     }
     initializeApp() {
         this.platform.ready().then(() => {
-            this.statusBar.styleDefault();
-            this.splashScreen.hide();
+            // this.statusBar.styleDefault();
+            if (_capacitor_core__WEBPACK_IMPORTED_MODULE_8__["Capacitor"].isPluginAvailable('SplashScreen')) {
+                _capacitor_core__WEBPACK_IMPORTED_MODULE_8__["Plugins"].SplashScreen.hide();
+            }
+            // this.splashScreen.hide();
         });
     }
     setUser() {
@@ -780,7 +896,7 @@ let AppComponent = class AppComponent {
     logout() {
         this.menuCtrl.close();
         this.as.logout();
-        this.router.navigate(['/']);
+        this.router.navigateByUrl('/');
     }
     profile() {
         this.menuCtrl.close();
@@ -797,8 +913,8 @@ AppComponent.ctorParameters = () => [
     { type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"] },
-    { type: _services_auth_service__WEBPACK_IMPORTED_MODULE_8__["AuthService"] },
-    { type: _services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"] }
+    { type: _services_auth_service__WEBPACK_IMPORTED_MODULE_9__["AuthService"] },
+    { type: _services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"] }
 ];
 AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -917,6 +1033,50 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "VbkS":
+/*!***********************************************************************************!*\
+  !*** ./src/app/profesional/cat-perfiles/success-modal/success-modal.component.ts ***!
+  \***********************************************************************************/
+/*! exports provided: SuccessModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SuccessModalComponent", function() { return SuccessModalComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _raw_loader_success_modal_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./success-modal.component.html */ "xiUv");
+/* harmony import */ var _success_modal_component_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./success-modal.component.scss */ "dfqD");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+
+
+
+
+
+let SuccessModalComponent = class SuccessModalComponent {
+    constructor(modalController) {
+        this.modalController = modalController;
+    }
+    ngOnInit() { }
+    dismiss() {
+        this.modalController.dismiss();
+    }
+};
+SuccessModalComponent.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] }
+];
+SuccessModalComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        selector: 'app-success-modal',
+        template: _raw_loader_success_modal_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
+        styles: [_success_modal_component_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
+    })
+], SuccessModalComponent);
+
+
+
+/***/ }),
+
 /***/ "Vfqj":
 /*!********************************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/user/solicitud-status/servicio-agendado-modal/servicio-agendado-modal.component.html ***!
@@ -939,7 +1099,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n  \n  <!-- Menu User -->\n  <ion-menu side=\"start\" menuId=\"user\" contentId=\"main\">\n    <ion-content>\n      <ion-grid>\n        <!-- profile Img -->\n        <ion-row class=\"imgCont\">\n          <ion-col>\n            <ion-avatar class=\"ion-margin-start profileImg\">\n              <ion-img *ngIf=\"!user\" src=\"assets/images/avatar.png\"></ion-img>\n              <ion-img *ngIf=\"user !== undefined\" src=\"{{ user.img_profile }}\"></ion-img>\n            </ion-avatar>\n          </ion-col>\n        </ion-row>\n        <!-- edit icon -->\n        <ion-row>\n          <ion-col>\n            <div class=\"rate-cont\" (click)=\"profile()\">\n              <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n            </div>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n            <ion-text class=\"name-text\" *ngIf=\"!user\"><b>Usuario Invitado</b></ion-text>\n            <ion-text class=\"name-text ion-text-capitalize\" *ngIf=\"user\"><b>{{ user.name + ' ' + user.last_name }}</b></ion-text>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n      <ion-list class=\"ion-margin-top\">\n        <ion-menu-toggle menu=\"user\">\n\n          <!-- home -->\n          <ion-item lines=\"none\" href=\"/user/home\">\n            <ion-icon slot=\"start\" name=\"home\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Inicio</ion-label>\n          </ion-item>\n\n          <!-- profesionales contactados -->\n          <ion-item lines=\"none\" href=\"/user/prof-contactados-list\">\n            <ion-icon slot=\"start\" name=\"people\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Profesionales contactados</ion-label>\n          </ion-item>\n\n          <!-- Estado de solicitud -->\n          <ion-item lines=\"none\" href=\"/user/solicitudes\">\n            <ion-icon slot=\"start\" name=\"clipboard\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Estado de solicitud</ion-label>\n          </ion-item>\n\n          <!-- Método de pago -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"card\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Método de pago</ion-label>\n          </ion-item>\n\n          <!-- Notificaciones -->\n          <ion-item lines=\"none\" href=\"/user/notificaciones\">\n            <ion-icon slot=\"start\" name=\"notifications\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Notificaciones</ion-label>\n          </ion-item>\n\n          <!-- Soporte -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"headset\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Soporte</ion-label>\n          </ion-item>\n\n          <!-- Términos y condiciones -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"reader\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Términos y condiciones</ion-label>\n          </ion-item>\n\n        </ion-menu-toggle>\n      </ion-list>\n    </ion-content>\n\n    <ion-footer class=\"ion-no-border\">\n      <ion-toolbar>\n\n        <!-- Términos y condiciones -->\n        <ion-item lines=\"none\" (click)=\"logout()\" menuClose>\n          <ion-icon slot=\"start\" name=\"exit-outline\" class=\"footer-text\"></ion-icon>\n          <ion-label class=\"footer-text\">Cerrar sesión</ion-label>\n        </ion-item>\n\n      </ion-toolbar>\n    </ion-footer>\n  </ion-menu>\n\n  <!-- Menu Profesional  -->\n  <ion-menu side=\"start\" menuId=\"profesional\" contentId=\"main\">\n    <ion-content>\n      <!-- Top Section  -->\n      <ion-grid>\n        <!-- profile Img -->\n        <ion-row class=\"imgCont\">\n          <ion-col>\n            <ion-avatar class=\"ion-margin-start profileImg\">\n              <ion-img *ngIf=\"!user\" src=\"assets/images/avatar.png\"></ion-img>\n              <ion-img *ngIf=\"user !== undefined\" src=\"{{ user.img_profile }}\"></ion-img>\n            </ion-avatar>\n          </ion-col>\n        </ion-row>\n        <!-- edit icon -->\n        <ion-row>\n          <ion-col>\n            <div class=\"rate-cont\" (click)=\"profilePro()\">\n              <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n            </div>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n            <ion-text class=\"name-text\" *ngIf=\"!user\"><b>Usuario Invitado</b></ion-text>\n            <ion-text class=\"name-text ion-text-capitalize\" *ngIf=\"user\"><b>{{ user.name + ' ' + user.last_name }}</b></ion-text>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n      <ion-list class=\"ion-margin-top\">\n        <ion-menu-toggle menu=\"profesional\">\n\n          <!-- mis trabajos -->\n          <ion-item lines=\"none\" href=\"/profesional/home\">\n            <ion-icon slot=\"start\" name=\"briefcase\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mis trabajos</ion-label>\n          </ion-item>\n\n          <!-- Notificaciones -->\n          <ion-item lines=\"none\" href=\"/profesional/notificaciones\">\n            <ion-icon slot=\"start\" name=\"notifications\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">\n              Notificaciones\n              <div class=\"locate-cont\">\n                <ion-text color=\"light\" class=\"rating-text\">\n                  +9\n                </ion-text>\n              </div>\n            </ion-label>\n          </ion-item>\n\n          <!-- calificacion -->\n          <ion-item lines=\"none\" href=\"/profesional/rating\">\n            <ion-icon slot=\"start\" name=\"star\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Calificación</ion-label>\n          </ion-item>\n\n          <!-- perfil -->\n          <ion-item lines=\"none\" href=\"/profesional/cat-perfiles\">\n            <ion-icon slot=\"start\" name=\"people-circle\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mis Perfiles</ion-label>\n          </ion-item>\n\n          <!-- Soporte -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"headset\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Soporte</ion-label>\n          </ion-item>\n\n          <!-- Mi billetera -->\n          <ion-item lines=\"none\" href=\"/profesional/wallet\">\n            <ion-icon slot=\"start\" name=\"wallet\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mi billetera</ion-label>\n          </ion-item>\n\n          <!-- Términos y condiciones -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"reader\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Términos y condiciones</ion-label>\n          </ion-item>\n\n        </ion-menu-toggle>\n      </ion-list>\n    </ion-content>\n\n    <ion-footer class=\"ion-no-border\">\n      <ion-toolbar>\n\n        <!-- Términos y condiciones -->\n        <ion-item lines=\"none\" (click)=\"logout()\" menuClose>\n          <ion-icon slot=\"start\" name=\"exit-outline\" class=\"footer-text\"></ion-icon>\n          <ion-label class=\"footer-text\">Cerrar sesión</ion-label>\n        </ion-item>\n\n      </ion-toolbar>\n    </ion-footer>\n  </ion-menu>\n\n  <ion-router-outlet id=\"main\"></ion-router-outlet>\n</ion-app>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n  \n  <!-- Menu User -->\n  <ion-menu side=\"start\" menuId=\"user\" contentId=\"main\">\n    <ion-content>\n      <ion-grid>\n        <!-- profile Img -->\n        <ion-row class=\"imgCont\">\n          <ion-col>\n            <ion-avatar class=\"ion-margin-start profileImg\">\n              <ion-img src=\"{{ !user ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}\"></ion-img>\n            </ion-avatar>\n          </ion-col>\n        </ion-row>\n        <!-- edit icon -->\n        <ion-row>\n          <ion-col>\n            <div class=\"rate-cont\" (click)=\"profile()\">\n              <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n            </div>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n            <ion-text class=\"name-text\" *ngIf=\"!user\"><b>Usuario Invitado</b></ion-text>\n            <ion-text class=\"name-text ion-text-capitalize\" *ngIf=\"user\"><b>{{ user.name + ' ' + user.last_name }}</b></ion-text>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n      <ion-list class=\"ion-margin-top\">\n        <ion-menu-toggle menu=\"user\">\n\n          <!-- home -->\n          <ion-item lines=\"none\" routerLink=\"/user/home\">\n            <ion-icon slot=\"start\" name=\"home\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Inicio</ion-label>\n          </ion-item>\n\n          <!-- profesionales contactados -->\n          <ion-item lines=\"none\" routerLink=\"/user/prof-contactados-list\">\n            <ion-icon slot=\"start\" name=\"people\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Profesionales contactados</ion-label>\n          </ion-item>\n\n          <!-- Estado de solicitud -->\n          <ion-item lines=\"none\" routerLink=\"/user/solicitudes\">\n            <ion-icon slot=\"start\" name=\"clipboard\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Estado de solicitud</ion-label>\n          </ion-item>\n\n          <!-- Método de pago -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"card\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Método de pago</ion-label>\n          </ion-item>\n\n          <!-- Notificaciones -->\n          <ion-item lines=\"none\" routerLink=\"/user/notificaciones\">\n            <ion-icon slot=\"start\" name=\"notifications\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Notificaciones</ion-label>\n          </ion-item>\n\n          <!-- Soporte -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"headset\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Soporte</ion-label>\n          </ion-item>\n\n          <!-- Términos y condiciones -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"reader\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Términos y condiciones</ion-label>\n          </ion-item>\n\n        </ion-menu-toggle>\n      </ion-list>\n    </ion-content>\n\n    <ion-footer class=\"ion-no-border\">\n      <ion-toolbar>\n\n        <!-- Términos y condiciones -->\n        <ion-item lines=\"none\" (click)=\"logout()\" menuClose>\n          <ion-icon slot=\"start\" name=\"exit-outline\" class=\"footer-text\"></ion-icon>\n          <ion-label class=\"footer-text\">Cerrar sesión</ion-label>\n        </ion-item>\n\n      </ion-toolbar>\n    </ion-footer>\n  </ion-menu>\n\n  <!-- Menu Profesional  -->\n  <ion-menu side=\"start\" menuId=\"profesional\" contentId=\"main\">\n    <ion-content>\n      <!-- Top Section  -->\n      <ion-grid>\n        <!-- profile Img -->\n        <ion-row class=\"imgCont\">\n          <ion-col>\n            <ion-avatar class=\"ion-margin-start profileImg\">\n              <ion-img src=\"{{ !user ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}\"></ion-img>\n            </ion-avatar>\n          </ion-col>\n        </ion-row>\n        <!-- edit icon -->\n        <ion-row>\n          <ion-col>\n            <div class=\"rate-cont\" (click)=\"profilePro()\">\n              <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n            </div>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n            <ion-text class=\"name-text\" *ngIf=\"!user\"><b>Usuario Invitado</b></ion-text>\n            <ion-text class=\"name-text ion-text-capitalize\" *ngIf=\"user\"><b>{{ user.name + ' ' + user.last_name }}</b></ion-text>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n      <ion-list class=\"ion-margin-top\">\n        <ion-menu-toggle menu=\"profesional\">\n\n          <!-- mis trabajos -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/home\">\n            <ion-icon slot=\"start\" name=\"briefcase\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mis trabajos</ion-label>\n          </ion-item>\n\n          <!-- Notificaciones -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/notificaciones\">\n            <ion-icon slot=\"start\" name=\"notifications\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">\n              Notificaciones\n              <div class=\"locate-cont\">\n                <ion-text color=\"light\" class=\"rating-text\">\n                  +9\n                </ion-text>\n              </div>\n            </ion-label>\n          </ion-item>\n\n          <!-- calificacion -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/rating\">\n            <ion-icon slot=\"start\" name=\"star\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Calificación</ion-label>\n          </ion-item>\n\n          <!-- perfil -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/cat-perfiles\">\n            <ion-icon slot=\"start\" name=\"people-circle\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mis Perfiles</ion-label>\n          </ion-item>\n\n          <!-- Soporte -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"headset\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Soporte</ion-label>\n          </ion-item>\n\n          <!-- Mi billetera -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/wallet\">\n            <ion-icon slot=\"start\" name=\"wallet\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mi billetera</ion-label>\n          </ion-item>\n\n          <!-- Términos y condiciones -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"reader\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Términos y condiciones</ion-label>\n          </ion-item>\n\n        </ion-menu-toggle>\n      </ion-list>\n    </ion-content>\n\n    <ion-footer class=\"ion-no-border\">\n      <ion-toolbar>\n\n        <!-- Términos y condiciones -->\n        <ion-item lines=\"none\" (click)=\"logout()\" menuClose>\n          <ion-icon slot=\"start\" name=\"exit-outline\" class=\"footer-text\"></ion-icon>\n          <ion-label class=\"footer-text\">Cerrar sesión</ion-label>\n        </ion-item>\n\n      </ion-toolbar>\n    </ion-footer>\n  </ion-menu>\n\n  <ion-router-outlet id=\"main\"></ion-router-outlet>\n</ion-app>\n");
 
 /***/ }),
 
@@ -987,32 +1147,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "54vc");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "VYYF");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "Sy1n");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./app-routing.module */ "vY5A");
-/* harmony import */ var _profesional_home_agendados_agendados_finalizar_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./profesional/home/agendados/agendados-finalizar/confirm-success-modal/confirm-success-modal.component */ "K4R9");
-/* harmony import */ var _user_solicitud_servicio_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./user/solicitud-servicio/confirm-success-modal/confirm-success-modal.component */ "00c0");
-/* harmony import */ var _user_solicitud_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./user/solicitud-detail/confirm-success-modal/confirm-success-modal.component */ "qCOM");
-/* harmony import */ var _user_eval_prof_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./user/eval-prof/confirm-success-modal/confirm-success-modal.component */ "E1bO");
-/* harmony import */ var _user_visita_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./user/visita-detail/confirm-success-modal/confirm-success-modal.component */ "m8q8");
-/* harmony import */ var _user_urgen_service_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./user/urgen-service/confirm-success-modal/confirm-success-modal.component */ "tnWu");
-/* harmony import */ var _user_solicitud_status_solicitud_rechazada_modal_solicitud_rechazada_modal_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./user/solicitud-status/solicitud-rechazada-modal/solicitud-rechazada-modal.component */ "25zm");
-/* harmony import */ var _user_solicitud_status_solicitud_enviada_modal_solicitud_enviada_modal_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./user/solicitud-status/solicitud-enviada-modal/solicitud-enviada-modal.component */ "NPqd");
-/* harmony import */ var _user_solicitud_status_servicio_agendado_modal_servicio_agendado_modal_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./user/solicitud-status/servicio-agendado-modal/servicio-agendado-modal.component */ "Uol3");
-/* harmony import */ var _user_servicio_pagar_forma_pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./user/servicio-pagar-forma/pago-exitoso-modal/pago-exitoso-modal.component */ "2dcQ");
-/* harmony import */ var _login_register_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./login/register/success-modal/success-modal.component */ "wYVq");
-/* harmony import */ var _profesional_home_solicitudes_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./profesional/home/solicitudes/confirm-success/confirm-success.component */ "jaIk");
-/* harmony import */ var _profesional_home_solicitudes_definicion_servicio_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./profesional/home/solicitudes/definicion-servicio/confirm-success/confirm-success.component */ "Hjn/");
-/* harmony import */ var _profesional_home_finalizados_rate_form_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./profesional/home/finalizados/rate-form/confirm-success/confirm-success.component */ "gQ24");
-/* harmony import */ var _profesional_home_solicitudes_service_reject_modal_service_reject_modal_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./profesional/home/solicitudes/service-reject-modal/service-reject-modal.component */ "lpiM");
-/* harmony import */ var _profesional_home_solicitudes_visita_tecnica_confirm_visita_confirm_visita_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./profesional/home/solicitudes/visita-tecnica/confirm-visita/confirm-visita.component */ "wFEM");
-/* harmony import */ var _profesional_home_solicitudes_definicion_servicio_confirm_serv_confirm_serv_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./profesional/home/solicitudes/definicion-servicio/confirm-serv/confirm-serv.component */ "/5k1");
-/* harmony import */ var _user_profile_page_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./user/profile-page/success-modal/success-modal.component */ "R7R6");
-/* harmony import */ var _profesional_perfil_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./profesional/perfil/success-modal/success-modal.component */ "yw4M");
+/* harmony import */ var _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/geolocation/ngx */ "Bfh1");
+/* harmony import */ var _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/native-geocoder/ngx */ "h+qT");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app.component */ "Sy1n");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app-routing.module */ "vY5A");
+/* harmony import */ var _profesional_home_agendados_agendados_finalizar_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./profesional/home/agendados/agendados-finalizar/confirm-success-modal/confirm-success-modal.component */ "K4R9");
+/* harmony import */ var _user_solicitud_servicio_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./user/solicitud-servicio/confirm-success-modal/confirm-success-modal.component */ "00c0");
+/* harmony import */ var _user_solicitud_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./user/solicitud-detail/confirm-success-modal/confirm-success-modal.component */ "qCOM");
+/* harmony import */ var _user_eval_prof_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./user/eval-prof/confirm-success-modal/confirm-success-modal.component */ "E1bO");
+/* harmony import */ var _user_visita_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./user/visita-detail/confirm-success-modal/confirm-success-modal.component */ "m8q8");
+/* harmony import */ var _user_urgen_service_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./user/urgen-service/confirm-success-modal/confirm-success-modal.component */ "tnWu");
+/* harmony import */ var _user_solicitud_status_solicitud_rechazada_modal_solicitud_rechazada_modal_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./user/solicitud-status/solicitud-rechazada-modal/solicitud-rechazada-modal.component */ "25zm");
+/* harmony import */ var _user_solicitud_status_solicitud_enviada_modal_solicitud_enviada_modal_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./user/solicitud-status/solicitud-enviada-modal/solicitud-enviada-modal.component */ "NPqd");
+/* harmony import */ var _user_solicitud_status_servicio_agendado_modal_servicio_agendado_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./user/solicitud-status/servicio-agendado-modal/servicio-agendado-modal.component */ "Uol3");
+/* harmony import */ var _user_servicio_pagar_forma_pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./user/servicio-pagar-forma/pago-exitoso-modal/pago-exitoso-modal.component */ "2dcQ");
+/* harmony import */ var _login_register_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./login/register/success-modal/success-modal.component */ "wYVq");
+/* harmony import */ var _profesional_home_solicitudes_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./profesional/home/solicitudes/confirm-success/confirm-success.component */ "jaIk");
+/* harmony import */ var _profesional_home_solicitudes_definicion_servicio_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./profesional/home/solicitudes/definicion-servicio/confirm-success/confirm-success.component */ "Hjn/");
+/* harmony import */ var _profesional_home_finalizados_rate_form_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./profesional/home/finalizados/rate-form/confirm-success/confirm-success.component */ "gQ24");
+/* harmony import */ var _profesional_home_solicitudes_service_reject_modal_service_reject_modal_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./profesional/home/solicitudes/service-reject-modal/service-reject-modal.component */ "lpiM");
+/* harmony import */ var _profesional_home_solicitudes_visita_tecnica_confirm_visita_confirm_visita_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./profesional/home/solicitudes/visita-tecnica/confirm-visita/confirm-visita.component */ "wFEM");
+/* harmony import */ var _profesional_home_solicitudes_definicion_servicio_confirm_serv_confirm_serv_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./profesional/home/solicitudes/definicion-servicio/confirm-serv/confirm-serv.component */ "/5k1");
+/* harmony import */ var _user_profile_page_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./user/profile-page/success-modal/success-modal.component */ "R7R6");
+/* harmony import */ var _profesional_perfil_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./profesional/perfil/success-modal/success-modal.component */ "yw4M");
+/* harmony import */ var _profesional_cat_perfiles_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./profesional/cat-perfiles/success-modal/success-modal.component */ "VbkS");
 
 
 
 
 
+
+
+
+// geolocation and native-geocoder
 
 
 
@@ -1042,40 +1209,43 @@ let AppModule = class AppModule {
 AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
         declarations: [
-            _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
-            _profesional_home_agendados_agendados_finalizar_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["ConfirmSuccessModalComponent"],
-            _user_solicitud_servicio_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["ConfirmSuccessModalComponent"],
-            _user_solicitud_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_12__["ConfirmSuccessModalComponent"],
-            _user_eval_prof_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_13__["ConfirmSuccessModalComponent"],
-            _user_visita_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmSuccessModalComponent"],
-            _user_urgen_service_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_15__["ConfirmSuccessModalComponent"],
-            _user_solicitud_status_solicitud_rechazada_modal_solicitud_rechazada_modal_component__WEBPACK_IMPORTED_MODULE_16__["SolicitudRechazadaModalComponent"],
-            _user_solicitud_status_solicitud_enviada_modal_solicitud_enviada_modal_component__WEBPACK_IMPORTED_MODULE_17__["SolicitudEnviadaModalComponent"],
-            _user_solicitud_status_servicio_agendado_modal_servicio_agendado_modal_component__WEBPACK_IMPORTED_MODULE_18__["ServicioAgendadoModalComponent"],
-            _user_servicio_pagar_forma_pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_19__["PagoExitosoModalComponent"],
-            _login_register_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_20__["SuccessModalComponent"],
-            _profesional_home_solicitudes_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_21__["ConfirmSuccessComponent"],
-            _profesional_home_solicitudes_definicion_servicio_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_22__["ConfirmSuccessComponent"],
-            _profesional_home_finalizados_rate_form_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_23__["ConfirmSuccessComponent"],
-            _profesional_home_solicitudes_service_reject_modal_service_reject_modal_component__WEBPACK_IMPORTED_MODULE_24__["ServiceRejectModalComponent"],
-            _profesional_home_solicitudes_visita_tecnica_confirm_visita_confirm_visita_component__WEBPACK_IMPORTED_MODULE_25__["ConfirmVisitaComponent"],
-            _profesional_home_solicitudes_definicion_servicio_confirm_serv_confirm_serv_component__WEBPACK_IMPORTED_MODULE_26__["ConfirmServComponent"],
-            _user_profile_page_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_27__["SuccessModalComponent"],
-            _profesional_perfil_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_28__["SuccessModalComponent"],
+            _app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"],
+            _profesional_home_agendados_agendados_finalizar_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_12__["ConfirmSuccessModalComponent"],
+            _user_solicitud_servicio_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_13__["ConfirmSuccessModalComponent"],
+            _user_solicitud_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmSuccessModalComponent"],
+            _user_eval_prof_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_15__["ConfirmSuccessModalComponent"],
+            _user_visita_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_16__["ConfirmSuccessModalComponent"],
+            _user_urgen_service_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_17__["ConfirmSuccessModalComponent"],
+            _user_solicitud_status_solicitud_rechazada_modal_solicitud_rechazada_modal_component__WEBPACK_IMPORTED_MODULE_18__["SolicitudRechazadaModalComponent"],
+            _user_solicitud_status_solicitud_enviada_modal_solicitud_enviada_modal_component__WEBPACK_IMPORTED_MODULE_19__["SolicitudEnviadaModalComponent"],
+            _user_solicitud_status_servicio_agendado_modal_servicio_agendado_modal_component__WEBPACK_IMPORTED_MODULE_20__["ServicioAgendadoModalComponent"],
+            _user_servicio_pagar_forma_pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_21__["PagoExitosoModalComponent"],
+            _login_register_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_22__["SuccessModalComponent"],
+            _profesional_home_solicitudes_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_23__["ConfirmSuccessComponent"],
+            _profesional_home_solicitudes_definicion_servicio_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_24__["ConfirmSuccessComponent"],
+            _profesional_home_finalizados_rate_form_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_25__["ConfirmSuccessComponent"],
+            _profesional_home_solicitudes_service_reject_modal_service_reject_modal_component__WEBPACK_IMPORTED_MODULE_26__["ServiceRejectModalComponent"],
+            _profesional_home_solicitudes_visita_tecnica_confirm_visita_confirm_visita_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmVisitaComponent"],
+            _profesional_home_solicitudes_definicion_servicio_confirm_serv_confirm_serv_component__WEBPACK_IMPORTED_MODULE_28__["ConfirmServComponent"],
+            _user_profile_page_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_29__["SuccessModalComponent"],
+            _profesional_perfil_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_30__["SuccessModalComponent"],
+            _profesional_cat_perfiles_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_31__["SuccessModalComponent"],
         ],
         entryComponents: [],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(),
-            _app_routing_module__WEBPACK_IMPORTED_MODULE_9__["AppRoutingModule"],
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"],
             _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClientModule"],
         ],
         providers: [
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"],
-            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] }
+            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] },
+            _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_8__["Geolocation"],
+            _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_9__["NativeGeocoder"]
         ],
-        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
+        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"]]
     })
 ], AppModule);
 
@@ -1109,6 +1279,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "dfqD":
+/*!*************************************************************************************!*\
+  !*** ./src/app/profesional/cat-perfiles/success-modal/success-modal.component.scss ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".modal-cont {\n  margin-top: 50px;\n}\n\n.status-cont {\n  border-radius: 50px;\n  height: 45px;\n  width: 45px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: 5px;\n  background-color: #009ACE;\n}\n\n.status-text-icon {\n  font-size: 20px;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-flex;\n}\n\n.status-text {\n  font-size: 22px;\n}\n\n.mini-text {\n  font-size: 13px;\n}\n\nhr {\n  border-top: 1px solid #009ACE;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uL3N1Y2Nlc3MtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFRyxnQkFBQTtBQUFIOztBQUVBO0VBRUksbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLG9CQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0VBQ0EseUJBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0Esb0JBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7QUFBSjs7QUFFQTtFQUVJLDZCQUFBO0FBQUoiLCJmaWxlIjoic3VjY2Vzcy1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5tb2RhbC1jb250XG57XG4gICBtYXJnaW4tdG9wOiA1MHB4O1xufVxuLnN0YXR1cy1jb250XG57XG4gICAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgICBoZWlnaHQ6IDQ1cHg7XG4gICAgd2lkdGg6IDQ1cHg7XG4gICAgZGlzcGxheTogaW5saW5lLWZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIG1hcmdpbi10b3A6IDVweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5QUNFO1xufVxuLnN0YXR1cy10ZXh0LWljb25cbntcbiAgICBmb250LXNpemU6IDIwcHg7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIGRpc3BsYXk6IGlubGluZS1mbGV4O1xufVxuLnN0YXR1cy10ZXh0XG57XG4gICAgZm9udC1zaXplOiAyMnB4O1xufVxuLm1pbmktdGV4dFxue1xuICAgIGZvbnQtc2l6ZTogMTNweDtcbn1cbmhyXG57XG4gICAgYm9yZGVyLXRvcDogMXB4IHNvbGlkICMwMDlBQ0U7XG59Il19 */");
+
+/***/ }),
+
 /***/ "dyHv":
 /*!*****************************************************************************************************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/profesional/home/agendados/agendados-finalizar/confirm-success-modal/confirm-success-modal.component.html ***!
@@ -1131,7 +1314,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n\n    <!-- ticket & date  -->\n    <ion-row>\n      <ion-col size=\"12\">\n        <ion-text color=\"danger\" class=\"ticketText\">\n          Ticket #100091234\n        </ion-text>\n        <br>\n        <ion-text color=\"primary\" class=\"dateText\">\n          18 nov 2020\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Trabajo requerido -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <div class=\"icon-cont\" (click)=\"seModal()\">\n          <ion-icon name=\"build\" color=\"light\" class=\"icon-opts\"></ion-icon>\n        </div>\n        <ion-text class=\"main-color title\"><b> Trabajo requerido</b></ion-text>\n        <br>\n        <ion-text class=\"subtitle\">Cambio de chapas</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Slider -->\n    <ion-row class=\"minusMargin\">\n      <ion-col size=\"12\">\n        <ion-slides [options]=\"slideOptions\">\n          <!-- slide -->\n          <ion-slide>\n            <img src=\"/assets/images/unavailable-image.png\" class=\"imgSlide\"/>\n          </ion-slide>\n\n          <!-- slide -->\n          <ion-slide>\n            <img src=\"/assets/images/unavailable-image.png\" class=\"imgSlide\"/>\n          </ion-slide>\n\n          <!-- slide -->\n          <ion-slide>\n            <img src=\"/assets/images/unavailable-image.png\" class=\"imgSlide\"/>\n          </ion-slide>\n\n        </ion-slides>\n      </ion-col>\n    </ion-row>\n\n    <!-- Fecha de realizacion -->\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <!-- <div class=\"icon-cont\" (click)=\"seModal()\">\n          <ion-icon name=\"calendar\" color=\"light\" class=\"icon-opts\"></ion-icon>\n        </div> -->\n        <ion-icon name=\"calendar-outline\" color=\"primary\" class=\"icon-only\"></ion-icon>\n        <ion-text class=\"main-color title\"><b> Fecha de realización</b></ion-text>\n        <br>\n        <ion-text class=\"subtitle\">viernes 27 de noviembre de 2020</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n     <!-- Rango de horas -->\n     <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <!-- <div class=\"icon-cont\" (click)=\"seModal()\">\n          <ion-icon name=\"calendar\" color=\"light\" class=\"icon-opts\"></ion-icon>\n        </div> -->\n        <ion-icon name=\"time-outline\" color=\"primary\" class=\"icon-only\"></ion-icon>\n        <ion-text class=\"main-color title\"><b> Rango de horas</b></ion-text>\n        <br>\n        <ion-text class=\"subtitle\">8:00 a 16:00 h</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- enviar solicitud BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"dismiss()\">\n          ENTENDIDO\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n\n    <!-- ticket & date  -->\n    <ion-row>\n      <ion-col size=\"12\">\n        <ion-text color=\"danger\" class=\"ticketText\">\n          Ticket #{{ loadedService.ticket_number }}\n        </ion-text>\n        <br>\n        <ion-text color=\"primary\" class=\"dateText\">\n          {{ wDate }}\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Trabajo requerido -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <div class=\"icon-cont\">\n          <ion-icon name=\"build\" color=\"light\" class=\"icon-opts\" *ngIf=\"loadedService.status_id !== 2\"></ion-icon>\n          <ion-icon name=\"calendar\" color=\"light\" class=\"icon-opts\" *ngIf=\"loadedService.status_id === 2\"></ion-icon>\n        </div>\n        <ion-text class=\"main-color title\" *ngIf=\"loadedService.status_id !== 2\"><b> Trabajo requerido</b></ion-text>\n        <ion-text class=\"main-color title\" *ngIf=\"loadedService.status_id === 2\"><b> Visita agendada</b></ion-text>\n        <br>\n        <ion-text class=\"subtitle\">{{ loadedService.description }}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Slider -->\n    <ion-row class=\"\">\n      <ion-col size=\"12\">\n        <ion-slides [options]=\"slideOptions\">\n\n          <!-- slide -->\n          <ion-slide *ngFor=\"let image of loadedImgList\">\n            <img\n              src=\"{{ 'http://workintest.herokuapp.com'+image.image }}\"\n              class=\"imgSlide\"\n            >\n          </ion-slide>\n\n        </ion-slides>\n      </ion-col>\n    </ion-row>\n\n    <!-- Fecha de realizacion -->\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <!-- <div class=\"icon-cont\" (click)=\"seModal()\">\n          <ion-icon name=\"calendar\" color=\"light\" class=\"icon-opts\"></ion-icon>\n        </div> -->\n        <ion-icon name=\"calendar-outline\" color=\"primary\" class=\"icon-only\"></ion-icon>\n        <ion-text class=\"main-color title\"><b> Fecha de realización</b></ion-text>\n        <br>\n        <ion-text class=\"subtitle\">{{ loadedService.date_required }}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n     <!-- Rango de horas -->\n     <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <!-- <div class=\"icon-cont\" (click)=\"seModal()\">\n          <ion-icon name=\"calendar\" color=\"light\" class=\"icon-opts\"></ion-icon>\n        </div> -->\n        <ion-icon name=\"time-outline\" color=\"primary\" class=\"icon-only\"></ion-icon>\n        <ion-text class=\"main-color title\"><b> Rango de horas</b></ion-text>\n        <br>\n        <ion-text class=\"subtitle\">{{ p(loadedService.hours_requestservice) }} h</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- enviar solicitud BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"dismiss()\">\n          ENTENDIDO\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n");
 
 /***/ }),
 
@@ -1193,7 +1376,7 @@ ConfirmSuccessComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".status-cont {\n  border-radius: 50px;\n  height: 45px;\n  width: 45px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: 5px;\n  background-color: #009ACE;\n}\n\n.status-text-icon {\n  font-size: 20px;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-flex;\n}\n\n.status-text {\n  font-size: 22px;\n}\n\n.mini-text {\n  font-size: 13px;\n}\n\nhr {\n  border-top: 1px solid #009ACE;\n}\n\n.no-border {\n  padding-top: 2px;\n  padding-bottom: 2px;\n}\n\n.profileImg {\n  margin-left: 10px;\n  height: 75px;\n  width: 75px;\n}\n\n.ticket {\n  color: red;\n  font-size: 12px;\n}\n\n.titleSelect {\n  font-size: 19px;\n  font-weight: bold;\n}\n\n.mini-text {\n  font-size: 14px;\n}\n\n.subtitle {\n  font-size: 20px;\n}\n\n.border {\n  border: 1px solid red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3NlcnZpY2UtcmVqZWN0LW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUksbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLG9CQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0VBQ0EseUJBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0Esb0JBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7QUFBSjs7QUFFQTtFQUVJLDZCQUFBO0FBQUo7O0FBRUE7RUFFSSxnQkFBQTtFQUNBLG1CQUFBO0FBQUo7O0FBRUE7RUFFSSxpQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0FBQUo7O0FBRUE7RUFFSSxVQUFBO0VBQ0EsZUFBQTtBQUFKOztBQUVBO0VBRUksZUFBQTtFQUNBLGlCQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0FBQUo7O0FBRUE7RUFFSSxxQkFBQTtBQUFKIiwiZmlsZSI6InNlcnZpY2UtcmVqZWN0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnN0YXR1cy1jb250XG57XG4gICAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgICBoZWlnaHQ6IDQ1cHg7XG4gICAgd2lkdGg6IDQ1cHg7XG4gICAgZGlzcGxheTogaW5saW5lLWZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIG1hcmdpbi10b3A6IDVweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5QUNFO1xufVxuLnN0YXR1cy10ZXh0LWljb25cbntcbiAgICBmb250LXNpemU6IDIwcHg7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIGRpc3BsYXk6IGlubGluZS1mbGV4O1xufVxuLnN0YXR1cy10ZXh0XG57XG4gICAgZm9udC1zaXplOiAyMnB4O1xufVxuLm1pbmktdGV4dFxue1xuICAgIGZvbnQtc2l6ZTogMTNweDtcbn1cbmhyXG57XG4gICAgYm9yZGVyLXRvcDogMXB4IHNvbGlkICMwMDlBQ0U7XG59XG4ubm8tYm9yZGVyXG57XG4gICAgcGFkZGluZy10b3A6IDJweDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMnB4O1xufVxuLnByb2ZpbGVJbWdcbntcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbiAgICBoZWlnaHQ6IDc1cHg7XG4gICAgd2lkdGg6IDc1cHg7XG59XG4udGlja2V0XG57XG4gICAgY29sb3I6IHJlZDtcbiAgICBmb250LXNpemU6IDEycHg7XG59XG4udGl0bGVTZWxlY3RcbntcbiAgICBmb250LXNpemU6IDE5cHg7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG4ubWluaS10ZXh0XG57XG4gICAgZm9udC1zaXplOiAxNHB4O1xufVxuLnN1YnRpdGxlXG57XG4gICAgZm9udC1zaXplOiAyMHB4O1xufVxuLmJvcmRlclxue1xuICAgIGJvcmRlcjogMXB4IHNvbGlkIHJlZDtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = (".status-cont {\n  border-radius: 50px;\n  height: 45px;\n  width: 45px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: 5px;\n  background-color: #009ACE;\n}\n\n.status-text-icon {\n  font-size: 20px;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-flex;\n}\n\n.status-text {\n  font-size: 22px;\n}\n\n.mini-text {\n  font-size: 13px;\n}\n\nhr {\n  border-top: 1px solid #009ACE;\n}\n\n.no-border {\n  padding-top: 2px;\n  padding-bottom: 2px;\n}\n\n.profileImg {\n  margin-left: 10px;\n  height: 75px;\n  width: 75px;\n}\n\n.ticket {\n  color: red;\n  font-size: 12px;\n}\n\n.titleSelect {\n  font-size: 14px;\n  font-weight: bold;\n}\n\n.titleName {\n  font-size: 18px;\n}\n\n.mini-text {\n  font-size: 14px;\n}\n\n.subtitle {\n  font-size: 20px;\n}\n\n.border {\n  border: 1px solid red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL3NlcnZpY2UtcmVqZWN0LW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUksbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLG9CQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0VBQ0EseUJBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0Esb0JBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7QUFBSjs7QUFFQTtFQUVJLDZCQUFBO0FBQUo7O0FBRUE7RUFFSSxnQkFBQTtFQUNBLG1CQUFBO0FBQUo7O0FBRUE7RUFFSSxpQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0FBQUo7O0FBRUE7RUFFSSxVQUFBO0VBQ0EsZUFBQTtBQUFKOztBQUVBO0VBRUksZUFBQTtFQUNBLGlCQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0FBQUo7O0FBRUE7RUFFSSxxQkFBQTtBQUFKIiwiZmlsZSI6InNlcnZpY2UtcmVqZWN0LW1vZGFsLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnN0YXR1cy1jb250XG57XG4gICAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgICBoZWlnaHQ6IDQ1cHg7XG4gICAgd2lkdGg6IDQ1cHg7XG4gICAgZGlzcGxheTogaW5saW5lLWZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIG1hcmdpbi10b3A6IDVweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5QUNFO1xufVxuLnN0YXR1cy10ZXh0LWljb25cbntcbiAgICBmb250LXNpemU6IDIwcHg7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIGRpc3BsYXk6IGlubGluZS1mbGV4O1xufVxuLnN0YXR1cy10ZXh0XG57XG4gICAgZm9udC1zaXplOiAyMnB4O1xufVxuLm1pbmktdGV4dFxue1xuICAgIGZvbnQtc2l6ZTogMTNweDtcbn1cbmhyXG57XG4gICAgYm9yZGVyLXRvcDogMXB4IHNvbGlkICMwMDlBQ0U7XG59XG4ubm8tYm9yZGVyXG57XG4gICAgcGFkZGluZy10b3A6IDJweDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMnB4O1xufVxuLnByb2ZpbGVJbWdcbntcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbiAgICBoZWlnaHQ6IDc1cHg7XG4gICAgd2lkdGg6IDc1cHg7XG59XG4udGlja2V0XG57XG4gICAgY29sb3I6IHJlZDtcbiAgICBmb250LXNpemU6IDEycHg7XG59XG4udGl0bGVTZWxlY3RcbntcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG4udGl0bGVOYW1lXG57XG4gICAgZm9udC1zaXplOiAxOHB4O1xufVxuLm1pbmktdGV4dFxue1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbn1cbi5zdWJ0aXRsZVxue1xuICAgIGZvbnQtc2l6ZTogMjBweDtcbn1cbi5ib3JkZXJcbntcbiAgICBib3JkZXI6IDFweCBzb2xpZCByZWQ7XG59Il19 */");
 
 /***/ }),
 
@@ -1590,10 +1773,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
 /* harmony import */ var _raw_loader_service_reject_modal_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./service-reject-modal.component.html */ "xDFK");
 /* harmony import */ var _service_reject_modal_component_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./service-reject-modal.component.scss */ "gkwM");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
-/* harmony import */ var _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../confirm-success/confirm-success.component */ "jaIk");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../confirm-success/confirm-success.component */ "jaIk");
+
+
+
+
 
 
 
@@ -1602,31 +1793,96 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ServiceRejectModalComponent = class ServiceRejectModalComponent {
-    constructor(modalController, router) {
+    constructor(modalController, router, solServ, us, http, lc) {
         this.modalController = modalController;
         this.router = router;
+        this.solServ = solServ;
+        this.us = us;
+        this.http = http;
+        this.lc = lc;
+        this.loadedInfo = {
+            img_client_profile: null,
+            ticket_number: null,
+            clientName: null,
+            clientLastName: null,
+            date_required: null,
+            categoryName: null,
+        };
     }
-    ngOnInit() { }
-    cancelSolicitud() {
-        this.modalController.dismiss();
-        this.modalController.create({
-            component: _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmSuccessComponent"],
-            cssClass: 'modalSuccess',
-        }).then(modalEl => {
-            modalEl.present();
+    ngOnInit() {
+        this.userSub = this.us.loggedUser.subscribe(user => {
+            this.grabbedUser = user;
+        });
+        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+        //loadin service
+        this.lc.create({
+            message: "Cargando informacion del servicio..."
+        }).then(loadingEl => {
+            loadingEl.present();
+            this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + `/supplier/requestservicedetail/${+this.solServ.solicitud.solicitudID}`, { headers: this.headers })
+                .subscribe(resData => {
+                console.log(resData['data']);
+                loadingEl.dismiss();
+                this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
+                this.loadedInfo.clientName = resData['data'].clientName;
+                this.loadedInfo.clientLastName = resData['data'].clientLastName;
+                this.loadedInfo.date_required = resData['data'].date_required;
+                this.loadedInfo.ticket_number = resData['data'].ticket_number;
+                this.loadedInfo.categoryName = resData['data'].categoryName;
+            }, err => {
+                console.log(err);
+                loadingEl.dismiss();
+            });
+        });
+    }
+    rechazarSolicitud(rejectDesc) {
+        this.lc.create({
+            message: "Procesando la solicitud..."
+        }).then(loadingEl => {
+            loadingEl.present();
+            //activate when the API accepst rejection reason
+            const body = {
+                reason: rejectDesc,
+            };
+            console.log(body);
+            this.http.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + `/supplier/reject/requestservice/${this.solServ.solicitud.solicitudID}`, body, { headers: this.headers })
+                .subscribe(resData => {
+                //reset input
+                console.log(resData);
+                loadingEl.dismiss();
+                this.modalController.dismiss();
+                this.modalController.create({
+                    component: _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_10__["ConfirmSuccessComponent"],
+                    cssClass: 'modalSuccess',
+                }).then(modalEl => {
+                    modalEl.present();
+                });
+            }, err => {
+                loadingEl.dismiss({
+                    reload: true,
+                });
+                console.log(err);
+            });
         });
     }
     dismiss() {
         this.modalController.dismiss();
-        // this.router.navigate(['/profesional/home/home-tabs/finalizados/']);
+        // this.router.navigate(['/profesional/home/home-tabs/agendados/']);
+    }
+    ngOnDestroy() {
+        this.userSub.unsubscribe();
     }
 };
 ServiceRejectModalComponent.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ModalController"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
+    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"] }
 ];
 ServiceRejectModalComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
         selector: 'app-service-reject-modal',
         template: _raw_loader_service_reject_modal_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_service_reject_modal_component_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
@@ -1775,7 +2031,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "qCKp");
-/* harmony import */ var _model_user_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../model/user.model */ "UbF0");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var _model_user_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../model/user.model */ "UbF0");
+
 
 
 
@@ -1784,7 +2042,7 @@ __webpack_require__.r(__webpack_exports__);
 let UserService = class UserService {
     constructor(http) {
         this.http = http;
-        this._loggedUser = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](new _model_user_model__WEBPACK_IMPORTED_MODULE_4__["User"](null, null, null, 'assets/images/avatar.png', null, null, null, null, null));
+        this._loggedUser = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](new _model_user_model__WEBPACK_IMPORTED_MODULE_5__["User"](null, null, null, null, null, null, null, null, null));
     }
     get loggedUser() {
         return this._loggedUser.asObservable();
@@ -1793,21 +2051,21 @@ let UserService = class UserService {
         this._loggedUser.next(sentUser);
     }
     rmUser() {
-        this._loggedUser.next(new _model_user_model__WEBPACK_IMPORTED_MODULE_4__["User"](null, null, null, 'assets/images/avatar.png', null, null, null, null, null));
+        this._loggedUser.next(new _model_user_model__WEBPACK_IMPORTED_MODULE_5__["User"](null, null, null, null, null, null, null, null, null));
     }
     dbUserGrab(token, role) {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]().set('Authorization', 'Bearer ' + token);
-        this.http.get('http://workintest.herokuapp.com/api/account/me', { headers: headers })
+        this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["API"] + '/account/me', { headers: headers })
             .subscribe(resData => {
             // console.log(resData['data'].id);
             let img;
             if (resData['data'].img_profile === null) {
-                img = 'assets/images/avatar.png';
+                img = null;
             }
             else {
-                img = resData['data'].user.img_profile;
+                img = resData['data'].img_profile;
             }
-            this._loggedUser.next(new _model_user_model__WEBPACK_IMPORTED_MODULE_4__["User"](resData['data'].id, resData['data'].name, resData['data'].last_name, img, resData['data'].email, resData['data'].phone1, resData['data'].phone2, role, token));
+            this._loggedUser.next(new _model_user_model__WEBPACK_IMPORTED_MODULE_5__["User"](resData['data'].id, resData['data'].name, resData['data'].last_name, img, resData['data'].email, resData['data'].phone1, resData['data'].phone2, role, token));
         });
     }
 };
@@ -1820,6 +2078,98 @@ UserService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     })
 ], UserService);
 
+
+
+/***/ }),
+
+/***/ "rLtr":
+/*!***********************************************!*\
+  !*** ./src/app/services/solicitud.service.ts ***!
+  \***********************************************/
+/*! exports provided: SolicitudService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SolicitudService", function() { return SolicitudService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _model_solicitud_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../model/solicitud.model */ "tWKY");
+
+
+
+let SolicitudService = class SolicitudService {
+    constructor() {
+        this._solicitud = new _model_solicitud_model__WEBPACK_IMPORTED_MODULE_2__["Solicitud"](null, null, null, null, null, null, null, null, null);
+    }
+    get solicitud() {
+        return this._solicitud;
+    }
+    setCat(id) {
+        this._solicitud.category_id = id;
+    }
+    setComuna(id) {
+        this._solicitud.comuna_id = id;
+    }
+    setProPerfil(id) {
+        this._solicitud.proPerfil_id = id;
+    }
+    setAddress(address) {
+        this._solicitud.address = address;
+    }
+    setProPerfilObj(perfil) {
+        this._solicitud.proPerfil = perfil;
+    }
+    setProPhoto(imgUrl) {
+        this._solicitud.proPhoto = imgUrl;
+    }
+    setServiceID(servId) {
+        this._solicitud.solicitudID = servId;
+    }
+    setServiceObj(serObj) {
+        this._solicitud.solicitudOBJ = serObj;
+    }
+    setProServiceObj(serObj) {
+        this._solicitud.solicitudProOBJ = serObj;
+    }
+    clearSolicitud() {
+        this._solicitud = new _model_solicitud_model__WEBPACK_IMPORTED_MODULE_2__["Solicitud"](null, null, null, null, null, null, null, null, null);
+    }
+};
+SolicitudService.ctorParameters = () => [];
+SolicitudService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], SolicitudService);
+
+
+
+/***/ }),
+
+/***/ "tWKY":
+/*!******************************************!*\
+  !*** ./src/app/model/solicitud.model.ts ***!
+  \******************************************/
+/*! exports provided: Solicitud */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Solicitud", function() { return Solicitud; });
+class Solicitud {
+    constructor(category_id, comuna_id, address, proPerfil_id, proPerfil, proPhoto, solicitudID, solicitudOBJ, solicitudProOBJ) {
+        this.category_id = category_id;
+        this.comuna_id = comuna_id;
+        this.address = address;
+        this.proPerfil_id = proPerfil_id;
+        this.proPerfil = proPerfil;
+        this.proPhoto = proPhoto;
+        this.solicitudID = solicitudID;
+        this.solicitudOBJ = solicitudOBJ;
+        this.solicitudProOBJ = solicitudProOBJ;
+    }
+}
 
 
 /***/ }),
@@ -1913,7 +2263,7 @@ const routes = [
     },
     {
         path: 'user/map',
-        loadChildren: () => __webpack_require__.e(/*! import() | user-map-map-module */ "user-map-map-module").then(__webpack_require__.bind(null, /*! ./user/map/map.module */ "Pz+5")).then(m => m.MapPageModule),
+        loadChildren: () => __webpack_require__.e(/*! import() | user-mapa-mapa-module */ "user-mapa-mapa-module").then(__webpack_require__.bind(null, /*! ./user/mapa/mapa.module */ "4zUd")).then(m => m.MapaPageModule),
     },
     {
         path: 'user/profesional-list',
@@ -2166,7 +2516,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <div style=\"height: 10px;\"></div>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"danger\"><b>RECHAZO DE LA SOLICITUD</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- profesional card item -->\n  <div class=\"no-border ion-margin-top\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"/assets/images/avatar.png\"/>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"6\">\n          <ion-text>\n            <small class=\"ticket\">Ticket #100091234</small><br>\n            <span class=\"titleSelect main-color\">Cerrajería para <br> Juan Alcayaga</span><br>\n            <p class=\"main-color mini-text\" style=\"margin-top: 0; margin-bottom: 0;\">18 nov 2020</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"danger\">Motivo de cierre</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n    <!-- text-area -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"border ion-text-center\">\n        <ion-item lines=\"none\">\n           <ion-textarea rows=\"3\" cols=\"20\" placeholder=\"Describe aquí el motivo del cierre.\"></ion-textarea>\n        </ion-item>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" color=\"danger\" (click)=\"cancelSolicitud()\">\n          CERRAR SOLICITUD\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO Rechazado  -->\n    <div style=\"height: 10px;\"></div>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"danger\"><b>RECHAZO DE LA SOLICITUD</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- profesional card item -->\n  <div class=\"no-border ion-margin-top\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"ion-margin-start profileImg\">\n            <ion-img src=\"{{ !loadedInfo.img_client_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+loadedInfo.img_client_profile  }}\"></ion-img>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"6\">\n          <ion-text>\n            <small class=\"ticket\">Ticket #{{ loadedInfo.ticket_number }}</small><br>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ loadedInfo.categoryName }}  <br>\n              <span class=\"titleName ion-text-capitalize\">{{ loadedInfo.clientName+\" \"+loadedInfo.clientLastName }}</span>\n            </span><br>\n            <p class=\"main-color mini-text\" style=\"margin-top: 0; margin-bottom: 0;\">{{ loadedInfo.date_required }}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"danger\">Motivo de cierre</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n    <!-- text-area -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"border ion-text-center\">\n        <ion-item lines=\"none\">\n          <ion-textarea\n            #rejectDesc\n            rows=\"3\" cols=\"20\"\n            placeholder=\"Describe aquí el motivo del cierre.\">\n          </ion-textarea>\n        </ion-item>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button \n          size=\"5\" expand=\"block\" \n          class=\"ion-text-uppercase\" color=\"danger\" \n          (click)=\"rechazarSolicitud(rejectDesc.value)\">\n          RECHAZAR SOLICITUD\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n\n  </ion-grid>\n</ion-content>\n");
+
+/***/ }),
+
+/***/ "xiUv":
+/*!***************************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/profesional/cat-perfiles/success-modal/success-modal.component.html ***!
+  \***************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid style=\"height: 100%;\">\n    \n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"modal-cont\">\n      <div class=\"status-cont\">\n        <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n      </div>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"main-color status-text\"><b>INFORMACION ACTUALIZADA</b></ion-text><br>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text><hr></ion-text>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>");
 
 /***/ }),
 
@@ -2262,6 +2625,46 @@ if (_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].produc
 }
 Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformBrowserDynamic"])().bootstrapModule(_app_app_module__WEBPACK_IMPORTED_MODULE_2__["AppModule"])
     .catch(err => console.log(err));
+
+
+/***/ }),
+
+/***/ "zakx":
+/*!**********************************************!*\
+  !*** ./src/app/services/img-list.service.ts ***!
+  \**********************************************/
+/*! exports provided: ImgListService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImgListService", function() { return ImgListService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "qCKp");
+
+
+
+let ImgListService = class ImgListService {
+    constructor() {
+        this.listChanged = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this._imgList = [];
+    }
+    get imgList() {
+        return this._imgList;
+    }
+    setImgList(list) {
+        this._imgList = list;
+        this.listChanged.next(list);
+    }
+};
+ImgListService.ctorParameters = () => [];
+ImgListService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], ImgListService);
+
 
 
 /***/ }),

@@ -252,9 +252,21 @@
       var src_app_services_category_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! src/app/services/category.service */
       "cPV5");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
+      /* harmony import */
+
+
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! src/app/services/solicitud.service */
+      "rLtr");
 
       var HomePage = /*#__PURE__*/function () {
-        function HomePage(menuController, router, http, lc, us, cs) {
+        function HomePage(menuController, router, http, lc, us, cs, solServ) {
           _classCallCheck(this, HomePage);
 
           this.menuController = menuController;
@@ -263,6 +275,7 @@
           this.lc = lc;
           this.us = us;
           this.cs = cs;
+          this.solServ = solServ;
         }
 
         _createClass(HomePage, [{
@@ -286,7 +299,7 @@
               loadingEl.present();
               var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpHeaders"]().set('Authorization', 'Bearer ' + _this2.grabbedUser.access_token);
 
-              _this2.http.get('http://workintest.herokuapp.com/api/categories', {
+              _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/categories', {
                 headers: headers
               }).subscribe(function (resData) {
                 loadingEl.dismiss(); // console.log(resData['data']);
@@ -301,6 +314,7 @@
         }, {
           key: "map",
           value: function map(catId) {
+            this.solServ.setCat(catId);
             this.router.navigate(['/user/map']);
           }
         }, {
@@ -330,6 +344,8 @@
           type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"]
         }, {
           type: src_app_services_category_service__WEBPACK_IMPORTED_MODULE_8__["CategoryService"]
+        }, {
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__["SolicitudService"]
         }];
       };
 

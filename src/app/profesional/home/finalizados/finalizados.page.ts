@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoadingController, MenuController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
+import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 
@@ -26,6 +27,7 @@ export class FinalizadosPage implements OnInit, OnDestroy {
     private http: HttpClient,
     private us: UserService,
     private lc: LoadingController,
+    private solServ: SolicitudService,
   ) { }
 
   ngOnInit() {
@@ -82,7 +84,8 @@ export class FinalizadosPage implements OnInit, OnDestroy {
     this.menuController.open();
   }
 
-  finalizadosDetail(){
+  finalizadosDetail(serviceID: string){
+    this.solServ.setServiceID(serviceID);
     this.router.navigate(['/profesional/home/home-tabs/finalizados/finalizados-details']);
   }
 

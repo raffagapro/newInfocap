@@ -124,6 +124,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
 /* harmony import */ var src_app_services_category_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/category.service */ "cPV5");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
+
+
 
 
 
@@ -134,13 +138,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let HomePage = class HomePage {
-    constructor(menuController, router, http, lc, us, cs) {
+    constructor(menuController, router, http, lc, us, cs, solServ) {
         this.menuController = menuController;
         this.router = router;
         this.http = http;
         this.lc = lc;
         this.us = us;
         this.cs = cs;
+        this.solServ = solServ;
     }
     ngOnInit() {
         this.userSub = this.us.loggedUser.subscribe(user => {
@@ -155,7 +160,7 @@ let HomePage = class HomePage {
         }).then(loadingEl => {
             loadingEl.present();
             let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-            this.http.get('http://workintest.herokuapp.com/api/categories', { headers: headers }).subscribe(resData => {
+            this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/categories', { headers: headers }).subscribe(resData => {
                 loadingEl.dismiss();
                 // console.log(resData['data']);
                 this.categories = resData['data'];
@@ -166,6 +171,7 @@ let HomePage = class HomePage {
         });
     }
     map(catId) {
+        this.solServ.setCat(catId);
         this.router.navigate(['/user/map']);
     }
     login() {
@@ -181,7 +187,8 @@ HomePage.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
     { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"] },
-    { type: src_app_services_category_service__WEBPACK_IMPORTED_MODULE_8__["CategoryService"] }
+    { type: src_app_services_category_service__WEBPACK_IMPORTED_MODULE_8__["CategoryService"] },
+    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__["SolicitudService"] }
 ];
 HomePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

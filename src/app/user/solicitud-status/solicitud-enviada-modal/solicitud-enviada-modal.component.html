@@ -17,10 +17,12 @@
     <!-- Trabajo requerido -->
     <ion-row class="ion-margin-top">
       <ion-col size="10" offset="1" class="ion-text-center">
-        <div class="icon-cont" (click)="seModal()">
-          <ion-icon name="build" color="light" class="icon-opts"></ion-icon>
+        <div class="icon-cont">
+          <ion-icon name="build" color="light" class="icon-opts" *ngIf="loadedService.status_id !== 2"></ion-icon>
+          <ion-icon name="calendar" color="light" class="icon-opts" *ngIf="loadedService.status_id === 2"></ion-icon>
         </div>
-        <ion-text class="main-color title"><b> Trabajo requerido</b></ion-text>
+        <ion-text class="main-color title" *ngIf="loadedService.status_id !== 2"><b> Trabajo requerido</b></ion-text>
+        <ion-text class="main-color title" *ngIf="loadedService.status_id === 2"><b> Visita agendada</b></ion-text>
         <br>
         <ion-text class="subtitle">{{ loadedService.description }}</ion-text>
       </ion-col>
