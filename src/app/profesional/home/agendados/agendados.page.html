@@ -50,13 +50,57 @@
 
         <!-- ticket numer -->
         <ion-col size="4" >
-          <ion-text>
-            <p class="ticketText ion-text-center ion-no-margin">Ticket #{{service.ticket_number}}</p>
-            <!-- <ion-button expand="block" fill="outline" shape="round" class="miniBtnTxt" (click)="map()">
-              <ion-icon slot="start" name="map"></ion-icon>
-              VER MAPA
-            </ion-button> -->
 
+          <!-- enviada -->
+          <ion-text>
+            <!-- icons -->
+            <small class="ticket ion-text-center">Ticket #{{ service.ticket_number }}</small>
+            <small class="ratingText main-color ion-text-center" *ngIf="service.status_id === 3">
+              SERVICIO AGENDADO
+            </small>
+            <small class="ratingText main-color ion-text-center" *ngIf="service.status_id === 4">
+              SERVICIO EN PROCESO
+            </small>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- servicios Iniciados -->
+  <div class="prof-cont no-border" *ngFor="let service of loadedStartedServices" (click)="solicitudDetail(service.id)">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+
+        <!-- title -->
+        <ion-col size="8" class="ion-justify-content-center">
+          <ion-text>
+            <span class="titleSelect main-color ion-text-capitalize">{{service.clientName+" "+ service.clientLastName}} </span>&nbsp;&nbsp;
+            <ion-badge color="primary" class="badge-text">{{ service.categoryName }}</ion-badge>
+            <br>
+            <small>
+              <ion-icon name="calendar" color="primary" class="iconFix"></ion-icon>
+              {{service.date_required}}
+              <ion-icon name="time" color="primary" class="iconFix"></ion-icon>
+              {{ p(service.hours) }}h
+            </small>
+          </ion-text>
+        </ion-col>
+
+        <!-- ticket numer -->
+        <ion-col size="4" >
+
+          <!-- enviada -->
+          <ion-text>
+            <!-- icons -->
+            <small class="ticket ion-text-center">Ticket #{{ service.ticket_number }}</small>
+            <small class="ratingText main-color ion-text-center" *ngIf="service.status_id === 3">
+              SERVICIO AGENDADO
+            </small>
+            <small class="ratingText main-color ion-text-center" *ngIf="service.status_id === 4">
+              SERVICIO EN PROCESO
+            </small>
           </ion-text>
         </ion-col>
 

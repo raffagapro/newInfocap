@@ -86,7 +86,7 @@ export class FinalizadosPage implements OnInit, OnDestroy {
 
   finalizadosDetail(serviceID: string){
     this.solServ.setServiceID(serviceID);
-    this.router.navigate(['/profesional/home/home-tabs/finalizados/finalizados-details']);
+    this.router.navigate(['/profesional/finalizados/finalizados-details']);
   }
 
   ngOnDestroy(){

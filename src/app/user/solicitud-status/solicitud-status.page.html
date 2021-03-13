@@ -42,12 +42,12 @@
           <ion-text>
             <span class="titleSelect main-color">Contacto </span><br><br>
             <!-- icons -->
-            <div class="locate-cont bg-green-color">
+            <div class="locate-cont bg-green-color" (click)="call(loadedService.suplierPhone1)">
               <ion-icon name="call" color="light" class="rating-text"></ion-icon>
             </div>
-            <div class="locate-cont bg-green-color">
+            <!-- <div class="locate-cont bg-green-color">
               <ion-icon name="logo-whatsapp" color="light" class="rating-text"></ion-icon>
-            </div>
+            </div> -->
           </ion-text>
         </ion-col>
 
@@ -123,10 +123,10 @@
       </ion-row>
 
       <!-- separating line -->
-      <ion-row class="ion-no-margin">
+      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id !== 7">
         <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
       </ion-row>
-      <ion-row class="ion-no-margin">
+      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id !== 7">
         <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
       </ion-row>
 
@@ -152,10 +152,10 @@
       </ion-row>
 
       <!-- separating line -->
-      <ion-row class="ion-no-margin">
+      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id !== 7">
         <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
       </ion-row>
-      <ion-row class="ion-no-margin">
+      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id !== 7">
         <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
       </ion-row>
 
@@ -171,7 +171,7 @@
       </ion-row>
       <!-- active  -->
       <ion-row *ngIf="loadedService.status_id > 3 && loadedService.status_id !== 7">
-        <div class="status-cont" (click)="serviceDetal(2)">
+        <div class="status-cont" (click)="serviceDetal(1)">
           <ion-icon name="build" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
@@ -180,10 +180,10 @@
       </ion-row>
 
       <!-- separating line -->
-      <ion-row class="ion-no-margin">
+      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id !== 7">
         <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
       </ion-row>
-      <ion-row class="ion-no-margin">
+      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id !== 7">
         <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
       </ion-row>
 
@@ -199,7 +199,7 @@
       </ion-row>
       <!-- active  -->
       <ion-row *ngIf="loadedService.status_id > 4 && loadedService.status_id !== 7">
-        <div class="status-cont" (click)="serviceDetal(2)">
+        <div class="status-cont" (click)="serviceDetal(1)">
           <ion-icon name="build" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
@@ -208,44 +208,44 @@
       </ion-row>
 
       <!-- separating line -->
-      <ion-row class="ion-no-margin">
+      <!-- <ion-row class="ion-no-margin">
         <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
       </ion-row>
       <ion-row class="ion-no-margin">
         <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
-      </ion-row>
+      </ion-row> -->
 
       <!-- Pago Finalizado  -->
       <!-- grey  -->
-      <ion-row *ngIf="loadedService.status_id < 6 && loadedService.status_id !== 7">
+      <!-- <ion-row *ngIf="loadedService.status_id < 6 && loadedService.status_id !== 7">
         <div class="status-cont-grey">
           <ion-icon name="card" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
-          <ion-text class="main-color status-text-grey">PAGO FINALIZADO</ion-text><br>
+          <ion-text class="main-color status-text-grey">PAGO FINALIZADO</ion-text><br> -->
           <!-- <ion-text class="main-color status-subtext-grey">Pendiente calificar el servicio</ion-text> -->
-        </ion-col>
-      </ion-row>
+        <!-- </ion-col>
+      </ion-row> -->
       <!-- active  -->
-      <ion-row *ngIf="loadedService.status_id > 5 && loadedService.status_id !== 7">
-        <div class="status-cont" (click)="serviceDetal(2)">
+      <!-- <ion-row *ngIf="loadedService.status_id > 5 && loadedService.status_id !== 7">
+        <div class="status-cont" (click)="serviceDetal(1)">
           <ion-icon name="card" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
-          <ion-text class="main-color status-text">PAGO FINALIZADO</ion-text><br>
+          <ion-text class="main-color status-text">PAGO FINALIZADO</ion-text><br> -->
           <!-- <ion-text class="main-color status-subtext">Pendiente calificar el servicio</ion-text> -->
-        </ion-col>
-      </ion-row>
+        <!-- </ion-col>
+      </ion-row> -->
 
       <!-- ONLY FOR CANCELLED SERVICES -->
 
       <!-- separating line -->
-      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id === 7">
+      <!-- <ion-row class="ion-no-margin" *ngIf="loadedService.status_id === 7">
         <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
       </ion-row>
       <ion-row class="ion-no-margin" *ngIf="loadedService.status_id === 7">
         <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
-      </ion-row>
+      </ion-row> -->
 
       <!-- Solicitud rechazada  -->
       <ion-row *ngIf="loadedService.status_id === 7">
@@ -258,16 +258,16 @@
       </ion-row>
 
       <!-- separating line -->
-      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id === 7">
+      <!-- <ion-row class="ion-no-margin" *ngIf="loadedService.status_id === 7">
         <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
-      </ion-row>
+      </ion-row> -->
 
       <!-- Por que solictud rechazada  -->
-      <ion-row (click)="serviceDetal(3)" *ngIf="loadedService.status_id === 7">
+      <!-- <ion-row (click)="serviceDetal(3)" *ngIf="loadedService.status_id === 7">
         <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color status-subtext-red">¿Por qué mi solicitud fue rechazada?</ion-text>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
 
     </ion-grid>
   </div>

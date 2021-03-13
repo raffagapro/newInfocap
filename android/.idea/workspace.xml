@@ -25,122 +25,81 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="babbd63d-2e35-427a-8f5a-779595f0eea2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-20x20@1x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-20x20@2x-1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-20x20@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-20x20@3x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-29x29@1x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-29x29@2x-1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-29x29@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-29x29@3x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-40x40@2x-1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-40x40@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-40x40@3x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-60x60@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-60x60@3x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-76x76@1x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-76x76@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-83.5@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-marketing-1024x1024.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-40.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Contents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/Contents.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/LaunchImage-1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/LaunchImage-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/LaunchImage.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/capacitor.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/capacitor.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-hdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-land-hdpi/splash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-mdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-land-mdpi/splash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-xhdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-land-xhdpi/splash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-xxhdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-land-xxhdpi/splash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-xxxhdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-land-xxxhdpi/splash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-hdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-port-hdpi/splash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-mdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-port-mdpi/splash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-xhdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-port-xhdpi/splash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-xxhdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-port-xxhdpi/splash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-xxxhdpi/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-port-xxxhdpi/splash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/splash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/ic_launcher_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../capacitor.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../capacitor.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/app.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/login/login/login.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/login/login/login.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/login/register/register.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/login/register/register.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/login/register/success-modal/success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/login/register/success-modal/success-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/cat-perfiles/cat-perfiles.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/cat-perfiles/cat-perfiles.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados-detail/agendados-detail.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados-detail/agendados-detail.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados-finalizar/agendados-finalizar.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados-finalizar/agendados-finalizar.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados-finalizar/confirm-success-modal/confirm-success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados-finalizar/confirm-success-modal/confirm-success-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/agendados/agendados.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/agendados/servicios-adicionales/servicios-adicionales.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/agendados/servicios-adicionales/servicios-adicionales.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/finalizados-details/finalizados-details.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/finalizados-details/finalizados-details.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/finalizados.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/finalizados.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/rate-form/confirm-success/confirm-success.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/rate-form/confirm-success/confirm-success.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/rate-form/rate-form.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/rate-form/rate-form.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/home.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/home.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/confirm-success/confirm-success.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/confirm-success/confirm-success.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/definicion-servicio/confirm-serv/confirm-serv.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/definicion-servicio/confirm-serv/confirm-serv.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/definicion-servicio/confirm-success/confirm-success.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/definicion-servicio/confirm-success/confirm-success.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/definicion-servicio/definicion-servicio.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/definicion-servicio/definicion-servicio.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/service-reject-modal/service-reject-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/service-reject-modal/service-reject-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/solicitudes-detail/solicitudes-detail.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/solicitudes-detail/solicitudes-detail.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/solicitudes.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/solicitudes.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/visita-tecnica/confirm-visita/confirm-visita.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/visita-tecnica/confirm-visita/confirm-visita.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/visita-tecnica/visita-tecnica.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/visita-tecnica/visita-tecnica.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/notificaciones/notificaciones.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/notificaciones/notificaciones.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/perfil/perfil.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/perfil/perfil.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/perfil/success-modal/success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/perfil/success-modal/success-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/rating/rating.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/rating/rating.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/profesional/wallet/wallet.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/wallet/wallet.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/eval-prof/confirm-success-modal/confirm-success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/eval-prof/confirm-success-modal/confirm-success-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/eval-prof/eval-prof.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/eval-prof/eval-prof.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/home/home.page.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/home/home.page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/home/home.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/home/home.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/home/home.page.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/home/home.page.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/map/map.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/map/map.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/notificaciones/notificaciones.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/notificaciones/notificaciones.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/prof-contactados-list/prof-contactados-list.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/prof-contactados-list/prof-contactados-list.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/profesional-detail/profesional-detail.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/profesional-detail/profesional-detail.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/profesional-list/profesional-list.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/profesional-list/profesional-list.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/profile-page/profile-page.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/profile-page/profile-page.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/profile-page/success-modal/success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/profile-page/success-modal/success-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/servicio-pagar-forma/pago-exitoso-modal/pago-exitoso-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/servicio-pagar-forma/pago-exitoso-modal/pago-exitoso-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/servicio-pagar-forma/servicio-pagar-forma.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/servicio-pagar-forma/servicio-pagar-forma.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/servicio-pagar/servicio-pagar.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/servicio-pagar/servicio-pagar.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-detail/confirm-success-modal/confirm-success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-detail/confirm-success-modal/confirm-success-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-detail/solicitud-detail.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-detail/solicitud-detail.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-servicio/confirm-success-modal/confirm-success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-servicio/confirm-success-modal/confirm-success-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-servicio/solicitud-servicio.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-servicio/solicitud-servicio.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-status/servicio-agendado-modal/servicio-agendado-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-status/servicio-agendado-modal/servicio-agendado-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-enviada-modal/solicitud-enviada-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-enviada-modal/solicitud-enviada-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-rechazada-modal/solicitud-rechazada-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-rechazada-modal/solicitud-rechazada-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-status.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-status.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitudes/solicitudes.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitudes/solicitudes.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/urgen-service/confirm-success-modal/confirm-success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/urgen-service/confirm-success-modal/confirm-success-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/urgen-service/urgen-service.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/urgen-service/urgen-service.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/visita-detail/confirm-success-modal/confirm-success-modal.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/visita-detail/confirm-success-modal/confirm-success-modal.component.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/visita-detail/visita-detail.page.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/visita-detail/visita-detail.page.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../workinapp.code-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/../workinapp.code-workspace" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-40@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-40@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-60@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-60@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-72.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-72@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-76.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-76@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-83.5@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-small-50.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-small-50@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-small.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-small@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-small@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/ios-marketing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/notification-icon@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/notification-icon@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/notification-icon~ipad.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/notification-icon~ipad@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/Default-2436h.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/Default-568h@2x~iphone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/Default@3x~iphone~comany.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-detail-agendados-detail-module-es2015.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-detail-agendados-detail-module-es2015.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-detail-agendados-detail-module-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-detail-agendados-detail-module-es2015.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-detail-agendados-detail-module-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-detail-agendados-detail-module-es5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-detail-agendados-detail-module-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-detail-agendados-detail-module-es5.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-finalizar-agendados-finalizar-module-es2015.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-finalizar-agendados-finalizar-module-es2015.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-finalizar-agendados-finalizar-module-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-finalizar-agendados-finalizar-module-es2015.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-finalizar-agendados-finalizar-module-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-finalizar-agendados-finalizar-module-es5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-finalizar-agendados-finalizar-module-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-finalizar-agendados-finalizar-module-es5.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-details-finalizados-details-module-es2015.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-details-finalizados-details-module-es2015.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-details-finalizados-details-module-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-details-finalizados-details-module-es2015.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-details-finalizados-details-module-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-details-finalizados-details-module-es5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-details-finalizados-details-module-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-details-finalizados-details-module-es5.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es2015.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es2015.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es2015.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es5.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/main-es2015.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/main-es2015.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/main-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/main-es2015.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/main-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/main-es5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/main-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/main-es5.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/vendor-es2015.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/vendor-es2015.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/vendor-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/vendor-es2015.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/vendor-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/vendor-es5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/vendor-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/vendor-es5.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/App/App.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-20x20@1x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-20x20@2x-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-20x20@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-20x20@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-29x29@1x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-29x29@2x-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-29x29@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-29x29@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-40x40@2x-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-40x40@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-40x40@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-60x60@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-60x60@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-76x76@1x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-76x76@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-83.5@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Icon-marketing-1024x1024.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-40.png" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/icon-40.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/Contents.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/LaunchImage-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/LaunchImage-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/LaunchImage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/App/App/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../resources/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/../resources/icon.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

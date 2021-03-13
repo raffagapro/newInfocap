@@ -86,7 +86,6 @@ export class SolicitudesPage implements OnInit, OnDestroy {
     let wAdd = address.split(',')
     // console.log(wAdd);
     return wAdd[0]+",<br>"+wAdd[1]+", "+wAdd[2];
-    
   }
 
   rechazarSolicitud(solicitudID: string){
@@ -106,7 +105,7 @@ export class SolicitudesPage implements OnInit, OnDestroy {
 
   aceptarSolicitud(solicitudID: string){
     this.solServ.setServiceID(solicitudID);
-    this.router.navigate(['/profesional/home/home-tabs/solicitudes/solicitudes-detail']);
+    this.router.navigate(['/profesional/solicitudes/solicitudes-detail']);
   }
 
   ngOnDestroy(){

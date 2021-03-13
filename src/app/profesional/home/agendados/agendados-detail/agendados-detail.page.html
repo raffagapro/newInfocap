@@ -108,7 +108,7 @@
     </ion-row>
 
     <!-- Costo -->
-    <ion-row>
+    <!-- <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon name="wallet-outline" class="main-color iconFixTitle"></ion-icon>
@@ -121,10 +121,10 @@
         <ion-text class="subText"> ${{ loadedInfo.cost }}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <!-- Metodo de pago -->
-    <ion-row>
+    <!-- <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon name="cash-outline" class="main-color iconFixTitle"></ion-icon>
@@ -137,7 +137,7 @@
         <ion-text class="subText"> Efectivo</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <!-- Contact Icon -->
     <ion-row>
@@ -150,22 +150,22 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <!-- icons -->
-        <div class="locate-cont bg-green-color" (click)="caller()">
+        <div class="locate-cont bg-green-color" (click)="call(loadedInfo.clientPhone1)">
           <ion-icon name="call" color="light" class="rating-text"></ion-icon>
         </div>
-        <div class="locate-cont bg-green-color">
+        <!-- <div class="locate-cont bg-green-color">
           <ion-icon name="logo-whatsapp" color="light" class="rating-text"></ion-icon>
-        </div>
+        </div> -->
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
     
 
     <!-- iniciar trabajo BTN -->
-    <ion-row class="ion-margin-top ion-margin-bottom">
+    <ion-row class="ion-margin-top ion-margin-bottom" *ngIf="loadedInfo.status_id <= 3">
       <ion-col size="1"></ion-col>
       <ion-col>
-        <ion-button size="5" expand="block" class="ion-text-uppercase" color="success" (click)="confirmSolicitud()">
+        <ion-button size="5" expand="block" class="ion-text-uppercase" color="success" (click)="startSolicitud()">
           <ion-icon slot="start" name="build"></ion-icon>
           INICIO DEL TRABAJO
         </ion-button>
@@ -174,7 +174,7 @@
     </ion-row>
 
     <!-- finalizar trabajo BTN -->
-    <ion-row class="ion-margin-top ion-margin-bottom">
+    <ion-row class="ion-margin-top ion-margin-bottom" *ngIf="loadedInfo.status_id === 4">
       <ion-col size="1"></ion-col>
       <ion-col>
         <ion-button size="5" expand="block" class="ion-text-uppercase" color="danger" (click)="finalizarSolicitud()">

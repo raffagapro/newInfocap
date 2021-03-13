@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
@@ -43,6 +44,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     ticket_number: null,
     user_client_id: null,
     work_days: null,
+    suplierPhone1: null,
   };
   serviceId: string;
   wDate;
@@ -55,6 +57,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     private us: UserService,
     private lc: LoadingController,
     private solServ: SolicitudService,
+    private callNumber: CallNumber
   ) { }
 
   ngOnInit() {
@@ -89,6 +92,12 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
         
       });
     });
+  }
+
+  call(clientNumb: string){
+    this.callNumber.callNumber(clientNumb, true)
+    .then(res => console.log('Launched dialer!', res))
+    .catch(err => console.log('Error launching dialer', err));
   }
 
   openMenu(){

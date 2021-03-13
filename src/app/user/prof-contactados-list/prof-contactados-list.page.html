@@ -14,34 +14,44 @@
 
 <ion-content>
 
+  <ion-grid class="ion-margin-top" *ngIf="!sortedServices || sortedServices.length < 1">
+    <ion-row class="subtitle ion-margin-top">
+      <ion-col size="8" offset="2" class="ion-text-center">
+        <ion-text class="footer-text main-color" ><b>Aún no tienes profesionales contactados.</b></ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <!-- proff contactado card item -->
-  <div class="prof-cont ion-margin-top no-border" (click)="solicitudes()">
+  <div
+    class="prof-cont ion-margin-top no-border"
+    *ngFor="let service of sortedServices"
+    (click)="solicitudes(service.supplier_id)">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
-        <ion-col size="8" class="ion-justify-content-center">
+        <ion-col size="10" class="ion-justify-content-center">
           <ion-text>
-            <span class="titleSelect main-color">Juan Alcayaga </span><br>
-            <ion-badge color="medium" class="badge-text">Cerrajería</ion-badge>
-            <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge>
+            <span class="titleSelect main-color ion-text-capitalize">{{ service.supplierName+" "+service.supplierLastName }} </span><br>
+            <ion-badge color="medium" class="badge-text"  *ngFor="let cat of service.categories">{{ cat.categoryName }}</ion-badge>
             <br>
             <span class="textSelect">
-              Soldador - 5 años de experiencia Santiago, Qta. normal
+              {{ service.descProf }}
             </span><br>
-            <small class="main-color">Contactado hace 3 días</small>
+            <small class="main-color">{{ p(service.created_date) }}</small>
           </ion-text>
         </ion-col>
 
         <!-- rating -->
-        <ion-col size="4">
+        <!-- <ion-col size="4">
           <ion-text>
             <p class="ratingText main-color ion-text-center">
               4.83
               <ion-icon name="star"></ion-icon>
-            </p><br>
+            </p><br> -->
             <!-- icons -->
-            <div class="locate-cont">
+            <!-- <div class="locate-cont">
               <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
             </div>
             <div class="locate-cont">
@@ -54,145 +64,7 @@
               <ion-icon name="trophy" color="light" class="rating-text"></ion-icon>
             </div>
           </ion-text>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <!-- proff contactado card item -->
-  <div class="prof-cont ion-margin-top no-border" (click)="solicitudes()">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        <!-- title -->
-        <ion-col size="8" class="ion-justify-content-center">
-          <ion-text>
-            <span class="titleSelect main-color">Cecilia Riquelme </span><br>
-            <ion-badge color="medium" class="badge-text">Cerrajería</ion-badge>
-            <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge>
-            <br>
-            <span class="textSelect">
-              Soldador - 5 años de experiencia Santiago, Qta. normal
-            </span><br>
-            <small class="main-color">Contactado hace 3 días</small>
-          </ion-text>
-        </ion-col>
-
-        <!-- rating -->
-        <ion-col size="4">
-          <ion-text>
-            <p class="ratingText main-color ion-text-center">
-              4.63
-              <ion-icon name="star"></ion-icon>
-            </p><br>
-            <!-- icons -->
-            <div class="locate-cont">
-              <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="time" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="heart" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="trophy" color="light" class="rating-text"></ion-icon>
-            </div>
-          </ion-text>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <!-- proff contactado card item -->
-  <div class="prof-cont ion-margin-top no-border" (click)="solicitudes()">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        <!-- title -->
-        <ion-col size="8" class="ion-justify-content-center">
-          <ion-text>
-            <span class="titleSelect main-color">Carlos Cheuqueman </span><br>
-            <ion-badge color="medium" class="badge-text">Cerrajería</ion-badge>
-            <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge>
-            <br>
-            <span class="textSelect">
-              Soldador - 5 años de experiencia Santiago, Qta. normal
-            </span><br>
-            <small class="main-color">Contactado hace 3 días</small>
-          </ion-text>
-        </ion-col>
-
-        <!-- rating -->
-        <ion-col size="4">
-          <ion-text>
-            <p class="ratingText main-color ion-text-center">
-              4.3
-              <ion-icon name="star"></ion-icon>
-            </p><br>
-            <!-- icons -->
-            <div class="locate-cont">
-              <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="time" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="heart" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="trophy" color="light" class="rating-text"></ion-icon>
-            </div>
-          </ion-text>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div>
-
-  <!-- proff contactado card item -->
-  <div class="prof-cont ion-margin-top no-border" (click)="solicitudes()">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        <!-- title -->
-        <ion-col size="8" class="ion-justify-content-center">
-          <ion-text>
-            <span class="titleSelect main-color">Diego Zapata </span><br>
-            <ion-badge color="medium" class="badge-text">Cerrajería</ion-badge>
-            <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge>
-            <br>
-            <span class="textSelect">
-              Soldador - 5 años de experiencia Santiago, Qta. normal
-            </span><br>
-            <small class="main-color">Contactado hace 3 días</small>
-          </ion-text>
-        </ion-col>
-
-        <!-- rating -->
-        <ion-col size="4">
-          <ion-text>
-            <p class="ratingText main-color ion-text-center">
-              4.1
-              <ion-icon name="star"></ion-icon>
-            </p><br>
-            <!-- icons -->
-            <div class="locate-cont">
-              <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="time" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="heart" color="light" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon name="trophy" color="light" class="rating-text"></ion-icon>
-            </div>
-          </ion-text>
-        </ion-col>
+        </ion-col> -->
 
       </ion-row>
     </ion-grid>

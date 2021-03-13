@@ -1171,6 +1171,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _user_profile_page_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./user/profile-page/success-modal/success-modal.component */ "R7R6");
 /* harmony import */ var _profesional_perfil_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./profesional/perfil/success-modal/success-modal.component */ "yw4M");
 /* harmony import */ var _profesional_cat_perfiles_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./profesional/cat-perfiles/success-modal/success-modal.component */ "VbkS");
+/* harmony import */ var _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! @ionic-native/call-number/ngx */ "Wwn5");
 
 
 
@@ -1180,6 +1181,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // geolocation and native-geocoder
+
 
 
 
@@ -1241,6 +1243,7 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         providers: [
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"],
+            _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_32__["CallNumber"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] },
             _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_8__["Geolocation"],
             _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_9__["NativeGeocoder"]

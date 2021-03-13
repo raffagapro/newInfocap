@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, MenuController } from '@ionic/angular';
+import { LoadingController, MenuController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 
@@ -9,6 +9,8 @@ import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
+import { ConfirmSuccessComponent } from './confirm-success/confirm-success.component';
+import { ConfirmSuccessStartComponent } from './confirm-success-start/confirm-success-start.component';
 
 @Component({
   selector: 'app-agendados-detail',
@@ -29,16 +31,18 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     description: null,
     images: null,
     categoryName: null,
-    clientPhone1: null
+    clientPhone1: null,
+    status_id: null,
   };
 
   slideOptions = {
     initialSlide: 0,
-    slidesPerView: 2,
+    slidesPerView: 1,
     autoplay: true
   };
 
   constructor(
+    private modalController: ModalController,
     private router: Router,
     private menuController: MenuController,
     private solServ: SolicitudService,
@@ -63,7 +67,8 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         loadingEl.dismiss();
         this.loadedInfo.clientLastName = resData['data'].clientLastName;
         this.loadedInfo.clientName = resData['data'].clientName;
-        this.loadedInfo.date_required = resData['data'].date_required;
+        let wDate = resData['data'].date_required.split("-");
+        this.loadedInfo.date_required = wDate[2]+'-'+wDate[1]+'-'+wDate[0];
         this.loadedInfo.description = resData['data'].description;
         this.loadedInfo.hours = resData['data'].hours;
         this.loadedInfo.images = resData['data'].images;
@@ -71,6 +76,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.loadedInfo.ticket_number = resData['data'].ticket_number;
         this.loadedInfo.categoryName = resData['data'].categoryName;
         this.loadedInfo.clientPhone1 = resData['data'].clientPhone1;
+        this.loadedInfo.status_id = resData['data'].status_id;
       }, err =>{
         console.log(err);
         loadingEl.dismiss();
@@ -83,13 +89,10 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     this.menuController.enable(true, 'profesional');
   }
 
-  caller(){
-    this.callNumber.callNumber(this.loadedInfo.clientPhone1, true)
-    .then(res =>{
-      console.log(res);
-    }).catch(err =>{
-      console.log(err);
-    });
+  call(clientNumb: string){
+    this.callNumber.callNumber(clientNumb, true)
+    .then(res => console.log('Launched dialer!', res))
+    .catch(err => console.log('Error launching dialer', err));
   }
 
   openMenu(){
@@ -116,12 +119,48 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     }
   }
 
-  solicitudDetail(){
-    // this.router.navigate(['/profesional/home/home-tabs/agendados/agendados-finalizar']);
+  startSolicitud(){
+    this.lc.create({
+      message: 'Registrando tiempo de inicio...'
+    }).then(loadingEl =>{
+      loadingEl.present();
+      this.http.put(API+`/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/4`, null, {headers: this.headers})
+      .subscribe(resData =>{
+        loadingEl.dismiss();
+        console.log(resData);
+        this.modalController.create({
+          component: ConfirmSuccessStartComponent,
+          cssClass: 'modalSuccess',
+        }).then(modalEl => {
+          modalEl.present();
+        });
+      }, err =>{
+        console.log(err);
+        loadingEl.dismiss();
+      });
+    });
   }
 
   finalizarSolicitud(){
-    this.router.navigate(['/profesional/home/home-tabs/agendados/agendados-finalizar']);
+    this.lc.create({
+      message: 'Finalizando Trabajo...'
+    }).then(loadingEl =>{
+      loadingEl.present();
+      this.http.put(API+`/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/6`, null, {headers: this.headers})
+      .subscribe(resData =>{
+        loadingEl.dismiss();
+        console.log(resData);
+        this.modalController.create({
+          component: ConfirmSuccessComponent,
+          cssClass: 'modalSuccess',
+        }).then(modalEl => {
+          modalEl.present();
+        });
+      }, err =>{
+        loadingEl.dismiss();
+        console.log(err);
+      });
+    });
   }
 
   confirmSolicitud(){

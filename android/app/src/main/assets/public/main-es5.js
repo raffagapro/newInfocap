@@ -2160,7 +2160,13 @@
 
       var _profesional_cat_perfiles_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(
       /*! ./profesional/cat-perfiles/success-modal/success-modal.component */
-      "VbkS"); // geolocation and native-geocoder
+      "VbkS");
+      /* harmony import */
+
+
+      var _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(
+      /*! @ionic-native/call-number/ngx */
+      "Wwn5"); // geolocation and native-geocoder
 
 
       var AppModule = function AppModule() {
@@ -2171,7 +2177,7 @@
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"], _profesional_home_agendados_agendados_finalizar_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_12__["ConfirmSuccessModalComponent"], _user_solicitud_servicio_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_13__["ConfirmSuccessModalComponent"], _user_solicitud_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmSuccessModalComponent"], _user_eval_prof_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_15__["ConfirmSuccessModalComponent"], _user_visita_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_16__["ConfirmSuccessModalComponent"], _user_urgen_service_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_17__["ConfirmSuccessModalComponent"], _user_solicitud_status_solicitud_rechazada_modal_solicitud_rechazada_modal_component__WEBPACK_IMPORTED_MODULE_18__["SolicitudRechazadaModalComponent"], _user_solicitud_status_solicitud_enviada_modal_solicitud_enviada_modal_component__WEBPACK_IMPORTED_MODULE_19__["SolicitudEnviadaModalComponent"], _user_solicitud_status_servicio_agendado_modal_servicio_agendado_modal_component__WEBPACK_IMPORTED_MODULE_20__["ServicioAgendadoModalComponent"], _user_servicio_pagar_forma_pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_21__["PagoExitosoModalComponent"], _login_register_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_22__["SuccessModalComponent"], _profesional_home_solicitudes_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_23__["ConfirmSuccessComponent"], _profesional_home_solicitudes_definicion_servicio_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_24__["ConfirmSuccessComponent"], _profesional_home_finalizados_rate_form_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_25__["ConfirmSuccessComponent"], _profesional_home_solicitudes_service_reject_modal_service_reject_modal_component__WEBPACK_IMPORTED_MODULE_26__["ServiceRejectModalComponent"], _profesional_home_solicitudes_visita_tecnica_confirm_visita_confirm_visita_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmVisitaComponent"], _profesional_home_solicitudes_definicion_servicio_confirm_serv_confirm_serv_component__WEBPACK_IMPORTED_MODULE_28__["ConfirmServComponent"], _user_profile_page_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_29__["SuccessModalComponent"], _profesional_perfil_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_30__["SuccessModalComponent"], _profesional_cat_perfiles_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_31__["SuccessModalComponent"]],
         entryComponents: [],
         imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClientModule"]],
-        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"], {
+        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"], _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_32__["CallNumber"], {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"]
         }, _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_8__["Geolocation"], _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_9__["NativeGeocoder"]],

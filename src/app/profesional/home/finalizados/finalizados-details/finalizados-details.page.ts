@@ -18,7 +18,7 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
   userSub: Subscription;
   headers: HttpHeaders;
   loadedInfo = {
-    img_client_profile: null,
+    img_profile: null,
     ticket_number: null,
     clientName: null,
     clientLastName: null,
@@ -32,7 +32,7 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
 
   slideOptions = {
     initialSlide: 0,
-    slidesPerView: 2,
+    slidesPerView: 1,
     autoplay: true
   };
 
@@ -60,11 +60,12 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
         loadingEl.dismiss();
         this.loadedInfo.clientLastName = resData['data'].clientLastName;
         this.loadedInfo.clientName = resData['data'].clientName;
-        this.loadedInfo.date_required = resData['data'].date_required;
+        let wDate = resData['data'].date_required.split("-");
+        this.loadedInfo.date_required = wDate[2]+'-'+wDate[1]+'-'+wDate[0];
         this.loadedInfo.description = resData['data'].description;
         this.loadedInfo.hours = resData['data'].hours;
         this.loadedInfo.images = resData['data'].images;
-        this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
+        this.loadedInfo.img_profile = resData['data'].img_profile;
         this.loadedInfo.ticket_number = resData['data'].ticket_number;
         this.loadedInfo.categoryName = resData['data'].categoryName;
         this.loadedInfo.clientPhone1 = resData['data'].clientPhone1;

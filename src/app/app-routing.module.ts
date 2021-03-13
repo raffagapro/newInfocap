@@ -19,6 +19,10 @@ const routes: Routes = [
     loadChildren: () => import('./login/login/login.module').then( m => m.LoginPageModule)
   },
   {
+    path: 'recovery',
+    loadChildren: () => import('./login/recovery/recovery.module').then( m => m.RecoveryPageModule)
+  },
+  {
     path: 'user/home',
     loadChildren: () => import('./user/home/home.module').then( m => m.HomePageModule),
     // canLoad: [AuthGuard, UserGuard],
@@ -94,6 +98,11 @@ const routes: Routes = [
     // canLoad: [AuthGuard, UserGuard],
   },
   {
+    path: 'user/single-prof-services',
+    loadChildren: () => import('./user/prof-contactados-list/single-prof-services/single-prof-services.module').then( m => m.SingleProfServicesPageModule),
+    // canLoad: [AuthGuard, ProGuard],
+  },
+  {
     path: 'user/urgen-service',
     loadChildren: () => import('./user/urgen-service/urgen-service.module').then( m => m.UrgenServicePageModule),
     // canLoad: [AuthGuard, UserGuard],
@@ -126,6 +135,46 @@ const routes: Routes = [
   {
     path: 'profesional/cat-perfiles',
     loadChildren: () => import('./profesional/cat-perfiles/cat-perfiles.module').then( m => m.CatPerfilesPageModule),
+    // canLoad: [AuthGuard, ProGuard],
+  },
+  {
+    path: 'profesional/solicitudes/solicitudes-detail',
+    loadChildren: () => import('./profesional/home/solicitudes/solicitudes-detail/solicitudes-detail.module').then( m => m.SolicitudesDetailPageModule),
+    // canLoad: [AuthGuard, ProGuard],
+  },
+  {
+    path: 'profesional/solicitudes/definicion-servicio',
+    loadChildren: () => import('./profesional/home/solicitudes/definicion-servicio/definicion-servicio.module').then( m => m.DefinicionServicioPageModule),
+    // canLoad: [AuthGuard, ProGuard],
+  },
+  {
+    path: 'profesional/solicitudes/visita-tecnica',
+    loadChildren: () => import('./profesional/home/solicitudes/visita-tecnica/visita-tecnica.module').then( m => m.VisitaTecnicaPageModule),
+    // canLoad: [AuthGuard, ProGuard],
+  },
+  {
+    path: 'profesional/agendados/agendados-detail',
+    loadChildren: () => import('./profesional/home/agendados/agendados-detail/agendados-detail.module').then( m => m.AgendadosDetailPageModule),
+    // canLoad: [AuthGuard, ProGuard],
+  },
+  {
+    path: 'profesional/agendados/agendados-finalizar',
+    loadChildren: () => import('./profesional/home/agendados/agendados-finalizar/agendados-finalizar.module').then( m => m.AgendadosFinalizarPageModule),
+    // canLoad: [AuthGuard, ProGuard],
+  },
+  {
+    path: 'profesional/agendados/servicios-adicionales',
+    loadChildren: () => import('./profesional/home/agendados/servicios-adicionales/servicios-adicionales.module').then( m => m.ServiciosAdicionalesPageModule),
+    // canLoad: [AuthGuard, ProGuard],
+  },
+  {
+    path: 'profesional/finalizados/finalizados-details',
+    loadChildren: () => import('./profesional/home/finalizados/finalizados-details/finalizados-details.module').then( m => m.FinalizadosDetailsPageModule),
+    // canLoad: [AuthGuard, ProGuard],
+  },
+  {
+    path: 'profesional/finalizadosrate-form',
+    loadChildren: () => import('./profesional/home/finalizados/rate-form/rate-form.module').then( m => m.RateFormPageModule),
     // canLoad: [AuthGuard, ProGuard],
   },
 ];

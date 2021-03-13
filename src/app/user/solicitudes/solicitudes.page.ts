@@ -58,7 +58,7 @@ export class SolicitudesPage implements OnInit, OnDestroy {
         console.log(resData['data']);
         loadingEl.dismiss();
         this.loadedServices = resData['data'];
-        this.loadedServices.sort( this.compare );
+        this.loadedServices.sort( this.compare ); 
       }, err =>{
         console.log(err);
         loadingEl.dismiss();

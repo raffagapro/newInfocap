@@ -35,7 +35,7 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
 
   slideOptions = {
     initialSlide: 0,
-    slidesPerView: 2,
+    slidesPerView: 1,
     autoplay: true
   };
 
@@ -136,6 +136,15 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
 
   confirmRequest(){
     console.log(this.form);
+    let wDate = this.form.value.dateReq.split('T');
+    wDate = wDate[0];
+    wDate = wDate.split('-');
+    wDate = wDate[2]+'/'+wDate[1]+'/'+wDate[0];
+    this.solServ.setNewDate(wDate);
+    console.log(this.solServ.solicitud.newDate);
+    this.solServ.setNewTime(this.form.value.sHour+'/'+this.form.value.eHour);
+    console.log(this.solServ.solicitud.newDate);
+    // console.log(this.solServ.solicitud.newTime);
     this.modalController.create({
       component: ConfirmServComponent,
       cssClass: 'modalSE',

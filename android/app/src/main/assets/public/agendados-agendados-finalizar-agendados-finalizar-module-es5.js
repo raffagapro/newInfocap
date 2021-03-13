@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"danger\">\n    \n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home/home-tabs/agendados\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">FINALIZAR EL SERVICIO</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- profesional card item -->\n  <div class=\"no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"/assets/images/avatar.png\"/>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"7\">\n          <ion-text>\n            <small class=\"ticket\">Ticket #100091234</small>\n            <span class=\"titleSelect main-color\">\n              Cerrajería para<br>\n              Emmy Mut\n            </span>\n            <br>\n            <p class=\"textSelect main-color\" style=\"margin-top: 0; margin-bottom: 0;\">27 nov 2020</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Fotografías del trabajo realizado</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- images -->\n    <ion-row class=\"ion-align-items-center\">\n      <ion-col size=\"4\" offset=\"1\">\n        <img src=\"/assets/images/unavailable-image.png\" class=\"imgSingle\">\n      </ion-col>\n      <ion-col size=\"4\">\n        <img src=\"/assets/images/unavailable-image.png\" class=\"imgSingle\">\n      </ion-col>\n      <ion-col size=\"3\">\n        <div class=\"locate-cont\">\n          <ion-icon name=\"add\" color=\"light\" class=\"rating-text\"></ion-icon>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <!-- text -->\n    <ion-row class=\"minusMargin\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color regText\"><b>Informe del trabajo</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- text-area -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"border ion-text-center\">\n        <ion-item lines=\"none\">\n           <ion-textarea rows=\"3\" cols=\"20\" placeholder=\"Describe el trabajo realizado.\"></ion-textarea>\n        </ion-item>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- title -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\" class=\"ion-text-center border-right\">\n        <ion-text class=\"main-color title\"><b>Método de pago</b></ion-text>\n        <br>\n        <ion-text class=\"subMiniTex ion-padding-top\">Efectivo</ion-text>\n      </ion-col>\n      <ion-col size=\"3\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Costo</b></ion-text>\n        <br>\n        <ion-text class=\"subMiniTex ion-padding-top\">20.00</ion-text>\n      </ion-col>\n      <ion-col size=\"1\">\n        <ion-icon color=\"danger\" name=\"add-circle\" class=\"addIcon\" (click)=\"extraCharge()\"></ion-icon>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n     <!-- finalizar trabajo BTN -->\n     <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" color=\"danger\" (click)=\"finalizarSolicitud()\">\n          <ion-icon slot=\"start\" name=\"build\"></ion-icon>\n          FINALIZAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"danger\">\n    \n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home/home-tabs/agendados\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">FINALIZAR EL SERVICIO</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- profesional card item -->\n  <div class=\"no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"profileImg\">\n            <ion-img src=\"{{ !loadedInfo.img_client_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+loadedInfo.img_client_profile  }}\"></ion-img>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"7\">\n          <ion-text>\n            <small class=\"ticket\">Ticket #{{ loadedInfo.ticket_number }}</small><br>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ loadedInfo.categoryName }} para<br>\n              <span class=\"ion-text-capitalize titleName\">{{ loadedInfo.clientName+\" \"+loadedInfo.clientLastName }}</span>\n            </span><br>\n            <p class=\"textSelect main-color\" style=\"margin-top: 0; margin-bottom: 0;\">{{ d(loadedInfo.created_date) }}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Fotografías del trabajo realizado</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- images -->\n    <ion-row class=\"ion-align-items-center\">\n      <ion-col size=\"4\" offset=\"1\">\n        <img src=\"/assets/images/unavailable-image.png\" class=\"imgSingle\">\n      </ion-col>\n      <ion-col size=\"4\">\n        <img src=\"/assets/images/unavailable-image.png\" class=\"imgSingle\">\n      </ion-col>\n      <ion-col size=\"3\">\n        <div class=\"locate-cont\">\n          <ion-icon name=\"add\" color=\"light\" class=\"rating-text\"></ion-icon>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <!-- text -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color regText\"><b>Informe del trabajo</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- text-area -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"border ion-text-center\">\n        <ion-item lines=\"none\">\n           <ion-textarea rows=\"3\" cols=\"20\" placeholder=\"Describe el trabajo realizado.\"></ion-textarea>\n        </ion-item>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- title -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\" class=\"ion-text-center border-right\">\n        <ion-text class=\"main-color title\"><b>Método de pago</b></ion-text>\n        <br>\n        <ion-text class=\"subMiniTex ion-padding-top\">Efectivo</ion-text>\n      </ion-col>\n      <ion-col size=\"3\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Costo</b></ion-text>\n        <br>\n        <ion-text class=\"subMiniTex ion-padding-top\">20.00</ion-text>\n      </ion-col>\n      <ion-col size=\"1\">\n        <ion-icon color=\"danger\" name=\"add-circle\" class=\"addIcon\" (click)=\"extraCharge()\"></ion-icon>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n     <!-- finalizar trabajo BTN -->\n     <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" color=\"danger\" (click)=\"finalizarSolicitud()\">\n          <ion-icon slot=\"start\" name=\"build\"></ion-icon>\n          FINALIZAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n\n</ion-content>\n";
       /***/
     },
 
@@ -115,7 +115,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".no-border {\n  padding-top: 2px;\n  padding-bottom: 2px;\n}\n\n.profileImg {\n  margin-left: 10px;\n  height: 75px;\n  width: 75px;\n}\n\n.titleSelect {\n  font-size: 23px;\n  font-weight: bold;\n}\n\n.tittle {\n  font-size: 18px;\n}\n\n.border {\n  border: 1px solid #009ACE;\n}\n\n.regText {\n  font-size: 14px;\n}\n\n.imgSingle {\n  height: 125px;\n}\n\n.locate-cont {\n  border-radius: 50px;\n  height: 50px;\n  width: 50px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #009ACE;\n}\n\n.rating-text {\n  font-size: 26px;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.ticket {\n  color: red;\n  font-size: 12px;\n}\n\n.textSelect {\n  font-size: 14px;\n}\n\n.minusMargin {\n  margin-top: -20px;\n}\n\n.subMiniTex {\n  font-size: 16px;\n}\n\n.addIcon {\n  font-size: 35px;\n}\n\n.border-right {\n  border-right: 1px solid red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL2FnZW5kYWRvcy1maW5hbGl6YXIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7RUFDQSxtQkFBQTtBQUNKOztBQUNBO0VBRUksaUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtBQUNKOztBQUNBO0VBRUksZUFBQTtFQUNBLGlCQUFBO0FBQ0o7O0FBQ0E7RUFFSSxlQUFBO0FBQ0o7O0FBQ0E7RUFFSSx5QkFBQTtBQUNKOztBQUNBO0VBRUksZUFBQTtBQUNKOztBQUNBO0VBRUksYUFBQTtBQUNKOztBQUNBO0VBRUksbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLG9CQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSx5QkFBQTtBQUNKOztBQUNBO0VBRUEsZUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUFDQTs7QUFDQTtFQUVJLFVBQUE7RUFDQSxlQUFBO0FBQ0o7O0FBQ0E7RUFFSSxlQUFBO0FBQ0o7O0FBQ0E7RUFFSSxpQkFBQTtBQUNKOztBQUNBO0VBRUksZUFBQTtBQUNKOztBQUNBO0VBRUksZUFBQTtBQUNKOztBQUNBO0VBRUksMkJBQUE7QUFDSiIsImZpbGUiOiJhZ2VuZGFkb3MtZmluYWxpemFyLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5uby1ib3JkZXJ7XG4gICAgcGFkZGluZy10b3A6IDJweDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMnB4O1xufVxuLnByb2ZpbGVJbWdcbntcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbiAgICBoZWlnaHQ6IDc1cHg7XG4gICAgd2lkdGg6IDc1cHg7XG59XG4udGl0bGVTZWxlY3RcbntcbiAgICBmb250LXNpemU6IDIzcHg7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG4udGl0dGxlXG57XG4gICAgZm9udC1zaXplOiAxOHB4O1xufVxuLmJvcmRlclxue1xuICAgIGJvcmRlcjogMXB4IHNvbGlkICMwMDlBQ0U7XG59XG4ucmVnVGV4dFxue1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbn1cbi5pbWdTaW5nbGVcbntcbiAgICBoZWlnaHQ6IDEyNXB4O1xufVxuLmxvY2F0ZS1jb250XG57XG4gICAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgICBoZWlnaHQ6IDUwcHg7XG4gICAgd2lkdGg6IDUwcHg7XG4gICAgZGlzcGxheTogaW5saW5lLWZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIGJhY2tncm91bmQtY29sb3I6ICMwMDlBQ0U7XG59XG4ucmF0aW5nLXRleHRcbntcbmZvbnQtc2l6ZTogMjZweDtcbm1hcmdpbi1sZWZ0OiBhdXRvO1xubWFyZ2luLXJpZ2h0OiBhdXRvO1xufVxuLnRpY2tldFxue1xuICAgIGNvbG9yOiByZWQ7XG4gICAgZm9udC1zaXplOiAxMnB4O1xufVxuLnRleHRTZWxlY3RcbntcbiAgICBmb250LXNpemU6IDE0cHg7XG59XG4ubWludXNNYXJnaW5cbntcbiAgICBtYXJnaW4tdG9wOiAtMjBweDtcbn1cbi5zdWJNaW5pVGV4XG57XG4gICAgZm9udC1zaXplOiAxNnB4O1xufVxuLmFkZEljb25cbntcbiAgICBmb250LXNpemU6IDM1cHg7XG59XG4uYm9yZGVyLXJpZ2h0XG57XG4gICAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgcmVkO1xufVxuICAiXX0= */";
+      __webpack_exports__["default"] = ".no-border {\n  padding-top: 2px;\n  padding-bottom: 2px;\n}\n\n.profileImg {\n  margin-left: 10px;\n  height: 75px;\n  width: 75px;\n}\n\n.titleSelect {\n  font-size: 14px;\n  font-weight: bold;\n}\n\n.titleName {\n  font-size: 18px;\n}\n\n.tittle {\n  font-size: 18px;\n}\n\n.border {\n  border: 1px solid #009ACE;\n}\n\n.regText {\n  font-size: 14px;\n}\n\n.imgSingle {\n  height: 125px;\n}\n\n.locate-cont {\n  border-radius: 50px;\n  height: 50px;\n  width: 50px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #009ACE;\n}\n\n.rating-text {\n  font-size: 26px;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.ticket {\n  color: red;\n  font-size: 12px;\n}\n\n.textSelect {\n  font-size: 14px;\n}\n\n.minusMargin {\n  margin-top: -20px;\n}\n\n.subMiniTex {\n  font-size: 16px;\n}\n\n.addIcon {\n  font-size: 35px;\n}\n\n.border-right {\n  border-right: 1px solid red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uL2FnZW5kYWRvcy1maW5hbGl6YXIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7RUFDQSxtQkFBQTtBQUNKOztBQUNBO0VBRUksaUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtBQUNKOztBQUNBO0VBRUksZUFBQTtFQUNBLGlCQUFBO0FBQ0o7O0FBQ0E7RUFFSSxlQUFBO0FBQ0o7O0FBQ0E7RUFFSSxlQUFBO0FBQ0o7O0FBQ0E7RUFFSSx5QkFBQTtBQUNKOztBQUNBO0VBRUksZUFBQTtBQUNKOztBQUNBO0VBRUksYUFBQTtBQUNKOztBQUNBO0VBRUksbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLG9CQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSx5QkFBQTtBQUNKOztBQUNBO0VBRUEsZUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUFDQTs7QUFDQTtFQUVJLFVBQUE7RUFDQSxlQUFBO0FBQ0o7O0FBQ0E7RUFFSSxlQUFBO0FBQ0o7O0FBQ0E7RUFFSSxpQkFBQTtBQUNKOztBQUNBO0VBRUksZUFBQTtBQUNKOztBQUNBO0VBRUksZUFBQTtBQUNKOztBQUNBO0VBRUksMkJBQUE7QUFDSiIsImZpbGUiOiJhZ2VuZGFkb3MtZmluYWxpemFyLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5uby1ib3JkZXJ7XG4gICAgcGFkZGluZy10b3A6IDJweDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMnB4O1xufVxuLnByb2ZpbGVJbWdcbntcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbiAgICBoZWlnaHQ6IDc1cHg7XG4gICAgd2lkdGg6IDc1cHg7XG59XG4udGl0bGVTZWxlY3RcbntcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG4udGl0bGVOYW1lXG57XG4gICAgZm9udC1zaXplOiAxOHB4O1xufVxuLnRpdHRsZVxue1xuICAgIGZvbnQtc2l6ZTogMThweDtcbn1cbi5ib3JkZXJcbntcbiAgICBib3JkZXI6IDFweCBzb2xpZCAjMDA5QUNFO1xufVxuLnJlZ1RleHRcbntcbiAgICBmb250LXNpemU6IDE0cHg7XG59XG4uaW1nU2luZ2xlXG57XG4gICAgaGVpZ2h0OiAxMjVweDtcbn1cbi5sb2NhdGUtY29udFxue1xuICAgIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gICAgaGVpZ2h0OiA1MHB4O1xuICAgIHdpZHRoOiA1MHB4O1xuICAgIGRpc3BsYXk6IGlubGluZS1mbGV4O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5QUNFO1xufVxuLnJhdGluZy10ZXh0XG57XG5mb250LXNpemU6IDI2cHg7XG5tYXJnaW4tbGVmdDogYXV0bztcbm1hcmdpbi1yaWdodDogYXV0bztcbn1cbi50aWNrZXRcbntcbiAgICBjb2xvcjogcmVkO1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbn1cbi50ZXh0U2VsZWN0XG57XG4gICAgZm9udC1zaXplOiAxNHB4O1xufVxuLm1pbnVzTWFyZ2luXG57XG4gICAgbWFyZ2luLXRvcDogLTIwcHg7XG59XG4uc3ViTWluaVRleFxue1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbn1cbi5hZGRJY29uXG57XG4gICAgZm9udC1zaXplOiAzNXB4O1xufVxuLmJvcmRlci1yaWdodFxue1xuICAgIGJvcmRlci1yaWdodDogMXB4IHNvbGlkIHJlZDtcbn1cbiAgIl19 */";
       /***/
     },
 
@@ -219,40 +219,117 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/common/http */
+      "tk/3");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @angular/core */
       "fXoL");
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/router */
       "tyNb");
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
       /* harmony import */
 
 
-      var _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! src/app/services/solicitud.service */
+      "rLtr");
+      /* harmony import */
+
+
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! src/app/services/user.service */
+      "qfBg");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
+      /* harmony import */
+
+
+      var _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! ./confirm-success-modal/confirm-success-modal.component */
       "K4R9");
 
       var AgendadosFinalizarPage = /*#__PURE__*/function () {
-        function AgendadosFinalizarPage(modalController, router, menuController) {
+        function AgendadosFinalizarPage(modalController, router, menuController, solServ, us, http, lc) {
           _classCallCheck(this, AgendadosFinalizarPage);
 
           this.modalController = modalController;
           this.router = router;
           this.menuController = menuController;
+          this.solServ = solServ;
+          this.us = us;
+          this.http = http;
+          this.lc = lc;
+          this.loadedInfo = {
+            img_client_profile: null,
+            ticket_number: null,
+            clientName: null,
+            clientLastName: null,
+            date_required: null,
+            hours: null,
+            description: null,
+            images: null,
+            categoryName: null,
+            clientPhone1: null
+          };
+          this.slideOptions = {
+            initialSlide: 0,
+            slidesPerView: 2,
+            autoplay: true
+          };
         }
 
         _createClass(AgendadosFinalizarPage, [{
           key: "ngOnInit",
-          value: function ngOnInit() {}
+          value: function ngOnInit() {
+            var _this = this;
+
+            this.userSub = this.us.loggedUser.subscribe(function (user) {
+              _this.grabbedUser = user;
+            });
+            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+            this.lc.create({
+              message: "Cargando informacion del servicio..."
+            }).then(function (loadingEl) {
+              loadingEl.present();
+
+              _this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/supplier/requestservicedetail/".concat(_this.solServ.solicitud.solicitudID), {
+                headers: _this.headers
+              }).subscribe(function (resData) {
+                console.log(resData['data']);
+                loadingEl.dismiss();
+                _this.loadedInfo.clientLastName = resData['data'].clientLastName;
+                _this.loadedInfo.clientName = resData['data'].clientName;
+                _this.loadedInfo.date_required = resData['data'].date_required;
+                _this.loadedInfo.description = resData['data'].description;
+                _this.loadedInfo.hours = resData['data'].hours;
+                _this.loadedInfo.images = resData['data'].images;
+                _this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
+                _this.loadedInfo.ticket_number = resData['data'].ticket_number;
+                _this.loadedInfo.categoryName = resData['data'].categoryName;
+                _this.loadedInfo.clientPhone1 = resData['data'].clientPhone1;
+              }, function (err) {
+                console.log(err);
+                loadingEl.dismiss();
+              });
+            });
+          }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
@@ -264,10 +341,32 @@
             this.menuController.open();
           }
         }, {
+          key: "p",
+          value: function p(hours) {
+            if (hours) {
+              var wHours = hours.split("/");
+              var sHour = wHours[0].split("T");
+              var sHour2 = sHour[1];
+              sHour2 = sHour2.substring(0, 5);
+              var eHour = wHours[1].split("T");
+              var eHour2 = eHour[1];
+              eHour2 = eHour2.substring(0, 5);
+              return sHour2 + " - " + eHour2;
+            }
+          }
+        }, {
+          key: "d",
+          value: function d(date) {
+            if (date) {
+              var wDate = date.split(" ");
+              return wDate[0];
+            }
+          }
+        }, {
           key: "finalizarSolicitud",
           value: function finalizarSolicitud() {
             this.modalController.create({
-              component: _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmSuccessModalComponent"],
+              component: _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["ConfirmSuccessModalComponent"],
               cssClass: 'modalSuccess'
             }).then(function (modalEl) {
               modalEl.present();
@@ -278,6 +377,11 @@
           value: function extraCharge() {
             this.router.navigate(['/profesional/home/home-tabs/agendados/servicios-adicionales']);
           }
+        }, {
+          key: "ngOnDestroy",
+          value: function ngOnDestroy() {
+            this.userSub.unsubscribe();
+          }
         }]);
 
         return AgendadosFinalizarPage;
@@ -285,15 +389,23 @@
 
       AgendadosFinalizarPage.ctorParameters = function () {
         return [{
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ModalController"]
         }, {
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"]
+        }, {
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"]
+        }, {
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+        }, {
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
         }];
       };
 
-      AgendadosFinalizarPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+      AgendadosFinalizarPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
         selector: 'app-agendados-finalizar',
         template: _raw_loader_agendados_finalizar_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_agendados_finalizar_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]

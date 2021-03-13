@@ -22,28 +22,28 @@
     </ion-row>
 
     <!-- Social Icons -->
-    <ion-row class="ion-margin-top">
+    <!-- <ion-row class="ion-margin-top"> -->
       <!-- facebook -->
-      <ion-col size="2" offset="2">
+      <!-- <ion-col size="2" offset="2">
         <div class="logo-facebook">
           <ion-icon name="logo-facebook" (click)="loginFacebook()" color="light"></ion-icon>
         </div>
-      </ion-col>
+      </ion-col> -->
       <!-- apple -->
-      <ion-col size="1"></ion-col>
+      <!-- <ion-col size="1"></ion-col>
       <ion-col size="2">
         <div class="logo-apple">
           <ion-icon name="logo-apple" (click)="loginApple()" color="light"></ion-icon>
         </div>
       </ion-col>
-      <ion-col size="1"></ion-col>
+      <ion-col size="1"></ion-col> -->
       <!-- google -->
-      <ion-col size="2">
+      <!-- <ion-col size="2">
         <div class="logo-google">
           <ion-icon name="logo-google" (click)="loginGoogle()" color="light"></ion-icon>
         </div>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <!-- Login Inputs -->
     <form #f="ngForm" (ngSubmit)="login(f)">
@@ -127,24 +127,22 @@
     <!-- forgot password link -->
     <ion-row>
       <ion-col class="ion-text-center">
-        <ion-text class="main-color" (click)="loginProfesional()">¿Olvidaste tu contraseña?</ion-text>
+        <ion-text class="main-color" [routerLink]="['/','recovery']">¿Olvidaste tu contraseña?</ion-text>
       </ion-col>
     </ion-row>
 
     <!-- Registration Btns -->
     <ion-row class="ion-margin-top">
-      <ion-col size="6" offset="1">
+      <!-- <ion-col size="6" offset="1">
         <ion-button expand="block" class="outline-btn" [routerLink]="['/','user', 'home']">
           <small>
             Ingresar como invitado
           </small>
         </ion-button>
-      </ion-col>
-      <ion-col size="4">
-        <ion-button expand="block" [routerLink]="['/','register']" routerDirection="forward">
-          <small>
-            Registrarme
-          </small>
+      </ion-col> -->
+      <ion-col size="10" offset="1">
+        <ion-button expand="block" [routerLink]="['/','register']" routerDirection="forward" class="ion-text-uppercase">
+          Registrarme
         </ion-button>
       </ion-col>
     </ion-row>

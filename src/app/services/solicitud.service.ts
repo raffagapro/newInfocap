@@ -8,7 +8,9 @@ import { SolicitudObject } from '../model/solicitudObject.model';
   providedIn: 'root'
 })
 export class SolicitudService {
-  private _solicitud: Solicitud = new Solicitud(null, null, null, null, null, null, null, null, null);
+  private _solicitud: Solicitud = new Solicitud(
+    null, null, null, null, null, null, null, null, null, null, null, null
+    );
 
   constructor() { }
 
@@ -47,7 +49,21 @@ export class SolicitudService {
     this._solicitud.solicitudProOBJ = serObj;
   }
 
+  setProfId(profID: string){
+    this._solicitud.profId  = profID;
+  }
+
+  setNewDate(newDate: string){
+    this._solicitud.newDate  = newDate;
+  }
+
+  setNewTime(newtime: string){
+    this._solicitud.newTime  = newtime;
+  }
+
   clearSolicitud(){
-    this._solicitud = new Solicitud(null, null, null, null, null, null, null, null, null);
+    this._solicitud = new Solicitud(
+      null, null, null, null, null, null, null, null, null, null, null, null
+      );
   }
 }

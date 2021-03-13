@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
@@ -29,11 +30,12 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
     description: null,
     images: null,
     categoryName: null,
+    clientPhone1: null,
   };
 
   slideOptions = {
     initialSlide: 0,
-    slidesPerView: 2,
+    slidesPerView: 1,
     autoplay: true
   };
 
@@ -45,6 +47,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
     private us: UserService,
     private http: HttpClient,
     private lc: LoadingController,
+    private callNumber: CallNumber
   ) { }
 
   ngOnInit() {
@@ -62,13 +65,15 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
         loadingEl.dismiss();
         this.loadedInfo.clientLastName = resData['data'].clientLastName;
         this.loadedInfo.clientName = resData['data'].clientName;
-        this.loadedInfo.date_required = resData['data'].date_required;
+        let wDate = resData['data'].date_required.split("-");
+        this.loadedInfo.date_required = wDate[2]+'-'+wDate[1]+'-'+wDate[0];
         this.loadedInfo.description = resData['data'].description;
         this.loadedInfo.hours = resData['data'].hours;
         this.loadedInfo.images = resData['data'].images;
         this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
         this.loadedInfo.ticket_number = resData['data'].ticket_number;
         this.loadedInfo.categoryName = resData['data'].categoryName;
+        this.loadedInfo.clientPhone1 = resData['data'].clientPhone1;
       }, err =>{
         console.log(err);
         loadingEl.dismiss();
@@ -106,12 +111,22 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
     this.menuController.open();
   }
 
+  call(clientNumb: string){
+    this.callNumber.callNumber(clientNumb, true)
+    .then(res => console.log('Launched dialer!', res))
+    .catch(err => console.log('Error launching dialer', err));
+  }
+
+  // wa(clientNumb: string){
+  //   this.router.navigateByUrl('whatsapp://send?phone='+clientNumb);
+  // }
+
   confirmVisit(){
-    this.router.navigate(['/profesional/home/home-tabs/solicitudes/visita-tecnica']);
+    this.router.navigate(['/profesional/solicitudes/visita-tecnica']);
   }
 
   accceptSolicitud(){
-    this.router.navigate(['/profesional/home/home-tabs/solicitudes/definicion-servicio']);
+    this.router.navigate(['/profesional/solicitudes/definicion-servicio']);
     // this.modalController.create({
     //   component: ConfirmModalComponent,
     //   cssClass: 'modalSE',

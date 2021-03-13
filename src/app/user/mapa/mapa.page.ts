@@ -3,7 +3,7 @@ import { Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@an
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Capacitor, Plugins } from '@capacitor/core';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
@@ -45,6 +45,7 @@ export class MapaPage implements OnInit, OnDestroy {
     private http: HttpClient,
     private us: UserService,
     private solServ: SolicitudService,
+    private platform: Platform,
   ) { 
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
@@ -81,10 +82,24 @@ export class MapaPage implements OnInit, OnDestroy {
       message: 'Generando mapa...'
     }).then(async loadingEl =>{
       loadingEl.present();
-          //get location from device
-      const coords = await Geolocation.getCurrentPosition();
-      // console.log(coords);
-      let latLng = new google.maps.LatLng(coords.coords.latitude, coords.coords.longitude);
+      let latLng;
+      if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
+        Geolocation.getCurrentPosition().then(resData =>{
+          console.log(resData);
+          loadingEl.dismiss();
+          latLng = new google.maps.LatLng(resData.coords.latitude, resData.coords.longitude);
+        }, err =>{
+          console.log(err);
+          loadingEl.dismiss();
+          latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
+        });
+      }else{
+        // get location from device
+        const coords = await Geolocation.getCurrentPosition();
+        console.log(coords);
+        latLng = new google.maps.LatLng(coords.coords.latitude, coords.coords.longitude);
+      }
+
       let mapOptions = {
         center: latLng,
         zoom: 15,

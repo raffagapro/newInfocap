@@ -25,6 +25,14 @@
     </ion-row>
   </ion-grid> -->
 
+  <ion-grid class="ion-margin-top" *ngIf="!loadedServices || loadedServices.length < 1">
+    <ion-row class="subtitle ion-margin-top">
+      <ion-col size="8" offset="2" class="ion-text-center">
+        <ion-text class="footer-text main-color" ><b>Aún no tienes solicitudes hechas.</b></ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <!-- servicio iterable -->
   <div class="prof-cont ion-margin-top no-border" *ngFor="let service of loadedServices" (click)="solicitudDetails(service.request_id)">
     <ion-grid>

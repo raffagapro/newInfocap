@@ -13,5 +13,8 @@ export class Solicitud{
             public solicitudID: string,
             public solicitudOBJ: SolicitudObject,
             public solicitudProOBJ: ProSolicitud,
+            public profId: string,
+            public newDate: string,
+            public newTime: string,
     ) {}
 }

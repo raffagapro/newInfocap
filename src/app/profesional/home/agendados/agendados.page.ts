@@ -19,6 +19,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
   userSub: Subscription;
   headers: HttpHeaders;
   loadedServices = [];
+  loadedStartedServices = [];
   loadedVisits = [];
   parsedHours = null;
 
@@ -41,12 +42,11 @@ export class AgendadosPage implements OnInit, OnDestroy {
     this.menuController.enable(true, 'profesional');
     this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
     // load agendados
-    this.loadServices("2");    
-    //2
+    this.loadServices("3");
+    this.loadServices("4");
 
     // load visitas
-    this.loadServices("3");
-    //3
+    // this.loadServices("2");
   }
 
   loadServices(statusID: string){
@@ -58,14 +58,18 @@ export class AgendadosPage implements OnInit, OnDestroy {
       .subscribe(resData =>{
         console.log(resData['data']);
         loadingEl.dismiss();
-        if (statusID === "2") {
+        if (statusID === "3") {
           this.loadedServices = resData["data"];
           // console.log(this.loadedServices);
         }
-        if (statusID === "3") {
-          this.loadedVisits = resData["data"];
-          // console.log(this.loadedVisits);
+        if (statusID === "4") {
+          this.loadedStartedServices = resData["data"];
+          // console.log(this.loadedServices);
         }
+        // if (statusID === "2") {
+        //   this.loadedVisits = resData["data"];
+        //   console.log(this.loadedVisits);
+        // }
       }, err =>{
         console.log(err);
         loadingEl.dismiss();
@@ -90,7 +94,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
 
   solicitudDetail(serviceID: string){
     this.solServ.setServiceID(serviceID);
-    this.router.navigate(['/profesional/home/home-tabs/agendados/agendados-detail']);
+    this.router.navigate(['profesional/agendados/agendados-detail']);
   }
 
   ngOnDestroy(){

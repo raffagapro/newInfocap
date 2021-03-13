@@ -1,0 +1,134 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="user/prof-contactados-list" text="" icon="arrow-back"></ion-back-button>
+      <ion-button class="homeBtn" (click)="openMenu()">
+        <ion-icon name="menu" class="homeBtn"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="title-toolbar">SOLICITUDES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- filter bar -->
+  <!-- <ion-grid>
+    <ion-row class="ion-margin-top">
+      <ion-col size="10" offset="1">
+        <ion-searchbar
+          placeholder="Buscar"
+          (ionChange)="onSearchChange($event)"
+          >
+        </ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+  <!-- servicio iterable -->
+  <div class="prof-cont ion-margin-top no-border" *ngFor="let service of sortedServices" (click)="solicitudDetails(service.request_id)">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+
+        <!-- title -->
+        <ion-col size="8" class="ion-justify-content-center">
+          <ion-text>
+            <span class="titleSelect main-color ion-text-capitalize">{{ service.supplierName+" "+service.supplierLastName }} </span><br>
+            <!-- <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp; -->
+            <ion-badge color="medium" class="badge-text">{{ service.categoryName }}</ion-badge><br>
+            <span class="textSelect">{{ service.description }}</span><br>
+            <small class="main-color">{{ p(service.created_date) }}</small>
+          </ion-text>
+        </ion-col>
+
+        <!-- rating -->
+        <ion-col size="4" class="ion-text-center">
+          <div class="ion-text-center">
+            <small class="ticket">Ticket #{{ service.ticket_number }}</small>
+          </div>
+          <!-- itersate thru the btns-->
+
+          <!-- enviada -->
+          <ion-text *ngIf="service.status_id === 1">
+            <!-- icons -->
+            <div class="locate-cont">
+              <ion-icon name="send" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText main-color ion-text-center">
+              SOLICITUD ENVIADA
+            </small>
+          </ion-text>
+
+          <!-- visita  -->
+          <ion-text *ngIf="service.status_id === 2">
+            <!-- icons -->
+            <div class="locate-cont bg-main-color">
+              <ion-icon name="calendar" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText main-color ion-text-center">
+              SOLICITUD VISITA
+            </small>
+          </ion-text>
+
+          <!-- accepted  -->
+          <ion-text *ngIf="service.status_id === 3">
+            <!-- icons -->
+            <div class="locate-cont">
+              <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText main-color ion-text-center">
+              SERVICIO ACEPTADO
+            </small>
+          </ion-text>
+
+          <!-- rechazada  -->
+          <ion-text *ngIf="service.status_id === 7">
+            <!-- icons -->
+            <div class="locate-cont bg-red-color">
+              <ion-icon name="close" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText red-color ion-text-center">
+              SOLICITUD RECHAZADA
+            </small>
+          </ion-text>
+
+          <!-- en proceso  -->
+          <ion-text *ngIf="service.status_id === 4">
+            <!-- icons -->
+            <div class="locate-cont bg-green-color">
+              <ion-icon name="build" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText green-color ion-text-center">
+              SERVICIO ENPROCESO
+            </small>
+          </ion-text>
+
+          <!-- realizado  -->
+          <ion-text *ngIf="service.status_id === 5">
+            <!-- icons -->
+            <div class="locate-cont bg-grey-color">
+              <ion-icon name="build" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText grey-color ion-text-center">
+              SERVICIO REALIZADO
+            </small>
+          </ion-text>
+
+          <!-- finalizado  -->
+          <ion-text *ngIf="service.status_id === 6">
+            <!-- icons -->
+            <div class="locate-cont bg-grey-color">
+              <ion-icon name="build" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText grey-color ion-text-center">
+              SERVICIO FINALIZADO
+            </small>
+          </ion-text>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>

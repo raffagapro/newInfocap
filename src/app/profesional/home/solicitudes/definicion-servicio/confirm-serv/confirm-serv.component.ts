@@ -46,8 +46,8 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
       .subscribe(resData =>{
         console.log(resData['data']);
         loadingEl.dismiss();
-        this.loadedInfo.date_required = resData['data'].date_required;
-        this.loadedInfo.hours = resData['data'].hours;
+        this.loadedInfo.date_required = this.solServ.solicitud.newDate;
+        this.loadedInfo.hours = this.solServ.solicitud.newTime;
       }, err =>{
         console.log(err);
         loadingEl.dismiss();
@@ -80,7 +80,13 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
       message: "Confirmando solicitud..."
     }).then(loadingEl =>{
       loadingEl.present();
-      this.http.put(API+`/supplier/aprove/requestservice/${this.solServ.solicitud.solicitudID}`, null, {headers: this.headers})
+      // let wDate = this.solServ.solicitud.newDate.split('/');
+      const body = {
+        date_required: this.solServ.solicitud.newDate,
+        hours: this.solServ.solicitud.newTime,
+      }
+      console.log(body);
+      this.http.put(API+`/supplier/aprove/requestservice/${this.solServ.solicitud.solicitudID}`, body, {headers: this.headers})
       .subscribe(resData =>{
         console.log(resData);
         loadingEl.dismiss();
@@ -92,6 +98,7 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
           modalEl.present();
         });
       }, err =>{
+        console.log(err);
         loadingEl.dismiss();
       });
     });
