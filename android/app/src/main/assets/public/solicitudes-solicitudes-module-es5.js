@@ -192,7 +192,7 @@
           key: "aceptarSolicitud",
           value: function aceptarSolicitud(solicitudID) {
             this.solServ.setServiceID(solicitudID);
-            this.router.navigate(['/profesional/home/home-tabs/solicitudes/solicitudes-detail']);
+            this.router.navigate(['/profesional/solicitudes/solicitudes-detail']);
           }
         }, {
           key: "ngOnDestroy",

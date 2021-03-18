@@ -107,7 +107,7 @@ let SolicitudesPage = class SolicitudesPage {
     }
     aceptarSolicitud(solicitudID) {
         this.solServ.setServiceID(solicitudID);
-        this.router.navigate(['/profesional/home/home-tabs/solicitudes/solicitudes-detail']);
+        this.router.navigate(['/profesional/solicitudes/solicitudes-detail']);
     }
     ngOnDestroy() {
         this.userSub.unsubscribe();

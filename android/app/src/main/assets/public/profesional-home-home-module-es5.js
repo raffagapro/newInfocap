@@ -86,39 +86,6 @@
                 return m.SolicitudesPageModule;
               });
             }
-          }, {
-            path: 'solicitudes-detail',
-            loadChildren: function loadChildren() {
-              return __webpack_require__.e(
-              /*! import() | solicitudes-solicitudes-detail-solicitudes-detail-module */
-              "solicitudes-solicitudes-detail-solicitudes-detail-module").then(__webpack_require__.bind(null,
-              /*! ./solicitudes/solicitudes-detail/solicitudes-detail.module */
-              "jCiK")).then(function (m) {
-                return m.SolicitudesDetailPageModule;
-              });
-            }
-          }, {
-            path: 'definicion-servicio',
-            loadChildren: function loadChildren() {
-              return __webpack_require__.e(
-              /*! import() | solicitudes-definicion-servicio-definicion-servicio-module */
-              "solicitudes-definicion-servicio-definicion-servicio-module").then(__webpack_require__.bind(null,
-              /*! ./solicitudes/definicion-servicio/definicion-servicio.module */
-              "Md0a")).then(function (m) {
-                return m.DefinicionServicioPageModule;
-              });
-            }
-          }, {
-            path: 'visita-tecnica',
-            loadChildren: function loadChildren() {
-              return __webpack_require__.e(
-              /*! import() | solicitudes-visita-tecnica-visita-tecnica-module */
-              "solicitudes-visita-tecnica-visita-tecnica-module").then(__webpack_require__.bind(null,
-              /*! ./solicitudes/visita-tecnica/visita-tecnica.module */
-              "B1EP")).then(function (m) {
-                return m.VisitaTecnicaPageModule;
-              });
-            }
           }]
         }, {
           path: 'agendados',
@@ -133,39 +100,6 @@
                 return m.AgendadosPageModule;
               });
             }
-          }, {
-            path: 'agendados-detail',
-            loadChildren: function loadChildren() {
-              return __webpack_require__.e(
-              /*! import() | agendados-agendados-detail-agendados-detail-module */
-              "agendados-agendados-detail-agendados-detail-module").then(__webpack_require__.bind(null,
-              /*! ./agendados/agendados-detail/agendados-detail.module */
-              "DPWe")).then(function (m) {
-                return m.AgendadosDetailPageModule;
-              });
-            }
-          }, {
-            path: 'agendados-finalizar',
-            loadChildren: function loadChildren() {
-              return __webpack_require__.e(
-              /*! import() | agendados-agendados-finalizar-agendados-finalizar-module */
-              "agendados-agendados-finalizar-agendados-finalizar-module").then(__webpack_require__.bind(null,
-              /*! ./agendados/agendados-finalizar/agendados-finalizar.module */
-              "TGXy")).then(function (m) {
-                return m.AgendadosFinalizarPageModule;
-              });
-            }
-          }, {
-            path: 'servicios-adicionales',
-            loadChildren: function loadChildren() {
-              return __webpack_require__.e(
-              /*! import() | agendados-servicios-adicionales-servicios-adicionales-module */
-              "agendados-servicios-adicionales-servicios-adicionales-module").then(__webpack_require__.bind(null,
-              /*! ./agendados/servicios-adicionales/servicios-adicionales.module */
-              "mZJI")).then(function (m) {
-                return m.ServiciosAdicionalesPageModule;
-              });
-            }
           }]
         }, {
           path: 'finalizados',
@@ -178,28 +112,6 @@
               /*! ./finalizados/finalizados.module */
               "1xSf")).then(function (m) {
                 return m.FinalizadosPageModule;
-              });
-            }
-          }, {
-            path: 'finalizados-details',
-            loadChildren: function loadChildren() {
-              return __webpack_require__.e(
-              /*! import() | finalizados-finalizados-details-finalizados-details-module */
-              "finalizados-finalizados-details-finalizados-details-module").then(__webpack_require__.bind(null,
-              /*! ./finalizados/finalizados-details/finalizados-details.module */
-              "CeUq")).then(function (m) {
-                return m.FinalizadosDetailsPageModule;
-              });
-            }
-          }, {
-            path: 'rate-form',
-            loadChildren: function loadChildren() {
-              return __webpack_require__.e(
-              /*! import() | finalizados-rate-form-rate-form-module */
-              "finalizados-rate-form-rate-form-module").then(__webpack_require__.bind(null,
-              /*! ./finalizados/rate-form/rate-form.module */
-              "OCis")).then(function (m) {
-                return m.RateFormPageModule;
               });
             }
           }]

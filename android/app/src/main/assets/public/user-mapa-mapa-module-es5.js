@@ -155,7 +155,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n    <ion-title class=\"main-color title-toolbar\">¿DÓNDE NOS NECESITAS?</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div #map id=\"map\"></div>\n\n  <ion-fab horizontal=\"start\" vertical=\"bottom\" slot=\"fixed\">\n    <ion-fab-button color=\"primary\" (click)=\"loadMap()\">\n      <ion-icon name=\"locate\" color=\"light\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n  \n  <!-- throw alert with cords  -->\n  <!-- <ion-fab vertical=\"bottom\" horizontal=\"start\" slot=\"fixed\">\n    <ion-fab-button (click)=\"showCords()\" ion-fab color=\"tertiary\">\n      <ion-icon name=\"information-circle-outline\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab> -->\n\n  <!-- nombre -->\n  <ion-grid class=\"top-center\">\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-searchbar\n          color=\"primary\"\n          placeholder=\"¿Cuál es la dirección?\"\n          [(ngModel)]=\"autocomplete.input\"\n          (ionChange)=\"updateSearchResults($event)\" \n          (ionClear)=\"clearAutocomplete()\"\n          animated\n          >\n        </ion-searchbar>\n        <ion-list [hidden]=\"autocompleteItems.length == 0\">\n          <ion-item *ngFor=\"let item of autocompleteItems\" tappable (click)=\"selectSearchResult(item)\">\n            {{ item.description }}\n          </ion-item>\n        </ion-list>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar class=\"ion-no-padding\">\n    <ion-grid>\n\n      <!-- title -->\n      <!-- <ion-row class=\"ion-no-padding ion-no-margin\">\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color ion-text-uppercase title\">CONFIRMA TU DIRECCIÓN</ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"1\" offset=\"1\"></ion-col>\n        <ion-col size=\"8\" class=\"ion-text-center\">\n          <ion-text><hr></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row> -->\n\n      <form [formGroup]=\"form\" (ngSubmit)=\"searchPro()\">\n        <!-- detalles de la direccion -->\n        <ion-row class=\"ion-no-padding ion-no-margion\">\n          <ion-col size=\"10\" offset=\"1\">\n            <ion-item>\n              <ion-label position=\"floating\" class=\"main-color\">\n                <ion-icon name=\"pricetag\" slot=\"start\" class=\"main-color\"></ion-icon>\n                <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Dirección</ion-text>\n              </ion-label>\n              <ion-input \n                type=\"text\"\n                formControlName=\"address\"\n                disabled\n                ></ion-input>\n            </ion-item>\n          </ion-col>\n        </ion-row>\n\n        <!-- find BTN -->\n        <ion-row class=\"ion-margin-top\">\n          <ion-col size=\"1\"></ion-col>\n          <ion-col>\n            <ion-button size=\"10\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\" [disabled]=\"!form.valid\">\n              CONTINUAR\n            </ion-button>\n          </ion-col>\n          <ion-col size=\"1\"></ion-col>\n        </ion-row>\n    </form>\n\n    </ion-grid>\n  </ion-toolbar>\n</ion-footer>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n    <ion-title class=\"main-color title-toolbar ion-text-uppercase\">Ubicación</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div #map id=\"map\"></div>\n\n  <ion-fab horizontal=\"start\" vertical=\"bottom\" slot=\"fixed\">\n    <ion-fab-button color=\"primary\" (click)=\"loadMap()\">\n      <ion-icon name=\"locate\" color=\"light\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab>\n  \n  <!-- throw alert with cords  -->\n  <!-- <ion-fab vertical=\"bottom\" horizontal=\"start\" slot=\"fixed\">\n    <ion-fab-button (click)=\"showCords()\" ion-fab color=\"tertiary\">\n      <ion-icon name=\"information-circle-outline\"></ion-icon>\n    </ion-fab-button>\n  </ion-fab> -->\n\n  <!-- nombre -->\n  <ion-grid class=\"top-center\">\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-searchbar\n          color=\"primary\"\n          placeholder=\"¿Cuál es la dirección?\"\n          [(ngModel)]=\"autocomplete.input\"\n          (ionChange)=\"updateSearchResults($event)\" \n          (ionClear)=\"clearAutocomplete()\"\n          animated\n          >\n        </ion-searchbar>\n        <ion-list [hidden]=\"autocompleteItems.length == 0\">\n          <ion-item *ngFor=\"let item of autocompleteItems\" tappable (click)=\"selectSearchResult(item)\">\n            {{ item.description }}\n          </ion-item>\n        </ion-list>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n\n<ion-footer>\n  <ion-toolbar class=\"ion-no-padding\">\n    <ion-grid>\n\n      <!-- title -->\n      <!-- <ion-row class=\"ion-no-padding ion-no-margin\">\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color ion-text-uppercase title\">CONFIRMA TU DIRECCIÓN</ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"1\" offset=\"1\"></ion-col>\n        <ion-col size=\"8\" class=\"ion-text-center\">\n          <ion-text><hr></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row> -->\n\n      <form [formGroup]=\"form\" (ngSubmit)=\"searchPro()\">\n        <!-- detalles de la direccion -->\n        <ion-row class=\"ion-no-padding ion-no-margion\">\n          <ion-col size=\"10\" offset=\"1\">\n            <ion-item>\n              <ion-label position=\"floating\" class=\"main-color\">\n                <ion-icon name=\"pricetag\" slot=\"start\" class=\"main-color\"></ion-icon>\n                <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Dirección</ion-text>\n              </ion-label>\n              <ion-input \n                type=\"text\"\n                formControlName=\"address\"\n                disabled\n                ></ion-input>\n            </ion-item>\n          </ion-col>\n        </ion-row>\n\n        <!-- find BTN -->\n        <ion-row class=\"ion-margin-top\">\n          <ion-col size=\"1\"></ion-col>\n          <ion-col>\n            <ion-button size=\"10\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\" [disabled]=\"!form.valid\">\n              CONTINUAR\n            </ion-button>\n          </ion-col>\n          <ion-col size=\"1\"></ion-col>\n        </ion-row>\n    </form>\n\n    </ion-grid>\n  </ion-toolbar>\n</ion-footer>\n";
       /***/
     },
 
@@ -256,7 +256,7 @@
       var MapaPage = /*#__PURE__*/function () {
         function MapaPage( // private geolocation: Geolocation,
         // private nativeGeocoder: NativeGeocoder,
-        lc, router, zone, http, us, solServ) {
+        lc, router, zone, http, us, solServ, platform) {
           _classCallCheck(this, MapaPage);
 
           this.lc = lc;
@@ -265,6 +265,7 @@
           this.http = http;
           this.us = us;
           this.solServ = solServ;
+          this.platform = platform;
           this.comunas = [];
           this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
           this.autocomplete = {
@@ -313,20 +314,40 @@
               return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
                 var _this3 = this;
 
-                var coords, latLng, mapOptions;
+                var latLng, coords, mapOptions;
                 return regeneratorRuntime.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
-                        loadingEl.present(); //get location from device
+                        loadingEl.present();
 
-                        _context.next = 3;
+                        if (!(this.platform.is('mobile') && !this.platform.is('hybrid') || this.platform.is('desktop'))) {
+                          _context.next = 5;
+                          break;
+                        }
+
+                        Geolocation.getCurrentPosition().then(function (resData) {
+                          console.log(resData);
+                          loadingEl.dismiss();
+                          latLng = new google.maps.LatLng(resData.coords.latitude, resData.coords.longitude);
+                        }, function (err) {
+                          console.log(err);
+                          loadingEl.dismiss();
+                          latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
+                        });
+                        _context.next = 10;
+                        break;
+
+                      case 5:
+                        _context.next = 7;
                         return Geolocation.getCurrentPosition();
 
-                      case 3:
+                      case 7:
                         coords = _context.sent;
-                        // console.log(coords);
+                        console.log(coords);
                         latLng = new google.maps.LatLng(coords.coords.latitude, coords.coords.longitude);
+
+                      case 10:
                         mapOptions = {
                           center: latLng,
                           zoom: 15,
@@ -357,7 +378,7 @@
                         });
                         loadingEl.dismiss();
 
-                      case 12:
+                      case 17:
                       case "end":
                         return _context.stop();
                     }
@@ -477,6 +498,8 @@
           type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"]
         }, {
           type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__["SolicitudService"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"]
         }];
       };
 

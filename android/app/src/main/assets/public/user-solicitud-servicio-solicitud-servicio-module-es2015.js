@@ -245,7 +245,7 @@ let SolicitudServicioPage = class SolicitudServicioPage {
         formData.append('date_required', wDate);
         formData.append('hours', this.form.value.sHour + "/" + this.form.value.eHour);
         formData.append('professional_profile_id', this.solServ.solicitud.proPerfil_id);
-        console.log(formData.getAll);
+        console.log(wDate);
         this.lc.create({
             message: 'Creando su solicitud...'
         }).then(loadingEl => {

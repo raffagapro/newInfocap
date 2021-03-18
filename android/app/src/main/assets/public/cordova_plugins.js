@@ -186,23 +186,8 @@
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
-          "id": "cordova-plugin-advanced-http.dependency-validator",
-          "file": "plugins/cordova-plugin-advanced-http/www/dependency-validator.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
-          "id": "cordova-plugin-advanced-http.error-codes",
-          "file": "plugins/cordova-plugin-advanced-http/www/error-codes.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
-          "id": "cordova-plugin-advanced-http.global-configs",
-          "file": "plugins/cordova-plugin-advanced-http/www/global-configs.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
-          "id": "cordova-plugin-advanced-http.helpers",
-          "file": "plugins/cordova-plugin-advanced-http/www/helpers.js",
+          "id": "cordova-plugin-advanced-http.tough-cookie",
+          "file": "plugins/cordova-plugin-advanced-http/www/umd-tough-cookie.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -221,6 +206,11 @@
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
+          "id": "cordova-plugin-advanced-http.url-util",
+          "file": "plugins/cordova-plugin-advanced-http/www/url-util.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
           "id": "cordova-plugin-advanced-http.messages",
           "file": "plugins/cordova-plugin-advanced-http/www/messages.js",
           "pluginId": "cordova-plugin-advanced-http"
@@ -231,24 +221,19 @@
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
+          "id": "cordova-plugin-file.fileSystems",
+          "file": "plugins/cordova-plugin-file/www/fileSystems.js",
+          "pluginId": "cordova-plugin-file"
+        },
+      {
           "id": "cordova-plugin-advanced-http.public-interface",
           "file": "plugins/cordova-plugin-advanced-http/www/public-interface.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
-          "id": "cordova-plugin-advanced-http.tough-cookie",
-          "file": "plugins/cordova-plugin-advanced-http/www/umd-tough-cookie.js",
+          "id": "cordova-plugin-advanced-http.helpers",
+          "file": "plugins/cordova-plugin-advanced-http/www/helpers.js",
           "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
-          "id": "cordova-plugin-advanced-http.url-util",
-          "file": "plugins/cordova-plugin-advanced-http/www/url-util.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
-          "id": "cordova-plugin-file.fileSystems",
-          "file": "plugins/cordova-plugin-file/www/fileSystems.js",
-          "pluginId": "cordova-plugin-file"
         },
       {
           "id": "cordova-plugin-file.isChrome",
@@ -257,10 +242,25 @@
         "runs": true
         },
       {
+          "id": "cordova-plugin-advanced-http.dependency-validator",
+          "file": "plugins/cordova-plugin-advanced-http/www/dependency-validator.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
           "id": "cordova-plugin-file.fileSystems-roots",
           "file": "plugins/cordova-plugin-file/www/fileSystems-roots.js",
           "pluginId": "cordova-plugin-file",
         "runs": true
+        },
+      {
+          "id": "cordova-plugin-advanced-http.error-codes",
+          "file": "plugins/cordova-plugin-advanced-http/www/error-codes.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
+          "id": "cordova-plugin-advanced-http.global-configs",
+          "file": "plugins/cordova-plugin-advanced-http/www/global-configs.js",
+          "pluginId": "cordova-plugin-advanced-http"
         },
       {
           "id": "cordova-plugin-geolocation.PositionError",

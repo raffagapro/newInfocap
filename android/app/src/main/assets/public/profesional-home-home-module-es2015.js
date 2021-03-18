@@ -42,18 +42,6 @@ const routes = [
                         path: '',
                         loadChildren: () => __webpack_require__.e(/*! import() | solicitudes-solicitudes-module */ "solicitudes-solicitudes-module").then(__webpack_require__.bind(null, /*! ./solicitudes/solicitudes.module */ "tQ1+")).then(m => m.SolicitudesPageModule),
                     },
-                    {
-                        path: 'solicitudes-detail',
-                        loadChildren: () => __webpack_require__.e(/*! import() | solicitudes-solicitudes-detail-solicitudes-detail-module */ "solicitudes-solicitudes-detail-solicitudes-detail-module").then(__webpack_require__.bind(null, /*! ./solicitudes/solicitudes-detail/solicitudes-detail.module */ "jCiK")).then(m => m.SolicitudesDetailPageModule),
-                    },
-                    {
-                        path: 'definicion-servicio',
-                        loadChildren: () => __webpack_require__.e(/*! import() | solicitudes-definicion-servicio-definicion-servicio-module */ "solicitudes-definicion-servicio-definicion-servicio-module").then(__webpack_require__.bind(null, /*! ./solicitudes/definicion-servicio/definicion-servicio.module */ "Md0a")).then(m => m.DefinicionServicioPageModule),
-                    },
-                    {
-                        path: 'visita-tecnica',
-                        loadChildren: () => __webpack_require__.e(/*! import() | solicitudes-visita-tecnica-visita-tecnica-module */ "solicitudes-visita-tecnica-visita-tecnica-module").then(__webpack_require__.bind(null, /*! ./solicitudes/visita-tecnica/visita-tecnica.module */ "B1EP")).then(m => m.VisitaTecnicaPageModule),
-                    },
                 ]
             },
             {
@@ -62,18 +50,6 @@ const routes = [
                         path: '',
                         loadChildren: () => __webpack_require__.e(/*! import() | agendados-agendados-module */ "agendados-agendados-module").then(__webpack_require__.bind(null, /*! ./agendados/agendados.module */ "hPVO")).then(m => m.AgendadosPageModule),
                     },
-                    {
-                        path: 'agendados-detail',
-                        loadChildren: () => __webpack_require__.e(/*! import() | agendados-agendados-detail-agendados-detail-module */ "agendados-agendados-detail-agendados-detail-module").then(__webpack_require__.bind(null, /*! ./agendados/agendados-detail/agendados-detail.module */ "DPWe")).then(m => m.AgendadosDetailPageModule),
-                    },
-                    {
-                        path: 'agendados-finalizar',
-                        loadChildren: () => __webpack_require__.e(/*! import() | agendados-agendados-finalizar-agendados-finalizar-module */ "agendados-agendados-finalizar-agendados-finalizar-module").then(__webpack_require__.bind(null, /*! ./agendados/agendados-finalizar/agendados-finalizar.module */ "TGXy")).then(m => m.AgendadosFinalizarPageModule),
-                    },
-                    {
-                        path: 'servicios-adicionales',
-                        loadChildren: () => __webpack_require__.e(/*! import() | agendados-servicios-adicionales-servicios-adicionales-module */ "agendados-servicios-adicionales-servicios-adicionales-module").then(__webpack_require__.bind(null, /*! ./agendados/servicios-adicionales/servicios-adicionales.module */ "mZJI")).then(m => m.ServiciosAdicionalesPageModule),
-                    },
                 ]
             },
             {
@@ -81,14 +57,6 @@ const routes = [
                     {
                         path: '',
                         loadChildren: () => __webpack_require__.e(/*! import() | finalizados-finalizados-module */ "finalizados-finalizados-module").then(__webpack_require__.bind(null, /*! ./finalizados/finalizados.module */ "1xSf")).then(m => m.FinalizadosPageModule),
-                    },
-                    {
-                        path: 'finalizados-details',
-                        loadChildren: () => __webpack_require__.e(/*! import() | finalizados-finalizados-details-finalizados-details-module */ "finalizados-finalizados-details-finalizados-details-module").then(__webpack_require__.bind(null, /*! ./finalizados/finalizados-details/finalizados-details.module */ "CeUq")).then(m => m.FinalizadosDetailsPageModule),
-                    },
-                    {
-                        path: 'rate-form',
-                        loadChildren: () => __webpack_require__.e(/*! import() | finalizados-rate-form-rate-form-module */ "finalizados-rate-form-rate-form-module").then(__webpack_require__.bind(null, /*! ./finalizados/rate-form/rate-form.module */ "OCis")).then(m => m.RateFormPageModule),
                     },
                 ]
             },

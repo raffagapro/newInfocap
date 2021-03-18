@@ -144,48 +144,54 @@
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! @ionic-native/call-number/ngx */
+      "Wwn5");
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
       /* harmony import */
 
 
-      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! src/app/services/solicitud.service */
       "rLtr");
       /* harmony import */
 
 
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
       /* harmony import */
 
 
-      var _servicio_agendado_modal_servicio_agendado_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _servicio_agendado_modal_servicio_agendado_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! ./servicio-agendado-modal/servicio-agendado-modal.component */
       "Uol3");
       /* harmony import */
 
 
-      var _solicitud_enviada_modal_solicitud_enviada_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var _solicitud_enviada_modal_solicitud_enviada_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! ./solicitud-enviada-modal/solicitud-enviada-modal.component */
       "NPqd");
       /* harmony import */
 
 
-      var _solicitud_rechazada_modal_solicitud_rechazada_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var _solicitud_rechazada_modal_solicitud_rechazada_modal_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! ./solicitud-rechazada-modal/solicitud-rechazada-modal.component */
       "25zm");
 
       var SolicitudStatusPage = /*#__PURE__*/function () {
-        function SolicitudStatusPage(modalController, router, menuController, http, us, lc, solServ) {
+        function SolicitudStatusPage(modalController, router, menuController, http, us, lc, solServ, callNumber) {
           _classCallCheck(this, SolicitudStatusPage);
 
           this.modalController = modalController;
@@ -195,6 +201,7 @@
           this.us = us;
           this.lc = lc;
           this.solServ = solServ;
+          this.callNumber = callNumber;
           this.loadedService = {
             categoryName: null,
             cummunename: null,
@@ -216,7 +223,8 @@
             supplier_id: null,
             ticket_number: null,
             user_client_id: null,
-            work_days: null
+            work_days: null,
+            suplierPhone1: null
           };
         }
 
@@ -247,7 +255,7 @@
             }).then(function (loadingEl) {
               loadingEl.present();
 
-              _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/client/requestservice/".concat(solicitudId), {
+              _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + "/client/requestservice/".concat(solicitudId), {
                 headers: _this2.headers
               }).subscribe(function (resData) {
                 loadingEl.dismiss();
@@ -263,6 +271,15 @@
                 loadingEl.dismiss();
                 console.log(err);
               });
+            });
+          }
+        }, {
+          key: "call",
+          value: function call(clientNumb) {
+            this.callNumber.callNumber(clientNumb, true).then(function (res) {
+              return console.log('Launched dialer!', res);
+            })["catch"](function (err) {
+              return console.log('Error launching dialer', err);
             });
           }
         }, {
@@ -294,7 +311,7 @@
           key: "seModal",
           value: function seModal() {
             this.modalController.create({
-              component: _solicitud_enviada_modal_solicitud_enviada_modal_component__WEBPACK_IMPORTED_MODULE_11__["SolicitudEnviadaModalComponent"],
+              component: _solicitud_enviada_modal_solicitud_enviada_modal_component__WEBPACK_IMPORTED_MODULE_12__["SolicitudEnviadaModalComponent"],
               cssClass: 'modalSA'
             }).then(function (modalEl) {
               modalEl.present();
@@ -304,7 +321,7 @@
           key: "saModal",
           value: function saModal() {
             this.modalController.create({
-              component: _servicio_agendado_modal_servicio_agendado_modal_component__WEBPACK_IMPORTED_MODULE_10__["ServicioAgendadoModalComponent"],
+              component: _servicio_agendado_modal_servicio_agendado_modal_component__WEBPACK_IMPORTED_MODULE_11__["ServicioAgendadoModalComponent"],
               cssClass: 'modalSA'
             }).then(function (modalEl) {
               modalEl.present();
@@ -314,7 +331,7 @@
           key: "srModal",
           value: function srModal() {
             this.modalController.create({
-              component: _solicitud_rechazada_modal_solicitud_rechazada_modal_component__WEBPACK_IMPORTED_MODULE_12__["SolicitudRechazadaModalComponent"],
+              component: _solicitud_rechazada_modal_solicitud_rechazada_modal_component__WEBPACK_IMPORTED_MODULE_13__["SolicitudRechazadaModalComponent"],
               cssClass: 'modalServRechazado'
             }).then(function (modalEl) {
               modalEl.present();
@@ -337,19 +354,21 @@
 
       SolicitudStatusPage.ctorParameters = function () {
         return [{
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ModalController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["ModalController"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["MenuController"]
         }, {
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
         }, {
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"]
         }, {
-          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"]
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__["SolicitudService"]
+        }, {
+          type: _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_6__["CallNumber"]
         }];
       };
 
@@ -450,7 +469,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    \n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/solicitudes\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n\n    <ion-title class=\"title-toolbar\">SOLICITUD #{{ serviceId }}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <!-- top section  -->\n  <div class=\"ion-margin-top no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ loadedService.supplierName+\" \"+loadedService.supplierLastName }} </span><br>\n            <!-- <ion-badge color=\"primary\" class=\"badge-text\">{{ loadedService.categoryName }}</ion-badge>&nbsp; -->\n            <ion-badge \n              color=\"{{ loadedService.category_id === cat.id ? primary : medium }}\" \n              class=\"badge-text\" \n              *ngFor=\"let cat of loadedService.categories\"\n              >{{ cat.categoryName }}\n            </ion-badge><br>\n            <span class=\"textSelect ion-text-capitalize\">\n              {{ loadedService.cummunename }}\n            </span><br>\n            <small class=\"main-color\">{{ wDate }}</small>\n          </ion-text>\n        </ion-col>\n\n        <!-- Contato icons -->\n        <ion-col size=\"4\" class=\"ion-text-center test\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Contacto </span><br><br>\n            <!-- icons -->\n            <div class=\"locate-cont bg-green-color\">\n              <ion-icon name=\"call\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <div class=\"locate-cont bg-green-color\">\n              <ion-icon name=\"logo-whatsapp\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- timeline  -->\n  <div class=\"no-border test\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Solicitud </span>\n            <small class=\"ticket\" *ngIf=\"loadedService\">Ticket #{{ loadedService.ticket_number }}</small><br>\n            <span class=\"textSelect\" *ngIf=\"loadedService\">{{ loadedService.description }}</span>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color title\"><b>\xBFEN QU\xC9 ESTADO SE ENCUENTRA MI SOLICITUD?</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n\n      <!-- solicitud enviada  -->\n      <ion-row>\n        <div class=\"status-cont\" (click)=\"serviceDetal(1)\">\n          <ion-icon name=\"send\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\">SOLICITUD ENVIADA</ion-text>\n        </ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n\n      <!-- Visita tecnica agendada  -->\n      <!-- gray -->\n      <ion-row *ngIf=\"loadedService.status_id < 2 && loadedService.status_id !== 7\">\n        <div class=\"status-cont-grey\">\n          <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text-grey\">VISITA T\xC9CNICA AGENDADA</ion-text><br>\n        </ion-col>\n      </ion-row>\n      <!-- active  -->\n      <ion-row *ngIf=\"loadedService.status_id > 1 && loadedService.status_id !== 7\">\n        <div class=\"status-cont\" (click)=\"serviceDetal(1)\">\n          <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\">VISITA T\xC9CNICA AGENDADA</ion-text><br>\n        </ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n\n      <!-- Servicio agendado  -->\n      <!-- gray  -->\n      <ion-row *ngIf=\"loadedService.status_id < 3 && loadedService.status_id !== 7\">\n        <div class=\"status-cont-grey\">\n          <ion-icon name=\"calendar\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text-grey\">SERVICIO AGENDADO</ion-text><br>\n          <!-- <ion-text class=\"main-color status-subtext-grey\">Pendiente de confirmaci\xF3n</ion-text> -->\n        </ion-col>\n      </ion-row>\n      <!-- active  -->\n      <ion-row *ngIf=\"loadedService.status_id > 2 && loadedService.status_id !== 7\">\n        <div class=\"status-cont\" (click)=\"serviceDetal(1)\">\n          <ion-icon name=\"calendar\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\">SERVICIO AGENDADO</ion-text><br>\n        </ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n\n      <!-- SERVICIO EN\x0BPROCESO  -->\n      <!-- grey  -->\n      <ion-row *ngIf=\"loadedService.status_id < 4 && loadedService.status_id !== 7\">\n        <div class=\"status-cont-grey\">\n          <ion-icon name=\"build\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text-grey\">SERVICIO EN\x0BPROCESO</ion-text><br>\n        </ion-col>\n      </ion-row>\n      <!-- active  -->\n      <ion-row *ngIf=\"loadedService.status_id > 3 && loadedService.status_id !== 7\">\n        <div class=\"status-cont\" (click)=\"serviceDetal(2)\">\n          <ion-icon name=\"build\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\">SERVICIO EN\x0BPROCESO</ion-text><br>\n        </ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n\n      <!-- SERVICIO REALIZADO  -->\n      <!-- grey  -->\n      <ion-row *ngIf=\"loadedService.status_id < 5 && loadedService.status_id !== 7\">\n        <div class=\"status-cont-grey\">\n          <ion-icon name=\"build\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text-grey\">SERVICIO REALIZADO</ion-text><br>\n        </ion-col>\n      </ion-row>\n      <!-- active  -->\n      <ion-row *ngIf=\"loadedService.status_id > 4 && loadedService.status_id !== 7\">\n        <div class=\"status-cont\" (click)=\"serviceDetal(2)\">\n          <ion-icon name=\"build\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\">SERVICIO REALIZADO</ion-text><br>\n        </ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n\n      <!-- Pago Finalizado  -->\n      <!-- grey  -->\n      <ion-row *ngIf=\"loadedService.status_id < 6 && loadedService.status_id !== 7\">\n        <div class=\"status-cont-grey\">\n          <ion-icon name=\"card\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text-grey\">PAGO FINALIZADO</ion-text><br>\n          <!-- <ion-text class=\"main-color status-subtext-grey\">Pendiente calificar el servicio</ion-text> -->\n        </ion-col>\n      </ion-row>\n      <!-- active  -->\n      <ion-row *ngIf=\"loadedService.status_id > 5 && loadedService.status_id !== 7\">\n        <div class=\"status-cont\" (click)=\"serviceDetal(2)\">\n          <ion-icon name=\"card\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\">PAGO FINALIZADO</ion-text><br>\n          <!-- <ion-text class=\"main-color status-subtext\">Pendiente calificar el servicio</ion-text> -->\n        </ion-col>\n      </ion-row>\n\n      <!-- ONLY FOR CANCELLED SERVICES -->\n\n      <!-- separating line -->\n      <ion-row class=\"ion-no-margin\" *ngIf=\"loadedService.status_id === 7\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n      <ion-row class=\"ion-no-margin\" *ngIf=\"loadedService.status_id === 7\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n\n      <!-- Solicitud rechazada  -->\n      <ion-row *ngIf=\"loadedService.status_id === 7\">\n        <div class=\"status-cont-red\">\n          <ion-icon name=\"close-outline\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"status-text-red\">SOLICITUD RECHAZADA</ion-text><br>\n        </ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <ion-row class=\"ion-no-margin\" *ngIf=\"loadedService.status_id === 7\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n\n      <!-- Por que solictud rechazada  -->\n      <ion-row (click)=\"serviceDetal(3)\" *ngIf=\"loadedService.status_id === 7\">\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-subtext-red\">\xBFPor qu\xE9 mi solicitud fue rechazada?</ion-text>\n        </ion-col>\n      </ion-row>\n\n    </ion-grid>\n  </div>\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    \n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/solicitudes\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n\n    <ion-title class=\"title-toolbar\">SOLICITUD #{{ serviceId }}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <!-- top section  -->\n  <div class=\"ion-margin-top no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ loadedService.supplierName+\" \"+loadedService.supplierLastName }} </span><br>\n            <!-- <ion-badge color=\"primary\" class=\"badge-text\">{{ loadedService.categoryName }}</ion-badge>&nbsp; -->\n            <ion-badge \n              color=\"{{ loadedService.category_id === cat.id ? primary : medium }}\" \n              class=\"badge-text\" \n              *ngFor=\"let cat of loadedService.categories\"\n              >{{ cat.categoryName }}\n            </ion-badge><br>\n            <span class=\"textSelect ion-text-capitalize\">\n              {{ loadedService.cummunename }}\n            </span><br>\n            <small class=\"main-color\">{{ wDate }}</small>\n          </ion-text>\n        </ion-col>\n\n        <!-- Contato icons -->\n        <ion-col size=\"4\" class=\"ion-text-center test\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Contacto </span><br><br>\n            <!-- icons -->\n            <div class=\"locate-cont bg-green-color\" (click)=\"call(loadedService.suplierPhone1)\">\n              <ion-icon name=\"call\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div>\n            <!-- <div class=\"locate-cont bg-green-color\">\n              <ion-icon name=\"logo-whatsapp\" color=\"light\" class=\"rating-text\"></ion-icon>\n            </div> -->\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- timeline  -->\n  <div class=\"no-border test\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Solicitud </span>\n            <small class=\"ticket\" *ngIf=\"loadedService\">Ticket #{{ loadedService.ticket_number }}</small><br>\n            <span class=\"textSelect\" *ngIf=\"loadedService\">{{ loadedService.description }}</span>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color title\"><b>\xBFEN QU\xC9 ESTADO SE ENCUENTRA MI SOLICITUD?</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n\n      <!-- solicitud enviada  -->\n      <ion-row>\n        <div class=\"status-cont\" (click)=\"serviceDetal(1)\">\n          <ion-icon name=\"send\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\">SOLICITUD ENVIADA</ion-text>\n        </ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n\n      <!-- Visita tecnica agendada  -->\n      <!-- gray -->\n      <ion-row *ngIf=\"loadedService.status_id < 2 && loadedService.status_id !== 7\">\n        <div class=\"status-cont-grey\">\n          <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text-grey\">VISITA T\xC9CNICA AGENDADA</ion-text><br>\n        </ion-col>\n      </ion-row>\n      <!-- active  -->\n      <ion-row *ngIf=\"loadedService.status_id > 1 && loadedService.status_id !== 7\">\n        <div class=\"status-cont\" (click)=\"serviceDetal(1)\">\n          <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\">VISITA T\xC9CNICA AGENDADA</ion-text><br>\n        </ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <ion-row class=\"ion-no-margin\" *ngIf=\"loadedService.status_id !== 7\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n      <ion-row class=\"ion-no-margin\" *ngIf=\"loadedService.status_id !== 7\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n\n      <!-- Servicio agendado  -->\n      <!-- gray  -->\n      <ion-row *ngIf=\"loadedService.status_id < 3 && loadedService.status_id !== 7\">\n        <div class=\"status-cont-grey\">\n          <ion-icon name=\"calendar\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text-grey\">SERVICIO AGENDADO</ion-text><br>\n          <!-- <ion-text class=\"main-color status-subtext-grey\">Pendiente de confirmaci\xF3n</ion-text> -->\n        </ion-col>\n      </ion-row>\n      <!-- active  -->\n      <ion-row *ngIf=\"loadedService.status_id > 2 && loadedService.status_id !== 7\">\n        <div class=\"status-cont\" (click)=\"serviceDetal(1)\">\n          <ion-icon name=\"calendar\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\">SERVICIO AGENDADO</ion-text><br>\n        </ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <ion-row class=\"ion-no-margin\" *ngIf=\"loadedService.status_id !== 7\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n      <ion-row class=\"ion-no-margin\" *ngIf=\"loadedService.status_id !== 7\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n\n      <!-- SERVICIO EN\x0BPROCESO  -->\n      <!-- grey  -->\n      <ion-row *ngIf=\"loadedService.status_id < 4 && loadedService.status_id !== 7\">\n        <div class=\"status-cont-grey\">\n          <ion-icon name=\"build\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text-grey\">SERVICIO EN\x0BPROCESO</ion-text><br>\n        </ion-col>\n      </ion-row>\n      <!-- active  -->\n      <ion-row *ngIf=\"loadedService.status_id > 3 && loadedService.status_id !== 7\">\n        <div class=\"status-cont\" (click)=\"serviceDetal(1)\">\n          <ion-icon name=\"build\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\">SERVICIO EN\x0BPROCESO</ion-text><br>\n        </ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <ion-row class=\"ion-no-margin\" *ngIf=\"loadedService.status_id !== 7\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n      <ion-row class=\"ion-no-margin\" *ngIf=\"loadedService.status_id !== 7\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n\n      <!-- SERVICIO REALIZADO  -->\n      <!-- grey  -->\n      <ion-row *ngIf=\"loadedService.status_id < 5 && loadedService.status_id !== 7\">\n        <div class=\"status-cont-grey\">\n          <ion-icon name=\"build\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text-grey\">SERVICIO REALIZADO</ion-text><br>\n        </ion-col>\n      </ion-row>\n      <!-- active  -->\n      <ion-row *ngIf=\"loadedService.status_id > 4 && loadedService.status_id !== 7\">\n        <div class=\"status-cont\" (click)=\"serviceDetal(1)\">\n          <ion-icon name=\"build\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\">SERVICIO REALIZADO</ion-text><br>\n        </ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <!-- <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n      <ion-row class=\"ion-no-margin\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row> -->\n\n      <!-- Pago Finalizado  -->\n      <!-- grey  -->\n      <!-- <ion-row *ngIf=\"loadedService.status_id < 6 && loadedService.status_id !== 7\">\n        <div class=\"status-cont-grey\">\n          <ion-icon name=\"card\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text-grey\">PAGO FINALIZADO</ion-text><br> -->\n          <!-- <ion-text class=\"main-color status-subtext-grey\">Pendiente calificar el servicio</ion-text> -->\n        <!-- </ion-col>\n      </ion-row> -->\n      <!-- active  -->\n      <!-- <ion-row *ngIf=\"loadedService.status_id > 5 && loadedService.status_id !== 7\">\n        <div class=\"status-cont\" (click)=\"serviceDetal(1)\">\n          <ion-icon name=\"card\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\">PAGO FINALIZADO</ion-text><br> -->\n          <!-- <ion-text class=\"main-color status-subtext\">Pendiente calificar el servicio</ion-text> -->\n        <!-- </ion-col>\n      </ion-row> -->\n\n      <!-- ONLY FOR CANCELLED SERVICES -->\n\n      <!-- separating line -->\n      <!-- <ion-row class=\"ion-no-margin\" *ngIf=\"loadedService.status_id === 7\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row>\n      <ion-row class=\"ion-no-margin\" *ngIf=\"loadedService.status_id === 7\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row> -->\n\n      <!-- Solicitud rechazada  -->\n      <ion-row *ngIf=\"loadedService.status_id === 7\">\n        <div class=\"status-cont-red\">\n          <ion-icon name=\"close-outline\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n        </div>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"status-text-red\">SOLICITUD RECHAZADA</ion-text><br>\n        </ion-col>\n      </ion-row>\n\n      <!-- separating line -->\n      <!-- <ion-row class=\"ion-no-margin\" *ngIf=\"loadedService.status_id === 7\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-no-padding redLine\">|</ion-col>\n      </ion-row> -->\n\n      <!-- Por que solictud rechazada  -->\n      <!-- <ion-row (click)=\"serviceDetal(3)\" *ngIf=\"loadedService.status_id === 7\">\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-subtext-red\">\xBFPor qu\xE9 mi solicitud fue rechazada?</ion-text>\n        </ion-col>\n      </ion-row> -->\n\n    </ion-grid>\n  </div>\n\n</ion-content>\n";
       /***/
     }
   }]);
