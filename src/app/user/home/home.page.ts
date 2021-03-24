@@ -42,7 +42,6 @@ export class HomePage implements OnInit, OnDestroy {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
-    // console.log(this.grabbedUser.access_token);
   }
 
   ionViewWillEnter(){
@@ -51,14 +50,14 @@ export class HomePage implements OnInit, OnDestroy {
       message: "Cargando Servicios Disponibles..."
     }).then(loadingEl => {
       loadingEl.present();
-      let headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
+      let headers = new HttpHeaders();
+      headers = headers.set('Authorization', 'Bearer '+ this.grabbedUser.access_token)
       this.http.get(API+'/categories', {headers: headers}).subscribe(resData => {
         loadingEl.dismiss();
-        // console.log(resData['data']);
         this.categories = resData['data'];
       }, error =>{
         loadingEl.dismiss();
-        console.log('somefucking error!');
+        console.log(error);
       });
     });
   }

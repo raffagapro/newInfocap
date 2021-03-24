@@ -93,7 +93,8 @@ export class RegisterPage implements OnInit {
         this.errors.password = [];
         if (error.error.errors.password !== undefined) {
           this.errors.password = error.error.errors.password; 
-        }  
+        }
+        loadingEl.dismiss();
       });
     });
   }

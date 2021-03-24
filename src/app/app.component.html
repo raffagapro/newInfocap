@@ -1,5 +1,5 @@
 <ion-app>
-  
+
   <!-- Menu User -->
   <ion-menu side="start" menuId="user" contentId="main">
     <ion-content>
@@ -8,7 +8,9 @@
         <ion-row class="imgCont">
           <ion-col>
             <ion-avatar class="ion-margin-start profileImg">
-              <ion-img src="{{ !user ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}"></ion-img>
+              <ion-img
+                src="{{ !user || user.img_profile === '/' ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}">
+              </ion-img>
             </ion-avatar>
           </ion-col>
         </ion-row>
@@ -23,7 +25,8 @@
         <ion-row>
           <ion-col size="8" offset="2" class="ion-text-center">
             <ion-text class="name-text" *ngIf="!user"><b>Usuario Invitado</b></ion-text>
-            <ion-text class="name-text ion-text-capitalize" *ngIf="user"><b>{{ user.name + ' ' + user.last_name }}</b></ion-text>
+            <ion-text class="name-text ion-text-capitalize" *ngIf="user"><b>{{ user.name + ' ' + user.last_name }}</b>
+            </ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -37,16 +40,16 @@
             <ion-label color="primary" class="label-text">Inicio</ion-label>
           </ion-item>
 
-          <!-- profesionales contactados -->
-          <ion-item lines="none" routerLink="/user/prof-contactados-list">
-            <ion-icon slot="start" name="people" color="primary"></ion-icon>
-            <ion-label color="primary" class="label-text">Contactados</ion-label>
-          </ion-item>
-
           <!-- Estado de solicitud -->
           <ion-item lines="none" routerLink="/user/solicitudes">
             <ion-icon slot="start" name="clipboard" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Solicitudes</ion-label>
+          </ion-item>
+
+          <!-- profesionales contactados -->
+          <ion-item lines="none" routerLink="/user/prof-contactados-list">
+            <ion-icon slot="start" name="people" color="primary"></ion-icon>
+            <ion-label color="primary" class="label-text">Contactados</ion-label>
           </ion-item>
 
           <!-- Método de pago -->
@@ -62,7 +65,7 @@
           </ion-item> -->
 
           <!-- Soporte -->
-          <ion-item lines="none">
+          <ion-item lines="none" href="https://wa.me/529992781314">
             <ion-icon slot="start" name="headset" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Soporte</ion-label>
           </ion-item>
@@ -99,7 +102,9 @@
         <ion-row class="imgCont">
           <ion-col>
             <ion-avatar class="ion-margin-start profileImg">
-              <ion-img src="{{ !user ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}"></ion-img>
+              <ion-img
+                src="{{ !user || || user.img_profile === '/' ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}">
+              </ion-img>
             </ion-avatar>
           </ion-col>
         </ion-row>
@@ -114,7 +119,8 @@
         <ion-row>
           <ion-col size="8" offset="2" class="ion-text-center">
             <ion-text class="name-text" *ngIf="!user"><b>Usuario Invitado</b></ion-text>
-            <ion-text class="name-text ion-text-capitalize" *ngIf="user"><b>{{ user.name + ' ' + user.last_name }}</b></ion-text>
+            <ion-text class="name-text ion-text-capitalize" *ngIf="user"><b>{{ user.name + ' ' + user.last_name }}</b>
+            </ion-text>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -154,7 +160,7 @@
           </ion-item>
 
           <!-- Soporte -->
-          <ion-item lines="none">
+          <ion-item lines="none" href="https://wa.me/529994374501">
             <ion-icon slot="start" name="headset" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Soporte</ion-label>
           </ion-item>

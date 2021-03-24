@@ -57,7 +57,7 @@
           <ion-label *ngIf="errors.email[0] !== undefined" class="errorMess">
             <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
             <ion-text color="danger">
-              <small> {{ errors.email[0] }}</small>
+              <small> {{ errors.email[0] && 'No podemos encontrar un usuario con ese email' }}</small>
             </ion-text><br>
           </ion-label>
          

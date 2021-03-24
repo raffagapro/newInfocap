@@ -94,6 +94,8 @@ export class LoginPage implements OnInit {
             password: '',
           });
         });
+    }).catch(err => {
+      this.error = 'Ha habido un error';
     });
   }
 
