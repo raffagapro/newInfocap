@@ -1,34 +1,31 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/user/home" text="" icon="arrow-back"></ion-back-button>
+      <ion-back-button color="primary" defaultHref="/user/home" text="" icon="arrow-back"></ion-back-button>
+      <ion-menu-button color="primary" menu="user"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="main-color title-toolbar ion-text-uppercase">Ubicación</ion-title>
+    <ion-title class="main-color title-toolbar ion-text-uppercase">¿Dónde nos necesitas?</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div #map id="map"></div>
 
-  <ion-fab horizontal="start" vertical="bottom" slot="fixed">
-    <ion-fab-button color="primary" (click)="loadMap()">
-      <ion-icon name="locate" color="light"></ion-icon>
+  <ion-fab horizontal="end" vertical="center" slot="fixed">
+    <ion-fab-button class="float-bottom" color="white"  (click)="loadMap()">
+      <ion-icon name="locate" color="primary"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button class="float-bottom" color="white"(click)="showCords()" >
+      <ion-icon name="information-circle-outline" color="primary"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  
-  <!-- throw alert with cords  -->
-  <!-- <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button (click)="showCords()" ion-fab color="tertiary">
-      <ion-icon name="information-circle-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
 
   <!-- nombre -->
   <ion-grid class="top-center">
     <ion-row>
-      <ion-col size="10" offset="1">
+      <ion-col size="12">
         <ion-searchbar
-          color="primary"
+          class="search_bar_map"
           placeholder="¿Cuál es la dirección?"
           [(ngModel)]="autocomplete.input"
           (ionChange)="updateSearchResults($event)" 
@@ -64,18 +61,50 @@
       </ion-row> -->
 
       <form [formGroup]="form" (ngSubmit)="searchPro()">
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="10" offset="2">
+            <ion-title class="main-color underline-red title-toolbar ion-text-uppercase">Confirma tu dirección</ion-title>
+          </ion-col>
+        </ion-row>
         <!-- detalles de la direccion -->
         <ion-row class="ion-no-padding ion-no-margion">
           <ion-col size="10" offset="1">
             <ion-item>
               <ion-label position="floating" class="main-color">
-                <ion-icon name="pricetag" slot="start" class="main-color"></ion-icon>
+                <ion-icon name="location" slot="start" class="main-color"></ion-icon>
                 <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Dirección</ion-text>
               </ion-label>
               <ion-input 
                 type="text"
                 formControlName="address"
-                disabled
+                ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-no-padding ion-no-margion">
+          <ion-col size="10" offset="1">
+            <ion-item>
+              <ion-label position="floating" class="main-color">
+                <ion-icon name="pricetag" slot="start" class="main-color"></ion-icon>
+                <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Detalles de la dirección ej. casa, oficina</ion-text>
+              </ion-label>
+              <ion-input 
+                type="text"
+                formControlName="addressDirection"
+                ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-no-padding ion-no-margion">
+          <ion-col size="10" offset="1">
+            <ion-item>
+              <ion-label position="floating" class="main-color">
+                <ion-icon name="chatbox-ellipses" slot="start" class="main-color"></ion-icon>
+                <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Agregar instrucciones ej. tocar el timbre</ion-text>
+              </ion-label>
+              <ion-input 
+                type="text"
+                formControlName="addressInstructions"
                 ></ion-input>
             </ion-item>
           </ion-col>

@@ -33,7 +33,8 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
+    this.headers = new HttpHeaders();
+    this.headers = this.headers.set('Authorization', 'Bearer '+this.grabbedUser.access_token);
 
     // Grab prof list 
     this.lc.create({
@@ -53,6 +54,8 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
         console.log(e);
         loadingEl.dismiss();
       });
+    }).catch(err => {
+      this.lc.dismiss()
     });
   }
 

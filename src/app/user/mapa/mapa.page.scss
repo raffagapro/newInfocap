@@ -11,7 +11,11 @@
   .top-center{
     position: absolute;
     width: 100%;
-    top: 60px;
+    top: 30px;
+  }
+  .underline-red {
+    text-decoration: underline;
+    text-decoration-color: #E54360;
   }
   .floating-input{
     background-color: white;
@@ -50,4 +54,12 @@
     margin-left: auto;
     margin-right: auto;
   }
-  
+  .search_bar_map {
+    border: solid 1px #009ACE;
+    color: #009ACE;
+    padding: 0;
+  }
+
+  .float-bottom {
+    margin-bottom: 8px;
+  }

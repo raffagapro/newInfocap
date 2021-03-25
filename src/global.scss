@@ -72,6 +72,12 @@ ion-menu-button{
   font-family: Poppins;
 }
 
+ion-searchbar ion-icon {
+  color: #009ACE !important;
+  right: 16px !important;
+  left: auto !important;
+}
+
 ion-item {
   --background: none;
   opacity:1;

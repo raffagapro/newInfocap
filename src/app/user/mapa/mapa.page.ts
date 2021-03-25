@@ -56,7 +56,8 @@ export class MapaPage implements OnInit, OnDestroy {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
+    this.headers = new HttpHeaders();
+    this.headers = this.headers.set('Authorization', 'Bearer '+this.grabbedUser.access_token)
     //comunas
     this.http.get(API+'/location/communes', {headers: this.headers})
     .subscribe(resData =>{
@@ -69,6 +70,13 @@ export class MapaPage implements OnInit, OnDestroy {
       address: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required]
+      }),
+      addressDirection: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      addressInstructions: new FormControl(null, {
+        updateOn: 'blur'
       }),
     });
   }
@@ -130,6 +138,8 @@ export class MapaPage implements OnInit, OnDestroy {
         this.addMarker(e.latLng, this.map);
       });
       loadingEl.dismiss();
+    }).catch(error => {
+      this.lc.dismiss();
     });
   }
 
