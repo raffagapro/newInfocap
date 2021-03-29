@@ -119,6 +119,9 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
         loadingEl.dismiss();
         // this.router.navigate(['/user/profesional-list']);
       });
+    }).then(err => {
+      console.log(err)
+      this.lc.dismiss();
     });
   }
 

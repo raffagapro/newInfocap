@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7eea4e82-8e52-4d43-8031-2554de7195ca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/capacitor-cordova-android-plugins/android.capacitor-cordova-android-plugins.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/capacitor-cordova-android-plugins/android.capacitor-cordova-android-plugins.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../config.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,5 +133,15 @@
       <updated>1616029832307</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="185" y="125" width="1550" height="780" key="AVDManager" timestamp="1616691320674">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="185" y="125" width="1550" height="780" key="AVDManager/0.0.1920.1040@0.0.1920.1040" timestamp="1616691320674" />
+    <state x="461" y="160" key="SettingsEditor" timestamp="1616690504194">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="160" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1616690504194" />
   </component>
 </project>

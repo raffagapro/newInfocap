@@ -139,6 +139,7 @@ export class MapaPage implements OnInit, OnDestroy {
       });
       loadingEl.dismiss();
     }).catch(error => {
+      console.log(error)
       this.lc.dismiss();
     });
   }
