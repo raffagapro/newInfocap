@@ -21,7 +21,7 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <ion-img src="{{ !loadedInfo.img_client_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+loadedInfo.img_client_profile  }}"></ion-img>
+            <ion-img src="{{ !loadedInfo.img_client_profile ? 'assets/images/avatar.png' : PATH + loadedInfo.img_client_profile  }}"></ion-img>
           </ion-avatar>
         </ion-col>
 
@@ -35,12 +35,22 @@
             <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">{{ d(loadedInfo.created_date) }}</p>
           </ion-text>
         </ion-col>
-
       </ion-row>
     </ion-grid>
   </div>
-
   <ion-grid>
+
+    <ion-row>
+      <ion-col size="6">
+        Categoriza el trabajo
+      </ion-col>
+      <ion-col size="6">
+        <ion-select placeholder="Categorías">
+          <ion-select-option value="1">Reparación</ion-select-option>
+          <ion-select-option value="2">Mantenimiento</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
 
     <!-- title -->
     <ion-row>
@@ -87,7 +97,7 @@
     </ion-row>
 
     <!-- title -->
-    <ion-row class="ion-margin-top">
+    <!-- <ion-row class="ion-margin-top">
       <ion-col size="1"></ion-col>
       <ion-col size="5" class="ion-text-center border-right">
         <ion-text class="main-color title"><b>Método de pago</b></ion-text>
@@ -103,7 +113,7 @@
         <ion-icon color="danger" name="add-circle" class="addIcon" (click)="extraCharge()"></ion-icon>
       </ion-col>
       <ion-col size="1"></ion-col>
-    </ion-row>
+    </ion-row> -->
 
      <!-- finalizar trabajo BTN -->
      <ion-row class="ion-margin-top ion-margin-bottom">

@@ -10,7 +10,7 @@ import { ProfCategory } from 'src/app/model/profCategory.model';
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
-import { API } from 'src/environments/environment';
+import { API, PATH } from 'src/environments/environment';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImgListService } from 'src/app/services/img-list.service';
 
@@ -59,7 +59,7 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
   selectedProfPhoto: string;
   loadedImages = [];
   loadedImagesDisplay = [];
-
+  PATH: String;
 
 
   // slideOptions = {
@@ -80,6 +80,7 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.PATH = PATH
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });

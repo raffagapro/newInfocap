@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ImgListService } from 'src/app/services/img-list.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
+import { PATH } from 'src/environments/environment';
 
 @Component({
   selector: 'app-solicitud-enviada-modal',
@@ -15,6 +16,7 @@ export class SolicitudEnviadaModalComponent implements OnInit, OnDestroy {
   wDate;
   loadedImgList: string[]= [];
   imgListSub: Subscription;
+  PATH: String;
 
   slideOptions = {
     initialSlide: 0,
@@ -30,6 +32,7 @@ export class SolicitudEnviadaModalComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.PATH = PATH
     this.loadedService = this.solServ.solicitud.solicitudOBJ;
     let worDate = this.loadedService.created_date.split(" ");
     this.wDate = worDate[0];

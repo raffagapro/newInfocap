@@ -8,7 +8,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
-import { API } from 'src/environments/environment';
+import { API, PATH } from 'src/environments/environment';
 import { ConfirmSuccessComponent } from './confirm-success/confirm-success.component';
 import { ConfirmSuccessStartComponent } from './confirm-success-start/confirm-success-start.component';
 
@@ -21,6 +21,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
   headers: HttpHeaders;
+  PATH: String;
   loadedInfo = {
     img_client_profile: null,
     ticket_number: null,
@@ -53,6 +54,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.PATH = PATH
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
@@ -142,25 +144,26 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
   }
 
   finalizarSolicitud(){
-    this.lc.create({
-      message: 'Finalizando Trabajo...'
-    }).then(loadingEl =>{
-      loadingEl.present();
-      this.http.put(API+`/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/6`, null, {headers: this.headers})
-      .subscribe(resData =>{
-        loadingEl.dismiss();
-        console.log(resData);
-        this.modalController.create({
-          component: ConfirmSuccessComponent,
-          cssClass: 'modalSuccess',
-        }).then(modalEl => {
-          modalEl.present();
-        });
-      }, err =>{
-        loadingEl.dismiss();
-        console.log(err);
-      });
-    });
+    this.router.navigate(['profesional/agendados/agendados-finalizar']);
+    // this.lc.create({
+    //   message: 'Finalizando Trabajo...'
+    // }).then(loadingEl =>{
+    //   loadingEl.present();
+    //   this.http.put(API+`/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/6`, null, {headers: this.headers})
+    //   .subscribe(resData =>{
+    //     loadingEl.dismiss();
+    //     console.log(resData);
+    //     this.modalController.create({
+    //       component: ConfirmSuccessComponent,
+    //       cssClass: 'modalSuccess',
+    //     }).then(modalEl => {
+    //       modalEl.present();
+    //     });
+    //   }, err =>{
+    //     loadingEl.dismiss();
+    //     console.log(err);
+    //   });
+    // });
   }
 
   confirmSolicitud(){

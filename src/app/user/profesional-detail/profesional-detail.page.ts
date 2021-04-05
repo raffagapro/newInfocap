@@ -8,7 +8,7 @@ import { User } from 'src/app/model/user.model';
 import { ProfCategory } from 'src/app/model/profCategory.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
-import { API } from 'src/environments/environment';
+import { API, PATH } from 'src/environments/environment';
 import { ImgListService } from 'src/app/services/img-list.service';
 
 @Component({
@@ -21,6 +21,7 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
     null, null, null, null, null, null, null, null, null, null, null, null, null
   );
   selectedProfPhoto: string;
+  PATH: String;
   grabbedUser: User;
   userSub: Subscription;
   loadedImgList: string[] = [];
@@ -46,6 +47,7 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.PATH = PATH
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });

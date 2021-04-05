@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
-import { API } from 'src/environments/environment';
+import { API, PATH } from 'src/environments/environment';
 import { SuccessModalComponent } from './success-modal/success-modal.component';
 
 function base64toBlob(base64Data, contentType) {
@@ -47,6 +47,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
   selectedImage: string;
   @ViewChild('hiddenImgInput') hiddenImgInputRef: ElementRef<HTMLInputElement>;
   useInputPicker = false;
+  PATH: String;
 
   constructor(
     private us: UserService,
@@ -57,6 +58,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.PATH = PATH
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });

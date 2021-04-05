@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
-import { API } from 'src/environments/environment';
+import { API, PATH } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profesional-list',
@@ -19,6 +19,7 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
   headers: HttpHeaders;
+  PATH: String;
 
   constructor(
     private router: Router,
@@ -30,6 +31,7 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {    
+    this.PATH = PATH
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });

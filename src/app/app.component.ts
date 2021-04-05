@@ -10,7 +10,7 @@ import { Plugins, Capacitor } from '@capacitor/core'
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { User } from './model/user.model';
-import { API } from 'src/environments/environment';
+import { API, PATH } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +20,7 @@ import { API } from 'src/environments/environment';
 export class AppComponent {
   logged: Observable<boolean>;
   user: User;
+  PATH: String;
 
   constructor(
     private platform: Platform,
@@ -38,6 +39,7 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       // this.statusBar.styleDefault();
+      this.PATH = PATH
       if (Capacitor.isPluginAvailable('SplashScreen')) {
         Plugins.SplashScreen.hide();
       }

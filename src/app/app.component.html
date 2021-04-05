@@ -9,7 +9,7 @@
           <ion-col>
             <ion-avatar class="ion-margin-start profileImg">
               <ion-img
-                src="{{ !user || user.img_profile === '/' ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}">
+                src="{{ !user || user.img_profile === '/' ? 'assets/images/avatar.png' : PATH + user.img_profile }}">
               </ion-img>
             </ion-avatar>
           </ion-col>
@@ -102,8 +102,9 @@
         <ion-row class="imgCont">
           <ion-col>
             <ion-avatar class="ion-margin-start profileImg">
+              
               <ion-img
-                src="{{ !user || user.img_profile === '/' ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}">
+                src="{{ !user || user.img_profile === '/' ? 'assets/images/avatar.png' : PATH + user.img_profile }}">
               </ion-img>
             </ion-avatar>
           </ion-col>
