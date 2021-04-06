@@ -81,14 +81,13 @@ export class RegisterPage implements OnInit {
       const { response } = error;
       if (response) {
         const { errors } = response.data;
-
+        console.log(errors);
         this.errors.name = [];
         if (errors.name !== undefined) {
           this.errors.name = errors.name;
         }
         this.errors.last_name = [];
         if (errors.last_name !== undefined) {
-          console.log(errors)
           this.errors.last_name = errors.last_name;
         }
         this.errors.email = [];

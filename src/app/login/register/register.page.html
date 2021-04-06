@@ -45,21 +45,21 @@
             </ion-input>
           </ion-item>
           <!-- error  -->
-          <ion-label *ngIf="!nameCtrl.valid && nameCtrl.touched" class="errorMess">
+          <ion-label *ngIf="!nameCtrl.valid && nameCtrl.touched" class="errorMess text-center">
             <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
             <ion-text color="danger">
               <small> El nombre es requerido</small>
             </ion-text>
           </ion-label>
           <!--  httpo name error  -->
-          <ion-label *ngIf="errors.name[0] !== undefined" class="errorMess">
+          <ion-label *ngIf="errors.name[0] !== undefined" class="errorMess text-center">
             <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
             <ion-text color="danger">
               <small> {{ errors.name[0] }}</small>
             </ion-text><br>
           </ion-label>
            <!-- http last name error  -->
-           <ion-label *ngIf="errors.last_name[0] !== undefined" class="errorMess">
+           <ion-label *ngIf="errors.last_name[0] !== undefined" class="errorMess text-center">
             <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
             <ion-text color="danger">
               <small> {{ errors.last_name[0] }}</small>

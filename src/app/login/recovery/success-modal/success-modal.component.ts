@@ -9,16 +9,22 @@ import { ModalController } from '@ionic/angular';
 })
 export class SuccessModalComponent implements OnInit {
 
+  message;
+  redirect = true;
+  redirectUrl = '/login';
+
   constructor(
     private modalController: ModalController,
     private router: Router,
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  dismiss(){
+  dismiss() {
     this.modalController.dismiss();
-    this.router.navigate(['/login']);
+    if (this.redirect) {
+      this.router.navigate([this.redirectUrl]);
+    }
   }
 
 }

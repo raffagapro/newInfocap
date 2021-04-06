@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { API } from 'src/environments/environment';
 import { SuccessModalComponent } from './success-modal/success-modal.component';
+import axios from 'axios';
 
 @Component({
   selector: 'app-recovery',
@@ -24,40 +25,52 @@ export class RecoveryPage implements OnInit {
   ngOnInit() {
   }
 
-  onRecover(form: NgForm){
+  async onRecover(form: NgForm) {
     if (!form.valid) {
       return;
     }
     const email = form.value.email;
-    this.lc.create({
-      message: 'Generando correo de recuperacion...'
-    }).then(loadingEl => {
-      loadingEl.present();
-      this.http.post(API+'/auth/forgotpassword', {email: email,})
-      .subscribe(resData => {
-        loadingEl.dismiss();
-        if (resData['code'] === 200) {
-          this.clearErrors();
-          form.reset();
-          // modal for succes
-          this.modalController.create({
-            component: SuccessModalComponent,
-            cssClass: 'modalSuccess',
-          }).then(modalEl => {
-            modalEl.present();
-          });
-        }
-      },error => {
-        loadingEl.dismiss();
-        this.errors.email = [];
-        if (error.error.errors.email !== undefined) {
-         this.errors.email = error.error.errors.email; 
-        }
-      });
+
+    const loader = await this.lc.create({
+      message: 'Generando correo de recuperación...'
     });
+    loader.present();
+
+    try {
+      await axios.post(
+        `${API}/auth/forgotpassword`,
+        {
+          email
+        }
+      );
+      loader.dismiss();
+      this.clearErrors();
+      form.reset();
+
+      // modal for succes
+      const successModal = await this.modalController.create({
+        component: SuccessModalComponent,
+        componentProps: { 
+          message: 'Te hemos enviado a tu correo los pasos para recuper tu contraseña',
+        },
+        cssClass: 'modalSuccess',
+      });
+      successModal.present();
+    } catch (error) {
+      const { response } = error;
+      if (response) {
+        const { errors } = response.data;
+
+        this.errors.email = [];
+        if (errors.email !== undefined) {
+          this.errors.email = errors.email;
+        }
+      }
+      loader.dismiss();
+    }
   }
 
-  clearErrors(){
+  clearErrors() {
     this.errors.email = [];
   }
 

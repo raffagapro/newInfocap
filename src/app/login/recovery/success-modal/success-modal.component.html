@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content class="success-modal">
   <ion-grid style="height: 100%;">
     
     <!-- SERVICIO REALIZADO  -->
@@ -6,8 +6,8 @@
       <div class="status-cont">
         <ion-icon name="checkmark" color="light" class="status-text-icon"></ion-icon>
       </div>
-      <ion-col size="10"  offset="1" class="ion-text-center ion-margin-top">
-        <ion-text class="main-color status-text"><b>SE HA ENVIADO EL CORREO EXITOSAMENTE</b></ion-text><br>
+      <ion-col size="10"  offset="1" class="ion-text-center">
+        <ion-text class="main-color status-text"><b>{{message || 'SE HA ENVIADO EL CORREO EXITOSAMENTE'}}</b></ion-text><br>
       </ion-col>
       <ion-col size="10"  offset="1" class="ion-text-center">
         <ion-text><hr></ion-text>
