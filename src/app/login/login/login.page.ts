@@ -59,21 +59,22 @@ export class LoginPage implements OnInit {
 
       if (responseData) {
         const { user, roles, access_token } = data;
+        const { id, name, last_name, email, phone1, phone2, img_profile } = user;
         //save user info to store NEEDS WORK IN HERE
         let img: string;
-        if (user.img_profile === null) {
+        if (img_profile === null) {
           img = 'assets/images/avatar.png';
         } else {
-          img = user.img_profile;
+          img = img_profile;
         }
         this.grabbedUSer = new User(
-          user.id,
-          user.name,
-          user.last_name,
+          id,
+          name,
+          last_name,
           img,
-          user.email,
-          user.phone1,
-          user.phone2,
+          email,
+          phone1,
+          phone2,
           roles[0],
           access_token,
         );
