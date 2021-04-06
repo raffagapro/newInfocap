@@ -29,7 +29,6 @@ export class RecoveryPage implements OnInit {
       return;
     }
     const email = form.value.email;
-    console.log(form);
     this.lc.create({
       message: 'Generando correo de recuperacion...'
     }).then(loadingEl => {
