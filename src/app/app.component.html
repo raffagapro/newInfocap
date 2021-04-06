@@ -1,7 +1,7 @@
 <ion-app>
 
   <!-- Menu User -->
-  <ion-menu side="start" menuId="user" contentId="main">
+  <ion-menu side="start" menuId="user" contentId="main" *ngIf="user && user.id !== null">
     <ion-content>
       <ion-grid>
         <!-- profile Img -->
@@ -94,7 +94,7 @@
   </ion-menu>
 
   <!-- Menu Profesional  -->
-  <ion-menu side="start" menuId="profesional" contentId="main">
+  <ion-menu side="start" menuId="profesional" contentId="main" *ngIf="user && user.id !== null">
     <ion-content>
       <!-- Top Section  -->
       <ion-grid>

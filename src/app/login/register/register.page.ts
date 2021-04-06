@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { API } from 'src/environments/environment';
 import { SuccessModalComponent } from './success-modal/success-modal.component';
+import axios from 'axios';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
-  onRegister(form: NgForm){
+  async onRegister(form: NgForm) {
     if (!form.valid) {
       return;
     }
@@ -38,68 +39,73 @@ export class RegisterPage implements OnInit {
     name = wName[0];
     let l_name = wName[1];
     if (wName[2] !== undefined) {
-      l_name += " "+ wName[2];
+      l_name += " " + wName[2];
     }
-    // console.log(l_name);
     const email = form.value.email;
     const password = form.value.password;
     const confirm_password = form.value.confirm_password;
-    // console.log(password, confirm_password);
-    
+
     if (password !== confirm_password) {
-      // console.log('wrong PW mudafucker');
       this.errors.password = ['Las contraseñas no coinciden'];
       return;
     }
-    // console.log(form);
-    this.lc.create({
-      message: 'Creando usuario...'
-    }).then(loadingEl => {
-      loadingEl.present();
-      this.http.post(API+'/auth/register', {
-        // this.http.post('http://127.0.0.1:8000/api/auth/register', {
-        name: name,
-        last_name: l_name,
-        email: email,
-        password: password,
-      }).subscribe(resData => {
-        loadingEl.dismiss();
-        if (resData['code'] === 200) {
-          this.clearErrors();
-          form.reset();
-          // modal for succes
-          this.modalController.create({
-            component: SuccessModalComponent,
-            cssClass: 'modalSuccess',
-          }).then(modalEl => {
-            modalEl.present();
-          });
-        }
-      },error => {
-        // console.log(error.error.errors.name);
-        // console.log(this.errors.name.lenght);
+
+    const loader = await this.lc.create({
+      message: 'Registrando tu usuario...'
+    });
+
+    loader.present();
+
+    const body = {
+      name: name,
+      last_name: l_name,
+      email: email,
+      password: password,
+    }
+    try {
+      const response = await axios.post(
+        `${API}/auth/register`,
+        body
+      );
+      console.log(response.data);
+      this.clearErrors();
+      form.reset();
+      loader.dismiss();
+      // modal for succes
+      const successModal = await this.modalController.create({
+        component: SuccessModalComponent,
+        cssClass: 'modalSuccess',
+      });
+      successModal.present();
+    } catch (error) {
+      const { response } = error;
+      if (response) {
+        const { errors } = response.data;
+
         this.errors.name = [];
-        if (error.error.errors.name !== undefined) {
-          this.errors.name = error.error.errors.name; 
+        if (errors.name !== undefined) {
+          this.errors.name = errors.name;
         }
         this.errors.last_name = [];
-        if (error.error.errors.last_name !== undefined) {
-          this.errors.last_name = error.error.errors.last_name; 
+        if (errors.last_name !== undefined) {
+          console.log(errors)
+          this.errors.last_name = errors.last_name;
         }
         this.errors.email = [];
-        if (error.error.errors.email !== undefined) {
-         this.errors.email = error.error.errors.email; 
+        if (errors.email !== undefined) {
+          this.errors.email = errors.email;
         }
         this.errors.password = [];
-        if (error.error.errors.password !== undefined) {
-          this.errors.password = error.error.errors.password; 
+        if (errors.password !== undefined) {
+          this.errors.password = errors.password;
         }
-        loadingEl.dismiss();
-      });
-    });
+      }
+
+      loader.dismiss();
+    }
   }
 
-  clearErrors(){
+  clearErrors() {
     this.errors.name = [];
     this.errors.last_name = [];
     this.errors.email = [];
