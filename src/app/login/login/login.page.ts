@@ -54,11 +54,10 @@ export class LoginPage implements OnInit {
         body
       );
       const { data } = response;
-      console.log(data, 'success');
       const { data: responseData, message } = data;
 
       if (responseData) {
-        const { user, roles, access_token } = data;
+        const { user, roles, access_token } = responseData;
         const { id, name, last_name, email, phone1, phone2, img_profile } = user;
         //save user info to store NEEDS WORK IN HERE
         let img: string;

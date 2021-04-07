@@ -44,34 +44,34 @@ export class HomePage implements OnInit, OnDestroy {
     });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.menuController.enable(true, 'user');
     this.lc.create({
       message: "Cargando Servicios Disponibles..."
     }).then(loadingEl => {
       loadingEl.present();
       let headers = new HttpHeaders();
-      headers = headers.set('Authorization', 'Bearer '+ this.grabbedUser.access_token)
-      this.http.get(API+'/categories', {headers: headers}).subscribe(resData => {
+      headers = headers.set('Authorization', 'Bearer ' + this.grabbedUser.access_token)
+      this.http.get(`${API}/categories`, { headers: headers }).subscribe(resData => {
         loadingEl.dismiss();
         this.categories = resData['data'];
-      }, error =>{
+      }, error => {
         loadingEl.dismiss();
         console.log(error);
       });
     });
   }
 
-  map(catId: string){
+  map(catId: string) {
     this.solServ.setCat(catId);
     this.router.navigate(['/user/map']);
   }
 
-  login(){
+  login() {
     // do something cool 
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
   }
 }
