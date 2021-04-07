@@ -59,9 +59,10 @@ export class ProfilePagePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
+      console.log(user)
     });
     //api headers
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
     // updates to the most current info from DB
     this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
     let phone1: string;
@@ -77,7 +78,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
       phone2 = this.grabbedUser.phone2;
     }
     this.form = new FormGroup({
-      name: new FormControl(this.grabbedUser.name+' '+this.grabbedUser.last_name, {
+      name: new FormControl(this.grabbedUser.name + ' ' + this.grabbedUser.last_name, {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
@@ -102,20 +103,20 @@ export class ProfilePagePage implements OnInit, OnDestroy {
         updateOn: 'blur',
       }),
     });
-     // platfrom check
-     if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
+    // platfrom check
+    if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
       this.useInputPicker = true;
     }
   }
 
-  onUpdateUser(){
+  onUpdateUser() {
     // console.log(this.form);
     this.httpError = null;
     this.passError = null;
     let name = this.form.value.name.split(" ");
     let lname = name[1];
     if (name.length > 2) {
-      lname += ' '+name[2];
+      lname += ' ' + name[2];
     }
     // console.log(name[0], lname);
     const modUser = {
@@ -130,7 +131,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
     if (this.form.value.password === null) {
       delete modUser.password;
       delete modUser.current_password;
-    }else{
+    } else {
       if (this.form.value.newPassword !== this.form.value.confirmPassword) {
         this.passError = 'Las contraseñas no concuerdan';
         return;
@@ -141,23 +142,23 @@ export class ProfilePagePage implements OnInit, OnDestroy {
       message: 'Alcualizando la informacion...'
     }).then(loadingEl => {
       loadingEl.present();
-      let headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
-      this.http.put(API+'/account', modUser, {headers: headers})
-      .subscribe(resData => {
-        loadingEl.dismiss();
-        // console.log(resData);
-        if (resData['code'] === 200) {
-          //update user controler
-          this.us.setUser(new User(
-            this.grabbedUser.id,
-            resData['data'].name,
-            resData['data'].last_name,
-            resData['data'].img_profile,
-            resData['data'].email,
-            resData['data'].phone1,
-            resData['data'].phone2,
-            this.grabbedUser.role,
-            this.grabbedUser.access_token,
+      let headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+      this.http.put(API + '/account', modUser, { headers: headers })
+        .subscribe(resData => {
+          loadingEl.dismiss();
+          // console.log(resData);
+          if (resData['code'] === 200) {
+            //update user controler
+            this.us.setUser(new User(
+              this.grabbedUser.id,
+              resData['data'].name,
+              resData['data'].last_name,
+              resData['data'].img_profile,
+              resData['data'].email,
+              resData['data'].phone1,
+              resData['data'].phone2,
+              this.grabbedUser.role,
+              this.grabbedUser.access_token,
             ));
             //resets values after succefull update
             this.form.setValue({
@@ -169,23 +170,23 @@ export class ProfilePagePage implements OnInit, OnDestroy {
               newPassword: null,
               confirmPassword: null,
             });
-          this.modalController.create({
-            component: SuccessModalComponent,
-            cssClass: 'modalSuccess',
-          }).then(modalEl => {
-            modalEl.present();
-          });
-        } 
-      }, e =>{
-        // console.log(e['error'].message);
-        loadingEl.dismiss();
-        this.httpError = e['error'].message;
-      });
+            this.modalController.create({
+              component: SuccessModalComponent,
+              cssClass: 'modalSuccess',
+            }).then(modalEl => {
+              modalEl.present();
+            });
+          }
+        }, e => {
+          // console.log(e['error'].message);
+          loadingEl.dismiss();
+          this.httpError = e['error'].message;
+        });
 
     });
   }
 
-  onLoadImg(){
+  onLoadImg() {
     if (!Capacitor.isPluginAvailable('Camera') || this.useInputPicker) {
       this.hiddenImgInputRef.nativeElement.click();
       return;
@@ -197,29 +198,32 @@ export class ProfilePagePage implements OnInit, OnDestroy {
       height: 150,
       // width: 200,
       resultType: CameraResultType.DataUrl,
-    }).then(image =>{
+      promptLabelPhoto: 'Fotos',
+      promptLabelPicture: 'Camara',
+      promptLabelCancel: 'Cancelar'
+    }).then(image => {
       // console.log(image);
-      
+
       // this.selectedImage = image.dataUrl;
       // this.imgPick.emit(image.dataUrl);
 
       // console.log(this.selectedImage);
       //save img to api
       this.saveImgToApi(image.dataUrl);
-      
-    }).catch(e =>{
+
+    }).catch(e => {
       console.log(e);
     });
   }
 
-  onLoadImgFromInput(e: Event){
+  onLoadImgFromInput(e: Event) {
     const loadedFile = (e.target as HTMLInputElement).files[0];
     // console.log(loadedFile);
     this.saveImgToApi(loadedFile);
     //save img to api
   }
 
-  saveImgToApi(imageData: string | File){
+  saveImgToApi(imageData: string | File) {
     let imgFile;
     if (typeof imageData === 'string') {
       try {
@@ -228,29 +232,36 @@ export class ProfilePagePage implements OnInit, OnDestroy {
         console.log(e);
         return;
       }
-    }else{
+    } else {
       imgFile = imageData;
     }
-    this.form.patchValue({image: imgFile})
+    this.form.patchValue({ image: imgFile })
     const formData = new FormData();
     formData.append('image', imgFile);
-    this.http.post(API+'/account/image', formData, {headers: this.headers})
-    .subscribe(resData =>{
-      // console.log(resData);
-      this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
-      this.modalController.create({
-        component: SuccessModalComponent,
-        cssClass: 'modalSuccess',
-      }).then(modalEl =>{
-        modalEl.present();
+    this.http.post(API + '/account/image', formData, { headers: this.headers })
+      .subscribe(resData => {
+        // console.log(resData);
+        this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
+        this.modalController.create({
+          component: SuccessModalComponent,
+          cssClass: 'modalSuccess',
+        }).then(modalEl => {
+          modalEl.present();
+        });
+      }, err => {
+        console.log(err);
       });
-    }, err =>{
-      console.log(err);
-    });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
+  }
+
+  getProfilePicture() {
+    if (this.grabbedUser.img_profile && this.grabbedUser.img_profile !== '/') {
+      return `http://workintest.herokuapp.com${this.grabbedUser.img_profile}`
+    }
+    return 'assets/images/avatar.png';
   }
 
 }

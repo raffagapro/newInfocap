@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n    <ion-title class=\"ion-text-uppercase main-color title-toolbar\">Registrarse</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"ion-padding\">\n  <div style=\"height: 5%\"></div>\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\" offset=\"1\"></ion-col>\n      <ion-col size=\"8\" class=\"ion-text-center\">\n        <ion-text class=\"main-color ion-text-uppercase title\">INGRESA TUS DATOS PERSONALES</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\" offset=\"1\"></ion-col>\n      <ion-col size=\"8\" class=\"ion-text-center\">\n        <ion-text><hr></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Register Inputs -->\n    <form #f=\"ngForm\" (ngSubmit)=\"onRegister(f)\">\n      <!-- nombre -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"person\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Nombre\n              </ion-text>\n            </ion-label>\n            <ion-input\n              ngModel name=\"name\"\n              required\n              #nameCtrl=\"ngModel\"\n              type=\"text\">\n            </ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!nameCtrl.valid && nameCtrl.touched\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El nombre es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!--  httpo name error  -->\n          <ion-label *ngIf=\"errors.name[0] !== undefined\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.name[0] }}</small>\n            </ion-text><br>\n          </ion-label>\n           <!-- http last name error  -->\n           <ion-label *ngIf=\"errors.last_name[0] !== undefined\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.last_name[0] }}</small>\n            </ion-text><br>\n          </ion-label>\n\n        </ion-col>\n      </ion-row>\n\n      <!-- email -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label position=\"floating\">\n              <ion-icon name=\"mail\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Email\n              </ion-text>\n            </ion-label>\n            <ion-input\n              ngModel name=\"email\"\n              required\n              email\n              #emailCtrl=\"ngModel\"\n              type=\"email\">\n            </ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!emailCtrl.valid && emailCtrl.touched\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El email es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!-- http email error  -->\n          <ion-label *ngIf=\"errors.email[0] !== undefined\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.email[0] }}</small>\n            </ion-text><br>\n          </ion-label>\n         \n\n        </ion-col>\n      </ion-row>\n\n      <!-- password -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"lock-closed\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Contraseña</ion-text>\n            </ion-label>\n            <ion-input\n              ngModel name=\"password\"\n              minlength=\"8\"\n              required\n              #passwordCtrl=\"ngModel\"\n              type=\"password\">\n            </ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!passwordCtrl.valid && passwordCtrl.touched\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El password es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!-- http password error  -->\n          <ion-label *ngIf=\"errors.password[0] !== undefined\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.password[0] }}</small>\n            </ion-text>\n          </ion-label>\n\n        </ion-col>\n      </ion-row>\n\n      <!-- password confirm -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"lock-closed\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Repetir contraseña</ion-text>\n            </ion-label>\n            <ion-input\n              ngModel name=\"confirm_password\"\n              minlength=\"8\"\n              required\n              type=\"password\">\n            </ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- Registrar BTN -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col class=\"ion-margin-top\">\n          <ion-button\n            expand=\"block\"\n            type=\"submit\"\n            [disabled]=\"!f.valid\" \n            class=\"ion-text-uppercase\">\n            Registrarme\n          </ion-button>\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n    <ion-title class=\"ion-text-uppercase main-color title-toolbar\">Registrarse</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"ion-padding\">\n  <div style=\"height: 5%\"></div>\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\" offset=\"1\"></ion-col>\n      <ion-col size=\"8\" class=\"ion-text-center\">\n        <ion-text class=\"main-color ion-text-uppercase title\">INGRESA TUS DATOS PERSONALES</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\" offset=\"1\"></ion-col>\n      <ion-col size=\"8\" class=\"ion-text-center\">\n        <ion-text><hr></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Register Inputs -->\n    <form #f=\"ngForm\" (ngSubmit)=\"onRegister(f)\">\n      <!-- nombre -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"person\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Nombre\n              </ion-text>\n            </ion-label>\n            <ion-input\n              ngModel name=\"name\"\n              required\n              #nameCtrl=\"ngModel\"\n              type=\"text\">\n            </ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!nameCtrl.valid && nameCtrl.touched\" class=\"errorMess text-center\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El nombre es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!--  httpo name error  -->\n          <ion-label *ngIf=\"errors.name[0] !== undefined\" class=\"errorMess text-center\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.name[0] }}</small>\n            </ion-text><br>\n          </ion-label>\n           <!-- http last name error  -->\n           <ion-label *ngIf=\"errors.last_name[0] !== undefined\" class=\"errorMess text-center\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.last_name[0] }}</small>\n            </ion-text><br>\n          </ion-label>\n\n        </ion-col>\n      </ion-row>\n\n      <!-- email -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label position=\"floating\">\n              <ion-icon name=\"mail\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Email\n              </ion-text>\n            </ion-label>\n            <ion-input\n              ngModel name=\"email\"\n              required\n              email\n              #emailCtrl=\"ngModel\"\n              type=\"email\">\n            </ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!emailCtrl.valid && emailCtrl.touched\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El email es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!-- http email error  -->\n          <ion-label *ngIf=\"errors.email[0] !== undefined\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.email[0] }}</small>\n            </ion-text><br>\n          </ion-label>\n         \n\n        </ion-col>\n      </ion-row>\n\n      <!-- password -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"lock-closed\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Contraseña</ion-text>\n            </ion-label>\n            <ion-input\n              ngModel name=\"password\"\n              minlength=\"8\"\n              required\n              #passwordCtrl=\"ngModel\"\n              type=\"password\">\n            </ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!passwordCtrl.valid && passwordCtrl.touched\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El password es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!-- http password error  -->\n          <ion-label *ngIf=\"errors.password[0] !== undefined\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.password[0] }}</small>\n            </ion-text>\n          </ion-label>\n\n        </ion-col>\n      </ion-row>\n\n      <!-- password confirm -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"lock-closed\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Repetir contraseña</ion-text>\n            </ion-label>\n            <ion-input\n              ngModel name=\"confirm_password\"\n              minlength=\"8\"\n              required\n              type=\"password\">\n            </ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- Registrar BTN -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col class=\"ion-margin-top\">\n          <ion-button\n            expand=\"block\"\n            type=\"submit\"\n            [disabled]=\"!f.valid\" \n            class=\"ion-text-uppercase\">\n            Registrarme\n          </ion-button>\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n</ion-content>\n";
       /***/
     },
 
@@ -93,6 +93,16 @@
       var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! ./success-modal/success-modal.component */
       "wYVq");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
 
       var RegisterPage = /*#__PURE__*/function () {
         function RegisterPage(modalController, http, lc) {
@@ -115,87 +125,122 @@
         }, {
           key: "onRegister",
           value: function onRegister(form) {
-            var _this = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var name, wName, l_name, email, password, confirm_password, loader, body, response, successModal, _response, errors;
 
-            if (!form.valid) {
-              return;
-            }
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      if (form.valid) {
+                        _context.next = 2;
+                        break;
+                      }
 
-            var name = form.value.name;
-            var wName = name.split(" ");
-            name = wName[0];
-            var l_name = wName[1];
+                      return _context.abrupt("return");
 
-            if (wName[2] !== undefined) {
-              l_name += " " + wName[2];
-            } // console.log(l_name);
+                    case 2:
+                      name = form.value.name;
+                      wName = name.split(" ");
+                      name = wName[0];
+                      l_name = wName[1];
 
+                      if (wName[2] !== undefined) {
+                        l_name += " " + wName[2];
+                      }
 
-            var email = form.value.email;
-            var password = form.value.password;
-            var confirm_password = form.value.confirm_password; // console.log(password, confirm_password);
+                      email = form.value.email;
+                      password = form.value.password;
+                      confirm_password = form.value.confirm_password;
 
-            if (password !== confirm_password) {
-              // console.log('wrong PW mudafucker');
-              this.errors.password = ['Las contraseñas no coinciden'];
-              return;
-            } // console.log(form);
+                      if (!(password !== confirm_password)) {
+                        _context.next = 13;
+                        break;
+                      }
 
+                      this.errors.password = ['Las contraseñas no coinciden'];
+                      return _context.abrupt("return");
 
-            this.lc.create({
-              message: 'Creando usuario...'
-            }).then(function (loadingEl) {
-              loadingEl.present();
+                    case 13:
+                      _context.next = 15;
+                      return this.lc.create({
+                        message: 'Registrando tu usuario...'
+                      });
 
-              _this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"] + '/auth/register', {
-                // this.http.post('http://127.0.0.1:8000/api/auth/register', {
-                name: name,
-                last_name: l_name,
-                email: email,
-                password: password
-              }).subscribe(function (resData) {
-                loadingEl.dismiss();
+                    case 15:
+                      loader = _context.sent;
+                      loader.present();
+                      body = {
+                        name: name,
+                        last_name: l_name,
+                        email: email,
+                        password: password
+                      };
+                      _context.prev = 18;
+                      _context.next = 21;
+                      return axios__WEBPACK_IMPORTED_MODULE_8___default.a.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"], "/auth/register"), body);
 
-                if (resData['code'] === 200) {
-                  _this.clearErrors();
+                    case 21:
+                      response = _context.sent;
+                      console.log(response.data);
+                      this.clearErrors();
+                      form.reset();
+                      loader.dismiss(); // modal for succes
 
-                  form.reset(); // modal for succes
+                      _context.next = 28;
+                      return this.modalController.create({
+                        component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_7__["SuccessModalComponent"],
+                        cssClass: 'modalSuccess'
+                      });
 
-                  _this.modalController.create({
-                    component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_7__["SuccessModalComponent"],
-                    cssClass: 'modalSuccess'
-                  }).then(function (modalEl) {
-                    modalEl.present();
-                  });
+                    case 28:
+                      successModal = _context.sent;
+                      successModal.present();
+                      _context.next = 37;
+                      break;
+
+                    case 32:
+                      _context.prev = 32;
+                      _context.t0 = _context["catch"](18);
+                      _response = _context.t0.response;
+
+                      if (_response) {
+                        errors = _response.data.errors;
+                        console.log(errors);
+                        this.errors.name = [];
+
+                        if (errors.name !== undefined) {
+                          this.errors.name = errors.name;
+                        }
+
+                        this.errors.last_name = [];
+
+                        if (errors.last_name !== undefined) {
+                          this.errors.last_name = errors.last_name;
+                        }
+
+                        this.errors.email = [];
+
+                        if (errors.email !== undefined) {
+                          this.errors.email = errors.email;
+                        }
+
+                        this.errors.password = [];
+
+                        if (errors.password !== undefined) {
+                          this.errors.password = errors.password;
+                        }
+                      }
+
+                      loader.dismiss();
+
+                    case 37:
+                    case "end":
+                      return _context.stop();
+                  }
                 }
-              }, function (error) {
-                // console.log(error.error.errors.name);
-                // console.log(this.errors.name.lenght);
-                _this.errors.name = [];
-
-                if (error.error.errors.name !== undefined) {
-                  _this.errors.name = error.error.errors.name;
-                }
-
-                _this.errors.last_name = [];
-
-                if (error.error.errors.last_name !== undefined) {
-                  _this.errors.last_name = error.error.errors.last_name;
-                }
-
-                _this.errors.email = [];
-
-                if (error.error.errors.email !== undefined) {
-                  _this.errors.email = error.error.errors.email;
-                }
-
-                _this.errors.password = [];
-
-                if (error.error.errors.password !== undefined) {
-                  _this.errors.password = error.error.errors.password;
-                }
-              });
-            });
+              }, _callee, this, [[18, 32]]);
+            }));
           }
         }, {
           key: "clearErrors",

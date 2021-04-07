@@ -263,6 +263,9 @@ let ProfesionalDetailPage = class ProfesionalDetailPage {
                 loadingEl.dismiss();
                 // this.router.navigate(['/user/profesional-list']);
             });
+        }).then(err => {
+            console.log(err);
+            this.lc.dismiss();
         });
     }
     openMenu() {

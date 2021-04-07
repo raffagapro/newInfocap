@@ -774,9 +774,11 @@
         production: false
       };
       var WEB_KEY = 'com.googleusercontent.apps.30514470553-9iop802o4obarpv3no5s1ng5kcnblne7';
-      var API = 'http://workintest.herokuapp.com/api'; // export const API = 'http://127.0.0.1:8000/api';
+      var API = 'http://workintest.herokuapp.com/api'; // export const API = 'http://167.71.251.136/api';
+      // export const PATH = 'http://167.71.251.136/';
+      // export const API = 'http://127.0.0.1:8000/api';
 
-      var PATH = 'http://workintest.herokuapp.com/';
+      var PATH = 'http://workintest.herokuapp.com';
       /*
        * For easier debugging in development mode, you can import the following file
        * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
@@ -1531,6 +1533,12 @@
       var _services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! ./services/user.service */
       "qfBg");
+      /* harmony import */
+
+
+      var _model_user_model__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      /*! ./model/user.model */
+      "UbF0");
 
       var AppComponent = /*#__PURE__*/function () {
         function AppComponent(platform, splashScreen, statusBar, router, menuCtrl, as, us) {
@@ -1543,6 +1551,7 @@
           this.menuCtrl = menuCtrl;
           this.as = as;
           this.us = us;
+          this.firstLoad = false;
           this.logged = this.as.userIsAuthenticated;
           this.initializeApp();
           this.setUser();
@@ -1564,11 +1573,20 @@
           value: function setUser() {
             var _this4 = this;
 
-            // console.log(this.logged.subscribe);
             this.logged.subscribe(function (v) {
               if (v) {
                 _this4.us.loggedUser.subscribe(function (user) {
                   _this4.user = user;
+
+                  if (!_this4.firstLoad && user.id !== null) {
+                    _this4.firstLoad = true;
+
+                    if (_this4.user.role === _model_user_model__WEBPACK_IMPORTED_MODULE_11__["UserRoles"].USER) {
+                      _this4.router.navigate(['/user/home']);
+                    } else {
+                      _this4.router.navigate(['/profesional/home']);
+                    }
+                  }
                 });
               }
             });
@@ -1649,7 +1667,7 @@
       !*** ./src/app/model/user.model.ts ***!
       \*************************************/
 
-    /*! exports provided: User */
+    /*! exports provided: User, UserRoles */
 
     /***/
     function UbF0(module, __webpack_exports__, __webpack_require__) {
@@ -1661,6 +1679,12 @@
 
       __webpack_require__.d(__webpack_exports__, "User", function () {
         return User;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "UserRoles", function () {
+        return UserRoles;
       });
 
       var User = function User(id, name, last_name, img_profile, email, phone1, phone2, role, access_token) {
@@ -1676,6 +1700,13 @@
         this.role = role;
         this.access_token = access_token;
       };
+
+      var UserRoles;
+
+      (function (UserRoles) {
+        UserRoles["USER"] = "usuario";
+        UserRoles["PROFESSIONAL"] = "profesional";
+      })(UserRoles || (UserRoles = {}));
       /***/
 
     },
@@ -1913,7 +1944,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-app>\n  \n  <!-- Menu User -->\n  <ion-menu side=\"start\" menuId=\"user\" contentId=\"main\">\n    <ion-content>\n      <ion-grid>\n        <!-- profile Img -->\n        <ion-row class=\"imgCont\">\n          <ion-col>\n            <ion-avatar class=\"ion-margin-start profileImg\">\n              <ion-img src=\"{{ !user ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}\"></ion-img>\n            </ion-avatar>\n          </ion-col>\n        </ion-row>\n        <!-- edit icon -->\n        <ion-row>\n          <ion-col>\n            <div class=\"rate-cont\" (click)=\"profile()\">\n              <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n            </div>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n            <ion-text class=\"name-text\" *ngIf=\"!user\"><b>Usuario Invitado</b></ion-text>\n            <ion-text class=\"name-text ion-text-capitalize\" *ngIf=\"user\"><b>{{ user.name + ' ' + user.last_name }}</b></ion-text>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n      <ion-list class=\"ion-margin-top\">\n        <ion-menu-toggle menu=\"user\">\n\n          <!-- home -->\n          <ion-item lines=\"none\" routerLink=\"/user/home\">\n            <ion-icon slot=\"start\" name=\"home\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Inicio</ion-label>\n          </ion-item>\n\n          <!-- profesionales contactados -->\n          <ion-item lines=\"none\" routerLink=\"/user/prof-contactados-list\">\n            <ion-icon slot=\"start\" name=\"people\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Contactados</ion-label>\n          </ion-item>\n\n          <!-- Estado de solicitud -->\n          <ion-item lines=\"none\" routerLink=\"/user/solicitudes\">\n            <ion-icon slot=\"start\" name=\"clipboard\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Solicitudes</ion-label>\n          </ion-item>\n\n          <!-- Método de pago -->\n          <!-- <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"card\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Método de pago</ion-label>\n          </ion-item> -->\n\n          <!-- Notificaciones -->\n          <!-- <ion-item lines=\"none\" routerLink=\"/user/notificaciones\">\n            <ion-icon slot=\"start\" name=\"notifications\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Notificaciones</ion-label>\n          </ion-item> -->\n\n          <!-- Soporte -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"headset\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Soporte</ion-label>\n          </ion-item>\n\n          <!-- Términos y condiciones -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"reader\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Términos y condiciones</ion-label>\n          </ion-item>\n\n        </ion-menu-toggle>\n      </ion-list>\n    </ion-content>\n\n    <ion-footer class=\"ion-no-border\">\n      <ion-toolbar>\n\n        <!-- Términos y condiciones -->\n        <ion-item lines=\"none\" (click)=\"logout()\" menuClose>\n          <ion-icon slot=\"start\" name=\"exit-outline\" class=\"footer-text\"></ion-icon>\n          <ion-label class=\"footer-text\">Cerrar sesión</ion-label>\n        </ion-item>\n\n      </ion-toolbar>\n    </ion-footer>\n  </ion-menu>\n\n  <!-- Menu Profesional  -->\n  <ion-menu side=\"start\" menuId=\"profesional\" contentId=\"main\">\n    <ion-content>\n      <!-- Top Section  -->\n      <ion-grid>\n        <!-- profile Img -->\n        <ion-row class=\"imgCont\">\n          <ion-col>\n            <ion-avatar class=\"ion-margin-start profileImg\">\n              <ion-img src=\"{{ !user ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}\"></ion-img>\n            </ion-avatar>\n          </ion-col>\n        </ion-row>\n        <!-- edit icon -->\n        <ion-row>\n          <ion-col>\n            <div class=\"rate-cont\" (click)=\"profilePro()\">\n              <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n            </div>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n            <ion-text class=\"name-text\" *ngIf=\"!user\"><b>Usuario Invitado</b></ion-text>\n            <ion-text class=\"name-text ion-text-capitalize\" *ngIf=\"user\"><b>{{ user.name + ' ' + user.last_name }}</b></ion-text>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n      <ion-list class=\"ion-margin-top\">\n        <ion-menu-toggle menu=\"profesional\">\n\n          <!-- mis trabajos -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/home\">\n            <ion-icon slot=\"start\" name=\"briefcase\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mis trabajos</ion-label>\n          </ion-item>\n\n          <!-- Notificaciones -->\n          <!-- <ion-item lines=\"none\" routerLink=\"/profesional/notificaciones\">\n            <ion-icon slot=\"start\" name=\"notifications\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">\n              Notificaciones\n              <div class=\"locate-cont\">\n                <ion-text color=\"light\" class=\"rating-text\">\n                  +9\n                </ion-text>\n              </div>\n            </ion-label>\n          </ion-item> -->\n\n          <!-- calificacion -->\n          <!-- <ion-item lines=\"none\" routerLink=\"/profesional/rating\">\n            <ion-icon slot=\"start\" name=\"star\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Calificación</ion-label>\n          </ion-item> -->\n\n          <!-- perfil -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/cat-perfiles\">\n            <ion-icon slot=\"start\" name=\"people-circle\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mis Perfiles</ion-label>\n          </ion-item>\n\n          <!-- Soporte -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"headset\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Soporte</ion-label>\n          </ion-item>\n\n          <!-- Mi billetera -->\n          <!-- <ion-item lines=\"none\" routerLink=\"/profesional/wallet\">\n            <ion-icon slot=\"start\" name=\"wallet\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mi billetera</ion-label>\n          </ion-item> -->\n\n          <!-- Términos y condiciones -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"reader\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Términos y condiciones</ion-label>\n          </ion-item>\n\n        </ion-menu-toggle>\n      </ion-list>\n    </ion-content>\n\n    <ion-footer class=\"ion-no-border\">\n      <ion-toolbar>\n\n        <!-- Términos y condiciones -->\n        <ion-item lines=\"none\" (click)=\"logout()\" menuClose>\n          <ion-icon slot=\"start\" name=\"exit-outline\" class=\"footer-text\"></ion-icon>\n          <ion-label class=\"footer-text\">Cerrar sesión</ion-label>\n        </ion-item>\n\n      </ion-toolbar>\n    </ion-footer>\n  </ion-menu>\n\n  <ion-router-outlet id=\"main\"></ion-router-outlet>\n</ion-app>\n";
+      __webpack_exports__["default"] = "<ion-app>\n\n  <!-- Menu User -->\n  <ion-menu side=\"start\" menuId=\"usuario\" contentId=\"main\" *ngIf=\"user && user.id !== null\">\n    <ion-content>\n      <ion-grid>\n        <!-- profile Img -->\n        <ion-row class=\"imgCont\">\n          <ion-col>\n            <ion-avatar class=\"ion-margin-start profileImg\">\n              <ion-img\n                src=\"{{ !user || user.img_profile === '/' ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}\">\n              </ion-img>\n            </ion-avatar>\n          </ion-col>\n        </ion-row>\n        <!-- edit icon -->\n        <ion-row>\n          <ion-col>\n            <div class=\"rate-cont\" (click)=\"profile()\">\n              <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n            </div>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n            <ion-text class=\"name-text\" *ngIf=\"!user\"><b>Usuario Invitado</b></ion-text>\n            <ion-text class=\"name-text ion-text-capitalize\" *ngIf=\"user\"><b>{{ user.name + ' ' + user.last_name }}</b>\n            </ion-text>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n      <ion-list class=\"ion-margin-top\">\n        <ion-menu-toggle menu=\"usuario\">\n\n          <!-- home -->\n          <ion-item lines=\"none\" routerLink=\"/user/home\">\n            <ion-icon slot=\"start\" name=\"home\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Inicio</ion-label>\n          </ion-item>\n\n          <!-- Estado de solicitud -->\n          <ion-item lines=\"none\" routerLink=\"/user/solicitudes\">\n            <ion-icon slot=\"start\" name=\"clipboard\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Solicitudes</ion-label>\n          </ion-item>\n\n          <!-- profesionales contactados -->\n          <ion-item lines=\"none\" routerLink=\"/user/prof-contactados-list\">\n            <ion-icon slot=\"start\" name=\"people\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Contactados</ion-label>\n          </ion-item>\n\n          <!-- Método de pago -->\n          <!-- <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"card\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Método de pago</ion-label>\n          </ion-item> -->\n\n          <!-- Notificaciones -->\n          <!-- <ion-item lines=\"none\" routerLink=\"/user/notificaciones\">\n            <ion-icon slot=\"start\" name=\"notifications\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Notificaciones</ion-label>\n          </ion-item> -->\n\n          <!-- Soporte -->\n          <ion-item lines=\"none\" href=\"https://wa.me/529992781314\">\n            <ion-icon slot=\"start\" name=\"headset\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Soporte</ion-label>\n          </ion-item>\n\n          <!-- Términos y condiciones -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"reader\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Términos y condiciones</ion-label>\n          </ion-item>\n\n        </ion-menu-toggle>\n      </ion-list>\n    </ion-content>\n\n    <ion-footer class=\"ion-no-border\">\n      <ion-toolbar>\n\n        <!-- Términos y condiciones -->\n        <ion-item lines=\"none\" (click)=\"logout()\" menuClose>\n          <ion-icon slot=\"start\" name=\"exit-outline\" class=\"footer-text\"></ion-icon>\n          <ion-label class=\"footer-text\">Cerrar sesión</ion-label>\n        </ion-item>\n\n      </ion-toolbar>\n    </ion-footer>\n  </ion-menu>\n\n  <!-- Menu Profesional  -->\n  <ion-menu side=\"start\" menuId=\"profesional\" contentId=\"main\" *ngIf=\"user && user.id !== null\">\n    <ion-content>\n      <!-- Top Section  -->\n      <ion-grid>\n        <!-- profile Img -->\n        <ion-row class=\"imgCont\">\n          <ion-col>\n            <ion-avatar class=\"ion-margin-start profileImg\">\n              <ion-img\n                src=\"{{ !user || user.img_profile === '/' ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+user.img_profile }}\">\n              </ion-img>\n            </ion-avatar>\n          </ion-col>\n        </ion-row>\n        <!-- edit icon -->\n        <ion-row>\n          <ion-col>\n            <div class=\"rate-cont\" (click)=\"profilePro()\">\n              <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n            </div>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n            <ion-text class=\"name-text\" *ngIf=\"!user\"><b>Usuario Invitado</b></ion-text>\n            <ion-text class=\"name-text ion-text-capitalize\" *ngIf=\"user\"><b>{{ user.name + ' ' + user.last_name }}</b>\n            </ion-text>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n      <ion-list class=\"ion-margin-top\">\n        <ion-menu-toggle menu=\"profesional\">\n\n          <!-- mis trabajos -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/home\">\n            <ion-icon slot=\"start\" name=\"briefcase\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mis trabajos</ion-label>\n          </ion-item>\n\n          <!-- Notificaciones -->\n          <!-- <ion-item lines=\"none\" routerLink=\"/profesional/notificaciones\">\n            <ion-icon slot=\"start\" name=\"notifications\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">\n              Notificaciones\n              <div class=\"locate-cont\">\n                <ion-text color=\"light\" class=\"rating-text\">\n                  +9\n                </ion-text>\n              </div>\n            </ion-label>\n          </ion-item> -->\n\n          <!-- calificacion -->\n          <!-- <ion-item lines=\"none\" routerLink=\"/profesional/rating\">\n            <ion-icon slot=\"start\" name=\"star\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Calificación</ion-label>\n          </ion-item> -->\n\n          <!-- perfil -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/cat-perfiles\">\n            <ion-icon slot=\"start\" name=\"people-circle\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mis Perfiles</ion-label>\n          </ion-item>\n\n          <!-- Soporte -->\n          <ion-item lines=\"none\" href=\"https://wa.me/529994374501\">\n            <ion-icon slot=\"start\" name=\"headset\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Soporte</ion-label>\n          </ion-item>\n\n          <!-- Mi billetera -->\n          <!-- <ion-item lines=\"none\" routerLink=\"/profesional/wallet\">\n            <ion-icon slot=\"start\" name=\"wallet\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mi billetera</ion-label>\n          </ion-item> -->\n\n          <!-- Términos y condiciones -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"reader\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Términos y condiciones</ion-label>\n          </ion-item>\n\n        </ion-menu-toggle>\n      </ion-list>\n    </ion-content>\n\n    <ion-footer class=\"ion-no-border\">\n      <ion-toolbar>\n\n        <!-- Términos y condiciones -->\n        <ion-item lines=\"none\" (click)=\"logout()\" menuClose>\n          <ion-icon slot=\"start\" name=\"exit-outline\" class=\"footer-text\"></ion-icon>\n          <ion-label class=\"footer-text\">Cerrar sesión</ion-label>\n        </ion-item>\n\n      </ion-toolbar>\n    </ion-footer>\n  </ion-menu>\n\n  <ion-router-outlet id=\"main\"></ion-router-outlet>\n</ion-app>";
       /***/
     },
 
@@ -1991,187 +2022,193 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @ionic/storage-angular */
+      "jSNZ");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/core */
       "fXoL");
       /* harmony import */
 
 
-      var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @angular/platform-browser */
       "jhN1");
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @angular/router */
       "tyNb");
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
       /* harmony import */
 
 
-      var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @ionic-native/splash-screen/ngx */
       "54vc");
       /* harmony import */
 
 
-      var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @ionic-native/status-bar/ngx */
       "VYYF");
       /* harmony import */
 
 
-      var _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @ionic-native/geolocation/ngx */
       "Bfh1");
       /* harmony import */
 
 
-      var _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! @ionic-native/native-geocoder/ngx */
       "h+qT");
       /* harmony import */
 
 
-      var _app_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _app_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! ./app.component */
       "Sy1n");
       /* harmony import */
 
 
-      var _app_routing_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var _app_routing_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! ./app-routing.module */
       "vY5A");
       /* harmony import */
 
 
-      var _profesional_home_agendados_agendados_finalizar_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var _profesional_home_agendados_agendados_finalizar_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! ./profesional/home/agendados/agendados-finalizar/confirm-success-modal/confirm-success-modal.component */
       "K4R9");
       /* harmony import */
 
 
-      var _user_solicitud_servicio_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      var _user_solicitud_servicio_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
       /*! ./user/solicitud-servicio/confirm-success-modal/confirm-success-modal.component */
       "00c0");
       /* harmony import */
 
 
-      var _user_solicitud_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      var _user_solicitud_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
       /*! ./user/solicitud-detail/confirm-success-modal/confirm-success-modal.component */
       "qCOM");
       /* harmony import */
 
 
-      var _user_eval_prof_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+      var _user_eval_prof_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
       /*! ./user/eval-prof/confirm-success-modal/confirm-success-modal.component */
       "E1bO");
       /* harmony import */
 
 
-      var _user_visita_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
+      var _user_visita_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
       /*! ./user/visita-detail/confirm-success-modal/confirm-success-modal.component */
       "m8q8");
       /* harmony import */
 
 
-      var _user_urgen_service_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
+      var _user_urgen_service_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
       /*! ./user/urgen-service/confirm-success-modal/confirm-success-modal.component */
       "tnWu");
       /* harmony import */
 
 
-      var _user_solicitud_status_solicitud_rechazada_modal_solicitud_rechazada_modal_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
+      var _user_solicitud_status_solicitud_rechazada_modal_solicitud_rechazada_modal_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
       /*! ./user/solicitud-status/solicitud-rechazada-modal/solicitud-rechazada-modal.component */
       "25zm");
       /* harmony import */
 
 
-      var _user_solicitud_status_solicitud_enviada_modal_solicitud_enviada_modal_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
+      var _user_solicitud_status_solicitud_enviada_modal_solicitud_enviada_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
       /*! ./user/solicitud-status/solicitud-enviada-modal/solicitud-enviada-modal.component */
       "NPqd");
       /* harmony import */
 
 
-      var _user_solicitud_status_servicio_agendado_modal_servicio_agendado_modal_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
+      var _user_solicitud_status_servicio_agendado_modal_servicio_agendado_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
       /*! ./user/solicitud-status/servicio-agendado-modal/servicio-agendado-modal.component */
       "Uol3");
       /* harmony import */
 
 
-      var _user_servicio_pagar_forma_pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
+      var _user_servicio_pagar_forma_pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(
       /*! ./user/servicio-pagar-forma/pago-exitoso-modal/pago-exitoso-modal.component */
       "2dcQ");
       /* harmony import */
 
 
-      var _login_register_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(
+      var _login_register_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(
       /*! ./login/register/success-modal/success-modal.component */
       "wYVq");
       /* harmony import */
 
 
-      var _profesional_home_solicitudes_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(
+      var _profesional_home_solicitudes_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(
       /*! ./profesional/home/solicitudes/confirm-success/confirm-success.component */
       "jaIk");
       /* harmony import */
 
 
-      var _profesional_home_solicitudes_definicion_servicio_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(
+      var _profesional_home_solicitudes_definicion_servicio_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(
       /*! ./profesional/home/solicitudes/definicion-servicio/confirm-success/confirm-success.component */
       "Hjn/");
       /* harmony import */
 
 
-      var _profesional_home_finalizados_rate_form_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(
+      var _profesional_home_finalizados_rate_form_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(
       /*! ./profesional/home/finalizados/rate-form/confirm-success/confirm-success.component */
       "gQ24");
       /* harmony import */
 
 
-      var _profesional_home_solicitudes_service_reject_modal_service_reject_modal_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(
+      var _profesional_home_solicitudes_service_reject_modal_service_reject_modal_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
       /*! ./profesional/home/solicitudes/service-reject-modal/service-reject-modal.component */
       "lpiM");
       /* harmony import */
 
 
-      var _profesional_home_solicitudes_visita_tecnica_confirm_visita_confirm_visita_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(
+      var _profesional_home_solicitudes_visita_tecnica_confirm_visita_confirm_visita_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
       /*! ./profesional/home/solicitudes/visita-tecnica/confirm-visita/confirm-visita.component */
       "wFEM");
       /* harmony import */
 
 
-      var _profesional_home_solicitudes_definicion_servicio_confirm_serv_confirm_serv_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(
+      var _profesional_home_solicitudes_definicion_servicio_confirm_serv_confirm_serv_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(
       /*! ./profesional/home/solicitudes/definicion-servicio/confirm-serv/confirm-serv.component */
       "/5k1");
       /* harmony import */
 
 
-      var _user_profile_page_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(
+      var _user_profile_page_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(
       /*! ./user/profile-page/success-modal/success-modal.component */
       "R7R6");
       /* harmony import */
 
 
-      var _profesional_perfil_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(
+      var _profesional_perfil_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(
       /*! ./profesional/perfil/success-modal/success-modal.component */
       "yw4M");
       /* harmony import */
 
 
-      var _profesional_cat_perfiles_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(
+      var _profesional_cat_perfiles_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(
       /*! ./profesional/cat-perfiles/success-modal/success-modal.component */
       "VbkS");
       /* harmony import */
 
 
-      var _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(
+      var _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(
       /*! @ionic-native/call-number/ngx */
       "Wwn5"); // geolocation and native-geocoder
 
@@ -2180,15 +2217,15 @@
         _classCallCheck(this, AppModule);
       };
 
-      AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
-        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"], _profesional_home_agendados_agendados_finalizar_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_12__["ConfirmSuccessModalComponent"], _user_solicitud_servicio_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_13__["ConfirmSuccessModalComponent"], _user_solicitud_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmSuccessModalComponent"], _user_eval_prof_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_15__["ConfirmSuccessModalComponent"], _user_visita_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_16__["ConfirmSuccessModalComponent"], _user_urgen_service_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_17__["ConfirmSuccessModalComponent"], _user_solicitud_status_solicitud_rechazada_modal_solicitud_rechazada_modal_component__WEBPACK_IMPORTED_MODULE_18__["SolicitudRechazadaModalComponent"], _user_solicitud_status_solicitud_enviada_modal_solicitud_enviada_modal_component__WEBPACK_IMPORTED_MODULE_19__["SolicitudEnviadaModalComponent"], _user_solicitud_status_servicio_agendado_modal_servicio_agendado_modal_component__WEBPACK_IMPORTED_MODULE_20__["ServicioAgendadoModalComponent"], _user_servicio_pagar_forma_pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_21__["PagoExitosoModalComponent"], _login_register_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_22__["SuccessModalComponent"], _profesional_home_solicitudes_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_23__["ConfirmSuccessComponent"], _profesional_home_solicitudes_definicion_servicio_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_24__["ConfirmSuccessComponent"], _profesional_home_finalizados_rate_form_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_25__["ConfirmSuccessComponent"], _profesional_home_solicitudes_service_reject_modal_service_reject_modal_component__WEBPACK_IMPORTED_MODULE_26__["ServiceRejectModalComponent"], _profesional_home_solicitudes_visita_tecnica_confirm_visita_confirm_visita_component__WEBPACK_IMPORTED_MODULE_27__["ConfirmVisitaComponent"], _profesional_home_solicitudes_definicion_servicio_confirm_serv_confirm_serv_component__WEBPACK_IMPORTED_MODULE_28__["ConfirmServComponent"], _user_profile_page_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_29__["SuccessModalComponent"], _profesional_perfil_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_30__["SuccessModalComponent"], _profesional_cat_perfiles_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_31__["SuccessModalComponent"]],
+      AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["NgModule"])({
+        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"], _profesional_home_agendados_agendados_finalizar_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_13__["ConfirmSuccessModalComponent"], _user_solicitud_servicio_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_14__["ConfirmSuccessModalComponent"], _user_solicitud_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_15__["ConfirmSuccessModalComponent"], _user_eval_prof_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_16__["ConfirmSuccessModalComponent"], _user_visita_detail_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_17__["ConfirmSuccessModalComponent"], _user_urgen_service_confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_18__["ConfirmSuccessModalComponent"], _user_solicitud_status_solicitud_rechazada_modal_solicitud_rechazada_modal_component__WEBPACK_IMPORTED_MODULE_19__["SolicitudRechazadaModalComponent"], _user_solicitud_status_solicitud_enviada_modal_solicitud_enviada_modal_component__WEBPACK_IMPORTED_MODULE_20__["SolicitudEnviadaModalComponent"], _user_solicitud_status_servicio_agendado_modal_servicio_agendado_modal_component__WEBPACK_IMPORTED_MODULE_21__["ServicioAgendadoModalComponent"], _user_servicio_pagar_forma_pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_22__["PagoExitosoModalComponent"], _login_register_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_23__["SuccessModalComponent"], _profesional_home_solicitudes_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_24__["ConfirmSuccessComponent"], _profesional_home_solicitudes_definicion_servicio_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_25__["ConfirmSuccessComponent"], _profesional_home_finalizados_rate_form_confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_26__["ConfirmSuccessComponent"], _profesional_home_solicitudes_service_reject_modal_service_reject_modal_component__WEBPACK_IMPORTED_MODULE_27__["ServiceRejectModalComponent"], _profesional_home_solicitudes_visita_tecnica_confirm_visita_confirm_visita_component__WEBPACK_IMPORTED_MODULE_28__["ConfirmVisitaComponent"], _profesional_home_solicitudes_definicion_servicio_confirm_serv_confirm_serv_component__WEBPACK_IMPORTED_MODULE_29__["ConfirmServComponent"], _user_profile_page_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_30__["SuccessModalComponent"], _profesional_perfil_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_31__["SuccessModalComponent"], _profesional_cat_perfiles_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_32__["SuccessModalComponent"]],
         entryComponents: [],
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_3__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClientModule"]],
-        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"], _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_32__["CallNumber"], {
-          provide: _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouteReuseStrategy"],
-          useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"]
-        }, _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_8__["Geolocation"], _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_9__["NativeGeocoder"]],
-        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"]]
+        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_12__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClientModule"], _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_2__["IonicStorageModule"].forRoot()],
+        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_8__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_7__["SplashScreen"], _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_33__["CallNumber"], {
+          provide: _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouteReuseStrategy"],
+          useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicRouteStrategy"]
+        }, _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_9__["Geolocation"], _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_10__["NativeGeocoder"]],
+        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"]]
       })], AppModule);
       /***/
     },
@@ -2695,18 +2732,77 @@
       /* harmony import */
 
 
-      var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @ionic/storage-angular */
+      "jSNZ");
+      /* harmony import */
+
+
+      var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! rxjs */
       "qCKp");
 
       var AuthService = /*#__PURE__*/function () {
-        function AuthService() {
+        function AuthService(storage) {
           _classCallCheck(this, AuthService);
 
-          this._userIsAuthenticated = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](false);
+          this.storage = storage;
+          this._storage = null;
+          this._userIsAuthenticated = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](false);
+          this.initStorage();
         }
 
         _createClass(AuthService, [{
+          key: "initStorage",
+          value: function initStorage() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var storage;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.storage.create();
+
+                    case 2:
+                      storage = _context.sent;
+                      this._storage = storage;
+                      this.validateLoggedIn();
+
+                    case 5:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
+        }, {
+          key: "validateLoggedIn",
+          value: function validateLoggedIn() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var id;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this._storage.get('id');
+
+                    case 2:
+                      id = _context2.sent;
+
+                      this._userIsAuthenticated.next(id !== null && id !== undefined);
+
+                    case 4:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
+        }, {
           key: "userIsAuthenticated",
           get: function get() {
             return this._userIsAuthenticated.asObservable();
@@ -2727,7 +2823,9 @@
       }();
 
       AuthService.ctorParameters = function () {
-        return [];
+        return [{
+          type: _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_2__["Storage"]
+        }];
       };
 
       AuthService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -3225,25 +3323,131 @@
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @ionic/storage-angular */
+      "jSNZ");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
       /* harmony import */
 
 
-      var _model_user_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _model_user_model__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! ../model/user.model */
       "UbF0");
 
       var UserService = /*#__PURE__*/function () {
-        function UserService(http) {
+        function UserService(http, storage) {
           _classCallCheck(this, UserService);
 
           this.http = http;
-          this._loggedUser = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](new _model_user_model__WEBPACK_IMPORTED_MODULE_5__["User"](null, null, null, null, null, null, null, null, null));
+          this.storage = storage;
+          this._storage = null;
+          this._loggedUser = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](new _model_user_model__WEBPACK_IMPORTED_MODULE_6__["User"](null, null, null, null, null, null, null, null, null));
+          this.initStorage();
         }
 
         _createClass(UserService, [{
+          key: "initStorage",
+          value: function initStorage() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var storage;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      _context3.next = 2;
+                      return this.storage.create();
+
+                    case 2:
+                      storage = _context3.sent;
+                      this._storage = storage;
+                      this.getUser();
+
+                    case 5:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee3, this);
+            }));
+          }
+        }, {
+          key: "getUser",
+          value: function getUser() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              var id, name, last_name, img_profile, email, phone1, phone2, role, access_token, user;
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      _context4.next = 2;
+                      return this._storage.get('id');
+
+                    case 2:
+                      id = _context4.sent;
+
+                      if (!id) {
+                        _context4.next = 30;
+                        break;
+                      }
+
+                      _context4.next = 6;
+                      return this._storage.get('name');
+
+                    case 6:
+                      name = _context4.sent;
+                      _context4.next = 9;
+                      return this._storage.get('last_name');
+
+                    case 9:
+                      last_name = _context4.sent;
+                      _context4.next = 12;
+                      return this._storage.get('img_profile');
+
+                    case 12:
+                      img_profile = _context4.sent;
+                      _context4.next = 15;
+                      return this._storage.get('email');
+
+                    case 15:
+                      email = _context4.sent;
+                      _context4.next = 18;
+                      return this._storage.get('phone1');
+
+                    case 18:
+                      phone1 = _context4.sent;
+                      _context4.next = 21;
+                      return this._storage.get('phone2');
+
+                    case 21:
+                      phone2 = _context4.sent;
+                      _context4.next = 24;
+                      return this._storage.get('role');
+
+                    case 24:
+                      role = _context4.sent;
+                      _context4.next = 27;
+                      return this._storage.get('access_token');
+
+                    case 27:
+                      access_token = _context4.sent;
+                      user = new _model_user_model__WEBPACK_IMPORTED_MODULE_6__["User"](id, name, last_name, img_profile, email, phone1, phone2, role, access_token);
+
+                      this._loggedUser.next(user);
+
+                    case 30:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this);
+            }));
+          }
+        }, {
           key: "loggedUser",
           get: function get() {
             return this._loggedUser.asObservable();
@@ -3252,11 +3456,29 @@
           key: "setUser",
           value: function setUser(sentUser) {
             this._loggedUser.next(sentUser);
+
+            this._storage.set('id', sentUser.id);
+
+            this._storage.set('name', sentUser.name);
+
+            this._storage.set('last_name', sentUser.last_name);
+
+            this._storage.set('img_profile', sentUser.img_profile);
+
+            this._storage.set('email', sentUser.email);
+
+            this._storage.set('phone1', sentUser.phone1);
+
+            this._storage.set('phone2', sentUser.phone2);
+
+            this._storage.set('role', sentUser.role);
+
+            this._storage.set('access_token', sentUser.access_token);
           }
         }, {
           key: "rmUser",
           value: function rmUser() {
-            this._loggedUser.next(new _model_user_model__WEBPACK_IMPORTED_MODULE_5__["User"](null, null, null, null, null, null, null, null, null));
+            this._loggedUser.next(new _model_user_model__WEBPACK_IMPORTED_MODULE_6__["User"](null, null, null, null, null, null, null, null, null));
           }
         }, {
           key: "dbUserGrab",
@@ -3264,7 +3486,7 @@
             var _this7 = this;
 
             var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]().set('Authorization', 'Bearer ' + token);
-            this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["API"] + '/account/me', {
+            this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_5__["API"] + '/account/me', {
               headers: headers
             }).subscribe(function (resData) {
               // console.log(resData['data'].id);
@@ -3276,7 +3498,7 @@
                 img = resData['data'].img_profile;
               }
 
-              _this7._loggedUser.next(new _model_user_model__WEBPACK_IMPORTED_MODULE_5__["User"](resData['data'].id, resData['data'].name, resData['data'].last_name, img, resData['data'].email, resData['data'].phone1, resData['data'].phone2, role, token));
+              _this7._loggedUser.next(new _model_user_model__WEBPACK_IMPORTED_MODULE_6__["User"](resData['data'].id, resData['data'].name, resData['data'].last_name, img, resData['data'].email, resData['data'].phone1, resData['data'].phone2, role, token));
             });
           }
         }]);
@@ -3287,6 +3509,8 @@
       UserService.ctorParameters = function () {
         return [{
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]
+        }, {
+          type: _ionic_storage_angular__WEBPACK_IMPORTED_MODULE_4__["Storage"]
         }];
       };
 
@@ -3605,9 +3829,9 @@
       }, {
         path: 'register',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | login-register-register-module */
-          "login-register-register-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~login-login-login-module~login-recovery-recovery-module~login-register-register-module~user-~61fa7f7e"), __webpack_require__.e("login-register-register-module")]).then(__webpack_require__.bind(null,
           /*! ./login/register/register.module */
           "dymE")).then(function (m) {
             return m.RegisterPageModule;
@@ -3616,9 +3840,9 @@
       }, {
         path: 'login',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | login-login-login-module */
-          "login-login-login-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~login-login-login-module~login-recovery-recovery-module~login-register-register-module~user-~61fa7f7e"), __webpack_require__.e("login-login-login-module")]).then(__webpack_require__.bind(null,
           /*! ./login/login/login.module */
           "Ktwe")).then(function (m) {
             return m.LoginPageModule;
@@ -3627,9 +3851,9 @@
       }, {
         path: 'recovery',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | login-recovery-recovery-module */
-          "login-recovery-recovery-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~login-login-login-module~login-recovery-recovery-module~login-register-register-module~user-~61fa7f7e"), __webpack_require__.e("login-recovery-recovery-module")]).then(__webpack_require__.bind(null,
           /*! ./login/recovery/recovery.module */
           "XhiX")).then(function (m) {
             return m.RecoveryPageModule;
@@ -3638,9 +3862,9 @@
       }, {
         path: 'user/home',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | user-home-home-module */
-          "user-home-home-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~login-login-login-module~login-recovery-recovery-module~login-register-register-module~user-~61fa7f7e"), __webpack_require__.e("user-home-home-module")]).then(__webpack_require__.bind(null,
           /*! ./user/home/home.module */
           "VjR+")).then(function (m) {
             return m.HomePageModule;

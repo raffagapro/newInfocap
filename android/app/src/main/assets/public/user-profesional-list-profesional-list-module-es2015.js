@@ -136,7 +136,8 @@ let ProfesionalListPage = class ProfesionalListPage {
         this.userSub = this.us.loggedUser.subscribe(user => {
             this.grabbedUser = user;
         });
-        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]();
+        this.headers = this.headers.set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
         // Grab prof list 
         this.lc.create({
             message: "Generando lista de profesionales..."
@@ -151,6 +152,8 @@ let ProfesionalListPage = class ProfesionalListPage {
                 console.log(e);
                 loadingEl.dismiss();
             });
+        }).catch(err => {
+            this.lc.dismiss();
         });
     }
     ionViewWillEnter() {

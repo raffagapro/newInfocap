@@ -1,7 +1,7 @@
 <ion-app>
 
   <!-- Menu User -->
-  <ion-menu side="start" menuId="user" contentId="main" *ngIf="user && user.id !== null">
+  <ion-menu side="start" menuId="usuario" contentId="main">
     <ion-content>
       <ion-grid>
         <!-- profile Img -->
@@ -32,7 +32,7 @@
       </ion-grid>
 
       <ion-list class="ion-margin-top">
-        <ion-menu-toggle menu="user">
+        <ion-menu-toggle menu="usuario">
 
           <!-- home -->
           <ion-item lines="none" routerLink="/user/home">
@@ -94,7 +94,7 @@
   </ion-menu>
 
   <!-- Menu Profesional  -->
-  <ion-menu side="start" menuId="profesional" contentId="main" *ngIf="user && user.id !== null">
+  <ion-menu side="start" menuId="profesional" contentId="main">
     <ion-content>
       <!-- Top Section  -->
       <ion-grid>
@@ -160,7 +160,7 @@
           </ion-item>
 
           <!-- Soporte -->
-          <ion-item lines="none" href="https://wa.me/529994374501">
+          <ion-item lines="none" href="https://wa.me/{{whatappPhone}}">
             <ion-icon slot="start" name="headset" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Soporte</ion-label>
           </ion-item>
@@ -174,7 +174,7 @@
           <!-- Términos y condiciones -->
           <ion-item lines="none">
             <ion-icon slot="start" name="reader" color="primary"></ion-icon>
-            <ion-label color="primary" class="label-text">Términos y condiciones</ion-label>
+            <ion-label color="primary" class="label-text" (click)="openWhatsapp()">Términos y condiciones</ion-label>
           </ion-item>
 
         </ion-menu-toggle>

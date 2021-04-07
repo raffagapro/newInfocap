@@ -260,7 +260,8 @@
             this.userSub = this.us.loggedUser.subscribe(function (user) {
               _this.grabbedUser = user;
             });
-            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token); // Grab prof list 
+            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]();
+            this.headers = this.headers.set('Authorization', 'Bearer ' + this.grabbedUser.access_token); // Grab prof list 
 
             this.lc.create({
               message: "Generando lista de profesionales..."
@@ -278,6 +279,8 @@
                 console.log(e);
                 loadingEl.dismiss();
               });
+            })["catch"](function (err) {
+              _this.lc.dismiss();
             });
           }
         }, {

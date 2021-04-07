@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button menu=\"user\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title class=\"main-color title-toolbar\">CATEGORÍAS</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid>\n    <!-- category item -->\n    <ion-row \n      *ngFor=\"let cat of categories\"\n      class=\"category-item ion-align-items-end\"\n      style=\"background-image: url('http://workintest.herokuapp.com/{{ cat.image }}');\" \n      (click)=\"map(cat.id)\">\n      <ion-col class=\"cat-bar\">\n        <ion-text color=\"light\">\n          <h1 class=\"cat-title\">{{ cat.name }}</h1>\n          <p class=\"cat-text\">{{ cat.description }}</p>\n          <!-- rating circle -->\n          <!-- <div class=\"rate-cont\">\n            <ion-label color=\"primary\" class=\"rating-text ml-1\">4.8</ion-label>\n            <ion-icon name=\"star\" color=\"primary\" class=\"rating-text\"></ion-icon>\n          </div> -->\n          <!-- style=\"background-image: url('/assets/images/carp_cat.png');\" -->\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- footer text -->\n    <!-- <div style=\"height: 20px;\"></div>\n    <ion-row class=\"subtitle ion-margin-top\">\n      <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n        <ion-text class=\"footer-text main-color\" ><b>¿No encuentras la categoría que buscabas?</b></ion-text>\n      </ion-col>\n    </ion-row> -->\n\n    <!-- enviar mensaje BTN -->\n    <!-- <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"6\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"login()\">\n          ENVÍANOS UN MENSAJE\n          <ion-icon slot=\"end\" name=\"send\"></ion-icon>\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row> -->\n\n  </ion-grid>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button [menu]=\"user?.role\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title class=\"main-color title-toolbar\">CATEGORÍAS</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid>\n    <!-- category item -->\n    <ion-row \n      *ngFor=\"let cat of categories\"\n      class=\"category-item ion-align-items-end\"\n      style=\"background-image: url('{{urlServer}}{{ cat.image }}');\" \n      (click)=\"map(cat.id)\">\n      <ion-col class=\"cat-bar\">\n        <ion-text color=\"light\">\n          <h1 class=\"cat-title\">{{ cat.name }}</h1>\n          <p class=\"cat-text\">{{ cat.description }}</p>\n          <!-- rating circle -->\n          <!-- <div class=\"rate-cont\">\n            <ion-label color=\"primary\" class=\"rating-text ml-1\">4.8</ion-label>\n            <ion-icon name=\"star\" color=\"primary\" class=\"rating-text\"></ion-icon>\n          </div> -->\n          <!-- style=\"background-image: url('/assets/images/carp_cat.png');\" -->\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- footer text -->\n    <!-- <div style=\"height: 20px;\"></div>\n    <ion-row class=\"subtitle ion-margin-top\">\n      <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n        <ion-text class=\"footer-text main-color\" ><b>¿No encuentras la categoría que buscabas?</b></ion-text>\n      </ion-col>\n    </ion-row> -->\n\n    <!-- enviar mensaje BTN -->\n    <!-- <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"6\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"login()\">\n          ENVÍANOS UN MENSAJE\n          <ion-icon slot=\"end\" name=\"send\"></ion-icon>\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row> -->\n\n  </ion-grid>\n</ion-content>\n";
       /***/
     },
 
@@ -243,27 +243,43 @@
       /* harmony import */
 
 
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! src/app/model/user.model */
+      "UbF0");
+      /* harmony import */
+
+
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var src_app_services_category_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var src_app_services_category_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/app/services/category.service */
       "cPV5");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
       /* harmony import */
 
 
-      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! src/app/services/solicitud.service */
       "rLtr");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
 
       var HomePage = /*#__PURE__*/function () {
         function HomePage(menuController, router, http, lc, us, cs, solServ) {
@@ -276,6 +292,7 @@
           this.us = us;
           this.cs = cs;
           this.solServ = solServ;
+          this.urlServer = src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["PATH"];
         }
 
         _createClass(HomePage, [{
@@ -285,31 +302,62 @@
 
             this.userSub = this.us.loggedUser.subscribe(function (user) {
               _this.grabbedUser = user;
-            }); // console.log(this.grabbedUser.access_token);
+              console.log(user.role);
+
+              _this.menuController.enable(user.role === src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].PROFESSIONAL, src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].PROFESSIONAL);
+
+              _this.menuController.enable(user.role === src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].USER, src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].USER);
+            });
           }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
-            var _this2 = this;
+            this.loadCategories();
+          }
+        }, {
+          key: "loadCategories",
+          value: function loadCategories() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var loader, response;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.lc.create({
+                        message: 'Cargando servicios disponibles...'
+                      });
 
-            this.menuController.enable(true, 'user');
-            this.lc.create({
-              message: "Cargando Servicios Disponibles..."
-            }).then(function (loadingEl) {
-              loadingEl.present();
-              var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpHeaders"]().set('Authorization', 'Bearer ' + _this2.grabbedUser.access_token);
+                    case 2:
+                      loader = _context.sent;
+                      _context.prev = 3;
+                      _context.next = 6;
+                      return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/categories"), {
+                        headers: {
+                          authorization: "Bearer ".concat(this.grabbedUser.access_token)
+                        }
+                      });
 
-              _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/categories', {
-                headers: headers
-              }).subscribe(function (resData) {
-                loadingEl.dismiss(); // console.log(resData['data']);
+                    case 6:
+                      response = _context.sent;
+                      loader.dismiss();
+                      this.categories = response.data.data;
+                      _context.next = 15;
+                      break;
 
-                _this2.categories = resData['data'];
-              }, function (error) {
-                loadingEl.dismiss();
-                console.log('somefucking error!');
-              });
-            });
+                    case 11:
+                      _context.prev = 11;
+                      _context.t0 = _context["catch"](3);
+                      loader.dismiss();
+                      console.log(_context.t0);
+
+                    case 15:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this, [[3, 11]]);
+            }));
           }
         }, {
           key: "map",
@@ -341,11 +389,11 @@
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
         }, {
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
         }, {
-          type: src_app_services_category_service__WEBPACK_IMPORTED_MODULE_8__["CategoryService"]
+          type: src_app_services_category_service__WEBPACK_IMPORTED_MODULE_9__["CategoryService"]
         }, {
-          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__["SolicitudService"]
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_11__["SolicitudService"]
         }];
       };
 

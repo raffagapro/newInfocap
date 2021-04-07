@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button menu="user"></ion-menu-button>
+      <ion-menu-button [menu]="user?.role"></ion-menu-button>
     </ion-buttons>
     <ion-title class="main-color title-toolbar">CATEGORÍAS</ion-title>
   </ion-toolbar>
@@ -13,7 +13,7 @@
     <ion-row 
       *ngFor="let cat of categories"
       class="category-item ion-align-items-end"
-      style="background-image: url('http://167.71.251.136{{ cat.image }}');" 
+      style="background-image: url('{{urlServer}}{{ cat.image }}');" 
       (click)="map(cat.id)">
       <ion-col class="cat-bar">
         <ion-text color="light">

@@ -21,6 +21,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
 /* harmony import */ var src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/model/user.model */ "UbF0");
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! axios */ "vDqi");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
+
 
 
 
@@ -44,39 +47,42 @@ let LoginPage = class LoginPage {
     ngOnInit() {
     }
     login(form) {
-        // console.log(form);
-        if (!form.valid) {
-            return;
-        }
-        const email = form.value.email;
-        const password = form.value.password;
-        this.lc.create({
-            message: "Validando credenciales..."
-        }).then(loadingEl => {
-            loadingEl.present();
-            this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/auth/login', {
-                // this.http.post('http://127.0.0.1:8000/api/auth/login', {
-                email: email,
-                password: password,
-            }).subscribe(resData => {
-                // console.log(resData['data'].access_token);
-                loadingEl.dismiss();
-                if (resData['code'] === 200) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            // console.log(form);
+            if (!form.valid) {
+                return;
+            }
+            const email = form.value.email;
+            const password = form.value.password;
+            const loader = yield this.lc.create({
+                message: 'Validando credenciales...'
+            });
+            loader.present();
+            try {
+                let body = {
+                    email,
+                    password,
+                };
+                const response = yield axios__WEBPACK_IMPORTED_MODULE_11___default.a.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/auth/login`, body);
+                const { data } = response;
+                const { data: responseData, message } = data;
+                if (responseData) {
+                    const { user, roles, access_token } = responseData;
+                    const { id, name, last_name, email, phone1, phone2, img_profile } = user;
                     //save user info to store NEEDS WORK IN HERE
                     let img;
-                    if (resData['data'].user.img_profile === null) {
+                    if (img_profile === null) {
                         img = 'assets/images/avatar.png';
                     }
                     else {
-                        img = resData['data'].user.img_profile;
+                        img = img_profile;
                     }
-                    this.grabbedUSer = new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__["User"](resData['data'].user.id, resData['data'].user.name, resData['data'].user.last_name, img, resData['data'].user.email, resData['data'].user.phone1, resData['data'].user.phone2, resData['data'].roles[0], resData['data'].access_token);
+                    this.grabbedUSer = new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__["User"](id, name, last_name, img, email, phone1, phone2, roles[0], access_token);
                     this.us.setUser(this.grabbedUSer);
-                    // console.log(this.us.loggedUser);
-                    //redirect tp home
                     this.as.login();
                     form.control.reset();
-                    if (resData['data'].roles[0] === 'usuario') {
+                    loader.dismiss();
+                    if (roles[0] === 'usuario') {
                         this.router.navigate(['/user/home']);
                     }
                     else {
@@ -84,21 +90,26 @@ let LoginPage = class LoginPage {
                     }
                 }
                 else {
-                    this.error = 'Credenciales incorrectas';
+                    const errorMessage = message === 'Unauthorized' ? 'Credenciales inválidas' : 'Ocurrió un error';
+                    this.error = errorMessage;
                     form.reset();
                     form.setValue({
                         email: email,
                         password: '',
                     });
+                    loader.dismiss();
                 }
-            }, err => {
-                this.error = 'Correo no encontrado';
+            }
+            catch (error) {
+                const { data } = error.response;
+                this.error = data.message || 'Ocurrió un error';
                 form.reset();
                 form.setValue({
                     email: email,
                     password: '',
                 });
-            });
+                loader.dismiss();
+            }
         });
     }
     loginProfesional() {

@@ -424,6 +424,10 @@
                 console.log(e);
                 loadingEl.dismiss(); // this.router.navigate(['/user/profesional-list']);
               });
+            }).then(function (err) {
+              console.log(err);
+
+              _this2.lc.dismiss();
             });
           }
         }, {

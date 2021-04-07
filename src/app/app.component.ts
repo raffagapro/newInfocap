@@ -9,7 +9,7 @@ import { Plugins, Capacitor } from '@capacitor/core'
 
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
-import { User } from './model/user.model';
+import { User, UserRoles } from './model/user.model';
 import { API } from 'src/environments/environment';
 
 @Component({
@@ -18,6 +18,8 @@ import { API } from 'src/environments/environment';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  whatsappPhone = '529992781314';
+  firstLoad = false;
   logged: Observable<boolean>;
   user: User;
 
@@ -45,30 +47,41 @@ export class AppComponent {
     });
   }
 
-  private setUser(){
-    // console.log(this.logged.subscribe);
-    this.logged.subscribe(v => {      
+  private setUser() {
+    this.logged.subscribe(v => {
       if (v) {
         this.us.loggedUser.subscribe(user => {
           this.user = user;
+          if (!this.firstLoad && user.id !== null) {
+            this.firstLoad = true;
+            if (this.user.role === UserRoles.USER) {
+              this.router.navigate(['/user/home']);
+            } else {
+              this.router.navigate(['/profesional/home']);
+            }
+          }
         })
       }
     })
   }
 
-  logout(){
+  logout() {
     this.menuCtrl.close();
     this.as.logout();
     this.router.navigateByUrl('/');
   }
 
-  profile(){
+  profile() {
     this.menuCtrl.close();
     this.router.navigate(['/user/profile-page']);
   }
 
-  profilePro(){
+  profilePro() {
     this.menuCtrl.close();
     this.router.navigate(['profesional/perfil']);
+  }
+
+  openWhatsapp() {
+    window.open(`https://api.whatsapp.com/send?phone= ${this.whatsappPhone}`);
   }
 }

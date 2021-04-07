@@ -1,4 +1,5 @@
 import { HttpClientModule } from  '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage-angular';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -65,6 +66,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
@@ -72,7 +74,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
     CallNumber,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Geolocation,
-    NativeGeocoder
+    NativeGeocoder,
   ],
   bootstrap: [AppComponent]
 })

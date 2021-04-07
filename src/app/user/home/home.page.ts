@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingController, MenuController } from "@ionic/angular";
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { User } from 'src/app/model/user.model';
+import { User, UserRoles } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
-import { API } from 'src/environments/environment';
+import { API, PATH } from 'src/environments/environment';
 import { SolicitudService } from 'src/app/services/solicitud.service';
+import axios from 'axios';
 
 interface Categories {
   id: string,
@@ -27,6 +27,7 @@ export class HomePage implements OnInit, OnDestroy {
   categories: Categories[];
   grabbedUser: User;
   userSub: Subscription;
+  urlServer: string = PATH;
 
   constructor(
     private menuController: MenuController,
@@ -41,25 +42,37 @@ export class HomePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
+      console.log(user.role)
+      console.log(user.role === UserRoles.PROFESSIONAL)
+      console.log(user.role === UserRoles.USER)
+      this.menuController.enable(user.role === UserRoles.PROFESSIONAL, UserRoles.PROFESSIONAL);
+      this.menuController.enable(user.role === UserRoles.USER, UserRoles.USER);
     });
   }
 
   ionViewWillEnter() {
-    this.menuController.enable(true, 'user');
-    this.lc.create({
-      message: "Cargando Servicios Disponibles..."
-    }).then(loadingEl => {
-      loadingEl.present();
-      let headers = new HttpHeaders();
-      headers = headers.set('Authorization', 'Bearer ' + this.grabbedUser.access_token)
-      this.http.get(`${API}/categories`, { headers: headers }).subscribe(resData => {
-        loadingEl.dismiss();
-        this.categories = resData['data'];
-      }, error => {
-        loadingEl.dismiss();
-        console.log(error);
-      });
+    this.loadCategories()
+  }
+
+  async loadCategories() {
+    const loader = await this.lc.create({
+      message: 'Cargando servicios disponibles...'
     });
+    try {
+      const response = await axios.get(
+        `${API}/categories`,
+        {
+          headers: {
+            authorization: `Bearer ${this.grabbedUser.access_token}`
+          }
+        }
+      );
+      loader.dismiss();
+      this.categories = response.data.data;
+    } catch (error) {
+      loader.dismiss();
+      console.log(error);
+    }
   }
 
   map(catId: string) {

@@ -91,6 +91,16 @@
       var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
 
       var LoginPage = /*#__PURE__*/function () {
         function LoginPage(navController, router, http, as, us, lc) {
@@ -110,70 +120,98 @@
         }, {
           key: "login",
           value: function login(form) {
-            var _this = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var email, password, loader, body, response, data, responseData, message, user, roles, access_token, id, name, last_name, _email, phone1, phone2, img_profile, img, errorMessage, _data;
 
-            // console.log(form);
-            if (!form.valid) {
-              return;
-            }
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      if (form.valid) {
+                        _context.next = 2;
+                        break;
+                      }
 
-            var email = form.value.email;
-            var password = form.value.password;
-            this.lc.create({
-              message: "Validando credenciales..."
-            }).then(function (loadingEl) {
-              loadingEl.present();
+                      return _context.abrupt("return");
 
-              _this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/auth/login', {
-                // this.http.post('http://127.0.0.1:8000/api/auth/login', {
-                email: email,
-                password: password
-              }).subscribe(function (resData) {
-                // console.log(resData['data'].access_token);
-                loadingEl.dismiss();
+                    case 2:
+                      email = form.value.email;
+                      password = form.value.password;
+                      _context.next = 6;
+                      return this.lc.create({
+                        message: 'Validando credenciales...'
+                      });
 
-                if (resData['code'] === 200) {
-                  //save user info to store NEEDS WORK IN HERE
-                  var img;
+                    case 6:
+                      loader = _context.sent;
+                      loader.present();
+                      _context.prev = 8;
+                      body = {
+                        email: email,
+                        password: password
+                      };
+                      _context.next = 12;
+                      return axios__WEBPACK_IMPORTED_MODULE_11___default.a.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/auth/login"), body);
 
-                  if (resData['data'].user.img_profile === null) {
-                    img = 'assets/images/avatar.png';
-                  } else {
-                    img = resData['data'].user.img_profile;
+                    case 12:
+                      response = _context.sent;
+                      data = response.data;
+                      responseData = data.data, message = data.message;
+
+                      if (responseData) {
+                        user = responseData.user, roles = responseData.roles, access_token = responseData.access_token;
+                        id = user.id, name = user.name, last_name = user.last_name, _email = user.email, phone1 = user.phone1, phone2 = user.phone2, img_profile = user.img_profile; //save user info to store NEEDS WORK IN HERE
+
+                        if (img_profile === null) {
+                          img = 'assets/images/avatar.png';
+                        } else {
+                          img = img_profile;
+                        }
+
+                        this.grabbedUSer = new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__["User"](id, name, last_name, img, _email, phone1, phone2, roles[0], access_token);
+                        this.us.setUser(this.grabbedUSer);
+                        this.as.login();
+                        form.control.reset();
+                        loader.dismiss();
+
+                        if (roles[0] === 'usuario') {
+                          this.router.navigate(['/user/home']);
+                        } else {
+                          this.router.navigate(['/profesional/home']);
+                        }
+                      } else {
+                        errorMessage = message === 'Unauthorized' ? 'Credenciales inválidas' : 'Ocurrió un error';
+                        this.error = errorMessage;
+                        form.reset();
+                        form.setValue({
+                          email: email,
+                          password: ''
+                        });
+                        loader.dismiss();
+                      }
+
+                      _context.next = 25;
+                      break;
+
+                    case 18:
+                      _context.prev = 18;
+                      _context.t0 = _context["catch"](8);
+                      _data = _context.t0.response.data;
+                      this.error = _data.message || 'Ocurrió un error';
+                      form.reset();
+                      form.setValue({
+                        email: email,
+                        password: ''
+                      });
+                      loader.dismiss();
+
+                    case 25:
+                    case "end":
+                      return _context.stop();
                   }
-
-                  _this.grabbedUSer = new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__["User"](resData['data'].user.id, resData['data'].user.name, resData['data'].user.last_name, img, resData['data'].user.email, resData['data'].user.phone1, resData['data'].user.phone2, resData['data'].roles[0], resData['data'].access_token);
-
-                  _this.us.setUser(_this.grabbedUSer); // console.log(this.us.loggedUser);
-                  //redirect tp home
-
-
-                  _this.as.login();
-
-                  form.control.reset();
-
-                  if (resData['data'].roles[0] === 'usuario') {
-                    _this.router.navigate(['/user/home']);
-                  } else {
-                    _this.router.navigate(['/profesional/home']);
-                  }
-                } else {
-                  _this.error = 'Credenciales incorrectas';
-                  form.reset();
-                  form.setValue({
-                    email: email,
-                    password: ''
-                  });
                 }
-              }, function (err) {
-                _this.error = 'Correo no encontrado';
-                form.reset();
-                form.setValue({
-                  email: email,
-                  password: ''
-                });
-              });
-            });
+              }, _callee, this, [[8, 18]]);
+            }));
           }
         }, {
           key: "loginProfesional",
