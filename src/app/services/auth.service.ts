@@ -36,6 +36,7 @@ export class AuthService {
 
   logout(){
     this._userIsAuthenticated.next(false);
+    this._storage.clear();
   }
 
 }

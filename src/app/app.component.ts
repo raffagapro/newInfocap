@@ -44,6 +44,9 @@ export class AppComponent {
         Plugins.SplashScreen.hide();
       }
       // this.splashScreen.hide();
+
+      this.menuCtrl.enable(false, UserRoles.PROFESSIONAL);
+      this.menuCtrl.enable(false, UserRoles.USER);
     });
   }
 
@@ -67,6 +70,8 @@ export class AppComponent {
 
   logout() {
     this.menuCtrl.close();
+    this.menuCtrl.enable(false, UserRoles.PROFESSIONAL);
+    this.menuCtrl.enable(false, UserRoles.USER);
     this.as.logout();
     this.router.navigateByUrl('/');
   }
