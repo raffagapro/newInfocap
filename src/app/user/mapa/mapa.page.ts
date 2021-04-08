@@ -21,7 +21,7 @@ declare var google: any;
   styleUrls: ['./mapa.page.scss'],
 })
 export class MapaPage implements OnInit, OnDestroy {
-  @ViewChild('map', {read: ElementRef, static: false}) mapRef: ElementRef;
+  @ViewChild('map', { read: ElementRef, static: false }) mapRef: ElementRef;
   map: any;
   // lat: string;
   // long: string;  
@@ -46,25 +46,25 @@ export class MapaPage implements OnInit, OnDestroy {
     private us: UserService,
     private solServ: SolicitudService,
     private platform: Platform,
-  ) { 
+  ) {
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
-   }
+  }
 
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
     this.headers = new HttpHeaders();
-    this.headers = this.headers.set('Authorization', 'Bearer '+this.grabbedUser.access_token)
+    this.headers = this.headers.set('Authorization', 'Bearer ' + this.grabbedUser.access_token)
     //comunas
-    this.http.get(API+'/location/communes', {headers: this.headers})
-    .subscribe(resData =>{
-      // console.log('comunas');
-      this.comunas = resData['data'];
-      // console.log(this.comunas);
-    });
+    this.http.get(API + '/location/communes', { headers: this.headers })
+      .subscribe(resData => {
+        // console.log('comunas');
+        this.comunas = resData['data'];
+        // console.log(this.comunas);
+      });
     // form
     this.form = new FormGroup({
       address: new FormControl(null, {
@@ -81,27 +81,27 @@ export class MapaPage implements OnInit, OnDestroy {
     });
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.loadMap();
   }
 
-  loadMap(){
+  loadMap() {
     this.lc.create({
       message: 'Generando mapa...'
-    }).then(async loadingEl =>{
+    }).then(async loadingEl => {
       loadingEl.present();
       let latLng;
       if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
-        Geolocation.getCurrentPosition().then(resData =>{
+        Geolocation.getCurrentPosition().then(resData => {
           console.log(resData);
           loadingEl.dismiss();
           latLng = new google.maps.LatLng(resData.coords.latitude, resData.coords.longitude);
-        }, err =>{
+        }, err => {
           console.log(err);
           loadingEl.dismiss();
           latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
         });
-      }else{
+      } else {
         // get location from device
         const coords = await Geolocation.getCurrentPosition();
         console.log(coords);
@@ -120,7 +120,7 @@ export class MapaPage implements OnInit, OnDestroy {
       //load map
       // this.getAddressFromCords(res.coords.latitude, res.coords.longitude);
       this.map = new google.maps.Map(this.mapRef.nativeElement, mapOptions);
-      this.map.addListener('tilesloaded', () =>{
+      this.map.addListener('tilesloaded', () => {
         // console.log('accuracy', this.map, this.map.center.lat());
         // this.getAddressFromCords(this.map.center.lat(), this.map.center.lng());
         // this.lat = this.map.center.lat();
@@ -157,42 +157,35 @@ export class MapaPage implements OnInit, OnDestroy {
     this.marker.setMap(this.map);
   }
 
-  getAddressFromCords(latitude, longitude) {}
+  getAddressFromCords(latitude, longitude) { }
 
-  updateSearchResults(){
+  updateSearchResults() {
     if (this.autocomplete.input == '') {
       this.autocompleteItems = [];
       return;
     }
-    this.GoogleAutocomplete.getPlacePredictions({ 
+    this.GoogleAutocomplete.getPlacePredictions({
       input: this.autocomplete.input,
       types: ['address'],
-      componentRestrictions: {country: 'cl'}
+      componentRestrictions: { country: 'cl' }
     },
-    (predictions, status) => {
-      this.autocompleteItems = [];
-      this.zone.run(() => {
-        predictions.forEach((prediction) => {
-          this.autocompleteItems.push(prediction);
+      (predictions, status) => {
+        this.autocompleteItems = [];
+        this.zone.run(() => {
+          predictions.forEach((prediction) => {
+            this.autocompleteItems.push(prediction);
+          });
         });
       });
-    });
   }
 
   selectSearchResult(item) {
-    ///this is the place for storing data to service
-    // alert(JSON.stringify(item))      
     this.placeid = item.place_id
-    
+
     let wAddress = item.description.split(',');
-    // console.log(wAddress[1].substring(1));
-    // console.log(item);
-    // pass address to input
-    this.form = new FormGroup({
-      address: new FormControl(item.description, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
+
+    this.form.patchValue({
+      'address': item.description
     });
     //save to solicitud service
     this.solServ.setAddress(item.description);
@@ -200,30 +193,23 @@ export class MapaPage implements OnInit, OnDestroy {
     this.comunas.forEach(comuna => {
       if (comuna.name === wAddress[1].substring(1).toLowerCase()) {
         this.solServ.setComuna(comuna.id);
-      }else{
+      } else {
         // console.log('no match');
       }
     });
     this.clearAutocomplete();
-    
-    // const geocoder = new google.maps.Geocoder();
-    // geocoder.geocode({placeId: item.place_id}, (res, status) =>{
-    //   console.log(res);
-    //   console.log(status);
-    // });
-    
   }
 
-  clearAutocomplete(){
+  clearAutocomplete() {
     this.autocompleteItems = [];
     this.autocomplete.input = '';
   }
 
-  searchPro(){
+  searchPro() {
     this.router.navigate(['/user/profesional-list']);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
   }
 }

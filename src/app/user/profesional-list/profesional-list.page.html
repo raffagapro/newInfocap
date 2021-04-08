@@ -1,11 +1,8 @@
 <ion-header>
   <ion-toolbar color="primary">
-    
+
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/user/home" text="" icon="arrow-back"></ion-back-button>
-      <ion-button class="homeBtn" (click)="openMenu()">
-        <ion-icon name="menu" class="homeBtn"></ion-icon>
-      </ion-button>
     </ion-buttons>
 
     <ion-title class="title-toolbar">ELIGE AL PROFESIONAL</ion-title>
@@ -55,15 +52,15 @@
     <ion-grid>
       <ion-row> -->
 
-        <!-- profile img -->
-        <!-- <ion-col size="3">
+  <!-- profile img -->
+  <!-- <ion-col size="3">
           <ion-avatar class="profileImg">
             <img src="/assets/images/avatar.png"/>
           </ion-avatar>
         </ion-col> -->
 
-        <!-- title -->
-        <!-- <ion-col size="9">
+  <!-- title -->
+  <!-- <ion-col size="9">
           <ion-text>
             <span class="eSelect">Necesito el servicio urgente</span><br>
             <span class="textSelect">Esta solicitud  es de carácter urgente y será enviada a los 10 profesionales mejor catalogados para que puedan atender tu solicitud lo antes posible.</span>
@@ -75,9 +72,10 @@
   </div> -->
 
   <!-- profesional card item -->
-  <div
-    *ngFor="let prof of profList"
-    class="prof-cont ion-margin-top no-border"
+  <ion-text color="primary" *ngIf="profList.length == 0">
+    <h3 class="text-center">No se encontraron<br/>profesionales en el área</h3>
+  </ion-text>
+  <div *ngFor="let prof of profList" class="prof-cont ion-margin-top no-border"
     (click)="profDetails(prof.id, prof.img_profile)">
     <ion-grid>
       <ion-row class="ion-align-items-center">
@@ -85,14 +83,17 @@
         <!-- profile img -->
         <ion-col size="3">
           <ion-avatar class="profileImg">
-            <ion-img src="{{ !prof.img_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+prof.img_profile }}"></ion-img>
+            <ion-img
+              src="{{ !prof.img_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+prof.img_profile }}">
+            </ion-img>
           </ion-avatar>
         </ion-col>
 
         <!-- title -->
         <ion-col size="9">
           <ion-text>
-            <span class="titleSelect main-color ion-text-capitalize">{{ prof.supplierName }} {{ prof.supplierLastName }}</span><br>
+            <span class="titleSelect main-color ion-text-capitalize">{{ prof.supplierName }} {{ prof.supplierLastName
+              }}</span><br>
             <ion-badge color="primary" class="badge-text">{{ prof.categoryName }}</ion-badge><br>
             <span class="textSelect ion-text-capitalize">{{ prof.descProf }}</span>
           </ion-text>

@@ -1,66 +1,81 @@
-#map{
-    height: 100%;
-  }
-  .title{
-    font-size: 18px;
-    font-weight: bold;
-  }
-  hr {
-    border-top: 1px solid #E54360;
-  }
-  .top-center{
-    position: absolute;
-    width: 100%;
-    top: 30px;
-  }
-  .underline-red {
-    text-decoration: underline;
-    text-decoration-color: #E54360;
-  }
-  .floating-input{
-    background-color: white;
-    border: 1px solid #009ACE;
-  }
-  .locate-cont{
-    border-radius: 50px;
-    height: 42px;
-    width: 42px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    position: absolute;
-    right: 11%;
-    top: 30%;
-  }
-  .scan-cont{
-    border-radius: 50px;
-    height: 42px;
-    width: 42px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    position: absolute;
-    right: 11%;
-    top: 42%;
-  }
-  .rating-text{
-    font-size: 18px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .search_bar_map {
-    border: solid 1px #009ACE;
-    color: #009ACE;
-    padding: 0;
-  }
+#map {
+  height: 100%;
+}
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  word-wrap: unset;
+  padding: 0;
+  margin-top: 10px;
+  position: relative;
+}
+hr {
+  border-top: 1px solid #e54360;
+}
+.top-center {
+  position: absolute;
+  width: 100%;
+  top: 30px;
+}
+.underline-red {
+  text-decoration: underline;
+  text-decoration-color: #e54360;
+}
+.floating-input {
+  background-color: white;
+  border: 1px solid #009ace;
+}
+.locate-cont {
+  border-radius: 50px;
+  height: 42px;
+  width: 42px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  right: 11%;
+  top: 30%;
+}
+.scan-cont {
+  border-radius: 50px;
+  height: 42px;
+  width: 42px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  right: 11%;
+  top: 42%;
+}
+.rating-text {
+  font-size: 18px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.search_bar_map {
+  background: #ffffff;
+  border: solid 1px #009ace;
+  color: #009ace;
+  padding: 0;
+}
 
-  .float-bottom {
-    background-color: white;
-    margin-bottom: 8px;
-  }
+.searchbar-input-container {
+  --background: #ffffff !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+}
+
+.float-bottom {
+  background-color: white;
+  margin-bottom: 8px;
+}
+
+hr {
+  border-top: 1px solid #e54360;
+}
