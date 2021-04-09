@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { ConfirmSuccessComponent } from './confirm-success/confirm-success.component';
 import { ConfirmSuccessStartComponent } from './confirm-success-start/confirm-success-start.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-agendados-detail',
@@ -99,16 +100,14 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     this.menuController.open();
   }
 
-  p(hours: string){
+  formatTime(hours: string) {
     if (hours) {
       let wHours = hours.split("/");
-      let sHour = wHours[0].split("T");
-      let sHour2 = sHour[1];
-      sHour2 = sHour2.substring(0, 5);
-      let eHour = wHours[1].split("T");
-      let eHour2 = eHour[1];
-      eHour2 = eHour2.substring(0, 5);
-      return sHour2+" - "+eHour2;
+
+      let startHour = moment(wHours[0]).format('h:mm A');
+      let endHour = moment(wHours[1]).format('h:mm A');
+
+     return `${startHour} - ${endHour}`;
     }
   }
 

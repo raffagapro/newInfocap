@@ -3,12 +3,9 @@
     
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/profesional/home/home-tabs/solicitudes" text="" icon="arrow-back"></ion-back-button>
-      <ion-button class="homeBtn" (click)="openMenu()">
-        <ion-icon name="menu" class="homeBtn"></ion-icon>
-      </ion-button>
     </ion-buttons>
 
-    <ion-title class="title-toolbar">DATALLES SOLICITUD</ion-title>
+    <ion-title class="title-toolbar">DETALLE DEL SERVICIO</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,7 +18,7 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <ion-img src="{{ !loadedInfo.img_client_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+loadedInfo.img_client_profile  }}"></ion-img>
+            <ion-img src="{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+loadedInfo.img_client_profile  }}"></ion-img>
           </ion-avatar>
         </ion-col>
 
@@ -46,7 +43,7 @@
     <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-icon name="build" class="main-color"></ion-icon>
+        <ion-icon src="/assets/icon/ic_engine.svg" class="main-color"></ion-icon>
         <ion-text class="main-color title"><b> Trabajo requerido</b></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
@@ -79,7 +76,7 @@
     <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-icon name="calendar-outline" class="main-color iconFixTitle"></ion-icon>
+        <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color iconFixTitle"></ion-icon>
         <ion-text class="main-color subtitle"><b> Fecha de visita</b></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
@@ -95,7 +92,7 @@
     <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-icon name="time" class="main-color iconFixTitle"></ion-icon>
+        <ion-icon src="/assets/icon/ic_schedule.svg" class="main-color iconFixTitle"></ion-icon>
         <ion-text class="main-color subtitle"><b> Rango de horas</b></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>

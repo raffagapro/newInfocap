@@ -21,7 +21,7 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <ion-img src="{{ !loadedInfo.img_client_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+loadedInfo.img_client_profile  }}"></ion-img>
+            <ion-img src="{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+loadedInfo.img_client_profile  }}"></ion-img>
           </ion-avatar>
         </ion-col>
 
@@ -46,7 +46,7 @@
     <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-icon name="build" class="main-color"></ion-icon>
+        <ion-icon src="/assets/icon/ic_engine.svg" class="main-color"></ion-icon>
         <ion-text class="main-color title"><b> Trabajo requerido</b></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
@@ -81,7 +81,7 @@
         <ion-col size="11">
           <ion-item>
             <ion-label class="main-color" position="floating">
-              <ion-icon name="calendar" slot="start" class="main-color"></ion-icon>
+              <ion-icon src="/assets/icon/ic_date_range.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
             </ion-label>
             <ion-datetime
@@ -96,8 +96,8 @@
         <ion-col size="11">
           <ion-item>
             <ion-label class="main-color" position="floating">
-              <ion-icon name="time" slot="start" class="main-color"></ion-icon>
-              <ion-text class="main-color">Hora inicial</ion-text>
+              <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora inicial</ion-text>
             </ion-label>
             <ion-datetime
               formControlName="sHour"
@@ -113,8 +113,8 @@
         <ion-col size="11">
           <ion-item>
             <ion-label class="main-color" position="floating">
-              <ion-icon name="time" slot="start" class="main-color"></ion-icon>
-              <ion-text class="main-color">Hora final</ion-text>
+              <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora final</ion-text>
             </ion-label>
             <ion-datetime
               formControlName="eHour"

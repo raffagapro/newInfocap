@@ -40,10 +40,10 @@
             <ion-badge color="primary" class="badge-text">{{ service.categoryName }}</ion-badge>
             <br>
             <small>
-              <ion-icon name="calendar" color="primary" class="iconFix"></ion-icon>
+              <ion-icon src="/assets/icon/ic_date_range.svg" color="primary" class="iconFix"></ion-icon>
               {{service.date_required}}
-              <ion-icon name="time" color="primary" class="iconFix"></ion-icon>
-              {{ p(service.hours) }}h
+              <ion-icon src="/assets/icon/ic_schedule.svg" color="primary" class="iconFix"></ion-icon>
+              {{ formatTime(service.hours) }}
             </small>
           </ion-text>
         </ion-col>

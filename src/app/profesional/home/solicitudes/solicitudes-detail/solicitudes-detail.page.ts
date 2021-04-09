@@ -54,40 +54,40 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
     this.lc.create({
       message: "Cargando informacion del servicio..."
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API+`/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, {headers: this.headers})
-      .subscribe(resData =>{
-        console.log(resData['data']);
-        loadingEl.dismiss();
-        this.loadedInfo.clientLastName = resData['data'].clientLastName;
-        this.loadedInfo.clientName = resData['data'].clientName;
-        let wDate = resData['data'].date_required.split("-");
-        this.loadedInfo.date_required = wDate[2]+'-'+wDate[1]+'-'+wDate[0];
-        this.loadedInfo.description = resData['data'].description;
-        this.loadedInfo.hours = resData['data'].hours;
-        this.loadedInfo.images = resData['data'].images;
-        this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
-        this.loadedInfo.ticket_number = resData['data'].ticket_number;
-        this.loadedInfo.categoryName = resData['data'].categoryName;
-        this.loadedInfo.clientPhone1 = resData['data'].clientPhone1;
-      }, err =>{
-        console.log(err);
-        loadingEl.dismiss();
-        
-      });
+      this.http.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: this.headers })
+        .subscribe(resData => {
+          console.log(resData['data']);
+          loadingEl.dismiss();
+          this.loadedInfo.clientLastName = resData['data'].clientLastName;
+          this.loadedInfo.clientName = resData['data'].clientName;
+          let wDate = resData['data'].date_required.split("-");
+          this.loadedInfo.date_required = wDate[2] + '-' + wDate[1] + '-' + wDate[0];
+          this.loadedInfo.description = resData['data'].description;
+          this.loadedInfo.hours = resData['data'].hours;
+          this.loadedInfo.images = resData['data'].images;
+          this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
+          this.loadedInfo.ticket_number = resData['data'].ticket_number;
+          this.loadedInfo.categoryName = resData['data'].categoryName;
+          this.loadedInfo.clientPhone1 = resData['data'].clientPhone1;
+        }, err => {
+          console.log(err);
+          loadingEl.dismiss();
+
+        });
     });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.menuController.enable(true, 'profesional');
     console.log(this.loadedInfo);
   }
 
-  p(hours: string){
+  p(hours: string) {
     if (hours) {
       let wHours = hours.split("/");
       let sHour = wHours[0].split("T");
@@ -96,46 +96,40 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
       let eHour = wHours[1].split("T");
       let eHour2 = eHour[1];
       eHour2 = eHour2.substring(0, 5);
-      return sHour2+" - "+eHour2;
+      return sHour2 + " - " + eHour2;
     }
   }
 
-  d(date:string){
+  d(date: string) {
     if (date) {
       let wDate = date.split(" ");
-      return wDate[0]; 
+      return wDate[0];
     }
   }
 
-  openMenu(){
+  openMenu() {
     this.menuController.open();
   }
 
-  call(clientNumb: string){
+  call(clientNumb: string) {
     this.callNumber.callNumber(clientNumb, true)
-    .then(res => console.log('Launched dialer!', res))
-    .catch(err => console.log('Error launching dialer', err));
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => console.log('Error launching dialer', err));
   }
 
   // wa(clientNumb: string){
   //   this.router.navigateByUrl('whatsapp://send?phone='+clientNumb);
   // }
 
-  confirmVisit(){
+  confirmVisit() {
     this.router.navigate(['/profesional/solicitudes/visita-tecnica']);
   }
 
-  accceptSolicitud(){
+  accceptSolicitud() {
     this.router.navigate(['/profesional/solicitudes/definicion-servicio']);
-    // this.modalController.create({
-    //   component: ConfirmModalComponent,
-    //   cssClass: 'modalSE',
-    // }).then(modalEl =>{
-    //   modalEl.present();
-    // });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
   }
 }

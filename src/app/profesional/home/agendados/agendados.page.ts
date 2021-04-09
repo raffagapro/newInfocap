@@ -8,6 +8,7 @@ import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-agendados',
@@ -35,6 +36,8 @@ export class AgendadosPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
+      this.loadServices("3");
+      this.loadServices("4");
     });
   }
 
@@ -77,15 +80,15 @@ export class AgendadosPage implements OnInit, OnDestroy {
     });
   }
 
-  p(hours: string){
-    let wHours = hours.split("/");
-    let sHour = wHours[0].split("T");
-    let sHour2 = sHour[1];
-    sHour2 = sHour2.substring(0, 5);
-    let eHour = wHours[1].split("T");
-    let eHour2 = eHour[1];
-    eHour2 = eHour2.substring(0, 5);
-    return sHour2+" - "+eHour2;
+  formatTime(hours: string) {
+    if (hours) {
+      let wHours = hours.split("/");
+
+      let startHour = moment(wHours[0]).format('h:mm A');
+      let endHour = moment(wHours[1]).format('h:mm A');
+
+     return `${startHour} - ${endHour}`;
+    }
   }
 
   openMenu(){

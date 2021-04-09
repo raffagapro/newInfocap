@@ -84,7 +84,7 @@
         <ion-col size="3">
           <ion-avatar class="profileImg">
             <ion-img
-              src="{{ !prof.img_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+prof.img_profile }}">
+              src="{{ !prof.img_profile || prof.img_profile === '' ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+prof.img_profile }}">
             </ion-img>
           </ion-avatar>
         </ion-col>
