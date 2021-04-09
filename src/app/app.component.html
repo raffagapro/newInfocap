@@ -36,19 +36,19 @@
 
           <!-- home -->
           <ion-item lines="none" routerLink="/user/home">
-            <ion-icon slot="start" name="home" color="primary"></ion-icon>
+            <ion-icon slot="start" src="/assets/icon/ic_home.svg" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Inicio</ion-label>
           </ion-item>
 
           <!-- Estado de solicitud -->
           <ion-item lines="none" routerLink="/user/solicitudes">
-            <ion-icon slot="start" name="clipboard" color="primary"></ion-icon>
+            <ion-icon slot="start" src="/assets/icon/ic_content.svg" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Solicitudes</ion-label>
           </ion-item>
 
           <!-- profesionales contactados -->
           <ion-item lines="none" routerLink="/user/prof-contactados-list">
-            <ion-icon slot="start" name="people" color="primary"></ion-icon>
+            <ion-icon slot="start" src="/assets/icon/ic_people.svg" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Contactados</ion-label>
           </ion-item>
 
@@ -65,14 +65,14 @@
           </ion-item> -->
 
           <!-- Soporte -->
-          <ion-item lines="none" href="https://wa.me/529992781314">
+          <ion-item lines="none" href="https://wa.me/{{whatsappPhone}}">
             <ion-icon slot="start" name="headset" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Soporte</ion-label>
           </ion-item>
 
           <!-- Términos y condiciones -->
           <ion-item lines="none">
-            <ion-icon slot="start" name="reader" color="primary"></ion-icon>
+            <ion-icon slot="start" src="/assets/icon/ic_terms.svg" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Términos y condiciones</ion-label>
           </ion-item>
 
@@ -85,7 +85,7 @@
 
         <!-- Términos y condiciones -->
         <ion-item lines="none" (click)="logout()" menuClose>
-          <ion-icon slot="start" name="exit-outline" class="footer-text"></ion-icon>
+          <ion-icon slot="start" src="/assets/icon/ic_logout.svg" class="footer-text"></ion-icon>
           <ion-label class="footer-text">Cerrar sesión</ion-label>
         </ion-item>
 
@@ -155,7 +155,7 @@
 
           <!-- perfil -->
           <ion-item lines="none" routerLink="/profesional/cat-perfiles">
-            <ion-icon slot="start" name="people-circle" color="primary"></ion-icon>
+            <ion-icon slot="start" src="/assets/icon/ic_people.svg" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">Mis Perfiles</ion-label>
           </ion-item>
 
@@ -173,7 +173,7 @@
 
           <!-- Términos y condiciones -->
           <ion-item lines="none">
-            <ion-icon slot="start" name="reader" color="primary"></ion-icon>
+            <ion-icon slot="start" src="/assets/icon/ic_terms.svg" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text" (click)="openWhatsapp()">Términos y condiciones</ion-label>
           </ion-item>
 

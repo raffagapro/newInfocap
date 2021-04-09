@@ -3,9 +3,6 @@
 
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/user/profesional-detail" text="" icon="arrow-back"></ion-back-button>
-      <ion-button class="homeBtn" (click)="openMenu()">
-        <ion-icon name="menu" class="homeBtn"></ion-icon>
-      </ion-button>
     </ion-buttons>
     
     <ion-title class="title-toolbar">SOLICITUD DE SERVICIO</ion-title>
@@ -57,6 +54,7 @@
         <ion-col size="10" class="border ion-text-center">
           <ion-item lines="none">
             <ion-textarea
+              class="textarea"
               rows="3" cols="20"
               formControlName="description"
               placeholder="Describe lo más posible y claro el trabajo, así podremos dar respuesta más rápido."
@@ -109,7 +107,7 @@
         <ion-col size="11">
           <ion-item>
             <ion-label class="main-color" position="floating">
-              <ion-icon name="calendar" slot="start" class="main-color"></ion-icon>
+              <ion-icon src="/assets/icon/ic_date_range.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
             </ion-label>
             <ion-datetime 
@@ -128,7 +126,7 @@
         <ion-col size="6">
           <ion-item>
             <ion-label class="main-color" position="floating">
-              <ion-icon name="time" slot="start" class="main-color"></ion-icon>
+              <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">Hora inicial</ion-text>
             </ion-label>
             <ion-datetime 
@@ -143,7 +141,7 @@
         <ion-col size="5">
           <ion-item>
             <ion-label class="main-color" position="floating">
-              <ion-icon name="time" slot="start" class="main-color"></ion-icon>
+              <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">Hora final</ion-text>
             </ion-label>
             <ion-datetime
