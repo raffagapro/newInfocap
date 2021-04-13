@@ -19,7 +19,7 @@
           <!-- slide -->
           <ion-slide *ngFor="let image of loadedImgList">
             <img
-              src="{{ 'http://workintest.herokuapp.com'+image.image }}"
+              src="{{ image.image }}"
               class="imgSlide"
             >
           </ion-slide>
@@ -37,7 +37,7 @@
         <!-- profile img -->
         <ion-col size="4">
           <ion-avatar class="profileImg">
-            <ion-img src="{{ !selectedProfPhoto ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+selectedProfPhoto }}"></ion-img>
+            <ion-img src="{{ !selectedProfPhoto ? 'assets/images/avatar.png' : selectedProfPhoto }}"></ion-img>
           </ion-avatar>
         </ion-col>
 

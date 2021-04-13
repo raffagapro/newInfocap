@@ -57,47 +57,54 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
     this.lc.create({
       message: "Cargando informacion del servicio..."
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API+`/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, {headers: this.headers})
-      .subscribe(resData =>{
-        console.log(resData['data']);
-        loadingEl.dismiss();
-        this.loadedInfo.clientLastName = resData['data'].clientLastName;
-        this.loadedInfo.clientName = resData['data'].clientName;
-        let wDate = resData['data'].date_required.split("-");
-        this.loadedInfo.date_required = wDate[2]+'-'+wDate[1]+'-'+wDate[0];
-        this.loadedInfo.description = resData['data'].description;
-        this.loadedInfo.hours = resData['data'].hours;
-        this.loadedInfo.images = resData['data'].images;
-        this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
-        this.loadedInfo.ticket_number = resData['data'].ticket_number;
-        this.loadedInfo.categoryName = resData['data'].categoryName;
-        this.loadedInfo.clientPhone1 = resData['data'].clientPhone1;
-        this.loadedInfo.status_id = resData['data'].status_id;
-      }, err =>{
-        console.log(err);
-        loadingEl.dismiss();
-        
-      });
+      this.http.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: this.headers })
+        .subscribe(resData => {
+          loadingEl.dismiss();
+          this.loadedInfo.clientLastName = resData['data'].clientLastName;
+          this.loadedInfo.clientName = resData['data'].clientName;
+          let wDate = resData['data'].date_required.split("-");
+          this.loadedInfo.date_required = wDate[2] + '-' + wDate[1] + '-' + wDate[0];
+          this.loadedInfo.description = resData['data'].description;
+          this.loadedInfo.hours = resData['data'].hours;
+          this.loadedInfo.images = resData['data'].images;
+          this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
+          this.loadedInfo.ticket_number = resData['data'].ticket_number;
+          this.loadedInfo.categoryName = resData['data'].categoryName;
+          this.loadedInfo.clientPhone1 = resData['data'].clientPhone1;
+          this.loadedInfo.status_id = resData['data'].status_id;
+        }, err => {
+          console.log(err);
+          loadingEl.dismiss();
+
+        });
     });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.menuController.enable(true, 'profesional');
   }
 
-  call(clientNumb: string){
-    this.callNumber.callNumber(clientNumb, true)
-    .then(res => console.log('Launched dialer!', res))
-    .catch(err => console.log('Error launching dialer', err));
+  openWhatsapp(phone: string) {
+    window.open(`https://api.whatsapp.com/send?phone=${phone}`);
   }
 
-  openMenu(){
+  call(clientNumb: string) {
+    this.callNumber.callNumber(clientNumb, true)
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => console.log('Error launching dialer', err));
+  }
+
+  openMenu() {
     this.menuController.open();
+  }
+
+  formatDate(date: string){
+    return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
   }
 
   formatTime(hours: string) {
@@ -107,66 +114,66 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
       let startHour = moment(wHours[0]).format('h:mm A');
       let endHour = moment(wHours[1]).format('h:mm A');
 
-     return `${startHour} - ${endHour}`;
+      return `${startHour} - ${endHour}`;
     }
   }
 
-  d(date:string){
+  d(date: string) {
     if (date) {
       let wDate = date.split(" ");
-      return wDate[0]; 
+      return wDate[0];
     }
   }
 
-  startSolicitud(){
+  startSolicitud() {
     this.lc.create({
       message: 'Registrando tiempo de inicio...'
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
-      this.http.put(API+`/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/4`, null, {headers: this.headers})
-      .subscribe(resData =>{
-        loadingEl.dismiss();
-        console.log(resData);
-        this.modalController.create({
-          component: ConfirmSuccessStartComponent,
-          cssClass: 'modalSuccess',
-        }).then(modalEl => {
-          modalEl.present();
+      this.http.put(API + `/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/4`, null, { headers: this.headers })
+        .subscribe(resData => {
+          loadingEl.dismiss();
+          console.log(resData);
+          this.modalController.create({
+            component: ConfirmSuccessStartComponent,
+            cssClass: 'modalSuccess',
+          }).then(modalEl => {
+            modalEl.present();
+          });
+        }, err => {
+          console.log(err);
+          loadingEl.dismiss();
         });
-      }, err =>{
-        console.log(err);
-        loadingEl.dismiss();
-      });
     });
   }
 
-  finalizarSolicitud(){
+  finalizarSolicitud() {
     this.lc.create({
       message: 'Finalizando Trabajo...'
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
-      this.http.put(API+`/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/6`, null, {headers: this.headers})
-      .subscribe(resData =>{
-        loadingEl.dismiss();
-        console.log(resData);
-        this.modalController.create({
-          component: ConfirmSuccessComponent,
-          cssClass: 'modalSuccess',
-        }).then(modalEl => {
-          modalEl.present();
+      this.http.put(API + `/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/6`, null, { headers: this.headers })
+        .subscribe(resData => {
+          loadingEl.dismiss();
+          console.log(resData);
+          this.modalController.create({
+            component: ConfirmSuccessComponent,
+            cssClass: 'modalSuccess',
+          }).then(modalEl => {
+            modalEl.present();
+          });
+        }, err => {
+          loadingEl.dismiss();
+          console.log(err);
         });
-      }, err =>{
-        loadingEl.dismiss();
-        console.log(err);
-      });
     });
   }
 
-  confirmSolicitud(){
+  confirmSolicitud() {
     // do something awesome
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
   }
 }

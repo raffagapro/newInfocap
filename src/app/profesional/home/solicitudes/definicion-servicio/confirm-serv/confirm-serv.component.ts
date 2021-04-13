@@ -92,7 +92,7 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
       let startHour = moment(wHours[0]).format('h:mm A');
       let endHour = moment(wHours[1]).format('h:mm A');
 
-     return `${startHour} - ${endHour}`;
+      return `${startHour} - ${endHour}`;
     }
   }
 
@@ -103,33 +103,41 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
     }
   }
 
-  confirmServicio() {
-    this.lc.create({
-      message: "Confirmando solicitud..."
-    }).then(loadingEl => {
-      loadingEl.present();
-      // let wDate = this.solServ.solicitud.newDate.split('/');
-      const body = {
-        date_required: this.solServ.solicitud.newDate,
-        hours: this.solServ.solicitud.newTime,
-      }
-      console.log(body);
-      this.http.put(API + `/supplier/aprove/requestservice/${this.solServ.solicitud.solicitudID}`, body, { headers: this.headers })
-        .subscribe(resData => {
-          console.log(resData);
-          loadingEl.dismiss();
-          this.modalController.dismiss();
-          this.modalController.create({
-            component: ConfirmSuccessComponent,
-            cssClass: 'modalSuccess',
-          }).then(modalEl => {
-            modalEl.present();
-          });
-        }, err => {
-          console.log(err);
-          loadingEl.dismiss();
-        });
+  formatDate(date: string) {
+    return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
+  }
+
+  async confirmServicio() {
+    let loader = await this.lc.create({
+      message: 'Confirmando solicitud...',
     });
+    loader.present();
+    const body = {
+      date_required: this.solServ.solicitud.newDate,
+      hours: this.solServ.solicitud.newTime,
+    }
+
+    try {
+      let response = await axios.put(
+        `${API}/supplier/aprove/requestservice/${this.solServ.solicitud.solicitudID}`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${this.grabbedUser.access_token}`,
+          }
+        }
+      );
+      await loader.dismiss();
+      await this.modalController.dismiss();
+      let successModal = await this.modalController.create({
+        component: ConfirmSuccessComponent,
+        cssClass: 'modalSuccess',
+      });
+      successModal.present();
+    } catch (error) {
+      console.log(error);
+      loader.dismiss();
+    }
   }
 
   dismiss() {

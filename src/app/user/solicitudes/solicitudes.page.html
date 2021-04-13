@@ -45,7 +45,7 @@
             <!-- <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp; -->
             <ion-badge color="medium" class="badge-text">{{ service.categoryName }}</ion-badge><br>
             <span class="textSelect">{{ service.description }}</span><br>
-            <small class="main-color">{{ p(service.created_date) }}</small>
+            <small class="main-color">{{ formatdate(service.created_date) }}</small>
           </ion-text>
         </ion-col>
 

@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
@@ -13,6 +14,7 @@ import { ServicioAgendadoModalComponent } from './servicio-agendado-modal/servic
 import { SolicitudEnviadaModalComponent } from './solicitud-enviada-modal/solicitud-enviada-modal.component';
 import { SolicitudRechazadaModalComponent } from './solicitud-rechazada-modal/solicitud-rechazada-modal.component';
 
+moment.locale('es');
 @Component({
   selector: 'app-solicitud-status',
   templateUrl: './solicitud-status.page.html',
@@ -84,14 +86,16 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
         console.log(resData['data']);
         this.loadedService = resData['data'];
         this.solServ.setServiceObj(resData['data']);
-        let worDate = this.loadedService.created_date.split(" ");
-        this.wDate = worDate[0];
+        this.wDate = moment(this.loadedService.created_date, 'YYYY-MM-DD').format('DD MMM YYYY');
       }, err =>{
         loadingEl.dismiss();
         console.log(err);
-        
       });
     });
+  }
+
+  openWhatsapp() {
+    window.open(`https://api.whatsapp.com/send?phone=${this.loadedService.suplierPhone1}`);
   }
 
   call(clientNumb: string){

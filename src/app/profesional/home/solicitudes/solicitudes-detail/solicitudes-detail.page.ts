@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
@@ -84,20 +85,20 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
 
   ionViewWillEnter() {
     this.menuController.enable(true, 'profesional');
-    console.log(this.loadedInfo);
   }
 
-  p(hours: string) {
+  formatDate(date: string){
+    return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
+  }
+
+  formatTime(hours: string) {
     if (hours) {
       let wHours = hours.split("/");
-      let sHour = wHours[0].split("T");
-      let sHour2 = sHour[1];
-      sHour2 = sHour2.substring(0, 5);
-      let eHour = wHours[1].split("T");
-      let eHour2 = eHour[1];
-      eHour2 = eHour2.substring(0, 5);
-      return sHour2 + " - " + eHour2;
+      let startHour = moment(wHours[0]).format('h:mm a');
+      let endHour = moment(wHours[1]).format('h:mm a');
+      return `${startHour} - ${endHour}`;
     }
+    return 'No disponible'
   }
 
   d(date: string) {
@@ -109,6 +110,10 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
 
   openMenu() {
     this.menuController.open();
+  }
+
+  openWhatsapp() {
+    window.open(`https://api.whatsapp.com/send?phone=${this.loadedInfo.clientPhone1}`);
   }
 
   call(clientNumb: string) {

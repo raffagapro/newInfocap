@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    
+
     <ion-buttons slot="start">
       <ion-button class="homeBtn" (click)="openMenu()">
         <ion-icon name="menu" class="homeBtn"></ion-icon>
@@ -18,10 +18,12 @@
     <ion-row class="ion-margin-top">
       <ion-col size="11" class="ion-text-left">
         <ion-text class="main-color title" *ngIf="loadedServices.length > 0">
-          <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes los siguientes trabajos en tu agenda.</b>
+          <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes
+            los siguientes trabajos en tu agenda.</b>
         </ion-text>
         <ion-text class="main-color title" *ngIf="loadedServices.length === 0">
-          <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no tienes trabajos en tu agenda.</b>
+          <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no
+            tienes trabajos en tu agenda.</b>
         </ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
@@ -36,12 +38,13 @@
         <!-- title -->
         <ion-col size="8" class="ion-justify-content-center">
           <ion-text>
-            <span class="titleSelect main-color ion-text-capitalize">{{service.clientName+" "+ service.clientLastName}} </span>&nbsp;&nbsp;
+            <span class="titleSelect main-color ion-text-capitalize">{{service.clientName+" "+ service.clientLastName}}
+            </span>&nbsp;&nbsp;
             <ion-badge color="primary" class="badge-text">{{ service.categoryName }}</ion-badge>
             <br>
             <small>
               <ion-icon src="/assets/icon/ic_date_range.svg" color="primary" class="iconFix"></ion-icon>
-              {{service.date_required}}
+              {{formatDate(service.date_required)}}
               <ion-icon src="/assets/icon/ic_schedule.svg" color="primary" class="iconFix"></ion-icon>
               {{ formatTime(service.hours) }}
             </small>
@@ -49,7 +52,7 @@
         </ion-col>
 
         <!-- ticket numer -->
-        <ion-col size="4" >
+        <ion-col size="4">
 
           <!-- enviada -->
           <ion-text>
@@ -76,7 +79,8 @@
         <!-- title -->
         <ion-col size="8" class="ion-justify-content-center">
           <ion-text>
-            <span class="titleSelect main-color ion-text-capitalize">{{service.clientName+" "+ service.clientLastName}} </span>&nbsp;&nbsp;
+            <span class="titleSelect main-color ion-text-capitalize">{{service.clientName+" "+ service.clientLastName}}
+            </span>&nbsp;&nbsp;
             <ion-badge color="primary" class="badge-text">{{ service.categoryName }}</ion-badge>
             <br>
             <small>
@@ -89,7 +93,7 @@
         </ion-col>
 
         <!-- ticket numer -->
-        <ion-col size="4" >
+        <ion-col size="4">
 
           <!-- enviada -->
           <ion-text>
@@ -109,7 +113,7 @@
   </div>
 
   <!-- title -->
-  <ion-grid  *ngIf="loadedVisits.length > 0">
+  <ion-grid *ngIf="loadedVisits.length > 0">
     <ion-row>
       <ion-col size="11" class="ion-text-left">
         <ion-text color="danger" class="title"><b>Tienes las siguientes visitas de evaluación agendadas.</b></ion-text>
@@ -126,7 +130,8 @@
         <!-- title -->
         <ion-col size="8" class="ion-justify-content-center">
           <ion-text>
-            <span class="titleSelect main-color ion-text-capitalize">{{service.clientName+" "+ service.clientLastName}} </span>&nbsp;&nbsp;
+            <span class="titleSelect main-color ion-text-capitalize">{{service.clientName+" "+ service.clientLastName}}
+            </span>&nbsp;&nbsp;
             <ion-badge color="primary" class="badge-text">{{ service.categoryName }}</ion-badge>
             <br>
             <small>

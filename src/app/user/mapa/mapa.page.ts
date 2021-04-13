@@ -206,6 +206,7 @@ export class MapaPage implements OnInit, OnDestroy {
   }
 
   searchPro() {
+    this.solServ.setInstructions(this.form.value.addressInstructions);
     this.router.navigate(['/user/profesional-list']);
   }
 

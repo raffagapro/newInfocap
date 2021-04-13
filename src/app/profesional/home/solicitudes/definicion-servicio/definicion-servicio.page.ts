@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
@@ -17,6 +18,8 @@ import { ConfirmServComponent } from './confirm-serv/confirm-serv.component';
   styleUrls: ['./definicion-servicio.page.scss'],
 })
 export class DefinicionServicioPage implements OnInit, OnDestroy {
+  showError = false;
+  minDate = moment().add('hour', 1);
   grabbedUser: User;
   userSub: Subscription;
   headers: HttpHeaders;
@@ -74,77 +77,79 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.menuController.enable(true, 'user');
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
     this.loadService();
   }
 
-  loadService(){
+  loadService() {
     this.lc.create({
       message: "Cargando informacion del servicio..."
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API+`/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, {headers: this.headers})
-      .subscribe(resData =>{
-        console.log(resData['data']);
-        loadingEl.dismiss();
-        this.loadedInfo.clientLastName = resData['data'].clientLastName;
-        this.loadedInfo.clientName = resData['data'].clientName;
-        this.loadedInfo.date_required = resData['data'].date_required;
-        this.loadedInfo.description = resData['data'].description;
-        this.loadedInfo.hours = resData['data'].hours.split("/");
-        this.form.patchValue({
-          sHour: this.loadedInfo.hours[0],
-          eHour: this.loadedInfo.hours[1],
-          dateReq: this.loadedInfo.date_required,
+      this.http.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: this.headers })
+        .subscribe(resData => {
+          console.log(resData['data']);
+          loadingEl.dismiss();
+          this.loadedInfo.clientLastName = resData['data'].clientLastName;
+          this.loadedInfo.clientName = resData['data'].clientName;
+          this.loadedInfo.date_required = resData['data'].date_required;
+          this.loadedInfo.description = resData['data'].description;
+          this.loadedInfo.hours = resData['data'].hours.split("/");
+          this.form.patchValue({
+            sHour: this.loadedInfo.hours[0],
+            eHour: this.loadedInfo.hours[1],
+            dateReq: this.loadedInfo.date_required,
+          });
+          this.loadedInfo.images = resData['data'].images;
+          this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
+          this.loadedInfo.ticket_number = resData['data'].ticket_number;
+          this.loadedInfo.categoryName = resData['data'].categoryName;
+
+          this.minDate = this.loadedInfo.date_required;
+        }, err => {
+          console.log(err);
+          loadingEl.dismiss();
         });
-        this.loadedInfo.images = resData['data'].images;
-        this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
-        this.loadedInfo.ticket_number = resData['data'].ticket_number;
-        this.loadedInfo.categoryName = resData['data'].categoryName;
-      }, err =>{
-        console.log(err);
-        loadingEl.dismiss();
-      });
     });
   }
 
-  p(hours: string){
+  formatTime(hours: string) {
     if (hours) {
       let wHours = hours.split("/");
-      let sHour = wHours[0].split("T");
-      let sHour2 = sHour[1];
-      sHour2 = sHour2.substring(0, 5);
-      let eHour = wHours[1].split("T");
-      let eHour2 = eHour[1];
-      eHour2 = eHour2.substring(0, 5);
-      return sHour2+" - "+eHour2;
+      let starHour = moment(wHours[0]).format('h:mm a');
+      let endHour = moment(wHours[1]).format('h:mm a');
+      return `${starHour} - ${endHour}`;
     }
   }
 
-  d(date:string){
+  d(date: string) {
     if (date) {
       let wDate = date.split(" ");
-      return wDate[0]; 
+      return wDate[0];
     }
   }
 
-  openMenu(){
+  openMenu() {
     this.menuController.open();
   }
 
-  confirmRequest(){
-    console.log(this.form);
+  confirmRequest() {
     let wDate = this.form.value.dateReq.split('T');
     wDate = wDate[0];
     wDate = wDate.split('-');
-    wDate = wDate[2]+'/'+wDate[1]+'/'+wDate[0];
+    wDate = wDate[2] + '/' + wDate[1] + '/' + wDate[0];
     this.solServ.setNewDate(wDate);
-    console.log(this.solServ.solicitud.newDate);
-    this.solServ.setNewTime(this.form.value.sHour+'/'+this.form.value.eHour);
-    console.log(this.solServ.solicitud.newDate);
-    // console.log(this.solServ.solicitud.newTime);
+    this.solServ.setNewTime(this.form.value.sHour + '/' + this.form.value.eHour);
+
+    let starHour = moment(this.form.value.sHour);
+    let endHour = moment(this.form.value.eHour);
+
+    if (starHour.isAfter(endHour)) {
+      this.showError = true;
+      return;
+    }
     this.modalController.create({
       component: ConfirmServComponent,
       cssClass: 'modalSE',
@@ -153,7 +158,7 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
   }
 }

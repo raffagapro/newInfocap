@@ -5,7 +5,7 @@
       <ion-back-button defaultHref="/profesional/home/home-tabs/solicitudes" text="" icon="arrow-back"></ion-back-button>
     </ion-buttons>
 
-    <ion-title class="title-toolbar">DETALLE DEL SERVICIO</ion-title>
+    <ion-title class="title-toolbar">ACEPTAR SOLICITUD</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -18,7 +18,7 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <ion-img src="{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+loadedInfo.img_client_profile  }}"></ion-img>
+            <ion-img src="{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_client_profile  }}"></ion-img>
           </ion-avatar>
         </ion-col>
 
@@ -63,7 +63,7 @@
           <!-- slide -->
           <ion-slide *ngFor="let image of loadedInfo.images">
             <img
-              src="{{ 'http://workintest.herokuapp.com'+image.image }}"
+              src="{{ image.image }}"
               class="imgSlide"
             >
           </ion-slide>
@@ -83,7 +83,7 @@
 
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="subText"> {{ loadedInfo.date_required }}</ion-text>
+        <ion-text class="subText"> {{ formatDate(loadedInfo.date_required) }}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -99,7 +99,7 @@
 
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="subText"> {{ p(loadedInfo.hours) }} horas</ion-text>
+        <ion-text class="subText"> {{ formatTime(loadedInfo.hours) }}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -131,7 +131,7 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <!-- icons -->
-        <div class="locate-cont bg-green-color" (click)="call(loadedInfo.clientPhone1)">
+        <div class="locate-cont bg-green-color" (click)="openWhatsapp()">
           <ion-icon name="call" color="light" class="rating-text"></ion-icon>
         </div>
         <!-- <a href="whatsapp//send?phone={{ loadedInfo.clientPhone1 }}">

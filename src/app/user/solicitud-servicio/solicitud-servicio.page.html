@@ -4,7 +4,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/user/profesional-detail" text="" icon="arrow-back"></ion-back-button>
     </ion-buttons>
-    
+
     <ion-title class="title-toolbar">SOLICITUD DE SERVICIO</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -18,7 +18,7 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <ion-img src="{{ !selectedProfPhoto ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+selectedProfPhoto }}"></ion-img>
+            <ion-img src="{{ !selectedProfPhoto ? 'assets/images/avatar.png' : selectedProfPhoto }}"></ion-img>
           </ion-avatar>
         </ion-col>
 
@@ -26,10 +26,12 @@
         <ion-col size="7">
           <ion-text>
             <span class="titleSelect main-color ion-text-capitalize">
-              {{ selectedProfesional.supplierName }}  {{ selectedProfesional.supplierLastName }}
+              {{ selectedProfesional.supplierName }} {{ selectedProfesional.supplierLastName }}
             </span><br>
-            <ion-badge color="primary" class="badge-text ion-text-capitalize">{{ selectedProfesional.categoryName }}</ion-badge><br>
-            <p class="textSelect main-color badge-text ion-text-capitalize" style="margin-top: 0; margin-bottom: 0;">{{ selectedProfesional.communeName }}</p>
+            <ion-badge color="primary" class="badge-text ion-text-capitalize">{{ selectedProfesional.categoryName }}
+            </ion-badge><br>
+            <p class="textSelect main-color badge-text ion-text-capitalize" style="margin-top: 0; margin-bottom: 0;">{{
+              selectedProfesional.communeName }}</p>
           </ion-text>
         </ion-col>
 
@@ -53,12 +55,8 @@
         <ion-col size="1"></ion-col>
         <ion-col size="10" class="border ion-text-center">
           <ion-item lines="none">
-            <ion-textarea
-              class="textarea"
-              rows="3" cols="20"
-              formControlName="description"
-              placeholder="Describe lo más posible y claro el trabajo, así podremos dar respuesta más rápido."
-              >
+            <ion-textarea class="textarea" rows="3" cols="20" formControlName="description"
+              placeholder="Describe lo más posible y claro el trabajo, así podremos dar respuesta más rápido.">
             </ion-textarea>
           </ion-item>
         </ion-col>
@@ -69,7 +67,8 @@
       <ion-row class="ion-margin-top">
         <ion-col size="1"></ion-col>
         <ion-col size="10" class="ion-text-center">
-          <ion-text class="main-color regText"><b>Agrega imágenes que ayudarán al profesional a responder mejor a tu solicitud.</b></ion-text>
+          <ion-text class="main-color regText"><b>Agrega imágenes que ayudarán al profesional a responder mejor a tu
+              solicitud.</b></ion-text>
         </ion-col>
         <ion-col size="1"></ion-col>
       </ion-row>
@@ -81,10 +80,7 @@
 
             <!-- slide -->
             <ion-slide *ngFor="let image of loadedImagesDisplay" [loadedImagesDisplay]='loadedImagesDisplay'>
-              <ion-img 
-                src="{{ image }}"
-                class="imgSlide"
-              >
+              <ion-img src="{{ image }}" class="imgSlide">
               </ion-img>
             </ion-slide>
 
@@ -110,10 +106,8 @@
               <ion-icon src="/assets/icon/ic_date_range.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
             </ion-label>
-            <ion-datetime 
-              formControlName="date_required"
-              placeholder="Definir fecha"
-              >
+            <ion-datetime formControlName="date_required" placeholder="Definir fecha"
+              [min]="minDate.format('YYYY-MM-DD')" (ngModelChange)="onDateChange($event)">
             </ion-datetime>
           </ion-item>
         </ion-col>
@@ -129,11 +123,8 @@
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora inicial</ion-text>
             </ion-label>
-            <ion-datetime 
-              formControlName="sHour"
-              display-format="h:mm A" 
-              picker-format="h:mm A"
-              >
+            <ion-datetime formControlName="sHour" display-format="h:mm A" picker-format="h:mm A"
+              [min]="minDate.format('YYYY-MM-DD')">
             </ion-datetime>
           </ion-item>
         </ion-col>
@@ -144,13 +135,20 @@
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora final</ion-text>
             </ion-label>
-            <ion-datetime
-              formControlName="eHour"
-              display-format="h:mm A" 
-              picker-format="h:mm A"
-              >
+            <ion-datetime formControlName="eHour" display-format="h:mm A" picker-format="h:mm A"
+              [min]="minDate.format('YYYY-MM-DD')">
             </ion-datetime>
           </ion-item>
+        </ion-col>
+
+        <!-- error  -->
+        <ion-col size="12" *ngIf="showError" >
+          <ion-label class="errorMess">
+            <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
+            <ion-text class="text-center" color="danger">
+              <small> La hora de inicio debe ser menor que la hora de fin</small>
+            </ion-text>
+          </ion-label>
         </ion-col>
       </ion-row>
 

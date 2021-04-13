@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { ImgListService } from 'src/app/services/img-list.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
+
+moment.locale('es');
 
 @Component({
   selector: 'app-solicitud-enviada-modal',
@@ -42,15 +45,15 @@ export class SolicitudEnviadaModalComponent implements OnInit, OnDestroy {
     this.ils.setImgList(this.loadedService.img_request);   
   }
 
-  p(hours: string){
+  formatTime(hours: string){
     let wHours = hours.split("/");
-    let sHour = wHours[0].split("T");
-    let sHour2 = sHour[1];
-    sHour2 = sHour2.substring(0, 5);
-    let eHour = wHours[1].split("T");
-    let eHour2 = eHour[1];
-    eHour2 = eHour2.substring(0, 5);
-    return sHour2+" - "+eHour2;
+    let startHour = moment(wHours[0]);
+    let endHour = moment(wHours[1]);
+    return `${startHour.format('h:mm a')} - ${endHour.format('h:mm a')}`;
+  }
+
+  formatDate(date: string){
+    return moment(date, 'YYYY-MM-DD').format('DD MMMM YYYY');
   }
 
   dismiss(){

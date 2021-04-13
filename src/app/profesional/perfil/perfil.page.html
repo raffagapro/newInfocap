@@ -14,7 +14,7 @@
     <ion-row class="imgCont">
       <ion-col>
         <ion-avatar class="ion-margin-start profileImg">
-          <ion-img src="{{ !grabbedUser.img_profile || grabbedUser.img_profile === '' ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+grabbedUser.img_profile }}"></ion-img>
+          <ion-img src="{{ !grabbedUser.img_profile || grabbedUser.img_profile === '' ? 'assets/images/avatar.png' : grabbedUser.img_profile }}"></ion-img>
         </ion-avatar>
       </ion-col>
     </ion-row>

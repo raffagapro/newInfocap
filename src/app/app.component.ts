@@ -11,6 +11,7 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { User, UserRoles } from './model/user.model';
 import { API } from 'src/environments/environment';
+import { IMAGE_URL_BLANK } from 'src/shared/constants';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { API } from 'src/environments/environment';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  imageBlank = IMAGE_URL_BLANK;
   whatsappPhone = '529992781314';
   firstLoad = false;
   logged: Observable<boolean>;
@@ -87,6 +89,6 @@ export class AppComponent {
   }
 
   openWhatsapp() {
-    window.open(`https://api.whatsapp.com/send?phone= ${this.whatsappPhone}`);
+    window.open(`https://api.whatsapp.com/send?phone=${this.whatsappPhone}`);
   }
 }

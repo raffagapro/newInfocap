@@ -42,9 +42,6 @@ export class HomePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
-      console.log(user.role)
-      console.log(user.role === UserRoles.PROFESSIONAL)
-      console.log(user.role === UserRoles.USER)
       this.menuController.enable(user.role === UserRoles.PROFESSIONAL, UserRoles.PROFESSIONAL);
       this.menuController.enable(user.role === UserRoles.USER, UserRoles.USER);
     });
@@ -68,6 +65,7 @@ export class HomePage implements OnInit, OnDestroy {
         }
       );
       loader.dismiss();
+      console.log(response.data.data)
       this.categories = response.data.data;
     } catch (error) {
       loader.dismiss();

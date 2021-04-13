@@ -9,7 +9,7 @@ import { SolicitudObject } from '../model/solicitudObject.model';
 })
 export class SolicitudService {
   private _solicitud: Solicitud = new Solicitud(
-    null, null, null, null, null, null, null, null, null, null, null, null
+    null, null, null, null, null, null, null, null, null, null, null, null, null
     );
 
   constructor() { }
@@ -61,9 +61,13 @@ export class SolicitudService {
     this._solicitud.newTime  = newtime;
   }
 
+  setInstructions(instructions: string) {
+    this._solicitud.instructions = instructions;
+  }
+  
   clearSolicitud(){
     this._solicitud = new Solicitud(
-      null, null, null, null, null, null, null, null, null, null, null, null
+      null, null, null, null, null, null, null, null, null, null, null, null, null
       );
   }
 }

@@ -13,7 +13,7 @@
     <ion-row 
       *ngFor="let cat of categories"
       class="category-item ion-align-items-end"
-      style="background-image: url('{{urlServer}}{{ cat.image }}');" 
+      style="background-image: url('{{ cat.image }}');" 
       (click)="map(cat.id)">
       <ion-col class="cat-bar">
         <ion-text color="light">

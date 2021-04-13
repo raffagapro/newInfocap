@@ -2,12 +2,10 @@
   <ion-toolbar color="primary">
 
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/profesional/home/home-tabs/solicitudes/solicitudes-detail" text="" icon="arrow-back"></ion-back-button>
-      <ion-button class="homeBtn" (click)="openMenu()">
-        <ion-icon name="menu" class="homeBtn"></ion-icon>
-      </ion-button>
+      <ion-back-button defaultHref="/profesional/home/home-tabs/solicitudes/solicitudes-detail" text=""
+        icon="arrow-back"></ion-back-button>
     </ion-buttons>
-    
+
     <ion-title class="title-toolbar">DEFINICIÓN DEL SERVICIO</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -21,7 +19,9 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <ion-img src="{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+loadedInfo.img_client_profile  }}"></ion-img>
+            <ion-img
+              src="{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_client_profile  }}">
+            </ion-img>
           </ion-avatar>
         </ion-col>
 
@@ -30,9 +30,11 @@
           <ion-text>
             <small class="ticket">Ticket #{{ loadedInfo.ticket_number }}</small><br>
             <span class="titleSelect main-color ion-text-capitalize">{{ loadedInfo.categoryName }} para<br>
-              <span class="ion-text-capitalize titleName">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName }}</span>
+              <span class="ion-text-capitalize titleName">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName
+                }}</span>
             </span><br>
-            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">{{ d(loadedInfo.created_date) }}</p>
+            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">{{ d(loadedInfo.created_date) }}
+            </p>
           </ion-text>
         </ion-col>
 
@@ -63,13 +65,10 @@
       <ion-row>
         <ion-col size="12">
           <ion-slides [options]="slideOptions">
-            
+
             <!-- slide -->
             <ion-slide *ngFor="let image of loadedInfo.images">
-              <img
-                src="{{ 'http://workintest.herokuapp.com'+image.image }}"
-                class="imgSlide"
-              >
+              <img src="{{ image.image }}" class="imgSlide">
             </ion-slide>
 
           </ion-slides>
@@ -84,8 +83,7 @@
               <ion-icon src="/assets/icon/ic_date_range.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
             </ion-label>
-            <ion-datetime
-              formControlName="dateReq">
+            <ion-datetime [min]="minDate" formControlName="dateReq">
             </ion-datetime>
           </ion-item>
         </ion-col>
@@ -99,10 +97,7 @@
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora inicial</ion-text>
             </ion-label>
-            <ion-datetime
-              formControlName="sHour"
-              display-format="h:mm A"
-              picker-format="h:mm A">
+            <ion-datetime formControlName="sHour" display-format="h:mm A" picker-format="h:mm A">
             </ion-datetime>
           </ion-item>
         </ion-col>
@@ -116,12 +111,21 @@
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora final</ion-text>
             </ion-label>
-            <ion-datetime
-              formControlName="eHour"
-              display-format="h:mm A" 
-              picker-format="h:mm A">
+            <ion-datetime formControlName="eHour" display-format="h:mm A" picker-format="h:mm A">
             </ion-datetime>
           </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="showError">
+        <!-- error  -->
+        <ion-col size="12">
+          <ion-label class="errorMess">
+            <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
+            <ion-text class="text-center" color="danger">
+              <small> La hora de inicio debe ser menor que la hora de fin</small>
+            </ion-text>
+          </ion-label>
         </ion-col>
       </ion-row>
 
@@ -142,10 +146,7 @@
       <ion-row class="ion-margin-top ion-margin-bottom">
         <ion-col size="1"></ion-col>
         <ion-col>
-          <ion-button
-            size="5" expand="block"
-            type="submit"
-            class="ion-text-uppercase">
+          <ion-button size="5" expand="block" type="submit" class="ion-text-uppercase">
             ACEPTAR SOLICITUD
           </ion-button>
         </ion-col>

@@ -2,12 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController } from '@ionic/angular';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
+
+moment.locale('es');
 
 @Component({
   selector: 'app-solicitudes',
@@ -43,9 +46,8 @@ export class SolicitudesPage implements OnInit, OnDestroy {
     this.loadServices();
   }
 
-  p(passingDate: string){
-    let woDate = passingDate.split(" ");
-    return woDate[0];
+  formatdate(date: string){
+    return moment(date, 'DD/MM/YYYY').format('DD MMM YYYY');
   }
 
   loadServices(){

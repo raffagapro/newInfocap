@@ -13,6 +13,8 @@ import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ImgListService } from 'src/app/services/img-list.service';
+import * as moment from 'moment';
+import { Moment } from 'moment';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -44,6 +46,7 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
   // selectedProfesional: ProfCategory = new ProfCategory(
   //   null, null, null, null, null, null, null, null, null, null, null, null, null
   // );
+  minDate = moment().add('hour', 1);
   selectedProfesional = {
     supplierName: null,
     supplierLastName: null,
@@ -59,7 +62,7 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
   selectedProfPhoto: string;
   loadedImages = [];
   loadedImagesDisplay = [];
-
+  showError = false;
 
 
   // slideOptions = {
@@ -90,7 +93,7 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
     this.selectedProfesional.communeName = this.solServ.solicitud.proPerfil.communeName;
 
     this.selectedProfPhoto = this.solServ.solicitud.proPhoto;
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
     // platfrom Checker
     if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
       this.useInputPicker = true;
@@ -120,16 +123,16 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
     });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.menuController.enable(true, 'user');
-    console.log(this.solServ.solicitud.address); 
+    console.log(this.solServ.solicitud.address);
   }
 
-  openMenu(){
+  openMenu() {
     this.menuController.open();
   }
 
-  onLoadImg(){
+  onLoadImg() {
     if (!Capacitor.isPluginAvailable('Camera') || this.useInputPicker) {
       this.hiddenImgInputRef.nativeElement.click();
       return;
@@ -141,33 +144,33 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
       height: 150,
       // width: 200,
       resultType: CameraResultType.DataUrl,
-    }).then(image =>{
+    }).then(image => {
       console.log(image);
-      
+
       // this.selectedImage = image.dataUrl;
       // this.imgPick.emit(image.dataUrl);
 
       // console.log(this.selectedImage);
       //save img to api
       this.saveImgToApi(image.dataUrl);
-    }).catch(e =>{
+    }).catch(e => {
       console.log(e);
     });
   }
 
-  onLoadImgFromInput(e: Event){
+  onLoadImgFromInput(e: Event) {
     const loadedFile = (e.target as HTMLInputElement).files[0];
     // console.log(loadedFile);
     this.saveImgToApi(loadedFile);
     //converting images to blob for diplaying
     const fr = new FileReader();
-    fr.onload = () =>{
+    fr.onload = () => {
       this.loadedImagesDisplay.push(fr.result.toString());
     };
     fr.readAsDataURL((e.target as HTMLInputElement).files[0]);
   }
 
-  saveImgToApi(imageData: string | File){
+  saveImgToApi(imageData: string | File) {
     let imgFile;
     if (typeof imageData === 'string') {
       try {
@@ -176,20 +179,20 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
         console.log(e);
         return;
       }
-    }else{
+    } else {
       imgFile = imageData;
     }
     this.loadedImages.push(imgFile);
     console.log(this.loadedImages);
   }
 
-  confirmRequest(){
+  confirmRequest() {
     // console.log(this.form);
     //format date
     let wDate = this.form.value.date_required.split('T');
     wDate = wDate[0];
     wDate = wDate.split('-');
-    wDate = wDate[2]+'/'+wDate[1]+'/'+wDate[0];
+    wDate = wDate[2] + '/' + wDate[1] + '/' + wDate[0];
     const formData = new FormData();
     this.loadedImages.forEach(image => {
       formData.append('images[]', image);
@@ -197,33 +200,42 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
     formData.append('cummune_id', this.solServ.solicitud.comuna_id);
     formData.append('description', this.form.value.description);
     formData.append('adress', this.form.value.adress);
+    formData.append('adress_detail', this.form.value.adress);
+    formData.append('extra_instructions', this.solServ.solicitud.instructions);
     formData.append('date_required', wDate);
-    formData.append('hours', this.form.value.sHour+"/"+this.form.value.eHour);
+    formData.append('hours', this.form.value.sHour + "/" + this.form.value.eHour);
     formData.append('professional_profile_id', this.solServ.solicitud.proPerfil_id);
-    console.log(wDate);
+
+    let startHour = moment(this.form.value.sHour);
+    let endHour = moment(this.form.value.eHour);
+    if (startHour.isAfter(endHour)) {
+      this.showError = true;
+      return
+    }
+    this.showError = false;
+    
     this.lc.create({
       message: 'Creando su solicitud...'
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
-      this.http.post(API+'/client/requestservice', formData, {headers: this.headers})
-      .subscribe(resData =>{
-        console.log(resData);
-        loadingEl.dismiss();
-        this.modalController.create({
-          component: ConfirmSuccessModalComponent,
-          cssClass: 'modalSuccess',
-        }).then(modalEl => {
-          modalEl.present();
+      this.http.post(API + '/client/requestservice', formData, { headers: this.headers })
+        .subscribe(resData => {
+          console.log(resData);
+          loadingEl.dismiss();
+          this.modalController.create({
+            component: ConfirmSuccessModalComponent,
+            cssClass: 'modalSuccess',
+          }).then(modalEl => {
+            modalEl.present();
+          });
+        }, err => {
+          loadingEl.dismiss();
+          console.log(err);
         });
-      }, err =>{
-        loadingEl.dismiss();
-        console.log(err);
-      });
     });
-    
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
   }
 }

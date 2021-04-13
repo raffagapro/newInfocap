@@ -41,9 +41,12 @@ export class AgendadosPage implements OnInit, OnDestroy {
     });
   }
 
-  ionViewWillEnter(){
+  formatDate(date: string){
+    return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
+  }
+
+  ionViewWillEnter() {
     this.menuController.enable(true, 'profesional');
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
     // load agendados
     this.loadServices("3");
     this.loadServices("4");
@@ -52,31 +55,32 @@ export class AgendadosPage implements OnInit, OnDestroy {
     // this.loadServices("2");
   }
 
-  loadServices(statusID: string){
+  loadServices(statusID: string) {
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
     this.lc.create({
       message: "Cargando lista de servicios..."
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API+`/supplier/requestservice/${statusID}`, {headers: this.headers})
-      .subscribe(resData =>{
-        console.log(resData['data']);
-        loadingEl.dismiss();
-        if (statusID === "3") {
-          this.loadedServices = resData["data"];
-          // console.log(this.loadedServices);
-        }
-        if (statusID === "4") {
-          this.loadedStartedServices = resData["data"];
-          // console.log(this.loadedServices);
-        }
-        // if (statusID === "2") {
-        //   this.loadedVisits = resData["data"];
-        //   console.log(this.loadedVisits);
-        // }
-      }, err =>{
-        console.log(err);
-        loadingEl.dismiss();
-      });
+      this.http.get(API + `/supplier/requestservice/${statusID}`, { headers: this.headers })
+        .subscribe(resData => {
+          console.log(resData['data']);
+          loadingEl.dismiss();
+          if (statusID === "3") {
+            this.loadedServices = resData["data"];
+            // console.log(this.loadedServices);
+          }
+          if (statusID === "4") {
+            this.loadedStartedServices = resData["data"];
+            // console.log(this.loadedServices);
+          }
+          // if (statusID === "2") {
+          //   this.loadedVisits = resData["data"];
+          //   console.log(this.loadedVisits);
+          // }
+        }, err => {
+          console.log(err);
+          loadingEl.dismiss();
+        });
     });
   }
 
@@ -87,20 +91,20 @@ export class AgendadosPage implements OnInit, OnDestroy {
       let startHour = moment(wHours[0]).format('h:mm A');
       let endHour = moment(wHours[1]).format('h:mm A');
 
-     return `${startHour} - ${endHour}`;
+      return `${startHour} - ${endHour}`;
     }
   }
 
-  openMenu(){
+  openMenu() {
     this.menuController.open();
   }
 
-  solicitudDetail(serviceID: string){
+  solicitudDetail(serviceID: string) {
     this.solServ.setServiceID(serviceID);
     this.router.navigate(['profesional/agendados/agendados-detail']);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
   }
 

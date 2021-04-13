@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
+import { IMAGE_URL_BLANK } from 'src/shared/constants';
 import { SuccessModalComponent } from './success-modal/success-modal.component';
 
 function base64toBlob(base64Data, contentType) {
@@ -258,8 +259,8 @@ export class ProfilePagePage implements OnInit, OnDestroy {
   }
 
   getProfilePicture() {
-    if (this.grabbedUser.img_profile && this.grabbedUser.img_profile !== '/') {
-      return `http://workintest.herokuapp.com${this.grabbedUser.img_profile}`
+    if (this.grabbedUser.img_profile && this.grabbedUser.img_profile !== IMAGE_URL_BLANK) {
+      return this.grabbedUser.img_profile;
     }
     return 'assets/images/avatar.png';
   }

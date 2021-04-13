@@ -8,6 +8,7 @@ import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
+import { IMAGE_URL_BLANK } from 'src/shared/constants';
 
 @Component({
   selector: 'app-profesional-list',
@@ -15,6 +16,7 @@ import { API } from 'src/environments/environment';
   styleUrls: ['./profesional-list.page.scss'],
 })
 export class ProfesionalListPage implements OnInit, OnDestroy {
+  imageBlank = IMAGE_URL_BLANK;
   profList = [];
   grabbedUser: User;
   userSub: Subscription;

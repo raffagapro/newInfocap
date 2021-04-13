@@ -10,6 +10,7 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { ImgListService } from 'src/app/services/img-list.service';
+import { IMAGE_URL_BLANK } from 'src/shared/constants';
 
 @Component({
   selector: 'app-profesional-detail',
@@ -62,6 +63,10 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
     this.menuController.enable(true, 'user');
     this.getProf();
     this.selectedProfPhoto = this.solServ.solicitud.proPhoto;
+
+    if(this.selectedProfPhoto === IMAGE_URL_BLANK) {
+      this.selectedProfPhoto = null;
+    }
   }
 
   getProf(){
