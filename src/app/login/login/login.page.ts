@@ -32,7 +32,6 @@ export class LoginPage implements OnInit {
   }
 
   async login(form: NgForm) {
-    // console.log(form);
     if (!form.valid) {
       return;
     }

@@ -80,7 +80,6 @@ export class UserService {
     let headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
     this.http.get(API + '/account/me', { headers: headers })
       .subscribe(resData => {
-        // console.log(resData['data'].id);
         let img: string;
         if (resData['data'].img_profile === null) {
           img = null;

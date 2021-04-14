@@ -60,7 +60,6 @@ export class ProfilePagePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
-      console.log(user)
     });
     //api headers
     this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
@@ -111,7 +110,6 @@ export class ProfilePagePage implements OnInit, OnDestroy {
   }
 
   onUpdateUser() {
-    // console.log(this.form);
     this.httpError = null;
     this.passError = null;
     let name = this.form.value.name.split(" ");
@@ -119,7 +117,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
     if (name.length > 2) {
       lname += ' ' + name[2];
     }
-    // console.log(name[0], lname);
+
     const modUser = {
       name: name[0],
       last_name: lname,
@@ -138,7 +136,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
         return;
       }
     }
-    // console.log(this.form, this.form.errors.name);
+
     this.lc.create({
       message: 'Alcualizando la informacion...'
     }).then(loadingEl => {
@@ -147,7 +145,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
       this.http.put(API + '/account', modUser, { headers: headers })
         .subscribe(resData => {
           loadingEl.dismiss();
-          // console.log(resData);
+
           if (resData['code'] === 200) {
             //update user controler
             this.us.setUser(new User(
@@ -179,7 +177,6 @@ export class ProfilePagePage implements OnInit, OnDestroy {
             });
           }
         }, e => {
-          // console.log(e['error'].message);
           loadingEl.dismiss();
           this.httpError = e['error'].message;
         });
@@ -203,15 +200,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
       promptLabelPicture: 'Camara',
       promptLabelCancel: 'Cancelar'
     }).then(image => {
-      // console.log(image);
-
-      // this.selectedImage = image.dataUrl;
-      // this.imgPick.emit(image.dataUrl);
-
-      // console.log(this.selectedImage);
-      //save img to api
       this.saveImgToApi(image.dataUrl);
-
     }).catch(e => {
       console.log(e);
     });
@@ -219,7 +208,6 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 
   onLoadImgFromInput(e: Event) {
     const loadedFile = (e.target as HTMLInputElement).files[0];
-    // console.log(loadedFile);
     this.saveImgToApi(loadedFile);
     //save img to api
   }
@@ -241,7 +229,6 @@ export class ProfilePagePage implements OnInit, OnDestroy {
     formData.append('image', imgFile);
     this.http.post(API + '/account/image', formData, { headers: this.headers })
       .subscribe(resData => {
-        // console.log(resData);
         this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
         this.modalController.create({
           component: SuccessModalComponent,

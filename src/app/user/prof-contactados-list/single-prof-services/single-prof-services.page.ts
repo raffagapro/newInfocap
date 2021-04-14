@@ -50,9 +50,6 @@ export class SingleProfServicesPage implements OnInit, OnDestroy {
       loadingEl.present();
       this.http.get(API+'/client/requestservices', {headers: this.headers})
       .subscribe(resData =>{
-        console.log(resData['data']);
-        console.log(this.solServ.solicitud.profId);
-        
         loadingEl.dismiss();
         this.loadedServices = resData['data'];
         this.loadedServices.sort( this.compare );
@@ -88,7 +85,7 @@ export class SingleProfServicesPage implements OnInit, OnDestroy {
   }
 
   onSearchChange(e: Event){
-    console.log((e.target as HTMLInputElement).value);
+    
   }
 
   solicitudDetails(solicitudId: string){

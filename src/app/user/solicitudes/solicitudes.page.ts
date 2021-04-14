@@ -40,8 +40,6 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   
   ionViewWillEnter(){
     this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
-    // console.log(this.grabbedUser.access_token);
-    
     this.menuController.enable(true, 'user');
     this.loadServices();
   }
@@ -57,7 +55,6 @@ export class SolicitudesPage implements OnInit, OnDestroy {
       loadingEl.present();
       this.http.get(API+'/client/requestservices', {headers: this.headers})
       .subscribe(resData =>{
-        console.log(resData['data']);
         loadingEl.dismiss();
         this.loadedServices = resData['data'];
         this.loadedServices.sort( this.compare ); 
@@ -83,7 +80,7 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   }
 
   onSearchChange(e: Event){
-    console.log((e.target as HTMLInputElement).value);
+    
   }
 
   solicitudDetails(solicitudId: string){

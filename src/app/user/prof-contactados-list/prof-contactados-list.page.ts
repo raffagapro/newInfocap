@@ -49,13 +49,10 @@ export class ProfContactadosListPage implements OnInit {
       loadingEl.present();
       this.http.get(API+'/client/requestservices', {headers: this.headers})
       .subscribe(resData =>{
-        console.log(resData['data']);
         loadingEl.dismiss();
         this.loadedServices = resData['data'];
-        // this.loadedServices.sort( this.compare );
         let prof = [];
         this.loadedServices.forEach(i => {
-          // console.log(i);
           let go = true;
           prof.forEach(p => {
             if (p === i.supplier_id) {

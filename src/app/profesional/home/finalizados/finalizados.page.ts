@@ -56,11 +56,9 @@ export class FinalizadosPage implements OnInit, OnDestroy {
           loadingEl.dismiss();
           if (statusID === "5") {
             this.loadedServices = resData["data"];
-            console.log(this.loadedServices);
           }
           if (statusID === "6") {
             this.paidServices = resData["data"];
-            // console.log(this.paidServices);
           }
         }, err => {
           console.log(err);

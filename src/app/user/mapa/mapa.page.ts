@@ -61,9 +61,7 @@ export class MapaPage implements OnInit, OnDestroy {
     //comunas
     this.http.get(API + '/location/communes', { headers: this.headers })
       .subscribe(resData => {
-        // console.log('comunas');
         this.comunas = resData['data'];
-        // console.log(this.comunas);
       });
     // form
     this.form = new FormGroup({
@@ -93,18 +91,15 @@ export class MapaPage implements OnInit, OnDestroy {
       let latLng;
       if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
         Geolocation.getCurrentPosition().then(resData => {
-          console.log(resData);
           loadingEl.dismiss();
           latLng = new google.maps.LatLng(resData.coords.latitude, resData.coords.longitude);
         }, err => {
-          console.log(err);
           loadingEl.dismiss();
           latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
         });
       } else {
         // get location from device
         const coords = await Geolocation.getCurrentPosition();
-        console.log(coords);
         latLng = new google.maps.LatLng(coords.coords.latitude, coords.coords.longitude);
       }
 
@@ -121,10 +116,7 @@ export class MapaPage implements OnInit, OnDestroy {
       // this.getAddressFromCords(res.coords.latitude, res.coords.longitude);
       this.map = new google.maps.Map(this.mapRef.nativeElement, mapOptions);
       this.map.addListener('tilesloaded', () => {
-        // console.log('accuracy', this.map, this.map.center.lat());
-        // this.getAddressFromCords(this.map.center.lat(), this.map.center.lng());
-        // this.lat = this.map.center.lat();
-        // this.long = this.map.center.lng();
+
       });
       //marker
       this.marker = new google.maps.Marker({
@@ -194,7 +186,7 @@ export class MapaPage implements OnInit, OnDestroy {
       if (comuna.name === wAddress[1].substring(1).toLowerCase()) {
         this.solServ.setComuna(comuna.id);
       } else {
-        // console.log('no match');
+        
       }
     });
     this.clearAutocomplete();

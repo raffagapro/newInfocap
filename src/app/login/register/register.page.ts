@@ -67,7 +67,7 @@ export class RegisterPage implements OnInit {
         `${API}/auth/register`,
         body
       );
-      console.log(response.data);
+
       this.clearErrors();
       form.reset();
       loader.dismiss();
@@ -81,7 +81,7 @@ export class RegisterPage implements OnInit {
       const { response } = error;
       if (response) {
         const { errors } = response.data;
-        console.log(errors);
+
         this.errors.name = [];
         if (errors.name !== undefined) {
           this.errors.name = errors.name;

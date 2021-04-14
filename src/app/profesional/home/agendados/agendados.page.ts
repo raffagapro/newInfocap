@@ -60,16 +60,12 @@ export class AgendadosPage implements OnInit, OnDestroy {
           loadingEl.dismiss();
           if (statusID === "3") {
             this.loadedServices = resData["data"];
-            console.log(this.loadedServices)
-            // console.log(this.loadedServices);
           }
           if (statusID === "4") {
             this.loadedStartedServices = resData["data"];
-            // console.log(this.loadedServices);
           }
           // if (statusID === "2") {
           //   this.loadedVisits = resData["data"];
-          //   console.log(this.loadedVisits);
           // }
         }, err => {
           console.log(err);

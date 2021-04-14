@@ -40,24 +40,6 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
       this.grabbedUser = user;
     });
     this.getServiceData();
-    /*
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-    this.lc.create({
-      message: "Cargando informacion del servicio..."
-    }).then(loadingEl => {
-      loadingEl.present();
-      this.http.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: this.headers })
-        .subscribe(resData => {
-          console.log(resData['data']);
-          loadingEl.dismiss();
-          this.loadedInfo.date_required = this.solServ.solicitud.newDate;
-          this.loadedInfo.hours = this.solServ.solicitud.newTime;
-        }, err => {
-          console.log(err);
-          loadingEl.dismiss();
-        });
-    });
-    */
   }
 
   async getServiceData() {

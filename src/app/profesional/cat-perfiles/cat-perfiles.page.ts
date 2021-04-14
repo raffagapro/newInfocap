@@ -149,7 +149,6 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     //prof categories list
     this.http.get(API + '/supplier/professions', { headers: this.headers })
       .subscribe(resData => {
-        console.log(resData['data']);
         if (resData['code'] === 200) {
           if (resData['data'].length === 0) {
             //lunch awesome modal
@@ -171,14 +170,12 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   }
 
   onCatProfileChange(profileID) {
-    // console.log(e.detail.value);
     this.lc.create({
       message: 'Cargando informacion...'
     }).then(loadingEl => {
       loadingEl.present();
       this.http.get(API + `/supplier/profession/${profileID}`, { headers: this.headers })
         .subscribe(resData => {
-          console.log(resData['data']);
           loadingEl.dismiss();
           this.selectedProPerfil = profileID;
           this.updateForm(resData['data'])
@@ -193,11 +190,10 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
 
   updateForm(info) {
     this.selectedCatId = info.category_id;
-    // console.log(info);
     this.selectedTransport = info.transport_id;
     this.selectedComunas = info.communes;
-    // console.log(this.selectedComunas);
     let descPro;
+
     if (info.descProf === 'empty') {
       descPro = null;
     } else {
@@ -248,8 +244,6 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   }
 
   onSearchChange(e) {
-    // this.selectedComunas = +e.detail.value;
-    // console.log(e.srcElement.value);
     if (e.srcElement.value === '') {
       return
     }
@@ -285,27 +279,21 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   }
 
   onRemoveComuna(comunaID: string) {
-    // console.log(this.selectedComunas);
     for (var i = 0; i < this.selectedComunas.length; i++) {
       if (this.selectedComunas[i].id === +comunaID) {
         this.selectedComunas.splice(i, 1);
       }
     }
-    console.log(this.selectedComunas);
   }
 
   onDaysChange(e) {
-    // console.log(e.detail.value);
     this.selectedDays = e.detail.value;
   }
 
   onUpdateCatProfile() {
-    // console.log(this.form);
     let strDays = this.selectedDays.join('-');
-    // console.log(strDays);
     let aComunas = [];
     let packedComunas;
-    console.log(this.selectedComunas);
     this.selectedComunas.forEach(c => {
       aComunas.push(c.id);
     });
@@ -319,7 +307,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       hours: this.form.value.sHour + '/' + this.form.value.eHour,
       work_days: strDays,
     }
-    console.log(body);
+
     this.lc.create({
       message: 'Actualizando la informacion...'
     }).then(loadingEl => {
@@ -358,15 +346,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       promptLabelPicture: 'Camara',
       promptLabelCancel: 'Cancelar'
     }).then(image => {
-      // console.log(image);
-
-      // this.selectedImage = image.dataUrl;
-      // this.imgPick.emit(image.dataUrl);
-
-      // console.log(this.selectedImage);
-      //save img to api
       this.saveImgToApi(image.dataUrl);
-
     }).catch(e => {
       console.log(e);
     });
@@ -374,7 +354,6 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
 
   onLoadImgFromInput(e: Event) {
     const loadedFile = (e.target as HTMLInputElement).files[0];
-    // console.log(loadedFile);
     this.saveImgToApi(loadedFile);
     //save img to api
   }
@@ -402,7 +381,6 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
         formData.append('image', imgFile);
         this.http.post(API + '/account/image', formData, { headers: this.headers })
           .subscribe(resData => {
-            // console.log(resData);
             this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
             loadingEl.dismiss();
             this.modalController.create({
@@ -428,12 +406,8 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
         // formData.append('communes', this.selectedComunas;
         this.http.post(API + `/supplier/profession/${this.selectedProPerfil}`, formData, { headers: this.headers })
           .subscribe(resData => {
-            // console.log(resData);
             loadingEl.dismiss();
-            //remove when getting from resData
             this.onCatProfileChange(this.selectedProPerfil);
-            //activate when getting it from resdata
-            // this.ils.setImgList(resData['data'].images);
           }, err => {
             console.log(err);
             loadingEl.dismiss();

@@ -83,7 +83,6 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
       this.http.get(API+`/client/requestservice/${solicitudId}`, {headers: this.headers})
       .subscribe(resData =>{
         loadingEl.dismiss();
-        console.log(resData['data']);
         this.loadedService = resData['data'];
         this.solServ.setServiceObj(resData['data']);
         this.wDate = moment(this.loadedService.created_date, 'YYYY-MM-DD').format('DD MMM YYYY');

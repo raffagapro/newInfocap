@@ -45,7 +45,6 @@ export class ConfirmModalComponent implements OnInit, OnDestroy {
       loadingEl.present();
       this.http.get(API+`/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, {headers: this.headers})
       .subscribe(resData =>{
-        console.log(resData['data']);
         loadingEl.dismiss();
         this.loadedInfo.date_required = resData['data'].date_required;
         this.loadedInfo.hours = resData['data'].date_required.hours;

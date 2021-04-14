@@ -133,7 +133,6 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
       this.http.put(API + `/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/4`, null, { headers: this.headers })
         .subscribe(resData => {
           loadingEl.dismiss();
-          console.log(resData);
           this.modalController.create({
             component: ConfirmSuccessStartComponent,
             cssClass: 'modalSuccess',
@@ -155,7 +154,6 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
       this.http.put(API + `/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/6`, null, { headers: this.headers })
         .subscribe(resData => {
           loadingEl.dismiss();
-          console.log(resData);
           this.modalController.create({
             component: ConfirmSuccessComponent,
             cssClass: 'modalSuccess',

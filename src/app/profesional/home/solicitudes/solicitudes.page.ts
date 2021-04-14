@@ -44,9 +44,7 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   ionViewWillEnter(){
     this.menuController.enable(true, 'profesional');
     this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
-    // console.log(this.grabbedUser.access_token);
     this.loadServices("1");    
-    //1
   }
 
   loadServices(statusID: string){
@@ -56,10 +54,8 @@ export class SolicitudesPage implements OnInit, OnDestroy {
       loadingEl.present();
       this.http.get(API+`/supplier/requestservice/${statusID}`, {headers: this.headers})
       .subscribe(resData =>{
-        console.log(resData['data']);
         loadingEl.dismiss();
         this.loadedServices = resData["data"];
-          // console.log(this.loadedServices);
       }, err =>{
         console.log(err);
         loadingEl.dismiss();
@@ -84,7 +80,6 @@ export class SolicitudesPage implements OnInit, OnDestroy {
 
   d(address: string){
     let wAdd = address.split(',')
-    // console.log(wAdd);
     return wAdd[0]+",<br>"+wAdd[1]+", "+wAdd[2];
   }
 

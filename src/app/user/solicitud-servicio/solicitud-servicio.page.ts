@@ -125,7 +125,6 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
 
   ionViewWillEnter() {
     this.menuController.enable(true, 'user');
-    console.log(this.solServ.solicitud.address);
   }
 
   openMenu() {
@@ -148,13 +147,6 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
       promptLabelPicture: 'Camara',
       promptLabelCancel: 'Cancelar'
     }).then(image => {
-      console.log(image);
-
-      // this.selectedImage = image.dataUrl;
-      // this.imgPick.emit(image.dataUrl);
-
-      // console.log(this.selectedImage);
-      //save img to api
       this.saveImgToApi(image.dataUrl);
     }).catch(e => {
       console.log(e);
@@ -163,7 +155,6 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
 
   onLoadImgFromInput(e: Event) {
     const loadedFile = (e.target as HTMLInputElement).files[0];
-    // console.log(loadedFile);
     this.saveImgToApi(loadedFile);
     //converting images to blob for diplaying
     const fr = new FileReader();
@@ -186,11 +177,9 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
       imgFile = imageData;
     }
     this.loadedImages.push(imgFile);
-    console.log(this.loadedImages);
   }
 
   confirmRequest() {
-    // console.log(this.form);
     //format date
     let wDate = this.form.value.date_required.split('T');
     wDate = wDate[0];
@@ -223,7 +212,6 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
       loadingEl.present();
       this.http.post(API + '/client/requestservice', formData, { headers: this.headers })
         .subscribe(resData => {
-          console.log(resData);
           loadingEl.dismiss();
           this.modalController.create({
             component: ConfirmSuccessModalComponent,

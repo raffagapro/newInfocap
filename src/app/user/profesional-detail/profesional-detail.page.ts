@@ -56,7 +56,6 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
     this.imgListSub = this.ils.listChanged.subscribe(imgList =>{
       this.loadedImgList = imgList;
     });
-    // console.log(this.solServ.solicitud.proPhoto);
   }
 
   ionViewWillEnter(){
@@ -77,7 +76,6 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
       this.http.get(API+`/client/profession/${this.solServ.solicitud.proPerfil_id}`, {headers: this.headers})
       .subscribe(resData =>{
         this.selectedProCat = resData['data'];
-        console.log(this.selectedProCat);
         //work values
         let workingHours = this.selectedProCat.hours.split('T');
         let wsHour = workingHours[1];

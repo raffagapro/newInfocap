@@ -65,7 +65,6 @@ export class HomePage implements OnInit, OnDestroy {
         }
       );
       loader.dismiss();
-      console.log(response.data.data)
       this.categories = response.data.data;
     } catch (error) {
       loader.dismiss();

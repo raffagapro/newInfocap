@@ -41,7 +41,6 @@ export class SolicitudEnviadaModalComponent implements OnInit, OnDestroy {
     this.imgListSub = this.ils.listChanged.subscribe(imgList =>{
       this.loadedImgList = imgList;
     });
-    console.log(this.loadedService);
     this.ils.setImgList(this.loadedService.img_request);   
   }
 
