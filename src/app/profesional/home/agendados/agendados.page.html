@@ -31,12 +31,11 @@
   </ion-grid>
 
   <!-- servicios agendados -->
-  <div class="prof-cont no-border" *ngFor="let service of loadedServices" (click)="solicitudDetail(service.id)">
+  <div class="prof-cont no-border" *ngFor="let service of loadedServices">
     <ion-grid>
       <ion-row class="ion-align-items-center">
-
         <!-- title -->
-        <ion-col size="8" class="ion-justify-content-center">
+        <ion-col size="8" class="ion-justify-content-center" (click)="solicitudDetail(service.id)">
           <ion-text>
             <span class="titleSelect main-color ion-text-capitalize">{{service.clientName+" "+ service.clientLastName}}
             </span>&nbsp;&nbsp;
@@ -52,18 +51,25 @@
         </ion-col>
 
         <!-- ticket numer -->
-        <ion-col size="4">
+        <ion-col size="4" class="text-center">
 
           <!-- enviada -->
           <ion-text>
             <!-- icons -->
             <small class="ticket ion-text-center">Ticket #{{ service.ticket_number }}</small>
+            <small class="ratingText main-color ion-text-center">
+              <div class="location_button" (click)="openMaps(service.adress)">
+                <ion-icon src="/assets/icon/ic_map.svg" color="primary" class="iconFix"></ion-icon>&nbsp;VER MAPA
+              </div>
+            </small>
+            <!--
             <small class="ratingText main-color ion-text-center" *ngIf="service.status_id === 3">
               SERVICIO AGENDADO
             </small>
             <small class="ratingText main-color ion-text-center" *ngIf="service.status_id === 4">
               SERVICIO EN PROCESO
             </small>
+          -->
           </ion-text>
         </ion-col>
 

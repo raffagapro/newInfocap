@@ -7,7 +7,7 @@
       </ion-button>
     </ion-buttons>
 
-    <ion-title class="title-toolbar">FINALIZADOS</ion-title>
+    <ion-title class="title-toolbar text-center">FINALIZADOS</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -17,10 +17,10 @@
   <ion-grid fixed>
     <ion-row class="ion-margin-top">
       <ion-col size="11" class="ion-text-left">
-        <ion-text class="main-color title" *ngIf="loadedServices.length > 0">
+        <ion-text class="main-color title" *ngIf="loadedServices.length || paidServices.length > 0">
           <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes los siguientes trabajos finalizados.</b>
         </ion-text>
-        <ion-text class="main-color title" *ngIf="loadedServices.length === 0">
+        <ion-text class="main-color title" *ngIf="loadedServices.length && paidServices.length === 0">
           <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no tienes trabajos finalizados.</b>
         </ion-text>
       </ion-col>

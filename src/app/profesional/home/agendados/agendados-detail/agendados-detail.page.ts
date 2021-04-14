@@ -8,7 +8,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
-import { API } from 'src/environments/environment';
+import { API, PHONE_PREFIX } from 'src/environments/environment';
 import { ConfirmSuccessComponent } from './confirm-success/confirm-success.component';
 import { ConfirmSuccessStartComponent } from './confirm-success-start/confirm-success-start.component';
 import * as moment from 'moment';
@@ -90,7 +90,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
   }
 
   openWhatsapp(phone: string) {
-    window.open(`https://api.whatsapp.com/send?phone=${phone}`);
+    window.open(`https://api.whatsapp.com/send?phone=${PHONE_PREFIX}${phone}`);
   }
 
   call(clientNumb: string) {

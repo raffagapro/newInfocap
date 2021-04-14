@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
-import { API } from 'src/environments/environment';
+import { API, PHONE_PREFIX } from 'src/environments/environment';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @Component({
@@ -113,7 +113,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
   }
 
   openWhatsapp() {
-    window.open(`https://api.whatsapp.com/send?phone=${this.loadedInfo.clientPhone1}`);
+    window.open(`https://api.whatsapp.com/send?phone=${PHONE_PREFIX}${this.loadedInfo.clientPhone1}`);
   }
 
   call(clientNumb: string) {

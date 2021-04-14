@@ -197,6 +197,9 @@ export class PerfilPage implements OnInit, OnDestroy {
       height: 150,
       // width: 200,
       resultType: CameraResultType.DataUrl,
+      promptLabelPhoto: 'Fotos',
+      promptLabelPicture: 'Camara',
+      promptLabelCancel: 'Cancelar'
     }).then(image =>{
       console.log(image);
       

@@ -65,10 +65,11 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
         this.loadedInfo.description = resData['data'].description;
         this.loadedInfo.hours = resData['data'].hours;
         this.loadedInfo.images = resData['data'].images;
-        this.loadedInfo.img_profile = resData['data'].img_profile;
+        this.loadedInfo.img_profile = resData['data'].img_client_profile;
         this.loadedInfo.ticket_number = resData['data'].ticket_number;
         this.loadedInfo.categoryName = resData['data'].categoryName;
         this.loadedInfo.clientPhone1 = resData['data'].clientPhone1;
+        console.log(this.loadedInfo.img_profile)
       }, err =>{
         console.log(err);
         loadingEl.dismiss();

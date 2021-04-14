@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ModalController } from '@ionic/angular';
+import axios from 'axios';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 
@@ -16,10 +18,11 @@ import { ConfirmSuccessComponent } from '../confirm-success/confirm-success.comp
   styleUrls: ['./service-reject-modal.component.scss'],
 })
 export class ServiceRejectModalComponent implements OnInit, OnDestroy {
+  showError = false;
   grabbedUser: User;
   userSub: Subscription;
   headers: HttpHeaders;
-  rejectDesc:string;
+  rejectDesc: string;
   loadedInfo = {
     img_client_profile: null,
     ticket_number: null,
@@ -41,69 +44,83 @@ export class ServiceRejectModalComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
+      this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+      this.loadService();
     });
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
+  }
 
+  loadService() {
     //loadin service
     this.lc.create({
       message: "Cargando informacion del servicio..."
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API+`/supplier/requestservicedetail/${+this.solServ.solicitud.solicitudID}`, {headers: this.headers})
-      .subscribe(resData =>{
-        console.log(resData['data']);
-        loadingEl.dismiss();
-        this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
-        this.loadedInfo.clientName = resData['data'].clientName;
-        this.loadedInfo.clientLastName = resData['data'].clientLastName;
-        this.loadedInfo.date_required = resData['data'].date_required;
-        this.loadedInfo.ticket_number = resData['data'].ticket_number;
-        this.loadedInfo.categoryName = resData['data'].categoryName;
-      }, err =>{
-        console.log(err);
-        loadingEl.dismiss();
-        
-      });
+      this.http.get(API + `/supplier/requestservicedetail/${+this.solServ.solicitud.solicitudID}`, { headers: this.headers })
+        .subscribe(resData => {
+          loadingEl.dismiss();
+          this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
+          this.loadedInfo.clientName = resData['data'].clientName;
+          this.loadedInfo.clientLastName = resData['data'].clientLastName;
+          this.loadedInfo.date_required = resData['data'].date_required;
+          this.loadedInfo.ticket_number = resData['data'].ticket_number;
+          this.loadedInfo.categoryName = resData['data'].categoryName;
+        }, err => {
+          console.log(err);
+          loadingEl.dismiss();
+
+        });
     });
   }
 
-  rechazarSolicitud(rejectDesc: string){
-    this.lc.create({
+  async rechazarSolicitud(rejectDesc: string) {
+
+    if (!rejectDesc || rejectDesc.trim() === '') {
+      this.showError = true;
+      return
+    }
+
+    let loader = await this.lc.create({
       message: "Procesando la solicitud..."
-    }).then(loadingEl =>{
-      loadingEl.present();
-      //activate when the API accepst rejection reason
+    });
+    loader.present();
+    try {
       const body = {
         reason: rejectDesc,
       }
-      console.log(body);
-      this.http.put(API+`/supplier/reject/requestservice/${this.solServ.solicitud.solicitudID}`, body,  {headers: this.headers})
-      .subscribe(resData =>{
-        //reset input
-        console.log(resData);
-        loadingEl.dismiss();
-        this.modalController.dismiss();
-        this.modalController.create({
-          component: ConfirmSuccessComponent,
-          cssClass: 'modalSuccess',
-        }).then(modalEl => {
-          modalEl.present();
-        });
-      }, err =>{
-        loadingEl.dismiss({
-          reload: true,
-        });
-        console.log(err);
+      await axios.put(
+        `${API}/supplier/reject/requestservice/${this.solServ.solicitud.solicitudID}`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${this.grabbedUser.access_token}`
+          }
+        }
+      );
+      loader.dismiss();
+      await this.modalController.dismiss();
+      let confirmModal = await this.modalController.create({
+        component: ConfirmSuccessComponent,
+        cssClass: 'modalSuccess',
       });
-    });
+      confirmModal.present();
+    } catch (error) {
+      console.log(error);
+      loader.dismiss({
+        reload: true,
+      });
+    }
   }
 
-  dismiss(){
+  formatDate(date: string) {
+    return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
+  }
+
+  dismiss() {
     this.modalController.dismiss();
     // this.router.navigate(['/profesional/home/home-tabs/agendados/']);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
   }
 }

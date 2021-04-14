@@ -1,43 +1,35 @@
-.prof-cont
-{
-    box-shadow: 1px 8px 12px 0px rgba(0, 0, 0, 0.20);
+.prof-cont {
+    box-shadow: 1px 8px 12px 0px rgba(0, 0, 0, 0.2);
     margin-bottom: 10px;
 }
-.titleSelect
-{
+.titleSelect {
     font-size: 16px;
     font-weight: bold;
 }
-.badge-text
-{
+.badge-text {
     font-size: 10px;
     margin-bottom: -2px;
 }
-.ticket{
+.ticket {
     color: red;
     font-size: 11px;
 }
-.title
-{
+.title {
     font-size: 17px;
 }
-.superMarginTop
-{
+.superMarginTop {
     margin-top: 60px;
 }
-.tapText
-{
+.tapText {
     font-size: 10px;
 }
-.iconFix
-{
+.iconFix {
     margin-bottom: -2px;
 }
-.miniBtnTxt
-{
+.miniBtnTxt {
     font-size: 9px;
 }
-.locate-cont{
+.locate-cont {
     margin-top: 5px;
     border-radius: 50px;
     height: 30px;
@@ -47,16 +39,22 @@
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    background-color: #009ACE;
-  }
-  .rating-text{
+    background-color: #009ace;
+}
+.rating-text {
     font-size: 12px;
     margin-left: auto;
     margin-right: auto;
     display: inline-flex;
-  }
-  .ratingText{
+}
+.ratingText {
     font-size: 12px;
     margin: 0;
     padding: 0;
-  }
+}
+.location_button {
+    margin: 5px 0;
+    padding: 2px 5px;
+    border: solid 2px #009ace;
+    border-radius: 10px;
+}

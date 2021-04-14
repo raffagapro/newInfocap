@@ -33,43 +33,43 @@ export class FinalizadosPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
+
+      this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+      this.loadServices("5");
+      //5
+      this.loadServices("6");
+      //6
     });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.menuController.enable(true, 'profesional');
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
-    this.loadServices("5");    
-    //5
-    this.loadServices("6");    
-    //6
   }
 
-  loadServices(statusID: string){
+  loadServices(statusID: string) {
     this.lc.create({
       message: "Cargando lista de servicios..."
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API+`/supplier/requestservice/${statusID}`, {headers: this.headers})
-      .subscribe(resData =>{
-        console.log(resData['data']);
-        loadingEl.dismiss();
-        if (statusID === "5") {
-          this.loadedServices = resData["data"];
-          // console.log(this.loadedServices);
-        }
-        if (statusID === "6") {
-          this.paidServices = resData["data"];
-          // console.log(this.paidServices);
-        }
-      }, err =>{
-        console.log(err);
-        loadingEl.dismiss();
-      });
+      this.http.get(API + `/supplier/requestservice/${statusID}`, { headers: this.headers })
+        .subscribe(resData => {
+          loadingEl.dismiss();
+          if (statusID === "5") {
+            this.loadedServices = resData["data"];
+            console.log(this.loadedServices);
+          }
+          if (statusID === "6") {
+            this.paidServices = resData["data"];
+            // console.log(this.paidServices);
+          }
+        }, err => {
+          console.log(err);
+          loadingEl.dismiss();
+        });
     });
   }
 
-  p(hours: string){
+  p(hours: string) {
     let wHours = hours.split("/");
     let sHour = wHours[0].split("T");
     let sHour2 = sHour[1];
@@ -77,19 +77,19 @@ export class FinalizadosPage implements OnInit, OnDestroy {
     let eHour = wHours[1].split("T");
     let eHour2 = eHour[1];
     eHour2 = eHour2.substring(0, 5);
-    return sHour2+" - "+eHour2;
+    return sHour2 + " - " + eHour2;
   }
 
-  openMenu(){
+  openMenu() {
     this.menuController.open();
   }
 
-  finalizadosDetail(serviceID: string){
+  finalizadosDetail(serviceID: string) {
     this.solServ.setServiceID(serviceID);
     this.router.navigate(['/profesional/finalizados/finalizados-details']);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
   }
 

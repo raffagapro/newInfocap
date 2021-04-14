@@ -10,7 +10,7 @@ import { Plugins, Capacitor } from '@capacitor/core'
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { User, UserRoles } from './model/user.model';
-import { API } from 'src/environments/environment';
+import { API, PHONE_PREFIX } from 'src/environments/environment';
 import { IMAGE_URL_BLANK } from 'src/shared/constants';
 
 @Component({
@@ -20,7 +20,7 @@ import { IMAGE_URL_BLANK } from 'src/shared/constants';
 })
 export class AppComponent {
   imageBlank = IMAGE_URL_BLANK;
-  whatsappPhone = '529992781314';
+  whatsappPhone = `${PHONE_PREFIX}9992781314`;
   firstLoad = false;
   logged: Observable<boolean>;
   user: User;

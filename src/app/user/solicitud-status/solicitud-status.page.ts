@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
-import { API } from 'src/environments/environment';
+import { API, PHONE_PREFIX } from 'src/environments/environment';
 import { ServicioAgendadoModalComponent } from './servicio-agendado-modal/servicio-agendado-modal.component';
 import { SolicitudEnviadaModalComponent } from './solicitud-enviada-modal/solicitud-enviada-modal.component';
 import { SolicitudRechazadaModalComponent } from './solicitud-rechazada-modal/solicitud-rechazada-modal.component';
@@ -95,7 +95,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
   }
 
   openWhatsapp() {
-    window.open(`https://api.whatsapp.com/send?phone=${this.loadedService.suplierPhone1}`);
+    window.open(`https://api.whatsapp.com/send?phone=${PHONE_PREFIX}${this.loadedService.suplierPhone1}`);
   }
 
   call(clientNumb: string){

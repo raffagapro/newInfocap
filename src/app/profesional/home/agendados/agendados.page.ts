@@ -36,6 +36,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
+      this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
       this.loadServices("3");
       this.loadServices("4");
     });
@@ -47,26 +48,19 @@ export class AgendadosPage implements OnInit, OnDestroy {
 
   ionViewWillEnter() {
     this.menuController.enable(true, 'profesional');
-    // load agendados
-    this.loadServices("3");
-    this.loadServices("4");
-
-    // load visitas
-    // this.loadServices("2");
   }
 
   loadServices(statusID: string) {
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
     this.lc.create({
       message: "Cargando lista de servicios..."
     }).then(loadingEl => {
       loadingEl.present();
       this.http.get(API + `/supplier/requestservice/${statusID}`, { headers: this.headers })
         .subscribe(resData => {
-          console.log(resData['data']);
           loadingEl.dismiss();
           if (statusID === "3") {
             this.loadedServices = resData["data"];
+            console.log(this.loadedServices)
             // console.log(this.loadedServices);
           }
           if (statusID === "4") {
@@ -93,6 +87,10 @@ export class AgendadosPage implements OnInit, OnDestroy {
 
       return `${startHour} - ${endHour}`;
     }
+  }
+
+  openMaps(address: string) {
+    window.open(`https://maps.google.com/?q=${address}`);
   }
 
   openMenu() {
