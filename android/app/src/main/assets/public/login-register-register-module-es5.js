@@ -182,31 +182,29 @@
 
                     case 21:
                       response = _context.sent;
-                      console.log(response.data);
                       this.clearErrors();
                       form.reset();
                       loader.dismiss(); // modal for succes
 
-                      _context.next = 28;
+                      _context.next = 27;
                       return this.modalController.create({
                         component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_7__["SuccessModalComponent"],
                         cssClass: 'modalSuccess'
                       });
 
-                    case 28:
+                    case 27:
                       successModal = _context.sent;
                       successModal.present();
-                      _context.next = 37;
+                      _context.next = 36;
                       break;
 
-                    case 32:
-                      _context.prev = 32;
+                    case 31:
+                      _context.prev = 31;
                       _context.t0 = _context["catch"](18);
                       _response = _context.t0.response;
 
                       if (_response) {
                         errors = _response.data.errors;
-                        console.log(errors);
                         this.errors.name = [];
 
                         if (errors.name !== undefined) {
@@ -234,12 +232,12 @@
 
                       loader.dismiss();
 
-                    case 37:
+                    case 36:
                     case "end":
                       return _context.stop();
                   }
                 }
-              }, _callee, this, [[18, 32]]);
+              }, _callee, this, [[18, 31]]);
             }));
           }
         }, {

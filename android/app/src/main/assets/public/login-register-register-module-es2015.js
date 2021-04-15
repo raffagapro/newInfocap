@@ -87,7 +87,6 @@ let RegisterPage = class RegisterPage {
             };
             try {
                 const response = yield axios__WEBPACK_IMPORTED_MODULE_8___default.a.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"]}/auth/register`, body);
-                console.log(response.data);
                 this.clearErrors();
                 form.reset();
                 loader.dismiss();
@@ -102,7 +101,6 @@ let RegisterPage = class RegisterPage {
                 const { response } = error;
                 if (response) {
                     const { errors } = response.data;
-                    console.log(errors);
                     this.errors.name = [];
                     if (errors.name !== undefined) {
                         this.errors.name = errors.name;

@@ -161,7 +161,6 @@ let ServicioPagarPage = class ServicioPagarPage {
             this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + `/client/requestservice/${solicitudId}`, { headers: this.headers })
                 .subscribe(resData => {
                 loadingEl.dismiss();
-                console.log(resData['data']);
                 this.loadedService = resData['data'];
                 this.solServ.setServiceObj(resData['data']);
                 let worDate = this.loadedService.created_date.split(" ");

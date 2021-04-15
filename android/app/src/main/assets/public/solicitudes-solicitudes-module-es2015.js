@@ -52,9 +52,7 @@ let SolicitudesPage = class SolicitudesPage {
     ionViewWillEnter() {
         this.menuController.enable(true, 'profesional');
         this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-        // console.log(this.grabbedUser.access_token);
         this.loadServices("1");
-        //1
     }
     loadServices(statusID) {
         this.lc.create({
@@ -63,10 +61,8 @@ let SolicitudesPage = class SolicitudesPage {
             loadingEl.present();
             this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + `/supplier/requestservice/${statusID}`, { headers: this.headers })
                 .subscribe(resData => {
-                console.log(resData['data']);
                 loadingEl.dismiss();
                 this.loadedServices = resData["data"];
-                // console.log(this.loadedServices);
             }, err => {
                 console.log(err);
                 loadingEl.dismiss();
@@ -88,7 +84,6 @@ let SolicitudesPage = class SolicitudesPage {
     }
     d(address) {
         let wAdd = address.split(',');
-        // console.log(wAdd);
         return wAdd[0] + ",<br>" + wAdd[1] + ", " + wAdd[2];
     }
     rechazarSolicitud(solicitudID) {

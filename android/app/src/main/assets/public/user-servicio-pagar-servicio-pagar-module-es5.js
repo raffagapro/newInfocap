@@ -286,7 +286,6 @@
                 headers: _this2.headers
               }).subscribe(function (resData) {
                 loadingEl.dismiss();
-                console.log(resData['data']);
                 _this2.loadedService = resData['data'];
 
                 _this2.solServ.setServiceObj(resData['data']);

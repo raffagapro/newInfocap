@@ -120,9 +120,8 @@
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
             this.menuController.enable(true, 'profesional');
-            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token); // console.log(this.grabbedUser.access_token);
-
-            this.loadServices("1"); //1
+            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+            this.loadServices("1");
           }
         }, {
           key: "loadServices",
@@ -137,9 +136,8 @@
               _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/supplier/requestservice/".concat(statusID), {
                 headers: _this2.headers
               }).subscribe(function (resData) {
-                console.log(resData['data']);
                 loadingEl.dismiss();
-                _this2.loadedServices = resData["data"]; // console.log(this.loadedServices);
+                _this2.loadedServices = resData["data"];
               }, function (err) {
                 console.log(err);
                 loadingEl.dismiss();
@@ -166,8 +164,7 @@
         }, {
           key: "d",
           value: function d(address) {
-            var wAdd = address.split(','); // console.log(wAdd);
-
+            var wAdd = address.split(',');
             return wAdd[0] + ",<br>" + wAdd[1] + ", " + wAdd[2];
           }
         }, {

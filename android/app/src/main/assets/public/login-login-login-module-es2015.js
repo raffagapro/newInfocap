@@ -48,7 +48,6 @@ let LoginPage = class LoginPage {
     }
     login(form) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            // console.log(form);
             if (!form.valid) {
                 return;
             }
@@ -63,6 +62,7 @@ let LoginPage = class LoginPage {
                     email,
                     password,
                 };
+                console.log(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/auth/login`);
                 const response = yield axios__WEBPACK_IMPORTED_MODULE_11___default.a.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/auth/login`, body);
                 const { data } = response;
                 const { data: responseData, message } = data;
@@ -101,8 +101,12 @@ let LoginPage = class LoginPage {
                 }
             }
             catch (error) {
-                const { data } = error.response;
-                this.error = data.message || 'Ocurrió un error';
+                console.log(error);
+                let message = 'Ocurrió un error';
+                if (error.response) {
+                    message = error.response.data.message;
+                }
+                this.error = message;
                 form.reset();
                 form.setValue({
                     email: email,

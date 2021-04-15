@@ -155,7 +155,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n    <ion-title class=\"title-toolbar\">EDITAR PERFILES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- cat selection -->\n  <ion-grid fixed>\n    <ion-row>\n      <ion-col size=\"9\" offset=\"1\">\n        <ion-item>\n          <ion-select \n            interface=\"action-sheet\" \n            cancelText=\"Cancelar\" \n            (ionChange)=\"onCatProfileChange($event.detail.value)\"\n            value=\"{{ selectedProPerfil }}\"\n            >\n            <ion-select-option\n              *ngFor=\"let cat of profCategories\" \n              value=\"{{ cat.id }}\"\n              class=\"main-color ion-text-center catText\"\n              >{{ cat.categoryName }}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid>\n    <!-- profile Img -->\n    <ion-row class=\"imgCont\">\n      <ion-col>\n        <ion-avatar class=\"ion-margin-start profileImg\">\n          <ion-img src=\"{{ !grabbedUser.img_profile ? 'assets/images/avatar.png' : 'http://workintest.herokuapp.com'+grabbedUser.img_profile }}\"></ion-img>\n          <!-- <ion-img *ngIf=\"grabbedUser !== undefined\" src=\"http://workintest.herokuapp.com/{{ user.img_profile }}\"></ion-img> -->\n        </ion-avatar>\n      </ion-col>\n    </ion-row>\n    <!-- edit icon -->\n    <ion-row>\n      <ion-col>\n        <div class=\"rate-cont\" *ngIf=\"grabbedUser.id !== null\" (click)=\"onLoadImg(true)\">\n          <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <form [formGroup]=\"form\" (ngSubmit)=\"onUpdateCatProfile()\">\n      <!-- title -->\n      <ion-row class=\"minusMargin\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Descripción profesional</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea \n              formControlName=\"descProf\"\n              rows=\"3\" cols=\"20\"\n              placeholder=\"Agrega tu descripción. Máximo 140 caracteres con espacios.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- vehiculo -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"car-sport\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Vehículo</ion-text>\n            </ion-label>\n              <ion-select\n                interface=\"popover\"\n                cancelText=\"Cancelar\"\n                (ionChange)=\"onTransportChange($event)\"\n                value=\"{{ selectedTransport }}\">\n              <ion-select-option\n                *ngFor=\"let transport of transports\" \n                value=\"{{ transport.id }}\"\n                >{{ transport.name }}\n              </ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top ion-text-center\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Horario laboral</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- horas -->\n      <ion-row>\n        <ion-col size=\"6\">\n          <ion-item>\n            <ion-label class=\"main-color\" position=\"floating\">\n              <ion-icon name=\"time\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Inicio</ion-text>\n            </ion-label>\n            <ion-datetime display-format=\"h:mm A\" picker-format=\"h:mm A\" formControlName=\"sHour\"></ion-datetime>\n          </ion-item>\n        </ion-col>\n\n        <ion-col size=\"5\">\n          <ion-item>\n            <ion-label class=\"main-color\" position=\"floating\">\n              <ion-icon name=\"time\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Final</ion-text>\n            </ion-label>\n            <ion-datetime display-format=\"h:mm A\" picker-format=\"h:mm A\" formControlName=\"eHour\"></ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- dias -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item>\n            <ion-label class=\"main-color\" position=\"floating\">\n              <ion-icon name=\"calendar\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Días laborales</ion-text>\n            </ion-label>\n            <ion-select\n              interface=\"alert\"\n              multiple=\"true\"\n              cancelText=\"Cancelar\"\n              (ionChange)=\"onDaysChange($event)\"\n              [value]=\"selectedDays\"\n              formControlName=\"workDays\"\n              >\n              <ion-select-option value=\"l\" class=\"main-color ion-text-center\">Lunes</ion-select-option>\n              <ion-select-option value=\"m\" class=\"main-color ion-text-center\">Martes</ion-select-option>\n              <ion-select-option value=\"mi\" class=\"main-color ion-text-center\">Miercoles</ion-select-option>\n              <ion-select-option value=\"j\" class=\"main-color ion-text-center\">Jueves</ion-select-option>\n              <ion-select-option value=\"v\" class=\"main-color ion-text-center\">Viernes</ion-select-option>\n              <ion-select-option value=\"s\" class=\"main-color ion-text-center\">Sabado</ion-select-option>\n              <ion-select-option value=\"d\" class=\"main-color ion-text-center\">Domingo</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- comunas -->\n      <ion-row>\n        <ion-col size=\"11\">\n\n          <ion-searchbar\n            placeholder=\"Sector\"\n            (ionChange)=\"onSearchChange($event)\"\n            [(ngModel)]=\"searchValue\"\n            [ngModelOptions]=\"{standalone: true}\"\n            >\n          </ion-searchbar>\n          <ion-list [hidden]=\"comunas.length === 0\">\n            <ion-item *ngFor=\"let comuna of comunas\" class=\"ion-text-capitalize\" tappable (click)=\"selectComuna(comuna.id)\">\n              {{ comuna.name }}\n            </ion-item>\n          </ion-list>\n        </ion-col>\n        <!-- badges row  -->\n        <ion-col size=\"10\" offset=\"1\">\n          <div>\n            <ion-badge color=\"primary\" *ngFor=\"let sComuna of selectedComunas\" class=\"ion-text-capitalize\">\n              {{ sComuna.name }}\n              <ion-icon name=\"close-outline\" color=\"danger\" tappable (click)=\"onRemoveComuna(sComuna.id)\"></ion-icon>\n            </ion-badge>\n          </div>\n        </ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Descripción del oficio</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea \n              formControlName=\"descOffice\"\n              rows=\"3\" cols=\"20\" \n              placeholder=\"Agrega una descripción de tu oficio. Máximo 140 caracteres con espacios.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- images -->\n      <ion-row class=\"ion-align-items-center ion-margin-top\">\n        <ion-col size=\"7\" offset=\"1\">\n          <ion-slides>\n            <!-- default slide -->\n            <ion-slide *ngIf=\"loadedImgList.length === 0\">\n              <ion-img \n                src=\"/assets/images/unavailable-image.png\"\n                class=\"imgSlide\">\n              </ion-img>\n            </ion-slide>\n\n            <!-- loaded slides  -->\n            <ion-slide *ngFor=\"let image of loadedImgList\">\n              <ion-img \n                src=\"{{ 'http://workintest.herokuapp.com'+image.image }}\"\n                class=\"imgSlide\">\n              </ion-img>\n            </ion-slide>\n\n          </ion-slides>\n        </ion-col>\n        <ion-col size=\"4\">\n          <ion-button (click)=\"onLoadImg(false)\" shape=\"round\">\n            <ion-icon name=\"add\" slot=\"end\" color=\"light\" class=\"rating-text\"></ion-icon>\n          </ion-button>\n        </ion-col>\n      </ion-row>\n\n      <!-- hidden file input -->\n      <div style=\"display: none;\">\n        <input type=\"file\" #hiddenImgInput *ngIf=\"useInputPicker\" (change)=\"onLoadImgFromInput($event)\">\n      </div>\n  \n\n      <!-- save BTN -->\n      <ion-row class=\"ion-margin-bottom\">\n        <ion-col offset=\"1\">\n          <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\" >\n            GUARDAR CAMBIOS\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"2\"></ion-col>\n      </ion-row>\n    </form>\n\n  </ion-grid>\n</ion-content>\n<!-- [disabled]=\"!form.valid\"  -->\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n    <ion-title class=\"title-toolbar\">EDITAR PERFILES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- cat selection -->\n  <ion-grid fixed>\n    <ion-row>\n      <ion-col size=\"9\" offset=\"1\">\n        <ion-item>\n          <ion-select \n            interface=\"action-sheet\" \n            cancelText=\"Cancelar\" \n            (ionChange)=\"onCatProfileChange($event.detail.value)\"\n            value=\"{{ selectedProPerfil }}\"\n            >\n            <ion-select-option\n              *ngFor=\"let cat of profCategories\" \n              value=\"{{ cat.id }}\"\n              class=\"main-color ion-text-center catText\"\n              >{{ cat.categoryName }}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid>\n    <!-- profile Img -->\n    <ion-row class=\"imgCont\">\n      <ion-col>\n        <ion-avatar class=\"ion-margin-start profileImg\">\n          <ion-img src=\"{{ !grabbedUser || grabbedUser.img_profile === imageBlank ? 'assets/images/avatar.png' : grabbedUser.img_profile }}\"></ion-img>\n          <!-- <ion-img *ngIf=\"grabbedUser !== undefined\" src=\"http://workintest.herokuapp.com/{{ user.img_profile }}\"></ion-img> -->\n        </ion-avatar>\n      </ion-col>\n    </ion-row>\n    <!-- edit icon -->\n    <ion-row>\n      <ion-col>\n        <div class=\"rate-cont\" *ngIf=\"grabbedUser.id !== null\" (click)=\"onLoadImg(true)\">\n          <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <form [formGroup]=\"form\" (ngSubmit)=\"onUpdateCatProfile()\">\n      <!-- title -->\n      <ion-row class=\"minusMargin\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Descripción profesional</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea \n              formControlName=\"descProf\"\n              rows=\"3\" cols=\"20\"\n              placeholder=\"Agrega tu descripción. Máximo 140 caracteres con espacios.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- vehiculo -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"car-sport\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Vehículo</ion-text>\n            </ion-label>\n              <ion-select\n                interface=\"popover\"\n                cancelText=\"Cancelar\"\n                (ionChange)=\"onTransportChange($event)\"\n                value=\"{{ selectedTransport }}\">\n              <ion-select-option\n                *ngFor=\"let transport of transports\" \n                value=\"{{ transport.id }}\"\n                >{{ transport.name }}\n              </ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top ion-text-center\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Horario laboral</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- horas -->\n      <ion-row>\n        <ion-col size=\"6\">\n          <ion-item>\n            <ion-label class=\"main-color\" position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Inicio</ion-text>\n            </ion-label>\n            <ion-datetime display-format=\"h:mm A\" picker-format=\"h:mm A\" formControlName=\"sHour\"></ion-datetime>\n          </ion-item>\n        </ion-col>\n\n        <ion-col size=\"5\">\n          <ion-item>\n            <ion-label class=\"main-color\" position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Final</ion-text>\n            </ion-label>\n            <ion-datetime display-format=\"h:mm A\" picker-format=\"h:mm A\" formControlName=\"eHour\"></ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- dias -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item>\n            <ion-label class=\"main-color\" position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_date_range.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Días laborales</ion-text>\n            </ion-label>\n            <ion-select\n              interface=\"alert\"\n              multiple=\"true\"\n              cancelText=\"Cancelar\"\n              (ionChange)=\"onDaysChange($event)\"\n              [value]=\"selectedDays\"\n              formControlName=\"workDays\"\n              >\n              <ion-select-option value=\"l\" class=\"main-color ion-text-center\">Lunes</ion-select-option>\n              <ion-select-option value=\"m\" class=\"main-color ion-text-center\">Martes</ion-select-option>\n              <ion-select-option value=\"mi\" class=\"main-color ion-text-center\">Miercoles</ion-select-option>\n              <ion-select-option value=\"j\" class=\"main-color ion-text-center\">Jueves</ion-select-option>\n              <ion-select-option value=\"v\" class=\"main-color ion-text-center\">Viernes</ion-select-option>\n              <ion-select-option value=\"s\" class=\"main-color ion-text-center\">Sabado</ion-select-option>\n              <ion-select-option value=\"d\" class=\"main-color ion-text-center\">Domingo</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- comunas -->\n      <ion-row>\n        <ion-col size=\"11\">\n\n          <ion-searchbar\n            placeholder=\"Sector\"\n            (ionChange)=\"onSearchChange($event)\"\n            [(ngModel)]=\"searchValue\"\n            [ngModelOptions]=\"{standalone: true}\"\n            >\n          </ion-searchbar>\n          <ion-list [hidden]=\"comunas.length === 0\">\n            <ion-item *ngFor=\"let comuna of comunas\" class=\"ion-text-capitalize\" tappable (click)=\"selectComuna(comuna.id)\">\n              {{ comuna.name }}\n            </ion-item>\n          </ion-list>\n        </ion-col>\n        <!-- badges row  -->\n        <ion-col size=\"10\" offset=\"1\">\n          <div>\n            <ion-badge color=\"primary\" *ngFor=\"let sComuna of selectedComunas\" class=\"ion-text-capitalize\">\n              {{ sComuna.name }}\n              <ion-icon name=\"close-outline\" color=\"danger\" tappable (click)=\"onRemoveComuna(sComuna.id)\"></ion-icon>\n            </ion-badge>\n          </div>\n        </ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Descripción del oficio</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea \n              formControlName=\"descOffice\"\n              rows=\"3\" cols=\"20\" \n              placeholder=\"Agrega una descripción de tu oficio. Máximo 140 caracteres con espacios.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- images -->\n      <ion-row class=\"ion-align-items-center ion-margin-top\">\n        <ion-col size=\"7\" offset=\"1\">\n          <ion-slides>\n            <!-- default slide -->\n            <ion-slide *ngIf=\"loadedImgList.length === 0\">\n              <ion-img \n                src=\"/assets/images/unavailable-image.png\"\n                class=\"imgSlide\">\n              </ion-img>\n            </ion-slide>\n\n            <!-- loaded slides  -->\n            <ion-slide *ngFor=\"let image of loadedImgList\">\n              <ion-img \n                src=\"{{ image.image }}\"\n                class=\"imgSlide\">\n              </ion-img>\n            </ion-slide>\n\n          </ion-slides>\n        </ion-col>\n        <ion-col size=\"4\">\n          <ion-button (click)=\"onLoadImg(false)\" shape=\"round\">\n            <ion-icon name=\"add\" slot=\"end\" color=\"light\" class=\"rating-text\"></ion-icon>\n          </ion-button>\n        </ion-col>\n      </ion-row>\n\n      <!-- hidden file input -->\n      <div style=\"display: none;\">\n        <input type=\"file\" #hiddenImgInput *ngIf=\"useInputPicker\" (change)=\"onLoadImgFromInput($event)\">\n      </div>\n  \n\n      <!-- save BTN -->\n      <ion-row class=\"ion-margin-bottom\">\n        <ion-col offset=\"1\">\n          <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\" >\n            GUARDAR CAMBIOS\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"2\"></ion-col>\n      </ion-row>\n    </form>\n\n  </ion-grid>\n</ion-content>\n<!-- [disabled]=\"!form.valid\"  -->\n";
       /***/
     },
 
@@ -416,6 +416,12 @@
       var src_app_services_img_list_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! src/app/services/img-list.service */
       "zakx");
+      /* harmony import */
+
+
+      var src_shared_constants__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      /*! src/shared/constants */
+      "p1Kg");
 
       function base64toBlob(base64Data, contentType) {
         contentType = contentType || '';
@@ -452,6 +458,7 @@
           this.modalController = modalController;
           this.platform = platform;
           this.ils = ils;
+          this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_13__["IMAGE_URL_BLANK"];
           this.categories = [];
           this.profCategories = [];
           this.grabbedUser = null;
@@ -547,8 +554,6 @@
             this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/supplier/professions', {
               headers: this.headers
             }).subscribe(function (resData) {
-              console.log(resData['data']);
-
               if (resData['code'] === 200) {
                 if (resData['data'].length === 0) {
                   //lunch awesome modal
@@ -574,7 +579,6 @@
           value: function onCatProfileChange(profileID) {
             var _this3 = this;
 
-            // console.log(e.detail.value);
             this.lc.create({
               message: 'Cargando informacion...'
             }).then(function (loadingEl) {
@@ -583,7 +587,6 @@
               _this3.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/supplier/profession/".concat(profileID), {
                 headers: _this3.headers
               }).subscribe(function (resData) {
-                console.log(resData['data']);
                 loadingEl.dismiss();
                 _this3.selectedProPerfil = profileID;
 
@@ -600,11 +603,9 @@
         }, {
           key: "updateForm",
           value: function updateForm(info) {
-            this.selectedCatId = info.category_id; // console.log(info);
-
+            this.selectedCatId = info.category_id;
             this.selectedTransport = info.transport_id;
-            this.selectedComunas = info.communes; // console.log(this.selectedComunas);
-
+            this.selectedComunas = info.communes;
             var descPro;
 
             if (info.descProf === 'empty') {
@@ -666,8 +667,6 @@
         }, {
           key: "onSearchChange",
           value: function onSearchChange(e) {
-            // this.selectedComunas = +e.detail.value;
-            // console.log(e.srcElement.value);
             if (e.srcElement.value === '') {
               return;
             }
@@ -712,19 +711,15 @@
         }, {
           key: "onRemoveComuna",
           value: function onRemoveComuna(comunaID) {
-            // console.log(this.selectedComunas);
             for (var i = 0; i < this.selectedComunas.length; i++) {
               if (this.selectedComunas[i].id === +comunaID) {
                 this.selectedComunas.splice(i, 1);
               }
             }
-
-            console.log(this.selectedComunas);
           }
         }, {
           key: "onDaysChange",
           value: function onDaysChange(e) {
-            // console.log(e.detail.value);
             this.selectedDays = e.detail.value;
           }
         }, {
@@ -732,12 +727,9 @@
           value: function onUpdateCatProfile() {
             var _this5 = this;
 
-            // console.log(this.form);
-            var strDays = this.selectedDays.join('-'); // console.log(strDays);
-
+            var strDays = this.selectedDays.join('-');
             var aComunas = [];
             var packedComunas;
-            console.log(this.selectedComunas);
             this.selectedComunas.forEach(function (c) {
               aComunas.push(c.id);
             });
@@ -751,7 +743,6 @@
               hours: this.form.value.sHour + '/' + this.form.value.eHour,
               work_days: strDays
             };
-            console.log(body);
             this.lc.create({
               message: 'Actualizando la informacion...'
             }).then(function (loadingEl) {
@@ -792,13 +783,11 @@
               correctOrientation: true,
               height: 150,
               // width: 200,
-              resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl
+              resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl,
+              promptLabelPhoto: 'Fotos',
+              promptLabelPicture: 'Camara',
+              promptLabelCancel: 'Cancelar'
             }).then(function (image) {
-              // console.log(image);
-              // this.selectedImage = image.dataUrl;
-              // this.imgPick.emit(image.dataUrl);
-              // console.log(this.selectedImage);
-              //save img to api
               _this6.saveImgToApi(image.dataUrl);
             })["catch"](function (e) {
               console.log(e);
@@ -807,8 +796,7 @@
         }, {
           key: "onLoadImgFromInput",
           value: function onLoadImgFromInput(e) {
-            var loadedFile = e.target.files[0]; // console.log(loadedFile);
-
+            var loadedFile = e.target.files[0];
             this.saveImgToApi(loadedFile); //save img to api
           }
         }, {
@@ -844,7 +832,6 @@
                 _this7.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/account/image', formData, {
                   headers: _this7.headers
                 }).subscribe(function (resData) {
-                  // console.log(resData);
                   _this7.us.dbUserGrab(_this7.grabbedUser.access_token, _this7.grabbedUser.role);
 
                   loadingEl.dismiss();
@@ -878,12 +865,9 @@
                 _this7.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/supplier/profession/".concat(_this7.selectedProPerfil), _formData, {
                   headers: _this7.headers
                 }).subscribe(function (resData) {
-                  // console.log(resData);
-                  loadingEl.dismiss(); //remove when getting from resData
+                  loadingEl.dismiss();
 
-                  _this7.onCatProfileChange(_this7.selectedProPerfil); //activate when getting it from resdata
-                  // this.ils.setImgList(resData['data'].images);
-
+                  _this7.onCatProfileChange(_this7.selectedProPerfil);
                 }, function (err) {
                   console.log(err);
                   loadingEl.dismiss();

@@ -121,7 +121,7 @@
           key: "login",
           value: function login(form) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              var email, password, loader, body, response, data, responseData, message, user, roles, access_token, id, name, last_name, _email, phone1, phone2, img_profile, img, errorMessage, _data;
+              var email, password, loader, body, response, data, responseData, message, user, roles, access_token, id, name, last_name, _email, phone1, phone2, img_profile, img, errorMessage, _message;
 
               return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
@@ -150,10 +150,11 @@
                         email: email,
                         password: password
                       };
-                      _context.next = 12;
+                      console.log("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/auth/login"));
+                      _context.next = 13;
                       return axios__WEBPACK_IMPORTED_MODULE_11___default.a.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/auth/login"), body);
 
-                    case 12:
+                    case 13:
                       response = _context.sent;
                       data = response.data;
                       responseData = data.data, message = data.message;
@@ -190,14 +191,20 @@
                         loader.dismiss();
                       }
 
-                      _context.next = 25;
+                      _context.next = 28;
                       break;
 
-                    case 18:
-                      _context.prev = 18;
+                    case 19:
+                      _context.prev = 19;
                       _context.t0 = _context["catch"](8);
-                      _data = _context.t0.response.data;
-                      this.error = _data.message || 'Ocurrió un error';
+                      console.log(_context.t0);
+                      _message = 'Ocurrió un error';
+
+                      if (_context.t0.response) {
+                        _message = _context.t0.response.data.message;
+                      }
+
+                      this.error = _message;
                       form.reset();
                       form.setValue({
                         email: email,
@@ -205,12 +212,12 @@
                       });
                       loader.dismiss();
 
-                    case 25:
+                    case 28:
                     case "end":
                       return _context.stop();
                   }
                 }
-              }, _callee, this, [[8, 18]]);
+              }, _callee, this, [[8, 19]]);
             }));
           }
         }, {

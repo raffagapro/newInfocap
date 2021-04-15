@@ -282,14 +282,11 @@
               _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/client/requestservices', {
                 headers: _this2.headers
               }).subscribe(function (resData) {
-                console.log(resData['data']);
                 loadingEl.dismiss();
-                _this2.loadedServices = resData['data']; // this.loadedServices.sort( this.compare );
-
+                _this2.loadedServices = resData['data'];
                 var prof = [];
 
                 _this2.loadedServices.forEach(function (i) {
-                  // console.log(i);
                   var go = true;
                   prof.forEach(function (p) {
                     if (p === i.supplier_id) {

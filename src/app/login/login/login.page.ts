@@ -48,6 +48,7 @@ export class LoginPage implements OnInit {
         email,
         password,
       }
+      console.log(`${API}/auth/login`);
       const response = await axios.post(
         `${API}/auth/login`,
         body
@@ -97,9 +98,14 @@ export class LoginPage implements OnInit {
       }
 
     } catch (error) {
-      const { data } = error.response;
+      console.log(error);
+      let message = 'Ocurrió un error';
 
-      this.error = data.message || 'Ocurrió un error';
+      if(error.response){
+        message = error.response.data.message;
+      }
+
+      this.error = message;
       form.reset()
       form.setValue({
         email: email,
