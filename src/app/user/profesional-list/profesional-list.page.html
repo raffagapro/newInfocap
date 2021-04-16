@@ -11,69 +11,64 @@
 
 <ion-content>
   <!-- filter bar -->
-  <!-- <ion-grid>
-    <ion-row class="ion-margin-top">
-
-      <ion-col size="2" class="fStart">
-        <ion-text class="text-10 main-color">
-          <ion-icon name="funnel"></ion-icon>
-          FILTROS
-        </ion-text>
-      </ion-col>
-
-      <ion-col size="3">
-        <select class="main-color cusSelect" name="" style="background-color:white;">
-          <option value="">Reconocimiento</option>
-          <option value="">Catidad de estrellas</option>
-          <option value="">Calidad del servicio</option>
-          <option value="">Puntualidad</option>
-        </select>
-      </ion-col>
-
-      <ion-col size="3">
-        <select class="main-color cusSelect" name="" style="background-color:white;">
-          <option value="">Experiencia</option>
-          <option value="">Puntualidad</option>
-        </select>
-      </ion-col>
-
-      <ion-col size="3">
-        <ion-text class="text-10 main-color">
-          <ion-icon name="sync" class="filt-icon"></ion-icon>
-          REESTABLECER
-        </ion-text>
-      </ion-col>
-
-    </ion-row>
-  </ion-grid> -->
+  <ion-row class="ion-margin-top ion-align-items-center">
+    <ion-col size="2">
+      <ion-text class="text-10 main-color">
+        <ion-icon src="/assets/icon/ic_filter.svg"></ion-icon>
+        FILTROS
+      </ion-text>
+    </ion-col>
+    <ion-col size="4">
+      <select class="main-color cusSelect" name="sort" [(ngModel)]="sort" placeholder="Reconocimiento"
+        (change)="onSortChange($event)" style="background-color:white;">
+        <option value="null" disabled>Seleccionar</option>
+        <option value="reconocimiento">Reconocimiento</option>
+        <option value="calidad">Calidad del servicio</option>
+        <option value="puntualidad">Puntualidad</option>
+      </select>
+    </ion-col>
+    <ion-col size="3">
+      <select class="main-color cusSelect" name="type" [(ngModel)]="type" placeholder="Reconocimiento"
+        (change)="onTypeChange($event)" style="background-color:white;">
+        <option value="null" disabled>Seleccionar</option>
+        <option value="experiancia">Experiencia</option>
+        <option value="puntualidad">Puntualidad</option>
+      </select>
+    </ion-col>
+    <ion-col size="3">
+      <ion-text class="text-10 main-color reset-text" (click)="resetFilters()">
+        <ion-icon src="/assets/icon/ic_path.svg" class="filt-icon"></ion-icon>
+        {{' '}}
+        REESTABLECER
+      </ion-text>
+    </ion-col>
+  </ion-row>
 
   <!-- emergency message -->
-  <!-- <div class="prof-cont ion-margin-top no-border" (click)="eRequest()">
+  <!--
+  <div class="prof-cont ion-margin-top no-border" (click)="eRequest()">
     <ion-grid>
-      <ion-row> -->
-
-  <!-- profile img -->
-  <!-- <ion-col size="3">
+      <ion-row>
+        <ion-col size="3">
           <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png"/>
+            <img src="/assets/images/avatar.png" />
           </ion-avatar>
-        </ion-col> -->
-
-  <!-- title -->
-  <!-- <ion-col size="9">
+        </ion-col>
+        <ion-col size="9">
           <ion-text>
             <span class="eSelect">Necesito el servicio urgente</span><br>
-            <span class="textSelect">Esta solicitud  es de carácter urgente y será enviada a los 10 profesionales mejor catalogados para que puedan atender tu solicitud lo antes posible.</span>
+            <span class="textSelect">Esta solicitud es de carácter urgente y será enviada a los 10 profesionales mejor
+              catalogados para que puedan atender tu solicitud lo antes posible.</span>
           </ion-text>
         </ion-col>
-
       </ion-row>
     </ion-grid>
-  </div> -->
+  </div>
+  -->
 
   <!-- profesional card item -->
   <ion-text color="primary" *ngIf="profList.length == 0">
-    <h3 class="text-center">No se encontraron<br/>profesionales en el área</h3>
+    <h3 class="text-center">No se encontraron<br />profesionales en el área</h3>
   </ion-text>
   <div *ngFor="let prof of profList" class="prof-cont ion-margin-top no-border"
     (click)="profDetails(prof.id, prof.img_profile)">
@@ -130,15 +125,15 @@
 
   <!-- floating btn -->
   <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button color="primary">
-      <ion-icon md="caret-up" ios="add"></ion-icon>
+    <ion-fab-button  color="none" class="floatin-btn" closeIcon="/assets/icon/ic_close_circle.svg">
+      <ion-icon md="caret-up" size="large" src="/assets/icon/ic_filter_plus.svg" class="fab-icon"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button color="primary">
-        <ion-icon name="map"></ion-icon>
+      <ion-fab-button class="floatin-btn" color="none">
+        <ion-icon size="large" src="/assets/icon/ic_people_circle.svg" class="floatin-btn fab-icon"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button color="primary">
-        <ion-icon name="medal"></ion-icon>
+      <ion-fab-button class="floatin-btn" color="none">
+        <ion-icon size="large" src="/assets/icon/ic_map_circle.svg" class="floatin-btn fab-icon"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>

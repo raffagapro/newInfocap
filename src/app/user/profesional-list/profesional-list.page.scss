@@ -1,59 +1,65 @@
-.text-10
-{
+.text-10 {
   font-size: 10px;
 }
-.fStart
-{
+.fStart {
   margin-left: 10px;
 }
-.cusSelect
-{
-  border:0px;
-  outline:0px;
-  font-size: 12px;
+.cusSelect {
+  border: 0px;
+  outline: 0px;
+  font-size: 10px;
   background-color: none;
+  width: 100%;
+  border: solid 2px #009ace;
+  border-radius: 10px;
+  padding: 5px;
+  -webkit-appearance: none;
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='#009ace' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 98%;
+  background-position-y: 50%;
 }
-.filt-icon
-{
+.filt-icon {
   font-size: 11px;
 }
-.profileImg
-{
+.profileImg {
   margin-left: 10px;
   height: 75px;
   width: 75px;
 }
-.prof-cont
-{
-  box-shadow: 1px 8px 12px 0px rgba(0, 0, 0, 0.20);
+.prof-cont {
+  box-shadow: 1px 8px 12px 0px rgba(0, 0, 0, 0.2);
 }
-.no-border{
+.no-border {
   padding-top: 2px;
   padding-bottom: 2px;
 }
-.eSelect{
+.eSelect {
   color: red;
   font-size: 16px;
   font-weight: bold;
 }
 
-.titleSelect{
+.titleSelect {
   font-size: 16px;
   font-weight: bold;
 }
-.textSelect{
+.textSelect {
   font-size: 10px;
-  line-height: .5;
+  line-height: 0.5;
 }
-.badge-text{
+.badge-text {
   font-size: 9px;
 }
-.ratingText{
+.ratingText {
   font-size: 14px;
   margin: 0;
   padding: 0;
 }
-.locate-cont{
+.locate-cont {
   margin-top: 20px;
   border-radius: 50px;
   height: 30px;
@@ -63,10 +69,28 @@
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  background-color: #009ACE;
+  background-color: #009ace;
 }
-.rating-text{
+.rating-text {
   font-size: 18px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.reset-text {
+  display: -webkit-flex;
+}
+.floatin-btn {
+  --ion-color-base: transparent !important;
+  --ion-color-tint: transparent !important;
+  --box-shadow: none;
+
+  ion-fab-button {
+    --box-shadow: none;
+  }
+}
+.fab-icon {
+  width: 3em;
+  height: 3em;
+  --box-shadow: none;
 }

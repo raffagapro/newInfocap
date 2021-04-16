@@ -21,6 +21,8 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
   headers: HttpHeaders;
+  sort = null;
+  type = null;
 
   constructor(
     private router: Router,
@@ -70,6 +72,20 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
     this.solServ.setProPerfil(proPerfilCatId);
     this.solServ.setProPhoto(profilImg);
     this.router.navigate(['/user/profesional-detail']);
+  }
+
+  onSortChange(event) {
+    this.sort = event.target.value;
+  }
+
+  onTypeChange(event) {
+    this.type = event.target.value;
+  }
+
+  resetFilters(){
+    this.sort = null;
+    this.type = null;
+    console.log('pasó')
   }
 
   // eRequest(){
