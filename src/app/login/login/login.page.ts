@@ -48,7 +48,6 @@ export class LoginPage implements OnInit {
         email,
         password,
       }
-      console.log(`${API}/auth/login`);
       const response = await axios.post(
         `${API}/auth/login`,
         body

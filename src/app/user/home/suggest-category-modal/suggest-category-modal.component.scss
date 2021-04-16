@@ -1,0 +1,56 @@
+.status-cont {
+  border-radius: 50px;
+  height: 45px;
+  width: 45px;
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  background-color: #009ace;
+}
+.status-text-icon {
+  font-size: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-flex;
+}
+.status-text {
+  font-size: 22px;
+}
+.mini-text {
+  font-size: 13px;
+}
+hr {
+  border-top: 1px solid #009ace;
+}
+.border{
+  border: 2px solid #009ACE;
+  border-radius: 5px;
+}
+.textarea::placeholder {
+  color: #009ACE;
+}
+.textarea::-webkit-input-placeholder {
+  color: #009ACE;
+}
+
+.textarea:-moz-placeholder { /* Firefox 18- */
+  color: #009ACE;  
+}
+
+.textarea::-moz-placeholder {  /* Firefox 19+ */
+  color: #009ACE;  
+}
+
+.textarea:-ms-input-placeholder {
+  color: #009ACE;  
+}
+
+.textarea::placeholder {
+  color: #009ACE;  
+}
+.padding {
+  padding: 0 10px;
+}

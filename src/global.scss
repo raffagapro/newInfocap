@@ -122,3 +122,20 @@ ion-item {
 .text-center {
   text-align: center;
 }
+
+.btn-tertiary {
+  color: #009ACE;
+  border-color: #009ACE;
+  border-radius: 5px;
+  border: solid 2px #009ACE;
+  background-color: #ffffff;
+  --background: #ffffff;
+  transition: all ease-in-out 1s;
+
+  &:hover {
+    --ion-color-shade: #ffffff !important;
+    --ion-color-tint: #ffffff !important;
+    --background: #009ACE;
+    color: #ffffff;
+  }
+}

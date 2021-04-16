@@ -1,0 +1,47 @@
+<ion-content>
+  <ion-grid fixed>
+    <form [formGroup]="form" (ngSubmit)="sendSuggestion()">
+      <!-- SERVICIO REALIZADO  -->
+      <ion-row class="ion-margin-top padding">
+        <ion-col size="12" class="ion-text-center ion-margin-top">
+          <ion-text class="main-color status-text"><b>¿Qué oficio no encontraste y te interesa?</b>
+          </ion-text><br>
+        </ion-col>
+        <ion-col size="12" class="ion-text-center">
+          <!-- text-area -->
+          <ion-row class="ion-margin-top">
+            <ion-col size="12" class="border ion-text-center">
+              <ion-item lines="none">
+                <ion-textarea class="textarea" rows="3" cols="20" name="description" formControlName="description"
+                  placeholder="Agrega una descripción" >
+                </ion-textarea>
+              </ion-item>
+            </ion-col>
+            <ion-col size="1"></ion-col>
+            <div *ngIf="error">
+              <ion-col size="12">
+                <ion-label class="errorMess">
+                  <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
+                  <ion-text color="danger">
+                    <small> La descripción es requerida</small>
+                  </ion-text>
+                  <br />
+                </ion-label>
+              </ion-col>
+            </div>
+          </ion-row>
+        </ion-col>
+        <ion-col size="6" class="ion-text-center">
+          <ion-button size="5" color="tertiary" expand="block" class="btn-tertiary" (click)="dismiss()">
+            Omitir
+          </ion-button>
+        </ion-col>
+        <ion-col size="6" class="ion-text-center">
+          <ion-button size="5" expand="block" class="" type="submit" [disabled]="!form.valid">
+            Enviar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

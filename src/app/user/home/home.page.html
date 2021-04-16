@@ -10,11 +10,8 @@
 <ion-content>
   <ion-grid>
     <!-- category item -->
-    <ion-row 
-      *ngFor="let cat of categories"
-      class="category-item ion-align-items-end"
-      style="background-image: url('{{ cat.image }}');" 
-      (click)="map(cat.id)">
+    <ion-row *ngFor="let cat of categories" class="category-item ion-align-items-end"
+      style="background-image: url('{{ cat.image }}');" (click)="map(cat.id)">
       <ion-col class="cat-bar">
         <ion-text color="light">
           <h1 class="cat-title">{{ cat.name }}</h1>
@@ -30,24 +27,24 @@
     </ion-row>
 
     <!-- footer text -->
-    <!-- <div style="height: 20px;"></div>
+    <div style="height: 20px;"></div>
     <ion-row class="subtitle ion-margin-top">
       <ion-col size="8" offset="2" class="ion-text-center">
-        <ion-text class="footer-text main-color" ><b>¿No encuentras la categoría que buscabas?</b></ion-text>
+        <ion-text class="footer-text main-color"><b>¿No encuentras la categoría que buscabas?</b></ion-text>
       </ion-col>
-    </ion-row> -->
+    </ion-row>
 
     <!-- enviar mensaje BTN -->
-    <!-- <ion-row class="ion-margin-top ion-margin-bottom">
+    <ion-row class="ion-margin-top ion-margin-bottom">
       <ion-col size="1"></ion-col>
       <ion-col>
-        <ion-button size="6" expand="block" class="ion-text-uppercase" (click)="login()">
+        <ion-button size="6" expand="block" class="ion-text-uppercase" (click)="openSuggesModal()">
           ENVÍANOS UN MENSAJE
           <ion-icon slot="end" name="send"></ion-icon>
         </ion-button>
       </ion-col>
       <ion-col size="1"></ion-col>
-    </ion-row> -->
+    </ion-row>
 
   </ion-grid>
 </ion-content>

@@ -35,6 +35,8 @@ import { SuccessModalComponent as CSUserProfileUpdate } from './user/profile-pag
 import { SuccessModalComponent as CSproProfileUpdate } from './profesional/perfil/success-modal/success-modal.component';
 import { SuccessModalComponent as CSproCatProfileUpdate } from './profesional/cat-perfiles/success-modal/success-modal.component';
 import { CallNumber } from '@ionic-native/call-number/ngx';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -62,11 +64,14 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
   ],
   entryComponents: [],
   imports: [
+    CommonModule,
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [
     StatusBar,

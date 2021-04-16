@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LoadingController, MenuController } from "@ionic/angular";
+import { LoadingController, MenuController, ModalController } from "@ionic/angular";
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User, UserRoles } from 'src/app/model/user.model';
@@ -9,6 +9,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { API, PATH } from 'src/environments/environment';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import axios from 'axios';
+import { SuggestCategoryModalComponent } from './suggest-category-modal/suggest-category-modal.component';
 
 interface Categories {
   id: string,
@@ -30,6 +31,7 @@ export class HomePage implements OnInit, OnDestroy {
   urlServer: string = PATH;
 
   constructor(
+    private modalController: ModalController,
     private menuController: MenuController,
     private router: Router,
     private http: HttpClient,
@@ -83,5 +85,13 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
+  }
+
+  async openSuggesModal() {
+    let modal = await this.modalController.create({
+      component: SuggestCategoryModalComponent,
+      cssClass: 'modalSuccess',
+    });
+    modal.present();
   }
 }
