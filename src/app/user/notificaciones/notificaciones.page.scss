@@ -1,37 +1,33 @@
-.prof-cont
-{
-    box-shadow: 1px 8px 12px 0px rgba(0, 0, 0, 0.20);
+.prof-cont {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-.titleSelect
-{
+.titleSelect {
     font-size: 16px;
     font-weight: bold;
+    padding: 5px 20px;
 }
-.icon-size
-{
+.mt-25 {
+    margin-top: 25px;
+}
+.icon-size {
     margin-top: -3px;
     font-size: 20px;
 }
-.miniText
-{
-    color: #39AE50;
+.miniText {
+    color: #39ae50;
 }
-.red-color
-{
-    color:red;
+.red-color {
+    color: #eb445a;
 }
-.textSelect
-{
+.textSelect {
     font-size: 10px;
-    line-height: .5;
+    line-height: 0.5;
 }
-.ticket
-{
-    color: red;
+.ticket {
+    color: #eb445a;
     font-size: 11px;
 }
-.locate-cont
-{
+.locate-cont {
     margin-top: 5px;
     border-radius: 50px;
     height: 30px;
@@ -41,18 +37,25 @@
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    background-color: #009ACE;
+    background-color: #009ace;
 }
-.rating-text
-{
+.rating-text {
     font-size: 12px;
     margin-left: auto;
     margin-right: auto;
     display: inline-flex;
 }
-.ratingText
-{
+.ratingText {
     font-size: 14px;
     margin: 0;
     padding: 0;
+}
+.red-text{
+    color: #eb445a;
+}
+.gray-text {
+    color: #757575;
+}
+.blue-text {
+    color: #009ace;
 }
