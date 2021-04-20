@@ -5,6 +5,7 @@ import { LoadingController, ModalController } from '@ionic/angular';
 import { API } from 'src/environments/environment';
 import { SuccessModalComponent } from './success-modal/success-modal.component';
 import axios from 'axios';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class RegisterPage implements OnInit {
     private modalController: ModalController,
     private http: HttpClient,
     private lc: LoadingController,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -109,6 +111,14 @@ export class RegisterPage implements OnInit {
     this.errors.last_name = [];
     this.errors.email = [];
     this.errors.password = [];
+  }
+
+  goToTerms(){
+    this.router.navigate(['/terms']);
+  }
+
+  goToPrivacy(){
+    this.router.navigate(['/privacy']);
   }
 
 }

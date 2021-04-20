@@ -11,6 +11,14 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'terms',
+    loadChildren: () => import('./terms/terms.module').then( m => m.TermsPageModule)
+  },
+  {
+    path: 'privacy',
+    loadChildren: () => import('./privacy/privacy.module').then( m => m.PrivacyPageModule)
+  },
+  {
     path: 'register',
     loadChildren: () => import('./login/register/register.module').then( m => m.RegisterPageModule)
   },
