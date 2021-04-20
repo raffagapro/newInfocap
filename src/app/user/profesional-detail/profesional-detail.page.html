@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="main-font">
 
   <!-- Slider -->
   <ion-grid>
@@ -18,10 +18,7 @@
         <ion-slides>
           <!-- slide -->
           <ion-slide *ngFor="let image of loadedImgList">
-            <img
-              src="{{ image.image }}"
-              class="imgSlide"
-            >
+            <img src="{{ image.image }}" class="imgSlide">
           </ion-slide>
 
         </ion-slides>
@@ -53,10 +50,12 @@
             </ion-badge><br>
             <!-- <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge>
             <ion-badge color="medium" class="badge-text">Eléctrico</ion-badge><br> -->
-            <p class="textSelect main-color ion-text-capitalize" style="margin-top: 0; margin-bottom: 0;">Vehículo: {{ selectedProCat.transportName}}</p>
+            <p class="textSelect main-color ion-text-capitalize" style="margin-top: 0; margin-bottom: 0;">Vehículo: {{
+              selectedProCat.transportName}}</p>
             <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">Horario: {{ editedHours }}</p>
             <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">Dias: {{ editedDays }}</p>
-            <p class="textSelect main-color ion-text-capitalize" style="margin-top: 0; margin-bottom: 0;">{{ selectedProCat.communeName }}</p>
+            <p class="textSelect main-color ion-text-capitalize" style="margin-top: 0; margin-bottom: 0;">{{
+              selectedProCat.communeName }}</p>
           </ion-text>
         </ion-col>
 
@@ -110,124 +109,125 @@
       <!-- icon -->
       <ion-col size="3">
         <ion-text>
-          <p class="ratingText main-color ion-text-center">
+          <p class="ratingText main-color ion-text-right">
             50
-            <ion-icon name="ribbon" class="iconEnd"></ion-icon>
+            <ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
       </ion-col>
     </ion-row>
 
     <!-- valoracion -->
-    <!-- <ion-row class="border-bot"> -->
+    <ion-row class="border-bot">
       <!-- Text -->
-      <!-- <ion-col size="9">
+      <ion-col size="9">
         <ion-text>
           <p class="itemText">Valoraciones en relación al trabajo</p>
         </ion-text>
-      </ion-col> -->
+      </ion-col>
       <!-- icon -->
-      <!-- <ion-col size="3">
+      <ion-col size="3">
         <ion-text>
-          <p class="ratingText main-color ion-text-center">
+          <p class="ratingText main-color ion-text-right">
             4.83
-            <ion-icon name="star" class="iconEnd"></ion-icon>
+            <ion-icon src="/assets/icon/ic_star.svg" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
       </ion-col>
-    </ion-row> -->
+    </ion-row>
 
     <!-- capacidad tecnica -->
-    <!-- <ion-row class="border-bot"> -->
+    <ion-row class="border-bot">
       <!-- Text -->
-      <!-- <ion-col size="8">
+      <ion-col size="7">
         <ion-text>
           <p class="itemText">Capacidad Técnica</p>
         </ion-text>
-      </ion-col> -->
+      </ion-col>
       <!-- icon -->
-      <!-- <ion-col size="4">
+      <ion-col size="5">
         <ion-text>
-          <p class="ratingText main-color ion-text-center">
+          <p class="ratingText main-color ion-text-right">
             de 50
-            <ion-icon name="ribbon" class="iconEnd"></ion-icon>
+            &nbsp;<ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>&nbsp;
             / 50
-            <ion-icon name="hammer" class="iconEnd"></ion-icon>
+            &nbsp;<ion-icon src="/assets/icon/ic_engine_circle.svg" size="large" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
       </ion-col>
-    </ion-row> -->
+    </ion-row>
 
     <!-- Puntualidad -->
-    <!-- <ion-row class="border-bot"> -->
+    <ion-row class="border-bot">
       <!-- Text -->
-      <!-- <ion-col size="8">
+      <ion-col size="7">
         <ion-text>
           <p class="itemText">Puntualidad</p>
         </ion-text>
-      </ion-col> -->
+      </ion-col>
       <!-- icon -->
-      <!-- <ion-col size="4">
+      <ion-col size="5">
         <ion-text>
-          <p class="ratingText main-color ion-text-center">
+          <p class="ratingText main-color ion-text-right">
             de 50
-            <ion-icon name="ribbon" class="iconEnd"></ion-icon>
+            &nbsp;<ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>&nbsp;
             / 50
-            <ion-icon name="time" class="iconEnd"></ion-icon>
+            &nbsp;<ion-icon src="/assets/icon/ic_time_circle.svg" size="large" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
       </ion-col>
-    </ion-row> -->
+    </ion-row>
 
     <!-- Cordialidad -->
-    <!-- <ion-row class="border-bot"> -->
+    <ion-row class="border-bot">
       <!-- Text -->
-      <!-- <ion-col size="8">
+      <ion-col size="7">
         <ion-text>
           <p class="itemText">Cordialidad</p>
         </ion-text>
-      </ion-col> -->
+      </ion-col>
       <!-- icon -->
-      <!-- <ion-col size="4">
+      <ion-col size="5">
         <ion-text>
-          <p class="ratingText main-color ion-text-center">
+          <p class="ratingText main-color ion-text-right">
             de 50
-            <ion-icon name="ribbon" class="iconEnd"></ion-icon>
+            &nbsp;<ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>&nbsp;
             / 50
-            <ion-icon name="happy" class="iconEnd"></ion-icon>
+            &nbsp;<ion-icon src="/assets/icon/ic_heart_circle.svg" size="large" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
       </ion-col>
-    </ion-row> -->
+    </ion-row>
 
     <!-- Servicio y Satisfacción -->
-    <!-- <ion-row class="border-bot"> -->
+    <ion-row class="border-bot">
       <!-- Text -->
-      <!-- <ion-col size="8">
+      <ion-col size="7">
         <ion-text>
           <p class="itemText">Servicio y Satisfacción</p>
         </ion-text>
-      </ion-col> -->
+      </ion-col>
       <!-- icon -->
-      <!-- <ion-col size="4">
+      <ion-col size="5">
         <ion-text>
-          <p class="ratingText main-color ion-text-center">
+          <p class="ratingText main-color ion-text-right">
             de 50
-            <ion-icon name="ribbon" class="iconEnd"></ion-icon>
+            &nbsp;<ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>&nbsp;
             / 50
-            <ion-icon name="thumbs-up" class="iconEnd"></ion-icon>
+            &nbsp;<ion-icon src="/assets/icon/ic_diamont_circle.svg" size="large" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
       </ion-col>
-    </ion-row> -->
+    </ion-row>
 
     <!-- footer text -->
     <ion-row class="subtitle ion-margin-top">
-      <ion-col size="8" offset="2" class="ion-text-center">
+      <ion-col size="10" offset="1" class="ion-text-center">
         <ion-text class="lastText main-color"><b>
-          ¿Quieres enviarle una solicitud de servicio a 
-          <span class="ion-text-capitalize"> {{ selectedProCat.supplierName }} {{ selectedProCat.supplierLastName }}?</span>
-        </b></ion-text>
+            ¿Quieres enviarle una solicitud de servicio a
+            <span class="ion-text-capitalize"> {{ selectedProCat.supplierName }} {{ selectedProCat.supplierLastName
+              }}?</span>
+          </b></ion-text>
       </ion-col>
     </ion-row>
 

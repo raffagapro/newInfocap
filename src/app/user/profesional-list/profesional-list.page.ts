@@ -85,7 +85,6 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
   resetFilters() {
     this.sort = null;
     this.type = null;
-    console.log('pasó')
   }
 
   eRequest() {

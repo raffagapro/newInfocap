@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -26,19 +26,18 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 @font-face {
-  font-family: 'Poppins';    //This is what we are going to call
-  src: url('assets/font/Poppins-Regular.ttf');
+  font-family: "Poppins"; //This is what we are going to call
+  src: url("assets/font/Poppins-Regular.ttf");
 }
-body{
+body {
   background-color: #fff;
-  font-family: 'Poppins'
+  font-family: "Poppins";
 }
-.main-color{
-  color: #009ACE;
-
+.main-color {
+  color: #009ace;
 }
-.bg-main-color{
-  --background: #009ACE;
+.bg-main-color {
+  --background: #009ace;
 }
 ion-header {
   --background: #fff;
@@ -56,18 +55,20 @@ ion-toolbar {
   border-bottom-left-radius: 20px;
   --background: #fff;
 }
-.homeBtn
-{
+.homeBtn {
   font-size: 30px;
 }
-ion-back-button{
-  --color: #E54360;
+ion-back-button {
+  --color: #e54360;
   font-size: 20px;
 }
-ion-menu-button{
-  --color: #E54360;
+ion-menu-button {
+  --color: #e54360;
 }
-.title-toolbar{
+.main-font {
+  font-family: Poppins;
+}
+.title-toolbar {
   font-size: 16px;
   font-family: Poppins;
   white-space: normal;
@@ -76,46 +77,46 @@ ion-menu-button{
 }
 
 ion-searchbar ion-icon {
-  color: #009ACE !important;
+  color: #009ace !important;
   right: 16px !important;
   left: auto !important;
 }
 
 ion-item {
   --background: none;
-  opacity:1;
-  --border-color: #009ACE;
+  opacity: 1;
+  --border-color: #009ace;
 }
 
-.modalSE{
+.modalSE {
   --height: 70%;
 }
-.modalSA{
+.modalSA {
   --height: 90%;
 }
-.modalSuccess{
+.modalSuccess {
   --height: 40%;
   --width: 90%;
 }
-.modalServRechazado{
+.modalServRechazado {
   --height: 50%;
   --width: 90%;
 }
-.ion-invalid.ion-touched ion-icon{
+.ion-invalid.ion-touched ion-icon {
   color: red;
 }
 
-.ion-invalid.ion-touched ion-text{
+.ion-invalid.ion-touched ion-text {
   color: red;
 }
 
-.ion-invalid.ion-touched{
+.ion-invalid.ion-touched {
   --border-color: red;
 }
-.errorMess{
+.errorMess {
   margin-left: 18px;
 }
-.iconFixG{
+.iconFixG {
   margin-bottom: -3px;
 }
 
@@ -124,10 +125,10 @@ ion-item {
 }
 
 .btn-tertiary {
-  color: #009ACE;
-  border-color: #009ACE;
+  color: #009ace;
+  border-color: #009ace;
   border-radius: 5px;
-  border: solid 2px #009ACE;
+  border: solid 2px #009ace;
   background-color: #ffffff;
   --background: #ffffff;
   transition: all ease-in-out 1s;
@@ -135,7 +136,7 @@ ion-item {
   &:hover {
     --ion-color-shade: #ffffff !important;
     --ion-color-tint: #ffffff !important;
-    --background: #009ACE;
+    --background: #009ace;
     color: #ffffff;
   }
 }

@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { ImgListService } from 'src/app/services/img-list.service';
 import { IMAGE_URL_BLANK } from 'src/shared/constants';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-profesional-detail',
@@ -46,98 +47,102 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.us.getUser();
     this.userSub = this.us.loggedUser.subscribe(user => {
-      this.grabbedUser = user;
+      if (user) {
+        this.grabbedUser = user;
+        this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+        this.getProf();
+        console.log(this.grabbedUser)
+      }
+
     });
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
     //loading imgList
     this.loadedImgList = this.ils.imgList;
-    this.imgListSub = this.ils.listChanged.subscribe(imgList =>{
+    this.imgListSub = this.ils.listChanged.subscribe(imgList => {
       this.loadedImgList = imgList;
     });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.menuController.enable(true, 'user');
-    this.getProf();
     this.selectedProfPhoto = this.solServ.solicitud.proPhoto;
 
-    if(this.selectedProfPhoto === IMAGE_URL_BLANK) {
+    if (this.selectedProfPhoto === IMAGE_URL_BLANK) {
       this.selectedProfPhoto = null;
     }
   }
 
-  getProf(){
+  getProf() {
     this.lc.create({
       message: 'Cargando informacion del profesional...'
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API+`/client/profession/${this.solServ.solicitud.proPerfil_id}`, {headers: this.headers})
-      .subscribe(resData =>{
-        this.selectedProCat = resData['data'];
-        //work values
-        let workingHours = this.selectedProCat.hours.split('T');
-        let wsHour = workingHours[1];
-        wsHour = wsHour.substr(0, 5);
-        let weHour = workingHours[2];
-        weHour = weHour.substr(0, 5);
-        this.editedHours = wsHour+" / "+weHour;
+      this.http.get(API + `/client/profession/${this.solServ.solicitud.proPerfil_id}`, { headers: this.headers })
+        .subscribe(resData => {
+          this.selectedProCat = resData['data'];
 
-        let workingDays = this.selectedProCat.work_days.split('-');
-        workingDays.forEach(day => {
-          switch (day) {
-            case 'l':
-              this.editedDays += 'Lun ';
-              break;
-            case 'm':
-              this.editedDays += 'Mar ';
-              break;
-            case 'mr':
-              this.editedDays += 'Mie ';
-              break;
-            case 'j':
-              this.editedDays += 'Jue ';
-              break;
-            case 'v':
-              this.editedDays += 'Vie ';
-              break;
-            case 's':
-              this.editedDays += 'Sab ';
-              break;
-            case 'd':
-              this.editedDays += 'Dom ';
-              break;
-          }
-        });
-        //loading images
-        // let listArr: [] = [];
-        // resData['data'].images.forEach(image => {
+          let splitedHours = this.selectedProCat.hours.split('/');
+          let startHour = splitedHours.length > 0 ? moment(splitedHours[0]).format('h:mm a') : 'ND';
+          let endHour = splitedHours.length > 1 ? moment(splitedHours[1]).format('h:mm a') : 'ND';
+          this.editedHours = `${startHour} / ${endHour}`;
+
+          let workingDays = this.selectedProCat.work_days.split('-');
+
+          workingDays.forEach(day => {
+            switch (day) {
+              case 'l':
+                this.editedDays += 'Lun ';
+                break;
+              case 'm':
+                this.editedDays += 'Mar ';
+                break;
+              case 'mr':
+                this.editedDays += 'Mie ';
+                break;
+              case 'j':
+                this.editedDays += 'Jue ';
+                break;
+              case 'v':
+                this.editedDays += 'Vie ';
+                break;
+              case 's':
+                this.editedDays += 'Sab ';
+                break;
+              case 'd':
+                this.editedDays += 'Dom ';
+                break;
+            }
+          });
+          //loading images
+          // let listArr: [] = [];
+          // resData['data'].images.forEach(image => {
           //   listArr.push(image.image);
           // });
-        this.ils.setImgList(resData['data'].images);   
-        loadingEl.dismiss();
-      }, e =>{
-        console.log(e);
-        loadingEl.dismiss();
-        // this.router.navigate(['/user/profesional-list']);
-      });
+          this.ils.setImgList(resData['data'].images);
+          loadingEl.dismiss();
+        }, e => {
+          console.log(e);
+          loadingEl.dismiss();
+          // this.router.navigate(['/user/profesional-list']);
+        });
     }).then(err => {
       console.log(err)
       this.lc.dismiss();
     });
   }
 
-  openMenu(){
+  openMenu() {
     this.menuController.open();
   }
 
-  sendRequest(){
+  sendRequest() {
     this.solServ.setProPerfilObj(this.selectedProCat);
     this.router.navigate(['/user/solicitud-servicio']);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
     this.imgListSub.unsubscribe();
   }

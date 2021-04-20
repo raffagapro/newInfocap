@@ -62,7 +62,6 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
       loadingEl.present();
       this.http.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: this.headers })
         .subscribe(resData => {
-          console.log(resData['data']);
           loadingEl.dismiss();
           this.loadedInfo.clientLastName = resData['data'].clientLastName;
           this.loadedInfo.clientName = resData['data'].clientName;
