@@ -33,25 +33,25 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
     private lc: LoadingController,
   ) { }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
     this.headers = new HttpHeaders();
-    this.headers = this.headers.set('Authorization', 'Bearer '+this.grabbedUser.access_token);
+    this.headers = this.headers.set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
 
     // Grab prof list 
     this.lc.create({
       message: "Generando lista de profesionales..."
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
       this.http.get(
-        API+`/client/professions/${this.solServ.solicitud.comuna_id}/${this.solServ.solicitud.category_id}`,
-        {headers: this.headers}
-      ).subscribe(resData =>{
+        API + `/client/professions/${this.solServ.solicitud.comuna_id}/${this.solServ.solicitud.category_id}`,
+        { headers: this.headers }
+      ).subscribe(resData => {
         this.profList = resData['data'];
         loadingEl.dismiss();
-      }, e =>{
+      }, e => {
         console.log(e);
         loadingEl.dismiss();
       });
@@ -60,15 +60,15 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
     });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.menuController.enable(true, 'user');
   }
 
-  openMenu(){
+  openMenu() {
     this.menuController.open();
   }
-  
-  profDetails(proPerfilCatId, profilImg){
+
+  profDetails(proPerfilCatId, profilImg) {
     this.solServ.setProPerfil(proPerfilCatId);
     this.solServ.setProPhoto(profilImg);
     this.router.navigate(['/user/profesional-detail']);
@@ -82,17 +82,17 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
     this.type = event.target.value;
   }
 
-  resetFilters(){
+  resetFilters() {
     this.sort = null;
     this.type = null;
     console.log('pasó')
   }
 
-  // eRequest(){
-  //   this.router.navigate(['/user/urgen-service']);
-  // }
+  eRequest() {
+    this.router.navigate(['/user/urgen-service']);
+  }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
   }
 }

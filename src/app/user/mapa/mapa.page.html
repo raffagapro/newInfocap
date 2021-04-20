@@ -9,16 +9,19 @@
 </ion-header>
 
 <ion-content>
-  <div #map id="map"></div>
+  <div>
+    <div #map id="map">
 
-  <ion-fab horizontal="end" vertical="center" slot="fixed">
-    <ion-fab-button class="float-bottom" color="white" (click)="loadMap()">
-      <ion-icon name="locate" color="primary"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-button class="float-bottom" color="white" (click)="showCords()">
-      <ion-icon name="information-circle-outline" color="primary"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    </div>
+    <ion-fab class="controls" horizontal="end" vertical="top" slot="fixed">
+      <ion-fab-button class="float-bottom" color="white" (click)="loadMap()">
+        <ion-icon name="locate" color="primary"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button class="float-bottom" color="white" (click)="showCords()">
+        <ion-icon name="information-circle-outline" color="primary"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
 
   <!-- nombre -->
   <ion-grid class="top-center">
@@ -35,83 +38,89 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-toolbar class="ion-no-padding">
+          <ion-grid>
+
+            <!-- title -->
+            <!-- <ion-row class="ion-no-padding ion-no-margin">
+              <ion-col size="10" offset="1" class="ion-text-center">
+                <ion-text class="main-color ion-text-uppercase title">CONFIRMA TU DIRECCIÓN</ion-text>
+              </ion-col>
+              <ion-col size="1"></ion-col>
+              <ion-col size="1" offset="1"></ion-col>
+              <ion-col size="8" class="ion-text-center">
+                <ion-text><hr></ion-text>
+              </ion-col>
+              <ion-col size="1"></ion-col>
+            </ion-row> -->
+
+            <form [formGroup]="form" (ngSubmit)="searchPro()">
+              <ion-row class="ion-justify-content-center">
+                <ion-col size="12">
+                  <ion-title class="main-color title ion-text-uppercase">
+                    Confirma tu dirección
+                  </ion-title>
+                </ion-col>
+                <ion-col size="6">
+                  <hr />
+                </ion-col>
+              </ion-row>
+              <!-- detalles de la direccion -->
+              <ion-row class="ion-no-padding ion-no-margion">
+                <ion-col size="10" offset="1">
+                  <ion-item>
+                    <ion-label position="floating" class="main-color">
+                      <ion-icon src="/assets/icon/ic_place.svg" slot="start" class="main-color"></ion-icon>
+                      <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Dirección</ion-text>
+                    </ion-label>
+                    <ion-input type="text" formControlName="address"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row class="ion-no-padding ion-no-margion">
+                <ion-col size="10" offset="1">
+                  <ion-item>
+                    <ion-label position="floating" class="main-color">
+                      <ion-icon src="/assets/icon/ic_tag.svg" slot="start" class="main-color"></ion-icon>
+                      <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Detalles de la dirección ej. casa, oficina
+                      </ion-text>
+                    </ion-label>
+                    <ion-input type="text" formControlName="addressDirection"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row class="ion-no-padding ion-no-margion">
+                <ion-col size="10" offset="1">
+                  <ion-item>
+                    <ion-label position="floating" class="main-color">
+                      <ion-icon src="/assets/icon/ic_speaker_notes.svg" slot="start" class="main-color"></ion-icon>
+                      <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Agregar instrucciones ej. tocar el timbre
+                      </ion-text>
+                    </ion-label>
+                    <ion-input type="text" formControlName="addressInstructions"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <!-- find BTN -->
+              <ion-row class="ion-margin-top">
+                <ion-col size="1"></ion-col>
+                <ion-col>
+                  <ion-button size="10" expand="block" class="ion-text-uppercase" type="submit"
+                    [disabled]="!form.valid">
+                    CONTINUAR
+                  </ion-button>
+                </ion-col>
+                <ion-col size="1"></ion-col>
+              </ion-row>
+            </form>
+
+          </ion-grid>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar class="ion-no-padding">
-    <ion-grid>
-
-      <!-- title -->
-      <!-- <ion-row class="ion-no-padding ion-no-margin">
-        <ion-col size="10" offset="1" class="ion-text-center">
-          <ion-text class="main-color ion-text-uppercase title">CONFIRMA TU DIRECCIÓN</ion-text>
-        </ion-col>
-        <ion-col size="1"></ion-col>
-        <ion-col size="1" offset="1"></ion-col>
-        <ion-col size="8" class="ion-text-center">
-          <ion-text><hr></ion-text>
-        </ion-col>
-        <ion-col size="1"></ion-col>
-      </ion-row> -->
-
-      <form [formGroup]="form" (ngSubmit)="searchPro()">
-        <ion-row class="ion-justify-content-center">
-          <ion-col size="12">
-            <ion-title class="main-color title ion-text-uppercase">
-              Confirma tu dirección
-            </ion-title>
-          </ion-col>
-          <ion-col size="6">
-            <hr />
-          </ion-col>
-        </ion-row>
-        <!-- detalles de la direccion -->
-        <ion-row class="ion-no-padding ion-no-margion">
-          <ion-col size="10" offset="1">
-            <ion-item>
-              <ion-label position="floating" class="main-color">
-                <ion-icon src="/assets/icon/ic_place.svg" slot="start" class="main-color"></ion-icon>
-                <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Dirección</ion-text>
-              </ion-label>
-              <ion-input type="text" formControlName="address"></ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row class="ion-no-padding ion-no-margion">
-          <ion-col size="10" offset="1">
-            <ion-item>
-              <ion-label position="floating" class="main-color">
-                <ion-icon src="/assets/icon/ic_tag.svg" slot="start" class="main-color"></ion-icon>
-                <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Detalles de la dirección ej. casa, oficina</ion-text>
-              </ion-label>
-              <ion-input type="text" formControlName="addressDirection"></ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-row class="ion-no-padding ion-no-margion">
-          <ion-col size="10" offset="1">
-            <ion-item>
-              <ion-label position="floating" class="main-color">
-                <ion-icon src="/assets/icon/ic_speaker_notes.svg" slot="start" class="main-color"></ion-icon>
-                <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Agregar instrucciones ej. tocar el timbre</ion-text>
-              </ion-label>
-              <ion-input type="text" formControlName="addressInstructions"></ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-
-        <!-- find BTN -->
-        <ion-row class="ion-margin-top">
-          <ion-col size="1"></ion-col>
-          <ion-col>
-            <ion-button size="10" expand="block" class="ion-text-uppercase" type="submit" [disabled]="!form.valid">
-              CONTINUAR
-            </ion-button>
-          </ion-col>
-          <ion-col size="1"></ion-col>
-        </ion-row>
-      </form>
-
-    </ion-grid>
-  </ion-toolbar>
-</ion-footer>
