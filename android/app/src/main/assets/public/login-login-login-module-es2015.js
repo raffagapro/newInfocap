@@ -62,7 +62,6 @@ let LoginPage = class LoginPage {
                     email,
                     password,
                 };
-                console.log(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/auth/login`);
                 const response = yield axios__WEBPACK_IMPORTED_MODULE_11___default.a.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/auth/login`, body);
                 const { data } = response;
                 const { data: responseData, message } = data;

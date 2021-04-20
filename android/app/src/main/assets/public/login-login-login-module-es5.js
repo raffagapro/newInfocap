@@ -150,11 +150,10 @@
                         email: email,
                         password: password
                       };
-                      console.log("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/auth/login"));
-                      _context.next = 13;
+                      _context.next = 12;
                       return axios__WEBPACK_IMPORTED_MODULE_11___default.a.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/auth/login"), body);
 
-                    case 13:
+                    case 12:
                       response = _context.sent;
                       data = response.data;
                       responseData = data.data, message = data.message;
@@ -191,11 +190,11 @@
                         loader.dismiss();
                       }
 
-                      _context.next = 28;
+                      _context.next = 27;
                       break;
 
-                    case 19:
-                      _context.prev = 19;
+                    case 18:
+                      _context.prev = 18;
                       _context.t0 = _context["catch"](8);
                       console.log(_context.t0);
                       _message = 'Ocurrió un error';
@@ -212,12 +211,12 @@
                       });
                       loader.dismiss();
 
-                    case 28:
+                    case 27:
                     case "end":
                       return _context.stop();
                   }
                 }
-              }, _callee, this, [[8, 19]]);
+              }, _callee, this, [[8, 18]]);
             }));
           }
         }, {

@@ -15,9 +15,9 @@
   --ion-color-secondary-shade: #0097be;
   --ion-color-secondary-tint: #1ab4dc;
   /** tertiary **/
-  --ion-color-tertiary: #32b6dd;
+  --ion-color-tertiary: #ffffff;
   --ion-color-tertiary-rgb: 50,182,221;
-  --ion-color-tertiary-contrast: #000000;
+  --ion-color-tertiary-contrast: #00acd8;
   --ion-color-tertiary-contrast-rgb: 0,0,0;
   --ion-color-tertiary-shade: #2ca0c2;
   --ion-color-tertiary-tint: #47bde0;
@@ -1123,10 +1123,10 @@ body {
   font-family: "Poppins";
 }
 .main-color {
-  color: #009ACE;
+  color: #009ace;
 }
 .bg-main-color {
-  --background: #009ACE;
+  --background: #009ace;
 }
 ion-header {
   --background: #fff;
@@ -1145,11 +1145,14 @@ ion-toolbar {
   font-size: 30px;
 }
 ion-back-button {
-  --color: #E54360;
+  --color: #e54360;
   font-size: 20px;
 }
 ion-menu-button {
-  --color: #E54360;
+  --color: #e54360;
+}
+.main-font {
+  font-family: Poppins;
 }
 .title-toolbar {
   font-size: 16px;
@@ -1159,14 +1162,14 @@ ion-menu-button {
   padding: 0;
 }
 ion-searchbar ion-icon {
-  color: #009ACE !important;
+  color: #009ace !important;
   right: 16px !important;
   left: auto !important;
 }
 ion-item {
   --background: none;
   opacity: 1;
-  --border-color: #009ACE;
+  --border-color: #009ace;
 }
 .modalSE {
   --height: 70%;
@@ -1199,4 +1202,19 @@ ion-item {
 }
 .text-center {
   text-align: center;
+}
+.btn-tertiary {
+  color: #009ace;
+  border-color: #009ace;
+  border-radius: 5px;
+  border: solid 2px #009ace;
+  background-color: #ffffff;
+  --background: #ffffff;
+  transition: all ease-in-out 1s;
+}
+.btn-tertiary:hover {
+  --ion-color-shade: #ffffff !important;
+  --ion-color-tint: #ffffff !important;
+  --background: #009ace;
+  color: #ffffff;
 }

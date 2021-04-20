@@ -67,7 +67,13 @@ export class RegisterPage implements OnInit {
     try {
       const response = await axios.post(
         `${API}/auth/register`,
-        body
+        body,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        }
       );
 
       this.clearErrors();
@@ -113,11 +119,11 @@ export class RegisterPage implements OnInit {
     this.errors.password = [];
   }
 
-  goToTerms(){
+  goToTerms() {
     this.router.navigate(['/terms']);
   }
 
-  goToPrivacy(){
+  goToPrivacy() {
     this.router.navigate(['/privacy']);
   }
 
