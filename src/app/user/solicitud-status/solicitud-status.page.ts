@@ -5,6 +5,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
+import { ServiceStatus } from 'src/app/model/solicitud.model';
 
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
@@ -68,28 +69,28 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.menuController.enable(true, 'user');
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
     this.serviceId = this.solServ.solicitud.solicitudID;
     this.loadService(this.solServ.solicitud.solicitudID);
   }
 
-  loadService(solicitudId: string){
+  loadService(solicitudId: string) {
     this.lc.create({
       message: "Cargando informacion del servicio..."
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API+`/client/requestservice/${solicitudId}`, {headers: this.headers})
-      .subscribe(resData =>{
-        loadingEl.dismiss();
-        this.loadedService = resData['data'];
-        this.solServ.setServiceObj(resData['data']);
-        this.wDate = moment(this.loadedService.created_date, 'YYYY-MM-DD').format('DD MMM YYYY');
-      }, err =>{
-        loadingEl.dismiss();
-        console.log(err);
-      });
+      this.http.get(API + `/client/requestservice/${solicitudId}`, { headers: this.headers })
+        .subscribe(resData => {
+          loadingEl.dismiss();
+          this.loadedService = resData['data'];
+          this.solServ.setServiceObj(resData['data']);
+          this.wDate = moment(this.loadedService.created_date, 'YYYY-MM-DD').format('DD MMM YYYY');
+        }, err => {
+          loadingEl.dismiss();
+          console.log(err);
+        });
     });
   }
 
@@ -97,36 +98,37 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     window.open(`https://api.whatsapp.com/send?phone=${PHONE_PREFIX}${this.loadedService.suplierPhone1}`);
   }
 
-  call(clientNumb: string){
+  call(clientNumb: string) {
     this.callNumber.callNumber(clientNumb, true)
-    .then(res => console.log('Launched dialer!', res))
-    .catch(err => console.log('Error launching dialer', err));
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => console.log('Error launching dialer', err));
   }
 
-  openMenu(){
+  openMenu() {
     this.menuController.open();
   }
 
-  serviceDetal(statusID: number){
+  serviceDetal(statusID: number) {
     switch (statusID) {
-      case 1:
-        this.seModal();
+      case ServiceStatus.SolicitudEnviada:
+        this.goToServiceResume();
         break;
-      
-      case 2:
+      case ServiceStatus.VisitaTecnica:
+        this.goToTechnicalVisit();
+        break;
+      case ServiceStatus.ServicioAgendado:
+        this.goToServiceDetail();
+        break;
+      case ServiceStatus.ServicioProceso:
         this.srvPay();
         break;
-
-      case 3:
-        this.srModal();
-        break;
-
       default:
+        this.saModal();
         break;
     }
   }
 
-  seModal(){
+  seModal() {
     this.modalController.create({
       component: SolicitudEnviadaModalComponent,
       cssClass: 'modalSA',
@@ -135,7 +137,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     });
   }
 
-  saModal(){
+  saModal() {
     this.modalController.create({
       component: ServicioAgendadoModalComponent,
       cssClass: 'modalSA',
@@ -144,7 +146,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     });
   }
 
-  srModal(){
+  srModal() {
     this.modalController.create({
       component: SolicitudRechazadaModalComponent,
       cssClass: 'modalServRechazado',
@@ -153,11 +155,23 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     });
   }
 
-  srvPay(){
+  goToTechnicalVisit() {
+    this.router.navigate(['/user/visita-detail']);
+  }
+
+  goToServiceDetail() {
+    this.router.navigate(['/user/solicitud-detail']);
+  }
+
+  goToServiceResume(){
+    this.router.navigate(['/user/service-resume']);
+  }
+
+  srvPay() {
     this.router.navigate(['/user/servicio-pagar']);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
   }
 }

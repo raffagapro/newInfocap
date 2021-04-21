@@ -110,7 +110,7 @@
       </ion-row>
       <!-- active  -->
       <ion-row *ngIf="loadedService.status_id > 1 && loadedService.status_id !== 7">
-        <div class="status-cont" (click)="serviceDetal(1)">
+        <div class="status-cont" (click)="serviceDetal(2)">
           <ion-icon name="checkmark" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
@@ -139,7 +139,7 @@
       </ion-row>
       <!-- active  -->
       <ion-row *ngIf="loadedService.status_id > 2 && loadedService.status_id !== 7">
-        <div class="status-cont" (click)="serviceDetal(1)">
+        <div class="status-cont" (click)="serviceDetal(3)">
           <ion-icon name="calendar" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">

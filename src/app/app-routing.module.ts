@@ -78,6 +78,11 @@ const routes: Routes = [
     // canLoad: [AuthGuard, UserGuard],
   },
   {
+    path: 'user/service-resume',
+    loadChildren: () => import('./user/service-resume/service-resume.module').then( m => m.ServiceResumePageModule),
+    // canLoad: [AuthGuard, UserGuard],
+  },
+  {
     path: 'user/solicitud-status',
     loadChildren: () => import('./user/solicitud-status/solicitud-status.module').then( m => m.SolicitudStatusPageModule),
     // canLoad: [AuthGuard, UserGuard],

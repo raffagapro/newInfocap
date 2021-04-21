@@ -115,15 +115,15 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
     window.open(`https://api.whatsapp.com/send?phone=${PHONE_PREFIX}${this.loadedInfo.clientPhone1}`);
   }
 
-  call(clientNumb: string) {
-    this.callNumber.callNumber(clientNumb, true)
+  call() {
+    this.callNumber.callNumber(this.loadedInfo.clientPhone1, true)
       .then(res => console.log('Launched dialer!', res))
       .catch(err => console.log('Error launching dialer', err));
   }
 
-  // wa(clientNumb: string){
-  //   this.router.navigateByUrl('whatsapp://send?phone='+clientNumb);
-  // }
+  wa(){
+    this.router.navigateByUrl(`whatsapp://send?phone=${this.loadedInfo.clientPhone1}`);
+  }
 
   confirmVisit() {
     this.router.navigate(['/profesional/solicitudes/visita-tecnica']);

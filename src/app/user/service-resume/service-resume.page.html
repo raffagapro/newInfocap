@@ -5,14 +5,14 @@
       <ion-back-button defaultHref="/user/solicitudes" text="" icon="arrow-back"></ion-back-button>
     </ion-buttons>
 
-    <ion-title class="title-toolbar">DEFINICIÓN DEL SERVICIO</ion-title>
+    <ion-title class="title-toolbar">VISITA TÉCNICA</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <!-- profesional card item -->
-  <div class="no-border">
+  <div class="no-border ion-margin-top">
     <ion-grid>
       <ion-row class="ion-align-items-center">
         <!-- profile img -->
@@ -52,7 +52,7 @@
     </ion-row>
 
     <!-- Slider -->
-    <ion-row class="minusMargin">
+    <ion-row class="">
       <ion-col size="12">
         <ion-slides [options]="slideOptions">
           <!-- slide -->
@@ -75,7 +75,7 @@
     </ion-row>
 
     <!-- Fecha de visita -->
-    <ion-row class="minusMargin">
+    <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-text class="main-color subtitle"><b>Fecha de visita</b></ion-text>
@@ -91,7 +91,7 @@
     </ion-row>
 
     <!-- Rango de horas -->
-    <ion-row>
+    <ion-row class="ion-margin-top">
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-text class="main-color subtitle"><b>Rango de horas</b></ion-text>
@@ -102,72 +102,6 @@
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_schedule.svg" class="main-color iconFix"></ion-icon>
         <ion-text class="main-color subText"> 8:00 - 16:00 horas</ion-text>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
-
-    <!-- Costo -->
-    <ion-row>
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color subtitle"><b>Costo</b></ion-text>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="ion-text-center">
-        <ion-icon src="/assets/icon/ic_money.svg" class="main-color iconFix"></ion-icon>
-        <ion-text class="main-color subText"> $30 USD</ion-text>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
-
-    <!-- Costo & pay BTNS-->
-    <ion-row>
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color subtitle"><b>¿Cómo desea pagar?</b></ion-text>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-
-      <ion-col size="12" class="ion-text-center">
-        <section>
-          <!-- btn -->
-          <ion-button size="small">
-            <ion-icon slot="start" src="assets/icon/visa.svg"></ion-icon>
-            Crédito
-          </ion-button>
-
-          <!-- btn -->
-          <ion-button size="small" fill="outline">
-            <ion-icon slot="start" src="assets/icon/mastercard.svg"></ion-icon>
-            Débito
-          </ion-button>
-
-          <!-- btn -->
-          <ion-button size="small" fill="outline">
-            <ion-icon slot="start" src="/assets/icon/ic_dollar.svg"></ion-icon>
-            Débito
-          </ion-button>
-
-          <!-- btn -->
-          <ion-button size="small" fill="outline">
-            <ion-icon slot="start" src="/assets/icon/ic_money.svg"></ion-icon>
-            Transferencia
-          </ion-button>
-
-        </section>
-      </ion-col>
-
-    </ion-row>
-
-    <!-- enviar solicitud BTN -->
-    <ion-row class="ion-margin-top ion-margin-bottom">
-      <ion-col size="1"></ion-col>
-      <ion-col>
-        <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="confirmSolicitud()">
-          ACEPTAR VISITA
-        </ion-button>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
