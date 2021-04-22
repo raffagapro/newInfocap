@@ -122,6 +122,9 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
       case ServiceStatus.ServicioProceso:
         this.srvPay();
         break;
+      case ServiceStatus.ServicioRealizado:
+        this.srvPay();
+        break;
       default:
         this.saModal();
         break;
@@ -163,7 +166,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     this.router.navigate(['/user/solicitud-detail']);
   }
 
-  goToServiceResume(){
+  goToServiceResume() {
     this.router.navigate(['/user/service-resume']);
   }
 
