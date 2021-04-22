@@ -91,4 +91,5 @@ export class AppComponent {
   openWhatsapp() {
     window.open(`https://api.whatsapp.com/send?phone=${this.whatsappPhone}`);
   }
+
 }
