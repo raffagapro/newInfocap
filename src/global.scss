@@ -102,6 +102,11 @@ ion-item {
   --height: 50%;
   --width: 90%;
 }
+.modalBanco {
+  --height: 52%;
+  --width: 96%;
+  --border-radius: 8px;
+}
 .ion-invalid.ion-touched ion-icon {
   color: red;
 }

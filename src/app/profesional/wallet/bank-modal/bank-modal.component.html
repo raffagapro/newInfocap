@@ -1,0 +1,48 @@
+<ion-content>
+  <ion-grid class="modal-bank">
+    <ion-row class="modal-cont ion-margin-bottom">
+      <div class="status-cont">
+        <ion-text class="main-color status-text ion-text-center"><b>DATOS BANCARIOS</b></ion-text><br>
+      </div>
+    </ion-row>
+
+    <ion-row class="ion-margin-left">
+      <ion-item class="no-border">
+        <ion-label class="stacked-modal-label" position="stacked">NOMBRE COMPLETO</ion-label>
+        <ion-input class="stacked-input" placeholder="José Alcarraga López"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <ion-row class="ion-margin-left">
+      <ion-item class="no-border">
+        <ion-label class="stacked-modal-label" position="stacked">NÚMERO DE TARJETA</ion-label>
+        <ion-input class="stacked-input" placeholder="1234 5678 9123 4567"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <ion-row class="ion-margin-left">
+      <ion-item class="no-border">
+        <ion-label class="stacked-modal-label" position="stacked">CLABE INTERBANCARIA</ion-label>
+        <ion-input class="stacked-input" placeholder="123456789987654321"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    <ion-row class="ion-margin-left">
+      <ion-item class="no-border">
+        <ion-label class="stacked-modal-label" position="stacked">BANCO</ion-label>
+        <ion-input class="stacked-input" placeholder="BBVA"></ion-input>
+      </ion-item>
+    </ion-row>
+
+    
+    <ion-row class="ion-margin-left">
+      <ion-col offset="1">
+        <ion-button size="5" expand="block" class="ion-text-uppercase" type="submit" [disabled]="!form.valid">
+          GUARDAR DATOS
+        </ion-button>
+      </ion-col>
+      <ion-col size="2"></ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
