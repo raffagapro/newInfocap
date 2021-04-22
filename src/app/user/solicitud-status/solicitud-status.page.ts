@@ -109,6 +109,8 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
   }
 
   serviceDetal(statusID: number) {
+    this.solServ.clearSolicitud();
+    this.solServ.setServiceID(this.loadedService.request_id);
     switch (statusID) {
       case ServiceStatus.SolicitudEnviada:
         this.goToServiceResume();

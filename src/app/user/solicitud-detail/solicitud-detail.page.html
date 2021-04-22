@@ -18,15 +18,17 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png"/>
+            <img src="{{ loadedService.img_profile || '/assets/images/avatar.png'}}" />
           </ion-avatar>
         </ion-col>
 
         <!-- title -->
         <ion-col size="6">
           <ion-text>
-            <span class="titleSelect main-color">Cerrajería de Juan Alcayaga</span><br>
-            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">18 nov 2020</p>
+            <span class="titleSelect main-color">{{loadedService.categoryName}} de {{loadedService.supplierName}}
+              {{loadedService.supplierLastName}}</span><br>
+            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">
+              {{formatDate(loadedService.created_date, 'DD/MM/YYYY')}}</p>
           </ion-text>
         </ion-col>
 
@@ -46,33 +48,30 @@
 
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="titleText">Cambio de chapas</ion-text>
+        <ion-text class="titleText">
+          {{loadedService.description}}
+        </ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
 
     <!-- Slider -->
-    <ion-row class="minusMargin">
+    <ion-row class="" *ngIf="loadedService.img_request.length > 0">
       <ion-col size="12">
         <ion-slides [options]="slideOptions">
           <!-- slide -->
-          <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
-          </ion-slide>
-
-          <!-- slide -->
-          <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
-          </ion-slide>
-
-          <!-- slide -->
-          <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+          <ion-slide *ngFor="let image of loadedService.img_request">
+            <img
+              src="{{ image.image }}"
+              class="imgSlide"
+            >
           </ion-slide>
 
         </ion-slides>
       </ion-col>
     </ion-row>
+
+    <br/><br/>
 
     <!-- Fecha de visita -->
     <ion-row class="minusMargin">
@@ -85,7 +84,7 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color iconFix"></ion-icon>
-        <ion-text class="main-color subText"> Viernes 20 de noviembre de 2020</ion-text>
+        <ion-text class="main-color subText"> {{formatDate(loadedService.date_required)}}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -101,7 +100,7 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_schedule.svg" class="main-color iconFix"></ion-icon>
-        <ion-text class="main-color subText"> 8:00 - 16:00 horas</ion-text>
+        <ion-text class="main-color subText"> {{formatTime()}}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
