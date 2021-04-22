@@ -58,3 +58,7 @@
     border: solid 2px #009ace;
     border-radius: 10px;
 }
+
+.calendar-hour-column, .weekview-allday-label, .dayview-allday-label {
+    width: 70px !important;
+  }

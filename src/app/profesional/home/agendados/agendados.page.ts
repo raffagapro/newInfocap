@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -8,6 +8,7 @@ import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
+import { CalendarComponent } from 'ionic2-calendar';
 import * as moment from 'moment';
 
 @Component({
@@ -23,6 +24,14 @@ export class AgendadosPage implements OnInit, OnDestroy {
   loadedStartedServices = [];
   loadedVisits = [];
   parsedHours = null;
+
+  eventSource = [];
+  calendar = {
+    mode: 'week',
+    currentDate: new Date()
+  }
+
+  @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
   constructor(
     private router: Router,

@@ -19,8 +19,14 @@ Chart.register(
 export class WalletPage implements OnInit {
 
   @ViewChild('barChart') barChart;
+  @ViewChild('barChartWeek') barChartWeek;
 
   graphicWeek = false;
+  weeksToRender = [];
+  selectedMonth = 0;
+  actualWeekToShow = 0;
+  days = ['D', 'L', 'M', 'M', 'J', 'V', 'S']
+  months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
   constructor(
     private menuController: MenuController,
@@ -28,28 +34,65 @@ export class WalletPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
   }
 
   ionViewDidEnter() {
     this.barChartMethod();
   }
 
-  barChartMethod() {   
+  barChartMethod() {
     this.barChart = new Chart(this.barChart.nativeElement, {
       type: 'bar',
       data: {
         labels: ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'],
         datasets: [{
-          label: 'My First Dataset',
-          data: [65, 59, 80, 81, 56, 55, 40],
+          label: '',
+          data: [65, 59, 80, 81, 56, 55, 40, 80, 81, 56, 55, 40],
           backgroundColor: [
             'rgba(50, 182, 221)',
-            'rgba(50, 182, 221)',
-            'rgba(50, 182, 221)',
-            'rgba(50, 182, 221)',
-            'rgba(50, 182, 221)',
-            'rgba(50, 182, 221)',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        onClick: this.clickMonth,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+  barChartWeekMethod(month) {
+    var year = new Date().getFullYear()
+    this.selectedMonth = month.index
+
+    this.weeksToRender = []
+    const firstDate = new Date(year, month.index, 1)
+    const lastDate = new Date(year, month.index, 0)
+    const numDays = lastDate.getDate()
+
+    let dayOfWeekCounter = firstDate.getDay();
+
+    for (let date = 1; date <= numDays; date++) {
+      if (dayOfWeekCounter === 0 || this.weeksToRender.length === 0) {
+        this.weeksToRender.push([]);
+      }
+      this.weeksToRender[this.weeksToRender.length - 1].push(date);
+      dayOfWeekCounter = (dayOfWeekCounter + 1) % 7;
+    }
+
+    this.barChartWeek = new Chart(this.barChartWeek.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
+        datasets: [{
+          label: '',
+          data: [65, 59, 80, 81, 56, 55, 40],
+          backgroundColor: [
             'rgba(50, 182, 221)',
           ],
           borderWidth: 1
@@ -63,6 +106,11 @@ export class WalletPage implements OnInit {
         }
       }
     });
+  }
+
+  clickMonth = (event, point) => {
+    this.graphicWeek = true
+    this.barChartWeekMethod(point[0])
   }
 
   ionViewWillEnter() {
@@ -84,6 +132,14 @@ export class WalletPage implements OnInit {
 
   backWalletMain() {
     this.graphicWeek = false
+  }
+
+  changeWeek(type) {
+    if(type === 'add') {
+      this.actualWeekToShow = this.actualWeekToShow + 1
+    } else {
+      this.actualWeekToShow = this.actualWeekToShow - 1
+    }
   }
 
   imgProfile() {

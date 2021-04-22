@@ -10,7 +10,6 @@
     <ion-title class="title-toolbar">AGENDADOS</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
 
   <!-- title -->
@@ -31,6 +30,10 @@
   </ion-grid>
 
   <!-- servicios agendados -->
+  <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" >
+  </calendar>
+
+
   <div class="prof-cont no-border" *ngFor="let service of loadedServices">
     <ion-grid>
       <ion-row class="ion-align-items-center">
