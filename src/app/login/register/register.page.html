@@ -72,7 +72,7 @@
         <ion-col size="11">
           <ion-item>
             <ion-label position="floating">
-              <ion-icon name="mail" slot="start" class="main-color"></ion-icon>
+              <ion-icon src="/assets/icon/ic_mail.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Email
               </ion-text>
             </ion-label>
@@ -98,12 +98,33 @@
         </ion-col>
       </ion-row>
 
+      <!-- phone -->
+      <ion-row>
+        <ion-col size="11">
+          <ion-item>
+            <ion-label position="floating" class="main-color">
+              <ion-icon src="/assets/icon/ic_phone.svg" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Teléfono</ion-text>
+            </ion-label>
+            <ion-input ngModel name="phone1" required #phone1Ctrl="ngModel" type="tel">
+            </ion-input>
+          </ion-item>
+          <!-- error  -->
+          <ion-label *ngIf="!phone1Ctrl.valid && phone1Ctrl.touched" class="errorMess">
+            <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
+            <ion-text color="danger">
+              <small> El teléfono es requerido</small>
+            </ion-text>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+
       <!-- password -->
       <ion-row>
         <ion-col size="11">
           <ion-item>
             <ion-label position="floating" class="main-color">
-              <ion-icon name="lock-closed" slot="start" class="main-color"></ion-icon>
+              <ion-icon src="/assets/icon/ic_lock.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Contraseña</ion-text>
             </ion-label>
             <ion-input ngModel name="password" minlength="8" required #passwordCtrl="ngModel" type="password">
@@ -132,7 +153,7 @@
         <ion-col size="11">
           <ion-item>
             <ion-label position="floating" class="main-color">
-              <ion-icon name="lock-closed" slot="start" class="main-color"></ion-icon>
+              <ion-icon src="/assets/icon/ic_lock.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Repetir contraseña</ion-text>
             </ion-label>
             <ion-input ngModel name="confirm_password" minlength="8" required type="password">
@@ -151,7 +172,8 @@
         <ion-col size="12">
           <ion-text class="privacy-text">
             <p>
-              Al continuar e iniciar sesión usted acepta nuestra <span (click)="goToPrivacy()">Política de privacidad</span> y los
+              Al continuar e iniciar sesión usted acepta nuestra <span (click)="goToPrivacy()">Política de
+                privacidad</span> y los
               <span (click)="goToTerms()">Términos
                 y condiciones</span>
             </p>

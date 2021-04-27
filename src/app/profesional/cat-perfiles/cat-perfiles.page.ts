@@ -343,7 +343,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       // width: 200,
       resultType: CameraResultType.DataUrl,
       promptLabelPhoto: 'Fotos',
-      promptLabelPicture: 'Camara',
+      promptLabelPicture: 'Cámara',
       promptLabelCancel: 'Cancelar'
     }).then(image => {
       this.saveImgToApi(image.dataUrl);

@@ -60,7 +60,7 @@ export class LoginPage implements OnInit {
         const { id, name, last_name, email, phone1, phone2, img_profile } = user;
         //save user info to store NEEDS WORK IN HERE
         let img: string;
-        if (img_profile === null) {
+        if (img_profile === null || img_profile === 'http://167.71.251.136/storage/') {
           img = 'assets/images/avatar.png';
         } else {
           img = img_profile;

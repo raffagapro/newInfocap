@@ -19,7 +19,8 @@ export class RegisterPage implements OnInit {
     name: [],
     last_name: [],
     email: [],
-    password: []
+    password: [],
+    phone1: [],
   };
 
   constructor(
@@ -45,6 +46,7 @@ export class RegisterPage implements OnInit {
     }
     const email = form.value.email;
     const password = form.value.password;
+    const phone1 = form.value.phone1;
     const confirm_password = form.value.confirm_password;
 
     if (password !== confirm_password) {
@@ -59,13 +61,16 @@ export class RegisterPage implements OnInit {
     loader.present();
 
     const body = {
-      name: name,
+      name,
       last_name: l_name,
-      email: email,
-      password: password,
+      email,
+      phone1,
+      password,
     }
+    console.log(body);
+
     try {
-      const response = await axios.post(
+      let response = await axios.post(
         `${API}/auth/register`,
         body,
         {
@@ -75,16 +80,24 @@ export class RegisterPage implements OnInit {
           }
         }
       );
-
-      this.clearErrors();
-      form.reset();
+      const { success, data } = response.data
       loader.dismiss();
-      // modal for succes
-      const successModal = await this.modalController.create({
-        component: SuccessModalComponent,
-        cssClass: 'modalSuccess',
-      });
-      successModal.present();
+
+      if (success) {
+        this.clearErrors();
+        form.reset();
+        // modal for succes
+        const successModal = await this.modalController.create({
+          component: SuccessModalComponent,
+          cssClass: 'modalSuccess',
+        });
+        successModal.present();
+      } else {
+        if (data.length) {
+          this.errors.email = data;
+        }
+      }
+
     } catch (error) {
       const { response } = error;
       if (response) {

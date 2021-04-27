@@ -43,7 +43,7 @@ export class UserService {
         id,
         name,
         last_name,
-        img_profile,
+        img_profile === 'http://167.71.251.136/storage/' ? '/' : img_profile,
         email,
         phone1,
         phone2,

@@ -190,14 +190,14 @@ export class ProfilePagePage implements OnInit, OnDestroy {
       return;
     }
     Plugins.Camera.getPhoto({
-      quality: 25,
+      quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,
       height: 150,
       // width: 200,
       resultType: CameraResultType.DataUrl,
       promptLabelPhoto: 'Fotos',
-      promptLabelPicture: 'Camara',
+      promptLabelPicture: 'Cámara',
       promptLabelCancel: 'Cancelar'
     }).then(image => {
       this.saveImgToApi(image.dataUrl);
