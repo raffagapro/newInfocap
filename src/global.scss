@@ -145,3 +145,23 @@ ion-item {
     color: #ffffff;
   }
 }
+
+.weekview-allday-table{
+  display: none;
+}
+  
+.weekview-normal-event-container{
+margin-top: 58px !important;
+}
+
+.calendar-hour-column, .calendar-hour-column {
+  width: 3.2rem !important;
+}
+
+.calendar-hour-column {
+  color: gray;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+

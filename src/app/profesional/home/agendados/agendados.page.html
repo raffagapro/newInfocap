@@ -14,6 +14,13 @@
 
   <!-- title -->
   <ion-grid fixed>
+    <ion-row class="ion-margin-top" style="align-items: center;">
+      <ion-col offset="7">
+        <span style="color: #009ace">Ver como</span>
+        <ion-icon (click)="changeView('list')" class="icon-type-view" name="menu-outline"></ion-icon>
+        <ion-icon (click)="changeView('cal')" class="icon-type-view" name="calendar-clear-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
     <ion-row class="ion-margin-top">
       <ion-col size="11" class="ion-text-left">
         <ion-text class="main-color title" *ngIf="loadedServices.length > 0">
@@ -30,12 +37,58 @@
   </ion-grid>
 
   <!-- servicios agendados -->
-  <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate" >
+  <ion-row [hidden]="viewMood !== 'cal'" style="text-align: center;align-items: center;">
+    <ion-col size="3">
+      <ion-button (click)="back()" class="btn-week-wallet">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-text class="dates-text-calendar">{{ datesView }}</ion-text>
+    </ion-col>
+    <ion-col size="3">
+      <ion-button (click)="next()" class="btn-week-wallet">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <calendar [hidden]="viewMood !== 'cal'" [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+    (onTitleChanged)="onViewTitleChanged($event)" [weekviewHeaderTemplate]="headerWeek"
+    [weekviewNormalEventTemplate]="event">
   </calendar>
+
+  <ng-template #event let-displayEvent="displayEvent">
+    <div class="calendar-event-inner">
+      <div class="category-event-inner">
+        {{displayEvent.event.title.cat}}
+      </div>
+      <div class="name-event-inner">
+        {{displayEvent.event.title.name}}
+      </div>
+      <div class="description-event-inner">
+        {{displayEvent.event.title.description}}
+      </div>
+      <div (click)="openMaps(displayEvent.event.title.adress)">
+        <ion-icon src="/assets/icon/ic_map.svg" color="primary" class="iconFixCalendar"></ion-icon>&nbsp;
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #headerWeek let-viewDate="viewDate">
+    <div class="week-day-header">
+      <ion-row>
+        {{ view(viewDate) }}
+      </ion-row>
+      <ion-row>
+        {{ viewDay(viewDate) }}
+      </ion-row>
+    </div>
+  </ng-template>
 
 
   <div class="prof-cont no-border" *ngFor="let service of loadedServices">
-    <ion-grid>
+    <ion-grid [hidden]="viewMood !== 'list'">
       <ion-row class="ion-align-items-center">
         <!-- title -->
         <ion-col size="8" class="ion-justify-content-center" (click)="solicitudDetail(service.id)">

@@ -24,7 +24,11 @@ export class AgendadosPage implements OnInit, OnDestroy {
   loadedStartedServices = [];
   loadedVisits = [];
   parsedHours = null;
+  viewMood = 'list'
 
+  // Calendar
+  days = ['D', 'L', 'M', 'X', 'J', 'V', 'S']
+  datesView = ''
   eventSource = [];
   calendar = {
     mode: 'week',
@@ -42,16 +46,41 @@ export class AgendadosPage implements OnInit, OnDestroy {
     private solServ: SolicitudService,
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
       this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
       this.loadServices("3");
       this.loadServices("4");
+      // this.createRandomEvents() //Remover
     });
   }
 
-  formatDate(date: string){
+  // Remover
+  formatEvents(data) {
+    data.map(r => {
+      var date = r.date_required.split('-')
+      var hour = r.hours.split('/')
+
+      var startHour = hour[0].substring(11, 13)
+      var startMinute = hour[0].substring(14, 16)
+
+      var endHour = hour[1].substring(11, 13)
+      var endMinute = hour[1].substring(14, 16)
+
+      var startTime = new Date(date[0], date[1] - 1, date[2], startHour, startMinute);
+      var endTime = new Date(date[0], date[1] - 1, date[2], endHour, endMinute);
+
+      this.eventSource.push({
+        title: { cat: 'Categoria', name: `${r.clientName} ${r.clientLastName}`, description: r.description, adress: r.adress },
+        startTime: startTime,
+        endTime: endTime,
+        allDay: false
+      })
+    })
+  }
+
+  formatDate(date: string) {
     return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
   }
 
@@ -69,9 +98,11 @@ export class AgendadosPage implements OnInit, OnDestroy {
           loadingEl.dismiss();
           if (statusID === "3") {
             this.loadedServices = resData["data"];
+            this.formatEvents(resData["data"])
           }
           if (statusID === "4") {
             this.loadedStartedServices = resData["data"];
+            this.formatEvents(resData["data"])
           }
           // if (statusID === "2") {
           //   this.loadedVisits = resData["data"];
@@ -105,6 +136,38 @@ export class AgendadosPage implements OnInit, OnDestroy {
   solicitudDetail(serviceID: string) {
     this.solServ.setServiceID(serviceID);
     this.router.navigate(['profesional/agendados/agendados-detail']);
+  }
+
+  next = () => {
+    console.log('Enter')
+    this.myCal.slideNext()
+  }
+
+  back = () => {
+    this.myCal.slidePrev()
+  }
+
+  onViewTitleChanged(title) {
+    var week = title.split(' ')
+    var primer = new Date(new Date().getFullYear(), 0, (week[3] - 1) * 7 + 3);
+    var ultimo = new Date(new Date().getFullYear(), 0, (week[3] - 1) * 7 + 9);
+
+    this.datesView = `${week[0]} ${primer.getDate()} - ${ultimo.getDate()}`
+  }
+
+  view(i) {
+    var date = new Date(i.date).getDay()
+    return this.days[date]
+  }
+
+  viewDay(i) {
+    var date = new Date(i.date).getDate()
+    return date
+  }
+
+  changeView(type) {
+    this.viewMood = type
+    this.myCal.update()
   }
 
   ngOnDestroy() {
