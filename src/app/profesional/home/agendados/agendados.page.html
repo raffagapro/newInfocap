@@ -59,7 +59,7 @@
   </calendar>
 
   <ng-template #event let-displayEvent="displayEvent">
-    <div class="calendar-event-inner">
+    <div class="calendar-event-inner" (click)="solicitudDetail(displayEvent.event.title.id)">
       <div class="category-event-inner">
         {{displayEvent.event.title.cat}}
       </div>

@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/profesional/home/home-tabs/agendados/agendados-finalizar" text=""
+        icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="title-toolbar">SERVICIOS ADICIONALES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- profesional card item -->
+  <div class="no-border">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <!-- profile img -->
+        <ion-col size="4" offset="1">
+          <ion-avatar class="profileImg">
+            <img src="/assets/images/avatar.png" />
+          </ion-avatar>
+        </ion-col>
+
+        <!-- title -->
+        <ion-col size="7">
+          <ion-row>
+            <small class="ticket">Ticket #100091234</small>
+          </ion-row>
+          <ion-row>
+            <span class="titleSelect main-color">
+              Cerrajería para<br>
+              Emmy Mut
+            </span>
+            <br>
+            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">27 nov 2020</p>
+          </ion-row>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-grid>
+    <form [formGroup]="formAdicional" (ngSubmit)="saveExtra()">
+      <!-- text -->
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="ion-text-center">
+          <ion-text class="main-color regText"><b>Detalles del trabajo adicional</b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+
+      <!-- text-area -->
+      <ion-row class="ion-margin-top">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="border ion-text-center">
+          <ion-item lines="none">
+            <ion-textarea formControlName="detailes" rows="3" cols="20"
+              placeholder="Describe los trabajos adicionales. Máximo 250 caracteres con espacios."></ion-textarea>
+          </ion-item>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+
+      <!-- title -->
+      <ion-row class="ion-margin-top">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10">
+          <ion-text class="main-color title"><b>Fotografías del trabajo realizado</b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+
+      <!-- images -->
+      <ion-row class="ion-align-items-center">
+        <ion-col size="7">
+          <ion-slides>
+            <ion-slide *ngFor="let image of loadedImagesDisplay" [loadedImagesDisplay]='loadedImagesDisplay'>
+              <ion-img src="{{ image }}" class="imgSlide">
+              </ion-img>
+            </ion-slide>
+          </ion-slides>
+        </ion-col>
+
+        <ion-col size="3">
+          <div (click)="onLoadImg()" class="locate-cont">
+            <ion-icon name="add" color="light" class="rating-text"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <!-- hidden file input -->
+      <div style="display: none;">
+        <input type="file" #hiddenImgInput *ngIf="useInputPicker" (change)="onLoadImgFromInput($event)">
+      </div>
+
+      <!-- title -->
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="ion-text-center">
+          <ion-text class="main-color title"><b>Captura el costo <span class="redText">*</span></b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+
+      <!-- email -->
+      <ion-row>
+        <ion-col size="11">
+          <ion-item>
+            <ion-label position="floating">
+              <ion-icon name="wallet" slot="start" class="main-color"></ion-icon>
+              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Ingresa el costo del servicio.</ion-text>
+            </ion-label>
+            <ion-input formControlName="price" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!-- GUARDAR trabajo BTN -->
+      <ion-row class="ion-margin-top ion-margin-bottom">
+        <ion-col size="1"></ion-col>
+        <ion-col>
+          <ion-button size="5" type="submit" expand="block" class="ion-text-uppercase" color="primary">
+            GUARDAR
+          </ion-button>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+
+</ion-content>

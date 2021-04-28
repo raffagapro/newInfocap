@@ -52,7 +52,6 @@ export class AgendadosPage implements OnInit, OnDestroy {
       this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
       this.loadServices("3");
       this.loadServices("4");
-      // this.createRandomEvents() //Remover
     });
   }
 
@@ -72,7 +71,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
       var endTime = new Date(date[0], date[1] - 1, date[2], endHour, endMinute);
 
       this.eventSource.push({
-        title: { cat: 'Categoria', name: `${r.clientName} ${r.clientLastName}`, description: r.description, adress: r.adress },
+        title: { id: r.id, cat: 'Categoria', name: `${r.clientName} ${r.clientLastName}`, description: r.description, adress: r.adress },
         startTime: startTime,
         endTime: endTime,
         allDay: false

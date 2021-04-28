@@ -184,7 +184,7 @@ const routes: Routes = [
   },
   {
     path: 'profesional/agendados/servicios-adicionales',
-    loadChildren: () => import('./profesional/home/agendados/servicios-adicionales/servicios-adicionales.module').then( m => m.ServiciosAdicionalesPageModule),
+    loadChildren: () => import('./profesional/home/agendados/agendados-finalizar/servicios-adicionales/servicios-adicionales.module').then( m => m.ServiciosAdicionalesPageModule),
     // canLoad: [AuthGuard, ProGuard],
   },
   {
