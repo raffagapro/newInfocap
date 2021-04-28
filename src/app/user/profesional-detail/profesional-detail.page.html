@@ -13,7 +13,7 @@
 
   <!-- Slider -->
   <ion-grid>
-    <ion-row class="ion-align-items-center ion-margin-top ion-margin-bottom">
+    <ion-row class="ion-align-items-center ion-margin-bottom">
       <ion-col size="12">
         <ion-slides>
           <!-- slide -->
@@ -25,7 +25,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div style="height: 30px;"></div>
+  <div style="height: 30px;" *ngIf="loadedImgList.length === 0"></div>
 
   <!-- profesional card item -->
   <div class="no-border">
@@ -63,21 +63,21 @@
     </ion-grid>
   </div>
 
-  <ion-grid>
+  <ion-grid class="content-padding">
 
     <!-- desc pro -->
-    <ion-row class="border-bot">
-      <ion-col size="1"></ion-col>
-      <ion-col size="10">
+    <ion-row class="">
+      <ion-col size="12">
         <ion-text>
-          <p class="regText ion-text-capitalize ion-text-center">
-            {{ selectedProCat.descProf }}
+          <p class="regText ion-text-capitalize ion-text-left">
+            {{ selectedProCat.description }}
           </p>
         </ion-text>
       </ion-col>
     </ion-row>
 
     <!-- mdesc of -->
+    <!--
     <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col size="10">
@@ -88,6 +88,7 @@
         </ion-text>
       </ion-col>
     </ion-row>
+    -->
 
     <!-- title -->
     <ion-row>
@@ -110,7 +111,7 @@
       <ion-col size="3">
         <ion-text>
           <p class="ratingText main-color ion-text-right">
-            50
+            50&nbsp;
             <ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
@@ -130,6 +131,7 @@
         <ion-text>
           <p class="ratingText main-color ion-text-right">
             4.83
+            &nbsp;
             <ion-icon src="/assets/icon/ic_star.svg" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
@@ -151,7 +153,7 @@
             de 50
             &nbsp;<ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>&nbsp;
             / 50
-            &nbsp;<ion-icon src="/assets/icon/ic_engine_circle.svg" size="large" class="iconEnd"></ion-icon>
+            &nbsp;<ion-icon src="/assets/icon/ic_engine_circle.svg" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
       </ion-col>
@@ -172,7 +174,7 @@
             de 50
             &nbsp;<ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>&nbsp;
             / 50
-            &nbsp;<ion-icon src="/assets/icon/ic_time_circle.svg" size="large" class="iconEnd"></ion-icon>
+            &nbsp;<ion-icon src="/assets/icon/ic_time_circle.svg" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
       </ion-col>
@@ -193,7 +195,7 @@
             de 50
             &nbsp;<ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>&nbsp;
             / 50
-            &nbsp;<ion-icon src="/assets/icon/ic_heart_circle.svg" size="large" class="iconEnd"></ion-icon>
+            &nbsp;<ion-icon src="/assets/icon/ic_heart_circle.svg" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
       </ion-col>
@@ -214,7 +216,7 @@
             de 50
             &nbsp;<ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>&nbsp;
             / 50
-            &nbsp;<ion-icon src="/assets/icon/ic_diamont_circle.svg" size="large" class="iconEnd"></ion-icon>
+            &nbsp;<ion-icon src="/assets/icon/ic_diamont_circle.svg" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
       </ion-col>

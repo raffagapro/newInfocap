@@ -17,9 +17,11 @@
       <ion-fab-button class="float-bottom" color="white" (click)="loadMap()">
         <ion-icon name="locate" color="primary"></ion-icon>
       </ion-fab-button>
+      <!--
       <ion-fab-button class="float-bottom" color="white" (click)="showCords()">
         <ion-icon name="information-circle-outline" color="primary"></ion-icon>
       </ion-fab-button>
+      -->
     </ion-fab>
   </div>
 
@@ -57,7 +59,7 @@
               <ion-col size="1"></ion-col>
             </ion-row> -->
 
-            <form [formGroup]="form" (ngSubmit)="searchPro()">
+            <form [formGroup]="form" (ngSubmit)="searchPro()" class="form-padding">
               <ion-row class="ion-justify-content-center">
                 <ion-col size="12">
                   <ion-title class="main-color title ion-text-uppercase">
@@ -70,9 +72,9 @@
               </ion-row>
               <!-- detalles de la direccion -->
               <ion-row class="ion-no-padding ion-no-margion">
-                <ion-col size="10" offset="1">
-                  <ion-item>
-                    <ion-label position="floating" class="main-color">
+                <ion-col size="12">
+                  <ion-item class="ion-no-padding">
+                    <ion-label position="floating" class="main-color ion-no-margin">
                       <ion-icon src="/assets/icon/ic_place.svg" slot="start" class="main-color"></ion-icon>
                       <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Dirección</ion-text>
                     </ion-label>
@@ -81,9 +83,9 @@
                 </ion-col>
               </ion-row>
               <ion-row class="ion-no-padding ion-no-margion">
-                <ion-col size="10" offset="1">
-                  <ion-item>
-                    <ion-label position="floating" class="main-color">
+                <ion-col size="12">
+                  <ion-item class="ion-no-padding">
+                    <ion-label position="floating" class="main-color ion-no-margin">
                       <ion-icon src="/assets/icon/ic_tag.svg" slot="start" class="main-color"></ion-icon>
                       <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Detalles de la dirección ej. casa, oficina
                       </ion-text>
@@ -93,9 +95,9 @@
                 </ion-col>
               </ion-row>
               <ion-row class="ion-no-padding ion-no-margion">
-                <ion-col size="10" offset="1">
-                  <ion-item>
-                    <ion-label position="floating" class="main-color">
+                <ion-col size="12">
+                  <ion-item class="ion-no-padding">
+                    <ion-label position="floating" class="main-color ion-no-margin">
                       <ion-icon src="/assets/icon/ic_speaker_notes.svg" slot="start" class="main-color"></ion-icon>
                       <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Agregar instrucciones ej. tocar el timbre
                       </ion-text>

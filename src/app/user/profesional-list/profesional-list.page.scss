@@ -27,8 +27,8 @@
 }
 .profileImg {
   margin-left: 10px;
-  height: 75px;
-  width: 75px;
+  height: 45px;
+  width: 45px;
 }
 .prof-cont {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -60,21 +60,19 @@
   padding: 0;
 }
 .locate-cont {
-  margin-top: 20px;
+  //margin-top: 20px;
   border-radius: 50px;
   height: 30px;
-  width: 30px;
+  width: auto;
   display: inline-flex;
   align-items: center;
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 1px;
   //background-color: #009ace;
 }
 .rating-text {
-  font-size: 18px;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 24px;
+  margin: 0;
 }
 
 .reset-text {
@@ -93,4 +91,8 @@
   width: 3em;
   height: 3em;
   --box-shadow: none;
+}
+.items-center {
+  align-content: center;
+  align-items: center;
 }

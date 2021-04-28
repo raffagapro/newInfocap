@@ -75,18 +75,20 @@
 
       <!-- images -->
       <ion-row class="ion-align-items-center">
-        <ion-col size="7" offset="1">
-          <ion-slides>
+        <ion-col size="7" offset="1" *ngIf="loadedImagesDisplay.length > 0">
+          <ion-slides [options]="slideOptions">
 
             <!-- slide -->
-            <ion-slide *ngFor="let image of loadedImagesDisplay" [loadedImagesDisplay]='loadedImagesDisplay'>
+            <ion-slide class="slide" *ngFor="let image of loadedImagesDisplay"
+              [loadedImagesDisplay]='loadedImagesDisplay'>
               <ion-img src="{{ image }}" class="imgSlide">
               </ion-img>
             </ion-slide>
 
           </ion-slides>
         </ion-col>
-        <ion-col size="4">
+        <ion-col class="{{loadedImagesDisplay.length > 0 ? '' : 'text-center'}}"
+          [size]="loadedImagesDisplay.length > 0 ? '4' : '12'">
           <ion-button (click)="onLoadImg()" shape="round">
             <ion-icon name="add" slot="end" color="light" class="rating-text"></ion-icon>
           </ion-button>
@@ -107,7 +109,8 @@
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
             </ion-label>
             <ion-datetime formControlName="date_required" placeholder="Definir fecha"
-              [min]="minDate.format('YYYY-MM-DD')" (ngModelChange)="onDateChange($event)">
+              [min]="minDate.format('YYYY-MM-DD')" (ngModelChange)="onDateChange($event)"
+              monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre">
             </ion-datetime>
           </ion-item>
         </ion-col>
@@ -142,7 +145,7 @@
         </ion-col>
 
         <!-- error  -->
-        <ion-col size="12" *ngIf="showError" >
+        <ion-col size="12" *ngIf="showError">
           <ion-label class="errorMess">
             <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
             <ion-text class="text-center" color="danger">

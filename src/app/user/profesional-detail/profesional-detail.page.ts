@@ -54,7 +54,6 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
         this.grabbedUser = user;
         this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
         this.getProf();
-        console.log(this.grabbedUser)
       }
 
     });

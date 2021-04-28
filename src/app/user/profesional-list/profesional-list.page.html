@@ -74,7 +74,7 @@
       <ion-row class="ion-align-items-center">
 
         <!-- profile img -->
-        <ion-col size="3">
+        <ion-col size="2">
           <ion-avatar class="profileImg">
             <ion-img
               src="{{ !prof.img_profile || prof.img_profile === imageBlank ? 'assets/images/avatar.png' : prof.img_profile }}">
@@ -93,27 +93,32 @@
         </ion-col>
 
         <!-- rating -->
-        <ion-col size="4">
-          <ion-text>
-            <p class="ratingText main-color ion-text-center">
-              4.83
-              <ion-icon src="/assets/icon/ic_star.svg"></ion-icon>
-              / 50
-              <ion-icon src="/assets/icon/ic_hands.svg"></ion-icon>
-            </p><br>
-
-            <div class="locate-cont">
-              <ion-icon src="/assets/icon/ic_engine_circle.svg" size="large" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon src="/assets/icon/ic_time_circle.svg" size="large" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon src="/assets/icon/ic_heart_circle.svg" size="large" class="rating-text"></ion-icon>
-            </div>
-            <div class="locate-cont">
-              <ion-icon src="/assets/icon/ic_diamont_circle.svg" size="large" class="rating-text"></ion-icon>
-            </div>
+        <ion-col size="5">
+          <ion-text class="text-center">
+            <ion-row class="items-center">
+              <ion-col size="12">
+                <p class="ratingText main-color ion-text-center">
+                  4.83
+                  <ion-icon src="/assets/icon/ic_star.svg"></ion-icon>
+                  / 50
+                  <ion-icon src="/assets/icon/ic_hands.svg"></ion-icon>
+                </p>
+              </ion-col>
+              <ion-col size="12">
+                <div class="locate-cont">
+                  <ion-icon src="/assets/icon/ic_engine_circle.svg" class="rating-text"></ion-icon>
+                </div>
+                <div class="locate-cont">
+                  <ion-icon src="/assets/icon/ic_time_circle.svg" class="rating-text"></ion-icon>
+                </div>
+                <div class="locate-cont">
+                  <ion-icon src="/assets/icon/ic_heart_circle.svg" class="rating-text"></ion-icon>
+                </div>
+                <div class="locate-cont">
+                  <ion-icon src="/assets/icon/ic_diamont_circle.svg" class="rating-text"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
           </ion-text>
         </ion-col>
 
@@ -123,7 +128,7 @@
 
   <!-- floating btn -->
   <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button  color="none" class="floatin-btn" closeIcon="/assets/icon/ic_close_circle.svg">
+    <ion-fab-button color="none" class="floatin-btn" closeIcon="/assets/icon/ic_close_circle.svg">
       <ion-icon md="caret-up" size="large" src="/assets/icon/ic_filter_plus.svg" class="fab-icon"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">

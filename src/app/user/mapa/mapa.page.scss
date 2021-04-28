@@ -1,6 +1,6 @@
 #map {
   //height: 100%;
-  min-height: 280px;
+  min-height: 340px;
 }
 .title {
   font-size: 18px;
@@ -9,6 +9,7 @@
   padding: 0;
   margin-top: 10px;
   position: relative;
+  text-align: center;
 }
 hr {
   border-top: 1px solid #e54360;
@@ -60,16 +61,22 @@ hr {
   margin-right: auto;
 }
 .search_bar_map {
+  text-align: left;
   background: #ffffff;
   border: solid 1px #009ace;
   color: #009ace;
   padding: 0;
+
+  &::placeholder {
+    text-align: left;
+  }
 }
 
 .searchbar-input-container {
   --background: #ffffff !important;
   background-color: #ffffff !important;
   background: #ffffff !important;
+  text-align: left;
 }
 
 .float-bottom {
@@ -84,4 +91,8 @@ hr {
 
 .controls {
   top: 140px;
+}
+
+.form-padding {
+  padding: 0 10px;
 }

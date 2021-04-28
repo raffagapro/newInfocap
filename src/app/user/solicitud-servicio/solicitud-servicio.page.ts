@@ -65,11 +65,11 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
   showError = false;
 
 
-  // slideOptions = {
-  //   initialSlide: 0,
-  //   slidesPerView: 2,
-  //   autoplay: true
-  // };
+  slideOptions = {
+    initialSlide: 0,
+    slidesPerView: 2,
+    autoplay: true
+  };
 
   constructor(
     private modalController: ModalController,
