@@ -25,32 +25,43 @@
 hr {
   border-top: 1px solid #009ace;
 }
-.border{
-  border: 2px solid #009ACE;
+.border {
+  border: 2px solid #009ace;
   border-radius: 5px;
 }
 .textarea::placeholder {
-  color: #009ACE;
+  color: #009ace;
 }
 .textarea::-webkit-input-placeholder {
-  color: #009ACE;
+  color: #009ace;
 }
 
-.textarea:-moz-placeholder { /* Firefox 18- */
-  color: #009ACE;  
+.textarea:-moz-placeholder {
+  /* Firefox 18- */
+  color: #009ace;
 }
 
-.textarea::-moz-placeholder {  /* Firefox 19+ */
-  color: #009ACE;  
+.textarea::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #009ace;
 }
 
 .textarea:-ms-input-placeholder {
-  color: #009ACE;  
+  color: #009ace;
 }
 
 .textarea::placeholder {
-  color: #009ACE;  
+  color: #009ace;
 }
 .padding {
   padding: 0 10px;
+}
+.scroll-content {
+  padding-bottom: 0 !important;
+}
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }

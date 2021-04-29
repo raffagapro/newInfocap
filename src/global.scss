@@ -98,6 +98,10 @@ ion-item {
 .modalSuccess {
   --height: 40%;
   --width: 90%;
+
+  @media (max-height: 580px) {
+    --height: 80%;
+  }
 }
 .modalServRechazado {
   --height: 50%;
