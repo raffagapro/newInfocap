@@ -79,3 +79,25 @@
     font-size: 12px;
     line-height: .5;
 }
+
+.catText {
+    color: #009ACE;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 8px;
+    height: 2rem;
+}
+
+.select-categories-component {
+    --padding-top: 0;
+    --padding-bottom: 0;
+    margin-top: -16px;
+    height: 2rem;
+    color: #009ACE; 
+}
+
+.select-categories {
+    border: 1px solid #009ACE;
+    border-radius: 32px;
+    height: 2rem;
+}

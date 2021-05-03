@@ -5115,6 +5115,11 @@ ionic2-calendar@^0.6.7:
   resolved "https://registry.yarnpkg.com/ionic2-calendar/-/ionic2-calendar-0.6.7.tgz#a9d624c1802e61fa4de69c33d8c3fb1d2dcd4708"
   integrity sha512-CQOQzM4DDApz0KGnKOzZ4dsL1jOkWRcfcga/geslx8vSus4Z0AMTqULJL6grVXi7yUDAlBLTThTawCNakCYDsg==
 
+ionic4-star-rating@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ionic4-star-rating/-/ionic4-star-rating-1.1.1.tgz#cfd8a56ae088b5c636f10b240d72e8eb32545539"
+  integrity sha512-6lwaT2ZuAN5byRKmAdbigvTKz2dIHnxZ2/1AHD2qscjZ9QfwLCITiNRVi34cEX42wJwXespEvUfrTf4oiAEKCw==
+
 ionicons@^5.1.2:
   version "5.3.0"
   resolved "https://registry.npmjs.org/ionicons/-/ionicons-5.3.0.tgz"

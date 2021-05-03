@@ -12,17 +12,21 @@
 <ion-content>
   <!-- cat selection -->
   <ion-grid fixed>
-    <ion-row>
-      <ion-col size="9" offset="1">
-        <ion-item>
-          <ion-label class="catText">CATEGORÍAS</ion-label>
-          <ion-select interface="popover">
-            <ion-select-option value="nes" class="main-color ion-text-center">Cerrajería</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Carpinteria</ion-select-option>
-            <ion-select-option value="nes" class="main-color ion-text-center">Electricista</ion-select-option>
+    <ion-row style="align-items: center;">
+      <ion-col size="1"></ion-col>
+      <ion-col size="4">
+        <ion-text class="main-color title"><b>Categoriza el trabajo</b></ion-text>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item class="select-categories">
+          <ion-label class="catText">Categorías</ion-label>
+          <ion-select interface="popover" class="select-categories-component">
+            <ion-select-option *ngFor="let cat of categories" [value]="cat.id" class="main-color ion-text-center">{{
+              cat.name }}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
+      <ion-col size="1"></ion-col>
     </ion-row>
   </ion-grid>
 
@@ -33,14 +37,13 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png"/>
+            <img src="/assets/images/avatar.png" />
           </ion-avatar>
         </ion-col>
 
         <!-- title -->
         <ion-col size="6">
           <ion-text>
-            <small class="ticket">Ticket #100091234</small><br>
             <span class="titleSelect main-color">Cerrajería para <br> Juan Alcayaga</span><br>
             <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">18 nov 2020</p>
           </ion-text>
@@ -56,7 +59,7 @@
       <!-- rating  -->
       <ion-col size="5" offset="1" class="border-line ion-text-center">
         <ion-text color="primary" class="ratingText">
-          4.5 / 39 
+          4.5 / 39
           <ion-icon color="primary" name="thumbs-up" class="iconFix"></ion-icon>
         </ion-text>
         <br>

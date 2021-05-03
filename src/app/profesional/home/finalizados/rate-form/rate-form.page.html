@@ -1,8 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
-    
+
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/profesional/home/home-tabs/finalizados/finalizados-details" text="" icon="arrow-back"></ion-back-button>
+      <ion-back-button defaultHref="/profesional/home/home-tabs/finalizados/finalizados-details" text=""
+        icon="arrow-back"></ion-back-button>
     </ion-buttons>
 
     <ion-title class="title-toolbar">CALIFICA AL CLIENTE</ion-title>
@@ -18,16 +19,17 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png"/>
+            <img src="/assets/images/avatar.png" />
           </ion-avatar>
         </ion-col>
 
         <!-- title -->
         <ion-col size="6">
           <ion-text>
-            <small class="ticket">Ticket #100091234</small><br>
-            <span class="titleSelect main-color">Cerrajería para <br> Juan Alcayaga</span><br>
-            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">18 nov 2020</p>
+            <small class="ticket">Ticket #{{ loadedInfo.ticket_number }}</small><br>
+            <span class="titleSelect main-color">{{ loadedInfo.categoryName }} para <br> {{ loadedInfo.clientName }} {{
+              loadedInfo.clientLastName }}</span><br>
+            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">{{ loadedInfo.date_required }}</p>
           </ion-text>
         </ion-col>
 
@@ -44,54 +46,57 @@
       <ion-col size="1"></ion-col>
     </ion-row>
 
-    <!-- rating  -->
-    <ion-row class="ion-margin-top">
-      <ion-col size="12" class="ion-text-center">
-        <ion-icon name="star" color="primary" class="rating-icon"></ion-icon>
-        <ion-icon name="star" color="primary" class="rating-icon"></ion-icon>
-        <ion-icon name="star" color="primary" class="rating-icon"></ion-icon>
-        <ion-icon name="star-outline" color="medium" class="rating-icon"></ion-icon>
-        <ion-icon name="star-outline" color="medium" class="rating-icon"></ion-icon>
-      </ion-col>
-    </ion-row>
+    <form [formGroup]="formRate" (ngSubmit)="sendRate()">
+      <!-- rating  -->
+      <ion-row class="ion-margin-top">
+        <ion-col size="12" class="ion-text-center">
+          <ion-icon (click)="changeStars(1)" name="{{ rate > 0 ? 'star' : 'star-outline' }}" color="primary" class="rating-icon"></ion-icon>
+          <ion-icon (click)="changeStars(2)" name="{{ rate > 1 ? 'star' : 'star-outline' }}" color="primary" class="rating-icon"></ion-icon>
+          <ion-icon (click)="changeStars(3)" name="{{ rate > 2 ? 'star' : 'star-outline' }}" color="primary" class="rating-icon"></ion-icon>
+          <ion-icon (click)="changeStars(4)" name="{{ rate > 3 ? 'star' : 'star-outline' }}" color="primary" class="rating-icon"></ion-icon>
+          <ion-icon (click)="changeStars(5)" name="{{ rate > 4 ? 'star' : 'star-outline' }}" color="primary" class="rating-icon"></ion-icon>
+        </ion-col>
+      </ion-row>
 
-    <!-- title -->
-    <ion-row class="ion-margin-top">
-      <ion-col size="10" offset="1" class="ion-text-center">
-        <ion-text class="main-color title"><b>¡Lamentamos que no te encuentres satisfecho!</b></ion-text>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- title -->
+      <ion-row *ngIf="rate <= 3" class="ion-margin-top">
+        <ion-col size="10" offset="1" class="ion-text-center">
+          <ion-text class="main-color title"><b>¡Lamentamos que no te encuentres satisfecho!</b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-    <!-- title -->
-    <ion-row class="ion-margin-top">
-      <ion-col size="10" offset="1" class="ion-text-center">
-        <ion-text class="main-color title"><b>Coméntanos el motivo de la calificación otorgada <span class="redText">*</span></b></ion-text>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- title -->
+      <ion-row class="ion-margin-top">
+        <ion-col size="10" offset="1" class="ion-text-center">
+          <ion-text class="main-color title"><b>Coméntanos el motivo de la calificación otorgada <span
+                class="redText">*</span></b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-    <!-- text-area -->
-    <ion-row class="ion-margin-top">
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="border ion-text-center">
-        <ion-item lines="none">
-           <ion-textarea rows="3" cols="20" placeholder="Agrega una descripción."></ion-textarea>
-        </ion-item>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- text-area -->
+      <ion-row class="ion-margin-top">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="border ion-text-center">
+          <ion-item lines="none">
+            <ion-textarea rows="3" cols="20" placeholder="Agrega una descripción."></ion-textarea>
+          </ion-item>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-    <!-- BTNs -->
-    <ion-row class="ion-margin-top ion-margin-bottom">
-      <ion-col size="1"></ion-col>
-      <ion-col size="10">
-        <ion-button size="5" expand="block" class="btn-text ion-text-uppercase" (click)="sendRate()">
-          ENVIAR COMENTARIOS
-        </ion-button>
-      </ion-col>
-    </ion-row>
-    
+      <!-- BTNs -->
+      <ion-row class="ion-margin-top ion-margin-bottom">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10">
+          <ion-button size="5" type="submit" expand="block" class="btn-text ion-text-uppercase">
+            ENVIAR COMENTARIOS
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+
   </ion-grid>
 
 </ion-content>

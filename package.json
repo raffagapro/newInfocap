@@ -41,6 +41,7 @@
     "cordova-plugin-geolocation": "^4.1.0",
     "cordova-plugin-nativegeocoder": "^3.4.1",
     "ionic2-calendar": "^0.6.7",
+    "ionic4-star-rating": "^1.1.1",
     "moment": "^2.29.1",
     "moment-range": "^4.0.2",
     "rxjs": "~6.5.5",

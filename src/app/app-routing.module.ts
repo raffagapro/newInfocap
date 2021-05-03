@@ -193,7 +193,7 @@ const routes: Routes = [
     // canLoad: [AuthGuard, ProGuard],
   },
   {
-    path: 'profesional/finalizadosrate-form',
+    path: 'profesional/finalizados/rate-form',
     loadChildren: () => import('./profesional/home/finalizados/rate-form/rate-form.module').then( m => m.RateFormPageModule),
     // canLoad: [AuthGuard, ProGuard],
   },
