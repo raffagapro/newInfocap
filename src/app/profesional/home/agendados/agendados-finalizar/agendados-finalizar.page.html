@@ -54,7 +54,8 @@
         <ion-item class="select-categories">
           <ion-label class="catText">Categorías</ion-label>
           <ion-select interface="popover" class="select-categories-component">
-            <ion-select-option *ngFor="let cat of categories" [value]="cat.id" class="main-color ion-text-center">{{ cat.name }}</ion-select-option>
+            <ion-select-option *ngFor="let cat of categories" [value]="cat.id" class="main-color ion-text-center">{{
+              cat.name }}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
@@ -72,18 +73,26 @@
 
     <!-- images -->
     <ion-row class="ion-align-items-center">
-      <ion-col size="4" offset="1">
-        <img src="/assets/images/unavailable-image.png" class="imgSingle">
+      <ion-col size="7">
+        <ion-slides>
+          <ion-slide *ngFor="let image of loadedImagesDisplay" [loadedImagesDisplay]='loadedImagesDisplay'>
+            <ion-img [src]="image" class="imgSlide" style="height: 125px;">
+            </ion-img>
+          </ion-slide>
+        </ion-slides>
       </ion-col>
-      <ion-col size="4">
-        <img src="/assets/images/unavailable-image.png" class="imgSingle">
-      </ion-col>
+
       <ion-col size="3">
-        <div class="locate-cont">
+        <div (click)="onLoadImg()" class="locate-cont">
           <ion-icon name="add" color="light" class="rating-text"></ion-icon>
         </div>
       </ion-col>
     </ion-row>
+
+    <!-- hidden file input -->
+    <div style="display: none;">
+      <input type="file" #hiddenImgInput *ngIf="useInputPicker" (change)="onLoadImgFromInput($event)">
+    </div>
 
     <!-- text -->
     <ion-row>

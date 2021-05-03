@@ -79,7 +79,7 @@
         <ion-col size="7">
           <ion-slides>
             <ion-slide *ngFor="let image of loadedImagesDisplay" [loadedImagesDisplay]='loadedImagesDisplay'>
-              <ion-img src="{{ image }}" class="imgSlide">
+              <ion-img [src]="image" class="imgSlide" style="height: 125px;">
               </ion-img>
             </ion-slide>
           </ion-slides>

@@ -102,7 +102,7 @@ export class ServiciosAdicionalesPage implements OnInit {
     fr.readAsDataURL((e.target as HTMLInputElement).files[0]);
   }
 
-  saveImgToApi(imageData: string | File) {
+  async saveImgToApi(imageData: string | File) {
     let imgFile;
     if (typeof imageData === 'string') {
       try {
@@ -115,6 +115,7 @@ export class ServiciosAdicionalesPage implements OnInit {
       imgFile = imageData;
     }
     this.loadedImages.push(imgFile);
+    this.loadedImagesDisplay.push(URL.createObjectURL(imgFile));
   }
 
   ionViewWillEnter() {
@@ -126,7 +127,7 @@ export class ServiciosAdicionalesPage implements OnInit {
   }
 
   saveExtra() {
-    this.router.navigate(['/profesional/home/home-tabs/agendados/agendados-finalizar']);
+    this.router.navigate(['profesional/agendados/agendados-finalizar']);
   }
 
 }
