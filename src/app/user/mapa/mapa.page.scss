@@ -94,5 +94,17 @@ hr {
 }
 
 .form-padding {
+  position: relative;
   padding: 0 10px;
+  min-height: 60vh;
+}
+
+.btn-submit {
+  margin: auto;
+  margin-bottom: 10px;
+  position: absolute;
+  bottom: 0;
+  width: 210px;
+  right: 0;
+  left: 0;
 }

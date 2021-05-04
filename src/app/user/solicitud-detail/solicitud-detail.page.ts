@@ -12,6 +12,7 @@ import { API } from 'src/environments/environment';
 import axios from 'axios';
 
 
+type PaymentMethodType = 'credit' | 'debit' | 'cash' | 'transfer';
 @Component({
   selector: 'app-solicitud-detail',
   templateUrl: './solicitud-detail.page.html',
@@ -20,6 +21,7 @@ import axios from 'axios';
 export class SolicitudDetailPage implements OnInit {
   userSubscription: Subscription;
   user: User;
+  selectedButton: PaymentMethodType = 'credit';
   loadedService = {
     categoryName: null,
     cummunename: null,
@@ -121,6 +123,10 @@ export class SolicitudDetailPage implements OnInit {
     }).then(modalEl => {
       modalEl.present();
     });
+  }
+
+  setSelectedButton(type: PaymentMethodType) {
+    this.selectedButton = type;
   }
 
 }

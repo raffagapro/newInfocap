@@ -88,7 +88,7 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
           this.editedHours = `${startHour} / ${endHour}`;
 
           let workingDays = this.selectedProCat.work_days.split('-');
-
+          console.log(workingDays);
           workingDays.forEach(day => {
             switch (day) {
               case 'l':
