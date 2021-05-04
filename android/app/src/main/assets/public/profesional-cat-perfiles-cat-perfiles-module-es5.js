@@ -785,7 +785,7 @@
               // width: 200,
               resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl,
               promptLabelPhoto: 'Fotos',
-              promptLabelPicture: 'Camara',
+              promptLabelPicture: 'Cámara',
               promptLabelCancel: 'Cancelar'
             }).then(function (image) {
               _this6.saveImgToApi(image.dataUrl);

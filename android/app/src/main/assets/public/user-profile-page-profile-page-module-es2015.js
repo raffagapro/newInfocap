@@ -247,14 +247,14 @@ let ProfilePagePage = class ProfilePagePage {
             return;
         }
         _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Plugins"].Camera.getPhoto({
-            quality: 25,
+            quality: 100,
             source: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraSource"].Prompt,
             correctOrientation: true,
             height: 150,
             // width: 200,
             resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraResultType"].DataUrl,
             promptLabelPhoto: 'Fotos',
-            promptLabelPicture: 'Camara',
+            promptLabelPicture: 'Cámara',
             promptLabelCancel: 'Cancelar'
         }).then(image => {
             this.saveImgToApi(image.dataUrl);

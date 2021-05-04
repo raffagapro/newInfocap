@@ -1121,6 +1121,7 @@ sub {
 body {
   background-color: #fff;
   font-family: "Poppins";
+  font-family: Poppins;
 }
 .main-color {
   color: #009ace;
@@ -1181,6 +1182,11 @@ ion-item {
   --height: 40%;
   --width: 90%;
 }
+@media (max-height: 580px) {
+  .modalSuccess {
+    --height: 80%;
+  }
+}
 .modalServRechazado {
   --height: 50%;
   --width: 90%;
@@ -1217,4 +1223,7 @@ ion-item {
   --ion-color-tint: #ffffff !important;
   --background: #009ace;
   color: #ffffff;
+}
+.font-small {
+  font-size: 12px;
 }

@@ -282,7 +282,7 @@ let PerfilPage = class PerfilPage {
             // width: 200,
             resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl,
             promptLabelPhoto: 'Fotos',
-            promptLabelPicture: 'Camara',
+            promptLabelPicture: 'Cámara',
             promptLabelCancel: 'Cancelar'
         }).then(image => {
             this.saveImgToApi(image.dataUrl);
