@@ -10,11 +10,17 @@
     <ion-title class="title-toolbar">AGENDADOS</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
 
   <!-- title -->
   <ion-grid fixed>
+    <ion-row class="ion-margin-top" style="align-items: center;">
+      <ion-col offset="7">
+        <span style="color: #009ace">Ver como</span>
+        <ion-icon (click)="changeView('list')" class="icon-type-view" name="menu-outline"></ion-icon>
+        <ion-icon (click)="changeView('cal')" class="icon-type-view" name="calendar-clear-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
     <ion-row class="ion-margin-top">
       <ion-col size="11" class="ion-text-left">
         <ion-text class="main-color title" *ngIf="loadedServices.length > 0">
@@ -31,8 +37,117 @@
   </ion-grid>
 
   <!-- servicios agendados -->
+  <ion-row [hidden]="viewMood !== 'cal'" style="text-align: center;align-items: center;">
+    <ion-col size="3">
+      <ion-button (click)="back()" class="btn-week-wallet">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-text class="dates-text-calendar">{{ datesView }}</ion-text>
+    </ion-col>
+    <ion-col size="3">
+      <ion-button (click)="next()" class="btn-week-wallet">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <div [hidden]="viewMood !== 'cal'" style="height: 50vh; padding-left: 16px; padding-right: 16px;">
+    <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+      (onTitleChanged)="onViewTitleChanged($event)" [weekviewHeaderTemplate]="headerWeek"
+      [weekviewNormalEventTemplate]="event">
+    </calendar>
+  </div>
+
+  <ion-row [hidden]="viewMood !== 'cal'">
+    <ion-col size="11" class="ion-text-left">
+      <ion-text color="danger" class="title"><b>Tienes las siguientes visitas de evaluación agendadas.</b></ion-text>
+    </ion-col>
+    <ion-col size="1"></ion-col>
+  </ion-row>
+
+  <ion-row [hidden]="viewMood !== 'cal'" style="text-align: center;align-items: center;">
+    <ion-col size="3">
+      <ion-button (click)="backAgended()" class="btn-week-wallet">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-text class="dates-text-calendar">{{ datesAgendedView }}</ion-text>
+    </ion-col>
+    <ion-col size="3">
+      <ion-button (click)="nextAgended()" class="btn-week-wallet">
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <div [hidden]="viewMood !== 'cal'" style="height: 50vh; padding-left: 16px; padding-right: 16px;">
+    <calendar #calendarAgended [hidden]="viewMood !== 'cal'" [eventSource]="eventSourceAgended" [calendarMode]="calendar.mode"
+      [currentDate]="calendar.currentDate" (onTitleChanged)="onViewTitleAgendedChanged($event)"
+      [weekviewHeaderTemplate]="headerWeekAgended" [weekviewNormalEventTemplate]="eventAgended">
+    </calendar>
+  </div>
+
+  <ng-template #event let-displayEvent="displayEvent">
+    <div class="calendar-event-inner" (click)="solicitudDetail(displayEvent.event.title.id)">
+      <div class="category-event-inner">
+        {{displayEvent.event.title.cat}}
+      </div>
+      <div class="name-event-inner">
+        {{displayEvent.event.title.name}}
+      </div>
+      <div class="description-event-inner">
+        {{displayEvent.event.title.description}}
+      </div>
+      <div (click)="openMaps(displayEvent.event.title.adress)">
+        <ion-icon src="/assets/icon/ic_map.svg" color="primary" class="iconFixCalendar"></ion-icon>&nbsp;
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #eventAgended let-displayEvent="displayEvent">
+    <div class="calendar-event-inner" (click)="solicitudDetail(displayEvent.event.title.id)">
+      <div class="category-event-inner">
+        {{displayEvent.event.title.cat}}
+      </div>
+      <div class="name-event-inner">
+        {{displayEvent.event.title.name}}
+      </div>
+      <div class="description-event-inner">
+        {{displayEvent.event.title.description}}
+      </div>
+      <div (click)="openMaps(displayEvent.event.title.adress)">
+        <ion-icon src="/assets/icon/ic_map.svg" color="primary" class="iconFixCalendar"></ion-icon>&nbsp;
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #headerWeek let-viewDate="viewDate">
+    <div class="week-day-header">
+      <ion-row>
+        {{ view(viewDate) }}
+      </ion-row>
+      <ion-row>
+        {{ viewDay(viewDate) }}
+      </ion-row>
+    </div>
+  </ng-template>
+
+  <ng-template #headerWeekAgended let-viewDate="viewDate">
+    <div class="week-day-header">
+      <ion-row>
+        {{ view(viewDate) }}
+      </ion-row>
+      <ion-row>
+        {{ viewDay(viewDate) }}
+      </ion-row>
+    </div>
+  </ng-template>
+
+
   <div class="prof-cont no-border" *ngFor="let service of loadedServices">
-    <ion-grid>
+    <ion-grid [hidden]="viewMood !== 'list'">
       <ion-row class="ion-align-items-center">
         <!-- title -->
         <ion-col size="8" class="ion-justify-content-center" (click)="solicitudDetail(service.id)">
@@ -79,7 +194,7 @@
 
   <!-- servicios Iniciados -->
   <div class="prof-cont no-border" *ngFor="let service of loadedStartedServices" (click)="solicitudDetail(service.id)">
-    <ion-grid>
+    <ion-grid [hidden]="viewMood !== 'list'">
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
@@ -120,7 +235,7 @@
 
   <!-- title -->
   <ion-grid *ngIf="loadedVisits.length > 0">
-    <ion-row>
+    <ion-row [hidden]="viewMood !== 'list'">
       <ion-col size="11" class="ion-text-left">
         <ion-text color="danger" class="title"><b>Tienes las siguientes visitas de evaluación agendadas.</b></ion-text>
       </ion-col>
@@ -130,7 +245,7 @@
 
   <!-- visitas agendadas -->
   <div class="prof-cont no-border" *ngFor="let service of loadedVisits" (click)="solicitudDetail(service.id)">
-    <ion-grid>
+    <ion-grid [hidden]="viewMood !== 'list'">
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
@@ -144,7 +259,7 @@
               <ion-icon name="calendar" color="primary" class="iconFix"></ion-icon>
               {{service.date_required}}
               <ion-icon name="time" color="primary" class="iconFix"></ion-icon>
-              {{ p(service.hours) }}h
+              {{ formatHour(service.hours) }}h
             </small>
           </ion-text>
         </ion-col>

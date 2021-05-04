@@ -104,8 +104,9 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
     }
   }
 
+  
   rateClient(){
-    this.router.navigate(['/profesional/home/home-tabs/finalizados/rate-form']);
+    this.router.navigate(['/profesional/finalizados/rate-form']);
   }
 
   ngOnDestroy(){

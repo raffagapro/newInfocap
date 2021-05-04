@@ -147,24 +147,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
   }
 
   finalizarSolicitud() {
-    this.lc.create({
-      message: 'Finalizando Trabajo...'
-    }).then(loadingEl => {
-      loadingEl.present();
-      this.http.put(API + `/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/6`, null, { headers: this.headers })
-        .subscribe(resData => {
-          loadingEl.dismiss();
-          this.modalController.create({
-            component: ConfirmSuccessComponent,
-            cssClass: 'modalSuccess',
-          }).then(modalEl => {
-            modalEl.present();
-          });
-        }, err => {
-          loadingEl.dismiss();
-          console.log(err);
-        });
-    });
+    this.router.navigate(['profesional/agendados/agendados-finalizar']);
   }
 
   confirmSolicitud() {

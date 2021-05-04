@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="danger">
-    
+
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/profesional/home/home-tabs/agendados" text="" icon="arrow-back"></ion-back-button>
       <ion-button class="homeBtn" (click)="openMenu()">
@@ -21,7 +21,9 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <ion-img src="{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_client_profile  }}"></ion-img>
+            <ion-img
+              src="{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_client_profile  }}">
+            </ion-img>
           </ion-avatar>
         </ion-col>
 
@@ -30,17 +32,35 @@
           <ion-text>
             <small class="ticket">Ticket #{{ loadedInfo.ticket_number }}</small><br>
             <span class="titleSelect main-color ion-text-capitalize">{{ loadedInfo.categoryName }} para<br>
-              <span class="ion-text-capitalize titleName">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName }}</span>
+              <span class="ion-text-capitalize titleName">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName
+                }}</span>
             </span><br>
-            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">{{ d(loadedInfo.created_date) }}</p>
+            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">{{ d(loadedInfo.created_date) }}
+            </p>
           </ion-text>
         </ion-col>
 
       </ion-row>
     </ion-grid>
   </div>
-
   <ion-grid>
+
+    <ion-row style="align-items: center;">
+      <ion-col size="1"></ion-col>
+      <ion-col size="4">
+        <ion-text class="main-color title"><b>Categoriza el trabajo</b></ion-text>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item class="select-categories">
+          <ion-label class="catText">Categorías</ion-label>
+          <ion-select interface="popover" class="select-categories-component">
+            <ion-select-option *ngFor="let cat of categories" [value]="cat.id" class="main-color ion-text-center">{{
+              cat.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
 
     <!-- title -->
     <ion-row>
@@ -53,18 +73,26 @@
 
     <!-- images -->
     <ion-row class="ion-align-items-center">
-      <ion-col size="4" offset="1">
-        <img src="/assets/images/unavailable-image.png" class="imgSingle">
+      <ion-col size="7">
+        <ion-slides>
+          <ion-slide *ngFor="let image of loadedImagesDisplay" [loadedImagesDisplay]='loadedImagesDisplay'>
+            <ion-img [src]="image" class="imgSlide" style="height: 125px;">
+            </ion-img>
+          </ion-slide>
+        </ion-slides>
       </ion-col>
-      <ion-col size="4">
-        <img src="/assets/images/unavailable-image.png" class="imgSingle">
-      </ion-col>
+
       <ion-col size="3">
-        <div class="locate-cont">
+        <div (click)="onLoadImg()" class="locate-cont">
           <ion-icon name="add" color="light" class="rating-text"></ion-icon>
         </div>
       </ion-col>
     </ion-row>
+
+    <!-- hidden file input -->
+    <div style="display: none;">
+      <input type="file" #hiddenImgInput *ngIf="useInputPicker" (change)="onLoadImgFromInput($event)">
+    </div>
 
     <!-- text -->
     <ion-row>
@@ -80,7 +108,7 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="border ion-text-center">
         <ion-item lines="none">
-           <ion-textarea rows="3" cols="20" placeholder="Describe el trabajo realizado."></ion-textarea>
+          <ion-textarea rows="3" cols="20" placeholder="Describe el trabajo realizado."></ion-textarea>
         </ion-item>
       </ion-col>
       <ion-col size="1"></ion-col>
@@ -105,8 +133,8 @@
       <ion-col size="1"></ion-col>
     </ion-row>
 
-     <!-- finalizar trabajo BTN -->
-     <ion-row class="ion-margin-top ion-margin-bottom">
+    <!-- finalizar trabajo BTN -->
+    <ion-row class="ion-margin-top ion-margin-bottom">
       <ion-col size="1"></ion-col>
       <ion-col>
         <ion-button size="5" expand="block" class="ion-text-uppercase" color="danger" (click)="finalizarSolicitud()">

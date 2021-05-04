@@ -107,6 +107,11 @@ ion-item {
   --height: 50%;
   --width: 90%;
 }
+.modalBanco {
+  --height: 52%;
+  --width: 96%;
+  --border-radius: 8px;
+}
 .ion-invalid.ion-touched ion-icon {
   color: red;
 }
@@ -149,3 +154,22 @@ ion-item {
 .font-small {
   font-size: 12px;
 }
+.weekview-allday-table{
+  display: none;
+}
+  
+.weekview-normal-event-container{
+margin-top: 58px !important;
+}
+
+.calendar-hour-column, .calendar-hour-column {
+  width: 3.2rem !important;
+}
+
+.calendar-hour-column {
+  color: gray;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+
