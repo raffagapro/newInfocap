@@ -73,6 +73,11 @@ const routes: Routes = [
     // canLoad: [AuthGuard, UserGuard],
   },
   {
+    path: 'user/solicitud-finished',
+    loadChildren: () => import('./user/service-finished/service-finished.module').then( m => m.ServiceFinishedPageModule),
+    // canLoad: [AuthGuard, UserGuard],
+  },
+  {
     path: 'user/solicitud-detail',
     loadChildren: () => import('./user/solicitud-detail/solicitud-detail.module').then( m => m.SolicitudDetailPageModule),
     // canLoad: [AuthGuard, UserGuard],

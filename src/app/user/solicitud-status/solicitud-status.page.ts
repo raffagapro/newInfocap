@@ -173,6 +173,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
   }
 
   srvPay() {
+    this.solServ.setServiceID(this.serviceId);
     this.router.navigate(['/user/servicio-pagar']);
   }
 

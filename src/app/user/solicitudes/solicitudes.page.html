@@ -34,7 +34,7 @@
   </ion-grid>
 
   <!-- servicio iterable -->
-  <div class="prof-cont ion-margin-top no-border" *ngFor="let service of loadedServices" (click)="solicitudDetails(service.request_id)">
+  <div class="prof-cont ion-margin-top no-border" *ngFor="let service of loadedServices" (click)="solicitudDetails(service.request_id, service.status_id === 6)">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 

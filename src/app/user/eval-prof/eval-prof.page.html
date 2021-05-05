@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-grid fixed>
-    
+
     <!-- title -->
     <ion-row class="ion-margin-top">
       <ion-col size="10" offset="1" class="ion-text-center">
@@ -23,11 +23,16 @@
     <!-- rating  -->
     <ion-row class="ion-margin-top">
       <ion-col size="12" class="ion-text-center">
-        <ion-icon name="star" color="primary" class="rating-icon"></ion-icon>
-        <ion-icon name="star" color="primary" class="rating-icon"></ion-icon>
-        <ion-icon name="star" color="primary" class="rating-icon"></ion-icon>
-        <ion-icon name="star-outline" color="medium" class="rating-icon"></ion-icon>
-        <ion-icon name="star-outline" color="medium" class="rating-icon"></ion-icon>
+        <ion-icon (click)="setCurrentRate(1)" name="{{currentRate >= 1 ? 'star' : 'star-outline'}}" color="primary"
+          class="rating-icon"></ion-icon>
+        <ion-icon (click)="setCurrentRate(2)" name="{{currentRate >= 2 ? 'star' : 'star-outline'}}" color="primary"
+          class="rating-icon"></ion-icon>
+        <ion-icon (click)="setCurrentRate(3)" name="{{currentRate >= 3 ? 'star' : 'star-outline'}}" color="primary"
+          class="rating-icon"></ion-icon>
+        <ion-icon (click)="setCurrentRate(4)" name="{{currentRate >= 4 ? 'star' : 'star-outline'}}" color="primary"
+          class="rating-icon"></ion-icon>
+        <ion-icon (click)="setCurrentRate(5)" name="{{currentRate >= 5 ? 'star' : 'star-outline'}}" color="primary"
+          class="rating-icon"></ion-icon>
       </ion-col>
     </ion-row>
 
@@ -44,8 +49,9 @@
       <!-- tecnico -->
       <ion-col size="3" class="ion-text-center">
         <ion-text>
-          <div class="locate-cont">
-            <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
+          <div class="locate-cont" (click)="setSelectedIcon('engine')">
+            <ion-icon src="/assets/icon/ic_engine_circle.svg"
+              class="rating-text {{isSelectedIcon('engine') ? 'selected' : ''}}"></ion-icon>
           </div><br>
           <span class="label-text">Técnico</span>
         </ion-text>
@@ -54,8 +60,9 @@
       <!-- Puntualidad -->
       <ion-col size="3" class="ion-text-center">
         <ion-text>
-          <div class="locate-cont">
-            <ion-icon name="time" color="light" class="rating-text"></ion-icon>
+          <div class="locate-cont" (click)="setSelectedIcon('time')">
+            <ion-icon src="/assets/icon/ic_time_circle.svg"
+              class="rating-text {{isSelectedIcon('time') ? 'selected' : ''}}"></ion-icon>
           </div><br>
           <span class="label-text">Puntualidad</span>
         </ion-text>
@@ -64,8 +71,9 @@
       <!-- Cordialidad -->
       <ion-col size="3" class="ion-text-center">
         <ion-text>
-          <div class="locate-cont">
-            <ion-icon name="heart" color="light" class="rating-text"></ion-icon>
+          <div class="locate-cont" (click)="setSelectedIcon('heart')">
+            <ion-icon src="/assets/icon/ic_heart_circle.svg"
+              class="rating-text {{isSelectedIcon('heart') ? 'selected' : ''}}"></ion-icon>
           </div><br>
           <span class="label-text">Cordialidad</span>
         </ion-text>
@@ -74,8 +82,9 @@
       <!-- Cordialidad -->
       <ion-col size="3" class="ion-text-center">
         <ion-text>
-          <div class="locate-cont">
-            <ion-icon name="trophy" color="light" class="rating-text"></ion-icon>
+          <div class="locate-cont" (click)="setSelectedIcon('diamond')">
+            <ion-icon src="/assets/icon/ic_diamont_circle.svg"
+              class="rating-text {{isSelectedIcon('diamond') ? 'selected' : ''}}"></ion-icon>
           </div><br>
           <span class="label-text">Servicio y Satisfacción</span>
         </ion-text>
@@ -95,28 +104,41 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="border ion-text-center">
         <ion-item lines="none">
-           <ion-textarea rows="3" cols="20" placeholder="Agrega una descripción."></ion-textarea>
+          <ion-textarea rows="3" cols="20" placeholder="Agrega una descripción." [(ngModel)]="comment" name="comment"></ion-textarea>
         </ion-item>
       </ion-col>
       <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- error handling  -->
+    <ion-row *ngIf="error !== undefined" class="ion-margin-top">
+      <ion-col class="ion-text-center">
+        <ion-label class="">
+          <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
+          <ion-text color="danger">
+            <small> {{ error }}</small>
+          </ion-text><br>
+        </ion-label>
+      </ion-col>
     </ion-row>
 
     <!-- BTNs -->
     <ion-row class="ion-margin-top ion-margin-bottom">
       <ion-col size="1"></ion-col>
       <ion-col size="4">
-        <ion-button size="5" expand="block" fill="outline" class="btn-text ion-text-uppercase" (click)="confirmRequest()">
+        <ion-button size="5" expand="block" fill="outline" class="btn-text ion-text-uppercase"
+          (click)="goBack()">
           Omitir
         </ion-button>
       </ion-col>
       <ion-col size="1"></ion-col>
       <ion-col size="5">
-        <ion-button size="5" expand="block" class="btn-text ion-text-uppercase" (click)="confirmRequest()">
+        <ion-button size="5" expand="block" class="btn-text ion-text-uppercase" (click)="rateProfessional()">
           Aceptar
         </ion-button>
       </ion-col>
     </ion-row>
-    
+
   </ion-grid>
 
 </ion-content>

@@ -37,59 +37,65 @@ export class SolicitudesPage implements OnInit, OnDestroy {
       this.grabbedUser = user;
     });
   }
-  
-  ionViewWillEnter(){
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
+
+  ionViewWillEnter() {
+    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
     this.menuController.enable(true, 'user');
     this.loadServices();
   }
 
-  formatdate(date: string){
+  formatdate(date: string) {
     return moment(date, 'DD/MM/YYYY').format('DD MMM YYYY');
   }
 
-  loadServices(){
+  loadServices() {
     this.lc.create({
       message: "Cargando lista de servicios..."
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API+'/client/requestservices', {headers: this.headers})
-      .subscribe(resData =>{
-        loadingEl.dismiss();
-        this.loadedServices = resData['data'];
-        this.loadedServices.sort( this.compare ); 
-      }, err =>{
-        console.log(err);
-        loadingEl.dismiss();
-      });
+      this.http.get(API + '/client/requestservices', { headers: this.headers })
+        .subscribe(resData => {
+          loadingEl.dismiss();
+          this.loadedServices = resData['data'];
+          this.loadedServices.sort(this.compare);
+        }, err => {
+          console.log(err);
+          loadingEl.dismiss();
+        });
     });
   }
 
-  compare( a, b ) {
-    if ( a.status_id < b.status_id ){
+  compare(a, b) {
+    if (a.status_id < b.status_id) {
       return -1;
     }
-    if ( a.status_id > b.status_id ){
+    if (a.status_id > b.status_id) {
       return 1;
     }
     return 0;
   }
 
-  openMenu(){
+  openMenu() {
     this.menuController.open();
   }
 
-  onSearchChange(e: Event){
-    
+  onSearchChange(e: Event) {
+
   }
 
-  solicitudDetails(solicitudId: string){
+  solicitudDetails(solicitudId: string, redirectToFinished: boolean = false) {
     this.solServ.clearSolicitud();
     this.solServ.setServiceID(solicitudId);
-    this.router.navigate(['/user/solicitud-status']);
+
+    if (redirectToFinished) {
+      this.router.navigate(['/user/solicitud-finished']);
+    } else {
+      this.router.navigate(['/user/solicitud-status']);
+    }
+
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
   }
 }

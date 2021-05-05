@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-toolbar color="primary">
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/user/solicitudes" text="" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="title-toolbar">DETALLES DEL SERVICIO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- profesional card item -->
+  <div class="no-border ion-margin-top">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <!-- profile img -->
+        <ion-col size="4" offset="1">
+          <ion-avatar class="profileImg">
+            <img src="{{ loadedService.img_profile || '/assets/images/avatar.png'}}" />
+          </ion-avatar>
+        </ion-col>
+
+        <!-- title -->
+        <ion-col size="6">
+          <ion-text>
+            <span class="titleSelect main-color">{{loadedService.categoryName}} de {{loadedService.supplierName}}
+              {{loadedService.supplierLastName}}</span><br>
+            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">
+              {{formatDate(loadedService.created_date, 'DD/MM/YYYY')}}</p>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-grid>
+
+    <!-- title -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10">
+        <ion-text class="main-color title">
+          <ion-icon src="/assets/icon/ic_engine.svg" class="main-color margin-right"></ion-icon> <b>Trabajo
+            realizado</b>
+        </ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="titleText">
+          {{loadedService.description}}
+        </ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+    <br />
+    <!-- Slider -->
+    <ion-row class="" *ngIf="loadedService.img_request.length > 0">
+      <ion-col size="12">
+        <ion-slides [options]="slideOptions">
+          <!-- slide -->
+          <ion-slide *ngFor="let image of loadedService.img_request">
+            <img src="{{ image.image }}" class="imgSlide">
+          </ion-slide>
+        </ion-slides>
+        <br />
+      </ion-col>
+    </ion-row>
+
+    <!-- Fecha de visita -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color title">
+          <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color margin-right"></ion-icon><b>Fecha de
+            realización</b>
+        </ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color subText"> {{formatDate(loadedService.date_required)}}</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+    <br />
+    <!-- Rango de horas -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color title">
+          <ion-icon src="/assets/icon/ic_schedule.svg" class="main-color margin-right"></ion-icon><b>Rango de
+            horas</b>
+        </ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color subText"> {{formatTime()}}</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+    <br />
+    <!-- Costo -->
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color title">
+          <ion-icon src="/assets/icon/ic_money.svg" class="main-color margin-right"></ion-icon><b>Costo</b>
+        </ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color subText"> 30 USD</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+    <div *ngIf="loadedService.img_request.length == 0">
+      <br />
+      <br />
+      <br />
+    </div>
+    <br/>
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-button size="10" expand="block" fill="solid" class="ion-text-uppercase btn-rate"
+          (click)="goToRateProfessional()">
+          <ion-icon src="/assets/icon/ic_like.svg" color="#ffffff" class="main-color margin-right"></ion-icon>
+          &nbsp;&nbsp;CALIFICAR EL SERVICIO
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+    <br/>
+    <br/>
+
+  </ion-grid>
+</ion-content>
