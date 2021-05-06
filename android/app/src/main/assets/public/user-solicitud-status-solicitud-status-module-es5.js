@@ -387,6 +387,7 @@
         }, {
           key: "srvPay",
           value: function srvPay() {
+            this.solServ.setServiceID(this.serviceId);
             this.router.navigate(['/user/servicio-pagar']);
           }
         }, {

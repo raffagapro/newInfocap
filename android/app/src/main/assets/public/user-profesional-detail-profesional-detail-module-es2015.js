@@ -234,6 +234,7 @@ let ProfesionalDetailPage = class ProfesionalDetailPage {
                 let endHour = splitedHours.length > 1 ? moment__WEBPACK_IMPORTED_MODULE_13__(splitedHours[1]).format('h:mm a') : 'ND';
                 this.editedHours = `${startHour} / ${endHour}`;
                 let workingDays = this.selectedProCat.work_days.split('-');
+                console.log(workingDays);
                 workingDays.forEach(day => {
                     switch (day) {
                         case 'l':

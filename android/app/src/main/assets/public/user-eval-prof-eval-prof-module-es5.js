@@ -82,7 +82,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".title {\n  font-size: 23px;\n}\n\n.rating-icon {\n  font-size: 50px;\n  margin-right: 10px;\n}\n\n.locate-cont {\n  margin-top: 20px;\n  border-radius: 50px;\n  height: 60px;\n  width: 60px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  background-color: #009ACE;\n}\n\n.rating-text {\n  font-size: 28px;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.label-text {\n  margin-left: auto;\n  margin-right: auto;\n  font-size: 10px;\n}\n\n.border {\n  border: 1px solid #009ACE;\n}\n\n.btn-text {\n  font-size: 14px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2V2YWwtcHJvZi5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFSSxlQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0VBQ0Esa0JBQUE7QUFBSjs7QUFFQTtFQUVJLGdCQUFBO0VBQ0EsbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLG9CQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLHlCQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBQUFKOztBQUVBO0VBRUksaUJBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7QUFBSjs7QUFFQTtFQUVJLHlCQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0FBQUoiLCJmaWxlIjoiZXZhbC1wcm9mLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi50aXRsZVxue1xuICAgIGZvbnQtc2l6ZTogMjNweDtcbn1cbi5yYXRpbmctaWNvblxue1xuICAgIGZvbnQtc2l6ZTogNTBweDtcbiAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XG59XG4ubG9jYXRlLWNvbnRcbntcbiAgICBtYXJnaW4tdG9wOiAyMHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gICAgaGVpZ2h0OiA2MHB4O1xuICAgIHdpZHRoOiA2MHB4O1xuICAgIGRpc3BsYXk6IGlubGluZS1mbGV4O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIGJhY2tncm91bmQtY29sb3I6ICMwMDlBQ0U7XG59XG4ucmF0aW5nLXRleHRcbntcbiAgICBmb250LXNpemU6IDI4cHg7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xufVxuLmxhYmVsLXRleHRcbntcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgZm9udC1zaXplOiAxMHB4O1xufVxuLmJvcmRlclxue1xuICAgIGJvcmRlcjogMXB4IHNvbGlkICMwMDlBQ0U7XG59XG4uYnRuLXRleHRcbntcbiAgICBmb250LXNpemU6IDE0cHg7XG59Il19 */";
+      __webpack_exports__["default"] = ".title {\n  font-size: 23px;\n}\n\n.rating-icon {\n  font-size: 50px;\n  margin-right: 10px;\n}\n\n.locate-cont {\n  margin-top: 20px;\n  border-radius: 50px;\n  height: 60px;\n  width: 60px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n}\n\n.rating-text {\n  font-size: 50px;\n  margin-left: auto;\n  margin-right: auto;\n  opacity: 0.5;\n}\n\n.selected {\n  opacity: 1;\n}\n\n.label-text {\n  margin-left: auto;\n  margin-right: auto;\n  font-size: 10px;\n}\n\n.border {\n  border: 1px solid #009ace;\n}\n\n.btn-text {\n  font-size: 14px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2V2YWwtcHJvZi5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0FBQ0o7O0FBQ0E7RUFDSSxlQUFBO0VBQ0Esa0JBQUE7QUFFSjs7QUFBQTtFQUNJLGdCQUFBO0VBQ0EsbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLG9CQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtBQUdKOztBQURBO0VBQ0ksZUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxZQUFBO0FBSUo7O0FBRkE7RUFDSSxVQUFBO0FBS0o7O0FBSEE7RUFDSSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtBQU1KOztBQUpBO0VBQ0kseUJBQUE7QUFPSjs7QUFMQTtFQUNJLGVBQUE7QUFRSiIsImZpbGUiOiJldmFsLXByb2YucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRpdGxlIHtcbiAgICBmb250LXNpemU6IDIzcHg7XG59XG4ucmF0aW5nLWljb24ge1xuICAgIGZvbnQtc2l6ZTogNTBweDtcbiAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XG59XG4ubG9jYXRlLWNvbnQge1xuICAgIG1hcmdpbi10b3A6IDIwcHg7XG4gICAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgICBoZWlnaHQ6IDYwcHg7XG4gICAgd2lkdGg6IDYwcHg7XG4gICAgZGlzcGxheTogaW5saW5lLWZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG4ucmF0aW5nLXRleHQge1xuICAgIGZvbnQtc2l6ZTogNTBweDtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgb3BhY2l0eTogMC41O1xufVxuLnNlbGVjdGVkIHtcbiAgICBvcGFjaXR5OiAxO1xufVxuLmxhYmVsLXRleHQge1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICBmb250LXNpemU6IDEwcHg7XG59XG4uYm9yZGVyIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCAjMDA5YWNlO1xufVxuLmJ0bi10ZXh0IHtcbiAgICBmb250LXNpemU6IDE0cHg7XG59XG4iXX0= */";
       /***/
     },
 
@@ -144,22 +144,68 @@
       /* harmony import */
 
 
-      var _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! @angular/common */
+      "ofXK");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
+      /* harmony import */
+
+
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! src/app/services/solicitud.service */
+      "rLtr");
+      /* harmony import */
+
+
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! src/app/services/user.service */
+      "qfBg");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
+      /* harmony import */
+
+
+      var _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! ./confirm-success-modal/confirm-success-modal.component */
       "E1bO");
 
       var EvalProfPage = /*#__PURE__*/function () {
-        function EvalProfPage(modalController, router, menuController) {
+        function EvalProfPage(modalController, router, userService, menuController, requestService, loadingController, location) {
           _classCallCheck(this, EvalProfPage);
 
           this.modalController = modalController;
           this.router = router;
+          this.userService = userService;
           this.menuController = menuController;
+          this.requestService = requestService;
+          this.loadingController = loadingController;
+          this.location = location;
+          this.selectedIcons = [];
+          this.currentRate = 1;
         }
 
         _createClass(EvalProfPage, [{
           key: "ngOnInit",
-          value: function ngOnInit() {}
+          value: function ngOnInit() {
+            var _this = this;
+
+            this.userSub = this.userService.loggedUser.subscribe(function (user) {
+              _this.grabbedUser = user;
+            });
+          }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
@@ -171,14 +217,105 @@
             this.menuController.open();
           }
         }, {
+          key: "isSelectedIcon",
+          value: function isSelectedIcon(type) {
+            return this.selectedIcons.includes(type);
+          }
+        }, {
+          key: "setCurrentRate",
+          value: function setCurrentRate(rate) {
+            this.currentRate = rate;
+          }
+        }, {
+          key: "setSelectedIcon",
+          value: function setSelectedIcon(type) {
+            if (this.selectedIcons.includes(type)) {
+              this.selectedIcons = this.selectedIcons.filter(function (currentType) {
+                return type !== currentType;
+              });
+            } else {
+              this.selectedIcons.push(type);
+            }
+          }
+        }, {
+          key: "rateProfessional",
+          value: function rateProfessional() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var loader, body, response;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      console.log(this.comment);
+                      _context.prev = 1;
+                      _context.next = 4;
+                      return this.loadingController.create({
+                        message: 'Enviando calificación...'
+                      });
+
+                    case 4:
+                      loader = _context.sent;
+                      loader.present();
+                      body = {
+                        request_services_id: this.requestService.solicitud.solicitudID,
+                        technical_capacity: this.selectedIcons.includes('engine') ? '1' : '0',
+                        puntuality: this.selectedIcons.includes('time') ? '1' : '0',
+                        cordiality: this.selectedIcons.includes('heart') ? '1' : '0',
+                        service_and_satisfaction: this.selectedIcons.includes('diamond') ? '1' : '0',
+                        stars: this.currentRate.toString(),
+                        comment: this.comment,
+                        comment_bad_services: this.comment
+                      };
+                      _context.next = 9;
+                      return axios__WEBPACK_IMPORTED_MODULE_7___default.a.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/supplier/evaluation"), body, {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.grabbedUser.access_token)
+                        }
+                      });
+
+                    case 9:
+                      response = _context.sent;
+                      _context.next = 12;
+                      return loader.dismiss();
+
+                    case 12:
+                      if (response.data && response.data.code && response.data.code !== 200) {
+                        this.error = 'Ocurrió un error al enviar la calificación';
+                      } else {
+                        this.confirmRequest();
+                      }
+
+                      _context.next = 19;
+                      break;
+
+                    case 15:
+                      _context.prev = 15;
+                      _context.t0 = _context["catch"](1);
+                      console.log(_context.t0);
+                      this.error = 'Ocurrió un error al enviar la calificación.';
+
+                    case 19:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this, [[1, 15]]);
+            }));
+          }
+        }, {
           key: "confirmRequest",
           value: function confirmRequest() {
             this.modalController.create({
-              component: _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_6__["ConfirmSuccessModalComponent"],
+              component: _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["ConfirmSuccessModalComponent"],
               cssClass: 'modalSuccess'
             }).then(function (modalEl) {
               modalEl.present();
             });
+          }
+        }, {
+          key: "goBack",
+          value: function goBack() {
+            this.location.back();
           }
         }]);
 
@@ -191,7 +328,15 @@
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
         }, {
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"]
+        }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"]
+        }, {
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__["SolicitudService"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
+        }, {
+          type: _angular_common__WEBPACK_IMPORTED_MODULE_6__["Location"]
         }];
       };
 
@@ -219,7 +364,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/servicio-pagar\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">EVALUA AL PROFESIONAL</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid fixed>\n    \n    <!-- title -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>¿Qué te pareció el servicio entregado por Juan Alcayaga?</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- rating  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"12\" class=\"ion-text-center\">\n        <ion-icon name=\"star\" color=\"primary\" class=\"rating-icon\"></ion-icon>\n        <ion-icon name=\"star\" color=\"primary\" class=\"rating-icon\"></ion-icon>\n        <ion-icon name=\"star\" color=\"primary\" class=\"rating-icon\"></ion-icon>\n        <ion-icon name=\"star-outline\" color=\"medium\" class=\"rating-icon\"></ion-icon>\n        <ion-icon name=\"star-outline\" color=\"medium\" class=\"rating-icon\"></ion-icon>\n      </ion-col>\n    </ion-row>\n\n    <!-- title -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>¿Qué reconocimiento le otorgarías?</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Icons -->\n    <ion-row>\n      <!-- tecnico -->\n      <ion-col size=\"3\" class=\"ion-text-center\">\n        <ion-text>\n          <div class=\"locate-cont\">\n            <ion-icon name=\"hammer\" color=\"light\" class=\"rating-text\"></ion-icon>\n          </div><br>\n          <span class=\"label-text\">Técnico</span>\n        </ion-text>\n      </ion-col>\n\n      <!-- Puntualidad -->\n      <ion-col size=\"3\" class=\"ion-text-center\">\n        <ion-text>\n          <div class=\"locate-cont\">\n            <ion-icon name=\"time\" color=\"light\" class=\"rating-text\"></ion-icon>\n          </div><br>\n          <span class=\"label-text\">Puntualidad</span>\n        </ion-text>\n      </ion-col>\n\n      <!-- Cordialidad -->\n      <ion-col size=\"3\" class=\"ion-text-center\">\n        <ion-text>\n          <div class=\"locate-cont\">\n            <ion-icon name=\"heart\" color=\"light\" class=\"rating-text\"></ion-icon>\n          </div><br>\n          <span class=\"label-text\">Cordialidad</span>\n        </ion-text>\n      </ion-col>\n\n      <!-- Cordialidad -->\n      <ion-col size=\"3\" class=\"ion-text-center\">\n        <ion-text>\n          <div class=\"locate-cont\">\n            <ion-icon name=\"trophy\" color=\"light\" class=\"rating-text\"></ion-icon>\n          </div><br>\n          <span class=\"label-text\">Servicio y Satisfacción</span>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- title -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Deja un comentario para el profesional</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- text-area -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"border ion-text-center\">\n        <ion-item lines=\"none\">\n           <ion-textarea rows=\"3\" cols=\"20\" placeholder=\"Agrega una descripción.\"></ion-textarea>\n        </ion-item>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- BTNs -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"4\">\n        <ion-button size=\"5\" expand=\"block\" fill=\"outline\" class=\"btn-text ion-text-uppercase\" (click)=\"confirmRequest()\">\n          Omitir\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button size=\"5\" expand=\"block\" class=\"btn-text ion-text-uppercase\" (click)=\"confirmRequest()\">\n          Aceptar\n        </ion-button>\n      </ion-col>\n    </ion-row>\n    \n  </ion-grid>\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/servicio-pagar\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">EVALUA AL PROFESIONAL</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid fixed>\n\n    <!-- title -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>¿Qué te pareció el servicio entregado por Juan Alcayaga?</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- rating  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"12\" class=\"ion-text-center\">\n        <ion-icon (click)=\"setCurrentRate(1)\" name=\"{{currentRate >= 1 ? 'star' : 'star-outline'}}\" color=\"primary\"\n          class=\"rating-icon\"></ion-icon>\n        <ion-icon (click)=\"setCurrentRate(2)\" name=\"{{currentRate >= 2 ? 'star' : 'star-outline'}}\" color=\"primary\"\n          class=\"rating-icon\"></ion-icon>\n        <ion-icon (click)=\"setCurrentRate(3)\" name=\"{{currentRate >= 3 ? 'star' : 'star-outline'}}\" color=\"primary\"\n          class=\"rating-icon\"></ion-icon>\n        <ion-icon (click)=\"setCurrentRate(4)\" name=\"{{currentRate >= 4 ? 'star' : 'star-outline'}}\" color=\"primary\"\n          class=\"rating-icon\"></ion-icon>\n        <ion-icon (click)=\"setCurrentRate(5)\" name=\"{{currentRate >= 5 ? 'star' : 'star-outline'}}\" color=\"primary\"\n          class=\"rating-icon\"></ion-icon>\n      </ion-col>\n    </ion-row>\n\n    <!-- title -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>¿Qué reconocimiento le otorgarías?</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Icons -->\n    <ion-row>\n      <!-- tecnico -->\n      <ion-col size=\"3\" class=\"ion-text-center\">\n        <ion-text>\n          <div class=\"locate-cont\" (click)=\"setSelectedIcon('engine')\">\n            <ion-icon src=\"/assets/icon/ic_engine_circle.svg\"\n              class=\"rating-text {{isSelectedIcon('engine') ? 'selected' : ''}}\"></ion-icon>\n          </div><br>\n          <span class=\"label-text\">Técnico</span>\n        </ion-text>\n      </ion-col>\n\n      <!-- Puntualidad -->\n      <ion-col size=\"3\" class=\"ion-text-center\">\n        <ion-text>\n          <div class=\"locate-cont\" (click)=\"setSelectedIcon('time')\">\n            <ion-icon src=\"/assets/icon/ic_time_circle.svg\"\n              class=\"rating-text {{isSelectedIcon('time') ? 'selected' : ''}}\"></ion-icon>\n          </div><br>\n          <span class=\"label-text\">Puntualidad</span>\n        </ion-text>\n      </ion-col>\n\n      <!-- Cordialidad -->\n      <ion-col size=\"3\" class=\"ion-text-center\">\n        <ion-text>\n          <div class=\"locate-cont\" (click)=\"setSelectedIcon('heart')\">\n            <ion-icon src=\"/assets/icon/ic_heart_circle.svg\"\n              class=\"rating-text {{isSelectedIcon('heart') ? 'selected' : ''}}\"></ion-icon>\n          </div><br>\n          <span class=\"label-text\">Cordialidad</span>\n        </ion-text>\n      </ion-col>\n\n      <!-- Cordialidad -->\n      <ion-col size=\"3\" class=\"ion-text-center\">\n        <ion-text>\n          <div class=\"locate-cont\" (click)=\"setSelectedIcon('diamond')\">\n            <ion-icon src=\"/assets/icon/ic_diamont_circle.svg\"\n              class=\"rating-text {{isSelectedIcon('diamond') ? 'selected' : ''}}\"></ion-icon>\n          </div><br>\n          <span class=\"label-text\">Servicio y Satisfacción</span>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- title -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Deja un comentario para el profesional</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- text-area -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"border ion-text-center\">\n        <ion-item lines=\"none\">\n          <ion-textarea rows=\"3\" cols=\"20\" placeholder=\"Agrega una descripción.\" [(ngModel)]=\"comment\" name=\"comment\"></ion-textarea>\n        </ion-item>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- error handling  -->\n    <ion-row *ngIf=\"error !== undefined\" class=\"ion-margin-top\">\n      <ion-col class=\"ion-text-center\">\n        <ion-label class=\"\">\n          <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n          <ion-text color=\"danger\">\n            <small> {{ error }}</small>\n          </ion-text><br>\n        </ion-label>\n      </ion-col>\n    </ion-row>\n\n    <!-- BTNs -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"4\">\n        <ion-button size=\"5\" expand=\"block\" fill=\"outline\" class=\"btn-text ion-text-uppercase\"\n          (click)=\"goBack()\">\n          Omitir\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button size=\"5\" expand=\"block\" class=\"btn-text ion-text-uppercase\" (click)=\"rateProfessional()\">\n          Aceptar\n        </ion-button>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n\n</ion-content>";
       /***/
     },
 

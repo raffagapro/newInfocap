@@ -226,6 +226,7 @@ let SolicitudStatusPage = class SolicitudStatusPage {
         this.router.navigate(['/user/service-resume']);
     }
     srvPay() {
+        this.solServ.setServiceID(this.serviceId);
         this.router.navigate(['/user/servicio-pagar']);
     }
     ngOnDestroy() {

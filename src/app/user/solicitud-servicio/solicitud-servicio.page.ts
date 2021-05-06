@@ -137,7 +137,7 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
       return;
     }
     Plugins.Camera.getPhoto({
-      quality: 25,
+      quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,
       height: 150,

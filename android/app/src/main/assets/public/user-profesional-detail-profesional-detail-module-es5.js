@@ -415,6 +415,7 @@
 
                 var workingDays = _this2.selectedProCat.work_days.split('-');
 
+                console.log(workingDays);
                 workingDays.forEach(function (day) {
                   switch (day) {
                     case 'l':
