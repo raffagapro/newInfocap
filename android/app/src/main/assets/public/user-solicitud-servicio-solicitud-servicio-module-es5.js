@@ -316,7 +316,7 @@
             }
 
             _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["Plugins"].Camera.getPhoto({
-              quality: 25,
+              quality: 100,
               source: _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["CameraSource"].Prompt,
               correctOrientation: true,
               height: 150,
