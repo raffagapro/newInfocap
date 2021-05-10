@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MenuController, ModalController, LoadingController } from '@ionic/angular';
 import { ConfirmSuccessComponent } from './confirm-success/confirm-success.component';
@@ -9,6 +8,7 @@ import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import axios from 'axios'
 
 @Component({
   selector: 'app-rate-form',
@@ -19,8 +19,9 @@ export class RateFormPage implements OnInit {
 
   grabbedUser: User;
   userSub: Subscription;
-  headers: HttpHeaders;
+  headers: String;
   rate: 0;
+  isRated = false;
 
   loadedInfo = {
     img_profile: null,
@@ -38,7 +39,6 @@ export class RateFormPage implements OnInit {
   formRate: FormGroup
 
   constructor(
-    private router: Router,
     private menuController: MenuController,
     private modalController: ModalController,
     private solServ: SolicitudService,
@@ -48,17 +48,14 @@ export class RateFormPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    // new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
     this.formRate = new FormGroup({
-      detailes: new FormControl(null, {
+      comment: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
-      photos: new FormControl(null, {
+      comment_bad_services: new FormControl(null, {
         updateOn: 'blur',
-      }),
-      price: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
       }),
     });
 
@@ -66,30 +63,30 @@ export class RateFormPage implements OnInit {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+
+    this.headers = 'Bearer ' + this.grabbedUser.access_token
+
     this.lc.create({
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: this.headers })
-        .subscribe(resData => {
-          loadingEl.dismiss();
-          this.loadedInfo.clientLastName = resData['data'].clientLastName;
-          this.loadedInfo.clientName = resData['data'].clientName;
-          let wDate = resData['data'].date_required.split("-");
-          this.loadedInfo.date_required = wDate[2] + '-' + wDate[1] + '-' + wDate[0];
-          this.loadedInfo.description = resData['data'].description;
-          this.loadedInfo.hours = resData['data'].hours;
-          this.loadedInfo.images = resData['data'].images;
-          this.loadedInfo.img_profile = resData['data'].img_client_profile;
-          this.loadedInfo.ticket_number = resData['data'].ticket_number;
-          this.loadedInfo.categoryName = resData['data'].categoryName;
-          this.loadedInfo.clientPhone1 = resData['data'].clientPhone1;
-        }, err => {
-          console.log(err);
-          loadingEl.dismiss();
-
-        });
+      axios.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
+        loadingEl.dismiss();
+        this.loadedInfo.clientLastName = resData.data.data.clientLastName;
+        this.loadedInfo.clientName = resData.data.data.clientName;
+        let wDate = resData.data.data.date_required.split("-");
+        this.loadedInfo.date_required = wDate[2] + '-' + wDate[1] + '-' + wDate[0];
+        this.loadedInfo.description = resData.data.data.description;
+        this.loadedInfo.hours = resData.data.data.hours;
+        this.loadedInfo.images = resData.data.data.images;
+        this.loadedInfo.img_profile = resData.data.data.img_client_profile;
+        this.loadedInfo.ticket_number = resData.data.data.ticket_number;
+        this.loadedInfo.categoryName = resData.data.data.categoryName;
+        this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
+      }).catch(err => {
+        console.log(err);
+        loadingEl.dismiss();
+      })
     });
   }
 
@@ -103,15 +100,27 @@ export class RateFormPage implements OnInit {
 
   changeStars(s) {
     this.rate = s
+    this.isRated = true
   }
 
   sendRate() {
-    this.modalController.create({
-      component: ConfirmSuccessComponent,
-      cssClass: 'modalSuccess',
-    }).then(modalEl => {
-      modalEl.present();
-    });
+    let new_rate = {
+      "request_services_id": this.solServ.solicitud.solicitudID,
+      "stars": this.rate,
+      "comment": this.formRate.value.comment,
+      "comment_bad_services": this.formRate.value.comment_bad_services
+    }
+
+    axios.post(API + '/client/evaluation', new_rate, { headers: { Authorization: this.headers } }).then(resData => {
+      this.modalController.create({
+        component: ConfirmSuccessComponent,
+        cssClass: 'modalSuccess',
+      }).then(modalEl => {
+        modalEl.present();
+      }, err => {
+        console.log(err)
+      });
+    })
   }
 
 }

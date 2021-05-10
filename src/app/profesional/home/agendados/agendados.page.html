@@ -82,6 +82,7 @@
       </ion-button>
     </ion-col>
   </ion-row>
+
   <div [hidden]="viewMood !== 'cal'" style="height: 50vh; padding-left: 16px; padding-right: 16px;">
     <calendar #calendarAgended [hidden]="viewMood !== 'cal'" [eventSource]="eventSourceAgended" [calendarMode]="calendar.mode"
       [currentDate]="calendar.currentDate" (onTitleChanged)="onViewTitleAgendedChanged($event)"
@@ -158,7 +159,7 @@
             <br>
             <small>
               <ion-icon src="/assets/icon/ic_date_range.svg" color="primary" class="iconFix"></ion-icon>
-              {{formatDate(service.date_required)}}
+              {{ formatDate(service.date_required) }}
               <ion-icon src="/assets/icon/ic_schedule.svg" color="primary" class="iconFix"></ion-icon>
               {{ formatTime(service.hours) }}
             </small>
@@ -208,7 +209,7 @@
               <ion-icon name="calendar" color="primary" class="iconFix"></ion-icon>
               {{service.date_required}}
               <ion-icon name="time" color="primary" class="iconFix"></ion-icon>
-              {{ p(service.hours) }}h
+              {{ diferenceHour(service.hours) }}h
             </small>
           </ion-text>
         </ion-col>

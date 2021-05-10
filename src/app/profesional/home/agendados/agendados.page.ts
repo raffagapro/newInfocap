@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController } from '@ionic/angular';
@@ -9,6 +8,8 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { CalendarComponent } from 'ionic2-calendar';
+
+import axios from 'axios'
 import * as moment from 'moment';
 
 @Component({
@@ -19,7 +20,7 @@ import * as moment from 'moment';
 export class AgendadosPage implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
-  headers: HttpHeaders;
+  headers: String;
   loadedServices = [];
   loadedStartedServices = [];
   loadedVisits = [];
@@ -29,6 +30,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
   // Calendar
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
   @ViewChild('calendarAgended') myCalAgended: CalendarComponent;
+  
   days = ['D', 'L', 'M', 'X', 'J', 'V', 'S']
   datesView = ''
   datesAgendedView = ''
@@ -42,7 +44,6 @@ export class AgendadosPage implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private menuController: MenuController,
-    private http: HttpClient,
     private us: UserService,
     private lc: LoadingController,
     private solServ: SolicitudService,
@@ -51,7 +52,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
   async ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
-      this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+      this.headers =  'Bearer ' + this.grabbedUser.access_token
       this.loadServices("3");
       this.loadServices("4");
       this.loadServices("2");
@@ -101,29 +102,27 @@ export class AgendadosPage implements OnInit, OnDestroy {
       message: "Cargando lista de servicios..."
     }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API + `/supplier/requestservice/${statusID}`, { headers: this.headers })
-        .subscribe(resData => {
-          loadingEl.dismiss();
-          if (statusID === "3") {
-            this.loadedServices = resData["data"];
-            this.formatEvents(resData["data"], "3")
-            this.myCal.loadEvents();
-          }
-          if (statusID === "4") {
-            this.loadedStartedServices = resData["data"];
-            this.formatEvents(resData["data"], "4")
-            this.myCal.loadEvents();
-          }
-          if (statusID === "2") {
-            this.loadedVisits = resData["data"];
-            console.log(resData['data'])
-            this.formatEvents(resData["data"], "2")
-            this.myCalAgended.loadEvents();
-          }
-        }, err => {
-          console.log(err);
-          loadingEl.dismiss();
-        });
+      axios.get(API + `/supplier/requestservice/${statusID}`, { headers: { Authorization: this.headers }}).then(resData => {
+        loadingEl.dismiss();
+        if (statusID === "3") {
+          this.loadedServices = resData.data.data;
+          this.formatEvents(resData.data.data, "3")
+          this.myCal.loadEvents();
+        }
+        if (statusID === "4") {
+          this.loadedStartedServices = resData.data.data;
+          this.formatEvents(resData.data.data, "4")
+          this.myCal.loadEvents();
+        }
+        if (statusID === "2") {
+          this.loadedVisits = resData.data.data;
+          this.formatEvents(resData.data.data, "2")
+          this.myCalAgended.loadEvents();
+        }
+      }).catch(err => {
+        console.log(err);
+        loadingEl.dismiss();
+      })
     });
   }
 
@@ -202,7 +201,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
     this.myCalAgended.loadEvents()
   }
 
-  formatHour(times) {
+  diferenceHour(times) {
     let hours = times.split('/')
 
     var a = moment(hours[1]);
