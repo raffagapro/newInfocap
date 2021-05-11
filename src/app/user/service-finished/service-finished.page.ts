@@ -48,6 +48,7 @@ export class ServiceFinishedPage implements OnInit {
     slidesPerView: 2,
     autoplay: true
   };
+  showRateProfessional = false;
 
   constructor(
     private modalController: ModalController,
@@ -87,6 +88,7 @@ export class ServiceFinishedPage implements OnInit {
       if (this.loadedService.img_request.length < 2) {
         this.slideOptions.slidesPerView = 1;
       }
+      await this.validateIfRatingYet();
     } catch (error) {
       console.log(error);
     } finally {
@@ -114,6 +116,20 @@ export class ServiceFinishedPage implements OnInit {
     let startHour = moment(hours[0]);
     let endHour = moment(hours[1]);
     return `${startHour.format('h:mm a')} a ${endHour.format('h:mm a')}`;
+  }
+
+  async validateIfRatingYet() {
+    try {
+      let response = await axios.get(
+        `${API}/supplier/evaluation/done/${this.solServ.solicitud.solicitudID}`
+      );
+      if (response.data && response.data.status === 200) {
+        this.showRateProfessional = true;
+      }
+    } catch (error) {
+      console.log(error);
+      this.showRateProfessional = true;
+    }
   }
 
 }

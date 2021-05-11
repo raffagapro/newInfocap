@@ -18,15 +18,15 @@
         FILTROS
       </ion-text>
     </ion-col>
-    <ion-col size="4">
+    <ion-col size="7">
       <select class="main-color cusSelect" name="sort" [(ngModel)]="sort" placeholder="Reconocimiento"
         (change)="onSortChange($event)" style="background-color:white;">
         <option value="null" disabled>Seleccionar</option>
-        <option value="reconocimiento">Reconocimiento</option>
-        <option value="calidad">Calidad del servicio</option>
-        <option value="puntualidad">Puntualidad</option>
+        <option value="stars">Por estrellas</option>
+        <option value="jobs">Trabajos evaluados</option>
       </select>
     </ion-col>
+    <!--
     <ion-col size="3">
       <select class="main-color cusSelect" name="type" [(ngModel)]="type" placeholder="Reconocimiento"
         (change)="onTypeChange($event)" style="background-color:white;">
@@ -35,6 +35,7 @@
         <option value="puntualidad">Puntualidad</option>
       </select>
     </ion-col>
+    -->
     <ion-col size="3">
       <ion-text class="text-10 main-color reset-text" (click)="resetFilters()">
         <ion-icon src="/assets/icon/ic_path.svg" class="filt-icon"></ion-icon>

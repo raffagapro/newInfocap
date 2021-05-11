@@ -51,6 +51,9 @@ export class VisitaDetailPage implements OnInit {
     autoplay: true
   };
 
+  error: boolean = false;
+  errorMessage: string = '';
+
   constructor(
     private modalController: ModalController,
     private router: Router,
@@ -114,13 +117,40 @@ export class VisitaDetailPage implements OnInit {
     return `${startHour.format('h:mm a')} - ${endHour.format('h:mm a')}`;
   }
 
-  confirmVisit() {
-    this.modalController.create({
-      component: ConfirmSuccessModalComponent,
-      cssClass: 'modalSuccess',
-    }).then(modalEl => {
-      modalEl.present();
+  async confirmVisit() {
+    let loader = await this.loadingController.create({
+      message: 'Enviando información...'
     });
+    loader.present();
+    try {
+      let response = await axios.post(
+        `${API}/client/requesttechnical/${this.solServ.solicitud.solicitudID}`,
+        {
+
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${this.user.access_token}`
+          }
+        }
+      );
+      if (response.data && response.data.status !== 200) {
+        this.error = false;
+        this.errorMessage = 'Ocurrió un error al enviar la solicitud.';
+      }
+    } catch (error) {
+      this.error = true;
+    }
+    loader.dismiss();
+
+    if (!this.error) {
+      this.modalController.create({
+        component: ConfirmSuccessModalComponent,
+        cssClass: 'modalSuccess',
+      }).then(modalEl => {
+        modalEl.present();
+      });
+    }
   }
 
 }

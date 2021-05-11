@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController } from '@ionic/angular';
+import axios from 'axios';
 import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
@@ -23,6 +24,10 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
   headers: HttpHeaders;
   sort = null;
   type = null;
+  endpoints = {
+    'stars': `${API}/supplier/evaluation/filterstar`,
+    'jobs': `${API}/supplier/evaluation/filter`
+  }
 
   constructor(
     private router: Router,
@@ -39,7 +44,10 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
     });
     this.headers = new HttpHeaders();
     this.headers = this.headers.set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+    this.getProfessionalList();
+  }
 
+  getProfessionalList() {
     // Grab prof list 
     this.lc.create({
       message: "Generando lista de profesionales..."
@@ -76,6 +84,7 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
 
   onSortChange(event) {
     this.sort = event.target.value;
+    this.filterList();
   }
 
   onTypeChange(event) {
@@ -85,6 +94,7 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
   resetFilters() {
     this.sort = null;
     this.type = null;
+    this.getProfessionalList();
   }
 
   eRequest() {
@@ -93,5 +103,29 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
+  }
+
+  async filterList() {
+    let loader = await this.lc.create({ message: 'Obteniendo lista de profesionales...' });
+    loader.present();
+    try {
+      const { category_id } = this.solServ.solicitud;
+      let response = await axios.get(
+        `${this.endpoints[this.sort]}/${category_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.grabbedUser.access_token}`
+          }
+        }
+      );
+      if (response.data && response.data.status !== 200) {
+        // TODO: Set error logic
+      }
+      this.profList = response.data.data;
+    } catch (error) {
+      // TODO: Set error logic
+    } finally {
+      await loader.dismiss();
+    }
   }
 }
