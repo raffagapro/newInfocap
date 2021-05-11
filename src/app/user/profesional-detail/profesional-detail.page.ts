@@ -12,6 +12,7 @@ import { API } from 'src/environments/environment';
 import { ImgListService } from 'src/app/services/img-list.service';
 import { IMAGE_URL_BLANK } from 'src/shared/constants';
 import * as moment from 'moment';
+import axios from 'axios';
 
 @Component({
   selector: 'app-profesional-detail',
@@ -130,6 +131,19 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
       console.log(err)
       this.lc.dismiss();
     });
+  }
+
+  async getEvaluations() {
+    try {
+      let response = await axios.get(
+        `${API}/supplier/evaluation/filter/${this.solServ.solicitud.proPerfil_id}`
+      );
+      if (response.data && response.data.status !== 200) {
+        //TODO: Maybe show an error message
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   openMenu() {
