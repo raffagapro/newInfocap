@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar mode="ios" color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/user/home" text="" icon="arrow-back"></ion-back-button>
     </ion-buttons>
@@ -36,8 +36,8 @@
     <form [formGroup]="form" (ngSubmit)="onUpdateUser()">
       <!-- nombre -->
       <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
               <ion-icon name="person" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Nombre</ion-text>
@@ -56,8 +56,8 @@
 
       <!-- email -->
       <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating">
               <ion-icon src="/assets/icon/ic_mail.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Email</ion-text>
@@ -83,8 +83,8 @@
 
       <!-- Número de contacto 1 -->
       <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
               <ion-icon src="/assets/icon/ic_phone.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Número de contacto</ion-text>
@@ -103,8 +103,8 @@
 
       <!-- Número de contacto 2 -->
       <!-- <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
               <ion-icon name="call" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Número de contacto 2</ion-text>
@@ -127,8 +127,8 @@
 
       <!-- Contraseña actual -->
       <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
               <ion-icon src="/assets/icon/ic_lock.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Contraseña actual</ion-text>
@@ -147,8 +147,8 @@
 
       <!-- Nueva contraseña -->
       <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
               <ion-icon src="/assets/icon/ic_lock.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Nueva contraseña</ion-text>
@@ -167,8 +167,8 @@
 
       <!-- Repetir nueva contraseña -->
       <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
               <ion-icon src="/assets/icon/ic_lock.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Repetir nueva contraseña</ion-text>

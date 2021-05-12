@@ -223,25 +223,35 @@
       /* harmony import */
 
 
-      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
+      /* harmony import */
+
+
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! src/app/services/solicitud.service */
       "rLtr");
       /* harmony import */
 
 
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
       /* harmony import */
 
 
-      var src_shared_constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var src_shared_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! src/shared/constants */
       "p1Kg");
 
@@ -255,10 +265,14 @@
           this.http = http;
           this.us = us;
           this.lc = lc;
-          this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_10__["IMAGE_URL_BLANK"];
+          this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_11__["IMAGE_URL_BLANK"];
           this.profList = [];
           this.sort = null;
           this.type = null;
+          this.endpoints = {
+            'stars': "".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/supplier/evaluation/filterstar"),
+            'jobs': "".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/supplier/evaluation/filter")
+          };
         }
 
         _createClass(ProfesionalListPage, [{
@@ -270,24 +284,31 @@
               _this.grabbedUser = user;
             });
             this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]();
-            this.headers = this.headers.set('Authorization', 'Bearer ' + this.grabbedUser.access_token); // Grab prof list 
+            this.headers = this.headers.set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+            this.getProfessionalList();
+          }
+        }, {
+          key: "getProfessionalList",
+          value: function getProfessionalList() {
+            var _this2 = this;
 
+            // Grab prof list 
             this.lc.create({
               message: "Generando lista de profesionales..."
             }).then(function (loadingEl) {
               loadingEl.present();
 
-              _this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/client/professions/".concat(_this.solServ.solicitud.comuna_id, "/").concat(_this.solServ.solicitud.category_id), {
-                headers: _this.headers
+              _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + "/client/professions/".concat(_this2.solServ.solicitud.comuna_id, "/").concat(_this2.solServ.solicitud.category_id), {
+                headers: _this2.headers
               }).subscribe(function (resData) {
-                _this.profList = resData['data'];
+                _this2.profList = resData['data'];
                 loadingEl.dismiss();
               }, function (e) {
                 console.log(e);
                 loadingEl.dismiss();
               });
             })["catch"](function (err) {
-              _this.lc.dismiss();
+              _this2.lc.dismiss();
             });
           }
         }, {
@@ -311,6 +332,7 @@
           key: "onSortChange",
           value: function onSortChange(event) {
             this.sort = event.target.value;
+            this.filterList();
           }
         }, {
           key: "onTypeChange",
@@ -322,6 +344,7 @@
           value: function resetFilters() {
             this.sort = null;
             this.type = null;
+            this.getProfessionalList();
           }
         }, {
           key: "eRequest",
@@ -332,6 +355,62 @@
           key: "ngOnDestroy",
           value: function ngOnDestroy() {
             this.userSub.unsubscribe();
+          }
+        }, {
+          key: "filterList",
+          value: function filterList() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var loader, category_id, response;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.lc.create({
+                        message: 'Obteniendo lista de profesionales...'
+                      });
+
+                    case 2:
+                      loader = _context.sent;
+                      loader.present();
+                      _context.prev = 4;
+                      category_id = this.solServ.solicitud.category_id;
+                      _context.next = 8;
+                      return axios__WEBPACK_IMPORTED_MODULE_7___default.a.get("".concat(this.endpoints[this.sort], "/").concat(category_id), {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.grabbedUser.access_token)
+                        }
+                      });
+
+                    case 8:
+                      response = _context.sent;
+
+                      if (response.data && response.data.status !== 200) {// TODO: Set error logic
+                      }
+
+                      this.profList = response.data.data;
+                      _context.next = 15;
+                      break;
+
+                    case 13:
+                      _context.prev = 13;
+                      _context.t0 = _context["catch"](4);
+
+                    case 15:
+                      _context.prev = 15;
+                      _context.next = 18;
+                      return loader.dismiss();
+
+                    case 18:
+                      return _context.finish(15);
+
+                    case 19:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this, [[4, 13, 15, 19]]);
+            }));
           }
         }]);
 
@@ -344,11 +423,11 @@
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"]
         }, {
-          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"]
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__["SolicitudService"]
         }, {
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
         }, {
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
         }];
@@ -378,7 +457,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">ELIGE AL PROFESIONAL</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <!-- filter bar -->\n  <ion-row class=\"ion-margin-top ion-align-items-center\">\n    <ion-col size=\"2\">\n      <ion-text class=\"text-10 main-color\">\n        <ion-icon src=\"/assets/icon/ic_filter.svg\"></ion-icon>\n        FILTROS\n      </ion-text>\n    </ion-col>\n    <ion-col size=\"4\">\n      <select class=\"main-color cusSelect\" name=\"sort\" [(ngModel)]=\"sort\" placeholder=\"Reconocimiento\"\n        (change)=\"onSortChange($event)\" style=\"background-color:white;\">\n        <option value=\"null\" disabled>Seleccionar</option>\n        <option value=\"reconocimiento\">Reconocimiento</option>\n        <option value=\"calidad\">Calidad del servicio</option>\n        <option value=\"puntualidad\">Puntualidad</option>\n      </select>\n    </ion-col>\n    <ion-col size=\"3\">\n      <select class=\"main-color cusSelect\" name=\"type\" [(ngModel)]=\"type\" placeholder=\"Reconocimiento\"\n        (change)=\"onTypeChange($event)\" style=\"background-color:white;\">\n        <option value=\"null\" disabled>Seleccionar</option>\n        <option value=\"experiancia\">Experiencia</option>\n        <option value=\"puntualidad\">Puntualidad</option>\n      </select>\n    </ion-col>\n    <ion-col size=\"3\">\n      <ion-text class=\"text-10 main-color reset-text\" (click)=\"resetFilters()\">\n        <ion-icon src=\"/assets/icon/ic_path.svg\" class=\"filt-icon\"></ion-icon>\n        {{' '}}\n        REESTABLECER\n      </ion-text>\n    </ion-col>\n  </ion-row>\n\n  <!-- emergency message -->\n  <div class=\"prof-cont ion-margin-top no-border\" (click)=\"eRequest()\">\n    <ion-grid>\n      <ion-row>\n        <ion-col size=\"3\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"/assets/icon/ic_error.svg\" />\n          </ion-avatar>\n        </ion-col>\n        <ion-col size=\"9\">\n          <ion-text>\n            <span class=\"eSelect\">Necesito el servicio urgente</span><br>\n            <span class=\"textSelect\">Esta solicitud es de carácter urgente y será enviada a los 10 profesionales mejor\n              catalogados para que puedan atender tu solicitud lo antes posible.</span>\n          </ion-text>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- profesional card item -->\n  <ion-text color=\"primary\" *ngIf=\"profList.length == 0\">\n    <h3 class=\"text-center\">No se encontraron<br />profesionales en el área</h3>\n  </ion-text>\n  <div *ngFor=\"let prof of profList\" class=\"prof-cont ion-margin-top no-border\"\n    (click)=\"profDetails(prof.id, prof.img_profile)\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- profile img -->\n        <ion-col size=\"2\">\n          <ion-avatar class=\"profileImg\">\n            <ion-img\n              src=\"{{ !prof.img_profile || prof.img_profile === imageBlank ? 'assets/images/avatar.png' : prof.img_profile }}\">\n            </ion-img>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"5\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ prof.supplierName }} {{ prof.supplierLastName\n              }}</span><br>\n            <ion-badge color=\"primary\" class=\"badge-text\">{{ prof.categoryName }}</ion-badge><br>\n            <span class=\"textSelect ion-text-capitalize\">{{ prof.descProf }}</span>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"5\">\n          <ion-text class=\"text-center\">\n            <ion-row class=\"items-center\">\n              <ion-col size=\"12\">\n                <p class=\"ratingText main-color ion-text-center\">\n                  4.83\n                  <ion-icon src=\"/assets/icon/ic_star.svg\"></ion-icon>\n                  / 50\n                  <ion-icon src=\"/assets/icon/ic_hands.svg\"></ion-icon>\n                </p>\n              </ion-col>\n              <ion-col size=\"12\">\n                <div class=\"locate-cont\">\n                  <ion-icon src=\"/assets/icon/ic_engine_circle.svg\" class=\"rating-text\"></ion-icon>\n                </div>\n                <div class=\"locate-cont\">\n                  <ion-icon src=\"/assets/icon/ic_time_circle.svg\" class=\"rating-text\"></ion-icon>\n                </div>\n                <div class=\"locate-cont\">\n                  <ion-icon src=\"/assets/icon/ic_heart_circle.svg\" class=\"rating-text\"></ion-icon>\n                </div>\n                <div class=\"locate-cont\">\n                  <ion-icon src=\"/assets/icon/ic_diamont_circle.svg\" class=\"rating-text\"></ion-icon>\n                </div>\n              </ion-col>\n            </ion-row>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- floating btn -->\n  <ion-fab horizontal=\"end\" vertical=\"bottom\" slot=\"fixed\">\n    <ion-fab-button color=\"none\" class=\"floatin-btn\" closeIcon=\"/assets/icon/ic_close_circle.svg\">\n      <ion-icon md=\"caret-up\" size=\"large\" src=\"/assets/icon/ic_filter_plus.svg\" class=\"fab-icon\"></ion-icon>\n    </ion-fab-button>\n    <ion-fab-list side=\"top\">\n      <ion-fab-button class=\"floatin-btn\" color=\"none\">\n        <ion-icon size=\"large\" src=\"/assets/icon/ic_people_circle.svg\" class=\"floatin-btn fab-icon\"></ion-icon>\n      </ion-fab-button>\n      <ion-fab-button class=\"floatin-btn\" color=\"none\">\n        <ion-icon size=\"large\" src=\"/assets/icon/ic_map_circle.svg\" class=\"floatin-btn fab-icon\"></ion-icon>\n      </ion-fab-button>\n    </ion-fab-list>\n  </ion-fab>\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">ELIGE AL PROFESIONAL</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <!-- filter bar -->\n  <ion-row class=\"ion-margin-top ion-align-items-center\">\n    <ion-col size=\"2\">\n      <ion-text class=\"text-10 main-color\">\n        <ion-icon src=\"/assets/icon/ic_filter.svg\"></ion-icon>\n        FILTROS\n      </ion-text>\n    </ion-col>\n    <ion-col size=\"7\">\n      <select class=\"main-color cusSelect\" name=\"sort\" [(ngModel)]=\"sort\" placeholder=\"Reconocimiento\"\n        (change)=\"onSortChange($event)\" style=\"background-color:white;\">\n        <option value=\"null\" disabled>Seleccionar</option>\n        <option value=\"stars\">Por género</option>\n        <option value=\"stars\">Por estrella</option>\n        <option value=\"jobs\">Por trabajos</option>\n      </select>\n    </ion-col>\n    <!--\n    <ion-col size=\"3\">\n      <select class=\"main-color cusSelect\" name=\"type\" [(ngModel)]=\"type\" placeholder=\"Reconocimiento\"\n        (change)=\"onTypeChange($event)\" style=\"background-color:white;\">\n        <option value=\"null\" disabled>Seleccionar</option>\n        <option value=\"experiancia\">Experiencia</option>\n        <option value=\"puntualidad\">Puntualidad</option>\n      </select>\n    </ion-col>\n    -->\n    <ion-col size=\"3\">\n      <ion-text class=\"text-10 main-color reset-text\" (click)=\"resetFilters()\">\n        <ion-icon src=\"/assets/icon/ic_path.svg\" class=\"filt-icon\"></ion-icon>\n        {{' '}}\n        REESTABLECER\n      </ion-text>\n    </ion-col>\n  </ion-row>\n\n  <!-- emergency message -->\n  <div class=\"prof-cont ion-margin-top no-border\" (click)=\"eRequest()\">\n    <ion-grid>\n      <ion-row>\n        <ion-col size=\"2\" sizeMd=\"1\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"/assets/icon/ic_error.svg\" />\n          </ion-avatar>\n        </ion-col>\n        <ion-col size=\"10\" sizeMd=\"11\">\n          <ion-text>\n            <span class=\"eSelect\">Necesito el servicio urgente</span><br>\n            <span class=\"textSelect\">Esta solicitud es de carácter urgente y será enviada a los 10 profesionales mejor\n              catalogados para que puedan atender tu solicitud lo antes posible.</span>\n          </ion-text>\n        </ion-col>\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- profesional card item -->\n  <ion-text color=\"primary\" *ngIf=\"profList.length == 0\">\n    <h3 class=\"text-center\">No se encontraron<br />profesionales en el área</h3>\n  </ion-text>\n  <div *ngFor=\"let prof of profList\" class=\"prof-cont ion-margin-top no-border\"\n    (click)=\"profDetails(prof.id, prof.img_profile)\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- profile img -->\n        <ion-col size=\"2\" sizeMd=\"1\">\n          <ion-avatar class=\"profileImg\">\n            <ion-img\n              src=\"{{ !prof.img_profile || prof.img_profile === imageBlank ? 'assets/images/avatar.png' : prof.img_profile }}\">\n            </ion-img>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"5\" sizeMd=\"6\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ prof.supplierName }} {{ prof.supplierLastName\n              }}</span><br>\n            <ion-badge color=\"primary\" class=\"badge-text\">{{ prof.categoryName }}</ion-badge><br>\n            <span class=\"textSelect ion-text-capitalize\">{{ prof.descProf }}</span>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"5\">\n          <ion-text class=\"text-center\">\n            <ion-row class=\"items-center\">\n              <ion-col size=\"12\">\n                <p class=\"ratingText main-color ion-text-center\">\n                  4.83\n                  <ion-icon src=\"/assets/icon/ic_star.svg\"></ion-icon>\n                  / 50\n                  <ion-icon src=\"/assets/icon/ic_hands.svg\"></ion-icon>\n                </p>\n              </ion-col>\n              <ion-col size=\"12\">\n                <div class=\"locate-cont\">\n                  <ion-icon src=\"/assets/icon/ic_engine_circle.svg\" class=\"rating-text\"></ion-icon>\n                </div>\n                <div class=\"locate-cont\">\n                  <ion-icon src=\"/assets/icon/ic_time_circle.svg\" class=\"rating-text\"></ion-icon>\n                </div>\n                <div class=\"locate-cont\">\n                  <ion-icon src=\"/assets/icon/ic_heart_circle.svg\" class=\"rating-text\"></ion-icon>\n                </div>\n                <div class=\"locate-cont\">\n                  <ion-icon src=\"/assets/icon/ic_diamont_circle.svg\" class=\"rating-text\"></ion-icon>\n                </div>\n              </ion-col>\n            </ion-row>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- floating btn -->\n  <ion-fab horizontal=\"end\" vertical=\"bottom\" slot=\"fixed\">\n    <ion-fab-button color=\"none\" class=\"floatin-btn\" closeIcon=\"/assets/icon/ic_close_circle.svg\">\n      <ion-icon md=\"caret-up\" size=\"large\" src=\"/assets/icon/ic_filter_plus.svg\" class=\"fab-icon\"></ion-icon>\n    </ion-fab-button>\n    <ion-fab-list side=\"top\">\n      <ion-fab-button class=\"floatin-btn\" color=\"none\">\n        <ion-icon size=\"large\" src=\"/assets/icon/ic_people_circle.svg\" class=\"floatin-btn fab-icon\"></ion-icon>\n      </ion-fab-button>\n      <ion-fab-button class=\"floatin-btn\" color=\"none\">\n        <ion-icon size=\"large\" src=\"/assets/icon/ic_map_circle.svg\" class=\"floatin-btn fab-icon\"></ion-icon>\n      </ion-fab-button>\n    </ion-fab-list>\n  </ion-fab>\n\n</ion-content>";
       /***/
     }
   }]);

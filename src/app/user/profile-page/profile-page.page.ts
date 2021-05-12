@@ -193,7 +193,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
       quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,
-      height: 150,
+      //height: 150,
       // width: 200,
       resultType: CameraResultType.DataUrl,
       promptLabelPhoto: 'Fotos',

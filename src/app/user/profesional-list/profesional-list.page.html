@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar mode="ios" color="primary">
 
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/user/home" text="" icon="arrow-back"></ion-back-button>
@@ -22,8 +22,9 @@
       <select class="main-color cusSelect" name="sort" [(ngModel)]="sort" placeholder="Reconocimiento"
         (change)="onSortChange($event)" style="background-color:white;">
         <option value="null" disabled>Seleccionar</option>
-        <option value="stars">Por estrellas</option>
-        <option value="jobs">Trabajos evaluados</option>
+        <option value="stars">Por género</option>
+        <option value="stars">Por estrella</option>
+        <option value="jobs">Por trabajos</option>
       </select>
     </ion-col>
     <!--
@@ -49,12 +50,12 @@
   <div class="prof-cont ion-margin-top no-border" (click)="eRequest()">
     <ion-grid>
       <ion-row>
-        <ion-col size="3">
+        <ion-col size="2" sizeMd="1">
           <ion-avatar class="profileImg">
             <img src="/assets/icon/ic_error.svg" />
           </ion-avatar>
         </ion-col>
-        <ion-col size="9">
+        <ion-col size="10" sizeMd="11">
           <ion-text>
             <span class="eSelect">Necesito el servicio urgente</span><br>
             <span class="textSelect">Esta solicitud es de carácter urgente y será enviada a los 10 profesionales mejor
@@ -75,7 +76,7 @@
       <ion-row class="ion-align-items-center">
 
         <!-- profile img -->
-        <ion-col size="2">
+        <ion-col size="2" sizeMd="1">
           <ion-avatar class="profileImg">
             <ion-img
               src="{{ !prof.img_profile || prof.img_profile === imageBlank ? 'assets/images/avatar.png' : prof.img_profile }}">
@@ -84,7 +85,7 @@
         </ion-col>
 
         <!-- title -->
-        <ion-col size="5">
+        <ion-col size="5" sizeMd="6">
           <ion-text>
             <span class="titleSelect main-color ion-text-capitalize">{{ prof.supplierName }} {{ prof.supplierLastName
               }}</span><br>

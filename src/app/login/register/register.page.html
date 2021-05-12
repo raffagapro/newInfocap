@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar mode="ios">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/" text="" icon="arrow-back"></ion-back-button>
     </ion-buttons>
@@ -90,7 +90,7 @@
           <ion-label *ngIf="errors.email[0] !== undefined" class="errorMess">
             <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
             <ion-text color="danger">
-              <small> {{ errors.email[0] }}</small>
+              <small class="error-text"> {{ errors.email[0] }}</small>
             </ion-text><br>
           </ion-label>
 
@@ -124,7 +124,7 @@
         <ion-col size="11">
           <ion-item>
             <ion-label position="floating" class="main-color">
-              <ion-icon src="/assets/icon/ic_lock.svg" slot="start" class="main-color"></ion-icon>
+              <ion-icon src="/assets/icon/ic_lock.svg" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Contraseña</ion-text>
             </ion-label>
             <ion-input ngModel name="password" minlength="8" required #passwordCtrl="ngModel" type="password">
@@ -153,7 +153,7 @@
         <ion-col size="11">
           <ion-item>
             <ion-label position="floating" class="main-color">
-              <ion-icon src="/assets/icon/ic_lock.svg" slot="start" class="main-color"></ion-icon>
+              <ion-icon src="/assets/icon/ic_lock.svg" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Repetir contraseña</ion-text>
             </ion-label>
             <ion-input ngModel name="confirm_password" minlength="8" required type="password">

@@ -1,16 +1,24 @@
-.title{
+.title {
   font-size: 22px;
   font-weight: bold;
 }
 hr {
-  border-top: 1px solid #E54360;
+  border-top: 1px solid #e54360;
 }
 .privacy-text {
   font-family: Poppins;
   font-size: 14px;
   text-align: center;
   span {
-    color: #009ACE;
+    color: #009ace;
     cursor: pointer;
   }
+}
+small {
+  @media (max-width: 380px) {
+    font-size: 10px !important;
+  }
+}
+.ion-invalid.ion-touched ion-icon {
+  color: #009ace;
 }

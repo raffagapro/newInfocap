@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button [menu]=\"user?.role\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title class=\"main-color title-toolbar\">CATEGORÍAS</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid>\n    <!-- category item -->\n    <ion-row *ngFor=\"let cat of categories\" class=\"category-item ion-align-items-end\"\n      style=\"background-image: url('{{ cat.image }}');\" (click)=\"map(cat.id)\">\n      <ion-col class=\"cat-bar\">\n        <ion-text color=\"light\">\n          <h1 class=\"cat-title\">{{ cat.name }}</h1>\n          <p class=\"cat-text\">{{ cat.description }}</p>\n          <!-- rating circle -->\n          <!-- <div class=\"rate-cont\">\n            <ion-label color=\"primary\" class=\"rating-text ml-1\">4.8</ion-label>\n            <ion-icon name=\"star\" color=\"primary\" class=\"rating-text\"></ion-icon>\n          </div> -->\n          <!-- style=\"background-image: url('/assets/images/carp_cat.png');\" -->\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- footer text -->\n    <div style=\"height: 20px;\"></div>\n    <ion-row class=\"subtitle ion-margin-top\">\n      <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n        <ion-text class=\"footer-text main-color\"><b>¿No encuentras la categoría que buscabas?</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- enviar mensaje BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"6\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"openSuggesModal()\">\n          ENVÍANOS UN MENSAJE\n          <ion-icon slot=\"end\" name=\"send\"></ion-icon>\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\">\n    <ion-buttons slot=\"start\">\n      <ion-menu-button [menu]=\"user?.role\"></ion-menu-button>\n    </ion-buttons>\n    <ion-title class=\"main-color title-toolbar\">CATEGORÍAS</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid>\n    <!-- category item -->\n    <ion-row *ngFor=\"let cat of categories\" class=\"category-item ion-align-items-end\"\n      style=\"background-image: url('{{ cat.image }}');\" (click)=\"map(cat.id)\">\n      <ion-col class=\"cat-bar\">\n        <ion-text color=\"light\">\n          <h1 class=\"cat-title\">{{ cat.name }}</h1>\n          <p class=\"cat-text\">{{ cat.description }}</p>\n          <!-- rating circle -->\n          <!-- <div class=\"rate-cont\">\n            <ion-label color=\"primary\" class=\"rating-text ml-1\">4.8</ion-label>\n            <ion-icon name=\"star\" color=\"primary\" class=\"rating-text\"></ion-icon>\n          </div> -->\n          <!-- style=\"background-image: url('/assets/images/carp_cat.png');\" -->\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- footer text -->\n    <div style=\"height: 20px;\"></div>\n    <ion-row class=\"subtitle ion-margin-top\">\n      <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n        <ion-text class=\"footer-text main-color\"><b>¿No encuentras la categoría que buscabas?</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- enviar mensaje BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"6\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"openSuggesModal()\">\n          ENVÍANOS UN MENSAJE\n          <ion-icon slot=\"end\" name=\"send\"></ion-icon>\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -62,7 +62,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content class=\"backdrop-no-scroll\">\n  <ion-grid fixed class=\"center-content\">\n    <form [formGroup]=\"form\" (ngSubmit)=\"sendSuggestion()\">\n      <!-- SERVICIO REALIZADO  -->\n      <ion-row class=\"padding ion-align-items-center\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>¿Qué oficio no encontraste y te interesa?</b>\n          </ion-text><br>\n        </ion-col>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <!-- text-area -->\n          <ion-row class=\"ion-margin-top\">\n            <ion-col size=\"12\" class=\"border ion-text-center\">\n              <ion-item lines=\"none\">\n                <ion-textarea class=\"textarea\" rows=\"3\" cols=\"20\" name=\"description\" formControlName=\"description\"\n                  placeholder=\"Agrega una descripción\" >\n                </ion-textarea>\n              </ion-item>\n            </ion-col>\n            <ion-col size=\"1\"></ion-col>\n            <div *ngIf=\"error\">\n              <ion-col size=\"12\">\n                <ion-label class=\"errorMess\">\n                  <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n                  <ion-text color=\"danger\">\n                    <small> La descripción es requerida</small>\n                  </ion-text>\n                  <br />\n                </ion-label>\n              </ion-col>\n            </div>\n          </ion-row>\n        </ion-col>\n        <ion-col size=\"6\" class=\"ion-text-center\">\n          <ion-button size=\"5\" color=\"tertiary\" expand=\"block\" class=\"btn-tertiary\" (click)=\"dismiss()\">\n            Omitir\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"6\" class=\"ion-text-center\">\n          <ion-button size=\"5\" expand=\"block\" class=\"\" type=\"submit\" [disabled]=\"!form.valid\">\n            Enviar\n          </ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content class=\"backdrop-no-scroll\">\n  <ion-grid fixed class=\"center-content\">\n    <form [formGroup]=\"form\" (ngSubmit)=\"sendSuggestion()\">\n      <!-- SERVICIO REALIZADO  -->\n      <ion-row class=\"padding ion-align-items-center\">\n        <ion-col size=\"12\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>¿Qué oficio no encontraste y te interesa?</b>\n          </ion-text><br>\n        </ion-col>\n        <ion-col size=\"12\" class=\"ion-text-center\">\n          <!-- text-area -->\n          <ion-row class=\"ion-margin-top\">\n            <ion-col size=\"12\" class=\"border ion-text-center\">\n              <ion-item lines=\"none\">\n                <ion-textarea class=\"textarea\" rows=\"3\" cols=\"20\" name=\"description\" formControlName=\"description\"\n                  placeholder=\"Agrega una descripción\" >\n                </ion-textarea>\n              </ion-item>\n            </ion-col>\n            <ion-col size=\"1\"></ion-col>\n            <div *ngIf=\"error\">\n              <ion-col size=\"12\">\n                <ion-label class=\"errorMess\">\n                  <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n                  <ion-text color=\"danger\">\n                    <small>{{errorMessage}}</small>\n                  </ion-text>\n                  <br />\n                </ion-label>\n              </ion-col>\n            </div>\n          </ion-row>\n        </ion-col>\n        <ion-col size=\"6\" class=\"ion-text-center\">\n          <ion-button size=\"5\" color=\"tertiary\" expand=\"block\" class=\"btn-tertiary\" (click)=\"dismiss()\">\n            Omitir\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"6\" class=\"ion-text-center\">\n          <ion-button size=\"5\" expand=\"block\" class=\"\" type=\"submit\" [disabled]=\"!form.valid\">\n            Enviar\n          </ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -82,7 +82,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".title {\n  font-size: 22px;\n  font-weight: bold;\n}\n\nhr {\n  border-top: 1px solid #E54360;\n}\n\n.category-item {\n  height: 190px;\n  width: 108%;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n  margin-left: -15px;\n  margin-top: 7%;\n  box-shadow: 1px 8px 20px 0px rgba(0, 0, 0, 0.25);\n}\n\n.cat-bar {\n  background-image: url(\"/assets/images/cat_bar.png\");\n  height: 80px;\n  width: 100%;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n  padding-left: 40px;\n}\n\n.cat-title {\n  margin-top: 7px;\n  margin-bottom: 0;\n  font-size: 20px;\n}\n\n.cat-text {\n  margin-top: 4px;\n  margin-bottom: 0;\n  font-size: 13px;\n}\n\n.rate-cont {\n  border-radius: 50px;\n  height: 42px;\n  width: 42px;\n  background-color: white;\n  display: flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: 30px;\n  margin-top: -32px;\n}\n\n.rating-text {\n  font-size: 13px;\n}\n\n.ml-1 {\n  margin-left: 3px;\n}\n\n.footer-text {\n  font-size: 18px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2hvbWUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBQTtFQUNBLGlCQUFBO0FBQ0Y7O0FBQ0E7RUFDRSw2QkFBQTtBQUVGOztBQUFBO0VBQ0UsYUFBQTtFQUNBLFdBQUE7RUFDQSw0QkFBQTtFQUNBLHNCQUFBO0VBQ0EsMkJBQUE7RUFDQSxrQkFBQTtFQUNBLGNBQUE7RUFDQSxnREFBQTtBQUdGOztBQURBO0VBQ0UsbURBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLDRCQUFBO0VBQ0Esc0JBQUE7RUFDQSwyQkFBQTtFQUNBLGtCQUFBO0FBSUY7O0FBRkE7RUFDRSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxlQUFBO0FBS0Y7O0FBSEE7RUFDRSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxlQUFBO0FBTUY7O0FBSkE7RUFDRSxtQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0EsdUJBQUE7RUFDQSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtBQU9GOztBQUxBO0VBQ0UsZUFBQTtBQVFGOztBQU5BO0VBQ0UsZ0JBQUE7QUFTRjs7QUFQQTtFQUNFLGVBQUE7QUFVRiIsImZpbGUiOiJob21lLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi50aXRsZXtcbiAgZm9udC1zaXplOiAyMnB4O1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbmhyIHtcbiAgYm9yZGVyLXRvcDogMXB4IHNvbGlkICNFNTQzNjA7XG59XG4uY2F0ZWdvcnktaXRlbXtcbiAgaGVpZ2h0OiAxOTBweDtcbiAgd2lkdGg6IDEwOCU7XG4gIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XG4gIGJhY2tncm91bmQtc2l6ZTogY292ZXI7XG4gIGJhY2tncm91bmQtcG9zaXRpb246IGNlbnRlcjtcbiAgbWFyZ2luLWxlZnQ6IC0xNXB4O1xuICBtYXJnaW4tdG9wOiA3JTtcbiAgYm94LXNoYWRvdzogMXB4IDhweCAyMHB4IDBweCByZ2JhKDAsIDAsIDAsIDAuMjUpO1xufVxuLmNhdC1iYXJ7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybCgnL2Fzc2V0cy9pbWFnZXMvY2F0X2Jhci5wbmcnKTtcbiAgaGVpZ2h0OiA4MHB4O1xuICB3aWR0aDogMTAwJTtcbiAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcbiAgYmFja2dyb3VuZC1zaXplOiBjb3ZlcjtcbiAgYmFja2dyb3VuZC1wb3NpdGlvbjogY2VudGVyO1xuICBwYWRkaW5nLWxlZnQ6IDQwcHg7XG59XG4uY2F0LXRpdGxle1xuICBtYXJnaW4tdG9wOiA3cHg7XG4gIG1hcmdpbi1ib3R0b206IDA7XG4gIGZvbnQtc2l6ZTogMjBweDtcbn1cbi5jYXQtdGV4dHtcbiAgbWFyZ2luLXRvcDogNHB4O1xuICBtYXJnaW4tYm90dG9tOiAwO1xuICBmb250LXNpemU6IDEzcHg7XG59XG4ucmF0ZS1jb250e1xuICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICBoZWlnaHQ6IDQycHg7XG4gIHdpZHRoOiA0MnB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW4tbGVmdDogYXV0bztcbiAgbWFyZ2luLXJpZ2h0OiAzMHB4O1xuICBtYXJnaW4tdG9wOiAtMzJweDtcbn1cbi5yYXRpbmctdGV4dHtcbiAgZm9udC1zaXplOiAxM3B4O1xufVxuLm1sLTF7XG4gIG1hcmdpbi1sZWZ0OiAzcHg7XG59XG4uZm9vdGVyLXRleHR7XG4gIGZvbnQtc2l6ZTogMThweDtcbn1cbiJdfQ== */";
+      __webpack_exports__["default"] = ".title {\n  font-size: 22px;\n  font-weight: bold;\n}\n\nhr {\n  border-top: 1px solid #e54360;\n}\n\n.category-item {\n  height: 190px;\n  width: 108%;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n  margin-left: -15px;\n  margin-top: 25px;\n  box-shadow: 1px 8px 20px 0px rgba(0, 0, 0, 0.25);\n}\n\n@media (min-width: 768px) {\n  .category-item {\n    height: 300px;\n  }\n}\n\n.cat-bar {\n  background-image: url(\"/assets/images/cat_bar.png\");\n  height: 80px;\n  width: 100%;\n  background-repeat: no-repeat;\n  background-size: cover;\n  background-position: center;\n  padding-left: 40px;\n}\n\n@media (min-width: 768px) {\n  .cat-bar {\n    height: 120px;\n  }\n}\n\n.cat-title {\n  margin-top: 7px;\n  margin-bottom: 0;\n  font-size: 20px;\n}\n\n@media (min-width: 768px) {\n  .cat-title {\n    font-size: 32px;\n  }\n}\n\n.cat-text {\n  margin-top: 4px;\n  margin-bottom: 0;\n  font-size: 13px;\n}\n\n@media (min-width: 768px) {\n  .cat-text {\n    font-size: 24px;\n  }\n}\n\n.rate-cont {\n  border-radius: 50px;\n  height: 42px;\n  width: 42px;\n  background-color: white;\n  display: flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: 30px;\n  margin-top: -32px;\n}\n\n.rating-text {\n  font-size: 13px;\n}\n\n.ml-1 {\n  margin-left: 3px;\n}\n\n.footer-text {\n  font-size: 18px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2hvbWUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBQTtFQUNBLGlCQUFBO0FBQ0Y7O0FBQ0E7RUFDRSw2QkFBQTtBQUVGOztBQUFBO0VBQ0UsYUFBQTtFQUNBLFdBQUE7RUFDQSw0QkFBQTtFQUNBLHNCQUFBO0VBQ0EsMkJBQUE7RUFDQSxrQkFBQTtFQUNBLGdCQUFBO0VBQ0EsZ0RBQUE7QUFHRjs7QUFERTtFQVZGO0lBV0ksYUFBQTtFQUlGO0FBQ0Y7O0FBRkE7RUFDRSxtREFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0EsNEJBQUE7RUFDQSxzQkFBQTtFQUNBLDJCQUFBO0VBQ0Esa0JBQUE7QUFLRjs7QUFIRTtFQVRGO0lBVUksYUFBQTtFQU1GO0FBQ0Y7O0FBSkE7RUFDRSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxlQUFBO0FBT0Y7O0FBTEU7RUFMRjtJQU1JLGVBQUE7RUFRRjtBQUNGOztBQU5BO0VBQ0UsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsZUFBQTtBQVNGOztBQVJFO0VBSkY7SUFLSSxlQUFBO0VBV0Y7QUFDRjs7QUFUQTtFQUNFLG1CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSx1QkFBQTtFQUNBLGFBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0FBWUY7O0FBVkE7RUFDRSxlQUFBO0FBYUY7O0FBWEE7RUFDRSxnQkFBQTtBQWNGOztBQVpBO0VBQ0UsZUFBQTtBQWVGIiwiZmlsZSI6ImhvbWUucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRpdGxlIHtcbiAgZm9udC1zaXplOiAyMnB4O1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbmhyIHtcbiAgYm9yZGVyLXRvcDogMXB4IHNvbGlkICNlNTQzNjA7XG59XG4uY2F0ZWdvcnktaXRlbSB7XG4gIGhlaWdodDogMTkwcHg7XG4gIHdpZHRoOiAxMDglO1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyO1xuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7XG4gIG1hcmdpbi1sZWZ0OiAtMTVweDtcbiAgbWFyZ2luLXRvcDogMjVweDtcbiAgYm94LXNoYWRvdzogMXB4IDhweCAyMHB4IDBweCByZ2JhKDAsIDAsIDAsIDAuMjUpO1xuXG4gIEBtZWRpYSAobWluLXdpZHRoOiA3NjhweCkge1xuICAgIGhlaWdodDogMzAwcHg7XG4gIH1cbn1cbi5jYXQtYmFyIHtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiL2Fzc2V0cy9pbWFnZXMvY2F0X2Jhci5wbmdcIik7XG4gIGhlaWdodDogODBweDtcbiAgd2lkdGg6IDEwMCU7XG4gIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XG4gIGJhY2tncm91bmQtc2l6ZTogY292ZXI7XG4gIGJhY2tncm91bmQtcG9zaXRpb246IGNlbnRlcjtcbiAgcGFkZGluZy1sZWZ0OiA0MHB4O1xuXG4gIEBtZWRpYSAobWluLXdpZHRoOiA3NjhweCkge1xuICAgIGhlaWdodDogMTIwcHg7XG4gIH1cbn1cbi5jYXQtdGl0bGUge1xuICBtYXJnaW4tdG9wOiA3cHg7XG4gIG1hcmdpbi1ib3R0b206IDA7XG4gIGZvbnQtc2l6ZTogMjBweDtcblxuICBAbWVkaWEgKG1pbi13aWR0aDogNzY4cHgpIHtcbiAgICBmb250LXNpemU6IDMycHg7XG4gIH1cbn1cbi5jYXQtdGV4dCB7XG4gIG1hcmdpbi10b3A6IDRweDtcbiAgbWFyZ2luLWJvdHRvbTogMDtcbiAgZm9udC1zaXplOiAxM3B4O1xuICBAbWVkaWEgKG1pbi13aWR0aDogNzY4cHgpIHtcbiAgICBmb250LXNpemU6IDI0cHg7XG4gIH1cbn1cbi5yYXRlLWNvbnQge1xuICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICBoZWlnaHQ6IDQycHg7XG4gIHdpZHRoOiA0MnB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtYXJnaW4tbGVmdDogYXV0bztcbiAgbWFyZ2luLXJpZ2h0OiAzMHB4O1xuICBtYXJnaW4tdG9wOiAtMzJweDtcbn1cbi5yYXRpbmctdGV4dCB7XG4gIGZvbnQtc2l6ZTogMTNweDtcbn1cbi5tbC0xIHtcbiAgbWFyZ2luLWxlZnQ6IDNweDtcbn1cbi5mb290ZXItdGV4dCB7XG4gIGZvbnQtc2l6ZTogMThweDtcbn1cbiJdfQ== */";
       /***/
     },
 
@@ -102,7 +102,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".modal-cont {\n  margin-top: 50px;\n}\n\n.status-cont {\n  border-radius: 50px;\n  height: 45px;\n  width: 45px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: 5px;\n  background-color: #009ACE;\n}\n\n.status-text-icon {\n  font-size: 20px;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-flex;\n}\n\n.status-text {\n  font-size: 22px;\n}\n\n.mini-text {\n  font-size: 13px;\n}\n\nhr {\n  border-top: 1px solid #009ACE;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3N1Y2Nlc3MtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFRyxnQkFBQTtBQUFIOztBQUVBO0VBRUksbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLG9CQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0VBQ0EseUJBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0Esb0JBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7QUFBSjs7QUFFQTtFQUVJLDZCQUFBO0FBQUoiLCJmaWxlIjoic3VjY2Vzcy1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5tb2RhbC1jb250XG57XG4gICBtYXJnaW4tdG9wOiA1MHB4O1xufVxuLnN0YXR1cy1jb250XG57XG4gICAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgICBoZWlnaHQ6IDQ1cHg7XG4gICAgd2lkdGg6IDQ1cHg7XG4gICAgZGlzcGxheTogaW5saW5lLWZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIG1hcmdpbi10b3A6IDVweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5QUNFO1xufVxuLnN0YXR1cy10ZXh0LWljb25cbntcbiAgICBmb250LXNpemU6IDIwcHg7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIGRpc3BsYXk6IGlubGluZS1mbGV4O1xufVxuLnN0YXR1cy10ZXh0XG57XG4gICAgZm9udC1zaXplOiAyMnB4O1xufVxuLm1pbmktdGV4dFxue1xuICAgIGZvbnQtc2l6ZTogMTNweDtcbn1cbmhyXG57XG4gICAgYm9yZGVyLXRvcDogMXB4IHNvbGlkICMwMDlBQ0U7XG59Il19 */";
+      __webpack_exports__["default"] = ".modal-cont {\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.status-cont {\n  border-radius: 50px;\n  height: 45px;\n  width: 45px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: 5px;\n  background-color: #009ace;\n}\n\n.status-text-icon {\n  font-size: 20px;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-flex;\n}\n\n.status-text {\n  font-size: 22px;\n}\n\n.mini-text {\n  font-size: 13px;\n}\n\nhr {\n  border-top: 1px solid #009ace;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3N1Y2Nlc3MtbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFBO0VBQ0EsYUFBQTtFQUNBLHVCQUFBO0VBQ0EsbUJBQUE7QUFDSjs7QUFDQTtFQUNJLG1CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxvQkFBQTtFQUNBLG1CQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtFQUNBLHlCQUFBO0FBRUo7O0FBQUE7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLG9CQUFBO0FBR0o7O0FBREE7RUFDSSxlQUFBO0FBSUo7O0FBRkE7RUFDSSxlQUFBO0FBS0o7O0FBSEE7RUFDSSw2QkFBQTtBQU1KIiwiZmlsZSI6InN1Y2Nlc3MtbW9kYWwuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubW9kYWwtY29udCB7XG4gICAgaGVpZ2h0OiAxMDAlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cbi5zdGF0dXMtY29udCB7XG4gICAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgICBoZWlnaHQ6IDQ1cHg7XG4gICAgd2lkdGg6IDQ1cHg7XG4gICAgZGlzcGxheTogaW5saW5lLWZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIG1hcmdpbi10b3A6IDVweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5YWNlO1xufVxuLnN0YXR1cy10ZXh0LWljb24ge1xuICAgIGZvbnQtc2l6ZTogMjBweDtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgZGlzcGxheTogaW5saW5lLWZsZXg7XG59XG4uc3RhdHVzLXRleHQge1xuICAgIGZvbnQtc2l6ZTogMjJweDtcbn1cbi5taW5pLXRleHQge1xuICAgIGZvbnQtc2l6ZTogMTNweDtcbn1cbmhyIHtcbiAgICBib3JkZXItdG9wOiAxcHggc29saWQgIzAwOWFjZTtcbn1cbiJdfQ== */";
       /***/
     },
 
@@ -300,7 +300,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content class=\"success-modal\">\n  <ion-grid style=\"height: 100%;\">\n    \n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"modal-cont\">\n      <div class=\"status-cont\">\n        <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n      </div>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color status-text\"><b>{{message || 'SE HA ENVIADO EL CORREO EXITOSAMENTE'}}</b></ion-text><br>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text><hr></ion-text>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content class=\"success-modal\">\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row>\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\"><b>{{message || 'SE HA ENVIADO EL CORREO EXITOSAMENTE'}}</b>\n          </ion-text>\n          <br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -368,25 +368,54 @@
       /* harmony import */
 
 
-      var src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
+      /* harmony import */
+
+
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! src/app/services/user.service */
+      "qfBg");
+      /* harmony import */
+
+
+      var src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/app/shared/success-modal/success-modal.component */
       "W/u7");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
 
       var SuggestCategoryModalComponent = /*#__PURE__*/function () {
-        function SuggestCategoryModalComponent(formBuilder, modalController, loadingController, router) {
+        function SuggestCategoryModalComponent(formBuilder, modalController, loadingController, router, userService) {
           _classCallCheck(this, SuggestCategoryModalComponent);
 
           this.formBuilder = formBuilder;
           this.modalController = modalController;
           this.loadingController = loadingController;
           this.router = router;
+          this.userService = userService;
           this.error = false;
+          this.errorMessage = '';
         }
 
         _createClass(SuggestCategoryModalComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            //form
+            var _this = this;
+
+            this.userSub = this.userService.loggedUser.subscribe(function (user) {
+              _this.grabbedUser = user;
+            }); //form
+
             this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
               description: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]('', {
                 updateOn: 'blur',
@@ -398,7 +427,7 @@
           key: "sendSuggestion",
           value: function sendSuggestion() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              var loader, successModal;
+              var loader, response, successModal;
               return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
                   switch (_context.prev = _context.next) {
@@ -413,37 +442,46 @@
                       loader.present();
                       _context.prev = 4;
                       _context.next = 7;
-                      return new Promise(function (resolve) {
-                        return setTimeout(function () {
-                          return resolve();
-                        }, 1000);
+                      return axios__WEBPACK_IMPORTED_MODULE_7___default.a.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/categories/suggestion"), {
+                        user_id: this.grabbedUser.id,
+                        message: this.form.value.description
+                      }, {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.grabbedUser.access_token)
+                        }
                       });
 
                     case 7:
-                      this.error = false;
-                      _context.next = 13;
+                      response = _context.sent;
+
+                      if (response.data && response.data.status !== 200) {
+                        this.error = false;
+                        this.errorMessage = 'Ocurrió un error al enviar la solicitud.';
+                      }
+
+                      _context.next = 14;
                       break;
 
-                    case 10:
-                      _context.prev = 10;
+                    case 11:
+                      _context.prev = 11;
                       _context.t0 = _context["catch"](4);
                       this.error = true;
 
-                    case 13:
+                    case 14:
                       loader.dismiss();
 
                       if (this.error) {
-                        _context.next = 21;
+                        _context.next = 22;
                         break;
                       }
 
-                      _context.next = 17;
+                      _context.next = 18;
                       return this.modalController.dismiss();
 
-                    case 17:
-                      _context.next = 19;
+                    case 18:
+                      _context.next = 20;
                       return this.modalController.create({
-                        component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_7__["SuccessModalComponent"],
+                        component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_9__["SuccessModalComponent"],
                         componentProps: {
                           message: 'Se ha enviado la información correctamente',
                           redirect: false
@@ -451,16 +489,16 @@
                         cssClass: 'modalSuccess'
                       });
 
-                    case 19:
+                    case 20:
                       successModal = _context.sent;
                       successModal.present();
 
-                    case 21:
+                    case 22:
                     case "end":
                       return _context.stop();
                   }
                 }
-              }, _callee, this, [[4, 10]]);
+              }, _callee, this, [[4, 11]]);
             }));
           }
         }, {
@@ -482,6 +520,8 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
+        }, {
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
         }];
       };
 
@@ -679,14 +719,14 @@
         _createClass(HomePage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this = this;
+            var _this2 = this;
 
             this.userSub = this.us.loggedUser.subscribe(function (user) {
-              _this.grabbedUser = user;
+              _this2.grabbedUser = user;
 
-              _this.menuController.enable(user.role === src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].PROFESSIONAL, src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].PROFESSIONAL);
+              _this2.menuController.enable(user.role === src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].PROFESSIONAL, src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].PROFESSIONAL);
 
-              _this.menuController.enable(user.role === src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].USER, src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].USER);
+              _this2.menuController.enable(user.role === src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].USER, src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].USER);
             });
           }
         }, {

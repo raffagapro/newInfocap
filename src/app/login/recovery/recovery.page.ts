@@ -37,25 +37,36 @@ export class RecoveryPage implements OnInit {
     loader.present();
 
     try {
-      await axios.post(
+      let response = await axios.post(
         `${API}/auth/forgotpassword`,
         {
           email
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          }
         }
       );
       loader.dismiss();
       this.clearErrors();
       form.reset();
 
-      // modal for succes
-      const successModal = await this.modalController.create({
-        component: SuccessModalComponent,
-        componentProps: { 
-          message: 'Te hemos enviado a tu correo los pasos para recuper tu contraseña',
-        },
-        cssClass: 'modalSuccess',
-      });
-      successModal.present();
+      if (response.data && response.data.success) {
+        // modal for succes
+        const successModal = await this.modalController.create({
+          component: SuccessModalComponent,
+          componentProps: {
+            message: 'Te hemos enviado a tu correo los pasos para recuper tu contraseña',
+          },
+          cssClass: 'modalSuccess',
+        });
+        successModal.present();
+      } else {
+        this.errors.email = response.data.data;
+      }
+
     } catch (error) {
       const { response } = error;
       if (response) {

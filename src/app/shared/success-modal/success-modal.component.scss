@@ -1,9 +1,10 @@
-.modal-cont
-{
-   margin-top: 50px;
+.modal-cont {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.status-cont
-{
+.status-cont {
     border-radius: 50px;
     height: 45px;
     width: 45px;
@@ -13,24 +14,20 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 5px;
-    background-color: #009ACE;
+    background-color: #009ace;
 }
-.status-text-icon
-{
+.status-text-icon {
     font-size: 20px;
     margin-left: auto;
     margin-right: auto;
     display: inline-flex;
 }
-.status-text
-{
+.status-text {
     font-size: 22px;
 }
-.mini-text
-{
+.mini-text {
     font-size: 13px;
 }
-hr
-{
-    border-top: 1px solid #009ACE;
+hr {
+    border-top: 1px solid #009ace;
 }
