@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoadingController, MenuController, ModalController } from "@ionic/angular";
 import { Router } from '@angular/router';
-import { ConfirmSuccessModalComponent } from './confirm-success-modal/confirm-success-modal.component';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
@@ -10,6 +9,7 @@ import { Moment } from 'moment';
 import * as moment from 'moment';
 import { API } from 'src/environments/environment';
 import axios from 'axios';
+import { SuccessModalComponent } from 'src/app/shared/success-modal/success-modal.component';
 
 
 type PaymentMethodType = 'credit' | 'debit' | 'cash' | 'transfer';
@@ -22,6 +22,7 @@ export class SolicitudDetailPage implements OnInit {
   userSubscription: Subscription;
   user: User;
   selectedButton: PaymentMethodType = 'credit';
+  paymentTypes = [];
   loadedService = {
     categoryName: null,
     cummunename: null,
@@ -46,6 +47,7 @@ export class SolicitudDetailPage implements OnInit {
     work_days: null,
     suplierPhone1: null,
     img_request: [],
+    request_cost: [],
   };
   slideOptions = {
     initialSlide: 0,
@@ -65,12 +67,30 @@ export class SolicitudDetailPage implements OnInit {
   ngOnInit() {
     this.userSubscription = this.userService.loggedUser.subscribe(user => {
       this.user = user;
-      this.loadService();
+      this.loadPaymentTypes();
     });
   }
 
   ionViewWillEnter() {
     this.menuController.enable(true, 'user');
+  }
+
+  async loadPaymentTypes() {
+    try {
+      let response = await axios.get(
+        `${API}/payments/type`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.user.access_token}`
+          }
+        }
+      );
+      this.paymentTypes = response.data.data;
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.loadService();
+    }
   }
 
   async loadService() {
@@ -90,6 +110,15 @@ export class SolicitudDetailPage implements OnInit {
       this.loadedService = response.data.data;
       if (this.loadedService.img_request.length < 2) {
         this.slideOptions.slidesPerView = 1;
+      }
+      if (this.loadedService.request_cost.length > 0) {
+        let firstCost = this.loadedService.request_cost[0];
+        let paymentType = this.paymentTypes.find((paymentType) => paymentType.id === firstCost.payment_type_id);
+        if (paymentType.name === 'Efectivo') {
+          this.selectedButton = 'cash';
+        } else {
+          this.selectedButton = 'credit';
+        }
       }
     } catch (error) {
       console.log(error);
@@ -116,13 +145,67 @@ export class SolicitudDetailPage implements OnInit {
     return `${startHour.format('h:mm a')} - ${endHour.format('h:mm a')}`;
   }
 
-  confirmSolicitud(){
-    this.modalController.create({
-      component: ConfirmSuccessModalComponent,
-      cssClass: 'modalSuccess',
-    }).then(modalEl => {
-      modalEl.present();
-    });
+  getServiceCost() {
+    if (this.loadedService && this.loadedService.request_cost.length > 0) {
+      return this.loadedService.request_cost.reduce((total, entity) => total += Number(entity.amount_client), 0);
+    }
+    return 0;
+  }
+
+  async confirmSolicitud() {
+    let loader = await this.loadingController.create({ message: 'Actualizando solicitud...' });
+    loader.present();
+    try {
+      let payment_type;
+      switch (this.selectedButton) {
+        case 'credit':
+          payment_type = this.paymentTypes.find((entry) => entry.name === 'Tarjeta');
+          break;
+        case 'cash':
+          payment_type = this.paymentTypes.find((entry) => entry.name === 'Efectivo');
+          break
+        default:
+          return
+      }
+      if (!payment_type) {
+        return;
+      }
+
+      let response = await axios.put(
+        `${API}/client/cost/paymentType/${this.loadedService.request_id}`,
+        {
+          costs_type_id: 1,
+          payment_type_id: payment_type.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${this.user.access_token}`
+          }
+        }
+      );
+      await loader.dismiss();
+
+      console.log(response);
+      if (response.data && response.data.code !== 200) {
+        // TODO: Set error logic
+        return;
+      }
+
+      this.modalController.create({
+        component: SuccessModalComponent,
+        componentProps: {
+          message: 'HAZ ACEPTADO LA VISITA TÉCNICA',
+          redirect: true,
+          redirectUrl: '/user/solicitudes'
+        },
+        cssClass: 'modalSuccess',
+      }).then(modalEl => {
+        modalEl.present();
+      });
+    } catch (error) {
+      console.log(error);
+      await loader.dismiss();
+    }
   }
 
   setSelectedButton(type: PaymentMethodType) {

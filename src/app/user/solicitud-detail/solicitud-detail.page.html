@@ -113,7 +113,7 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_money.svg" class="main-color iconFix"></ion-icon>
-        <ion-text class="main-color subText"> $30 USD</ion-text>
+        <ion-text class="main-color subText"> ${{getServiceCost()}} USD</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -129,28 +129,35 @@
       <ion-col size="12" class="ion-text-center">
         <section>
           <!-- btn -->
-          <ion-button size="small" (click)="setSelectedButton('credit')" [fill]="selectedButton === 'credit' ? 'solid' : 'outline'">
+          <ion-button size="small" (click)="setSelectedButton('credit')"
+            [fill]="selectedButton === 'credit' ? 'solid' : 'outline'">
             <ion-icon slot="start" src="assets/icon/visa.svg"></ion-icon>
-            Crédito
+            Tarjeta
           </ion-button>
 
           <!-- btn -->
+          <!--
           <ion-button size="small" (click)="setSelectedButton('debit')"  [fill]="selectedButton === 'debit' ? 'solid' : 'outline'">
             <ion-icon slot="start" src="assets/icon/mastercard.svg"></ion-icon>
             Débito
           </ion-button>
+          -->
 
           <!-- btn -->
-          <ion-button size="small" (click)="setSelectedButton('cash')"  [fill]="selectedButton === 'cash' ? 'solid' : 'outline'">
+          <ion-button size="small" (click)="setSelectedButton('cash')"
+            [fill]="selectedButton === 'cash' ? 'solid' : 'outline'">
             <ion-icon slot="start" src="/assets/icon/ic_dollar_blank.svg"></ion-icon>
             Efectivo
           </ion-button>
 
           <!-- btn -->
-          <ion-button size="small" (click)="setSelectedButton('transfer')"  [fill]="selectedButton === 'transfer' ? 'solid' : 'outline'">
+          <!--
+          <ion-button size="small" (click)="setSelectedButton('transfer')"
+            [fill]="selectedButton === 'transfer' ? 'solid' : 'outline'">
             <ion-icon slot="start" src="/assets/icon/ic_money_blank.svg"></ion-icon>
             Transferencia
           </ion-button>
+          --> 
 
         </section>
       </ion-col>
