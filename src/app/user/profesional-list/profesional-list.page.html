@@ -22,7 +22,7 @@
       <select class="main-color cusSelect" name="sort" [(ngModel)]="sort" placeholder="Reconocimiento"
         (change)="onSortChange($event)" style="background-color:white;">
         <option value="null" disabled>Seleccionar</option>
-        <option value="stars">Por género</option>
+        <!--<option value="stars">Por género</option>-->
         <option value="stars">Por estrella</option>
         <option value="jobs">Por trabajos</option>
       </select>
@@ -71,7 +71,7 @@
     <h3 class="text-center">No se encontraron<br />profesionales en el área</h3>
   </ion-text>
   <div *ngFor="let prof of profList" class="prof-cont ion-margin-top no-border"
-    (click)="profDetails(prof.id, prof.img_profile)">
+    (click)="profDetails(prof.id || prof.supplier_id, prof.img_profile)">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
@@ -100,9 +100,9 @@
             <ion-row class="items-center">
               <ion-col size="12">
                 <p class="ratingText main-color ion-text-center">
-                  4.83
+                  {{prof.stars_everage}}
                   <ion-icon src="/assets/icon/ic_star.svg"></ion-icon>
-                  / 50
+                  / {{prof.cordiality_everage}}
                   <ion-icon src="/assets/icon/ic_hands.svg"></ion-icon>
                 </p>
               </ion-col>

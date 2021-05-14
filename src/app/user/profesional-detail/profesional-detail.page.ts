@@ -55,6 +55,7 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
         this.grabbedUser = user;
         this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
         this.getProf();
+        this.getEvaluations()
       }
 
     });
@@ -89,7 +90,6 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
           this.editedHours = `${startHour} / ${endHour}`;
 
           let workingDays = this.selectedProCat.work_days.split('-');
-          console.log(workingDays);
           workingDays.forEach(day => {
             switch (day) {
               case 'l':
@@ -136,11 +136,17 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
   async getEvaluations() {
     try {
       let response = await axios.get(
-        `${API}/supplier/evaluation/filter/${this.solServ.solicitud.proPerfil_id}`
+        `${API}/supplier/evaluation/filter/${this.solServ.solicitud.proPerfil_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.grabbedUser.access_token}`
+          }
+        }
       );
       if (response.data && response.data.status !== 200) {
         //TODO: Maybe show an error message
       }
+      console.log(response);
     } catch (error) {
       console.log(error);
     }

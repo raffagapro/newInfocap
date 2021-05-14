@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Capacitor, Plugins } from '@capacitor/core';
 import { LoadingController, Platform } from '@ionic/angular';
+import axios from 'axios';
 import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
@@ -55,14 +56,10 @@ export class MapaPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
+      this.headers = new HttpHeaders();
+      this.headers = this.headers.set('Authorization', 'Bearer ' + user.access_token);
+      this.getComunes();
     });
-    this.headers = new HttpHeaders();
-    this.headers = this.headers.set('Authorization', 'Bearer ' + this.grabbedUser.access_token)
-    //comunas
-    this.http.get(API + '/location/communes', { headers: this.headers })
-      .subscribe(resData => {
-        this.comunas = resData['data'];
-      });
     // form
     this.form = new FormGroup({
       address: new FormControl(null, {
@@ -186,7 +183,7 @@ export class MapaPage implements OnInit, OnDestroy {
       if (comuna.name === wAddress[1].substring(1).toLowerCase()) {
         this.solServ.setComuna(comuna.id);
       } else {
-        
+
       }
     });
     this.clearAutocomplete();
@@ -204,5 +201,22 @@ export class MapaPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
+  }
+
+  async getComunes(){
+    try {
+      let response = await axios.get(
+        `${API}/location/communes`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.grabbedUser.access_token}`
+          }
+        }
+      );
+      console.log(response)
+      this.comunas = response.data.data;
+    }catch(error){
+      console.log(error)
+    }
   }
 }
