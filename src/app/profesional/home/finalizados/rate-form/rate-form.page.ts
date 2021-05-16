@@ -48,7 +48,6 @@ export class RateFormPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    // new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
     this.formRate = new FormGroup({
       comment: new FormControl(null, {
         updateOn: 'blur',
