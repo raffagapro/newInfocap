@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController } from '@ionic/angular';
@@ -8,6 +7,8 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 
+import axios from 'axios'
+
 @Component({
   selector: 'app-finalizados',
   templateUrl: './finalizados.page.html',
@@ -16,7 +17,7 @@ import { API } from 'src/environments/environment';
 export class FinalizadosPage implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
-  headers: HttpHeaders;
+  headers: String;
   loadedServices = [];
   paidServices = [];
   parsedHours = null;
@@ -24,7 +25,6 @@ export class FinalizadosPage implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private menuController: MenuController,
-    private http: HttpClient,
     private us: UserService,
     private lc: LoadingController,
     private solServ: SolicitudService,
@@ -33,8 +33,7 @@ export class FinalizadosPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
-
-      this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+      this.headers = 'Bearer ' + this.grabbedUser.access_token;
       this.loadServices("5");
       //5
       this.loadServices("6");
@@ -51,19 +50,18 @@ export class FinalizadosPage implements OnInit, OnDestroy {
       message: "Cargando lista de servicios..."
     }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API + `/supplier/requestservice/${statusID}`, { headers: this.headers })
-        .subscribe(resData => {
-          loadingEl.dismiss();
-          if (statusID === "5") {
-            this.loadedServices = resData["data"];
-          }
-          if (statusID === "6") {
-            this.paidServices = resData["data"];
-          }
-        }, err => {
-          console.log(err);
-          loadingEl.dismiss();
-        });
+      axios.get(API + `/supplier/requestservice/${statusID}`, { headers: { Authorization: this.headers } }).then(resData => {
+        loadingEl.dismiss();
+        if (statusID === "5") {
+          this.loadedServices = resData.data.data;
+        }
+        if (statusID === "6") {
+          this.paidServices = resData.data.data;
+        }
+      }).catch(err => {
+        console.log(err);
+        loadingEl.dismiss();
+      })
     });
   }
 

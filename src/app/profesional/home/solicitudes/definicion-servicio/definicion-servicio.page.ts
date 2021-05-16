@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
+import axios from 'axios';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 
@@ -22,7 +21,7 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
   minDate = moment().add('hour', 1);
   grabbedUser: User;
   userSub: Subscription;
-  headers: HttpHeaders;
+  headers: String;
   loadedInfo = {
     img_client_profile: null,
     ticket_number: null,
@@ -44,11 +43,9 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
 
   constructor(
     private modalController: ModalController,
-    private router: Router,
     private menuController: MenuController,
     private solServ: SolicitudService,
     private us: UserService,
-    private http: HttpClient,
     private lc: LoadingController,
   ) { }
 
@@ -79,7 +76,7 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
 
   ionViewWillEnter() {
     this.menuController.enable(true, 'user');
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+    this.headers = 'Bearer ' + this.grabbedUser.access_token;
     this.loadService();
   }
 
@@ -88,29 +85,28 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: this.headers })
-        .subscribe(resData => {
-          loadingEl.dismiss();
-          this.loadedInfo.clientLastName = resData['data'].clientLastName;
-          this.loadedInfo.clientName = resData['data'].clientName;
-          this.loadedInfo.date_required = resData['data'].date_required;
-          this.loadedInfo.description = resData['data'].description;
-          this.loadedInfo.hours = resData['data'].hours.split("/");
-          this.form.patchValue({
-            sHour: this.loadedInfo.hours[0],
-            eHour: this.loadedInfo.hours[1],
-            dateReq: this.loadedInfo.date_required,
-          });
-          this.loadedInfo.images = resData['data'].images;
-          this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
-          this.loadedInfo.ticket_number = resData['data'].ticket_number;
-          this.loadedInfo.categoryName = resData['data'].categoryName;
-
-          this.minDate = this.loadedInfo.date_required;
-        }, err => {
-          console.log(err);
-          loadingEl.dismiss();
+      axios.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
+        loadingEl.dismiss();
+        this.loadedInfo.clientLastName = resData.data.data.clientLastName;
+        this.loadedInfo.clientName = resData.data.data.clientName;
+        this.loadedInfo.date_required = resData.data.data.date_required;
+        this.loadedInfo.description = resData.data.data.description;
+        this.loadedInfo.hours = resData.data.data.hours.split("/");
+        this.form.patchValue({
+          sHour: this.loadedInfo.hours[0],
+          eHour: this.loadedInfo.hours[1],
+          dateReq: this.loadedInfo.date_required,
         });
+        this.loadedInfo.images = resData.data.data.images;
+        this.loadedInfo.img_client_profile = resData.data.data.img_client_profile;
+        this.loadedInfo.ticket_number = resData.data.data.ticket_number;
+        this.loadedInfo.categoryName = resData.data.data.categoryName;
+
+        this.minDate = this.loadedInfo.date_required;
+      }).catch(err => {
+        console.log(err);
+        loadingEl.dismiss();
+      })
     });
   }
 

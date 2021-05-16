@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
@@ -8,6 +6,8 @@ import { LoadingController, MenuController, ModalController } from '@ionic/angul
 import { ConfirmVisitaComponent } from './confirm-visita/confirm-visita.component';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import axios from 'axios'
 
 import * as moment from 'moment';
 
@@ -21,7 +21,7 @@ import { API } from 'src/environments/environment';
 export class VisitaTecnicaPage implements OnInit {
   grabbedUser: User;
   userSub: Subscription;
-  headers: HttpHeaders;
+  headers: String;
   slideOptions = {
     initialSlide: 0,
     slidesPerView: 2,
@@ -44,10 +44,8 @@ export class VisitaTecnicaPage implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private router: Router,
     private menuController: MenuController,
     private us: UserService,
-    private http: HttpClient,
     private lc: LoadingController,
     private solServ: SolicitudService,
   ) { }
@@ -68,35 +66,34 @@ export class VisitaTecnicaPage implements OnInit {
       }),
     });
 
+    this.userSub = this.us.loggedUser.subscribe(user => {
+      this.grabbedUser = user;
+      this.headers = 'Bearer ' + this.grabbedUser.access_token;
+
+
+    });
+
     this.lc.create({
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: this.headers })
-        .subscribe(resData => {
-          loadingEl.dismiss();
-          this.loadedInfo.clientLastName = resData['data'].clientLastName;
-          this.loadedInfo.clientName = resData['data'].clientName;
-          let wDate = resData['data'].date_required.split("-");
-          this.loadedInfo.date_required = wDate[2] + '-' + wDate[1] + '-' + wDate[0];
-          this.loadedInfo.description = resData['data'].description;
-          this.loadedInfo.hours = resData['data'].hours;
-          this.loadedInfo.images = resData['data'].images;
-          this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
-          this.loadedInfo.ticket_number = resData['data'].ticket_number;
-          this.loadedInfo.categoryName = resData['data'].categoryName;
-          this.loadedInfo.clientPhone1 = resData['data'].clientPhone1;
-        }, err => {
-          console.log(err);
-          loadingEl.dismiss();
-
-        });
+      axios.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
+        loadingEl.dismiss();
+        this.loadedInfo.clientLastName = resData.data.data.clientLastName;
+        this.loadedInfo.clientName = resData.data.data.clientName;
+        let wDate = resData.data.data.date_required.split("-");
+        this.loadedInfo.date_required = wDate[2] + '-' + wDate[1] + '-' + wDate[0];
+        this.loadedInfo.description = resData.data.data.description;
+        this.loadedInfo.hours = resData.data.data.hours;
+        this.loadedInfo.images = resData.data.data.images;
+        this.loadedInfo.img_client_profile = resData.data.data.img_client_profile;
+        this.loadedInfo.ticket_number = resData.data.data.ticket_number;
+        this.loadedInfo.categoryName = resData.data.data.categoryName;
+        this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
+      }).catch(err => {
+        loadingEl.dismiss();
+      })
     });
-
-    this.userSub = this.us.loggedUser.subscribe(user => {
-      this.grabbedUser = user;
-    });
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
   }
 
   ionViewWillEnter() {
@@ -119,17 +116,21 @@ export class VisitaTecnicaPage implements OnInit {
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
       loadingEl.present();
-      this.http.put(API + `/supplier/visit/requestservice/${this.solServ.solicitud.solicitudID}`, new_data,{ headers: this.headers }).subscribe(resData => {
+      axios.put(API + `/supplier/visit/requestservice/${this.solServ.solicitud.solicitudID}`, new_data, { headers: { Authorization: this.headers } }).then(resData => {
         this.modalController.create({
           component: ConfirmVisitaComponent,
           cssClass: 'modalSE',
         }).then(modalEl => {
           modalEl.present();
           loadingEl.dismiss();
+        }).catch(e => {
+          loadingEl.dismiss();
         });
+      }).catch(err => {
+        console.log(err)
+        this.lc.dismiss();
       })
     }).catch(err => {
-      console.log(err)
       this.lc.dismiss();
     })
   }

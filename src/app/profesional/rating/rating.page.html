@@ -44,8 +44,8 @@
         <!-- title -->
         <ion-col size="6">
           <ion-text>
-            <span class="titleSelect main-color">Cerrajería para <br> Juan Alcayaga</span><br>
-            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">18 nov 2020</p>
+            <span class="titleSelect main-color">{{ comments.categoryName }} para <br> {{ comments.supplierName }} {{ comments.supplierLastName }}</span><br>
+            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;"></p>
           </ion-text>
         </ion-col>
 
@@ -59,7 +59,7 @@
       <!-- rating  -->
       <ion-col size="5" offset="1" class="border-line ion-text-center">
         <ion-text color="primary" class="ratingText">
-          4.5 / 39
+          {{ comments.stars_everage }} / {{ comments.worknumber }}
           <ion-icon color="primary" name="thumbs-up" class="iconFix"></ion-icon>
         </ion-text>
         <br>

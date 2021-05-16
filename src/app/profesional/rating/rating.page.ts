@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, MenuController } from '@ionic/angular';
 import { API } from 'src/environments/environment';
@@ -18,11 +17,11 @@ export class RatingPage implements OnInit {
   headers: String
   grabbedUser: User;
   categories = []
+  comments = {};
   userSub: Subscription;
 
   constructor(
     private menuController: MenuController,
-    private http: HttpClient,
     private us: UserService,
     private lc: LoadingController,
   ) { }
@@ -36,10 +35,10 @@ export class RatingPage implements OnInit {
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
       loadingEl.present();
-
       this.headers = 'Bearer ' + this.grabbedUser.access_token
       axios.get(API + `/supplier/categories`, { headers: { Authorization: this.headers } }).then(resData => {
         this.categories = resData.data.data;
+        this.changeCategory()
         loadingEl.dismiss();
       }).catch(err => {
         loadingEl.dismiss();
@@ -49,7 +48,11 @@ export class RatingPage implements OnInit {
 
   changeCategory() 
   {
-    axios.get(API + `/api/supplier/evaluation/${this.grabbedUser.id}`)
+    axios.get(API + `/supplier/evaluation/${this.grabbedUser.id}`, { headers: { Authorization: this.headers } }).then(resData => {
+      this.comments = resData.data.data
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
   ionViewWillEnter() {
