@@ -235,19 +235,29 @@
       /* harmony import */
 
 
-      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
+      /* harmony import */
+
+
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! src/app/services/solicitud.service */
       "rLtr");
       /* harmony import */
 
 
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
 
@@ -281,14 +291,10 @@
 
             this.userSub = this.us.loggedUser.subscribe(function (user) {
               _this.grabbedUser = user;
-            });
-            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]();
-            this.headers = this.headers.set('Authorization', 'Bearer ' + this.grabbedUser.access_token); //comunas
+              _this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]();
+              _this.headers = _this.headers.set('Authorization', 'Bearer ' + user.access_token);
 
-            this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"] + '/location/communes', {
-              headers: this.headers
-            }).subscribe(function (resData) {
-              _this.comunas = resData['data'];
+              _this.getComunes();
             }); // form
 
             this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormGroup"]({
@@ -472,6 +478,43 @@
           value: function ngOnDestroy() {
             this.userSub.unsubscribe();
           }
+        }, {
+          key: "getComunes",
+          value: function getComunes() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var response;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.prev = 0;
+                      _context2.next = 3;
+                      return axios__WEBPACK_IMPORTED_MODULE_9___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["API"], "/location/communes"), {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.grabbedUser.access_token)
+                        }
+                      });
+
+                    case 3:
+                      response = _context2.sent;
+                      console.log(response);
+                      this.comunas = response.data.data;
+                      _context2.next = 11;
+                      break;
+
+                    case 8:
+                      _context2.prev = 8;
+                      _context2.t0 = _context2["catch"](0);
+                      console.log(_context2.t0);
+
+                    case 11:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this, [[0, 8]]);
+            }));
+          }
         }]);
 
         return MapaPage;
@@ -487,9 +530,9 @@
         }, {
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
         }, {
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_11__["UserService"]
         }, {
-          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__["SolicitudService"]
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__["SolicitudService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"]
         }];

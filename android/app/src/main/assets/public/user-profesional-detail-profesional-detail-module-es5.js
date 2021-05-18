@@ -376,6 +376,8 @@
                           _this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + _this.grabbedUser.access_token);
 
                           _this.getProf();
+
+                          _this.getEvaluations();
                         }
                       }); //loading imgList
 
@@ -425,7 +427,6 @@
 
                 var workingDays = _this2.selectedProCat.work_days.split('-');
 
-                console.log(workingDays);
                 workingDays.forEach(function (day) {
                   switch (day) {
                     case 'l':
@@ -486,7 +487,11 @@
                     case 0:
                       _context2.prev = 0;
                       _context2.next = 3;
-                      return axios__WEBPACK_IMPORTED_MODULE_14___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/supplier/evaluation/filter/").concat(this.solServ.solicitud.proPerfil_id));
+                      return axios__WEBPACK_IMPORTED_MODULE_14___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/supplier/evaluation/filter/").concat(this.solServ.solicitud.proPerfil_id), {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.grabbedUser.access_token)
+                        }
+                      });
 
                     case 3:
                       response = _context2.sent;
@@ -494,20 +499,21 @@
                       if (response.data && response.data.status !== 200) {//TODO: Maybe show an error message
                       }
 
-                      _context2.next = 10;
+                      console.log(response);
+                      _context2.next = 11;
                       break;
 
-                    case 7:
-                      _context2.prev = 7;
+                    case 8:
+                      _context2.prev = 8;
                       _context2.t0 = _context2["catch"](0);
                       console.log(_context2.t0);
 
-                    case 10:
+                    case 11:
                     case "end":
                       return _context2.stop();
                   }
                 }
-              }, _callee2, this, [[0, 7]]);
+              }, _callee2, this, [[0, 8]]);
             }));
           }
         }, {

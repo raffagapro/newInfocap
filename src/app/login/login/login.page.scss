@@ -1,11 +1,11 @@
-body{
+body {
   font-family: Poppins;
   font-size: 12px;
 }
 hr {
-  border-bottom: 1px solid #E54360;
+  border-bottom: 1px solid #e54360;
 }
-.subtitle{
+.subtitle {
   margin-top: 40px;
 }
 .logo-facebook {
@@ -29,7 +29,7 @@ hr {
   border-radius: 50%;
 }
 .logo-google {
-  background-color: #F93F2D;
+  background-color: #f93f2d;
   width: 60px;
   height: 60px;
   font-size: 40px;
@@ -39,10 +39,32 @@ hr {
   border-radius: 50%;
 }
 
-.outline-btn{
+.outline-btn {
   font-size: 10;
-  --color:#009ACE;
+  --color: #009ace;
   --background: none;
-  border: 2px solid #009ACE;
+  border: 2px solid #009ace;
   border-radius: 10px;
+}
+
+.logo-text {
+  text-align: right;
+  @media (min-width: 768px) {
+    text-align: right;
+    padding-right: 30px;
+  }
+}
+
+.logo-img {
+  @media (min-width: 768px) {
+    width: 130px;
+  }
+}
+
+.spacing {
+  height: 5%;
+
+  @media (min-width: 768px) {
+    height: 25%;
+  }
 }

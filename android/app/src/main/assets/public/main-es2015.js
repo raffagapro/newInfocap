@@ -2759,7 +2759,7 @@ const routes = [
     },
     {
         path: 'user/home',
-        loadChildren: () => __webpack_require__.e(/*! import() | user-home-home-module */ "user-home-home-module").then(__webpack_require__.bind(null, /*! ./user/home/home.module */ "VjR+")).then(m => m.HomePageModule),
+        loadChildren: () => Promise.all(/*! import() | user-home-home-module */[__webpack_require__.e("common"), __webpack_require__.e("user-home-home-module")]).then(__webpack_require__.bind(null, /*! ./user/home/home.module */ "VjR+")).then(m => m.HomePageModule),
     },
     {
         path: 'user/profile-page',
@@ -2798,7 +2798,7 @@ const routes = [
     },
     {
         path: 'user/solicitud-detail',
-        loadChildren: () => __webpack_require__.e(/*! import() | user-solicitud-detail-solicitud-detail-module */ "user-solicitud-detail-solicitud-detail-module").then(__webpack_require__.bind(null, /*! ./user/solicitud-detail/solicitud-detail.module */ "w+Nm")).then(m => m.SolicitudDetailPageModule),
+        loadChildren: () => Promise.all(/*! import() | user-solicitud-detail-solicitud-detail-module */[__webpack_require__.e("common"), __webpack_require__.e("user-solicitud-detail-solicitud-detail-module")]).then(__webpack_require__.bind(null, /*! ./user/solicitud-detail/solicitud-detail.module */ "w+Nm")).then(m => m.SolicitudDetailPageModule),
     },
     {
         path: 'user/service-resume',

@@ -22,3 +22,13 @@ small {
 .ion-invalid.ion-touched ion-icon {
   color: #009ace;
 }
+.main-color {
+  font-size: 15px;
+}
+.spacing {
+  height: 5%;
+
+  @media (min-width: 768px) {
+    height: 25%;
+  }
+}

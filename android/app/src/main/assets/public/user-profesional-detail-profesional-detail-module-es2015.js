@@ -208,6 +208,7 @@ let ProfesionalDetailPage = class ProfesionalDetailPage {
                     this.grabbedUser = user;
                     this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
                     this.getProf();
+                    this.getEvaluations();
                 }
             });
             //loading imgList
@@ -237,7 +238,6 @@ let ProfesionalDetailPage = class ProfesionalDetailPage {
                 let endHour = splitedHours.length > 1 ? moment__WEBPACK_IMPORTED_MODULE_13__(splitedHours[1]).format('h:mm a') : 'ND';
                 this.editedHours = `${startHour} / ${endHour}`;
                 let workingDays = this.selectedProCat.work_days.split('-');
-                console.log(workingDays);
                 workingDays.forEach(day => {
                     switch (day) {
                         case 'l':
@@ -283,10 +283,15 @@ let ProfesionalDetailPage = class ProfesionalDetailPage {
     getEvaluations() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             try {
-                let response = yield axios__WEBPACK_IMPORTED_MODULE_14___default.a.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/supplier/evaluation/filter/${this.solServ.solicitud.proPerfil_id}`);
+                let response = yield axios__WEBPACK_IMPORTED_MODULE_14___default.a.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/supplier/evaluation/filter/${this.solServ.solicitud.proPerfil_id}`, {
+                    headers: {
+                        Authorization: `Bearer ${this.grabbedUser.access_token}`
+                    }
+                });
                 if (response.data && response.data.status !== 200) {
                     //TODO: Maybe show an error message
                 }
+                console.log(response);
             }
             catch (error) {
                 console.log(error);

@@ -112,9 +112,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "tyNb");
 /* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
-/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
-/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! axios */ "vDqi");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+
 
 
 
@@ -148,13 +151,9 @@ let MapaPage = class MapaPage {
     ngOnInit() {
         this.userSub = this.us.loggedUser.subscribe(user => {
             this.grabbedUser = user;
-        });
-        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]();
-        this.headers = this.headers.set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-        //comunas
-        this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"] + '/location/communes', { headers: this.headers })
-            .subscribe(resData => {
-            this.comunas = resData['data'];
+            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]();
+            this.headers = this.headers.set('Authorization', 'Bearer ' + user.access_token);
+            this.getComunes();
         });
         // form
         this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormGroup"]({
@@ -285,14 +284,30 @@ let MapaPage = class MapaPage {
     ngOnDestroy() {
         this.userSub.unsubscribe();
     }
+    getComunes() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            try {
+                let response = yield axios__WEBPACK_IMPORTED_MODULE_9___default.a.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["API"]}/location/communes`, {
+                    headers: {
+                        Authorization: `Bearer ${this.grabbedUser.access_token}`
+                    }
+                });
+                console.log(response);
+                this.comunas = response.data.data;
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
 };
 MapaPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["LoadingController"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["NgZone"] },
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
-    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"] },
-    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__["SolicitudService"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_11__["UserService"] },
+    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__["SolicitudService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"] }
 ];
 MapaPage.propDecorators = {

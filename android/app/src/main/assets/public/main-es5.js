@@ -4447,9 +4447,9 @@
       }, {
         path: 'user/home',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | user-home-home-module */
-          "user-home-home-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("user-home-home-module")]).then(__webpack_require__.bind(null,
           /*! ./user/home/home.module */
           "VjR+")).then(function (m) {
             return m.HomePageModule;
@@ -4543,9 +4543,9 @@
       }, {
         path: 'user/solicitud-detail',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | user-solicitud-detail-solicitud-detail-module */
-          "user-solicitud-detail-solicitud-detail-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("user-solicitud-detail-solicitud-detail-module")]).then(__webpack_require__.bind(null,
           /*! ./user/solicitud-detail/solicitud-detail.module */
           "w+Nm")).then(function (m) {
             return m.SolicitudDetailPageModule;
