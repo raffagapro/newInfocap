@@ -82,7 +82,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
   }
 
   formatDate(date: string){
-    return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
+    return moment(date, 'DD-MM-YYY').format('dddd D [de] MMMM [de] YYYY');
   }
 
   formatTime(hours: string) {

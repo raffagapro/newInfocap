@@ -112,7 +112,7 @@ export class ServiceRejectModalComponent implements OnInit, OnDestroy {
   }
 
   formatDate(date: string) {
-    return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
+    return moment(date, 'YYYY-MM-DD').format('DD [de] MMMM [de] YYYY');
   }
 
   dismiss() {

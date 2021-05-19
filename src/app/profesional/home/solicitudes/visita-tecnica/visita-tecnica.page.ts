@@ -22,6 +22,7 @@ export class VisitaTecnicaPage implements OnInit {
   grabbedUser: User;
   userSub: Subscription;
   headers: String;
+  minDate = moment().format('YYYY-MM-DD')
   slideOptions = {
     initialSlide: 0,
     slidesPerView: 2,

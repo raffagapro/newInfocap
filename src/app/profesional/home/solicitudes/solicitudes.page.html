@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    
+
     <ion-buttons slot="start">
       <ion-button class="homeBtn" (click)="openMenu()">
         <ion-icon name="menu" class="homeBtn"></ion-icon>
@@ -18,10 +18,12 @@
     <ion-row class="ion-margin-top">
       <ion-col size="11" class="ion-text-left">
         <ion-text class="main-color title" *ngIf="loadedServices.length > 0">
-          <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes las siguientes solicitudes por aceptar.</b>
+          <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes
+            las siguientes solicitudes por aceptar.</b>
         </ion-text>
         <ion-text class="main-color title" *ngIf="loadedServices.length === 0">
-          <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no tienes solicitudes pendientes.</b>
+          <b>Buenos días <span class="ion-text-capitalize">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no
+            tienes solicitudes pendientes.</b>
         </ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
@@ -30,36 +32,39 @@
 
   <!-- solicitud card item -->
   <div class="prof-cont no-border" *ngFor="let service of loadedServices">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
+    <ion-item-sliding>
+      <ion-item-options side="start">
+        <ion-item-option fill="outline" color="danger" (click)="rechazarSolicitud(service.id)">
+          <ion-icon slot="start" name="close" class="iconSize"></ion-icon> Rechazar
+        </ion-item-option>
+      </ion-item-options>
 
-        <!-- title -->
-        <ion-col size="7" class="ion-justify-content-center">
-          <ion-text>
-            <ion-badge color="primary" class="titleSelect ion-text-capitalize">{{ service.categoryName }}</ion-badge>
-            <br>
-            <ion-text class="mainText">
-              {{ service.adress }}
-            </ion-text>
-            <br>
-            <ion-text class="miniText ion-text-capitalize" color="primary">{{ service.description }}</ion-text>
-          </ion-text>
-        </ion-col>
+      <ion-item button (click)="aceptarSolicitud(service.id)">
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <!-- title -->
+            <ion-col size="7" class="ion-justify-content-center">
+              <ion-text>
+                <ion-badge color="primary" class="titleSelect ion-text-capitalize">{{ service.categoryName }}
+                </ion-badge>
+                <br>
+                <ion-text class="mainText">
+                  {{ service.adress }}
+                </ion-text>
+                <br>
+                <ion-text class="miniText ion-text-capitalize" color="primary">{{ service.description }}</ion-text>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
 
-        <!-- rating -->
-        <ion-col size="5">
-          <ion-button expand="block" shape="round" color="success" class="miniBtnTxt" (click)="aceptarSolicitud(service.id)">
-            <ion-icon slot="start" name="checkmark" class="iconSize"></ion-icon>
-            ACEPTAR
-          </ion-button>
-          <ion-button expand="block" fill="outline" color="danger" shape="round" class="miniBtnTxt" (click)="rechazarSolicitud(service.id)">
-            <ion-icon slot="start" name="close" class="iconSize"></ion-icon>
-            RECHAZAR
-          </ion-button>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
+      <ion-item-options side="end">
+        <ion-item-option color="success" (click)="aceptarSolicitud(service.id)">
+          <ion-icon slot="start" name="checkmark" class="iconSize"></ion-icon> Aceptar
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </div>
 
   <!-- solicitud rechazada card item -->
@@ -67,8 +72,8 @@
     <ion-grid>
       <ion-row class="ion-align-items-center"> -->
 
-        <!-- title -->
-        <!-- <ion-col size="7" class="ion-justify-content-center">
+  <!-- title -->
+  <!-- <ion-col size="7" class="ion-justify-content-center">
           <ion-text>
             <ion-badge color="danger" class="titleSelect">Carpintería</ion-badge>&nbsp;
             <ion-icon color="danger" name="alert-circle" class="iconS"></ion-icon>
@@ -86,8 +91,8 @@
           </ion-text>
         </ion-col> -->
 
-        <!-- rating -->
-        <!-- <ion-col size="5">
+  <!-- rating -->
+  <!-- <ion-col size="5">
           <ion-button expand="block" shape="round" color="success" class="miniBtnTxt" (click)="aceptarSolicitud()">
             <ion-icon slot="start" name="checkmark" class="iconSize"></ion-icon>
             ACEPTAR
