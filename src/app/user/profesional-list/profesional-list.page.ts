@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Location } from "@angular/common";
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, MenuController } from '@ionic/angular';
+import { LoadingController, MenuController, NavController } from '@ionic/angular';
 import axios from 'axios';
 import { Subscription } from 'rxjs';
 
@@ -26,7 +27,9 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
   type = null;
   endpoints = {
     'stars': `${API}/supplier/evaluation/filterstar`,
-    'jobs': `${API}/supplier/evaluation/filter`
+    'jobs': `${API}/supplier/evaluation/filter`,
+    'male': `${API}/supplier/evaluation/filter`,
+    'female': `${API}/supplier/evaluation/filter`,
   }
 
   constructor(
@@ -36,6 +39,8 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
     private http: HttpClient,
     private us: UserService,
     private lc: LoadingController,
+    private location: Location,
+    private navigationController: NavController,
   ) { }
 
   ngOnInit() {
@@ -105,13 +110,28 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
     this.userSub.unsubscribe();
   }
 
+  goToMap() {
+    this.location.back();
+  }
+
+  goToCategories() {
+    this.navigationController.navigateBack('/user/home');
+  }
+
   async filterList() {
     let loader = await this.lc.create({ message: 'Obteniendo lista de profesionales...' });
     loader.present();
     try {
       const { category_id } = this.solServ.solicitud;
+      let endpoint = `${this.endpoints[this.sort]}/${category_id}`;
+      if (this.sort === 'female') {
+        endpoint = `${endpoint}/0`
+      } else if (this.sort === 'male') {
+        endpoint = `${endpoint}/1`;
+      }
+
       let response = await axios.get(
-        `${this.endpoints[this.sort]}/${category_id}`,
+        endpoint,
         {
           headers: {
             Authorization: `Bearer ${this.grabbedUser.access_token}`

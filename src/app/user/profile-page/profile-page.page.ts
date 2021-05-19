@@ -9,7 +9,7 @@ import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { IMAGE_URL_BLANK } from 'src/shared/constants';
-import { SuccessModalComponent } from './success-modal/success-modal.component';
+import { SuccessModalComponent } from 'src/app/shared/success-modal/success-modal.component';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -60,11 +60,12 @@ export class ProfilePagePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
+      //api headers
+      this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+      // updates to the most current info from DB
+      this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
     });
-    //api headers
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-    // updates to the most current info from DB
-    this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
+
     let phone1: string;
     let phone2: string;
     if (this.grabbedUser.phone1 === '-') {
@@ -171,7 +172,10 @@ export class ProfilePagePage implements OnInit, OnDestroy {
             });
             this.modalController.create({
               component: SuccessModalComponent,
-              cssClass: 'modalSuccess',
+              componentProps: {
+                message: 'INFORMACIÓN ACTUALIZADA',
+                redirect: false,
+              }
             }).then(modalEl => {
               modalEl.present();
             });
@@ -232,7 +236,10 @@ export class ProfilePagePage implements OnInit, OnDestroy {
         this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
         this.modalController.create({
           component: SuccessModalComponent,
-          cssClass: 'modalSuccess',
+          componentProps: {
+            message: 'INFORMACIÓN ACTUALIZADA',
+            redirect: false,
+          }
         }).then(modalEl => {
           modalEl.present();
         });

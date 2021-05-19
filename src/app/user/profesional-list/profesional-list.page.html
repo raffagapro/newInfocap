@@ -25,6 +25,8 @@
         <!--<option value="stars">Por género</option>-->
         <option value="stars">Por estrella</option>
         <option value="jobs">Por trabajos</option>
+        <option value="male">Por género masculino</option>
+        <option value="female">Por género femenino</option>
       </select>
     </ion-col>
     <!--
@@ -49,7 +51,7 @@
   <!-- emergency message -->
   <div class="prof-cont ion-margin-top no-border" (click)="eRequest()">
     <ion-grid>
-      <ion-row>
+      <ion-row class="ion-align-items-center" style="min-height: 85px;">
         <ion-col size="2" sizeMd="1">
           <ion-avatar class="profileImg">
             <img src="/assets/icon/ic_error.svg" />
@@ -85,28 +87,28 @@
         </ion-col>
 
         <!-- title -->
-        <ion-col size="5" sizeMd="6">
+        <ion-col size="6" sizeMd="7">
           <ion-text>
             <span class="titleSelect main-color ion-text-capitalize">{{ prof.supplierName }} {{ prof.supplierLastName
               }}</span><br>
             <ion-badge color="primary" class="badge-text">{{ prof.categoryName }}</ion-badge><br>
-            <span class="textSelect ion-text-capitalize">{{ prof.descProf }}</span>
+            <span class="textSelect">{{ prof.descProf }}</span>
           </ion-text>
         </ion-col>
 
         <!-- rating -->
-        <ion-col size="5">
+        <ion-col size="4">
           <ion-text class="text-center">
             <ion-row class="items-center">
               <ion-col size="12">
-                <p class="ratingText main-color ion-text-center">
+                <p class="ratingText main-color ion-text-right">
                   {{prof.stars_everage}}
                   <ion-icon src="/assets/icon/ic_star.svg"></ion-icon>
-                  / {{prof.cordiality_everage}}
+                  / {{prof.worknumber}}
                   <ion-icon src="/assets/icon/ic_hands.svg"></ion-icon>
                 </p>
               </ion-col>
-              <ion-col size="12">
+              <ion-col size="12" class="ion-text-right">
                 <div class="locate-cont">
                   <ion-icon src="/assets/icon/ic_engine_circle.svg" class="rating-text"></ion-icon>
                 </div>
@@ -134,10 +136,10 @@
       <ion-icon md="caret-up" size="large" src="/assets/icon/ic_filter_plus.svg" class="fab-icon"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button class="floatin-btn" color="none">
+      <ion-fab-button class="floatin-btn" color="none" (click)="goToCategories()">
         <ion-icon size="large" src="/assets/icon/ic_people_circle.svg" class="floatin-btn fab-icon"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button class="floatin-btn" color="none">
+      <ion-fab-button class="floatin-btn" color="none" (click)="goToMap()">
         <ion-icon size="large" src="/assets/icon/ic_map_circle.svg" class="floatin-btn fab-icon"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
