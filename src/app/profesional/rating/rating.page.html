@@ -19,9 +19,8 @@
       </ion-col>
       <ion-col size="6">
         <ion-item class="select-categories">
-          <ion-label class="catText">Categorías</ion-label>
-          <ion-select interface="popover" class="select-categories-component">
-            <ion-select-option *ngFor="let cat of categories" [value]="cat.id" class="main-color ion-text-center">{{
+          <ion-select placeholder="Categorías" interface="popover" class="select-categories-component" ionChange="changeCategory" [value]="categorySelected">
+            <ion-select-option *ngFor="let cat of categories" [value]="cat.id"  class="main-color ion-text-center">{{
               cat.name }}</ion-select-option>
           </ion-select>
         </ion-item>
@@ -100,7 +99,7 @@
   </ion-row>
 
   <!-- notificacion item -->
-  <div class="prof-cont ion-margin-top">
+  <div class="prof-cont ion-margin-top" *ngFor="let com in comments.comments">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
@@ -109,7 +108,7 @@
           <ion-text>
             <!-- <span class="titleSelect main-color">Juan Pérez</span><br> -->
             <span class="textSelect">
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
+              {{ com.comment }}
             </span>
           </ion-text>
         </ion-col>
@@ -119,7 +118,7 @@
         <ion-col size="3" class="ion-text-center">
           <ion-text>
             <small class="dateText main-color ion-text-center">
-              16 dic 2020
+              {{ com.register_date }}
             </small>
           </ion-text>
         </ion-col>

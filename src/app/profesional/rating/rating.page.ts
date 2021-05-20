@@ -17,6 +17,7 @@ export class RatingPage implements OnInit {
   headers: String
   grabbedUser: User;
   categories = []
+  categorySelected = null;
   comments = {};
   userSub: Subscription;
 
@@ -38,7 +39,11 @@ export class RatingPage implements OnInit {
       this.headers = 'Bearer ' + this.grabbedUser.access_token
       axios.get(API + `/supplier/categories`, { headers: { Authorization: this.headers } }).then(resData => {
         this.categories = resData.data.data;
-        this.changeCategory()
+        if(this.categories.length > 0) {
+          this.categorySelected = this.categories[0].id
+          this.changeCategory()
+        }
+        
         loadingEl.dismiss();
       }).catch(err => {
         loadingEl.dismiss();
@@ -46,9 +51,9 @@ export class RatingPage implements OnInit {
     })
   }
 
-  changeCategory() 
+  changeCategory()
   {
-    axios.get(API + `/supplier/evaluation/${this.grabbedUser.id}`, { headers: { Authorization: this.headers } }).then(resData => {
+    axios.get(API + `/supplier/evaluation/filtercategorie/${this.categorySelected}`, { headers: { Authorization: this.headers } }).then(resData => {
       this.comments = resData.data.data
     }).catch(err => {
       console.log(err)
