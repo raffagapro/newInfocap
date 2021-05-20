@@ -13,14 +13,14 @@
 
     <!-- title -->
     <ion-row>
-      <ion-col size="1" offset="1" offsetMd="3"></ion-col>
-      <ion-col size="8" class="ion-text-center" sizeMd="4">
+      <ion-col size="1" offset="1"></ion-col>
+      <ion-col size="8" class="ion-text-center">
         <ion-text class="main-color ion-text-uppercase title">INGRESA TUS DATOS PERSONALES</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
 
-      <ion-col size="1" offset="1" offsetMd="3"></ion-col>
-      <ion-col size="8" class="ion-text-center" sizeMd="4">
+      <ion-col size="1" offset="1"></ion-col>
+      <ion-col size="8" class="ion-text-center">
         <ion-text>
           <hr>
         </ion-text>
@@ -32,8 +32,8 @@
     <form #f="ngForm" (ngSubmit)="onRegister(f)">
       <!-- nombre -->
       <ion-row>
-        <ion-col size="11" sizeMd="4" offsetMd="4">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
               <ion-icon name="person" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Nombre
@@ -69,8 +69,8 @@
 
       <!-- email -->
       <ion-row>
-        <ion-col size="11" sizeMd="4" offsetMd="4">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating">
               <ion-icon src="/assets/icon/ic_mail.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Email
@@ -100,8 +100,8 @@
 
       <!-- phone -->
       <ion-row>
-        <ion-col size="11" sizeMd="4" offsetMd="4">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
               <ion-icon src="/assets/icon/ic_phone.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Teléfono</ion-text>
@@ -121,8 +121,8 @@
 
       <!-- password -->
       <ion-row>
-        <ion-col size="11" sizeMd="4" offsetMd="4">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
               <ion-icon src="/assets/icon/ic_lock.svg" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Contraseña</ion-text>
@@ -150,8 +150,8 @@
 
       <!-- password confirm -->
       <ion-row>
-        <ion-col size="11" sizeMd="4" offsetMd="4">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
               <ion-icon src="/assets/icon/ic_lock.svg" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Repetir contraseña</ion-text>
@@ -164,12 +164,12 @@
 
       <!-- Registrar BTN -->
       <ion-row class="ion-margin-top">
-        <ion-col class="ion-margin-top" sizeMd="4" offsetMd="4">
+        <ion-col class="ion-margin-top" size="12">
           <ion-button expand="block" type="submit" [disabled]="!f.valid" class="ion-text-uppercase">
             Registrarme
           </ion-button>
         </ion-col>
-        <ion-col size="12" sizeMd="4" offsetMd="4">
+        <ion-col size="12">
           <ion-text class="privacy-text">
             <p>
               Al continuar e iniciar sesión usted acepta nuestra <span (click)="goToPrivacy()">Política de
