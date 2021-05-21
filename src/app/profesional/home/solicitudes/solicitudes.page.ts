@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
+import axios from 'axios';
 import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
@@ -18,7 +18,7 @@ import { ServiceRejectModalComponent } from './service-reject-modal/service-reje
 export class SolicitudesPage implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
-  headers: HttpHeaders;
+  headers: String;
   loadedServices = [];
   parsedHours = null;
   address1;
@@ -29,7 +29,6 @@ export class SolicitudesPage implements OnInit, OnDestroy {
     private modalController: ModalController,
     private router: Router,
     private menuController: MenuController,
-    private http: HttpClient,
     private us: UserService,
     private lc: LoadingController,
     private solServ: SolicitudService,
@@ -41,33 +40,32 @@ export class SolicitudesPage implements OnInit, OnDestroy {
     });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.menuController.enable(true, 'profesional');
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
-    this.loadServices("1");    
+    this.headers = 'Bearer ' + this.grabbedUser.access_token;
+    this.loadServices("1");
   }
 
-  loadServices(statusID: string){
+  loadServices(statusID: string) {
     this.lc.create({
       message: "Cargando lista de servicios..."
-    }).then(loadingEl =>{
+    }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API+`/supplier/requestservice/${statusID}`, {headers: this.headers})
-      .subscribe(resData =>{
+      axios.get(API + `/supplier/requestservice/${statusID}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
-        this.loadedServices = resData["data"];
-      }, err =>{
+        this.loadedServices = resData.data.data;
+      }).catch(err => {
         console.log(err);
         loadingEl.dismiss();
-      });
+      })
     });
   }
 
-  openMenu(){
+  openMenu() {
     this.menuController.open();
   }
 
-  p(hours: string){
+  p(hours: string) {
     let wHours = hours.split("/");
     let sHour = wHours[0].split("T");
     let sHour2 = sHour[1];
@@ -75,22 +73,22 @@ export class SolicitudesPage implements OnInit, OnDestroy {
     let eHour = wHours[1].split("T");
     let eHour2 = eHour[1];
     eHour2 = eHour2.substring(0, 5);
-    return sHour2+" - "+eHour2;
+    return sHour2 + " - " + eHour2;
   }
 
-  d(address: string){
+  d(address: string) {
     let wAdd = address.split(',')
-    return wAdd[0]+",<br>"+wAdd[1]+", "+wAdd[2];
+    return wAdd[0] + ",<br>" + wAdd[1] + ", " + wAdd[2];
   }
 
-  rechazarSolicitud(solicitudID: string){
+  rechazarSolicitud(solicitudID: string) {
     this.solServ.setServiceID(solicitudID);
     this.modalController.create({
       component: ServiceRejectModalComponent,
       cssClass: 'modalSE',
     }).then(modalEl => {
       modalEl.present();
-      modalEl.onDidDismiss().then(data =>{
+      modalEl.onDidDismiss().then(data => {
         if (data) {
           this.loadServices("1");
         }
@@ -98,12 +96,12 @@ export class SolicitudesPage implements OnInit, OnDestroy {
     });
   }
 
-  aceptarSolicitud(solicitudID: string){
+  aceptarSolicitud(solicitudID: string) {
     this.solServ.setServiceID(solicitudID);
     this.router.navigate(['/profesional/solicitudes/solicitudes-detail']);
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.userSub.unsubscribe();
   }
 }

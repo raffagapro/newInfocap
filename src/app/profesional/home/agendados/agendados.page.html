@@ -82,6 +82,7 @@
       </ion-button>
     </ion-col>
   </ion-row>
+
   <div [hidden]="viewMood !== 'cal'" style="height: 50vh; padding-left: 16px; padding-right: 16px;">
     <calendar #calendarAgended [hidden]="viewMood !== 'cal'" [eventSource]="eventSourceAgended" [calendarMode]="calendar.mode"
       [currentDate]="calendar.currentDate" (onTitleChanged)="onViewTitleAgendedChanged($event)"
@@ -158,7 +159,7 @@
             <br>
             <small>
               <ion-icon src="/assets/icon/ic_date_range.svg" color="primary" class="iconFix"></ion-icon>
-              {{formatDate(service.date_required)}}
+              {{ formatDate(service.date_required) }}
               <ion-icon src="/assets/icon/ic_schedule.svg" color="primary" class="iconFix"></ion-icon>
               {{ formatTime(service.hours) }}
             </small>
@@ -171,7 +172,7 @@
           <!-- enviada -->
           <ion-text>
             <!-- icons -->
-            <small class="ticket ion-text-center">Ticket #{{ service.ticket_number }}</small>
+            <small class="ticket ion-text-center">Solicitud #{{ service.ticket_number }}</small>
             <small class="ratingText main-color ion-text-center">
               <div class="location_button" (click)="openMaps(service.adress)">
                 <ion-icon src="/assets/icon/ic_map.svg" color="primary" class="iconFix"></ion-icon>&nbsp;VER MAPA
@@ -208,7 +209,7 @@
               <ion-icon name="calendar" color="primary" class="iconFix"></ion-icon>
               {{service.date_required}}
               <ion-icon name="time" color="primary" class="iconFix"></ion-icon>
-              {{ p(service.hours) }}h
+              {{ diferenceHour(service.hours) }}h
             </small>
           </ion-text>
         </ion-col>
@@ -219,7 +220,7 @@
           <!-- enviada -->
           <ion-text>
             <!-- icons -->
-            <small class="ticket ion-text-center">Ticket #{{ service.ticket_number }}</small>
+            <small class="ticket ion-text-center">Solicitud #{{ service.ticket_number }}</small>
             <small class="ratingText main-color ion-text-center" *ngIf="service.status_id === 3">
               SERVICIO AGENDADO
             </small>
@@ -267,7 +268,7 @@
         <!-- rating -->
         <ion-col size="4">
           <ion-text>
-            <p class="ticketText ion-text-center ion-no-margin">Ticket #{{service.ticket_number}}</p>
+            <p class="ticketText ion-text-center ion-no-margin">Solicitud #{{service.ticket_number}}</p>
             <!-- <ion-button expand="block" fill="outline" shape="round" class="miniBtnTxt" (click)="map()">
               <ion-icon slot="start" name="map"></ion-icon>
               VER MAPA

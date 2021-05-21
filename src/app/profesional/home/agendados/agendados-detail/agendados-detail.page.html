@@ -25,7 +25,7 @@
         <!-- title -->
         <ion-col size="6">
           <ion-text>
-            <small class="ticket">Ticket #{{ loadedInfo.ticket_number }}</small><br>
+            <small class="ticket">Solicitud #{{ loadedInfo.ticket_number }}</small><br>
             <span class="titleSelect main-color ion-text-capitalize">{{ loadedInfo.categoryName }} para<br>
               <span class="ion-text-capitalize titleName">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName }}</span>
             </span><br>
@@ -77,13 +77,13 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color iconFixTitle"></ion-icon>
-        <ion-text class="main-color subtitle"><b> Fecha de visita</b></ion-text>
+        <ion-text class="main-color subtitle"><b> Fecha requerida</b></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
 
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="subText"> {{ formatDate(loadedInfo.date_required) }}</ion-text>
+        <ion-text> {{ formatDate(loadedInfo.date_required) }}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>

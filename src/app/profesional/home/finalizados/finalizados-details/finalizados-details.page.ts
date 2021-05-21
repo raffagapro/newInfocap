@@ -7,6 +7,7 @@ import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
+import axios from 'axios'
 
 @Component({
   selector: 'app-finalizados-details',
@@ -16,7 +17,7 @@ import { API } from 'src/environments/environment';
 export class FinalizadosDetailsPage implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
-  headers: HttpHeaders;
+  headers: String;
   loadedInfo = {
     img_profile: null,
     ticket_number: null,
@@ -49,30 +50,28 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer '+this.grabbedUser.access_token);
+    this.headers = 'Bearer '+ this.grabbedUser.access_token;
     this.lc.create({
       message: "Cargando informacion del servicio..."
     }).then(loadingEl =>{
       loadingEl.present();
-      this.http.get(API+`/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, {headers: this.headers})
-      .subscribe(resData =>{
+      axios.get(API+`/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
-        this.loadedInfo.clientLastName = resData['data'].clientLastName;
-        this.loadedInfo.clientName = resData['data'].clientName;
-        let wDate = resData['data'].date_required.split("-");
+        this.loadedInfo.clientLastName = resData.data.data.clientLastName;
+        this.loadedInfo.clientName = resData.data.data.clientName;
+        let wDate = resData.data.data.date_required.split("-");
         this.loadedInfo.date_required = wDate[2]+'-'+wDate[1]+'-'+wDate[0];
-        this.loadedInfo.description = resData['data'].description;
-        this.loadedInfo.hours = resData['data'].hours;
-        this.loadedInfo.images = resData['data'].images;
-        this.loadedInfo.img_profile = resData['data'].img_client_profile;
-        this.loadedInfo.ticket_number = resData['data'].ticket_number;
-        this.loadedInfo.categoryName = resData['data'].categoryName;
-        this.loadedInfo.clientPhone1 = resData['data'].clientPhone1;
-      }, err =>{
-        console.log(err);
+        this.loadedInfo.description = resData.data.data.description;
+        this.loadedInfo.hours = resData.data.data.hours;
+        this.loadedInfo.images = resData.data.data.images;
+        this.loadedInfo.img_profile = resData.data.data.img_client_profile;
+        this.loadedInfo.ticket_number = resData.data.data.ticket_number;
+        this.loadedInfo.categoryName = resData.data.data.categoryName;
+        this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
+      }).catch(err => {
+        console.log(err)
         loadingEl.dismiss();
-        
-      });
+      })
     });
   }
 

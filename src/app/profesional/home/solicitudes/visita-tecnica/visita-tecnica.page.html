@@ -1,9 +1,10 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/profesional/solicitudes/solicitudes-detail" text="" icon="arrow-back"></ion-back-button>
+      <ion-back-button defaultHref="/profesional/solicitudes/solicitudes-detail" text="" icon="arrow-back">
+      </ion-back-button>
     </ion-buttons>
-    
+
     <ion-title class="title-toolbar">VISITA TÉCNICA</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,15 +18,16 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <img [src]="loadedInfo.img_client_profile"/>
+            <img [src]="loadedInfo.img_client_profile" />
           </ion-avatar>
         </ion-col>
 
         <!-- title -->
         <ion-col size="6">
           <ion-text>
-            <small class="ticket">Ticket #{{ loadedInfo.ticket_number }}</small><br>
-            <span class="titleSelect main-color">{{ loadedInfo.categoryName }} para <br> {{ loadedInfo.clientName }} {{ loadedInfo.clientLastName }}</span><br>
+            <small class="ticket">Solicitud #{{ loadedInfo.ticket_number }}</small><br>
+            <span class="titleSelect main-color">{{ loadedInfo.categoryName }} para <br> {{ loadedInfo.clientName }} {{
+              loadedInfo.clientLastName }}</span><br>
             <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">{{ loadedInfo.date_required }}</p>
           </ion-text>
         </ion-col>
@@ -58,17 +60,17 @@
         <ion-slides [options]="slideOptions">
           <!-- slide -->
           <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+            <img src="/assets/images/unavailable-image.png" class="imgSlide" />
           </ion-slide>
 
           <!-- slide -->
           <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+            <img src="/assets/images/unavailable-image.png" class="imgSlide" />
           </ion-slide>
 
           <!-- slide -->
           <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide"/>
+            <img src="/assets/images/unavailable-image.png" class="imgSlide" />
           </ion-slide>
 
         </ion-slides>
@@ -77,56 +79,68 @@
 
     <!-- Fecha requerida -->
     <form [formGroup]="formVisitaTecnica" (ngSubmit)="confirmRequest()">
-    <ion-row>
-      <ion-col size="11">
-        <ion-item>
-          <ion-label class="main-color">
-            <ion-icon src="/assets/icon/ic_date_range.svg" slot="start" class="main-color"></ion-icon>
-            <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
-          </ion-label>
-          <ion-datetime formControlName="requiredDate" placeholder="Definir fecha"></ion-datetime>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="ion-text-center">
+          <ion-text class="main-color subtitle"><b>Definir fecha</b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="11">
+          <ion-item>
+            <ion-label position="float" class="main-color mw-20">
+              <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color"></ion-icon>
+            </ion-label>
+            <ion-datetime dayShortNames="Domingo,Lunes,Martes,Miércoles,Jueves,Viernes,Sábado" 
+            monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" 
+            placeholder="Definir fecha" formControlName="requiredDate" [min]="minDate" display-format="DDD D de MMM de YYYY"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <!-- Rango de horas -->
+      <!-- Rango de horas -->
 
-    <!-- pickers -->
-    <ion-row>
-      <ion-col size="6">
-        <ion-item>
-          <ion-label class="main-color">
-            <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
-            &nbsp;
-            <ion-text class="main-color">Hora inicial</ion-text>
-          </ion-label>
-          <ion-datetime formControlName="startTime" display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
-        </ion-item>
-      </ion-col>
+      <!-- pickers -->
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="ion-text-center">
+          <ion-text class="main-color subtitle"><b>Rango de horas</b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-      <ion-col size="6">
-        <ion-item>
-          <ion-label class="main-color">
-            <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
-            &nbsp;
-            <ion-text class="main-color">Hora final</ion-text>
-          </ion-label>
-          <ion-datetime formControlName="endTime" display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="float" class="main-color mw-20">
+              <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
+            </ion-label>
+            <ion-datetime placeholder="Hora inicial" formControlName="startTime" display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
+          </ion-item>
+        </ion-col>
 
-    <!-- enviar solicitud BTN -->
-    <ion-row class="ion-margin-top ion-margin-bottom">
-      <ion-col size="1"></ion-col>
-      <ion-col>
-        <ion-button type="submit" size="5" expand="block" class="ion-text-uppercase">
-          NOTIFICAR AL CLIENTE
-        </ion-button>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
-  </form>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="float" class="main-color mw-20">
+              <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
+            </ion-label>
+            <ion-datetime placeholder="Hora final" formControlName="endTime" display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!-- enviar solicitud BTN -->
+      <ion-row class="ion-margin-top ion-margin-bottom">
+        <ion-col size="1"></ion-col>
+        <ion-col>
+          <ion-button type="submit" size="5" expand="block" class="ion-text-uppercase">
+            NOTIFICAR AL CLIENTE
+          </ion-button>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+    </form>
 
   </ion-grid>
 

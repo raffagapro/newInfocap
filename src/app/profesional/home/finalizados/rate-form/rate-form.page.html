@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
 
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/profesional/home/home-tabs/finalizados/finalizados-details" text=""
+      <ion-back-button defaultHref="/profesional/home/home-tabs/finalizados" text=""
         icon="arrow-back"></ion-back-button>
     </ion-buttons>
 
@@ -19,7 +19,7 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png" />
+            <img src="{{ !loadedInfo.img_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_profile  }}" />
           </ion-avatar>
         </ion-col>
 
@@ -50,11 +50,16 @@
       <!-- rating  -->
       <ion-row class="ion-margin-top">
         <ion-col size="12" class="ion-text-center">
-          <ion-icon (click)="changeStars(1)" name="{{ rate > 0 ? 'star' : 'star-outline' }}" color="primary" class="rating-icon"></ion-icon>
-          <ion-icon (click)="changeStars(2)" name="{{ rate > 1 ? 'star' : 'star-outline' }}" color="primary" class="rating-icon"></ion-icon>
-          <ion-icon (click)="changeStars(3)" name="{{ rate > 2 ? 'star' : 'star-outline' }}" color="primary" class="rating-icon"></ion-icon>
-          <ion-icon (click)="changeStars(4)" name="{{ rate > 3 ? 'star' : 'star-outline' }}" color="primary" class="rating-icon"></ion-icon>
-          <ion-icon (click)="changeStars(5)" name="{{ rate > 4 ? 'star' : 'star-outline' }}" color="primary" class="rating-icon"></ion-icon>
+          <ion-icon (click)="changeStars(1)" name="{{ rate > 0 ? 'star' : 'star-outline' }}" color="primary"
+            class="rating-icon"></ion-icon>
+          <ion-icon (click)="changeStars(2)" name="{{ rate > 1 ? 'star' : 'star-outline' }}" color="primary"
+            class="rating-icon"></ion-icon>
+          <ion-icon (click)="changeStars(3)" name="{{ rate > 2 ? 'star' : 'star-outline' }}" color="primary"
+            class="rating-icon"></ion-icon>
+          <ion-icon (click)="changeStars(4)" name="{{ rate > 3 ? 'star' : 'star-outline' }}" color="primary"
+            class="rating-icon"></ion-icon>
+          <ion-icon (click)="changeStars(5)" name="{{ rate > 4 ? 'star' : 'star-outline' }}" color="primary"
+            class="rating-icon"></ion-icon>
         </ion-col>
       </ion-row>
 
@@ -62,6 +67,18 @@
       <ion-row *ngIf="rate <= 3" class="ion-margin-top">
         <ion-col size="10" offset="1" class="ion-text-center">
           <ion-text class="main-color title"><b>¡Lamentamos que no te encuentres satisfecho!</b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+
+      <!-- text-area -->
+      <ion-row *ngIf="rate <= 3" class="ion-margin-top">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="border ion-text-center">
+          <ion-item lines="none">
+            <ion-textarea formControlName="comment_bad_services" rows="3" cols="20" placeholder="Agrega una descripción del porque no se encuentra satisfecho.">
+            </ion-textarea>
+          </ion-item>
         </ion-col>
         <ion-col size="1"></ion-col>
       </ion-row>
@@ -80,7 +97,8 @@
         <ion-col size="1"></ion-col>
         <ion-col size="10" class="border ion-text-center">
           <ion-item lines="none">
-            <ion-textarea rows="3" cols="20" placeholder="Agrega una descripción."></ion-textarea>
+            <ion-textarea formControlName="comment" rows="3" cols="20" placeholder="Agrega una descripción.">
+            </ion-textarea>
           </ion-item>
         </ion-col>
         <ion-col size="1"></ion-col>
@@ -90,7 +108,7 @@
       <ion-row class="ion-margin-top ion-margin-bottom">
         <ion-col size="1"></ion-col>
         <ion-col size="10">
-          <ion-button size="5" type="submit" expand="block" class="btn-text ion-text-uppercase">
+          <ion-button [disabled]="!(formRate.valid && isRated)" size="5" type="submit" expand="block" class="btn-text ion-text-uppercase">
             ENVIAR COMENTARIOS
           </ion-button>
         </ion-col>

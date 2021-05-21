@@ -1,9 +1,15 @@
-import { Component, OnInit,ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController, Platform } from '@ionic/angular';
+import { LoadingController, MenuController, Platform } from '@ionic/angular';
 import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
 import { AdicionalServiceService } from 'src/app/services/adicional-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import axios from 'axios';
+import { API } from 'src/environments/environment';
+import { User } from 'src/app/model/user.model';
+import { UserService } from 'src/app/services/user.service';
+import { Subscription } from 'rxjs';
+import { SolicitudService } from 'src/app/services/solicitud.service';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -34,17 +40,36 @@ function base64toBlob(base64Data, contentType) {
 })
 export class ServiciosAdicionalesPage implements OnInit {
 
+  grabbedUser: User;
+  headers: String;
   formAdicional: FormGroup
   useInputPicker = false;
   @ViewChild('hiddenImgInput') hiddenImgInputRef: ElementRef<HTMLInputElement>;
   loadedImages = [];
   loadedImagesDisplay = [];
+  userSub: Subscription;
+
+  loadedInfo = {
+    img_profile: null,
+    ticket_number: null,
+    clientName: null,
+    clientLastName: null,
+    date_required: null,
+    hours: null,
+    description: null,
+    images: null,
+    categoryName: null,
+    clientPhone1: null
+  };
 
   constructor(
     private router: Router,
     private menuController: MenuController,
     private adicional: AdicionalServiceService,
+    private lc: LoadingController,
+    private us: UserService,
     private platform: Platform,
+    private solServ: SolicitudService,
   ) { }
 
 
@@ -52,7 +77,10 @@ export class ServiciosAdicionalesPage implements OnInit {
     if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
       this.useInputPicker = true;
     }
-
+    this.userSub = this.us.loggedUser.subscribe(user => {
+      this.grabbedUser = user;
+    });
+    this.headers = 'Bearer ' + this.grabbedUser.access_token
 
     this.formAdicional = new FormGroup({
       detailes: new FormControl(null, {
@@ -66,6 +94,29 @@ export class ServiciosAdicionalesPage implements OnInit {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
+    });
+
+    this.lc.create({
+      message: "Cargando informacion del servicio..."
+    }).then(loadingEl => {
+      loadingEl.present();
+      axios.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
+        loadingEl.dismiss();
+        this.loadedInfo.clientLastName = resData.data.data.clientLastName;
+        this.loadedInfo.clientName = resData.data.data.clientName;
+        let wDate = resData.data.data.date_required.split("-");
+        this.loadedInfo.date_required = wDate[2] + '-' + wDate[1] + '-' + wDate[0];
+        this.loadedInfo.description = resData.data.data.description;
+        this.loadedInfo.hours = resData.data.data.hours;
+        this.loadedInfo.images = resData.data.data.images;
+        this.loadedInfo.img_profile = resData.data.data.img_client_profile;
+        this.loadedInfo.ticket_number = resData.data.data.ticket_number;
+        this.loadedInfo.categoryName = resData.data.data.categoryName;
+        this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
+      }).catch(err => {
+        console.log(err);
+        loadingEl.dismiss();
+      })
     });
   }
 
@@ -127,7 +178,30 @@ export class ServiciosAdicionalesPage implements OnInit {
   }
 
   saveExtra() {
-    this.router.navigate(['profesional/agendados/agendados-finalizar']);
+    this.lc.create({
+      message: "Cargando lista de servicios..."
+    }).then(loadingEl => {
+      loadingEl.present();
+      const formData = new FormData();
+      this.loadedImages.forEach(image => {
+        formData.append('images[]', image);
+      });
+
+      formData.append('description', this.formAdicional.value.detailes)
+      formData.append('amount', this.formAdicional.value.price)
+      formData.append('payment_type_id', '1')
+      formData.append('request_services_id', this.solServ.solicitud.solicitudID)
+
+      this.adicional.setCost(this.formAdicional.value.price)
+
+      axios.post(API + '/supplier/additionalrequest', formData, { headers: { Authorization: this.headers } } ).then(resData => {
+        this.router.navigate(['profesional/agendados/agendados-finalizar']);
+        loadingEl.dismiss();
+      }).catch(err => {
+        loadingEl.dismiss();
+        console.log(err)
+      })
+    })
   }
 
 }
