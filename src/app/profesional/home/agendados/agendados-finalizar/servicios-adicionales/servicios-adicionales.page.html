@@ -19,22 +19,23 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png" />
+            <img src="{{ !loadedInfo.img_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_profile  }}" />
           </ion-avatar>
         </ion-col>
 
         <!-- title -->
         <ion-col size="7">
           <ion-row>
-            <small class="ticket">Ticket #100091234</small>
+            <small class="ticket">Ticket #{{ loadedInfo.ticket_number }}</small>
           </ion-row>
           <ion-row>
             <span class="titleSelect main-color">
-              Cerrajería para<br>
-              Emmy Mut
+              {{ loadedInfo.categoryName }} para<br>
+              {{ loadedInfo.clientName }} {{
+                loadedInfo.clientLastName }}
             </span>
             <br>
-            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">27 nov 2020</p>
+            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">{{ loadedInfo.date_required }}</p>
           </ion-row>
         </ion-col>
 
@@ -114,7 +115,7 @@
               <ion-icon name="wallet" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Ingresa el costo del servicio.</ion-text>
             </ion-label>
-            <ion-input formControlName="price" type="text"></ion-input>
+            <ion-input formControlName="price" type="number"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>

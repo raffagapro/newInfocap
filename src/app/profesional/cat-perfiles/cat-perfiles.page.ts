@@ -1,12 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ModalController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
 
-
-import { ProfCategory } from 'src/app/model/profCategory.model';
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
@@ -14,6 +11,8 @@ import { EmptyModalComponent } from './empty-modal/empty-modal.component';
 import { SuccessModalComponent } from './success-modal/success-modal.component';
 import { ImgListService } from 'src/app/services/img-list.service';
 import { IMAGE_URL_BLANK } from 'src/shared/constants';
+
+import axios from 'axios';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -50,7 +49,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   loadedImgList: string[] = [];
   imgListSub: Subscription;
   form: FormGroup;
-  headers: HttpHeaders;
+  headers: String;
   selectedCatId;
   selectedProPerfil;
   comunas = [];
@@ -69,7 +68,6 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   constructor(
     private lc: LoadingController,
     private us: UserService,
-    private http: HttpClient,
     private modalController: ModalController,
     private platform: Platform,
     private ils: ImgListService,
@@ -80,28 +78,22 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       this.grabbedUser = user;
     });
     //api headers
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+    this.headers = 'Bearer ' + this.grabbedUser.access_token;
 
     // this.headers.append('Content-Type', 'multipart/form-data');
 
     //categories list
-    this.http.get(API + '/supplier/categories', { headers: this.headers })
-      .subscribe(resData => {
-        this.categories = resData['data'];
-      });
+    axios.get(API + '/supplier/categories', { headers: { Authorization: this.headers } }).then(resData => {
+      this.categories = resData.data.data;
+    })
 
-    //comunas
-    this.http.get(API + '/location/communes', { headers: this.headers })
-      .subscribe(resData => {
-        // this.comunas = resData['data'];
-        this.comunasBU = resData['data'];
-      });
+    axios.get(API + '/location/communes', { headers: { Authorization: this.headers } }).then(resData => {
+      this.comunasBU = resData.data.data;
+    })
 
-    //transports
-    this.http.get(API + '/transports', { headers: this.headers })
-      .subscribe(resData => {
-        this.transports = resData['data'];
-      });
+    axios.get(API + '/transports', { headers: { Authorization: this.headers } }).then(resData => {
+      this.transports = resData.data.data;
+    })
 
     //form
     this.form = new FormGroup({
@@ -147,26 +139,24 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
 
   ionViewWillEnter() {
     //prof categories list
-    this.http.get(API + '/supplier/professions', { headers: this.headers })
-      .subscribe(resData => {
-        if (resData['code'] === 200) {
-          if (resData['data'].length === 0) {
-            //lunch awesome modal
-            this.modalController.create({
-              component: EmptyModalComponent,
-              cssClass: 'modalServRechazado',
-            }).then(modalEl => {
-              modalEl.present();
-            });
-          } else {
-            this.profCategories = resData['data'];
-            this.selectedProPerfil = this.profCategories[0].id;
-            this.updateForm(this.profCategories[0]);
-          }
+    axios.get(API + '/supplier/professions', { headers: { Authorization: this.headers } }).then(resData => {
+      if (resData.data.code === 200) {
+        if (resData.data.data.length === 0) {
+          this.modalController.create({
+            component: EmptyModalComponent,
+            cssClass: 'modalServRechazado',
+          }).then(modalEl => {
+            modalEl.present();
+          });
+        } else {
+          this.profCategories = resData['data'];
+          this.selectedProPerfil = this.profCategories[0].id;
+          this.updateForm(this.profCategories[0]);
         }
-      }, e => {
-        console.log(e);
-      });
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
   onCatProfileChange(profileID) {
@@ -174,17 +164,15 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       message: 'Cargando informacion...'
     }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API + `/supplier/profession/${profileID}`, { headers: this.headers })
-        .subscribe(resData => {
-          loadingEl.dismiss();
-          this.selectedProPerfil = profileID;
-          this.updateForm(resData['data'])
-          //loading images
-          this.ils.setImgList(resData['data'].images);
-        }, err => {
-          console.log(err);
-          loadingEl.dismiss();
-        });
+      axios.get(API + `/supplier/profession/${profileID}`, { headers: { Authorization: this.headers } }).then(resData => {
+        loadingEl.dismiss();
+        this.selectedProPerfil = profileID;
+        this.updateForm(resData['data'])
+        //loading images
+        this.ils.setImgList(resData['data'].images);
+      }).catch(err => {
+        loadingEl.dismiss();
+      })
     });
   }
 
@@ -312,19 +300,18 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       message: 'Actualizando la informacion...'
     }).then(loadingEl => {
       loadingEl.present();
-      this.http.post(API + `/supplier/profession/${this.selectedProPerfil}`, body, { headers: this.headers })
-        .subscribe(resData => {
-          loadingEl.dismiss();
-          this.modalController.create({
-            component: SuccessModalComponent,
-            cssClass: 'modalSuccess',
-          }).then(modalEl => {
-            modalEl.present();
-          });
-        }, err => {
-          console.log(err);
-          loadingEl.dismiss();
+      axios.post(API + `/supplier/profession/${this.selectedProPerfil}`, body, { headers: { Authorization: this.headers } }).then(resData => {
+        loadingEl.dismiss();
+        this.modalController.create({
+          component: SuccessModalComponent,
+          cssClass: 'modalSuccess',
+        }).then(modalEl => {
+          modalEl.present();
         });
+      }).catch(err => {
+        console.log(err)
+        loadingEl.dismiss();
+      })
     });
 
   }
@@ -379,20 +366,18 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       if (this.profilePhoto) {
         const formData = new FormData();
         formData.append('image', imgFile);
-        this.http.post(API + '/account/image', formData, { headers: this.headers })
-          .subscribe(resData => {
-            this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
-            loadingEl.dismiss();
-            this.modalController.create({
-              component: SuccessModalComponent,
-              cssClass: 'modalSuccess',
-            }).then(modalEl => {
-              modalEl.present();
-            });
-          }, err => {
-            loadingEl.dismiss();
-            console.log(err);
+        axios.post(API + '/account/image', formData, { headers: { Authorization: this.headers } }).then(resData => {
+          loadingEl.dismiss();
+          this.modalController.create({
+            component: SuccessModalComponent,
+            cssClass: 'modalSuccess',
+          }).then(modalEl => {
+            modalEl.present();
           });
+        }).catch(err => {
+          console.log(err)
+          loadingEl.dismiss();
+        })
         //if we are not loading a profile img
       } else {
         // const body = {
@@ -404,14 +389,12 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
         formData.append('category_id', this.selectedCatId.toString());
         formData.append('transport_id', this.selectedTransport);
         // formData.append('communes', this.selectedComunas;
-        this.http.post(API + `/supplier/profession/${this.selectedProPerfil}`, formData, { headers: this.headers })
-          .subscribe(resData => {
-            loadingEl.dismiss();
-            this.onCatProfileChange(this.selectedProPerfil);
-          }, err => {
-            console.log(err);
-            loadingEl.dismiss();
-          });
+        axios.post(API + `/supplier/profession/${this.selectedProPerfil}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
+          loadingEl.dismiss();
+          this.onCatProfileChange(this.selectedProPerfil);
+        }).catch(err => {
+          loadingEl.dismiss();
+        })
       }
     });
   }

@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
@@ -8,6 +7,7 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { ConfirmSuccessModalComponent } from './confirm-success-modal/confirm-success-modal.component';
+import axios from 'axios'
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -38,7 +38,7 @@ function base64toBlob(base64Data, contentType) {
 export class AgendadosFinalizarPage implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
-  headers: HttpHeaders;
+  headers: String;
   loadedInfo = {
     img_client_profile: null,
     ticket_number: null,
@@ -69,7 +69,6 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     private menuController: MenuController,
     private solServ: SolicitudService,
     private us: UserService,
-    private http: HttpClient,
     private lc: LoadingController,
   ) { }
 
@@ -77,31 +76,31 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+    this.headers = 'Bearer ' + this.grabbedUser.access_token;
     this.lc.create({
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API + `/supplier/categories`, { headers: this.headers }).subscribe(resData => {
-        this.categories = resData['data'];
+      axios.get(API + `/supplier/categories`, { headers: { Authorization: this.headers } }).then(resData => {
+        this.categories = resData.data.data;
       })
-      this.http.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: this.headers })
-        .subscribe(resData => {
-          loadingEl.dismiss();
-          this.loadedInfo.clientLastName = resData['data'].clientLastName;
-          this.loadedInfo.clientName = resData['data'].clientName;
-          this.loadedInfo.date_required = resData['data'].date_required;
-          this.loadedInfo.description = resData['data'].description;
-          this.loadedInfo.hours = resData['data'].hours;
-          this.loadedInfo.images = resData['data'].images;
-          this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
-          this.loadedInfo.ticket_number = resData['data'].ticket_number;
-          this.loadedInfo.categoryName = resData['data'].categoryName;
-          this.loadedInfo.clientPhone1 = resData['data'].clientPhone1;
-        }, err => {
-          console.log(err);
-          loadingEl.dismiss();
-        });
+
+      axios.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
+        loadingEl.dismiss();
+        this.loadedInfo.clientLastName = resData.data.data.clientLastName;
+        this.loadedInfo.clientName = resData.data.data.clientName;
+        this.loadedInfo.date_required = resData.data.data.date_required;
+        this.loadedInfo.description = resData.data.data.description;
+        this.loadedInfo.hours = resData.data.data.hours;
+        this.loadedInfo.images = resData.data.data.images;
+        this.loadedInfo.img_client_profile = resData.data.data.img_client_profile;
+        this.loadedInfo.ticket_number = resData.data.data.ticket_number;
+        this.loadedInfo.categoryName = resData.data.data.categoryName;
+        this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
+      }).catch(err => {
+        console.log(err)
+        loadingEl.dismiss();
+      })
     });
   }
 
@@ -138,19 +137,18 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
       message: 'Finalizando Trabajo...'
     }).then(loadingEl => {
       loadingEl.present();
-      this.http.put(API + `/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/6`, null, { headers: this.headers })
-        .subscribe(resData => {
-          loadingEl.dismiss();
-          this.modalController.create({
-            component: ConfirmSuccessModalComponent,
-            cssClass: 'modalSuccess',
-          }).then(modalEl => {
-            modalEl.present();
-          });
-        }, err => {
-          loadingEl.dismiss();
-          console.log(err);
+      axios.put(API + `/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/6`, null, { headers: { Authorization: this.headers } }).then(resData => {
+        loadingEl.dismiss();
+        this.modalController.create({
+          component: ConfirmSuccessModalComponent,
+          cssClass: 'modalSuccess',
+        }).then(modalEl => {
+          modalEl.present();
         });
+      }).catch(err => {
+        loadingEl.dismiss();
+        console.log(err)
+      })
     });
   }
 

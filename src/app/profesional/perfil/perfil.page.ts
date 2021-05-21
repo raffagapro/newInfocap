@@ -9,6 +9,7 @@ import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { SuccessModalComponent } from './success-modal/success-modal.component';
+import axios from 'axios';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -38,7 +39,7 @@ function base64toBlob(base64Data, contentType) {
 })
 export class PerfilPage implements OnInit, OnDestroy {
   grabbedUser: User;
-  headers: HttpHeaders;
+  headers: String;
   userSub: Subscription;
   form: FormGroup;
   httpError: string;
@@ -61,7 +62,7 @@ export class PerfilPage implements OnInit, OnDestroy {
       this.grabbedUser = user;
     });
     //api headers
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+    this.headers = 'Bearer ' + this.grabbedUser.access_token;
     // updates to the most current info from DB
     this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
     let phone1: string;
@@ -140,45 +141,43 @@ export class PerfilPage implements OnInit, OnDestroy {
       message: 'Alcualizando la informacion...'
     }).then(loadingEl => {
       loadingEl.present();
-      let headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-      this.http.put(API + '/account', modUser, { headers: headers })
-        .subscribe(resData => {
-          loadingEl.dismiss();
-          if (resData['code'] === 200) {
-            //update user controler
-            this.us.setUser(new User(
-              this.grabbedUser.id,
-              resData['data'].name,
-              resData['data'].last_name,
-              resData['data'].img_profile,
-              resData['data'].email,
-              resData['data'].phone1,
-              resData['data'].phone2,
-              this.grabbedUser.role,
-              this.grabbedUser.access_token,
-            ));
-            //resets values after succefull update
-            this.form.setValue({
-              name: this.form.value.name,
-              email: this.form.value.email,
-              phone1: this.form.value.phone1,
-              phone2: this.form.value.phone2,
-              password: null,
-              newPassword: null,
-              confirmPassword: null,
-            });
-            this.modalController.create({
-              component: SuccessModalComponent,
-              cssClass: 'modalSuccess',
-            }).then(modalEl => {
-              modalEl.present();
-            });
-          }
-        }, e => {
-          loadingEl.dismiss();
-          this.httpError = e['error'].message;
-        });
-
+      let headers = 'Bearer ' + this.grabbedUser.access_token;
+      axios.put(API + '/account', modUser, { headers: { Authorization: this.headers } }).then(resData => {
+        loadingEl.dismiss();
+        if (resData['code'] === 200) {
+          //update user controler
+          this.us.setUser(new User(
+            this.grabbedUser.id,
+            resData.data.data.name,
+            resData.data.data.last_name,
+            resData.data.data.img_profile,
+            resData.data.data.email,
+            resData.data.data.phone1,
+            resData.data.data.phone2,
+            this.grabbedUser.role,
+            this.grabbedUser.access_token,
+          ));
+          //resets values after succefull update
+          this.form.setValue({
+            name: this.form.value.name,
+            email: this.form.value.email,
+            phone1: this.form.value.phone1,
+            phone2: this.form.value.phone2,
+            password: null,
+            newPassword: null,
+            confirmPassword: null,
+          });
+          this.modalController.create({
+            component: SuccessModalComponent,
+            cssClass: 'modalSuccess',
+          }).then(modalEl => {
+            modalEl.present();
+          });
+        }
+      }).catch(err => {
+        loadingEl.dismiss();
+        this.httpError = err['error'].message;
+      })
     });
   }
 
@@ -225,18 +224,17 @@ export class PerfilPage implements OnInit, OnDestroy {
     this.form.patchValue({ image: imgFile })
     const formData = new FormData();
     formData.append('image', imgFile);
-    this.http.post(API + '/account/image', formData, { headers: this.headers })
-      .subscribe(resData => {
-        this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
-        this.modalController.create({
-          component: SuccessModalComponent,
-          cssClass: 'modalSuccess',
-        }).then(modalEl => {
-          modalEl.present();
-        });
-      }, err => {
-        console.log(err);
+    axios.post(API + '/account/image', formData, { headers: { Authorization: this.headers } }).then(resData => {
+      this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
+      this.modalController.create({
+        component: SuccessModalComponent,
+        cssClass: 'modalSuccess',
+      }).then(modalEl => {
+        modalEl.present();
       });
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   ngOnDestroy() {

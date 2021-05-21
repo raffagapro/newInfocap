@@ -12,6 +12,7 @@ import { UserService } from './services/user.service';
 import { User, UserRoles } from './model/user.model';
 import { API, PHONE_PREFIX } from 'src/environments/environment';
 import { IMAGE_URL_BLANK } from 'src/shared/constants';
+import axios from 'axios'
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ export class AppComponent {
   firstLoad = false;
   logged: Observable<boolean>;
   user: User;
+  notificationCount: 0
 
   constructor(
     private platform: Platform,
@@ -62,6 +64,10 @@ export class AppComponent {
             if (this.user.role === UserRoles.USER) {
               this.router.navigate(['/user/home']);
             } else {
+              var header = 'Bearer ' + this.user.access_token
+              axios.get(API + '/supplier/notification', { headers: { Authorization: header } }).then(resData => {
+                this.notificationCount = resData.data.data.length
+              })
               this.router.navigate(['/profesional/home']);
             }
           }
