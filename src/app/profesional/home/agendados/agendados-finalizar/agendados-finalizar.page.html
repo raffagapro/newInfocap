@@ -52,8 +52,7 @@
       </ion-col>
       <ion-col size="6">
         <ion-item class="select-categories">
-          <ion-label class="catText">Categorías</ion-label>
-          <ion-select interface="popover" class="select-categories-component">
+          <ion-select placeholder="Categoría" interface="popover" class="select-categories-component">
             <ion-select-option *ngFor="let cat of categories" [value]="cat.id" class="main-color ion-text-center">{{
               cat.name }}</ion-select-option>
           </ion-select>
