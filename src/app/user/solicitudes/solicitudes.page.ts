@@ -45,7 +45,9 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   }
 
   formatdate(date: string) {
-    return moment(date, 'DD/MM/YYYY').format('DD MMM YYYY');
+    //moment(new Date(markerOpened.location.registration * 1000)).lang(translator.language).startOf('minute').fromNow()
+    //return moment(date, 'DD/MM/YYYY').format('DD MMM YYYY');
+    return moment(date, 'DD/MM/YYYY').startOf('minute').fromNow();
   }
 
   loadServices() {

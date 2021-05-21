@@ -12,7 +12,7 @@
 <ion-content>
   <!-- filter bar -->
   <ion-row class="ion-margin-top ion-align-items-center">
-    <ion-col size="2">
+    <ion-col size="2" class="text-center">
       <ion-text class="text-10 main-color">
         <ion-icon src="/assets/icon/ic_filter.svg"></ion-icon>
         FILTROS
@@ -39,7 +39,7 @@
       </select>
     </ion-col>
     -->
-    <ion-col size="3">
+    <ion-col size="3" class="text-center">
       <ion-text class="text-10 main-color reset-text" (click)="resetFilters()">
         <ion-icon src="/assets/icon/ic_path.svg" class="filt-icon"></ion-icon>
         {{' '}}
@@ -73,7 +73,7 @@
     <h3 class="text-center">No se encontraron<br />profesionales en el área</h3>
   </ion-text>
   <div *ngFor="let prof of profList" class="prof-cont ion-margin-top no-border"
-    (click)="profDetails(prof.id || prof.supplier_id, prof.img_profile)">
+    (click)="profDetails(prof.id || prof.professional_profiles_id, prof.img_profile)">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 

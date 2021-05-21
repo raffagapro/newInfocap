@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar mode="ios" color="primary">
-    
+
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/user/solicitudes" text="" icon="arrow-back"></ion-back-button>
     </ion-buttons>
 
-    <ion-title class="title-toolbar">SOLICITUD #{{ serviceId }}</ion-title>
+    <ion-title class="title-toolbar">SOLICITUD #{{ loadedService ? loadedService.ticket_number : '-' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,15 +16,13 @@
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
-        <ion-col size="8" class="ion-justify-content-center">
+        <ion-col size="7" sizeMd="10" class="ion-justify-content-center">
           <ion-text>
-            <span class="titleSelect main-color ion-text-capitalize">{{ loadedService.supplierName+" "+loadedService.supplierLastName }} </span><br>
+            <span class="titleSelect main-color ion-text-capitalize">{{ loadedService.supplierName+"
+              "+loadedService.supplierLastName }} </span><br>
             <!-- <ion-badge color="primary" class="badge-text">{{ loadedService.categoryName }}</ion-badge>&nbsp; -->
-            <ion-badge 
-              color="{{ loadedService.category_id === cat.id ? primary : medium }}" 
-              class="badge-text" 
-              *ngFor="let cat of loadedService.categories"
-              >{{ cat.categoryName }}
+            <ion-badge color="{{ loadedService.category_id === cat.id ? primary : medium }}" class="badge-text"
+              *ngFor="let cat of loadedService.categories">{{ cat.categoryName }}
             </ion-badge><br>
             <span class="textSelect ion-text-capitalize">
               {{ loadedService.cummunename }}
@@ -34,16 +32,16 @@
         </ion-col>
 
         <!-- Contato icons -->
-        <ion-col size="4" class="ion-text-center test">
+        <ion-col size="5" sizeMd="2" class="ion-text-center test">
           <ion-text>
             <span class="titleSelect main-color">Contacto </span><br><br>
             <!-- icons -->
-            <div class="locate-cont bg-green-color" (click)="openWhatsapp()">
-              <ion-icon name="call" color="light" class="rating-text"></ion-icon>
+            <div class="locate-cont">
+              <ion-icon src="/assets/icon/ic_phone_circle.svg" color="light" class="rating-text"></ion-icon>
             </div>
-            <!-- <div class="locate-cont bg-green-color">
-              <ion-icon name="logo-whatsapp" color="light" class="rating-text"></ion-icon>
-            </div> -->
+            <div class="locate-cont" (click)="openWhatsapp()">
+              <ion-icon src="/assets/icon/ic_whatsapp.svg" color="light" class="rating-text"></ion-icon>
+            </div>
           </ion-text>
         </ion-col>
 
@@ -57,7 +55,7 @@
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
-        <ion-col size="8" class="ion-justify-content-center">
+        <ion-col size="12" class="ion-justify-content-center">
           <ion-text>
             <span class="titleSelect main-color">Solicitud </span>
             <small class="ticket" *ngIf="loadedService">#{{ loadedService.ticket_number }}</small><br>
@@ -83,19 +81,19 @@
       <!-- solicitud enviada  -->
       <ion-row>
         <div class="status-cont" (click)="serviceDetal(1)">
-          <ion-icon name="send" color="light" class="status-text-icon"></ion-icon>
+          <ion-icon src="/assets/icon/ic_send.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
-          <ion-text class="main-color status-text">SOLICITUD ENVIADA</ion-text>
+          <ion-text class="main-color status-text">SOLICITUD<br />ENVIADA</ion-text>
         </ion-col>
       </ion-row>
 
       <!-- separating line -->
       <ion-row class="ion-no-margin">
-        <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
+        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
       </ion-row>
       <ion-row class="ion-no-margin">
-        <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
+        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
       </ion-row>
 
       <!-- Visita tecnica agendada  -->
@@ -120,17 +118,18 @@
 
       <!-- separating line -->
       <ion-row class="ion-no-margin" *ngIf="loadedService.status_id !== 7">
-        <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
+        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
       </ion-row>
       <ion-row class="ion-no-margin" *ngIf="loadedService.status_id !== 7">
-        <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
+        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
       </ion-row>
 
       <!-- Servicio agendado  -->
       <!-- gray  -->
       <ion-row *ngIf="loadedService.status_id < 3 && loadedService.status_id !== 7">
         <div class="status-cont-grey">
-          <ion-icon name="calendar" color="light" class="status-text-icon"></ion-icon>
+          <ion-icon src="/assets/icon/ic_calendar_circle_disabled.svg" color="light" class="status-text-icon">
+          </ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color status-text-grey">SERVICIO AGENDADO</ion-text><br>
@@ -140,7 +139,7 @@
       <!-- active  -->
       <ion-row *ngIf="loadedService.status_id > 2 && loadedService.status_id !== 7">
         <div class="status-cont" (click)="serviceDetal(3)">
-          <ion-icon name="calendar" color="light" class="status-text-icon"></ion-icon>
+          <ion-icon src="/assets/icon/ic_calendar_circle.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color status-text">SERVICIO AGENDADO</ion-text><br>
@@ -149,26 +148,26 @@
 
       <!-- separating line -->
       <ion-row class="ion-no-margin" *ngIf="loadedService.status_id !== 7">
-        <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
+        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
       </ion-row>
       <ion-row class="ion-no-margin" *ngIf="loadedService.status_id !== 7">
-        <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
+        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
       </ion-row>
 
       <!-- SERVICIO ENPROCESO  -->
       <!-- grey  -->
       <ion-row *ngIf="loadedService.status_id < 4 && loadedService.status_id !== 7">
         <div class="status-cont-grey">
-          <ion-icon name="build" color="light" class="status-text-icon"></ion-icon>
+          <ion-icon src="/assets/icon/ic_engine_disabled.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
-          <ion-text class="main-color status-text-grey">SERVICIO ENPROCESO</ion-text><br>
+          <ion-text class="main-color status-text-grey">SERVICIO EN<br />PROCESO</ion-text><br>
         </ion-col>
       </ion-row>
       <!-- active  -->
       <ion-row *ngIf="loadedService.status_id > 3 && loadedService.status_id !== 7">
         <div class="status-cont" (click)="serviceDetal(4)">
-          <ion-icon name="build" color="light" class="status-text-icon"></ion-icon>
+          <ion-icon src="/assets/icon/ic_engine_blue.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color status-text">SERVICIO ENPROCESO</ion-text><br>
@@ -177,61 +176,61 @@
 
       <!-- separating line -->
       <ion-row class="ion-no-margin" *ngIf="loadedService.status_id !== 7">
-        <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
+        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
       </ion-row>
       <ion-row class="ion-no-margin" *ngIf="loadedService.status_id !== 7">
-        <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
+        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
       </ion-row>
 
       <!-- SERVICIO REALIZADO  -->
       <!-- grey  -->
       <ion-row *ngIf="loadedService.status_id < 5 && loadedService.status_id !== 7">
         <div class="status-cont-grey">
-          <ion-icon name="build" color="light" class="status-text-icon"></ion-icon>
+          <ion-icon src="/assets/icon/ic_engine_disabled.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
-          <ion-text class="main-color status-text-grey">SERVICIO REALIZADO</ion-text><br>
+          <ion-text class="main-color status-text-grey">SERVICIO<br />REALIZADO</ion-text><br>
         </ion-col>
       </ion-row>
       <!-- active  -->
       <ion-row *ngIf="loadedService.status_id > 4 && loadedService.status_id !== 7">
         <div class="status-cont" (click)="serviceDetal(4)">
-          <ion-icon name="build" color="light" class="status-text-icon"></ion-icon>
+          <ion-icon src="/assets/icon/ic_engine_blue.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
-          <ion-text class="main-color status-text">SERVICIO REALIZADO</ion-text><br>
+          <ion-text class="main-color status-text">SERVICIO FINALIZADO</ion-text><br>
         </ion-col>
       </ion-row>
 
       <!-- separating line -->
-      <!-- <ion-row class="ion-no-margin">
-        <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
+      <ion-row class="ion-no-margin">
+        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
       </ion-row>
       <ion-row class="ion-no-margin">
-        <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
-      </ion-row> -->
+        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
+      </ion-row>
 
       <!-- Pago Finalizado  -->
       <!-- grey  -->
-      <!-- <ion-row *ngIf="loadedService.status_id < 6 && loadedService.status_id !== 7">
+      <ion-row *ngIf="loadedService.status_id < 6 && loadedService.status_id !== 7">
         <div class="status-cont-grey">
-          <ion-icon name="card" color="light" class="status-text-icon"></ion-icon>
+          <ion-icon src="/assets/icon/ic_card_disabled.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
-          <ion-text class="main-color status-text-grey">PAGO FINALIZADO</ion-text><br> -->
-          <!-- <ion-text class="main-color status-subtext-grey">Pendiente calificar el servicio</ion-text> -->
-        <!-- </ion-col>
-      </ion-row> -->
+          <ion-text class="main-color status-text-grey">PAGO FINALIZADO</ion-text><br>
+          <ion-text class="main-color status-subtext-grey">Pendiente calificar el servicio</ion-text>
+        </ion-col>
+      </ion-row>
       <!-- active  -->
-      <!-- <ion-row *ngIf="loadedService.status_id > 5 && loadedService.status_id !== 7">
+      <ion-row *ngIf="loadedService.status_id > 5 && loadedService.status_id !== 7">
         <div class="status-cont" (click)="serviceDetal(1)">
-          <ion-icon name="card" color="light" class="status-text-icon"></ion-icon>
+          <ion-icon src="/assets/icon/ic_card_blue.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
-          <ion-text class="main-color status-text">PAGO FINALIZADO</ion-text><br> -->
-          <!-- <ion-text class="main-color status-subtext">Pendiente calificar el servicio</ion-text> -->
-        <!-- </ion-col>
-      </ion-row> -->
+          <ion-text class="main-color status-text">PAGO FINALIZADO</ion-text><br>
+          <ion-text class="main-color status-subtext">Pendiente calificar el servicio</ion-text>
+        </ion-col>
+      </ion-row>
 
       <!-- ONLY FOR CANCELLED SERVICES -->
 

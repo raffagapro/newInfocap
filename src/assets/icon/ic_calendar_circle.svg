@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27">
+  <g id="Grupo_4194" data-name="Grupo 4194" transform="translate(-252 -592)">
+    <g id="Yes" transform="translate(252 592)" style="isolation: isolate">
+      <circle id="Elipse_110" data-name="Elipse 110" cx="13.5" cy="13.5" r="13.5" fill="#009ace"/>
+    </g>
+    <path id="ic_event_available_24px" d="M14.538,9.579l-.9-.9L9.473,12.837,7.665,11.029l-.9.9,2.712,2.712,5.066-5.066Zm2.106-6.873h-.853V1H14.086V2.706H7.264V1H5.558V2.706H4.706a1.7,1.7,0,0,0-1.7,1.706L3,16.35a1.705,1.705,0,0,0,1.706,1.706H16.645A1.711,1.711,0,0,0,18.35,16.35V4.411A1.711,1.711,0,0,0,16.645,2.706Zm0,13.645H4.706V6.969H16.645Z" transform="translate(255 596)" fill="#fff"/>
+  </g>
+</svg>

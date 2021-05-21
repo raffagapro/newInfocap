@@ -32,14 +32,14 @@
     <ion-grid>
       <ion-row class="ion-align-items-center ion-margin-top">
         <!-- profile img -->
-        <ion-col size="4">
+        <ion-col size="4" sizeMd="2">
           <ion-avatar class="profileImg">
             <ion-img src="{{ !selectedProfPhoto ? 'assets/images/avatar.png' : selectedProfPhoto }}"></ion-img>
           </ion-avatar>
         </ion-col>
 
         <!-- title -->
-        <ion-col size="8">
+        <ion-col size="8" sizeMd="10">
           <ion-text>
             <span class="titleSelect main-color ion-text-capitalize">
               {{ selectedProCat.supplierName }} {{ selectedProCat.supplierLastName }}
@@ -47,7 +47,13 @@
             <!-- se necesita extra codigo para mostar todas la profesiones  -->
             <ion-badge color="primary" class="badge-text">
               {{ selectedProCat.categoryName }}
-            </ion-badge><br>
+            </ion-badge>
+            <div *ngIf="selectedProCat && selectedProCat.categories && selectedProCat.categories.length > 1" style="display: inline-flex">
+              <ion-badge *ngFor="let category of selectedProCat.categories.slice(1, selectedProCat.categories.length);" color="medium" class="badge-text">
+                {{ category.categoryName }}
+              </ion-badge>
+            </div>
+            <br>
             <!-- <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge>
             <ion-badge color="medium" class="badge-text">Eléctrico</ion-badge><br> -->
             <p class="textSelect main-color ion-text-capitalize" style="margin-top: 0; margin-bottom: 0;">Vehículo: {{
@@ -69,7 +75,7 @@
     <ion-row class="">
       <ion-col size="12">
         <ion-text>
-          <p class="regText ion-text-capitalize ion-text-left">
+          <p class="regText ion-text-left">
             {{ selectedProCat.description }}
           </p>
         </ion-text>

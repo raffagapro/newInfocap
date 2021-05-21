@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27">
+  <g id="Grupo_4198" data-name="Grupo 4198" transform="translate(-252 -941)">
+    <g id="Yes" transform="translate(252 941)">
+      <circle id="Elipse_110" data-name="Elipse 110" cx="13.5" cy="13.5" r="13.5" fill="#009ace"/>
+    </g>
+    <path id="ic_credit_card_24px" d="M16.4,4H3.6A1.588,1.588,0,0,0,2.008,5.6L2,15.2a1.594,1.594,0,0,0,1.6,1.6H16.4A1.594,1.594,0,0,0,18,15.2V5.6A1.594,1.594,0,0,0,16.4,4Zm0,11.2H3.6V10.4H16.4Zm0-8H3.6V5.6H16.4Z" transform="translate(255 944)" fill="#fff"/>
+  </g>
+</svg>

@@ -87,9 +87,12 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
           let splitedHours = this.selectedProCat.hours.split('/');
           let startHour = splitedHours.length > 0 ? moment(splitedHours[0]).format('h:mm a') : 'ND';
           let endHour = splitedHours.length > 1 ? moment(splitedHours[1]).format('h:mm a') : 'ND';
-          this.editedHours = `${startHour} / ${endHour}`;
-
+          //this.editedHours = `${startHour} / ${endHour}`;
+          this.editedHours = this.selectedProCat.hours;
+          this.editedDays = this.selectedProCat.work_days;
+          /*
           let workingDays = this.selectedProCat.work_days.split('-');
+          this.editedDays = '';
           workingDays.forEach(day => {
             switch (day) {
               case 'l':
@@ -98,7 +101,7 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
               case 'm':
                 this.editedDays += 'Mar ';
                 break;
-              case 'mr':
+              case 'mi':
                 this.editedDays += 'Mie ';
                 break;
               case 'j':
@@ -115,6 +118,7 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
                 break;
             }
           });
+          */
           //loading images
           // let listArr: [] = [];
           // resData['data'].images.forEach(image => {

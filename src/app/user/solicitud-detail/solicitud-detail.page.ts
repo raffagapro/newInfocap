@@ -132,7 +132,7 @@ export class SolicitudDetailPage implements OnInit {
   }
 
   formatDate(date: Moment, dateFormat: any = 'YYYY-MM-DD') {
-    return moment(date, dateFormat).format('DD MMMM YYYY');
+    return moment(date, dateFormat).format('dddd D [de] MMMM [de] YYYY');
   }
 
   formatTime() {
