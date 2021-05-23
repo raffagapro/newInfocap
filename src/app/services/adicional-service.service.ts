@@ -24,7 +24,7 @@ export class AdicionalServiceService {
     this._adicionalService.photo = photo
   }
 
-  setCost(cost:string)
+  setCost(cost:number)
   {
     this._adicionalService.cost = cost
   }
