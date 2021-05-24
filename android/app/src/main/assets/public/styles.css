@@ -1189,7 +1189,7 @@ ion-item {
 }
 @media (min-width: 768px) {
   .modalSuccess {
-    --height: 30%;
+    --height: 60%;
   }
 }
 .modalServRechazado {

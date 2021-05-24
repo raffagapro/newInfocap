@@ -206,7 +206,7 @@ let SolicitudDetailPage = class SolicitudDetailPage {
         this.menuController.open();
     }
     formatDate(date, dateFormat = 'YYYY-MM-DD') {
-        return moment__WEBPACK_IMPORTED_MODULE_8__(date, dateFormat).format('DD MMMM YYYY');
+        return moment__WEBPACK_IMPORTED_MODULE_8__(date, dateFormat).format('dddd D [de] MMMM [de] YYYY');
     }
     formatTime() {
         if (!this.loadedService.hours_requestservice) {

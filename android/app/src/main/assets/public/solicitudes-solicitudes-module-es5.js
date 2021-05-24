@@ -46,27 +46,31 @@
       /* harmony import */
 
 
-      var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! @angular/common/http */
-      "tk/3");
-      /* harmony import */
-
-
-      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/core */
       "fXoL");
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @angular/router */
       "tyNb");
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_6__);
       /* harmony import */
 
 
@@ -93,13 +97,12 @@
       "lpiM");
 
       var SolicitudesPage = /*#__PURE__*/function () {
-        function SolicitudesPage(modalController, router, menuController, http, us, lc, solServ) {
+        function SolicitudesPage(modalController, router, menuController, us, lc, solServ) {
           _classCallCheck(this, SolicitudesPage);
 
           this.modalController = modalController;
           this.router = router;
           this.menuController = menuController;
-          this.http = http;
           this.us = us;
           this.lc = lc;
           this.solServ = solServ;
@@ -120,7 +123,7 @@
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
             this.menuController.enable(true, 'profesional');
-            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+            this.headers = 'Bearer ' + this.grabbedUser.access_token;
             this.loadServices("1");
           }
         }, {
@@ -132,13 +135,14 @@
               message: "Cargando lista de servicios..."
             }).then(function (loadingEl) {
               loadingEl.present();
-
-              _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/supplier/requestservice/".concat(statusID), {
-                headers: _this2.headers
-              }).subscribe(function (resData) {
+              axios__WEBPACK_IMPORTED_MODULE_6___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/supplier/requestservice/".concat(statusID), {
+                headers: {
+                  Authorization: _this2.headers
+                }
+              }).then(function (resData) {
                 loadingEl.dismiss();
-                _this2.loadedServices = resData["data"];
-              }, function (err) {
+                _this2.loadedServices = resData.data.data;
+              })["catch"](function (err) {
                 console.log(err);
                 loadingEl.dismiss();
               });
@@ -203,23 +207,21 @@
 
       SolicitudesPage.ctorParameters = function () {
         return [{
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ModalController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"]
         }, {
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"]
-        }, {
-          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"]
         }, {
           type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
         }, {
           type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"]
         }];
       };
 
-      SolicitudesPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+      SolicitudesPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
         selector: 'app-solicitudes',
         template: _raw_loader_solicitudes_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_solicitudes_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
@@ -323,7 +325,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    \n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">SOLICITUDES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- title -->\n  <ion-grid fixed>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"11\" class=\"ion-text-left\">\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length > 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes las siguientes solicitudes por aceptar.</b>\n        </ion-text>\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length === 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no tienes solicitudes pendientes.</b>\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- solicitud card item -->\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedServices\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <ion-badge color=\"primary\" class=\"titleSelect ion-text-capitalize\">{{ service.categoryName }}</ion-badge>\n            <br>\n            <ion-text class=\"mainText\">\n              {{ service.adress }}\n            </ion-text>\n            <br>\n            <ion-text class=\"miniText ion-text-capitalize\" color=\"primary\">{{ service.description }}</ion-text>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"5\">\n          <ion-button expand=\"block\" shape=\"round\" color=\"success\" class=\"miniBtnTxt\" (click)=\"aceptarSolicitud(service.id)\">\n            <ion-icon slot=\"start\" name=\"checkmark\" class=\"iconSize\"></ion-icon>\n            ACEPTAR\n          </ion-button>\n          <ion-button expand=\"block\" fill=\"outline\" color=\"danger\" shape=\"round\" class=\"miniBtnTxt\" (click)=\"rechazarSolicitud(service.id)\">\n            <ion-icon slot=\"start\" name=\"close\" class=\"iconSize\"></ion-icon>\n            RECHAZAR\n          </ion-button>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- solicitud rechazada card item -->\n  <!-- <div class=\"prof-cont no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\"> -->\n\n        <!-- title -->\n        <!-- <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <ion-badge color=\"danger\" class=\"titleSelect\">Carpintería</ion-badge>&nbsp;\n            <ion-icon color=\"danger\" name=\"alert-circle\" class=\"iconS\"></ion-icon>\n            <br>\n            <ion-text class=\"mainText\">\n              Pasaje Estral Poniente<br>\n              666 Maipú, Chile\n            </ion-text>\n            <br>\n            <ion-text class=\"miniText\" color=\"danger\">\n              Cambio de chapas\n              <ion-icon name=\"calendar\" color=\"danger\" class=\"iconFix\"></ion-icon>\n              16 dic 2020\n            </ion-text>\n          </ion-text>\n        </ion-col> -->\n\n        <!-- rating -->\n        <!-- <ion-col size=\"5\">\n          <ion-button expand=\"block\" shape=\"round\" color=\"success\" class=\"miniBtnTxt\" (click)=\"aceptarSolicitud()\">\n            <ion-icon slot=\"start\" name=\"checkmark\" class=\"iconSize\"></ion-icon>\n            ACEPTAR\n          </ion-button>\n          <ion-button expand=\"block\" fill=\"outline\" color=\"danger\" shape=\"round\" class=\"miniBtnTxt\" (click)=\"rechazarSolicitud()\">\n            <ion-icon slot=\"start\" name=\"close\" class=\"iconSize\"></ion-icon>\n            RECHAZAR\n          </ion-button>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div> -->\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">SOLICITUDES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- title -->\n  <ion-grid fixed>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"11\" class=\"ion-text-left\">\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length > 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes\n            las siguientes solicitudes por aceptar.</b>\n        </ion-text>\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length === 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no\n            tienes solicitudes pendientes.</b>\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- solicitud card item -->\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedServices\">\n    <ion-item-sliding>\n      <ion-item-options side=\"start\">\n        <ion-item-option fill=\"outline\" color=\"danger\" (click)=\"rechazarSolicitud(service.id)\">\n          <ion-icon slot=\"start\" name=\"close\" class=\"iconSize\"></ion-icon> Rechazar\n        </ion-item-option>\n      </ion-item-options>\n\n      <ion-item button (click)=\"aceptarSolicitud(service.id)\">\n        <ion-grid>\n          <ion-row class=\"ion-align-items-center\">\n            <!-- title -->\n            <ion-col size=\"7\" class=\"ion-justify-content-center\">\n              <ion-text>\n                <ion-badge color=\"primary\" class=\"titleSelect ion-text-capitalize\">{{ service.categoryName }}\n                </ion-badge>\n                <br>\n                <ion-text class=\"mainText\">\n                  {{ service.adress }}\n                </ion-text>\n                <br>\n                <ion-text class=\"miniText ion-text-capitalize\" color=\"primary\">{{ service.description }}</ion-text>\n              </ion-text>\n            </ion-col>\n          </ion-row>\n        </ion-grid>\n      </ion-item>\n\n      <ion-item-options side=\"end\">\n        <ion-item-option color=\"success\" (click)=\"aceptarSolicitud(service.id)\">\n          <ion-icon slot=\"start\" name=\"checkmark\" class=\"iconSize\"></ion-icon> Aceptar\n        </ion-item-option>\n      </ion-item-options>\n    </ion-item-sliding>\n  </div>\n\n  <!-- solicitud rechazada card item -->\n  <!-- <div class=\"prof-cont no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\"> -->\n\n  <!-- title -->\n  <!-- <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <ion-badge color=\"danger\" class=\"titleSelect\">Carpintería</ion-badge>&nbsp;\n            <ion-icon color=\"danger\" name=\"alert-circle\" class=\"iconS\"></ion-icon>\n            <br>\n            <ion-text class=\"mainText\">\n              Pasaje Estral Poniente<br>\n              666 Maipú, Chile\n            </ion-text>\n            <br>\n            <ion-text class=\"miniText\" color=\"danger\">\n              Cambio de chapas\n              <ion-icon name=\"calendar\" color=\"danger\" class=\"iconFix\"></ion-icon>\n              16 dic 2020\n            </ion-text>\n          </ion-text>\n        </ion-col> -->\n\n  <!-- rating -->\n  <!-- <ion-col size=\"5\">\n          <ion-button expand=\"block\" shape=\"round\" color=\"success\" class=\"miniBtnTxt\" (click)=\"aceptarSolicitud()\">\n            <ion-icon slot=\"start\" name=\"checkmark\" class=\"iconSize\"></ion-icon>\n            ACEPTAR\n          </ion-button>\n          <ion-button expand=\"block\" fill=\"outline\" color=\"danger\" shape=\"round\" class=\"miniBtnTxt\" (click)=\"rechazarSolicitud()\">\n            <ion-icon slot=\"start\" name=\"close\" class=\"iconSize\"></ion-icon>\n            RECHAZAR\n          </ion-button>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div> -->\n\n</ion-content>";
       /***/
     },
 

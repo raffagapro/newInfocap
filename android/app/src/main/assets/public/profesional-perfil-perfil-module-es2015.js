@@ -115,6 +115,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/environments/environment */ "AytR");
 /* harmony import */ var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./success-modal/success-modal.component */ "yw4M");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! axios */ "vDqi");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
+
 
 
 
@@ -160,7 +163,7 @@ let PerfilPage = class PerfilPage {
             this.grabbedUser = user;
         });
         //api headers
-        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+        this.headers = 'Bearer ' + this.grabbedUser.access_token;
         // updates to the most current info from DB
         this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
         let phone1;
@@ -239,13 +242,12 @@ let PerfilPage = class PerfilPage {
             message: 'Alcualizando la informacion...'
         }).then(loadingEl => {
             loadingEl.present();
-            let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-            this.http.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account', modUser, { headers: headers })
-                .subscribe(resData => {
+            let headers = 'Bearer ' + this.grabbedUser.access_token;
+            axios__WEBPACK_IMPORTED_MODULE_12___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account', modUser, { headers: { Authorization: this.headers } }).then(resData => {
                 loadingEl.dismiss();
                 if (resData['code'] === 200) {
                     //update user controler
-                    this.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_8__["User"](this.grabbedUser.id, resData['data'].name, resData['data'].last_name, resData['data'].img_profile, resData['data'].email, resData['data'].phone1, resData['data'].phone2, this.grabbedUser.role, this.grabbedUser.access_token));
+                    this.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_8__["User"](this.grabbedUser.id, resData.data.data.name, resData.data.data.last_name, resData.data.data.img_profile, resData.data.data.email, resData.data.data.phone1, resData.data.data.phone2, this.grabbedUser.role, this.grabbedUser.access_token));
                     //resets values after succefull update
                     this.form.setValue({
                         name: this.form.value.name,
@@ -263,9 +265,9 @@ let PerfilPage = class PerfilPage {
                         modalEl.present();
                     });
                 }
-            }, e => {
+            }).catch(err => {
                 loadingEl.dismiss();
-                this.httpError = e['error'].message;
+                this.httpError = err['error'].message;
             });
         });
     }
@@ -312,8 +314,7 @@ let PerfilPage = class PerfilPage {
         this.form.patchValue({ image: imgFile });
         const formData = new FormData();
         formData.append('image', imgFile);
-        this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account/image', formData, { headers: this.headers })
-            .subscribe(resData => {
+        axios__WEBPACK_IMPORTED_MODULE_12___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account/image', formData, { headers: { Authorization: this.headers } }).then(resData => {
             this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
             this.modalController.create({
                 component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
@@ -321,7 +322,7 @@ let PerfilPage = class PerfilPage {
             }).then(modalEl => {
                 modalEl.present();
             });
-        }, err => {
+        }).catch(err => {
             console.log(err);
         });
     }

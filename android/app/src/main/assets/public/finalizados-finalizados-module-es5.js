@@ -119,53 +119,56 @@
       /* harmony import */
 
 
-      var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! @angular/common/http */
-      "tk/3");
-      /* harmony import */
-
-
-      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/core */
       "fXoL");
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @angular/router */
       "tyNb");
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
       /* harmony import */
 
 
-      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! src/app/services/solicitud.service */
       "rLtr");
       /* harmony import */
 
 
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
 
       var FinalizadosPage = /*#__PURE__*/function () {
-        function FinalizadosPage(router, menuController, http, us, lc, solServ) {
+        function FinalizadosPage(router, menuController, us, lc, solServ) {
           _classCallCheck(this, FinalizadosPage);
 
           this.router = router;
           this.menuController = menuController;
-          this.http = http;
           this.us = us;
           this.lc = lc;
           this.solServ = solServ;
@@ -181,7 +184,7 @@
 
             this.userSub = this.us.loggedUser.subscribe(function (user) {
               _this.grabbedUser = user;
-              _this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + _this.grabbedUser.access_token);
+              _this.headers = 'Bearer ' + _this.grabbedUser.access_token;
 
               _this.loadServices("5"); //5
 
@@ -204,20 +207,21 @@
               message: "Cargando lista de servicios..."
             }).then(function (loadingEl) {
               loadingEl.present();
-
-              _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/supplier/requestservice/".concat(statusID), {
-                headers: _this2.headers
-              }).subscribe(function (resData) {
+              axios__WEBPACK_IMPORTED_MODULE_9___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + "/supplier/requestservice/".concat(statusID), {
+                headers: {
+                  Authorization: _this2.headers
+                }
+              }).then(function (resData) {
                 loadingEl.dismiss();
 
                 if (statusID === "5") {
-                  _this2.loadedServices = resData["data"];
+                  _this2.loadedServices = resData.data.data;
                 }
 
                 if (statusID === "6") {
-                  _this2.paidServices = resData["data"];
+                  _this2.paidServices = resData.data.data;
                 }
-              }, function (err) {
+              })["catch"](function (err) {
                 console.log(err);
                 loadingEl.dismiss();
               });
@@ -258,21 +262,19 @@
 
       FinalizadosPage.ctorParameters = function () {
         return [{
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"]
         }, {
-          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"]
         }, {
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
-        }, {
-          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"]
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__["SolicitudService"]
         }];
       };
 
-      FinalizadosPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+      FinalizadosPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
         selector: 'app-finalizados',
         template: _raw_loader_finalizados_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_finalizados_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]

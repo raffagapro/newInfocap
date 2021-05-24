@@ -388,7 +388,7 @@
           key: "formatDate",
           value: function formatDate(date) {
             var dateFormat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY-MM-DD';
-            return moment__WEBPACK_IMPORTED_MODULE_8__(date, dateFormat).format('DD MMMM YYYY');
+            return moment__WEBPACK_IMPORTED_MODULE_8__(date, dateFormat).format('dddd D [de] MMMM [de] YYYY');
           }
         }, {
           key: "formatTime",
