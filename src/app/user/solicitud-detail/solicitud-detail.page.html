@@ -113,7 +113,8 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_money.svg" class="main-color iconFix"></ion-icon>
-        <ion-text class="main-color subText"> ${{getServiceCost()}} USD</ion-text>
+        <ion-text class="main-color subText" *ngIf="loadedService && loadedService.request_cost.length > 0"> ${{getServiceCost()}} USD</ion-text>
+        <ion-text class="main-color subText" *ngIf="loadedService && loadedService.request_cost.length == 0"> No se ha asignado un Costo</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>

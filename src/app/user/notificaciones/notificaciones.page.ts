@@ -77,7 +77,7 @@ export class NotificacionesPage implements OnInit {
           }
         }
       );
-      console.log(response);
+      
       let { data } = response;
       let { code } = data;
       if (code !== 200) {

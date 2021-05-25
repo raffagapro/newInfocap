@@ -213,7 +213,6 @@ export class MapaPage implements OnInit, OnDestroy {
           }
         }
       );
-      console.log(response)
       this.comunas = response.data.data;
     }catch(error){
       console.log(error)
