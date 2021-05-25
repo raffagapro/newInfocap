@@ -9,6 +9,7 @@ export class User {
     public phone2: string,
     public role: string,
     public access_token: string,
+    public notificationCount?: number
   ) { }
 }
 

@@ -12,6 +12,7 @@ import { UserService } from './services/user.service';
 import { User, UserRoles } from './model/user.model';
 import { API, PHONE_PREFIX } from 'src/environments/environment';
 import { IMAGE_URL_BLANK } from 'src/shared/constants';
+import { Notification } from 'src/shared/types/Notification';
 import axios from 'axios'
 
 @Component({
@@ -26,6 +27,8 @@ export class AppComponent {
   logged: Observable<boolean>;
   user: User;
   notificationCount: 0
+  notifications: Notification[] = [];
+  notificationUpdate;
 
   constructor(
     private platform: Platform,
@@ -54,6 +57,10 @@ export class AppComponent {
     });
   }
 
+  ngOnDestroy() {
+    clearTimeout(this.notificationUpdate);
+  }
+
   private setUser() {
     this.logged.subscribe(v => {
       if (v) {
@@ -71,6 +78,7 @@ export class AppComponent {
               this.router.navigate(['/profesional/home']);
             }
           }
+          this.loadNotifications();
         })
       }
     })
@@ -96,6 +104,25 @@ export class AppComponent {
 
   openWhatsapp() {
     window.open(`https://api.whatsapp.com/send?phone=${this.whatsappPhone}`);
+  }
+
+  async loadNotifications() {
+    try {
+      let response = await axios.get(
+        `${API}/client/notification`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.user.access_token}`
+          }
+        }
+      );
+      const { data } = response;
+      const { data: notificationsData } = data;
+      this.notifications = notificationsData;
+      this.notificationCount = notificationsData.filter((notification: Notification) => !notification.viewed).length;
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
 }

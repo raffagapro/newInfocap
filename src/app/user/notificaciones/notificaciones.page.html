@@ -11,21 +11,25 @@
 
 <ion-content>
 
+  <div class="text-center" *ngIf="notifications.length === 0">
+    <p>No se tienen notificaciones</p>
+  </div>
+
   <!-- notificacion item -->
-  <div class="prof-cont mt-25 no-border">
-    <ion-grid>
+  <div class="prof-cont mt-25 no-border" *ngFor="let notification of notifications" >
+    <ion-grid (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id)">
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
         <ion-col size="7" class="ion-justify-content-center">
           <ion-text>
             <!-- <span class="titleSelect main-color">Cerrajería </span><br> -->
-            <ion-badge color="primary" class="titleSelect">Cerrajería</ion-badge>&nbsp;
+            <ion-badge color="primary" class="titleSelect">{{notification.category}}</ion-badge>&nbsp;
             <ion-icon color="primary" src="/assets/icon/ic_date_range.svg" class="icon-size"></ion-icon><br>
             <span class="textSelect">
-              Irving Castillo ha aceptado el costo definido del servicio.
+              {{notification.professionalName}} {{notification.motive}}
             </span><br>
-            <small class="main-color">Cambio de chapas</small>
+            <!--<small class="main-color">Cambio de chapas</small>-->
           </ion-text>
         </ion-col>
         <ion-col size="1"></ion-col>
@@ -33,12 +37,12 @@
         <!-- rating -->
         <ion-col size="4" class="ion-text-center">
           <div class="ion-text-end">
-            <small class="ticket">#100091234</small>
+            <small class="ticket">#{{notification.ticket_number}}</small>
           </div>
           <ion-text>
-            <small class="ratingText main-color ion-text-center">
-              16 dic 2020
-            </small>
+            <p class="ratingText main-color">
+              hace {{notification.time}}
+            </p>
           </ion-text>
         </ion-col>
 
@@ -47,14 +51,13 @@
   </div>
 
   <!-- notificacion item -->
+  <!--
   <div class="prof-cont mt-25 no-border">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
-        <!-- title -->
         <ion-col size="7" class="ion-justify-content-center">
           <ion-text>
-            <!-- <span class="titleSelect main-color">Cerrajería </span><br> -->
             <ion-badge color="primary" class="titleSelect">Soldadura</ion-badge>&nbsp;
             <ion-icon color="medium" src="/assets/icon/ic_engine_disabled.svg" class="icon-size"></ion-icon><br>
             <span class="textSelect">
@@ -65,7 +68,6 @@
         </ion-col>
         <ion-col size="1"></ion-col>
 
-        <!-- rating -->
         <ion-col size="4" class="ion-text-center">
           <div class="ion-text-end">
             <small class="ticket">#100091234</small>
@@ -80,16 +82,16 @@
       </ion-row>
     </ion-grid>
   </div>
+  -->
 
   <!-- notificacion item -->
+  <!--
   <div class="prof-cont mt-25 no-border">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
-        <!-- title -->
         <ion-col size="7" class="ion-justify-content-center">
           <ion-text>
-            <!-- <span class="titleSelect main-color">Cerrajería </span><br> -->
             <ion-badge color="danger" class="titleSelect">Cerrajería</ion-badge>&nbsp;
             <ion-icon color="danger" name="alert-circle" class="icon-size"></ion-icon><br>
             <span class="textSelect">
@@ -100,7 +102,6 @@
         </ion-col>
         <ion-col size="1"></ion-col>
 
-        <!-- rating -->
         <ion-col size="4" class="ion-text-center">
           <div class="ion-text-end">
             <small class="ticket">#100091234</small>
@@ -115,5 +116,6 @@
       </ion-row>
     </ion-grid>
   </div>
+  -->
 
 </ion-content>
