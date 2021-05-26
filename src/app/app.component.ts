@@ -77,8 +77,8 @@ export class AppComponent {
               })
               this.router.navigate(['/profesional/home']);
             }
+            this.loadNotifications();
           }
-          this.loadNotifications();
         })
       }
     })

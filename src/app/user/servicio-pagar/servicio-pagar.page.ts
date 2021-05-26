@@ -63,6 +63,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
       this.grabbedUser = user;
       this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
       this.serviceId = this.solServ.solicitud.solicitudID;
+      this.loadPaymentTypes();
     });
   }
 

@@ -39,6 +39,29 @@ export class ServicioPagarFormaPage implements OnInit {
     this.menuController.open();
   }
 
+  async createPayment() {
+    try {
+      let body = {
+        request_service_id: 1,
+        payment_type_id: 1,
+        grossamount: 1,
+        comment: '',
+      }
+      let response = await axios.post(
+        `${API}/client/payment`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${this.user.access_token}`
+          }
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   submitPayment() {
     this.modalController.create({
       component: PagoExitosoModalComponent,
