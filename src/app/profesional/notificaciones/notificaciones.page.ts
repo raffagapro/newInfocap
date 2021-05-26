@@ -4,10 +4,8 @@ import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
-
+import { Notification } from 'src/shared/types/Notification';
 import axios from 'axios'
-
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-notificaciones',
@@ -19,34 +17,52 @@ export class NotificacionesPage implements OnInit {
   grabbedUser: User;
   userSub: Subscription;
   headers: String;
-  loadedServices = [];
+  notifications: Notification[] = [];
 
   constructor(
     private menuController: MenuController,
     private lc: LoadingController,
     private us: UserService,
+    private loadingController: LoadingController,
   ) { }
 
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
       this.headers = 'Bearer ' + this.grabbedUser.access_token;
-      this.loadServices()
+      this.loadNotifications()
     });
   }
 
-  loadServices() {
-    this.lc.create({
-      message: "Cargando lista de servicios..."
-    }).then(loadingEl => {
-      loadingEl.present();
-      axios.get(API + '/supplier/notification', { headers: { Authorization: this.headers } }).then(resData => {
-        this.loadedServices = resData.data.data
-        loadingEl.dismiss()
-      }).catch(err => {
-        loadingEl.dismiss()
-      })
-    });
+  async loadNotifications() {
+    let loader = await this.loadingController.create({ message: 'Cargando tus notificaciones...' });
+    loader.present();
+    try {
+      let response = await axios.get(
+        `${API}/supplier/notification`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.grabbedUser.access_token}`
+          }
+        }
+      );
+      const { data } = response;
+      const { data: notificationsData } = data;
+      this.notifications = notificationsData;
+    } catch (error) {
+      console.log(error)
+    } finally {
+      loader.dismiss();
+    }
+  }
+
+  async goToRequestDetail(solicitudId: string, notificationId: number, redirectToFinished: boolean = false) {
+    // this.requestService.clearSolicitud();
+    // this.requestService.setServiceID(solicitudId);
+
+    // this.router.navigate(['/profesional/solicitudes/solicitudes-detail']);
+    // this.router.navigate(['/user/solicitud-status']);
+
   }
 
   ionViewWillEnter() {

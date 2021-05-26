@@ -12,6 +12,7 @@ import axios from 'axios'
 import * as moment from 'moment';
 
 import { API } from 'src/environments/environment';
+import { VisitaTecnicaService } from 'src/app/services/visita-tecnica.service';
 
 @Component({
   selector: 'app-visita-tecnica',
@@ -22,6 +23,7 @@ export class VisitaTecnicaPage implements OnInit {
   grabbedUser: User;
   userSub: Subscription;
   headers: String;
+
   minDate = moment().format('YYYY-MM-DD')
   slideOptions = {
     initialSlide: 0,
@@ -49,6 +51,7 @@ export class VisitaTecnicaPage implements OnInit {
     private us: UserService,
     private lc: LoadingController,
     private solServ: SolicitudService,
+    private visitaT: VisitaTecnicaService
   ) { }
 
   ngOnInit() {
@@ -70,8 +73,6 @@ export class VisitaTecnicaPage implements OnInit {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
       this.headers = 'Bearer ' + this.grabbedUser.access_token;
-
-
     });
 
     this.lc.create({
@@ -109,31 +110,16 @@ export class VisitaTecnicaPage implements OnInit {
     let date = moment(this.formVisitaTecnica.value.requiredDate).format('l');
     let startTime = moment(this.formVisitaTecnica.value.startTime).format('LT');
     let endTime = moment(this.formVisitaTecnica.value.endTime).format('LT');
-    let new_data = {
-      visit_date: date,
-      visit_hours: `${startTime} - ${endTime}`
-    }
-    this.lc.create({
-      message: "Cargando informacion del servicio..."
-    }).then(loadingEl => {
-      loadingEl.present();
-      axios.put(API + `/supplier/visit/requestservice/${this.solServ.solicitud.solicitudID}`, new_data, { headers: { Authorization: this.headers } }).then(resData => {
-        this.modalController.create({
-          component: ConfirmVisitaComponent,
-          cssClass: 'modalSE',
-        }).then(modalEl => {
-          modalEl.present();
-          loadingEl.dismiss();
-        }).catch(e => {
-          loadingEl.dismiss();
-        });
-      }).catch(err => {
-        console.log(err)
-        this.lc.dismiss();
-      })
-    }).catch(err => {
-      this.lc.dismiss();
-    })
+    this.visitaT.setDate(date)
+    this.visitaT.setHours(`${startTime} - ${endTime}`)
+    
+    this.modalController.create({
+      component: ConfirmVisitaComponent,
+      cssClass: 'modalSE',
+    }).then(modalEl => {
+      modalEl.present();
+    }).catch(e => {
+    });
   }
 
 }

@@ -69,15 +69,12 @@ export class AppComponent {
           if (!this.firstLoad && user.id !== null) {
             this.firstLoad = true;
             if (this.user.role === UserRoles.USER) {
+              this.loadNotifications('client');
               this.router.navigate(['/user/home']);
             } else {
-              var header = 'Bearer ' + this.user.access_token
-              axios.get(API + '/supplier/notification', { headers: { Authorization: header } }).then(resData => {
-                this.notificationCount = resData.data.data.length
-              })
+              this.loadNotifications('supplier');
               this.router.navigate(['/profesional/home']);
             }
-            this.loadNotifications();
           }
         })
       }
@@ -106,10 +103,10 @@ export class AppComponent {
     window.open(`https://api.whatsapp.com/send?phone=${this.whatsappPhone}`);
   }
 
-  async loadNotifications() {
+  async loadNotifications(type) {
     try {
       let response = await axios.get(
-        `${API}/client/notification`,
+        `${API}/${type}/notification`,
         {
           headers: {
             Authorization: `Bearer ${this.user.access_token}`

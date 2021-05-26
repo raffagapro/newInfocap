@@ -62,7 +62,7 @@
 
   <ion-row [hidden]="viewMood !== 'cal'">
     <ion-col size="11" class="ion-text-left">
-      <ion-text color="danger" class="title"><b>Tienes las siguientes visitas de evaluación agendadas.</b></ion-text>
+      <ion-text color="danger" class="title"><b>Tienes las siguientes visitas de valoración agendadas.</b></ion-text>
     </ion-col>
     <ion-col size="1"></ion-col>
   </ion-row>
@@ -206,10 +206,10 @@
             <ion-badge color="primary" class="badge-text">{{ service.categoryName }}</ion-badge>
             <br>
             <small>
-              <ion-icon name="calendar" color="primary" class="iconFix"></ion-icon>
-              {{service.date_required}}
-              <ion-icon name="time" color="primary" class="iconFix"></ion-icon>
-              {{ diferenceHour(service.hours) }}h
+              <ion-icon src="/assets/icon/ic_date_range.svg" color="primary" class="iconFix"></ion-icon>
+              {{ formatDate(service.date_required) }}
+              <ion-icon src="/assets/icon/ic_schedule.svg" color="primary" class="iconFix"></ion-icon>
+              {{ formatTime(service.hours) }}
             </small>
           </ion-text>
         </ion-col>
@@ -257,10 +257,10 @@
             <ion-badge color="primary" class="badge-text">{{ service.categoryName }}</ion-badge>
             <br>
             <small>
-              <ion-icon name="calendar" color="primary" class="iconFix"></ion-icon>
-              {{service.date_required}}
-              <ion-icon name="time" color="primary" class="iconFix"></ion-icon>
-              {{ formatHour(service.hours) }}h
+              <ion-icon src="/assets/icon/ic_date_range.svg" color="primary" class="iconFix"></ion-icon>
+              {{ formatDate(service.date_required) }}
+              <ion-icon src="/assets/icon/ic_schedule.svg" color="primary" class="iconFix"></ion-icon>
+              {{ formatTime(service.hours) }}
             </small>
           </ion-text>
         </ion-col>
@@ -268,7 +268,7 @@
         <!-- rating -->
         <ion-col size="4">
           <ion-text>
-            <p class="ticketText ion-text-center ion-no-margin">Solicitud #{{service.ticket_number}}</p>
+            <p class="ticket ion-text-center">Solicitud #{{service.ticket_number}}</p>
             <!-- <ion-button expand="block" fill="outline" shape="round" class="miniBtnTxt" (click)="map()">
               <ion-icon slot="start" name="map"></ion-icon>
               VER MAPA

@@ -142,12 +142,12 @@
 
           <!-- Notificaciones -->
           <ion-item lines="none" routerLink="/profesional/notificaciones">
-            <ion-icon slot="start" src="/assets/icon/ic_notifications.svg" color="primary"></ion-icon>
+            <ion-icon slot="start" name="notifications-outline" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">
               Notificaciones
-              <div *nfIf="notificationCount > 0" class="locate-cont">
+              <div *ngIf="notificationCount > 0" class="locate-cont">
                 <ion-text color="light" class="rating-text">
-                  {{ notificationCount }}
+                  +{{ notificationCount }}
                 </ion-text>
               </div>
             </ion-label>

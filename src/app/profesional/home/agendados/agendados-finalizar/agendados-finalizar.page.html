@@ -124,7 +124,7 @@
       <ion-col size="3" class="ion-text-center">
         <ion-text class="main-color title"><b>Costo</b></ion-text>
         <br>
-        <ion-text class="subMiniTex ion-padding-top">20.00</ion-text>
+        <ion-text class="subMiniTex ion-padding-top">{{ sumInfo(aditionalCosto, loadedInfo.request_cost) }}</ion-text>
       </ion-col>
       <ion-col size="1">
         <ion-icon color="danger" name="add-circle" class="addIcon" (click)="extraCharge()"></ion-icon>

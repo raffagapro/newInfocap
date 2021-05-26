@@ -38,7 +38,6 @@
       <ion-col>
         <ion-avatar class="ion-margin-start profileImg">
           <ion-img src="{{ !grabbedUser || grabbedUser.img_profile === imageBlank ? 'assets/images/avatar.png' : grabbedUser.img_profile }}"></ion-img>
-          <!-- <ion-img *ngIf="grabbedUser !== undefined" src="http://workintest.herokuapp.com/{{ user.img_profile }}"></ion-img> -->
         </ion-avatar>
       </ion-col>
     </ion-row>
@@ -135,26 +134,7 @@
       <ion-row>
         <ion-col size="12">
           <ion-item>
-            <ion-label class="main-color" position="floating">
-              <ion-icon src="/assets/icon/ic_date_range.svg" slot="start" class="main-color"></ion-icon>
-              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Días laborales</ion-text>
-            </ion-label>
-            <ion-select
-              interface="alert"
-              multiple="true"
-              cancelText="Cancelar"
-              (ionChange)="onDaysChange($event)"
-              [value]="selectedDays"
-              formControlName="workDays"
-              >
-              <ion-select-option value="l" class="main-color ion-text-center">Lunes</ion-select-option>
-              <ion-select-option value="m" class="main-color ion-text-center">Martes</ion-select-option>
-              <ion-select-option value="mi" class="main-color ion-text-center">Miercoles</ion-select-option>
-              <ion-select-option value="j" class="main-color ion-text-center">Jueves</ion-select-option>
-              <ion-select-option value="v" class="main-color ion-text-center">Viernes</ion-select-option>
-              <ion-select-option value="s" class="main-color ion-text-center">Sabado</ion-select-option>
-              <ion-select-option value="d" class="main-color ion-text-center">Domingo</ion-select-option>
-            </ion-select>
+            <ion-input formControlName="workDays" placeholder="Días laborales" value="clear me"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -216,7 +196,7 @@
         <ion-col size="7" offset="1">
           <ion-slides>
             <!-- default slide -->
-            <ion-slide *ngIf="loadedImgList.length === 0">
+            <ion-slide *ngIf="proCategoryProfile.images && proCategoryProfile.images.length === 0">
               <ion-img 
                 src="/assets/images/unavailable-image.png"
                 class="imgSlide">
@@ -224,7 +204,7 @@
             </ion-slide>
 
             <!-- loaded slides  -->
-            <ion-slide *ngFor="let image of loadedImgList">
+            <ion-slide *ngFor="let image of proCategoryProfile.images">
               <ion-img 
                 src="{{ image.image }}"
                 class="imgSlide">

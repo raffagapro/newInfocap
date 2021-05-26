@@ -55,22 +55,12 @@
     </ion-row>
 
     <!-- Slider -->
-    <ion-row class="minusMargin">
+    <ion-row class="mt-12">
       <ion-col size="12">
         <ion-slides [options]="slideOptions">
-          <!-- slide -->
-          <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide" />
-          </ion-slide>
 
-          <!-- slide -->
-          <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide" />
-          </ion-slide>
-
-          <!-- slide -->
-          <ion-slide>
-            <img src="/assets/images/unavailable-image.png" class="imgSlide" />
+          <ion-slide *ngFor="let image of loadedInfo.images">
+            <img src="{{ image.image }}" class="imgSlide">
           </ion-slide>
 
         </ion-slides>

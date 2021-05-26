@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
+import axios from 'axios'
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/model/user.model';
+import { SolicitudService } from 'src/app/services/solicitud.service';
+import { UserService } from 'src/app/services/user.service';
+import { VisitaTecnicaService } from 'src/app/services/visita-tecnica.service';
+import { API } from 'src/environments/environment';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-confirm-visita',
@@ -8,13 +16,34 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./confirm-visita.component.scss'],
 })
 export class ConfirmVisitaComponent implements OnInit {
+  grabbedUser: User;
+  userSub: Subscription;
+  headers: string;
+  visita_tecnica: {
+    visit_date: string,
+    visit_hours: string
+  }
 
   constructor(
     private modalController: ModalController,
     private router: Router,
+    private lc: LoadingController,
+    private solServ: SolicitudService,
+    private visitaT: VisitaTecnicaService,
+    private us: UserService,
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userSub = this.us.loggedUser.subscribe(user => {
+      this.grabbedUser = user;
+      this.headers = 'Bearer ' + this.grabbedUser.access_token;
+    });
+
+    this.visita_tecnica = {
+      visit_date: this.visitaT.visitaTecnica.date_required,
+      visit_hours: this.visitaT.visitaTecnica.hours
+    }
+  }
 
   // cancelSolicitud(){
   //   this.modalController.dismiss();
@@ -31,9 +60,27 @@ export class ConfirmVisitaComponent implements OnInit {
     // this.router.navigate(['/profesional/home/home-tabs/finalizados/']);
   }
 
+  formatDate(date: string){
+    return moment(date, 'DD/M/YYYY').format('dddd D [de] MMMM [de] YYYY');
+  }
+
   confirmVisita(){
     this.modalController.dismiss();
-    this.router.navigate(['/profesional/home/home-tabs/agendados']);
+    this.lc.create({
+      message: "Cargando informacion del servicio..."
+    }).then(loadingEl => {
+      loadingEl.present();
+      axios.put(API + `/supplier/visit/requestservice/${this.solServ.solicitud.solicitudID}`, this.visita_tecnica, { headers: { Authorization: this.headers } }).then(resData => {
+        this.router.navigate(['/profesional/home/home-tabs/agendados']);
+        this.visitaT.clearSolicitud()
+        this.lc.dismiss();
+      }).catch(err => {
+        console.log(err)
+        this.lc.dismiss();
+      })
+    }).catch(err => {
+      this.lc.dismiss();
+    })
   }
 
 }

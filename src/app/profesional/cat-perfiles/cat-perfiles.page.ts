@@ -65,6 +65,13 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   profilePhoto = true;
   searchValue: string;
 
+  proCategoryProfile = {
+    images: [],
+    communes: null,
+    category_id: null,
+    transports: null
+  };
+
   constructor(
     private lc: LoadingController,
     private us: UserService,
@@ -149,8 +156,10 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
             modalEl.present();
           });
         } else {
-          this.profCategories = resData['data'];
+          this.profCategories = resData.data.data;
+          this.proCategoryProfile =  resData.data.data[0];
           this.selectedProPerfil = this.profCategories[0].id;
+          this.selectedCatId = this.profCategories[0].category_id
           this.updateForm(this.profCategories[0]);
         }
       }
@@ -221,8 +230,8 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       transport: info.transport_id,
       sHour: sHour,
       eHour: eHour,
-      workDays: zDays,
-      comuna: +info.commune_id,
+      workDays: info.work_days,
+      comuna: info.commune_id,
       descOffice: descOff
     })
   }
@@ -279,21 +288,20 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   }
 
   onUpdateCatProfile() {
-    let strDays = this.selectedDays.join('-');
     let aComunas = [];
     let packedComunas;
-    this.selectedComunas.forEach(c => {
+    this.proCategoryProfile.communes.forEach(c => {
       aComunas.push(c.id);
     });
     packedComunas = aComunas.join(", ");
     const body = {
-      category_id: this.selectedCatId.toString(),
+      category_id: this.selectedCatId,
       communes: packedComunas,
       transport_id: this.selectedTransport,
       descProf: this.form.value.descProf,
       description: this.form.value.descOffice,
       hours: this.form.value.sHour + '/' + this.form.value.eHour,
-      work_days: strDays,
+      work_days: this.form.value.workDays,
     }
 
     this.lc.create({
@@ -378,16 +386,12 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
           console.log(err)
           loadingEl.dismiss();
         })
-        //if we are not loading a profile img
       } else {
-        // const body = {
-        //   images:[imgFile]
-        // }
-        let strDays = this.selectedDays.join('-');
         const formData = new FormData();
+        console.log(this.selectedCatId)
         formData.append('images[]', imgFile);
-        formData.append('category_id', this.selectedCatId.toString());
-        formData.append('transport_id', this.selectedTransport);
+        formData.append('category_id', this.proCategoryProfile.category_id);
+        formData.append('transport_id', this.proCategoryProfile.transports);
         // formData.append('communes', this.selectedComunas;
         axios.post(API + `/supplier/profession/${this.selectedProPerfil}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
           loadingEl.dismiss();

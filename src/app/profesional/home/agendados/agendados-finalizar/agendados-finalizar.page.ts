@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -8,6 +8,8 @@ import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { ConfirmSuccessModalComponent } from './confirm-success-modal/confirm-success-modal.component';
 import axios from 'axios'
+import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
+import { AdicionalServiceService } from 'src/app/services/adicional-service.service';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -39,6 +41,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
   headers: String;
+  useInputPicker = false;
   loadedInfo = {
     img_client_profile: null,
     ticket_number: null,
@@ -49,8 +52,11 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     description: null,
     images: null,
     categoryName: null,
-    clientPhone1: null
+    clientPhone1: null,
+    request_cost: 0
   };
+
+  @ViewChild('hiddenImgInput') hiddenImgInputRef: ElementRef<HTMLInputElement>;
 
   loadedImagesDisplay = [];
   loadedImages = [];
@@ -60,6 +66,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     slidesPerView: 2,
     autoplay: true
   };
+  aditionalCosto = 0
 
   categories = []
 
@@ -70,6 +77,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     private solServ: SolicitudService,
     private us: UserService,
     private lc: LoadingController,
+    private adicional: AdicionalServiceService,
   ) { }
 
   ngOnInit() {
@@ -84,6 +92,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
       axios.get(API + `/supplier/categories`, { headers: { Authorization: this.headers } }).then(resData => {
         this.categories = resData.data.data;
       })
+    this.aditionalCosto = this.adicional.adicional.cost || 0
 
       axios.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
@@ -97,6 +106,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
         this.loadedInfo.ticket_number = resData.data.data.ticket_number;
         this.loadedInfo.categoryName = resData.data.data.categoryName;
         this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
+        this.loadedInfo.request_cost = resData.data.data.request_cost[0].amount_suplier
       }).catch(err => {
         console.log(err)
         loadingEl.dismiss();
@@ -163,13 +173,34 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     fr.readAsDataURL((e.target as HTMLInputElement).files[0]);
   }
 
+  onLoadImg() {
+    if (!Capacitor.isPluginAvailable('Camera') || this.useInputPicker) {
+      this.hiddenImgInputRef.nativeElement.click();
+      return;
+    }
+    Plugins.Camera.getPhoto({
+      quality: 25,
+      source: CameraSource.Prompt,
+      correctOrientation: true,
+      height: 150,
+      // width: 200,
+      resultType: CameraResultType.DataUrl,
+      promptLabelPhoto: 'Fotos',
+      promptLabelPicture: 'Camara',
+      promptLabelCancel: 'Cancelar'
+    }).then(image => {
+      this.saveImgToApi(image.dataUrl);
+    }).catch(e => {
+      console.log(e);
+    });
+  }
+
   async saveImgToApi(imageData: string | File) {
     let imgFile;
     if (typeof imageData === 'string') {
       try {
         imgFile = base64toBlob(imageData.replace('data:image/jpeg;base64,', ''), 'image/jpeg');
       } catch (e) {
-        console.log(e);
         return;
       }
     } else {
@@ -185,5 +216,9 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
+  }
+
+  sumInfo(num1, num2) {
+    return (parseFloat(num1) +  parseFloat(num2)).toFixed(2)
   }
 }

@@ -167,6 +167,12 @@ export class ServiciosAdicionalesPage implements OnInit {
     }
     this.loadedImages.push(imgFile);
     this.loadedImagesDisplay.push(URL.createObjectURL(imgFile));
+
+    this.formAdicional.patchValue({ image: imgFile })
+    const formData = new FormData();
+    formData.append('image', imgFile);
+
+    axios.post(API + '/account/image', formData, { headers: { Authorization: this.headers } })
   }
 
   ionViewWillEnter() {
@@ -196,6 +202,7 @@ export class ServiciosAdicionalesPage implements OnInit {
 
       axios.post(API + '/supplier/additionalrequest', formData, { headers: { Authorization: this.headers } } ).then(resData => {
         this.router.navigate(['profesional/agendados/agendados-finalizar']);
+
         loadingEl.dismiss();
       }).catch(err => {
         loadingEl.dismiss();
