@@ -211,21 +211,58 @@
       /* harmony import */
 
 
-      var _pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+      /* harmony import */
+
+
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! src/app/services/solicitud.service */
+      "rLtr");
+      /* harmony import */
+
+
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! src/app/services/user.service */
+      "qfBg");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
+      /* harmony import */
+
+
+      var _pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! ./pago-exitoso-modal/pago-exitoso-modal.component */
       "2dcQ");
 
       var ServicioPagarFormaPage = /*#__PURE__*/function () {
-        function ServicioPagarFormaPage(modalController, menuController) {
+        function ServicioPagarFormaPage(modalController, menuController, loadingController, userService, solServ) {
           _classCallCheck(this, ServicioPagarFormaPage);
 
           this.modalController = modalController;
           this.menuController = menuController;
+          this.loadingController = loadingController;
+          this.userService = userService;
+          this.solServ = solServ;
         }
 
         _createClass(ServicioPagarFormaPage, [{
           key: "ngOnInit",
-          value: function ngOnInit() {}
+          value: function ngOnInit() {
+            var _this = this;
+
+            this.userSubscription = this.userService.loggedUser.subscribe(function (user) {
+              _this.user = user;
+            });
+          }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
@@ -237,10 +274,52 @@
             this.menuController.open();
           }
         }, {
+          key: "createPayment",
+          value: function createPayment() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var body, response;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.prev = 0;
+                      body = {
+                        request_service_id: 1,
+                        payment_type_id: 1,
+                        grossamount: 1,
+                        comment: ''
+                      };
+                      _context.next = 4;
+                      return axios__WEBPACK_IMPORTED_MODULE_5___default.a.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"], "/client/payment"), body, {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.user.access_token)
+                        }
+                      });
+
+                    case 4:
+                      response = _context.sent;
+                      console.log(response);
+                      _context.next = 11;
+                      break;
+
+                    case 8:
+                      _context.prev = 8;
+                      _context.t0 = _context["catch"](0);
+                      console.log(_context.t0);
+
+                    case 11:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this, [[0, 8]]);
+            }));
+          }
+        }, {
           key: "submitPayment",
           value: function submitPayment() {
             this.modalController.create({
-              component: _pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_5__["PagoExitosoModalComponent"],
+              component: _pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_9__["PagoExitosoModalComponent"],
               cssClass: 'modalSuccess'
             }).then(function (modalEl) {
               modalEl.present();
@@ -256,6 +335,12 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
+        }, {
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"]
+        }, {
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__["SolicitudService"]
         }];
       };
 

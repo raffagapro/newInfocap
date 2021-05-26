@@ -203,19 +203,29 @@
       /* harmony import */
 
 
-      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
+      /* harmony import */
+
+
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! src/app/services/solicitud.service */
       "rLtr");
       /* harmony import */
 
 
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
 
@@ -250,8 +260,11 @@
             supplier_id: null,
             ticket_number: null,
             user_client_id: null,
-            work_days: null
+            work_days: null,
+            request_cost: []
           };
+          this.selectedButton = 'credit';
+          this.paymentTypes = [];
         }
 
         _createClass(ServicioPagarPage, [{
@@ -261,20 +274,61 @@
 
             this.userSub = this.us.loggedUser.subscribe(function (user) {
               _this.grabbedUser = user;
+              _this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + _this.grabbedUser.access_token);
+              _this.serviceId = _this.solServ.solicitud.solicitudID;
+
+              _this.loadPaymentTypes();
             });
           }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
             this.menuController.enable(true, 'user');
-            this.menuController.enable(true, 'user');
-            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-            this.serviceId = this.solServ.solicitud.solicitudID;
-            this.loadService(this.solServ.solicitud.solicitudID);
+          }
+        }, {
+          key: "loadPaymentTypes",
+          value: function loadPaymentTypes() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var response;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.prev = 0;
+                      _context.next = 3;
+                      return axios__WEBPACK_IMPORTED_MODULE_7___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/payments/type"), {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.grabbedUser.access_token)
+                        }
+                      });
+
+                    case 3:
+                      response = _context.sent;
+                      this.paymentTypes = response.data.data;
+                      _context.next = 10;
+                      break;
+
+                    case 7:
+                      _context.prev = 7;
+                      _context.t0 = _context["catch"](0);
+                      console.log(_context.t0);
+
+                    case 10:
+                      _context.prev = 10;
+                      this.loadService();
+                      return _context.finish(10);
+
+                    case 13:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this, [[0, 7, 10, 13]]);
+            }));
           }
         }, {
           key: "loadService",
-          value: function loadService(solicitudId) {
+          value: function loadService() {
             var _this2 = this;
 
             this.lc.create({
@@ -282,7 +336,7 @@
             }).then(function (loadingEl) {
               loadingEl.present();
 
-              _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/client/requestservice/".concat(solicitudId), {
+              _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + "/client/requestservice/".concat(_this2.solServ.solicitud.solicitudID), {
                 headers: _this2.headers
               }).subscribe(function (resData) {
                 loadingEl.dismiss();
@@ -293,11 +347,112 @@
                 var worDate = _this2.loadedService.created_date.split(" ");
 
                 _this2.wDate = worDate[0];
+
+                if (_this2.loadedService.request_cost.length > 0) {
+                  var firstCost = _this2.loadedService.request_cost[0];
+
+                  var paymentType = _this2.paymentTypes.find(function (paymentType) {
+                    return paymentType.id === firstCost.payment_type_id;
+                  });
+
+                  if (paymentType.name === 'Efectivo') {
+                    _this2.selectedButton = 'cash';
+                  } else {
+                    _this2.selectedButton = 'credit';
+                  }
+                }
+
+                _this2.loadCosts();
               }, function (err) {
                 loadingEl.dismiss();
                 console.log(err);
               });
             });
+          }
+        }, {
+          key: "loadCosts",
+          value: function loadCosts() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var loader, response, data;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.lc.create({
+                        message: 'Consultando información...'
+                      });
+
+                    case 2:
+                      loader = _context2.sent;
+                      loader.present();
+                      _context2.prev = 4;
+                      _context2.next = 7;
+                      return axios__WEBPACK_IMPORTED_MODULE_7___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/client/detailcostrequest/").concat(this.solServ.solicitud.solicitudID), {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.grabbedUser.access_token)
+                        }
+                      });
+
+                    case 7:
+                      response = _context2.sent;
+                      console.log(response);
+
+                      if (!response.data) {
+                        _context2.next = 15;
+                        break;
+                      }
+
+                      data = response.data.data;
+
+                      if (!(response.data.code !== 200)) {
+                        _context2.next = 14;
+                        break;
+                      }
+
+                      alert('Error');
+                      return _context2.abrupt("return");
+
+                    case 14:
+                      this.servicesCosts = data.data;
+
+                    case 15:
+                      _context2.next = 20;
+                      break;
+
+                    case 17:
+                      _context2.prev = 17;
+                      _context2.t0 = _context2["catch"](4);
+                      console.log(_context2.t0);
+
+                    case 20:
+                      _context2.prev = 20;
+                      loader.dismiss();
+                      return _context2.finish(20);
+
+                    case 23:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this, [[4, 17, 20, 23]]);
+            }));
+          }
+        }, {
+          key: "getServiceAditional",
+          value: function getServiceAditional() {
+            if (this.servicesCosts && this.servicesCosts.request_cost.length > 0) {
+              return this.servicesCosts.request_cost.addittional.reduce(function (total, entity) {
+                return total += Number(entity.amount_client);
+              }, 0);
+            }
+
+            return 0;
+          }
+        }, {
+          key: "getTotal",
+          value: function getTotal() {
+            return this.getServiceAditional() + this.servicesCosts.amount_client;
           }
         }, {
           key: "openMenu",
@@ -308,6 +463,11 @@
           key: "paymentForm",
           value: function paymentForm() {
             this.router.navigate(['/user/servicio-pagar-forma']);
+          }
+        }, {
+          key: "setSelectedButton",
+          value: function setSelectedButton(type) {
+            this.selectedButton = type;
           }
         }, {
           key: "nothing",
@@ -331,11 +491,11 @@
         }, {
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
         }, {
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
         }, {
-          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"]
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__["SolicitudService"]
         }];
       };
 
@@ -363,7 +523,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".title {\n  font-size: 29px;\n}\n\n.text {\n  font-size: 22px;\n}\n\n.subtitle {\n  font-size: 18px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NlcnZpY2lvLXBhZ2FyLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUVJLGVBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7QUFBSiIsImZpbGUiOiJzZXJ2aWNpby1wYWdhci5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudGl0bGVcbntcbiAgICBmb250LXNpemU6IDI5cHg7XG59XG4udGV4dFxue1xuICAgIGZvbnQtc2l6ZTogMjJweDtcbn1cbi5zdWJ0aXRsZVxue1xuICAgIGZvbnQtc2l6ZTogMThweDtcbn0iXX0= */";
+      __webpack_exports__["default"] = ".title {\n  font-size: 29px;\n}\n.title .small {\n  font-size: 18px;\n}\n.text {\n  font-size: 22px;\n}\n.subtitle {\n  font-size: 18px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3NlcnZpY2lvLXBhZ2FyLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUVJLGVBQUE7QUFBSjtBQUVJO0VBQ0ksZUFBQTtBQUFSO0FBR0E7RUFFSSxlQUFBO0FBREo7QUFHQTtFQUVJLGVBQUE7QUFESiIsImZpbGUiOiJzZXJ2aWNpby1wYWdhci5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudGl0bGVcbntcbiAgICBmb250LXNpemU6IDI5cHg7XG5cbiAgICAuc21hbGwge1xuICAgICAgICBmb250LXNpemU6IDE4cHg7XG4gICAgfVxufVxuLnRleHRcbntcbiAgICBmb250LXNpemU6IDIycHg7XG59XG4uc3VidGl0bGVcbntcbiAgICBmb250LXNpemU6IDE4cHg7XG59Il19 */";
       /***/
     },
 
@@ -383,7 +543,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/solicitud-status\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar text-center\">MÉTODO DE PAGO</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid fixed>\n\n    <!-- OMITIR POR EL MOMENTO BTN -->\n    <ion-row class=\"ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" fill=\"outline\" (click)=\"nothing()\">\n          <ion-icon  slot=\"start\" name=\"document-text-outline\"></ion-icon>\n          Ver informe de los servicios\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- title  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b>Detalle del pago</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- servicios pactados  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text class=\"text\">\n          <b>Servicios pactados</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- costo  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b>$0</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- servicios adicionales  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text class=\"text\">\n          <b>Servicios adicionales</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- costo  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b>$0</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- servicios adicionales  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text class=\"text ion-text-uppercase\">\n          <b>TOTAL</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- costo  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"danger\" class=\"title\">\n          <b>$30.00</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Costo & pay BTNS-->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>¿Cómo desea pagar?</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"12\" class=\"ion-text-center\">\n        <section>\n          <!-- btn -->\n          <ion-button size=\"small\">\n            <ion-icon slot=\"start\" src=\"assets/icon/visa.svg\"></ion-icon>\n            Crédito\n          </ion-button>\n\n          <!-- btn -->\n          <ion-button size=\"small\" fill=\"outline\">\n            <ion-icon slot=\"start\" src=\"assets/icon/mastercard.svg\"></ion-icon>\n            Débito\n          </ion-button>\n\n          <!-- btn -->\n          <ion-button size=\"small\" fill=\"outline\">\n            <ion-icon slot=\"start\" name=\"cash-outline\"></ion-icon>\n            Débito\n          </ion-button>\n\n          <!-- btn -->\n          <ion-button size=\"small\" fill=\"outline\">\n            <ion-icon slot=\"start\" name=\"sync-outline\"></ion-icon>\n            Transferencia\n          </ion-button>\n\n        </section>\n      </ion-col>\n\n    </ion-row>\n\n    <!-- CONFIRMAR BTN -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"paymentForm()\">\n          PAGAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/solicitud-status\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar text-center\">MÉTODO DE PAGO</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid fixed>\n\n    <!-- OMITIR POR EL MOMENTO BTN -->\n    <ion-row class=\"ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" fill=\"outline\" (click)=\"nothing()\">\n          <ion-icon slot=\"start\" name=\"document-text-outline\"></ion-icon>\n          Ver informe de los servicios\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- title  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b>Detalle del pago</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- servicios pactados  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text class=\"text\">\n          <b>Servicios pactados</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- costo  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b *ngIf=\"servicesCosts\">${{servicesCosts.amount_client}}</b>\n          <b *ngIf=\"!servicesCosts\" class=\"small\">Aún no se ha asignado un costo</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- servicios adicionales  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text class=\"text\">\n          <b>Servicios adicionales</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- costo  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b *ngIf=\"servicesCosts\">${{getServiceAditional()}}</b>\n          <b *ngIf=\"!servicesCosts\" class=\"small\">Aún no se ha asignado un costo</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- servicios adicionales  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text class=\"text ion-text-uppercase\">\n          <b>TOTAL</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- costo  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"danger\" class=\"title\">\n          <b *ngIf=\"servicesCosts !== undefined\">${{getTotal()}}</b>\n          <b *ngIf=\"!servicesCosts\" class=\"small\">No se ha asignado un costo</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Costo & pay BTNS-->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>¿Cómo desea pagar?</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"12\" class=\"ion-text-center\">\n        <section>\n          <!-- btn -->\n          <ion-button size=\"small\"\n            [fill]=\"selectedButton === 'credit' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/visa.svg\"></ion-icon>\n            Tarjeta\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('debit')\"  [fill]=\"selectedButton === 'debit' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/mastercard.svg\"></ion-icon>\n            Débito\n          </ion-button>\n          -->\n\n          <!-- btn -->\n          <ion-button size=\"small\"\n            [fill]=\"selectedButton === 'cash' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_dollar_blank.svg\"></ion-icon>\n            Efectivo\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('transfer')\"\n            [fill]=\"selectedButton === 'transfer' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_money_blank.svg\"></ion-icon>\n            Transferencia\n          </ion-button>\n          -->\n\n        </section>\n      </ion-col>\n\n    </ion-row>\n\n    <!-- CONFIRMAR BTN -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button [disabled]=\"!servicesCosts\" size=\"5\" expand=\"block\" class=\"ion-text-uppercase\"\n          (click)=\"paymentForm()\">\n          PAGAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
       /***/
     }
   }]);

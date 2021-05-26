@@ -107,7 +107,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _servicio_pagar_forma_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./servicio-pagar-forma.page.scss */ "1tZi");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
-/* harmony import */ var _pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pago-exitoso-modal/pago-exitoso-modal.component */ "2dcQ");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "vDqi");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var _pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pago-exitoso-modal/pago-exitoso-modal.component */ "2dcQ");
+
+
+
+
 
 
 
@@ -115,11 +124,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ServicioPagarFormaPage = class ServicioPagarFormaPage {
-    constructor(modalController, menuController) {
+    constructor(modalController, menuController, loadingController, userService, solServ) {
         this.modalController = modalController;
         this.menuController = menuController;
+        this.loadingController = loadingController;
+        this.userService = userService;
+        this.solServ = solServ;
     }
     ngOnInit() {
+        this.userSubscription = this.userService.loggedUser.subscribe(user => {
+            this.user = user;
+        });
     }
     ionViewWillEnter() {
         this.menuController.enable(true, 'user');
@@ -127,9 +142,30 @@ let ServicioPagarFormaPage = class ServicioPagarFormaPage {
     openMenu() {
         this.menuController.open();
     }
+    createPayment() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            try {
+                let body = {
+                    request_service_id: 1,
+                    payment_type_id: 1,
+                    grossamount: 1,
+                    comment: '',
+                };
+                let response = yield axios__WEBPACK_IMPORTED_MODULE_5___default.a.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"]}/client/payment`, body, {
+                    headers: {
+                        Authorization: `Bearer ${this.user.access_token}`
+                    }
+                });
+                console.log(response);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
     submitPayment() {
         this.modalController.create({
-            component: _pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_5__["PagoExitosoModalComponent"],
+            component: _pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_9__["PagoExitosoModalComponent"],
             cssClass: 'modalSuccess',
         }).then(modalEl => {
             modalEl.present();
@@ -138,7 +174,10 @@ let ServicioPagarFormaPage = class ServicioPagarFormaPage {
 };
 ServicioPagarFormaPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"] },
+    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__["SolicitudService"] }
 ];
 ServicioPagarFormaPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

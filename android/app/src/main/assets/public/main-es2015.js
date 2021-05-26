@@ -96,7 +96,7 @@ let ConfirmServComponent = class ConfirmServComponent {
         }
     }
     formatDate(date) {
-        return moment__WEBPACK_IMPORTED_MODULE_12__(date, 'YYYY-MM-DD').format('dddd D [de] MMMM [de] YYYY');
+        return moment__WEBPACK_IMPORTED_MODULE_12__(date, 'DD/M/YYYY').format('dddd D [de] MMMM [de] YYYY');
     }
     confirmServicio() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -480,6 +480,70 @@ const PHONE_PREFIX = '52';
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+
+/***/ }),
+
+/***/ "CpZC":
+/*!**********************************************!*\
+  !*** ./src/app/model/visitaTecnica.model.ts ***!
+  \**********************************************/
+/*! exports provided: VisitaTecnica */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VisitaTecnica", function() { return VisitaTecnica; });
+class VisitaTecnica {
+    constructor(date_required, hours) {
+        this.date_required = date_required;
+        this.hours = hours;
+    }
+}
+
+
+/***/ }),
+
+/***/ "CrNw":
+/*!****************************************************!*\
+  !*** ./src/app/services/visita-tecnica.service.ts ***!
+  \****************************************************/
+/*! exports provided: VisitaTecnicaService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VisitaTecnicaService", function() { return VisitaTecnicaService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _model_visitaTecnica_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../model/visitaTecnica.model */ "CpZC");
+
+
+
+let VisitaTecnicaService = class VisitaTecnicaService {
+    constructor() {
+        this._visitaTecnica = new _model_visitaTecnica_model__WEBPACK_IMPORTED_MODULE_2__["VisitaTecnica"](null, null);
+    }
+    get visitaTecnica() {
+        return this._visitaTecnica;
+    }
+    setDate(date) {
+        this._visitaTecnica.date_required = date;
+    }
+    setHours(hours) {
+        this._visitaTecnica.hours = hours;
+    }
+    clearSolicitud() {
+        this._visitaTecnica = new _model_visitaTecnica_model__WEBPACK_IMPORTED_MODULE_2__["VisitaTecnica"](null, null);
+    }
+};
+VisitaTecnicaService.ctorParameters = () => [];
+VisitaTecnicaService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], VisitaTecnicaService);
+
 
 
 /***/ }),
@@ -1213,6 +1277,7 @@ let AppComponent = class AppComponent {
         this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_13__["IMAGE_URL_BLANK"];
         this.whatsappPhone = `${src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["PHONE_PREFIX"]}9992781314`;
         this.firstLoad = false;
+        this.notifications = [];
         this.logged = this.as.userIsAuthenticated;
         this.initializeApp();
         this.setUser();
@@ -1228,6 +1293,9 @@ let AppComponent = class AppComponent {
             this.menuCtrl.enable(false, _model_user_model__WEBPACK_IMPORTED_MODULE_11__["UserRoles"].USER);
         });
     }
+    ngOnDestroy() {
+        clearTimeout(this.notificationUpdate);
+    }
     setUser() {
         this.logged.subscribe(v => {
             if (v) {
@@ -1236,13 +1304,11 @@ let AppComponent = class AppComponent {
                     if (!this.firstLoad && user.id !== null) {
                         this.firstLoad = true;
                         if (this.user.role === _model_user_model__WEBPACK_IMPORTED_MODULE_11__["UserRoles"].USER) {
+                            this.loadNotifications('client');
                             this.router.navigate(['/user/home']);
                         }
                         else {
-                            var header = 'Bearer ' + this.user.access_token;
-                            axios__WEBPACK_IMPORTED_MODULE_14___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["API"] + '/supplier/notification', { headers: { Authorization: header } }).then(resData => {
-                                this.notificationCount = resData.data.data.length;
-                            });
+                            this.loadNotifications('supplier');
                             this.router.navigate(['/profesional/home']);
                         }
                     }
@@ -1267,6 +1333,24 @@ let AppComponent = class AppComponent {
     }
     openWhatsapp() {
         window.open(`https://api.whatsapp.com/send?phone=${this.whatsappPhone}`);
+    }
+    loadNotifications(type) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            try {
+                let response = yield axios__WEBPACK_IMPORTED_MODULE_14___default.a.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["API"]}/${type}/notification`, {
+                    headers: {
+                        Authorization: `Bearer ${this.user.access_token}`
+                    }
+                });
+                const { data } = response;
+                const { data: notificationsData } = data;
+                this.notifications = notificationsData;
+                this.notificationCount = notificationsData.filter((notification) => !notification.viewed).length;
+            }
+            catch (error) {
+                alert(error.message);
+            }
+        });
     }
 };
 AppComponent.ctorParameters = () => [
@@ -1315,7 +1399,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserRoles", function() { return UserRoles; });
 class User {
-    constructor(id, name, last_name, img_profile, email, phone1, phone2, role, access_token) {
+    constructor(id, name, last_name, img_profile, email, phone1, phone2, role, access_token, notificationCount) {
         this.id = id;
         this.name = name;
         this.last_name = last_name;
@@ -1325,6 +1409,7 @@ class User {
         this.phone2 = phone2;
         this.role = role;
         this.access_token = access_token;
+        this.notificationCount = notificationCount;
     }
 }
 var UserRoles;
@@ -1397,7 +1482,7 @@ ServicioAgendadoModalComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__de
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE VISITA TÉCNICA</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre tu visita de valoración.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">viernes 20 de noviembre de 2020</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">8:00 - 16:00 horas</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmVisita()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE VISITA TÉCNICA</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre tu visita de valoración.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ formatDate(visita_tecnica.visit_date) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ visita_tecnica.visit_hours }} horas</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmVisita()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n");
 
 /***/ }),
 
@@ -1467,7 +1552,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n\n  <!-- Menu User -->\n  <ion-menu side=\"start\" menuId=\"usuario\" contentId=\"main\">\n    <ion-content>\n      <ion-grid>\n        <!-- profile Img -->\n        <ion-row class=\"imgCont\">\n          <ion-col>\n            <ion-avatar class=\"ion-margin-start profileImg\">\n              <ion-img src=\"{{ !user || user.img_profile === '/' ? 'assets/images/avatar.png' : user.img_profile }}\">\n              </ion-img>\n            </ion-avatar>\n          </ion-col>\n        </ion-row>\n        <!-- edit icon -->\n        <ion-row>\n          <ion-col>\n            <div class=\"rate-cont\" (click)=\"profile()\">\n              <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n            </div>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n            <ion-text class=\"name-text\" *ngIf=\"!user\"><b>Usuario Invitado</b></ion-text>\n            <ion-text class=\"name-text ion-text-capitalize\" *ngIf=\"user\"><b>{{ user.name + ' ' + user.last_name }}</b>\n            </ion-text>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n      <ion-list class=\"ion-margin-top\">\n        <ion-menu-toggle menu=\"usuario\">\n\n          <!-- home -->\n          <ion-item lines=\"none\" routerLink=\"/user/home\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_home.svg\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Inicio</ion-label>\n          </ion-item>\n\n          <!-- Estado de solicitud -->\n          <ion-item lines=\"none\" routerLink=\"/user/solicitudes\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_content.svg\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Solicitudes</ion-label>\n          </ion-item>\n\n          <!-- profesionales contactados -->\n          <ion-item lines=\"none\" routerLink=\"/user/prof-contactados-list\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_people.svg\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Contactados</ion-label>\n          </ion-item>\n\n          <!-- Método de pago -->\n          <!-- <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"card\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Método de pago</ion-label>\n          </ion-item> -->\n\n          <!-- Notificaciones -->\n          <ion-item lines=\"none\" routerLink=\"/user/notificaciones\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_notifications.svg\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">\n              Notificaciones\n              <div class=\"locate-cont\">\n                <ion-text color=\"light\" class=\"rating-text\">\n                  +9\n                </ion-text>\n              </div>\n            </ion-label>\n          </ion-item>\n\n          <!-- Soporte -->\n          <ion-item lines=\"none\" href=\"https://wa.me/{{whatsappPhone}}\">\n            <ion-icon slot=\"start\" name=\"headset\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Soporte</ion-label>\n          </ion-item>\n\n          <!-- Términos y condiciones -->\n          <ion-item lines=\"none\" routerLink=\"/terms\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_terms.svg\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Términos y condiciones</ion-label>\n          </ion-item>\n\n        </ion-menu-toggle>\n      </ion-list>\n    </ion-content>\n\n    <ion-footer class=\"ion-no-border\">\n      <ion-toolbar>\n\n        <!-- Términos y condiciones -->\n        <ion-item lines=\"none\" (click)=\"logout()\" menuClose>\n          <ion-icon slot=\"start\" src=\"/assets/icon/ic_logout.svg\" class=\"footer-text\"></ion-icon>\n          <ion-label class=\"footer-text\">Cerrar sesión</ion-label>\n        </ion-item>\n\n      </ion-toolbar>\n    </ion-footer>\n  </ion-menu>\n\n  <!-- Menu Profesional  -->\n  <ion-menu side=\"start\" menuId=\"profesional\" contentId=\"main\">\n    <ion-content>\n      <!-- Top Section  -->\n      <ion-grid>\n        <!-- profile Img -->\n        <ion-row class=\"imgCont\">\n          <ion-col>\n            <ion-avatar class=\"ion-margin-start profileImg\">\n              <ion-img\n                src=\"{{ !user || user.img_profile === imageBlank ? 'assets/images/avatar.png' : user.img_profile }}\">\n              </ion-img>\n            </ion-avatar>\n          </ion-col>\n        </ion-row>\n        <!-- edit icon -->\n        <ion-row>\n          <ion-col>\n            <div class=\"rate-cont\" (click)=\"profilePro()\">\n              <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n            </div>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n            <ion-text class=\"name-text\" *ngIf=\"!user\"><b>Usuario Invitado</b></ion-text>\n            <ion-text class=\"name-text ion-text-capitalize\" *ngIf=\"user\"><b>{{ user.name + ' ' + user.last_name }}</b>\n            </ion-text>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n      <ion-list class=\"ion-margin-top\">\n        <ion-menu-toggle menu=\"profesional\">\n\n          <!-- mis trabajos -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/home\">\n            <ion-icon slot=\"start\" name=\"briefcase-outline\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mis trabajos</ion-label>\n          </ion-item>\n\n          <!-- Notificaciones -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/notificaciones\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_notifications.svg\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">\n              Notificaciones\n              <div *nfIf=\"notificationCount > 0\" class=\"locate-cont\">\n                <ion-text color=\"light\" class=\"rating-text\">\n                  {{ notificationCount }}\n                </ion-text>\n              </div>\n            </ion-label>\n          </ion-item>\n\n          <!-- calificacion -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/rating\">\n            <ion-icon slot=\"start\" name=\"star-outline\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Calificación</ion-label>\n          </ion-item>\n\n          <!-- perfil -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/cat-perfiles\">\n            <ion-icon slot=\"start\" name=\"person-outline\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mis Perfiles</ion-label>\n          </ion-item>\n\n          <!-- Soporte -->\n          <ion-item lines=\"none\" href=\"https://wa.me/{{whatappPhone}}\">\n            <ion-icon slot=\"start\" name=\"headset\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Soporte</ion-label>\n          </ion-item>\n\n          <!-- Mi billetera -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/wallet\">\n            <ion-icon slot=\"start\" name=\"wallet-outline\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mi billetera</ion-label>\n          </ion-item>\n\n          <!-- Términos y condiciones -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_terms.svg\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\" (click)=\"openWhatsapp()\">Términos y condiciones</ion-label>\n          </ion-item>\n\n        </ion-menu-toggle>\n      </ion-list>\n    </ion-content>\n\n    <ion-footer class=\"ion-no-border\">\n      <ion-toolbar>\n\n        <!-- Términos y condiciones -->\n        <ion-item lines=\"none\" (click)=\"logout()\" menuClose>\n          <ion-icon slot=\"start\" name=\"exit-outline\" class=\"footer-text\"></ion-icon>\n          <ion-label class=\"footer-text\">Cerrar sesión</ion-label>\n        </ion-item>\n\n      </ion-toolbar>\n    </ion-footer>\n  </ion-menu>\n\n  <ion-router-outlet id=\"main\"></ion-router-outlet>\n</ion-app>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n\n  <!-- Menu User -->\n  <ion-menu side=\"start\" menuId=\"usuario\" contentId=\"main\">\n    <ion-content>\n      <ion-grid>\n        <!-- profile Img -->\n        <ion-row class=\"imgCont\">\n          <ion-col>\n            <ion-avatar class=\"ion-margin-start profileImg\">\n              <ion-img src=\"{{ !user || user.img_profile === '/' ? 'assets/images/avatar.png' : user.img_profile }}\">\n              </ion-img>\n            </ion-avatar>\n          </ion-col>\n        </ion-row>\n        <!-- edit icon -->\n        <ion-row>\n          <ion-col>\n            <div class=\"rate-cont\" (click)=\"profile()\">\n              <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n            </div>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n            <ion-text class=\"name-text\" *ngIf=\"!user\"><b>Usuario Invitado</b></ion-text>\n            <ion-text class=\"name-text ion-text-capitalize\" *ngIf=\"user\"><b>{{ user.name + ' ' + user.last_name }}</b>\n            </ion-text>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n      <ion-list class=\"ion-margin-top\">\n        <ion-menu-toggle menu=\"usuario\">\n\n          <!-- home -->\n          <ion-item lines=\"none\" routerLink=\"/user/home\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_home.svg\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Inicio</ion-label>\n          </ion-item>\n\n          <!-- Estado de solicitud -->\n          <ion-item lines=\"none\" routerLink=\"/user/solicitudes\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_content.svg\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Solicitudes</ion-label>\n          </ion-item>\n\n          <!-- profesionales contactados -->\n          <ion-item lines=\"none\" routerLink=\"/user/prof-contactados-list\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_people.svg\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Contactados</ion-label>\n          </ion-item>\n\n          <!-- Método de pago -->\n          <!-- <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" name=\"card\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Método de pago</ion-label>\n          </ion-item> -->\n\n          <!-- Notificaciones -->\n          <ion-item lines=\"none\" routerLink=\"/user/notificaciones\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_notifications.svg\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">\n              Notificaciones\n              <div class=\"locate-cont\" *ngIf=\"notificationCount > 0\">\n                <ion-text color=\"light\" class=\"rating-text\">\n                  +{{notificationCount}}\n                </ion-text>\n              </div>\n            </ion-label>\n          </ion-item>\n\n          <!-- Soporte -->\n          <ion-item lines=\"none\" href=\"https://wa.me/{{whatsappPhone}}\">\n            <ion-icon slot=\"start\" name=\"headset\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Soporte</ion-label>\n          </ion-item>\n\n          <!-- Términos y condiciones -->\n          <ion-item lines=\"none\" routerLink=\"/terms\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_terms.svg\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Términos y condiciones</ion-label>\n          </ion-item>\n\n        </ion-menu-toggle>\n      </ion-list>\n    </ion-content>\n\n    <ion-footer class=\"ion-no-border\">\n      <ion-toolbar>\n\n        <!-- Términos y condiciones -->\n        <ion-item lines=\"none\" (click)=\"logout()\" menuClose>\n          <ion-icon slot=\"start\" src=\"/assets/icon/ic_logout.svg\" class=\"footer-text\"></ion-icon>\n          <ion-label class=\"footer-text\">Cerrar sesión</ion-label>\n        </ion-item>\n\n      </ion-toolbar>\n    </ion-footer>\n  </ion-menu>\n\n  <!-- Menu Profesional  -->\n  <ion-menu side=\"start\" menuId=\"profesional\" contentId=\"main\">\n    <ion-content>\n      <!-- Top Section  -->\n      <ion-grid>\n        <!-- profile Img -->\n        <ion-row class=\"imgCont\">\n          <ion-col>\n            <ion-avatar class=\"ion-margin-start profileImg\">\n              <ion-img\n                src=\"{{ !user || user.img_profile === imageBlank ? 'assets/images/avatar.png' : user.img_profile }}\">\n              </ion-img>\n            </ion-avatar>\n          </ion-col>\n        </ion-row>\n        <!-- edit icon -->\n        <ion-row>\n          <ion-col>\n            <div class=\"rate-cont\" (click)=\"profilePro()\">\n              <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n            </div>\n          </ion-col>\n        </ion-row>\n        <ion-row>\n          <ion-col size=\"8\" offset=\"2\" class=\"ion-text-center\">\n            <ion-text class=\"name-text\" *ngIf=\"!user\"><b>Usuario Invitado</b></ion-text>\n            <ion-text class=\"name-text ion-text-capitalize\" *ngIf=\"user\"><b>{{ user.name + ' ' + user.last_name }}</b>\n            </ion-text>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n      <ion-list class=\"ion-margin-top\">\n        <ion-menu-toggle menu=\"profesional\">\n\n          <!-- mis trabajos -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/home\">\n            <ion-icon slot=\"start\" name=\"briefcase-outline\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mis trabajos</ion-label>\n          </ion-item>\n\n          <!-- Notificaciones -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/notificaciones\">\n            <ion-icon slot=\"start\" name=\"notifications-outline\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">\n              Notificaciones\n              <div *ngIf=\"notificationCount > 0\" class=\"locate-cont\">\n                <ion-text color=\"light\" class=\"rating-text\">\n                  +{{ notificationCount }}\n                </ion-text>\n              </div>\n            </ion-label>\n          </ion-item>\n\n          <!-- calificacion -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/rating\">\n            <ion-icon slot=\"start\" name=\"star-outline\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Calificación</ion-label>\n          </ion-item>\n\n          <!-- perfil -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/cat-perfiles\">\n            <ion-icon slot=\"start\" name=\"person-outline\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mis Perfiles</ion-label>\n          </ion-item>\n\n          <!-- Soporte -->\n          <ion-item lines=\"none\" href=\"https://wa.me/{{whatappPhone}}\">\n            <ion-icon slot=\"start\" name=\"headset\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Soporte</ion-label>\n          </ion-item>\n\n          <!-- Mi billetera -->\n          <ion-item lines=\"none\" routerLink=\"/profesional/wallet\">\n            <ion-icon slot=\"start\" name=\"wallet-outline\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\">Mi billetera</ion-label>\n          </ion-item>\n\n          <!-- Términos y condiciones -->\n          <ion-item lines=\"none\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_terms.svg\" color=\"primary\"></ion-icon>\n            <ion-label color=\"primary\" class=\"label-text\" (click)=\"openWhatsapp()\">Términos y condiciones</ion-label>\n          </ion-item>\n\n        </ion-menu-toggle>\n      </ion-list>\n    </ion-content>\n\n    <ion-footer class=\"ion-no-border\">\n      <ion-toolbar>\n\n        <!-- Términos y condiciones -->\n        <ion-item lines=\"none\" (click)=\"logout()\" menuClose>\n          <ion-icon slot=\"start\" name=\"exit-outline\" class=\"footer-text\"></ion-icon>\n          <ion-label class=\"footer-text\">Cerrar sesión</ion-label>\n        </ion-item>\n\n      </ion-toolbar>\n    </ion-footer>\n  </ion-menu>\n\n  <ion-router-outlet id=\"main\"></ion-router-outlet>\n</ion-app>");
 
 /***/ }),
 
@@ -2480,7 +2565,7 @@ let UserService = class UserService {
         this.http = http;
         this.storage = storage;
         this._storage = null;
-        this._loggedUser = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](new _model_user_model__WEBPACK_IMPORTED_MODULE_6__["User"](null, null, null, null, null, null, null, null, null));
+        this._loggedUser = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"](new _model_user_model__WEBPACK_IMPORTED_MODULE_6__["User"](null, null, null, null, null, null, null, null, null, null));
         this.initStorage();
     }
     initStorage() {
@@ -2889,11 +2974,11 @@ const routes = [
     },
     {
         path: 'profesional/agendados/agendados-finalizar',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-agendados-agendados-finalizar-agendados-finalizar-module */ "profesional-home-agendados-agendados-finalizar-agendados-finalizar-module").then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-finalizar/agendados-finalizar.module */ "TGXy")).then(m => m.AgendadosFinalizarPageModule),
+        loadChildren: () => Promise.all(/*! import() | profesional-home-agendados-agendados-finalizar-agendados-finalizar-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-agendados-agendados-finalizar-agendados-finalizar-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-finalizar/agendados-finalizar.module */ "TGXy")).then(m => m.AgendadosFinalizarPageModule),
     },
     {
         path: 'profesional/agendados/servicios-adicionales',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module */ "profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module").then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-finalizar/servicios-adicionales/servicios-adicionales.module */ "jlIi")).then(m => m.ServiciosAdicionalesPageModule),
+        loadChildren: () => Promise.all(/*! import() | profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-finalizar/servicios-adicionales/servicios-adicionales.module */ "jlIi")).then(m => m.ServiciosAdicionalesPageModule),
     },
     {
         path: 'profesional/finalizados/finalizados-details',
@@ -2948,6 +3033,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! axios */ "vDqi");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_app_services_visita_tecnica_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/visita-tecnica.service */ "CrNw");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! moment */ "wd/R");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_11__);
+
+
+
+
+
+
 
 
 
@@ -2955,11 +3054,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ConfirmVisitaComponent = class ConfirmVisitaComponent {
-    constructor(modalController, router) {
+    constructor(modalController, router, lc, solServ, visitaT, us) {
         this.modalController = modalController;
         this.router = router;
+        this.lc = lc;
+        this.solServ = solServ;
+        this.visitaT = visitaT;
+        this.us = us;
     }
-    ngOnInit() { }
+    ngOnInit() {
+        this.userSub = this.us.loggedUser.subscribe(user => {
+            this.grabbedUser = user;
+            this.headers = 'Bearer ' + this.grabbedUser.access_token;
+        });
+        this.visita_tecnica = {
+            visit_date: this.visitaT.visitaTecnica.date_required,
+            visit_hours: this.visitaT.visitaTecnica.hours
+        };
+    }
     // cancelSolicitud(){
     //   this.modalController.dismiss();
     //   this.modalController.create({
@@ -2973,14 +3085,35 @@ let ConfirmVisitaComponent = class ConfirmVisitaComponent {
         this.modalController.dismiss();
         // this.router.navigate(['/profesional/home/home-tabs/finalizados/']);
     }
+    formatDate(date) {
+        return moment__WEBPACK_IMPORTED_MODULE_11__(date, 'DD/M/YYYY').format('dddd D [de] MMMM [de] YYYY');
+    }
     confirmVisita() {
         this.modalController.dismiss();
-        this.router.navigate(['/profesional/home/home-tabs/agendados']);
+        this.lc.create({
+            message: "Cargando informacion del servicio..."
+        }).then(loadingEl => {
+            loadingEl.present();
+            axios__WEBPACK_IMPORTED_MODULE_6___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + `/supplier/visit/requestservice/${this.solServ.solicitud.solicitudID}`, this.visita_tecnica, { headers: { Authorization: this.headers } }).then(resData => {
+                this.router.navigate(['/profesional/home/home-tabs/agendados']);
+                this.visitaT.clearSolicitud();
+                this.lc.dismiss();
+            }).catch(err => {
+                console.log(err);
+                this.lc.dismiss();
+            });
+        }).catch(err => {
+            this.lc.dismiss();
+        });
     }
 };
 ConfirmVisitaComponent.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"] },
+    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"] },
+    { type: src_app_services_visita_tecnica_service__WEBPACK_IMPORTED_MODULE_9__["VisitaTecnicaService"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] }
 ];
 ConfirmVisitaComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

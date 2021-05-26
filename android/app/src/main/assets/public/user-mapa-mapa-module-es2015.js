@@ -292,7 +292,6 @@ let MapaPage = class MapaPage {
                         Authorization: `Bearer ${this.grabbedUser.access_token}`
                     }
                 });
-                console.log(response);
                 this.comunas = response.data.data;
             }
             catch (error) {

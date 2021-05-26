@@ -256,6 +256,91 @@
     },
 
     /***/
+    "DbM0":
+    /*!*******************************************************!*\
+      !*** ./src/app/services/adicional-service.service.ts ***!
+      \*******************************************************/
+
+    /*! exports provided: AdicionalServiceService */
+
+    /***/
+    function DbM0(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "AdicionalServiceService", function () {
+        return AdicionalServiceService;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var _model_adicionalService_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ../model/adicionalService.model */
+      "tzat");
+
+      var AdicionalServiceService = /*#__PURE__*/function () {
+        function AdicionalServiceService() {
+          _classCallCheck(this, AdicionalServiceService);
+
+          this._adicionalService = new _model_adicionalService_model__WEBPACK_IMPORTED_MODULE_2__["AdicionalService"](null, [], null);
+        }
+
+        _createClass(AdicionalServiceService, [{
+          key: "adicional",
+          get: function get() {
+            return this._adicionalService;
+          }
+        }, {
+          key: "setDetail",
+          value: function setDetail(detail) {
+            this._adicionalService.detail = detail;
+          }
+        }, {
+          key: "setPhoto",
+          value: function setPhoto(photo) {
+            this._adicionalService.photo = photo;
+          }
+        }, {
+          key: "setCost",
+          value: function setCost(cost) {
+            this._adicionalService.cost = cost;
+          }
+        }, {
+          key: "clearAdicional",
+          value: function clearAdicional() {
+            this._adicionalService = new _model_adicionalService_model__WEBPACK_IMPORTED_MODULE_2__["AdicionalService"](null, [], null);
+          }
+        }]);
+
+        return AdicionalServiceService;
+      }();
+
+      AdicionalServiceService.ctorParameters = function () {
+        return [];
+      };
+
+      AdicionalServiceService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+      })], AdicionalServiceService);
+      /***/
+    },
+
+    /***/
     "Uqb3":
     /*!*******************************************************************!*\
       !*** ./src/app/shared/success-modal/success-modal.component.scss ***!
@@ -797,6 +882,37 @@
 
       var hapticImpact = function hapticImpact(options) {
         HapticEngine.impact(options);
+      };
+      /***/
+
+    },
+
+    /***/
+    "tzat":
+    /*!*************************************************!*\
+      !*** ./src/app/model/adicionalService.model.ts ***!
+      \*************************************************/
+
+    /*! exports provided: AdicionalService */
+
+    /***/
+    function tzat(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "AdicionalService", function () {
+        return AdicionalService;
+      });
+
+      var AdicionalService = function AdicionalService(detail, photo, cost) {
+        _classCallCheck(this, AdicionalService);
+
+        this.detail = detail;
+        this.photo = photo;
+        this.cost = cost;
       };
       /***/
 
