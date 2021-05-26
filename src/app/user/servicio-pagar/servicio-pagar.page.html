@@ -17,7 +17,7 @@
       <ion-col size="1"></ion-col>
       <ion-col>
         <ion-button size="5" expand="block" fill="outline" (click)="nothing()">
-          <ion-icon  slot="start" name="document-text-outline"></ion-icon>
+          <ion-icon slot="start" name="document-text-outline"></ion-icon>
           Ver informe de los servicios
         </ion-button>
       </ion-col>
@@ -46,7 +46,8 @@
     <ion-row>
       <ion-col size="11" offset="1">
         <ion-text color="primary" class="title">
-          <b>$0</b>
+          <b *ngIf="servicesCosts">${{servicesCosts.amount_client}}</b>
+          <b *ngIf="!servicesCosts" class="small">Aún no se ha asignado un costo</b>
         </ion-text>
       </ion-col>
     </ion-row>
@@ -64,7 +65,8 @@
     <ion-row>
       <ion-col size="11" offset="1">
         <ion-text color="primary" class="title">
-          <b>$0</b>
+          <b *ngIf="servicesCosts">${{getServiceAditional()}}</b>
+          <b *ngIf="!servicesCosts" class="small">Aún no se ha asignado un costo</b>
         </ion-text>
       </ion-col>
     </ion-row>
@@ -82,7 +84,8 @@
     <ion-row>
       <ion-col size="11" offset="1">
         <ion-text color="danger" class="title">
-          <b>$30.00</b>
+          <b *ngIf="servicesCosts !== undefined">${{getTotal()}}</b>
+          <b *ngIf="!servicesCosts" class="small">No se ha asignado un costo</b>
         </ion-text>
       </ion-col>
     </ion-row>
@@ -98,28 +101,35 @@
       <ion-col size="12" class="ion-text-center">
         <section>
           <!-- btn -->
-          <ion-button size="small">
+          <ion-button size="small"
+            [fill]="selectedButton === 'credit' ? 'solid' : 'outline'">
             <ion-icon slot="start" src="assets/icon/visa.svg"></ion-icon>
-            Crédito
+            Tarjeta
           </ion-button>
 
           <!-- btn -->
-          <ion-button size="small" fill="outline">
+          <!--
+          <ion-button size="small" (click)="setSelectedButton('debit')"  [fill]="selectedButton === 'debit' ? 'solid' : 'outline'">
             <ion-icon slot="start" src="assets/icon/mastercard.svg"></ion-icon>
             Débito
           </ion-button>
+          -->
 
           <!-- btn -->
-          <ion-button size="small" fill="outline">
-            <ion-icon slot="start" name="cash-outline"></ion-icon>
-            Débito
+          <ion-button size="small"
+            [fill]="selectedButton === 'cash' ? 'solid' : 'outline'">
+            <ion-icon slot="start" src="/assets/icon/ic_dollar_blank.svg"></ion-icon>
+            Efectivo
           </ion-button>
 
           <!-- btn -->
-          <ion-button size="small" fill="outline">
-            <ion-icon slot="start" name="sync-outline"></ion-icon>
+          <!--
+          <ion-button size="small" (click)="setSelectedButton('transfer')"
+            [fill]="selectedButton === 'transfer' ? 'solid' : 'outline'">
+            <ion-icon slot="start" src="/assets/icon/ic_money_blank.svg"></ion-icon>
             Transferencia
           </ion-button>
+          -->
 
         </section>
       </ion-col>
@@ -130,7 +140,8 @@
     <ion-row class="ion-margin-top">
       <ion-col size="1"></ion-col>
       <ion-col>
-        <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="paymentForm()">
+        <ion-button [disabled]="!servicesCosts" size="5" expand="block" class="ion-text-uppercase"
+          (click)="paymentForm()">
           PAGAR
         </ion-button>
       </ion-col>

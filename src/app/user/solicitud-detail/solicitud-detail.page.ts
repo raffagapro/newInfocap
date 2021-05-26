@@ -12,7 +12,7 @@ import axios from 'axios';
 import { SuccessModalComponent } from 'src/app/shared/success-modal/success-modal.component';
 
 
-type PaymentMethodType = 'credit' | 'debit' | 'cash' | 'transfer';
+export type PaymentMethodType = 'credit' | 'debit' | 'cash' | 'transfer';
 @Component({
   selector: 'app-solicitud-detail',
   templateUrl: './solicitud-detail.page.html',
