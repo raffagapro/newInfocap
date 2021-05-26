@@ -86,7 +86,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
           loadingEl.dismiss();
           this.loadedService = resData['data'];
           this.solServ.setServiceObj(resData['data']);
-          this.wDate = moment(this.loadedService.created_date, 'YYYY-MM-DD').format('DD MMM YYYY');
+          this.wDate = moment(this.loadedService.created_date, 'DD/MM/YYYY').format('DD MMMM YYYY');
         }, err => {
           loadingEl.dismiss();
           console.log(err);
@@ -98,8 +98,8 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     window.open(`https://api.whatsapp.com/send?phone=${PHONE_PREFIX}${this.loadedService.suplierPhone1}`);
   }
 
-  call(clientNumb: string) {
-    this.callNumber.callNumber(clientNumb, true)
+  call() {
+    this.callNumber.callNumber(this.loadedService.suplierPhone1, true)
       .then(res => console.log('Launched dialer!', res))
       .catch(err => console.log('Error launching dialer', err));
   }

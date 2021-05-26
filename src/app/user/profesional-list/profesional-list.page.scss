@@ -44,25 +44,28 @@
 }
 
 .titleSelect {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
+
+  @media (min-height: 768px) {
+    font-size: 18px;
+  }
 }
 .textSelect {
   font-size: 10px;
   line-height: 0.5;
+
+  @media (min-height: 768px) {
+    font-size: 14px;
+  }
 }
 .badge-text {
   font-size: 9px;
 }
-.ratingText {
-  font-size: 14px;
-  margin: 0;
-  padding: 0;
-}
 .locate-cont {
   //margin-top: 20px;
   border-radius: 50px;
-  height: 30px;
+  height: 25px;
   width: auto;
   display: inline-flex;
   align-items: center;
@@ -70,13 +73,17 @@
   margin: 0 1px;
   //background-color: #009ace;
 }
+.ratingText {
+  font-size: 12px;
+}
 .rating-text {
-  font-size: 24px;
+  font-size: 18px;
   margin: 0;
+  padding: 0;
 }
 
 .reset-text {
-  display: -webkit-flex;
+  //display: -webkit-flex;
 }
 .floatin-btn {
   --ion-color-base: transparent !important;

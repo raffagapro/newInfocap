@@ -67,7 +67,6 @@ export class RegisterPage implements OnInit {
       phone1,
       password,
     }
-    console.log(body);
 
     try {
       let response = await axios.post(

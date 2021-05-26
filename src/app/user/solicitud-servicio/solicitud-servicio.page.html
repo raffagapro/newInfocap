@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar mode="ios" color="primary">
 
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/user/profesional-detail" text="" icon="arrow-back"></ion-back-button>
@@ -16,14 +16,14 @@
     <ion-grid>
       <ion-row class="ion-align-items-center">
         <!-- profile img -->
-        <ion-col size="4" offset="1">
+        <ion-col size="4" offset="1" sizeMd="2" offsetMd="0">
           <ion-avatar class="profileImg">
             <ion-img src="{{ !selectedProfPhoto ? 'assets/images/avatar.png' : selectedProfPhoto }}"></ion-img>
           </ion-avatar>
         </ion-col>
 
         <!-- title -->
-        <ion-col size="7">
+        <ion-col size="7" sizeMd="10">
           <ion-text>
             <span class="titleSelect main-color ion-text-capitalize">
               {{ selectedProfesional.supplierName }} {{ selectedProfesional.supplierLastName }}
@@ -108,8 +108,10 @@
               <ion-icon src="/assets/icon/ic_date_range.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
             </ion-label>
-            <ion-datetime formControlName="date_required" placeholder="Definir fecha"
-              [min]="minDate.format('YYYY-MM-DD')" (ngModelChange)="onDateChange($event)"
+            <ion-datetime formControlName="date_required" placeholder="Definir fecha" [pickerFormat]="'DD MMM YYYY'"
+              [displayFormat]="'DDDD DD de MMM de YYYY'" [min]="minDate.format('YYYY-MM-DD')"
+              (ngModelChange)="onDateChange($event)"
+              [dayNames]="['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']"
               monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre">
             </ion-datetime>
           </ion-item>

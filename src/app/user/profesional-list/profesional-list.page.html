@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar mode="ios" color="primary">
 
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/user/home" text="" icon="arrow-back"></ion-back-button>
@@ -12,21 +12,24 @@
 <ion-content>
   <!-- filter bar -->
   <ion-row class="ion-margin-top ion-align-items-center">
-    <ion-col size="2">
+    <ion-col size="2" class="text-center">
       <ion-text class="text-10 main-color">
         <ion-icon src="/assets/icon/ic_filter.svg"></ion-icon>
         FILTROS
       </ion-text>
     </ion-col>
-    <ion-col size="4">
+    <ion-col size="7">
       <select class="main-color cusSelect" name="sort" [(ngModel)]="sort" placeholder="Reconocimiento"
         (change)="onSortChange($event)" style="background-color:white;">
         <option value="null" disabled>Seleccionar</option>
-        <option value="reconocimiento">Reconocimiento</option>
-        <option value="calidad">Calidad del servicio</option>
-        <option value="puntualidad">Puntualidad</option>
+        <!--<option value="stars">Por género</option>-->
+        <option value="stars">Por estrella</option>
+        <option value="jobs">Por trabajos</option>
+        <option value="male">Por género masculino</option>
+        <option value="female">Por género femenino</option>
       </select>
     </ion-col>
+    <!--
     <ion-col size="3">
       <select class="main-color cusSelect" name="type" [(ngModel)]="type" placeholder="Reconocimiento"
         (change)="onTypeChange($event)" style="background-color:white;">
@@ -35,7 +38,8 @@
         <option value="puntualidad">Puntualidad</option>
       </select>
     </ion-col>
-    <ion-col size="3">
+    -->
+    <ion-col size="3" class="text-center">
       <ion-text class="text-10 main-color reset-text" (click)="resetFilters()">
         <ion-icon src="/assets/icon/ic_path.svg" class="filt-icon"></ion-icon>
         {{' '}}
@@ -47,13 +51,13 @@
   <!-- emergency message -->
   <div class="prof-cont ion-margin-top no-border" (click)="eRequest()">
     <ion-grid>
-      <ion-row>
-        <ion-col size="3">
+      <ion-row class="ion-align-items-center" style="min-height: 85px;">
+        <ion-col size="2" sizeMd="1">
           <ion-avatar class="profileImg">
             <img src="/assets/icon/ic_error.svg" />
           </ion-avatar>
         </ion-col>
-        <ion-col size="9">
+        <ion-col size="10" sizeMd="11">
           <ion-text>
             <span class="eSelect">Necesito el servicio urgente</span><br>
             <span class="textSelect">Esta solicitud es de carácter urgente y será enviada a los 10 profesionales mejor
@@ -69,12 +73,12 @@
     <h3 class="text-center">No se encontraron<br />profesionales en el área</h3>
   </ion-text>
   <div *ngFor="let prof of profList" class="prof-cont ion-margin-top no-border"
-    (click)="profDetails(prof.id, prof.img_profile)">
+    (click)="profDetails(prof.id || prof.professional_profiles_id, prof.img_profile)">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
         <!-- profile img -->
-        <ion-col size="2">
+        <ion-col size="2" sizeMd="1">
           <ion-avatar class="profileImg">
             <ion-img
               src="{{ !prof.img_profile || prof.img_profile === imageBlank ? 'assets/images/avatar.png' : prof.img_profile }}">
@@ -83,28 +87,28 @@
         </ion-col>
 
         <!-- title -->
-        <ion-col size="5">
+        <ion-col size="6" sizeMd="7">
           <ion-text>
             <span class="titleSelect main-color ion-text-capitalize">{{ prof.supplierName }} {{ prof.supplierLastName
               }}</span><br>
             <ion-badge color="primary" class="badge-text">{{ prof.categoryName }}</ion-badge><br>
-            <span class="textSelect ion-text-capitalize">{{ prof.descProf }}</span>
+            <span class="textSelect">{{ prof.descProf }}</span>
           </ion-text>
         </ion-col>
 
         <!-- rating -->
-        <ion-col size="5">
+        <ion-col size="4">
           <ion-text class="text-center">
             <ion-row class="items-center">
               <ion-col size="12">
-                <p class="ratingText main-color ion-text-center">
-                  4.83
+                <p class="ratingText main-color ion-text-right">
+                  {{prof.stars_everage}}
                   <ion-icon src="/assets/icon/ic_star.svg"></ion-icon>
-                  / 50
+                  / {{prof.worknumber}}
                   <ion-icon src="/assets/icon/ic_hands.svg"></ion-icon>
                 </p>
               </ion-col>
-              <ion-col size="12">
+              <ion-col size="12" class="ion-text-right">
                 <div class="locate-cont">
                   <ion-icon src="/assets/icon/ic_engine_circle.svg" class="rating-text"></ion-icon>
                 </div>
@@ -132,10 +136,10 @@
       <ion-icon md="caret-up" size="large" src="/assets/icon/ic_filter_plus.svg" class="fab-icon"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
-      <ion-fab-button class="floatin-btn" color="none">
+      <ion-fab-button class="floatin-btn" color="none" (click)="goToCategories()">
         <ion-icon size="large" src="/assets/icon/ic_people_circle.svg" class="floatin-btn fab-icon"></ion-icon>
       </ion-fab-button>
-      <ion-fab-button class="floatin-btn" color="none">
+      <ion-fab-button class="floatin-btn" color="none" (click)="goToMap()">
         <ion-icon size="large" src="/assets/icon/ic_map_circle.svg" class="floatin-btn fab-icon"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>

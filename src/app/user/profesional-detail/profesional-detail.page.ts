@@ -12,6 +12,8 @@ import { API } from 'src/environments/environment';
 import { ImgListService } from 'src/app/services/img-list.service';
 import { IMAGE_URL_BLANK } from 'src/shared/constants';
 import * as moment from 'moment';
+import axios from 'axios';
+import { EvaluationData } from 'src/shared/types/EvaluationData';
 
 @Component({
   selector: 'app-profesional-detail',
@@ -35,6 +37,14 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
     slidesPerView: 2,
     autoplay: true
   };
+  evaluationsData: EvaluationData = {
+    worknumber: 0,
+    stars_everage: 0,
+    technical_capacity_everage: 0,
+    puntuality_everage: 0,
+    cordiality_everage: 0,
+    service_and_satisfaction_everage: 0,
+  };
 
   constructor(
     private router: Router,
@@ -54,6 +64,7 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
         this.grabbedUser = user;
         this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
         this.getProf();
+        this.getEvaluations()
       }
 
     });
@@ -85,10 +96,12 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
           let splitedHours = this.selectedProCat.hours.split('/');
           let startHour = splitedHours.length > 0 ? moment(splitedHours[0]).format('h:mm a') : 'ND';
           let endHour = splitedHours.length > 1 ? moment(splitedHours[1]).format('h:mm a') : 'ND';
-          this.editedHours = `${startHour} / ${endHour}`;
-
+          //this.editedHours = `${startHour} / ${endHour}`;
+          this.editedHours = this.selectedProCat.hours;
+          this.editedDays = this.selectedProCat.work_days;
+          /*
           let workingDays = this.selectedProCat.work_days.split('-');
-          console.log(workingDays);
+          this.editedDays = '';
           workingDays.forEach(day => {
             switch (day) {
               case 'l':
@@ -97,7 +110,7 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
               case 'm':
                 this.editedDays += 'Mar ';
                 break;
-              case 'mr':
+              case 'mi':
                 this.editedDays += 'Mie ';
                 break;
               case 'j':
@@ -114,6 +127,7 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
                 break;
             }
           });
+          */
           //loading images
           // let listArr: [] = [];
           // resData['data'].images.forEach(image => {
@@ -127,9 +141,29 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
           // this.router.navigate(['/user/profesional-list']);
         });
     }).then(err => {
-      console.log(err)
       this.lc.dismiss();
     });
+  }
+
+  async getEvaluations() {
+    try {
+      let response = await axios.get(
+        `${API}/supplier/evaluation/${this.solServ.solicitud.proPerfil_id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.grabbedUser.access_token}`
+          }
+        }
+      );
+      if (response.data && response.data.code !== 200) {
+        //TODO: Maybe show an error message
+        return
+      }
+      console.log(response.data.data, 'evaluations')
+      this.evaluationsData = response.data.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   openMenu() {

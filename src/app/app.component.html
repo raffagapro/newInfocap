@@ -62,9 +62,9 @@
             <ion-icon slot="start" src="/assets/icon/ic_notifications.svg" color="primary"></ion-icon>
             <ion-label color="primary" class="label-text">
               Notificaciones
-              <div class="locate-cont">
+              <div class="locate-cont" *ngIf="notificationCount > 0">
                 <ion-text color="light" class="rating-text">
-                  +9
+                  +{{notificationCount}}
                 </ion-text>
               </div>
             </ion-label>

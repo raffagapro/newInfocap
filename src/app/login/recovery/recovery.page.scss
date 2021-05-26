@@ -5,3 +5,10 @@
 hr {
   border-top: 1px solid #e54360;
 }
+.spacing {
+  height: 5%;
+
+  @media (min-width: 768px) {
+    height: 25%;
+  }
+}

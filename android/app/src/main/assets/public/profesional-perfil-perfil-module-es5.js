@@ -251,6 +251,16 @@
       var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! ./success-modal/success-modal.component */
       "yw4M");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
 
       function base64toBlob(base64Data, contentType) {
         contentType = contentType || '';
@@ -299,7 +309,7 @@
               _this.grabbedUser = user;
             }); //api headers
 
-            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token); // updates to the most current info from DB
+            this.headers = 'Bearer ' + this.grabbedUser.access_token; // updates to the most current info from DB
 
             this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
             var phone1;
@@ -386,16 +396,17 @@
               message: 'Alcualizando la informacion...'
             }).then(function (loadingEl) {
               loadingEl.present();
-              var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + _this2.grabbedUser.access_token);
-
-              _this2.http.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account', modUser, {
-                headers: headers
-              }).subscribe(function (resData) {
+              var headers = 'Bearer ' + _this2.grabbedUser.access_token;
+              axios__WEBPACK_IMPORTED_MODULE_12___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account', modUser, {
+                headers: {
+                  Authorization: _this2.headers
+                }
+              }).then(function (resData) {
                 loadingEl.dismiss();
 
                 if (resData['code'] === 200) {
                   //update user controler
-                  _this2.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_8__["User"](_this2.grabbedUser.id, resData['data'].name, resData['data'].last_name, resData['data'].img_profile, resData['data'].email, resData['data'].phone1, resData['data'].phone2, _this2.grabbedUser.role, _this2.grabbedUser.access_token)); //resets values after succefull update
+                  _this2.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_8__["User"](_this2.grabbedUser.id, resData.data.data.name, resData.data.data.last_name, resData.data.data.img_profile, resData.data.data.email, resData.data.data.phone1, resData.data.data.phone2, _this2.grabbedUser.role, _this2.grabbedUser.access_token)); //resets values after succefull update
 
 
                   _this2.form.setValue({
@@ -415,9 +426,9 @@
                     modalEl.present();
                   });
                 }
-              }, function (e) {
+              })["catch"](function (err) {
                 loadingEl.dismiss();
-                _this2.httpError = e['error'].message;
+                _this2.httpError = err['error'].message;
               });
             });
           }
@@ -476,9 +487,11 @@
             });
             var formData = new FormData();
             formData.append('image', imgFile);
-            this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account/image', formData, {
-              headers: this.headers
-            }).subscribe(function (resData) {
+            axios__WEBPACK_IMPORTED_MODULE_12___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account/image', formData, {
+              headers: {
+                Authorization: this.headers
+              }
+            }).then(function (resData) {
               _this4.us.dbUserGrab(_this4.grabbedUser.access_token, _this4.grabbedUser.role);
 
               _this4.modalController.create({
@@ -487,7 +500,7 @@
               }).then(function (modalEl) {
                 modalEl.present();
               });
-            }, function (err) {
+            })["catch"](function (err) {
               console.log(err);
             });
           }

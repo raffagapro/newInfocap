@@ -1,9 +1,9 @@
 <ion-content class="ion-padding">
-  <div style="height: 5%"></div>
+  <div class="spacing"></div>
   <ion-grid>
     <!-- Main Logo -->
     <ion-row>
-      <ion-col size="10" offset="1">
+      <ion-col size="12" class="text-center">
         <img src="assets/logos/logo.svg" alt="">
       </ion-col>
     </ion-row>
@@ -49,8 +49,8 @@
     <form #f="ngForm" (ngSubmit)="login(f)">
       <!-- email -->
       <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating">
               <ion-icon src="/assets/icon/ic_mail.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Email</ion-text>
@@ -74,8 +74,8 @@
 
       <!-- password -->
       <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
               <ion-icon src="/assets/icon/ic_lock.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Contraseña</ion-text>
@@ -140,7 +140,7 @@
           </small>
         </ion-button>
       </ion-col> -->
-      <ion-col size="10" offset="1">
+      <ion-col size="12">
         <ion-button expand="block" [routerLink]="['/','register']" routerDirection="forward" class="ion-text-uppercase">
           Registrarme
         </ion-button>
@@ -149,11 +149,11 @@
 
     <!-- forgot password link -->
     <ion-row class="ion-margin-top">
-      <ion-col size="5" class="ion-text-right">
+      <ion-col size="5" class="logo-text">
         <ion-text class="main-color">Una empresa</ion-text>
       </ion-col>
       <ion-col size="6">
-        <img src="assets/logos/info_logo.png" alt="">
+        <img class="logo-img" src="assets/logos/info_logo.png" alt="">
       </ion-col>
     </ion-row>
 

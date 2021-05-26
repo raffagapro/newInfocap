@@ -11,7 +11,7 @@ import { User } from '../model/user.model';
 export class UserService {
   private _storage: Storage | null = null;
   private _loggedUser = new BehaviorSubject<User>(
-    new User(null, null, null, null, null, null, null, null, null)
+    new User(null, null, null, null, null, null, null, null, null, null)
   );
 
   constructor(

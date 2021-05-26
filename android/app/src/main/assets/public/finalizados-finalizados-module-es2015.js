@@ -55,13 +55,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
 /* harmony import */ var _raw_loader_finalizados_page_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./finalizados.page.html */ "p01f");
 /* harmony import */ var _finalizados_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./finalizados.page.scss */ "uQPh");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
-/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
-/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! axios */ "vDqi");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
 
 
 
@@ -73,10 +74,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let FinalizadosPage = class FinalizadosPage {
-    constructor(router, menuController, http, us, lc, solServ) {
+    constructor(router, menuController, us, lc, solServ) {
         this.router = router;
         this.menuController = menuController;
-        this.http = http;
         this.us = us;
         this.lc = lc;
         this.solServ = solServ;
@@ -87,7 +87,7 @@ let FinalizadosPage = class FinalizadosPage {
     ngOnInit() {
         this.userSub = this.us.loggedUser.subscribe(user => {
             this.grabbedUser = user;
-            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+            this.headers = 'Bearer ' + this.grabbedUser.access_token;
             this.loadServices("5");
             //5
             this.loadServices("6");
@@ -102,16 +102,15 @@ let FinalizadosPage = class FinalizadosPage {
             message: "Cargando lista de servicios..."
         }).then(loadingEl => {
             loadingEl.present();
-            this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + `/supplier/requestservice/${statusID}`, { headers: this.headers })
-                .subscribe(resData => {
+            axios__WEBPACK_IMPORTED_MODULE_9___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + `/supplier/requestservice/${statusID}`, { headers: { Authorization: this.headers } }).then(resData => {
                 loadingEl.dismiss();
                 if (statusID === "5") {
-                    this.loadedServices = resData["data"];
+                    this.loadedServices = resData.data.data;
                 }
                 if (statusID === "6") {
-                    this.paidServices = resData["data"];
+                    this.paidServices = resData.data.data;
                 }
-            }, err => {
+            }).catch(err => {
                 console.log(err);
                 loadingEl.dismiss();
             });
@@ -139,15 +138,14 @@ let FinalizadosPage = class FinalizadosPage {
     }
 };
 FinalizadosPage.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"] },
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
-    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"] },
-    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"] },
+    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__["SolicitudService"] }
 ];
 FinalizadosPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
         selector: 'app-finalizados',
         template: _raw_loader_finalizados_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_finalizados_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]

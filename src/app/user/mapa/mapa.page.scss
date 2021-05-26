@@ -1,6 +1,10 @@
 #map {
   //height: 100%;
-  min-height: 340px;
+  min-height: 460px;
+
+  @media (min-height: 768px) {
+    min-height: 530px;
+  }
 }
 .title {
   font-size: 18px;
@@ -95,8 +99,7 @@ hr {
 
 .form-padding {
   position: relative;
-  padding: 0 10px;
-  min-height: 60vh;
+  padding: 0 10px 40px 10px;
 }
 
 /*

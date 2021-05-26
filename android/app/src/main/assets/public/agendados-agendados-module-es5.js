@@ -116,51 +116,55 @@
       /* harmony import */
 
 
-      var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! @angular/common/http */
-      "tk/3");
-      /* harmony import */
-
-
-      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/core */
       "fXoL");
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @angular/router */
       "tyNb");
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
       /* harmony import */
 
 
-      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! src/app/services/solicitud.service */
       "rLtr");
       /* harmony import */
 
 
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
       /* harmony import */
 
 
-      var ionic2_calendar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var ionic2_calendar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! ionic2-calendar */
       "L+Ny");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_10__);
       /* harmony import */
 
 
@@ -173,14 +177,13 @@
       var moment__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_11__);
 
       var AgendadosPage = /*#__PURE__*/function () {
-        function AgendadosPage(router, menuController, http, us, lc, solServ) {
+        function AgendadosPage(router, menuController, us, lc, solServ) {
           var _this = this;
 
           _classCallCheck(this, AgendadosPage);
 
           this.router = router;
           this.menuController = menuController;
-          this.http = http;
           this.us = us;
           this.lc = lc;
           this.solServ = solServ;
@@ -228,7 +231,7 @@
                     case 0:
                       this.userSub = this.us.loggedUser.subscribe(function (user) {
                         _this2.grabbedUser = user;
-                        _this2.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + _this2.grabbedUser.access_token);
+                        _this2.headers = 'Bearer ' + _this2.grabbedUser.access_token;
 
                         _this2.loadServices("3");
 
@@ -298,37 +301,37 @@
               message: "Cargando lista de servicios..."
             }).then(function (loadingEl) {
               loadingEl.present();
-
-              _this4.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/supplier/requestservice/".concat(statusID), {
-                headers: _this4.headers
-              }).subscribe(function (resData) {
+              axios__WEBPACK_IMPORTED_MODULE_10___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + "/supplier/requestservice/".concat(statusID), {
+                headers: {
+                  Authorization: _this4.headers
+                }
+              }).then(function (resData) {
                 loadingEl.dismiss();
 
                 if (statusID === "3") {
-                  _this4.loadedServices = resData["data"];
+                  _this4.loadedServices = resData.data.data;
 
-                  _this4.formatEvents(resData["data"], "3");
+                  _this4.formatEvents(resData.data.data, "3");
 
                   _this4.myCal.loadEvents();
                 }
 
                 if (statusID === "4") {
-                  _this4.loadedStartedServices = resData["data"];
+                  _this4.loadedStartedServices = resData.data.data;
 
-                  _this4.formatEvents(resData["data"], "4");
+                  _this4.formatEvents(resData.data.data, "4");
 
                   _this4.myCal.loadEvents();
                 }
 
                 if (statusID === "2") {
-                  _this4.loadedVisits = resData["data"];
-                  console.log(resData['data']);
+                  _this4.loadedVisits = resData.data.data;
 
-                  _this4.formatEvents(resData["data"], "2");
+                  _this4.formatEvents(resData.data.data, "2");
 
                   _this4.myCalAgended.loadEvents();
                 }
-              }, function (err) {
+              })["catch"](function (err) {
                 console.log(err);
                 loadingEl.dismiss();
               });
@@ -398,8 +401,8 @@
             this.myCalAgended.loadEvents();
           }
         }, {
-          key: "formatHour",
-          value: function formatHour(times) {
+          key: "diferenceHour",
+          value: function diferenceHour(times) {
             var hours = times.split('/');
             var a = moment__WEBPACK_IMPORTED_MODULE_11__(hours[1]);
             var b = moment__WEBPACK_IMPORTED_MODULE_11__(hours[0]);
@@ -417,31 +420,29 @@
 
       AgendadosPage.ctorParameters = function () {
         return [{
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"]
         }, {
-          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"]
         }, {
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
-        }, {
-          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"]
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__["SolicitudService"]
         }];
       };
 
       AgendadosPage.propDecorators = {
         myCal: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"],
-          args: [ionic2_calendar__WEBPACK_IMPORTED_MODULE_10__["CalendarComponent"]]
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"],
+          args: [ionic2_calendar__WEBPACK_IMPORTED_MODULE_9__["CalendarComponent"]]
         }],
         myCalAgended: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"],
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"],
           args: ['calendarAgended']
         }]
       };
-      AgendadosPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+      AgendadosPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
         selector: 'app-agendados',
         template: _raw_loader_agendados_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_agendados_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
@@ -7617,7 +7618,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">AGENDADOS</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <!-- title -->\n  <ion-grid fixed>\n    <ion-row class=\"ion-margin-top\" style=\"align-items: center;\">\n      <ion-col offset=\"7\">\n        <span style=\"color: #009ace\">Ver como</span>\n        <ion-icon (click)=\"changeView('list')\" class=\"icon-type-view\" name=\"menu-outline\"></ion-icon>\n        <ion-icon (click)=\"changeView('cal')\" class=\"icon-type-view\" name=\"calendar-clear-outline\"></ion-icon>\n      </ion-col>\n    </ion-row>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"11\" class=\"ion-text-left\">\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length > 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes\n            los siguientes trabajos en tu agenda.</b>\n        </ion-text>\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length === 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no\n            tienes trabajos en tu agenda.</b>\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- servicios agendados -->\n  <ion-row [hidden]=\"viewMood !== 'cal'\" style=\"text-align: center;align-items: center;\">\n    <ion-col size=\"3\">\n      <ion-button (click)=\"back()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-back-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n    <ion-col size=\"6\">\n      <ion-text class=\"dates-text-calendar\">{{ datesView }}</ion-text>\n    </ion-col>\n    <ion-col size=\"3\">\n      <ion-button (click)=\"next()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-forward-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n  </ion-row>\n\n  <div [hidden]=\"viewMood !== 'cal'\" style=\"height: 50vh; padding-left: 16px; padding-right: 16px;\">\n    <calendar [eventSource]=\"eventSource\" [calendarMode]=\"calendar.mode\" [currentDate]=\"calendar.currentDate\"\n      (onTitleChanged)=\"onViewTitleChanged($event)\" [weekviewHeaderTemplate]=\"headerWeek\"\n      [weekviewNormalEventTemplate]=\"event\">\n    </calendar>\n  </div>\n\n  <ion-row [hidden]=\"viewMood !== 'cal'\">\n    <ion-col size=\"11\" class=\"ion-text-left\">\n      <ion-text color=\"danger\" class=\"title\"><b>Tienes las siguientes visitas de evaluación agendadas.</b></ion-text>\n    </ion-col>\n    <ion-col size=\"1\"></ion-col>\n  </ion-row>\n\n  <ion-row [hidden]=\"viewMood !== 'cal'\" style=\"text-align: center;align-items: center;\">\n    <ion-col size=\"3\">\n      <ion-button (click)=\"backAgended()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-back-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n    <ion-col size=\"6\">\n      <ion-text class=\"dates-text-calendar\">{{ datesAgendedView }}</ion-text>\n    </ion-col>\n    <ion-col size=\"3\">\n      <ion-button (click)=\"nextAgended()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-forward-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n  </ion-row>\n  <div [hidden]=\"viewMood !== 'cal'\" style=\"height: 50vh; padding-left: 16px; padding-right: 16px;\">\n    <calendar #calendarAgended [hidden]=\"viewMood !== 'cal'\" [eventSource]=\"eventSourceAgended\" [calendarMode]=\"calendar.mode\"\n      [currentDate]=\"calendar.currentDate\" (onTitleChanged)=\"onViewTitleAgendedChanged($event)\"\n      [weekviewHeaderTemplate]=\"headerWeekAgended\" [weekviewNormalEventTemplate]=\"eventAgended\">\n    </calendar>\n  </div>\n\n  <ng-template #event let-displayEvent=\"displayEvent\">\n    <div class=\"calendar-event-inner\" (click)=\"solicitudDetail(displayEvent.event.title.id)\">\n      <div class=\"category-event-inner\">\n        {{displayEvent.event.title.cat}}\n      </div>\n      <div class=\"name-event-inner\">\n        {{displayEvent.event.title.name}}\n      </div>\n      <div class=\"description-event-inner\">\n        {{displayEvent.event.title.description}}\n      </div>\n      <div (click)=\"openMaps(displayEvent.event.title.adress)\">\n        <ion-icon src=\"/assets/icon/ic_map.svg\" color=\"primary\" class=\"iconFixCalendar\"></ion-icon>&nbsp;\n      </div>\n    </div>\n  </ng-template>\n\n  <ng-template #eventAgended let-displayEvent=\"displayEvent\">\n    <div class=\"calendar-event-inner\" (click)=\"solicitudDetail(displayEvent.event.title.id)\">\n      <div class=\"category-event-inner\">\n        {{displayEvent.event.title.cat}}\n      </div>\n      <div class=\"name-event-inner\">\n        {{displayEvent.event.title.name}}\n      </div>\n      <div class=\"description-event-inner\">\n        {{displayEvent.event.title.description}}\n      </div>\n      <div (click)=\"openMaps(displayEvent.event.title.adress)\">\n        <ion-icon src=\"/assets/icon/ic_map.svg\" color=\"primary\" class=\"iconFixCalendar\"></ion-icon>&nbsp;\n      </div>\n    </div>\n  </ng-template>\n\n  <ng-template #headerWeek let-viewDate=\"viewDate\">\n    <div class=\"week-day-header\">\n      <ion-row>\n        {{ view(viewDate) }}\n      </ion-row>\n      <ion-row>\n        {{ viewDay(viewDate) }}\n      </ion-row>\n    </div>\n  </ng-template>\n\n  <ng-template #headerWeekAgended let-viewDate=\"viewDate\">\n    <div class=\"week-day-header\">\n      <ion-row>\n        {{ view(viewDate) }}\n      </ion-row>\n      <ion-row>\n        {{ viewDay(viewDate) }}\n      </ion-row>\n    </div>\n  </ng-template>\n\n\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedServices\">\n    <ion-grid [hidden]=\"viewMood !== 'list'\">\n      <ion-row class=\"ion-align-items-center\">\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\" (click)=\"solicitudDetail(service.id)\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{service.clientName+\" \"+ service.clientLastName}}\n            </span>&nbsp;&nbsp;\n            <ion-badge color=\"primary\" class=\"badge-text\">{{ service.categoryName }}</ion-badge>\n            <br>\n            <small>\n              <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{formatDate(service.date_required)}}\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ formatTime(service.hours) }}\n            </small>\n          </ion-text>\n        </ion-col>\n\n        <!-- ticket numer -->\n        <ion-col size=\"4\" class=\"text-center\">\n\n          <!-- enviada -->\n          <ion-text>\n            <!-- icons -->\n            <small class=\"ticket ion-text-center\">Ticket #{{ service.ticket_number }}</small>\n            <small class=\"ratingText main-color ion-text-center\">\n              <div class=\"location_button\" (click)=\"openMaps(service.adress)\">\n                <ion-icon src=\"/assets/icon/ic_map.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>&nbsp;VER MAPA\n              </div>\n            </small>\n            <!--\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 3\">\n              SERVICIO AGENDADO\n            </small>\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 4\">\n              SERVICIO EN PROCESO\n            </small>\n          -->\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- servicios Iniciados -->\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedStartedServices\" (click)=\"solicitudDetail(service.id)\">\n    <ion-grid [hidden]=\"viewMood !== 'list'\">\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{service.clientName+\" \"+ service.clientLastName}}\n            </span>&nbsp;&nbsp;\n            <ion-badge color=\"primary\" class=\"badge-text\">{{ service.categoryName }}</ion-badge>\n            <br>\n            <small>\n              <ion-icon name=\"calendar\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{service.date_required}}\n              <ion-icon name=\"time\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ p(service.hours) }}h\n            </small>\n          </ion-text>\n        </ion-col>\n\n        <!-- ticket numer -->\n        <ion-col size=\"4\">\n\n          <!-- enviada -->\n          <ion-text>\n            <!-- icons -->\n            <small class=\"ticket ion-text-center\">Ticket #{{ service.ticket_number }}</small>\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 3\">\n              SERVICIO AGENDADO\n            </small>\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 4\">\n              SERVICIO EN PROCESO\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- title -->\n  <ion-grid *ngIf=\"loadedVisits.length > 0\">\n    <ion-row [hidden]=\"viewMood !== 'list'\">\n      <ion-col size=\"11\" class=\"ion-text-left\">\n        <ion-text color=\"danger\" class=\"title\"><b>Tienes las siguientes visitas de evaluación agendadas.</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- visitas agendadas -->\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedVisits\" (click)=\"solicitudDetail(service.id)\">\n    <ion-grid [hidden]=\"viewMood !== 'list'\">\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{service.clientName+\" \"+ service.clientLastName}}\n            </span>&nbsp;&nbsp;\n            <ion-badge color=\"primary\" class=\"badge-text\">{{ service.categoryName }}</ion-badge>\n            <br>\n            <small>\n              <ion-icon name=\"calendar\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{service.date_required}}\n              <ion-icon name=\"time\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ formatHour(service.hours) }}h\n            </small>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\">\n          <ion-text>\n            <p class=\"ticketText ion-text-center ion-no-margin\">Ticket #{{service.ticket_number}}</p>\n            <!-- <ion-button expand=\"block\" fill=\"outline\" shape=\"round\" class=\"miniBtnTxt\" (click)=\"map()\">\n              <ion-icon slot=\"start\" name=\"map\"></ion-icon>\n              VER MAPA\n            </ion-button> -->\n\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">AGENDADOS</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <!-- title -->\n  <ion-grid fixed>\n    <ion-row class=\"ion-margin-top\" style=\"align-items: center;\">\n      <ion-col offset=\"7\">\n        <span style=\"color: #009ace\">Ver como</span>\n        <ion-icon (click)=\"changeView('list')\" class=\"icon-type-view\" name=\"menu-outline\"></ion-icon>\n        <ion-icon (click)=\"changeView('cal')\" class=\"icon-type-view\" name=\"calendar-clear-outline\"></ion-icon>\n      </ion-col>\n    </ion-row>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"11\" class=\"ion-text-left\">\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length > 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes\n            los siguientes trabajos en tu agenda.</b>\n        </ion-text>\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length === 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no\n            tienes trabajos en tu agenda.</b>\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- servicios agendados -->\n  <ion-row [hidden]=\"viewMood !== 'cal'\" style=\"text-align: center;align-items: center;\">\n    <ion-col size=\"3\">\n      <ion-button (click)=\"back()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-back-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n    <ion-col size=\"6\">\n      <ion-text class=\"dates-text-calendar\">{{ datesView }}</ion-text>\n    </ion-col>\n    <ion-col size=\"3\">\n      <ion-button (click)=\"next()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-forward-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n  </ion-row>\n\n  <div [hidden]=\"viewMood !== 'cal'\" style=\"height: 50vh; padding-left: 16px; padding-right: 16px;\">\n    <calendar [eventSource]=\"eventSource\" [calendarMode]=\"calendar.mode\" [currentDate]=\"calendar.currentDate\"\n      (onTitleChanged)=\"onViewTitleChanged($event)\" [weekviewHeaderTemplate]=\"headerWeek\"\n      [weekviewNormalEventTemplate]=\"event\">\n    </calendar>\n  </div>\n\n  <ion-row [hidden]=\"viewMood !== 'cal'\">\n    <ion-col size=\"11\" class=\"ion-text-left\">\n      <ion-text color=\"danger\" class=\"title\"><b>Tienes las siguientes visitas de evaluación agendadas.</b></ion-text>\n    </ion-col>\n    <ion-col size=\"1\"></ion-col>\n  </ion-row>\n\n  <ion-row [hidden]=\"viewMood !== 'cal'\" style=\"text-align: center;align-items: center;\">\n    <ion-col size=\"3\">\n      <ion-button (click)=\"backAgended()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-back-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n    <ion-col size=\"6\">\n      <ion-text class=\"dates-text-calendar\">{{ datesAgendedView }}</ion-text>\n    </ion-col>\n    <ion-col size=\"3\">\n      <ion-button (click)=\"nextAgended()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-forward-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n  </ion-row>\n\n  <div [hidden]=\"viewMood !== 'cal'\" style=\"height: 50vh; padding-left: 16px; padding-right: 16px;\">\n    <calendar #calendarAgended [hidden]=\"viewMood !== 'cal'\" [eventSource]=\"eventSourceAgended\" [calendarMode]=\"calendar.mode\"\n      [currentDate]=\"calendar.currentDate\" (onTitleChanged)=\"onViewTitleAgendedChanged($event)\"\n      [weekviewHeaderTemplate]=\"headerWeekAgended\" [weekviewNormalEventTemplate]=\"eventAgended\">\n    </calendar>\n  </div>\n\n  <ng-template #event let-displayEvent=\"displayEvent\">\n    <div class=\"calendar-event-inner\" (click)=\"solicitudDetail(displayEvent.event.title.id)\">\n      <div class=\"category-event-inner\">\n        {{displayEvent.event.title.cat}}\n      </div>\n      <div class=\"name-event-inner\">\n        {{displayEvent.event.title.name}}\n      </div>\n      <div class=\"description-event-inner\">\n        {{displayEvent.event.title.description}}\n      </div>\n      <div (click)=\"openMaps(displayEvent.event.title.adress)\">\n        <ion-icon src=\"/assets/icon/ic_map.svg\" color=\"primary\" class=\"iconFixCalendar\"></ion-icon>&nbsp;\n      </div>\n    </div>\n  </ng-template>\n\n  <ng-template #eventAgended let-displayEvent=\"displayEvent\">\n    <div class=\"calendar-event-inner\" (click)=\"solicitudDetail(displayEvent.event.title.id)\">\n      <div class=\"category-event-inner\">\n        {{displayEvent.event.title.cat}}\n      </div>\n      <div class=\"name-event-inner\">\n        {{displayEvent.event.title.name}}\n      </div>\n      <div class=\"description-event-inner\">\n        {{displayEvent.event.title.description}}\n      </div>\n      <div (click)=\"openMaps(displayEvent.event.title.adress)\">\n        <ion-icon src=\"/assets/icon/ic_map.svg\" color=\"primary\" class=\"iconFixCalendar\"></ion-icon>&nbsp;\n      </div>\n    </div>\n  </ng-template>\n\n  <ng-template #headerWeek let-viewDate=\"viewDate\">\n    <div class=\"week-day-header\">\n      <ion-row>\n        {{ view(viewDate) }}\n      </ion-row>\n      <ion-row>\n        {{ viewDay(viewDate) }}\n      </ion-row>\n    </div>\n  </ng-template>\n\n  <ng-template #headerWeekAgended let-viewDate=\"viewDate\">\n    <div class=\"week-day-header\">\n      <ion-row>\n        {{ view(viewDate) }}\n      </ion-row>\n      <ion-row>\n        {{ viewDay(viewDate) }}\n      </ion-row>\n    </div>\n  </ng-template>\n\n\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedServices\">\n    <ion-grid [hidden]=\"viewMood !== 'list'\">\n      <ion-row class=\"ion-align-items-center\">\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\" (click)=\"solicitudDetail(service.id)\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{service.clientName+\" \"+ service.clientLastName}}\n            </span>&nbsp;&nbsp;\n            <ion-badge color=\"primary\" class=\"badge-text\">{{ service.categoryName }}</ion-badge>\n            <br>\n            <small>\n              <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ formatDate(service.date_required) }}\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ formatTime(service.hours) }}\n            </small>\n          </ion-text>\n        </ion-col>\n\n        <!-- ticket numer -->\n        <ion-col size=\"4\" class=\"text-center\">\n\n          <!-- enviada -->\n          <ion-text>\n            <!-- icons -->\n            <small class=\"ticket ion-text-center\">Solicitud #{{ service.ticket_number }}</small>\n            <small class=\"ratingText main-color ion-text-center\">\n              <div class=\"location_button\" (click)=\"openMaps(service.adress)\">\n                <ion-icon src=\"/assets/icon/ic_map.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>&nbsp;VER MAPA\n              </div>\n            </small>\n            <!--\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 3\">\n              SERVICIO AGENDADO\n            </small>\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 4\">\n              SERVICIO EN PROCESO\n            </small>\n          -->\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- servicios Iniciados -->\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedStartedServices\" (click)=\"solicitudDetail(service.id)\">\n    <ion-grid [hidden]=\"viewMood !== 'list'\">\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{service.clientName+\" \"+ service.clientLastName}}\n            </span>&nbsp;&nbsp;\n            <ion-badge color=\"primary\" class=\"badge-text\">{{ service.categoryName }}</ion-badge>\n            <br>\n            <small>\n              <ion-icon name=\"calendar\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{service.date_required}}\n              <ion-icon name=\"time\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ diferenceHour(service.hours) }}h\n            </small>\n          </ion-text>\n        </ion-col>\n\n        <!-- ticket numer -->\n        <ion-col size=\"4\">\n\n          <!-- enviada -->\n          <ion-text>\n            <!-- icons -->\n            <small class=\"ticket ion-text-center\">Solicitud #{{ service.ticket_number }}</small>\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 3\">\n              SERVICIO AGENDADO\n            </small>\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 4\">\n              SERVICIO EN PROCESO\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- title -->\n  <ion-grid *ngIf=\"loadedVisits.length > 0\">\n    <ion-row [hidden]=\"viewMood !== 'list'\">\n      <ion-col size=\"11\" class=\"ion-text-left\">\n        <ion-text color=\"danger\" class=\"title\"><b>Tienes las siguientes visitas de evaluación agendadas.</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- visitas agendadas -->\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedVisits\" (click)=\"solicitudDetail(service.id)\">\n    <ion-grid [hidden]=\"viewMood !== 'list'\">\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{service.clientName+\" \"+ service.clientLastName}}\n            </span>&nbsp;&nbsp;\n            <ion-badge color=\"primary\" class=\"badge-text\">{{ service.categoryName }}</ion-badge>\n            <br>\n            <small>\n              <ion-icon name=\"calendar\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{service.date_required}}\n              <ion-icon name=\"time\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ formatHour(service.hours) }}h\n            </small>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\">\n          <ion-text>\n            <p class=\"ticketText ion-text-center ion-no-margin\">Solicitud #{{service.ticket_number}}</p>\n            <!-- <ion-button expand=\"block\" fill=\"outline\" shape=\"round\" class=\"miniBtnTxt\" (click)=\"map()\">\n              <ion-icon slot=\"start\" name=\"map\"></ion-icon>\n              VER MAPA\n            </ion-button> -->\n\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n</ion-content>";
       /***/
     }
   }]);

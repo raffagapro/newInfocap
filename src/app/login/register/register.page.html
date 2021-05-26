@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar mode="ios">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/" text="" icon="arrow-back"></ion-back-button>
     </ion-buttons>
@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div style="height: 5%"></div>
+  <div class="spacing"></div>
   <ion-grid>
 
     <!-- title -->
@@ -32,8 +32,8 @@
     <form #f="ngForm" (ngSubmit)="onRegister(f)">
       <!-- nombre -->
       <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
               <ion-icon name="person" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Nombre
@@ -69,8 +69,8 @@
 
       <!-- email -->
       <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating">
               <ion-icon src="/assets/icon/ic_mail.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Email
@@ -90,7 +90,7 @@
           <ion-label *ngIf="errors.email[0] !== undefined" class="errorMess">
             <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
             <ion-text color="danger">
-              <small> {{ errors.email[0] }}</small>
+              <small class="error-text"> {{ errors.email[0] }}</small>
             </ion-text><br>
           </ion-label>
 
@@ -100,20 +100,20 @@
 
       <!-- phone -->
       <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
               <ion-icon src="/assets/icon/ic_phone.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Teléfono</ion-text>
             </ion-label>
-            <ion-input ngModel name="phone1" required #phone1Ctrl="ngModel" type="tel">
+            <ion-input ngModel name="phone1" minlength="9" maxlength="9" required #phone1Ctrl="ngModel" type="tel">
             </ion-input>
           </ion-item>
           <!-- error  -->
           <ion-label *ngIf="!phone1Ctrl.valid && phone1Ctrl.touched" class="errorMess">
             <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
             <ion-text color="danger">
-              <small> El teléfono es requerido</small>
+              <small> El teléfono debe ser de 9 dígitos</small>
             </ion-text>
           </ion-label>
         </ion-col>
@@ -121,10 +121,10 @@
 
       <!-- password -->
       <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
-              <ion-icon src="/assets/icon/ic_lock.svg" slot="start" class="main-color"></ion-icon>
+              <ion-icon src="/assets/icon/ic_lock.svg" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Contraseña</ion-text>
             </ion-label>
             <ion-input ngModel name="password" minlength="8" required #passwordCtrl="ngModel" type="password">
@@ -150,10 +150,10 @@
 
       <!-- password confirm -->
       <ion-row>
-        <ion-col size="11">
-          <ion-item>
+        <ion-col size="12">
+          <ion-item class="ion-no-padding">
             <ion-label position="floating" class="main-color">
-              <ion-icon src="/assets/icon/ic_lock.svg" slot="start" class="main-color"></ion-icon>
+              <ion-icon src="/assets/icon/ic_lock.svg" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Repetir contraseña</ion-text>
             </ion-label>
             <ion-input ngModel name="confirm_password" minlength="8" required type="password">
@@ -164,7 +164,7 @@
 
       <!-- Registrar BTN -->
       <ion-row class="ion-margin-top">
-        <ion-col class="ion-margin-top">
+        <ion-col class="ion-margin-top" size="12">
           <ion-button expand="block" type="submit" [disabled]="!f.valid" class="ion-text-uppercase">
             Registrarme
           </ion-button>

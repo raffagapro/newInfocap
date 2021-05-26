@@ -4,17 +4,13 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
-
 import { ConfirmSuccessModalComponent } from './confirm-success-modal/confirm-success-modal.component';
-import { ProfCategory } from 'src/app/model/profCategory.model';
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ImgListService } from 'src/app/services/img-list.service';
 import * as moment from 'moment';
-import { Moment } from 'moment';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -140,7 +136,7 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
       quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,
-      height: 150,
+      //height: 150,
       // width: 200,
       resultType: CameraResultType.DataUrl,
       promptLabelPhoto: 'Fotos',

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="62" height="62" viewBox="0 0 62 62">
+  <defs>
+    <filter id="Elipse_114" x="0" y="0" width="62" height="62" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Grupo_4237" data-name="Grupo 4237" transform="translate(-287 -143)">
+    <g transform="matrix(1, 0, 0, 1, 287, 143)" filter="url(#Elipse_114)">
+      <circle id="Elipse_114-2" data-name="Elipse 114" cx="22" cy="22" r="22" transform="translate(9 6)" fill="#39ae50" opacity="0.85"/>
+    </g>
+    <path id="ic_phone_in_talk_24px" d="M24.722,18.972a14.516,14.516,0,0,1-4.562-.728,1.3,1.3,0,0,0-1.3.307l-2.811,2.811a19.225,19.225,0,0,1-8.421-8.421l2.811-2.824a1.227,1.227,0,0,0,.319-1.278,14.516,14.516,0,0,1-.728-4.562A1.282,1.282,0,0,0,8.75,3H4.278A1.282,1.282,0,0,0,3,4.278,21.72,21.72,0,0,0,24.722,26,1.282,1.282,0,0,0,26,24.722V20.25A1.282,1.282,0,0,0,24.722,18.972ZM23.444,14.5H26A11.5,11.5,0,0,0,14.5,3V5.556A8.938,8.938,0,0,1,23.444,14.5Zm-5.111,0h2.556A6.391,6.391,0,0,0,14.5,8.111v2.556A3.828,3.828,0,0,1,18.333,14.5Z" transform="translate(304 157)" fill="#fff"/>
+  </g>
+</svg>

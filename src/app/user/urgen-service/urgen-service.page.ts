@@ -1,4 +1,4 @@
-import { ConfirmSuccessModalComponent } from './confirm-success-modal/confirm-success-modal.component';
+import { SuccessModalComponent } from 'src/app/shared/success-modal/success-modal.component';
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LoadingController, MenuController, ModalController, Platform } from "@ionic/angular";
@@ -122,7 +122,7 @@ export class UrgenServicePage implements OnInit {
       quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,
-      height: 150,
+      //height: 150,
       // width: 200,
       resultType: CameraResultType.DataUrl,
       promptLabelPhoto: 'Fotos',
@@ -196,7 +196,11 @@ export class UrgenServicePage implements OnInit {
         .subscribe(resData => {
           loadingEl.dismiss();
           this.modalController.create({
-            component: ConfirmSuccessModalComponent,
+            component: SuccessModalComponent,
+            componentProps: {
+              message: 'PRONTO UN PROFESIONAL SE CONTACTARÁ CONTIGO',
+              redirect: false,
+            },
             cssClass: 'modalSuccess',
           }).then(modalEl => {
             modalEl.present();

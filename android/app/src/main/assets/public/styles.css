@@ -1164,7 +1164,7 @@ ion-menu-button {
 }
 ion-searchbar ion-icon {
   color: #009ace !important;
-  right: 16px !important;
+  right: 40px !important;
   left: auto !important;
 }
 ion-item {
@@ -1185,6 +1185,11 @@ ion-item {
 @media (max-height: 580px) {
   .modalSuccess {
     --height: 80%;
+  }
+}
+@media (min-width: 768px) {
+  .modalSuccess {
+    --height: 60%;
   }
 }
 .modalServRechazado {
@@ -1245,4 +1250,9 @@ ion-item {
   color: gray;
   font-size: 12px;
   font-weight: bold;
+}
+@media (max-width: 380px) {
+  small {
+    font-size: 10px !important;
+  }
 }

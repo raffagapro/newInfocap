@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar mode="ios" color="primary">
 
     <ion-buttons slot="start">
       <ion-button class="homeBtn" (click)="openMenu()">
@@ -39,7 +39,7 @@
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
-        <ion-col size="8" class="ion-justify-content-center">
+        <ion-col size="8" sizeMd="10" class="ion-justify-content-center">
           <ion-text>
             <span class="titleSelect main-color ion-text-capitalize">{{ service.supplierName+" "+service.supplierLastName }} </span><br>
             <!-- <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp; -->
@@ -50,7 +50,7 @@
         </ion-col>
 
         <!-- rating -->
-        <ion-col size="4" class="ion-text-center">
+        <ion-col size="4" sizeMd="2" class="ion-text-center">
           <div class="ion-text-center">
             <small class="ticket">#{{ service.ticket_number }}</small>
           </div>
@@ -60,7 +60,7 @@
           <ion-text *ngIf="service.status_id === 1">
             <!-- icons -->
             <div class="locate-cont">
-              <ion-icon name="send" color="light" class="rating-text"></ion-icon>
+              <ion-icon src="/assets/icon/ic_send.svg" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText main-color ion-text-center">
               SOLICITUD ENVIADA
@@ -71,7 +71,7 @@
           <ion-text *ngIf="service.status_id === 2">
             <!-- icons -->
             <div class="locate-cont bg-main-color">
-              <ion-icon name="calendar" color="light" class="rating-text"></ion-icon>
+              <ion-icon src="/assets/icon/ic_calendar_circle.svg" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText main-color ion-text-center">
               SOLICITUD VISITA
@@ -82,7 +82,7 @@
           <ion-text *ngIf="service.status_id === 3">
             <!-- icons -->
             <div class="locate-cont">
-              <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
+              <ion-icon name="checkmark" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText main-color ion-text-center">
               SERVICIO ACEPTADO
@@ -104,7 +104,7 @@
           <ion-text *ngIf="service.status_id === 4">
             <!-- icons -->
             <div class="locate-cont bg-green-color">
-              <ion-icon name="build" color="light" class="rating-text"></ion-icon>
+              <ion-icon src="/assets/icon/ic_engine_green.svg" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText green-color ion-text-center">
               SERVICIO ENPROCESO
@@ -115,7 +115,7 @@
           <ion-text *ngIf="service.status_id === 5">
             <!-- icons -->
             <div class="locate-cont bg-grey-color">
-              <ion-icon name="build" color="light" class="rating-text"></ion-icon>
+              <ion-icon src="/assets/icon/ic_engine_disabled.svg" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText grey-color ion-text-center">
               SERVICIO REALIZADO
@@ -126,10 +126,10 @@
           <ion-text *ngIf="service.status_id === 6">
             <!-- icons -->
             <div class="locate-cont bg-grey-color">
-              <ion-icon name="build" color="light" class="rating-text"></ion-icon>
+              <ion-icon src="/assets/icon/ic_engine_disabled.svg" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText grey-color ion-text-center">
-              SERVICIO FINALIZADO
+              PAGO FINALIZADO
             </small>
           </ion-text>
 
