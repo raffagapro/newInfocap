@@ -201,14 +201,6 @@ export class AgendadosPage implements OnInit, OnDestroy {
     this.myCalAgended.loadEvents()
   }
 
-  diferenceHour(times) {
-    let hours = times.split('/')
-
-    var a = moment(hours[1]);
-    var b = moment(hours[0]);
-    return a.diff(b, 'hours')
-  }
-
   ngOnDestroy() {
     this.userSub.unsubscribe();
   }

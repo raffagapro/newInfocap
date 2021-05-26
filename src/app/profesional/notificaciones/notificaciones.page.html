@@ -11,19 +11,22 @@
 
 <ion-content>
 
-  <!-- notificacion item -->
-  <div class="prof-cont mt-25 no-border" *ngFor="let noti in loadedServices">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
+  <div class="text-center" *ngIf="notifications.length === 0">
+    <p>No se tienen notificaciones</p>
+  </div>
 
+  <!-- notificacion item -->
+  <div class="prof-cont mt-25 no-border" *ngFor="let notification of notifications">
+    <ion-grid (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id)">
+      <ion-row class="ion-align-items-center">
         <!-- title -->
         <ion-col size="7" class="ion-justify-content-center">
           <ion-text>
             <!-- <span class="titleSelect main-color">Cerrajería </span><br> -->
-            <ion-badge color="primary" class="titleSelect">{{ noti.category }}</ion-badge>&nbsp;
+            <ion-badge color="primary" class="titleSelect">{{ notification.category }}</ion-badge>&nbsp;
             <ion-icon color="primary" src="/assets/icon/ic_date_range.svg" class="icon-size"></ion-icon><br>
             <span class="textSelect">
-              {{ noti.motive }}
+              {{ notification.motive }}
             </span><br>
             <small class="main-color"></small>
           </ion-text>
@@ -33,11 +36,11 @@
         <!-- rating -->
         <ion-col size="4" class="ion-text-center">
           <div class="ion-text-end">
-            <small class="ticket">Solicitud #{{noti.ticket_number}}</small>
+            <small class="ticket">Solicitud #{{notification.ticket_number}}</small>
           </div>
           <ion-text>
             <small class="ratingText main-color ion-text-center">
-              16 dic 2020
+              {{ notification.time }}
             </small>
           </ion-text>
         </ion-col>
