@@ -46,7 +46,6 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   profCategories = [];
   grabbedUser: User = null;
   userSub: Subscription;
-  loadedImgList: string[] = [];
   imgListSub: Subscription;
   form: FormGroup;
   headers: String;
@@ -137,11 +136,6 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
       this.useInputPicker = true;
     }
-    //loading imgList
-    this.loadedImgList = this.ils.imgList;
-    this.imgListSub = this.ils.listChanged.subscribe(imgList => {
-      this.loadedImgList = imgList;
-    });
   }
 
   ionViewWillEnter() {
@@ -176,9 +170,8 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       axios.get(API + `/supplier/profession/${profileID}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
         this.selectedProPerfil = profileID;
-        this.updateForm(resData['data'])
-        //loading images
-        this.ils.setImgList(resData['data'].images);
+        this.updateForm(resData.data.data)
+        this.proCategoryProfile =  resData.data.data;
       }).catch(err => {
         loadingEl.dismiss();
       })
@@ -392,10 +385,8 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
         formData.append('images[]', imgFile);
         formData.append('category_id', this.proCategoryProfile.category_id);
         formData.append('transport_id', this.proCategoryProfile.transports);
-        // formData.append('communes', this.selectedComunas;
         axios.post(API + `/supplier/profession/${this.selectedProPerfil}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
           loadingEl.dismiss();
-          this.onCatProfileChange(this.selectedProPerfil);
         }).catch(err => {
           loadingEl.dismiss();
         })
@@ -405,7 +396,6 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
-    this.imgListSub.unsubscribe();
   }
 
 }

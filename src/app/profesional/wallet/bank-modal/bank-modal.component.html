@@ -6,43 +6,66 @@
       </div>
     </ion-row>
 
-    <ion-row class="ion-margin-left">
-      <ion-item class="no-border">
-        <ion-label class="stacked-modal-label" position="stacked">NOMBRE COMPLETO</ion-label>
-        <ion-input class="stacked-input" placeholder="José Alcarraga López"></ion-input>
-      </ion-item>
-    </ion-row>
+      <ion-row class="ion-margin-left">
+        <ion-item class="no-border">
+          <ion-label class="stacked-modal-label" position="stacked">NOMBRE COMPLETO</ion-label>
+          <ion-input  #completeName class="stacked-input" placeholder="José Alcarraga López">
+          </ion-input>
+        </ion-item>
+      </ion-row>
 
-    <ion-row class="ion-margin-left">
-      <ion-item class="no-border">
-        <ion-label class="stacked-modal-label" position="stacked">NÚMERO DE TARJETA</ion-label>
-        <ion-input class="stacked-input" placeholder="1234 5678 9123 4567"></ion-input>
-      </ion-item>
-    </ion-row>
+      <ion-row class="ion-margin-left">
+        <ion-item class="no-border">
+          <ion-label class="stacked-modal-label" position="stacked">NÚMERO DE TARJETA</ion-label>
+          <ion-input  #cardNumber class="stacked-input" type="number" placeholder="1234 5678 9123 4567"></ion-input>
+        </ion-item>
+      </ion-row>
 
-    <ion-row class="ion-margin-left">
-      <ion-item class="no-border">
-        <ion-label class="stacked-modal-label" position="stacked">CLABE INTERBANCARIA</ion-label>
-        <ion-input class="stacked-input" placeholder="123456789987654321"></ion-input>
-      </ion-item>
-    </ion-row>
+      <ion-row class="ion-margin-left">
+        <ion-item class="no-border">
+          <ion-label class="stacked-modal-label" position="stacked">CLABE INTERBANCARIA</ion-label>
+          <ion-input #clabe class="stacked-input" type="number" placeholder="123456789987654321"></ion-input>
+        </ion-item>
+      </ion-row>
 
-    <ion-row class="ion-margin-left">
-      <ion-item class="no-border">
-        <ion-label class="stacked-modal-label" position="stacked">BANCO</ion-label>
-        <ion-input class="stacked-input" placeholder="BBVA"></ion-input>
-      </ion-item>
-    </ion-row>
+      <ion-row class="ion-margin-left">
+        <ion-item class="no-border">
+          <ion-select #banco placeholder="Banco"
+            interface="popover" class="select-categories-component">
+            <ion-select-option value="001" class="main-color ion-text-center">Banco de Chile</ion-select-option>
+            <ion-select-option value="009" class="main-color ion-text-center">Banco Internacional</ion-select-option>
+            <ion-select-option value="014" class="main-color ion-text-center">Scotiabank Chile</ion-select-option>
+            <ion-select-option value="504" class="main-color ion-text-center">Banco BBVA</ion-select-option>
+            <ion-select-option value="016" class="main-color ion-text-center">Banco de Credito E Inversiones</ion-select-option>
+            <ion-select-option value="028" class="main-color ion-text-center">Banco Bice</ion-select-option>
+            <ion-select-option value="031" class="main-color ion-text-center">HSBC Bank</ion-select-option>
+            <ion-select-option value="037" class="main-color ion-text-center">Banco Santander</ion-select-option>
+            <ion-select-option value="039" class="main-color ion-text-center">Itaú Corpbanca</ion-select-option>
+            <ion-select-option value="049" class="main-color ion-text-center">Banco Security</ion-select-option>
+            <ion-select-option value="051" class="main-color ion-text-center">Banco Falabella</ion-select-option>
+            <ion-select-option value="053" class="main-color ion-text-center">Banco Ripley</ion-select-option>
+            <ion-select-option value="055" class="main-color ion-text-center">Banco Consorcio</ion-select-option>
+            <ion-select-option value="054" class="main-color ion-text-center">Rabobank Chile</ion-select-option>
+            <ion-select-option value="056" class="main-color ion-text-center">Banco Penta</ion-select-option>
+            <ion-select-option value="504" class="main-color ion-text-center">Banco BBVA</ion-select-option>
+            <ion-select-option value="059" class="main-color ion-text-center">Banco BTG Pactual Chile</ion-select-option>
+            <ion-select-option value="012" class="main-color ion-text-center">Banco del Estado de Chile</ion-select-option>
+            <ion-select-option value="504" class="main-color ion-text-center">Banco BBVA</ion-select-option>
+            <ion-select-option value="504" class="main-color ion-text-center">Banco BBVA</ion-select-option>
+            <ion-select-option value="504" class="main-color ion-text-center">Banco BBVA</ion-select-option>
+            <ion-select-option value="504" class="main-color ion-text-center">Banco BBVA</ion-select-option>
 
-    
-    <ion-row class="ion-margin-left">
-      <ion-col offset="1">
-        <ion-button size="5" expand="block" class="ion-text-uppercase" type="submit" [disabled]="!form.valid">
-          GUARDAR DATOS
-        </ion-button>
-      </ion-col>
-      <ion-col size="2"></ion-col>
-    </ion-row>
+          </ion-select>
+        </ion-item>
+      </ion-row>
 
+      <ion-row class="ion-margin-left">
+        <ion-col offset="1">
+          <ion-button [disabled]="!validateInformation(completeName.value, cardNumber.value, clabe.value, banco.value)" size="5" expand="block" class="ion-text-uppercase" type="submit" (click)="saveBankAccount(completeName.value, cardNumber.value, clabe.value, banco.value)">
+            GUARDAR DATOS
+          </ion-button>
+        </ion-col>
+        <ion-col size="2"></ion-col>
+      </ion-row>
   </ion-grid>
 </ion-content>

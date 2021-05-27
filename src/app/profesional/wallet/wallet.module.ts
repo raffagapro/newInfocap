@@ -13,7 +13,7 @@ import { WalletPage } from './wallet.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    WalletPageRoutingModule
+    WalletPageRoutingModule,
   ],
   declarations: [WalletPage]
 })

@@ -1,8 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuController, ModalController } from '@ionic/angular';
+import axios from 'axios';
 import { Chart, LinearScale, BarController, CategoryScale, BarElement } from 'chart.js';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/model/user.model';
+import { UserService } from 'src/app/services/user.service';
+import { API } from 'src/environments/environment';
 
 import { BankModalComponent } from './bank-modal/bank-modal.component'
+import * as moment from 'moment'
 
 Chart.register(
   LinearScale,
@@ -21,27 +27,43 @@ export class WalletPage implements OnInit {
   @ViewChild('barChart') barChart;
   @ViewChild('barChartWeek') barChartWeek;
 
+  headers: string
+  userSub: Subscription;
+  grabbedUser: User;
+
   graphicWeek = false;
   weeksToRender = [];
   selectedMonth = 0;
   actualWeekToShow = 0;
+  yearInfo: {
+    requestnumber: 0,
+    total: 0,
+    monthly_average: 0,
+    paymentByMount: [],
+  }
+
+  totalWeek: 0
   days = ['D', 'L', 'M', 'M', 'J', 'V', 'S']
   months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
   constructor(
     private menuController: MenuController,
     private modalController: ModalController,
+    private us: UserService,
   ) { }
 
   ngOnInit() {
-
+    this.userSub = this.us.loggedUser.subscribe(user => {
+      this.grabbedUser = user;
+      this.headers = 'Bearer ' + this.grabbedUser.access_token;
+    });
   }
 
   ionViewDidEnter() {
     this.barChartMethod();
   }
 
-  barChartMethod() {
+  async barChartMethod() { 
     this.barChart = new Chart(this.barChart.nativeElement, {
       type: 'bar',
       data: {
@@ -66,13 +88,13 @@ export class WalletPage implements OnInit {
     });
   }
 
-  barChartWeekMethod(month) {
+  async barChartWeekMethod(month) {
     var year = new Date().getFullYear()
     this.selectedMonth = month.index
 
     this.weeksToRender = []
-    const firstDate = new Date(year, month.index, 1)
-    const lastDate = new Date(year, month.index, 0)
+    const firstDate = new Date(year, month.index + 1, 1)
+    const lastDate = new Date(year, month.index + 1, 0)
     const numDays = lastDate.getDate()
 
     let dayOfWeekCounter = firstDate.getDay();
@@ -84,6 +106,18 @@ export class WalletPage implements OnInit {
       this.weeksToRender[this.weeksToRender.length - 1].push(date);
       dayOfWeekCounter = (dayOfWeekCounter + 1) % 7;
     }
+
+    let star_date = `${this.weeksToRender[this.actualWeekToShow][0]}/${this.selectedMonth + 1}/${year}`
+    let end_date = `${this.weeksToRender[this.actualWeekToShow][this.weeksToRender[this.actualWeekToShow].length - 1]}/${this.selectedMonth + 1}/${year}`
+
+    axios.get(API + '/payments/weak', {
+      params: {
+        "star_date": moment(star_date, 'D/M/YYYY').format('D/MM/YYYY'),
+        "end_date": moment(end_date, 'D/M/YYYY').format('D/MM/YYYY')
+      }, headers: { Authorization: this.headers }
+    }).then(resData => { 
+
+     })
 
     this.barChartWeek = new Chart(this.barChartWeek.nativeElement, {
       type: 'bar',
@@ -134,12 +168,25 @@ export class WalletPage implements OnInit {
     this.graphicWeek = false
   }
 
-  changeWeek(type) {
-    if(type === 'add') {
+  async changeWeek(type) {
+    var year = new Date().getFullYear()
+    if (type === 'add') {
       this.actualWeekToShow = this.actualWeekToShow + 1
     } else {
       this.actualWeekToShow = this.actualWeekToShow - 1
     }
+
+    let star_date = `${this.weeksToRender[this.actualWeekToShow][0]}/${this.selectedMonth + 1}/${year}`
+    let end_date = `${this.weeksToRender[this.actualWeekToShow][this.weeksToRender[this.actualWeekToShow].length - 1]}/${this.selectedMonth + 1}/${year}`
+
+    axios.get(API + '/payments/weak', {
+      params: {
+        "star_date": moment(star_date, 'D/M/YYYY').format('D/MM/YYYY'),
+        "end_date": moment(end_date, 'D/M/YYYY').format('D/MM/YYYY')
+      }, headers: { Authorization: this.headers }
+    }).then(resData => { 
+      this.totalWeek = resData.data.data.total || 0
+     })
   }
 
   imgProfile() {

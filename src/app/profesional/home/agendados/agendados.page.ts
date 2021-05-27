@@ -75,7 +75,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
       var endTime = new Date(date[0], date[1] - 1, date[2], endHour, endMinute);
 
       let new_event = {
-        title: { id: r.id, cat: 'Categoria', name: `${r.clientName} ${r.clientLastName}`, description: r.description, adress: r.adress },
+        title: { id: r.id, ticket: `#${r.ticket_number}` },
         startTime: startTime,
         endTime: endTime,
         allDay: false
