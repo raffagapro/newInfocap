@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 import { VisitaTecnicaService } from 'src/app/services/visita-tecnica.service';
 import { API } from 'src/environments/environment';
 import * as moment from 'moment';
+import { ConfirmSuccessComponent } from '../confirm-success/confirm-success.component';
 
 @Component({
   selector: 'app-confirm-visita',
@@ -55,23 +56,29 @@ export class ConfirmVisitaComponent implements OnInit {
   //   });
   // }
 
-  dismiss(){
+  dismiss() {
     this.modalController.dismiss();
     // this.router.navigate(['/profesional/home/home-tabs/finalizados/']);
   }
 
-  formatDate(date: string){
+  formatDate(date: string) {
     return moment(date, 'DD/M/YYYY').format('dddd D [de] MMMM [de] YYYY');
   }
 
-  confirmVisita(){
+  async confirmVisita() {
     this.modalController.dismiss();
     this.lc.create({
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
       loadingEl.present();
       axios.put(API + `/supplier/visit/requestservice/${this.solServ.solicitud.solicitudID}`, this.visita_tecnica, { headers: { Authorization: this.headers } }).then(resData => {
-        this.router.navigate(['/profesional/home/home-tabs/agendados']);
+
+        this.modalController.create({
+          component: ConfirmSuccessComponent,
+          cssClass: 'modalSuccess',
+        }).then(success => {
+          success.present()
+        });
         this.visitaT.clearSolicitud()
         this.lc.dismiss();
       }).catch(err => {

@@ -93,16 +93,7 @@
   <ng-template #event let-displayEvent="displayEvent">
     <div class="calendar-event-inner" (click)="solicitudDetail(displayEvent.event.title.id)">
       <div class="category-event-inner">
-        {{displayEvent.event.title.cat}}
-      </div>
-      <div class="name-event-inner">
-        {{displayEvent.event.title.name}}
-      </div>
-      <div class="description-event-inner">
-        {{displayEvent.event.title.description}}
-      </div>
-      <div (click)="openMaps(displayEvent.event.title.adress)">
-        <ion-icon src="/assets/icon/ic_map.svg" color="primary" class="iconFixCalendar"></ion-icon>&nbsp;
+        {{displayEvent.event.title.ticket}}
       </div>
     </div>
   </ng-template>
@@ -110,16 +101,7 @@
   <ng-template #eventAgended let-displayEvent="displayEvent">
     <div class="calendar-event-inner" (click)="solicitudDetail(displayEvent.event.title.id)">
       <div class="category-event-inner">
-        {{displayEvent.event.title.cat}}
-      </div>
-      <div class="name-event-inner">
-        {{displayEvent.event.title.name}}
-      </div>
-      <div class="description-event-inner">
-        {{displayEvent.event.title.description}}
-      </div>
-      <div (click)="openMaps(displayEvent.event.title.adress)">
-        <ion-icon src="/assets/icon/ic_map.svg" color="primary" class="iconFixCalendar"></ion-icon>&nbsp;
+        {{displayEvent.event.title.ticket}}
       </div>
     </div>
   </ng-template>

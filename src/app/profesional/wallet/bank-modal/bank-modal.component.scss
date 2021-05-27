@@ -31,3 +31,17 @@
     padding-right: 32px;
     padding-left: 32px;
 }
+
+.select-categories-component {
+    --padding-top: 0;
+    --padding-bottom: 0;
+    margin-top: -16px;
+    height: 2rem;
+    color: #009ACE; 
+}
+
+.select-categories {
+    border: 1px solid #009ACE;
+    border-radius: 32px;
+    height: 2rem;
+}

@@ -6,6 +6,8 @@ import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { Notification } from 'src/shared/types/Notification';
 import axios from 'axios'
+import { Router } from '@angular/router';
+import { SolicitudService } from 'src/app/services/solicitud.service';
 
 @Component({
   selector: 'app-notificaciones',
@@ -20,10 +22,12 @@ export class NotificacionesPage implements OnInit {
   notifications: Notification[] = [];
 
   constructor(
+    private router: Router,
     private menuController: MenuController,
     private lc: LoadingController,
     private us: UserService,
     private loadingController: LoadingController,
+    private solServ: SolicitudService,
   ) { }
 
   ngOnInit() {
@@ -48,7 +52,7 @@ export class NotificacionesPage implements OnInit {
       );
       const { data } = response;
       const { data: notificationsData } = data;
-      this.notifications = notificationsData;
+      this.notifications = notificationsData.filter(n => n.viewed == 0);
     } catch (error) {
       console.log(error)
     } finally {
@@ -56,13 +60,13 @@ export class NotificacionesPage implements OnInit {
     }
   }
 
-  async goToRequestDetail(solicitudId: string, notificationId: number, redirectToFinished: boolean = false) {
-    // this.requestService.clearSolicitud();
-    // this.requestService.setServiceID(solicitudId);
-
-    // this.router.navigate(['/profesional/solicitudes/solicitudes-detail']);
-    // this.router.navigate(['/user/solicitud-status']);
-
+  async goToRequestDetail(solicitudId: string, notificationId: number) {
+    axios.put(API + `/notification/view/${notificationId}`, { viewed: 1, },{ headers: { Authorization: `Bearer ${this.grabbedUser.access_token}` } }).then(resData => {
+      this.solServ.setServiceID(solicitudId);
+      this.router.navigate(['profesional/agendados/agendados-detail']);
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
   ionViewWillEnter() {

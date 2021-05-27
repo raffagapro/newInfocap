@@ -10,6 +10,8 @@ import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { ServiceRejectModalComponent } from './service-reject-modal/service-reject-modal.component';
 
+import * as moment from 'moment'
+
 @Component({
   selector: 'app-solicitudes',
   templateUrl: './solicitudes.page.html',
@@ -53,7 +55,7 @@ export class SolicitudesPage implements OnInit, OnDestroy {
       loadingEl.present();
       axios.get(API + `/supplier/requestservice/${statusID}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
-        this.loadedServices = resData.data.data;
+        this.loadedServices = resData.data.data.filter(s => s.hours_creation == "0");
       }).catch(err => {
         console.log(err);
         loadingEl.dismiss();
@@ -94,6 +96,10 @@ export class SolicitudesPage implements OnInit, OnDestroy {
         }
       });
     });
+  }
+
+  formatDate(date: string) {
+    return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
   }
 
   aceptarSolicitud(solicitudID: string) {

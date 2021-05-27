@@ -39,11 +39,11 @@
         </ion-item-option>
       </ion-item-options>
 
-      <ion-item button (click)="aceptarSolicitud(service.id)">
+      <ion-item class="ion-item-solicitudes" button (click)="aceptarSolicitud(service.id)" *ngIf="service.type_request != 'URGENT'">
         <ion-grid>
           <ion-row class="ion-align-items-center">
             <!-- title -->
-            <ion-col size="7" class="ion-justify-content-center">
+            <ion-col size="12" class="ion-justify-content-center">
               <ion-text>
                 <ion-badge color="primary" class="titleSelect ion-text-capitalize">{{ service.categoryName }}
                 </ion-badge>
@@ -52,7 +52,39 @@
                   {{ service.adress }}
                 </ion-text>
                 <br>
+                
                 <ion-text class="miniText" color="primary">{{ service.description }}</ion-text>
+              </ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+      <ion-item class="ion-item-solicitudes" button (click)="aceptarSolicitud(service.id)" #elseBlock>
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <!-- title -->
+            <ion-col size="12" class="ion-justify-content-center">
+              <ion-text>
+                <ion-badge color="danger" class="titleSelect ion-text-capitalize">{{ service.categoryName }}
+                </ion-badge>
+                <ion-icon src="/assets/icon/ic_error.svg" color="primary" class="iconFix"></ion-icon>
+                <br>
+                <ion-text class="mainText">
+                  {{ service.adress }}
+                </ion-text>
+                <br>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-text class="miniText urgent-text" color="danger">{{ service.description }}</ion-text>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-text class="miniText urgent-text" color="danger">
+                      <ion-icon src="/assets/icon/ic_date_range_red.svg" color="primary" class="iconFix"></ion-icon> 
+                      {{ formatDate(service.date_required) }}
+                    </ion-text>
+                  </ion-col>
+              </ion-row>
               </ion-text>
             </ion-col>
           </ion-row>

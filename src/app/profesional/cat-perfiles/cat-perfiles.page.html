@@ -139,34 +139,6 @@
         </ion-col>
       </ion-row>
 
-      <!-- comunas -->
-      <ion-row>
-        <ion-col size="11">
-
-          <ion-searchbar
-            placeholder="Sector"
-            (ionChange)="onSearchChange($event)"
-            [(ngModel)]="searchValue"
-            [ngModelOptions]="{standalone: true}"
-            >
-          </ion-searchbar>
-          <ion-list [hidden]="comunas.length === 0">
-            <ion-item *ngFor="let comuna of comunas" class="ion-text-capitalize" tappable (click)="selectComuna(comuna.id)">
-              {{ comuna.name }}
-            </ion-item>
-          </ion-list>
-        </ion-col>
-        <!-- badges row  -->
-        <ion-col size="10" offset="1">
-          <div>
-            <ion-badge color="primary" *ngFor="let sComuna of selectedComunas" class="ion-text-capitalize">
-              {{ sComuna.name }}
-              <ion-icon name="close-outline" color="danger" tappable (click)="onRemoveComuna(sComuna.id)"></ion-icon>
-            </ion-badge>
-          </div>
-        </ion-col>
-      </ion-row>
-
       <!-- title -->
       <ion-row class="ion-margin-top">
         <ion-col size="1"></ion-col>
@@ -192,16 +164,9 @@
       </ion-row>
 
       <!-- images -->
-      <ion-row class="ion-align-items-center ion-margin-top">
+      <ion-row class="ion-align-items-center ion-margin-top ">
         <ion-col size="7" offset="1">
           <ion-slides>
-            <!-- default slide -->
-            <ion-slide *ngIf="proCategoryProfile.images && proCategoryProfile.images.length === 0">
-              <ion-img 
-                src="/assets/images/unavailable-image.png"
-                class="imgSlide">
-              </ion-img>
-            </ion-slide>
 
             <!-- loaded slides  -->
             <ion-slide *ngFor="let image of proCategoryProfile.images">
