@@ -37,6 +37,7 @@ import { SuccessModalComponent as CSproCatProfileUpdate } from './profesional/ca
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NotificationsService } from './services/notifications-service';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { CommonModule } from '@angular/common';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Geolocation,
     NativeGeocoder,
+    NotificationsService,
   ],
   bootstrap: [AppComponent]
 })

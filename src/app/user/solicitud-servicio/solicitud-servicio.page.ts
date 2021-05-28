@@ -136,8 +136,8 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
       quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,
-      //height: 150,
-      // width: 200,
+      height: 500,
+      width: 500,
       resultType: CameraResultType.DataUrl,
       promptLabelPhoto: 'Fotos',
       promptLabelPicture: 'Cámara',
@@ -145,7 +145,7 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
     }).then(image => {
       this.saveImgToApi(image.dataUrl);
     }).catch(e => {
-      console.log(e);
+      console.log(e,'error');
     });
   }
 
@@ -172,7 +172,9 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
     } else {
       imgFile = imageData;
     }
+    console.log(imgFile);
     this.loadedImages.push(imgFile);
+    this.loadedImagesDisplay.push(imageData);
   }
 
   confirmRequest() {

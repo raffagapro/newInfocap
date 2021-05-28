@@ -4,7 +4,7 @@ import { MenuController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { Observable } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { Plugins, Capacitor } from '@capacitor/core'
 
 import { AuthService } from './services/auth.service';
@@ -14,6 +14,7 @@ import { API, PHONE_PREFIX } from 'src/environments/environment';
 import { IMAGE_URL_BLANK } from 'src/shared/constants';
 import { Notification } from 'src/shared/types/Notification';
 import axios from 'axios'
+import { NotificationsService } from './services/notifications-service';
 
 @Component({
   selector: 'app-root',
@@ -26,9 +27,9 @@ export class AppComponent {
   firstLoad = false;
   logged: Observable<boolean>;
   user: User;
-  notificationCount: 0
+  notificationCount = 0
   notifications: Notification[] = [];
-  notificationUpdate;
+  notificationSubscription: Subscription;
 
   constructor(
     private platform: Platform,
@@ -38,6 +39,7 @@ export class AppComponent {
     private menuCtrl: MenuController,
     private as: AuthService,
     private us: UserService,
+    private notificationService: NotificationsService,
   ) {
     this.logged = this.as.userIsAuthenticated;
     this.initializeApp();
@@ -54,11 +56,11 @@ export class AppComponent {
 
       this.menuCtrl.enable(false, UserRoles.PROFESSIONAL);
       this.menuCtrl.enable(false, UserRoles.USER);
+      this.notificationSubscription = this.notificationService.notifications.subscribe((notifications: Notification[]) => {
+        this.notifications = notifications;
+        this.notificationCount = notifications.filter((notification: Notification) => !notification.viewed).length;
+      });
     });
-  }
-
-  ngOnDestroy() {
-    clearTimeout(this.notificationUpdate);
   }
 
   private setUser() {

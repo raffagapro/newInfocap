@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController } from '@ionic/angular';
 import axios from 'axios';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
+import { NotificationsService } from 'src/app/services/notifications-service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
@@ -25,6 +26,7 @@ export class NotificacionesPage implements OnInit {
     private userService: UserService,
     private requestService: SolicitudService,
     private loadingController: LoadingController,
+    private notificationService: NotificationsService,
   ) { }
 
   ngOnInit() {
@@ -77,12 +79,19 @@ export class NotificacionesPage implements OnInit {
           }
         }
       );
-      
+
       let { data } = response;
       let { code } = data;
       if (code !== 200) {
         alert('Error al actualizar la notificación');
       }
+      let updatedNotifications = this.notifications.map((notification: Notification) => {
+        if (notification.notification_Id === notificationId) {
+          notification.viewed = true;
+        }
+        return notification;
+      });
+      this.notificationService.setNotifications(updatedNotifications);
     } catch (error) {
       alert(error.message);
     }

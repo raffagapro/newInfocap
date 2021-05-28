@@ -25,8 +25,11 @@
           <ion-text>
             <!-- <span class="titleSelect main-color">Cerrajería </span><br> -->
             <ion-badge color="primary" class="titleSelect">{{notification.category}}</ion-badge>&nbsp;
-            <ion-icon color="primary" src="/assets/icon/ic_date_range.svg" class="icon-size"></ion-icon><br>
-            <span class="textSelect">
+            <ion-icon color="primary" src="/assets/icon/ic_date_range.svg" class="icon-size" *ngIf="notification.type_request === 'NORMAL' && notification.status_id == 1"></ion-icon>
+            <ion-icon color="primary" src="/assets/icon/ic_engine_disabled.svg" class="icon-size" *ngIf="notification.type_request === 'NORMAL' && notification.status_id > 1"></ion-icon>
+            <ion-icon color="danger" name="alert-circle" class="icon-size" *ngIf="notification.type_request !== 'NORMAL'"></ion-icon>
+            <br>
+            <span class="textSelect {{notification.type_request !== 'NORMAL' ? 'red-color' : ''}}">
               {{notification.professionalName}} {{notification.motive}}
             </span><br>
             <!--<small class="main-color">Cambio de chapas</small>-->
