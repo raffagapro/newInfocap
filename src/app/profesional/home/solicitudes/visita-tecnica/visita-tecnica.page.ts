@@ -13,6 +13,7 @@ import * as moment from 'moment';
 
 import { API } from 'src/environments/environment';
 import { VisitaTecnicaService } from 'src/app/services/visita-tecnica.service';
+import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
 @Component({
   selector: 'app-visita-tecnica',
@@ -51,6 +52,7 @@ export class VisitaTecnicaPage implements OnInit {
     private us: UserService,
     private lc: LoadingController,
     private solServ: SolicitudService,
+    private solicitudServicio: ProSolicitudService,
     private visitaT: VisitaTecnicaService
   ) { }
 

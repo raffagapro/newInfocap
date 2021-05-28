@@ -8,6 +8,7 @@ import { Notification } from 'src/shared/types/Notification';
 import axios from 'axios'
 import { Router } from '@angular/router';
 import { SolicitudService } from 'src/app/services/solicitud.service';
+import { NotificationsService } from 'src/app/services/notifications-service';
 
 @Component({
   selector: 'app-notificaciones',
@@ -28,6 +29,7 @@ export class NotificacionesPage implements OnInit {
     private us: UserService,
     private loadingController: LoadingController,
     private solServ: SolicitudService,
+    private notificationService: NotificationsService,
   ) { }
 
   ngOnInit() {
@@ -63,6 +65,17 @@ export class NotificacionesPage implements OnInit {
   async goToRequestDetail(solicitudId: string, notificationId: number) {
     axios.put(API + `/notification/view/${notificationId}`, { viewed: 1, },{ headers: { Authorization: `Bearer ${this.grabbedUser.access_token}` } }).then(resData => {
       this.solServ.setServiceID(solicitudId);
+
+      
+      let updatedNotifications = this.notifications.map((notification: Notification) => {
+        if (notification.notification_Id === notificationId) {
+          notification.viewed = true;
+        }
+        return notification;
+      });
+
+
+      this.notificationService.setNotifications(updatedNotifications);
       this.router.navigate(['profesional/agendados/agendados-detail']);
     }).catch(err => {
       console.log(err)

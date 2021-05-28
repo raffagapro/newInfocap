@@ -35,12 +35,8 @@ export class WalletPage implements OnInit {
   weeksToRender = [];
   selectedMonth = 0;
   actualWeekToShow = 0;
-  yearInfo: {
-    requestnumber: 0,
-    total: 0,
-    monthly_average: 0,
-    paymentByMount: [],
-  }
+  yearInfoTotal = 0;
+  yearInfoTotalRequest = 0;
 
   totalWeek: 0
   days = ['D', 'L', 'M', 'M', 'J', 'V', 'S']
@@ -63,24 +59,61 @@ export class WalletPage implements OnInit {
     this.barChartMethod();
   }
 
-  async barChartMethod() { 
+  async barChartMethod() {
+
+    var profesionalAmount = [0,0,0,0,0,0,0,0,0,0,0,0]
+    var commission = [0,0,0,0,0,0,0,0,0,0,0,0]
+    var taxes = [0,0,0,0,0,0,0,0,0,0,0,0]
+
+    await axios.get(API + '/payments/years', { headers: { Authorization: this.headers } }).then(resData => {
+      this.yearInfoTotal = resData.data.data.total
+      this.yearInfoTotalRequest = resData.data.data.requestnumber
+      resData.data.data.paymentByMount.map(d => {
+        profesionalAmount[d.month - 1] = d.professionalamount
+        taxes[d.month - 1] = d.taxes
+        commission[d.month - 1] = d.commission
+      })
+    }).catch(err => {
+      console.log(err)
+    })
+
     this.barChart = new Chart(this.barChart.nativeElement, {
       type: 'bar',
       data: {
         labels: ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'],
         datasets: [{
-          label: '',
-          data: [65, 59, 80, 81, 56, 55, 40, 80, 81, 56, 55, 40],
-          backgroundColor: [
-            'rgba(50, 182, 221)',
-          ],
-          borderWidth: 1
-        }]
+            label: 'Ganancia',
+            data: profesionalAmount,
+            backgroundColor: [
+              'rgba(50, 182, 221)',
+            ],
+            borderWidth: 1,
+          },
+          {
+            label: 'Comisiones',
+            data: commission,
+            backgroundColor: [
+              'rgba(50, 182, 221)',
+            ],
+            borderWidth: 1
+          },
+          {
+            label: 'Impuestos',
+            data: taxes,
+            backgroundColor: [
+              'rgba(50, 182, 221)',
+            ],
+            borderWidth: 1
+          }]
       },
       options: {
         onClick: this.clickMonth,
         scales: {
+          x: {
+            stacked: true,
+          },
           y: {
+            stacked: true,
             beginAtZero: true
           }
         }
@@ -93,8 +126,8 @@ export class WalletPage implements OnInit {
     this.selectedMonth = month.index
 
     this.weeksToRender = []
-    const firstDate = new Date(year, month.index + 1, 1)
-    const lastDate = new Date(year, month.index + 1, 0)
+    const firstDate = new Date(year, this.selectedMonth + 1, 1)
+    const lastDate = new Date(year, this.selectedMonth + 1, 0)
     const numDays = lastDate.getDate()
 
     let dayOfWeekCounter = firstDate.getDay();
@@ -110,41 +143,77 @@ export class WalletPage implements OnInit {
     let star_date = `${this.weeksToRender[this.actualWeekToShow][0]}/${this.selectedMonth + 1}/${year}`
     let end_date = `${this.weeksToRender[this.actualWeekToShow][this.weeksToRender[this.actualWeekToShow].length - 1]}/${this.selectedMonth + 1}/${year}`
 
+
     axios.get(API + '/payments/weak', {
       params: {
         "star_date": moment(star_date, 'D/M/YYYY').format('D/MM/YYYY'),
         "end_date": moment(end_date, 'D/M/YYYY').format('D/MM/YYYY')
       }, headers: { Authorization: this.headers }
-    }).then(resData => { 
+    }).then(resData => {
 
-     })
+      this.totalWeek = resData.data.data.total || 0
 
-    this.barChartWeek = new Chart(this.barChartWeek.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
-        datasets: [{
-          label: '',
-          data: [65, 59, 80, 81, 56, 55, 40],
-          backgroundColor: [
-            'rgba(50, 182, 221)',
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
+      let profesionalAmount = []
+      let taxes = []
+      let commission = []
+
+      resData.data.data.paymentByWeek.map(d => {
+        profesionalAmount.push(d.professionalamount)
+        taxes.push(d.taxes)
+        commission.push(d.commission)
+      })
+
+      this.barChartWeek = new Chart(this.barChartWeek.nativeElement, {
+        type: 'bar',
+        data: {
+          labels: this.weeksToRender[this.actualWeekToShow],
+          datasets: [{
+            label: 'Ganancia',
+            data: profesionalAmount,
+            backgroundColor: [
+              'rgba(50, 182, 221)',
+            ],
+            borderWidth: 1,
+          },
+          {
+            label: 'Comisiones',
+            data: commission,
+            backgroundColor: [
+              'rgba(50, 182, 221)',
+            ],
+            borderWidth: 1
+          },
+          {
+            label: 'Impuestos',
+            data: taxes,
+            backgroundColor: [
+              'rgba(50, 182, 221)',
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            x: {
+              stacked: true,
+            },
+            y: {
+              stacked: true,
+              beginAtZero: true
+            }
           }
         }
-      }
-    });
+      });
+    }).then(() => {
+      this.barChartWeek.update();
+    })
   }
 
   clickMonth = (event, point) => {
-    this.graphicWeek = true
-    this.barChartWeekMethod(point[0])
+    if(point.length > 0) {
+      this.graphicWeek = true
+      this.barChartWeekMethod(point[0])
+    }
   }
 
   ionViewWillEnter() {
@@ -169,7 +238,10 @@ export class WalletPage implements OnInit {
   }
 
   async changeWeek(type) {
+
     var year = new Date().getFullYear()
+
+
     if (type === 'add') {
       this.actualWeekToShow = this.actualWeekToShow + 1
     } else {
@@ -179,14 +251,55 @@ export class WalletPage implements OnInit {
     let star_date = `${this.weeksToRender[this.actualWeekToShow][0]}/${this.selectedMonth + 1}/${year}`
     let end_date = `${this.weeksToRender[this.actualWeekToShow][this.weeksToRender[this.actualWeekToShow].length - 1]}/${this.selectedMonth + 1}/${year}`
 
-    axios.get(API + '/payments/weak', {
+    var profesionalAmount = []
+    var taxes = []
+    var commission = []
+    
+    await axios.get(API + '/payments/weak', {
       params: {
         "star_date": moment(star_date, 'D/M/YYYY').format('D/MM/YYYY'),
         "end_date": moment(end_date, 'D/M/YYYY').format('D/MM/YYYY')
       }, headers: { Authorization: this.headers }
-    }).then(resData => { 
+    }).then(resData => {
+
       this.totalWeek = resData.data.data.total || 0
-     })
+
+      resData.data.data.paymentByWeek.map(d => {
+        profesionalAmount.push(d.professionalamount)
+        taxes.push(d.taxes)
+        commission.push(d.commission)
+      })
+    })
+
+    this.barChartWeek.data.labels = this.weeksToRender[this.actualWeekToShow]
+
+    this.barChartWeek.data.datasets = [{
+      label: 'Ganancia',
+      data: profesionalAmount,
+      backgroundColor: [
+        'rgba(50, 182, 221)',
+      ],
+      borderWidth: 1,
+    },
+    {
+      label: 'Comisiones',
+      data: commission,
+      backgroundColor: [
+        'rgba(50, 182, 221)',
+      ],
+      borderWidth: 1
+    },
+    {
+      label: 'Impuestos',
+      data: taxes,
+      backgroundColor: [
+        'rgba(50, 182, 221)',
+      ],
+      borderWidth: 1
+    }]
+
+    this.barChartWeek.update()
+
   }
 
   imgProfile() {

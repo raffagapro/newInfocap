@@ -10,6 +10,7 @@ import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
 import { SolicitudService } from 'src/app/services/solicitud.service';
+import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -49,6 +50,8 @@ export class ServiciosAdicionalesPage implements OnInit {
   loadedImagesDisplay = [];
   userSub: Subscription;
 
+  paymentTypes = [];
+
   loadedInfo = {
     img_profile: null,
     ticket_number: null,
@@ -70,6 +73,7 @@ export class ServiciosAdicionalesPage implements OnInit {
     private us: UserService,
     private platform: Platform,
     private solServ: SolicitudService,
+    private solicitudServicio: ProSolicitudService,
   ) { }
 
 
@@ -100,6 +104,11 @@ export class ServiciosAdicionalesPage implements OnInit {
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
       loadingEl.present();
+      axios.get(API + '/payments/type').then(resData => {
+        this.paymentTypes = resData.data.data
+      })
+
+
       axios.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
         this.loadedInfo.clientLastName = resData.data.data.clientLastName;
@@ -165,14 +174,11 @@ export class ServiciosAdicionalesPage implements OnInit {
     } else {
       imgFile = imageData;
     }
+
     this.loadedImages.push(imgFile);
     this.loadedImagesDisplay.push(URL.createObjectURL(imgFile));
 
     this.formAdicional.patchValue({ image: imgFile })
-    const formData = new FormData();
-    formData.append('image', imgFile);
-
-    axios.post(API + '/account/image', formData, { headers: { Authorization: this.headers } })
   }
 
   ionViewWillEnter() {

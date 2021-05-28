@@ -11,6 +11,7 @@ import { API } from 'src/environments/environment';
 import { ServiceRejectModalComponent } from './service-reject-modal/service-reject-modal.component';
 
 import * as moment from 'moment'
+import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
 @Component({
   selector: 'app-solicitudes',
@@ -34,6 +35,7 @@ export class SolicitudesPage implements OnInit, OnDestroy {
     private us: UserService,
     private lc: LoadingController,
     private solServ: SolicitudService,
+    private solicitudServicio: ProSolicitudService
   ) { }
 
   ngOnInit() {
@@ -102,8 +104,10 @@ export class SolicitudesPage implements OnInit, OnDestroy {
     return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
   }
 
-  aceptarSolicitud(solicitudID: string) {
+  aceptarSolicitud(solicitudID: string, type: string) {
     this.solServ.setServiceID(solicitudID);
+    this.solicitudServicio.setID(solicitudID)
+    this.solicitudServicio.setSolicitudType(type)
     this.router.navigate(['/profesional/solicitudes/solicitudes-detail']);
   }
 

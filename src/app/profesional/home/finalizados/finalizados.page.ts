@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 
 import axios from 'axios'
+import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
 @Component({
   selector: 'app-finalizados',
@@ -28,6 +29,7 @@ export class FinalizadosPage implements OnInit, OnDestroy {
     private us: UserService,
     private lc: LoadingController,
     private solServ: SolicitudService,
+    private solicitudServicio: ProSolicitudService
   ) { }
 
   ngOnInit() {
@@ -82,6 +84,7 @@ export class FinalizadosPage implements OnInit, OnDestroy {
 
   finalizadosDetail(serviceID: string) {
     this.solServ.setServiceID(serviceID);
+    this.solicitudServicio.setID(serviceID);
     this.router.navigate(['/profesional/finalizados/finalizados-details']);
   }
 
