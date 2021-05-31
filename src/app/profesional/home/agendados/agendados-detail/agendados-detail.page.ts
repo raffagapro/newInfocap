@@ -12,6 +12,7 @@ import { ConfirmSuccessStartComponent } from './confirm-success-start/confirm-su
 
 import axios from 'axios'
 import * as moment from 'moment';
+import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
 @Component({
   selector: 'app-agendados-detail',
@@ -47,6 +48,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     private router: Router,
     private menuController: MenuController,
     private solServ: SolicitudService,
+    private solicitudServicio: ProSolicitudService,
     private us: UserService,
     private lc: LoadingController,
     private callNumber: CallNumber
@@ -61,11 +63,25 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
       loadingEl.present();
-      axios.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
+      axios.get(API + `/supplier/requestservicedetail/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
+        this.solicitudServicio.setClientLastName(resData.data.data.clientLastName)
+        this.solicitudServicio.setClientName(resData.data.data.clientName)
+        let wDate = resData.data.data.date_required.split("-");
+        this.solicitudServicio.setDateRequired(wDate)
+        this.solicitudServicio.setDescription(resData.data.data.description)
+        this.solicitudServicio.setHours(resData.data.data.hours)
+        this.solicitudServicio.setImages(resData.data.data.images)
+        this.solicitudServicio.setClientImg(resData.data.data.img_client_profile)
+        this.solicitudServicio.setTicketNumber(resData.data.data.ticket_number)
+        this.solicitudServicio.setCategoryID(resData.data.data.categoryName)
+        this.solicitudServicio.setStatusID(resData.data.data.status_id)
+        this.solicitudServicio.setClientPhone(resData.data.data.clientPhone1)
+        this.solicitudServicio.setCosto(resData.data.data.request_cost[0] && resData.data.data.request_cost[0].amount_suplier || 0);
+
         this.loadedInfo.clientLastName = resData.data.data.clientLastName;
         this.loadedInfo.clientName = resData.data.data.clientName;
-        let wDate = resData.data.data.date_required.split("-");
+
         this.loadedInfo.date_required = wDate[2] + '-' + wDate[1] + '-' + wDate[0];
         this.loadedInfo.description = resData.data.data.description;
         this.loadedInfo.hours = resData.data.data.hours;
@@ -127,7 +143,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
       message: 'Registrando tiempo de inicio...'
     }).then(loadingEl => {
       loadingEl.present();
-      axios.put(API + `/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/4`, null, { headers: { Authorization: this.headers } }).then(resData => {
+      axios.put(API + `/supplier/updatestatus/requestservice/${this.solicitudServicio.solicitud.id}/4`, null, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
         this.modalController.create({
           component: ConfirmSuccessStartComponent,

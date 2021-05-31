@@ -82,23 +82,13 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
+      this.headers = 'Bearer ' + this.grabbedUser.access_token;
     });
     //api headers
-    this.headers = 'Bearer ' + this.grabbedUser.access_token;
-
-    // this.headers.append('Content-Type', 'multipart/form-data');
 
     //categories list
     axios.get(API + '/supplier/categories', { headers: { Authorization: this.headers } }).then(resData => {
       this.categories = resData.data.data;
-    })
-
-    axios.get(API + '/location/communes', { headers: { Authorization: this.headers } }).then(resData => {
-      this.comunasBU = resData.data.data;
-    })
-
-    axios.get(API + '/transports', { headers: { Authorization: this.headers } }).then(resData => {
-      this.transports = resData.data.data;
     })
 
     //form

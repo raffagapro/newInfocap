@@ -4,13 +4,13 @@ import { LoadingController, MenuController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
-import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { CalendarComponent } from 'ionic2-calendar';
 
 import axios from 'axios'
 import * as moment from 'moment';
+import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
 @Component({
   selector: 'app-agendados',
@@ -46,7 +46,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
     private menuController: MenuController,
     private us: UserService,
     private lc: LoadingController,
-    private solServ: SolicitudService,
+    private solicitudServicio: ProSolicitudService,
   ) { }
 
   async ngOnInit() {
@@ -146,7 +146,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
   }
 
   solicitudDetail(serviceID: string) {
-    this.solServ.setServiceID(serviceID);
+    this.solicitudServicio.setID(serviceID);
     this.router.navigate(['profesional/agendados/agendados-detail']);
   }
 

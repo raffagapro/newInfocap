@@ -20,7 +20,7 @@
       </ion-col>
       <ion-col size="6">
         <ion-item class="select-categories">
-          <ion-select placeholder="Categorías" interface="popover" class="select-categories-component" ionChange="changeCategory" [value]="categorySelected">
+          <ion-select [(ngModel)]="categorySelected" placeholder="Categorías" interface="popover" class="select-categories-component" (ngModelChange)="changeCategory()">
             <ion-select-option *ngFor="let cat of categories" [value]="cat.id"  class="main-color ion-text-center">{{
               cat.name }}</ion-select-option>
           </ion-select>
@@ -37,7 +37,7 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <img src="/assets/images/avatar.png" />
+            <img src="{{ comments.img_profile }}" />
           </ion-avatar>
         </ion-col>
 
@@ -63,11 +63,11 @@
           <ion-icon color="primary" name="thumbs-up" class="iconFix"></ion-icon>
         </ion-text>
         <br>
-        <ion-icon name="star" color="primary" class="starIcon ion-margin-top"></ion-icon>
-        <ion-icon name="star" color="primary" class="starIcon"></ion-icon>
-        <ion-icon name="star" color="primary" class="starIcon"></ion-icon>
-        <ion-icon name="star" color="primary" class="starIcon"></ion-icon>
-        <ion-icon name="star-outline" color="primary" class="starIcon"></ion-icon>
+        <ion-icon name="{{ comments.stars_everage > 0 ? 'star' : 'star-outline' }}" color="primary" class="starIcon ion-margin-top"></ion-icon>
+        <ion-icon name="{{ comments.stars_everage > 1 ? 'star' : 'star-outline' }}" color="primary" class="starIcon"></ion-icon>
+        <ion-icon name="{{ comments.stars_everage > 2 ? 'star' : 'star-outline' }}" color="primary" class="starIcon"></ion-icon>
+        <ion-icon name="{{ comments.stars_everage > 3 ? 'star' : 'star-outline' }}" color="primary" class="starIcon"></ion-icon>
+        <ion-icon name="{{ comments.stars_everage > 4 ? 'star' : 'star-outline' }}" color="primary" class="starIcon"></ion-icon>
       </ion-col>
       <!-- reconocimiento  -->
       <ion-col size="5" class="ion-text-center">
@@ -100,7 +100,7 @@
   </ion-row>
 
   <!-- notificacion item -->
-  <div class="prof-cont ion-margin-top" *ngFor="let com in comments.comments">
+  <div class="prof-cont ion-margin-top" *ngFor="let com of comments.comments">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
@@ -144,62 +144,6 @@
         <ion-col size="1"></ion-col>
 
       
-        <ion-col size="3" class="ion-text-center">
-          <ion-text>
-            <small class="dateText main-color ion-text-center">
-              16 dic 2020
-            </small>
-          </ion-text>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div> -->
-
-  <!-- notificacion item -->
-  <!-- <div class="prof-cont ion-margin-top">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        <ion-col size="8" class="ion-justify-content-center">
-          <ion-text>
-            <span class="titleSelect main-color">Carlos Zepeda</span><br>
-            <span class="textSelect">
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
-            </span>
-          </ion-text>
-        </ion-col>
-        <ion-col size="1"></ion-col>
-
-        <ion-col size="3" class="ion-text-center">
-          <ion-text>
-            <small class="dateText main-color ion-text-center">
-              16 dic 2020
-            </small>
-          </ion-text>
-        </ion-col>
-
-      </ion-row>
-    </ion-grid>
-  </div> -->
-
-  <!-- notificacion item -->
-  <!-- <div class="prof-cont ion-margin-top">
-    <ion-grid>
-      <ion-row class="ion-align-items-center">
-
-        
-        <ion-col size="8" class="ion-justify-content-center">
-          <ion-text>
-            <span class="titleSelect main-color">Laura Suárez</span><br>
-            <span class="textSelect">
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
-            </span>
-          </ion-text>
-        </ion-col>
-        <ion-col size="1"></ion-col>
-
-        
         <ion-col size="3" class="ion-text-center">
           <ion-text>
             <small class="dateText main-color ion-text-center">

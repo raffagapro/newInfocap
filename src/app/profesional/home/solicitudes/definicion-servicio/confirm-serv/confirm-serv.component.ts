@@ -11,6 +11,7 @@ import { API } from 'src/environments/environment';
 import { ConfirmSuccessComponent } from '../confirm-success/confirm-success.component';
 import axios from 'axios';
 import * as moment from 'moment';
+import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
 @Component({
   selector: 'app-confirm-serv',
@@ -28,10 +29,9 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
 
   constructor(
     private modalController: ModalController,
-    private router: Router,
     private solServ: SolicitudService,
+    private solicitudServicio: ProSolicitudService,
     private us: UserService,
-    private http: HttpClient,
     private lc: LoadingController,
   ) { }
 
@@ -97,11 +97,17 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
     const body = {
       date_required: this.solServ.solicitud.newDate,
       hours: this.solServ.solicitud.newTime,
+      professional_id: null
     }
 
     try {
+      var url = '/supplier/aprove/requestservice/'
+      if(this.solicitudServicio.solicitud.type == 'URGENT') {
+        var url = '/supplier/aprove/urgentrequestservice/'
+        body.professional_id = this.grabbedUser.id
+      }
       let response = await axios.put(
-        `${API}/supplier/aprove/requestservice/${this.solServ.solicitud.solicitudID}`,
+        `${API}${url}${this.solServ.solicitud.solicitudID}`,
         body,
         {
           headers: {

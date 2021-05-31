@@ -75,29 +75,6 @@
         <ion-col size="1"></ion-col>
       </ion-row>
 
-      <!-- vehiculo -->
-      <ion-row>
-        <ion-col size="11">
-          <ion-item>
-            <ion-label position="floating" class="main-color">
-              <ion-icon name="car-sport" slot="start" class="main-color"></ion-icon>
-              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Vehículo</ion-text>
-            </ion-label>
-              <ion-select
-                interface="popover"
-                cancelText="Cancelar"
-                (ionChange)="onTransportChange($event)"
-                value="{{ selectedTransport }}">
-              <ion-select-option
-                *ngFor="let transport of transports" 
-                value="{{ transport.id }}"
-                >{{ transport.name }}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
       <!-- title -->
       <ion-row class="ion-margin-top ion-text-center">
         <ion-col size="1"></ion-col>
@@ -204,4 +181,3 @@
 
   </ion-grid>
 </ion-content>
-<!-- [disabled]="!form.valid"  -->

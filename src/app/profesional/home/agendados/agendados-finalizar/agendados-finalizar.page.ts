@@ -10,6 +10,7 @@ import { ConfirmSuccessModalComponent } from './confirm-success-modal/confirm-su
 import axios from 'axios'
 import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
 import { AdicionalServiceService } from 'src/app/services/adicional-service.service';
+import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -52,6 +53,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     description: null,
     images: null,
     categoryName: null,
+    category_id: null,
     clientPhone1: null,
     request_cost: 0
   };
@@ -66,21 +68,21 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     slidesPerView: 2,
     autoplay: true
   };
-  aditionalCosto = 0
 
   categories = []
+  paymentTypes = [];
 
   constructor(
     private modalController: ModalController,
     private router: Router,
     private menuController: MenuController,
-    private solServ: SolicitudService,
+    private solicitudServicio: ProSolicitudService,
     private us: UserService,
     private lc: LoadingController,
     private adicional: AdicionalServiceService,
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
@@ -91,30 +93,42 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
       loadingEl.present();
       axios.get(API + `/supplier/categories`, { headers: { Authorization: this.headers } }).then(resData => {
         this.categories = resData.data.data;
-      })
-    this.aditionalCosto = this.adicional.adicional.cost || 0
-
-      axios.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
-        loadingEl.dismiss();
-        this.loadedInfo.clientLastName = resData.data.data.clientLastName;
-        this.loadedInfo.clientName = resData.data.data.clientName;
-        this.loadedInfo.date_required = resData.data.data.date_required;
-        this.loadedInfo.description = resData.data.data.description;
-        this.loadedInfo.hours = resData.data.data.hours;
-        this.loadedInfo.images = resData.data.data.images;
-        this.loadedInfo.img_client_profile = resData.data.data.img_client_profile;
-        this.loadedInfo.ticket_number = resData.data.data.ticket_number;
-        this.loadedInfo.categoryName = resData.data.data.categoryName;
-        this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
-        this.loadedInfo.request_cost = resData.data.data.request_cost[0].amount_suplier
       }).catch(err => {
         console.log(err)
-        loadingEl.dismiss();
       })
+
+      axios.get(API + '/payments/type', { headers: { Authorization: this.headers } }).then(resData => {
+        this.paymentTypes = resData.data.data
+      })
+
+      this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName
+      this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName
+      this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
+      this.loadedInfo.description = this.solicitudServicio.solicitud.description
+      this.loadedInfo.hours = this.solicitudServicio.solicitud.hours
+      this.loadedInfo.images = this.solicitudServicio.solicitud.images
+      this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg
+      this.loadedInfo.ticket_number = this.solicitudServicio.solicitud.ticket_number
+      this.loadedInfo.categoryName = this.solicitudServicio.solicitud.categoryName
+      this.loadedInfo.category_id = this.solicitudServicio.solicitud.category_id
+      this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
+      this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
+      loadingEl.dismiss();
     });
   }
 
   ionViewWillEnter() {
+    this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName //resData.data.data.clientLastName;
+    this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName //resData.data.data.clientName;
+    this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required //resData.data.data.date_required;
+    this.loadedInfo.description = this.solicitudServicio.solicitud.description // resData.data.data.description;
+    this.loadedInfo.hours = this.solicitudServicio.solicitud.hours // resData.data.data.hours;
+    this.loadedInfo.images = this.solicitudServicio.solicitud.images // resData.data.data.images;
+    this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg //resData.data.data.img_client_profile;
+    this.loadedInfo.ticket_number = this.solicitudServicio.solicitud.ticket_number // resData.data.data.ticket_number;
+    this.loadedInfo.categoryName = this.solicitudServicio.solicitud.category_id // resData.data.data.categoryName;
+    this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone // resData.data.data.clientPhone1;
+    this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost //resData.data.data.request_cost[0].amount_suplier
     this.menuController.enable(true, 'profesional');
   }
 
@@ -147,7 +161,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
       message: 'Finalizando Trabajo...'
     }).then(loadingEl => {
       loadingEl.present();
-      axios.put(API + `/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/6`, null, { headers: { Authorization: this.headers } }).then(resData => {
+      axios.put(API + `/supplier/updatestatus/requestservice/${this.solicitudServicio.solicitud.id}/5`, null, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
         this.modalController.create({
           component: ConfirmSuccessModalComponent,
@@ -218,7 +232,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     this.userSub.unsubscribe();
   }
 
-  sumInfo(num1, num2) {
-    return (parseFloat(num1) +  parseFloat(num2)).toFixed(2)
+  formatInfo(num1) {
+    return parseFloat(num1).toFixed(2)
   }
 }

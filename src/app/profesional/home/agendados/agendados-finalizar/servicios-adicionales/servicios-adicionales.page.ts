@@ -2,14 +2,13 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController, Platform } from '@ionic/angular';
 import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
-import { AdicionalServiceService } from 'src/app/services/adicional-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import axios from 'axios';
 import { API } from 'src/environments/environment';
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
-import { SolicitudService } from 'src/app/services/solicitud.service';
+import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -65,11 +64,10 @@ export class ServiciosAdicionalesPage implements OnInit {
   constructor(
     private router: Router,
     private menuController: MenuController,
-    private adicional: AdicionalServiceService,
     private lc: LoadingController,
     private us: UserService,
     private platform: Platform,
-    private solServ: SolicitudService,
+    private solicitudServicio: ProSolicitudService,
   ) { }
 
 
@@ -100,7 +98,8 @@ export class ServiciosAdicionalesPage implements OnInit {
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
       loadingEl.present();
-      axios.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
+
+      axios.get(API + `/supplier/requestservicedetail/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
         this.loadedInfo.clientLastName = resData.data.data.clientLastName;
         this.loadedInfo.clientName = resData.data.data.clientName;
@@ -165,14 +164,11 @@ export class ServiciosAdicionalesPage implements OnInit {
     } else {
       imgFile = imageData;
     }
+
     this.loadedImages.push(imgFile);
     this.loadedImagesDisplay.push(URL.createObjectURL(imgFile));
 
     this.formAdicional.patchValue({ image: imgFile })
-    const formData = new FormData();
-    formData.append('image', imgFile);
-
-    axios.post(API + '/account/image', formData, { headers: { Authorization: this.headers } })
   }
 
   ionViewWillEnter() {
@@ -196,13 +192,11 @@ export class ServiciosAdicionalesPage implements OnInit {
       formData.append('description', this.formAdicional.value.detailes)
       formData.append('amount', this.formAdicional.value.price)
       formData.append('payment_type_id', '1')
-      formData.append('request_services_id', this.solServ.solicitud.solicitudID)
-
-      this.adicional.setCost(this.formAdicional.value.price)
+      formData.append('request_services_id', this.solicitudServicio.solicitud.id)
+      this.solicitudServicio.setCosto(parseFloat(this.formAdicional.value.price))
 
       axios.post(API + '/supplier/additionalrequest', formData, { headers: { Authorization: this.headers } } ).then(resData => {
         this.router.navigate(['profesional/agendados/agendados-finalizar']);
-
         loadingEl.dismiss();
       }).catch(err => {
         loadingEl.dismiss();
