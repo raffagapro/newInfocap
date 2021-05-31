@@ -1,6 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
@@ -21,7 +19,6 @@ import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 export class ConfirmServComponent implements OnInit, OnDestroy {
   grabbedUser: User;
   userSub: Subscription;
-  headers: HttpHeaders;
   loadedInfo = {
     date_required: null,
     hours: null,
@@ -29,7 +26,6 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
 
   constructor(
     private modalController: ModalController,
-    private solServ: SolicitudService,
     private solicitudServicio: ProSolicitudService,
     private us: UserService,
     private lc: LoadingController,
@@ -43,14 +39,13 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
   }
 
   async getServiceData() {
-    this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
     let loader = await this.lc.create({
       message: 'Cargando información del servicio...'
     });
     loader.present();
     try {
       let response = await axios.get(
-        `${API}/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`,
+        `${API}/supplier/requestservicedetail/${this.solicitudServicio.solicitud.id}`,
         {
           headers: {
             Authorization: `Bearer ${this.grabbedUser.access_token}`,
@@ -59,8 +54,8 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
       );
       const { data } = response;
       const { data: serverData } = data;
-      this.loadedInfo.date_required = this.solServ.solicitud.newDate
-      this.loadedInfo.hours = this.solServ.solicitud.newTime;
+      this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
+      this.loadedInfo.hours = this.solicitudServicio.solicitud.hours;
       loader.dismiss();
     } catch (error) {
       loader.dismiss();
@@ -86,7 +81,7 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
   }
 
   formatDate(date: string) {
-    return moment(date, 'DD/M/YYYY').format('dddd D [de] MMMM [de] YYYY');
+    return moment(date, 'YYYY/M/DD').format('dddd D [de] MMMM [de] YYYY');
   }
 
   async confirmServicio() {
@@ -95,19 +90,19 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
     });
     loader.present();
     const body = {
-      date_required: this.solServ.solicitud.newDate,
-      hours: this.solServ.solicitud.newTime,
+      date_required: this.solicitudServicio.solicitud.date_required,
+      hours: this.solicitudServicio.solicitud.hours,
       professional_id: null
     }
 
     try {
       var url = '/supplier/aprove/requestservice/'
       if(this.solicitudServicio.solicitud.type == 'URGENT') {
-        var url = '/supplier/aprove/urgentrequestservice/'
+        var url = '/supplier/aprove/requestservice/' //'/supplier/aprove/urgentrequestservice/'
         body.professional_id = this.grabbedUser.id
       }
       let response = await axios.put(
-        `${API}${url}${this.solServ.solicitud.solicitudID}`,
+        `${API}${url}${this.solicitudServicio.solicitud.id}`,
         body,
         {
           headers: {

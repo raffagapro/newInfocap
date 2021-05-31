@@ -1,14 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoadingController, MenuController, ModalController } from '@ionic/angular';
-import axios from 'axios';
+import { MenuController, ModalController } from '@ionic/angular';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
-import { SolicitudService } from 'src/app/services/solicitud.service';
+import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 import { UserService } from 'src/app/services/user.service';
-import { API } from 'src/environments/environment';
 import { ConfirmServComponent } from './confirm-serv/confirm-serv.component';
 
 @Component({
@@ -18,7 +16,7 @@ import { ConfirmServComponent } from './confirm-serv/confirm-serv.component';
 })
 export class DefinicionServicioPage implements OnInit, OnDestroy {
   showError = false;
-  minDate = moment().add('hour', 1);
+  minDate = moment().format('YYYY-MM-D');
   grabbedUser: User;
   userSub: Subscription;
   headers: String;
@@ -32,6 +30,8 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     description: null,
     images: null,
     categoryName: null,
+    clientPhone1: null, 
+    request_cost: 0,
   };
   form: FormGroup;
 
@@ -44,14 +44,14 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
   constructor(
     private modalController: ModalController,
     private menuController: MenuController,
-    private solServ: SolicitudService,
+    private solicitudServicio: ProSolicitudService,
     private us: UserService,
-    private lc: LoadingController,
   ) { }
 
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
+      this.headers = 'Bearer ' + this.grabbedUser.access_token;
     });
     //form
     this.form = new FormGroup({
@@ -74,40 +74,25 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     });
   }
 
-  ionViewWillEnter() {
-    this.menuController.enable(true, 'user');
-    this.headers = 'Bearer ' + this.grabbedUser.access_token;
-    this.loadService();
-  }
+  async ionViewWillEnter() {
+    this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName
+    this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName
+    this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
+    this.loadedInfo.description = this.solicitudServicio.solicitud.description
+    this.loadedInfo.hours = this.solicitudServicio.solicitud.hours.split("/")
+    this.loadedInfo.images = this.solicitudServicio.solicitud.images
+    this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg
+    this.loadedInfo.ticket_number = this.solicitudServicio.solicitud.ticket_number
+    this.loadedInfo.categoryName = this.solicitudServicio.solicitud.category_id
+    this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
+    this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
 
-  loadService() {
-    this.lc.create({
-      message: "Cargando informacion del servicio..."
-    }).then(loadingEl => {
-      loadingEl.present();
-      axios.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
-        loadingEl.dismiss();
-        this.loadedInfo.clientLastName = resData.data.data.clientLastName;
-        this.loadedInfo.clientName = resData.data.data.clientName;
-        this.loadedInfo.date_required = resData.data.data.date_required;
-        this.loadedInfo.description = resData.data.data.description;
-        this.loadedInfo.hours = resData.data.data.hours.split("/");
-        this.form.patchValue({
-          sHour: this.loadedInfo.hours[0],
-          eHour: this.loadedInfo.hours[1],
-          dateReq: this.loadedInfo.date_required,
-        });
-        this.loadedInfo.images = resData.data.data.images;
-        this.loadedInfo.img_client_profile = resData.data.data.img_client_profile;
-        this.loadedInfo.ticket_number = resData.data.data.ticket_number;
-        this.loadedInfo.categoryName = resData.data.data.categoryName;
-
-        this.minDate = this.loadedInfo.date_required;
-      }).catch(err => {
-        console.log(err);
-        loadingEl.dismiss();
-      })
+    this.form.patchValue({
+      sHour: this.loadedInfo.hours[0],
+      eHour: this.loadedInfo.hours[1],
+      dateReq: this.loadedInfo.date_required,
     });
+    this.menuController.enable(true, 'user');
   }
 
   formatTime(hours: string) {
@@ -135,8 +120,8 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     wDate = wDate[0];
     wDate = wDate.split('-');
     wDate = wDate[2] + '/' + wDate[1] + '/' + wDate[0];
-    this.solServ.setNewDate(wDate);
-    this.solServ.setNewTime(this.form.value.sHour + '/' + this.form.value.eHour);
+    this.solicitudServicio.setDateRequired(wDate);
+    this.solicitudServicio.setHours(this.form.value.sHour + '/' + this.form.value.eHour);
 
     let starHour = moment(this.form.value.sHour);
     let endHour = moment(this.form.value.eHour);

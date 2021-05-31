@@ -67,7 +67,7 @@
       </ion-row>
 
       <!-- title -->
-      <ion-row class="ion-margin-top">
+      <ion-row class="ion-margin-top ta-center">
         <ion-col size="1"></ion-col>
         <ion-col size="10">
           <ion-text class="main-color title"><b>Fotografías del trabajo realizado</b></ion-text>
@@ -76,8 +76,8 @@
       </ion-row>
 
       <!-- images -->
-      <ion-row class="ion-align-items-center">
-        <ion-col size="7">
+      <ion-row class="ion-align-items-center ion-justify-content-center">
+        <ion-col size="8" *ngIf="loadedImagesDisplay.length > 0">
           <ion-slides>
             <ion-slide *ngFor="let image of loadedImagesDisplay" [loadedImagesDisplay]='loadedImagesDisplay'>
               <ion-img [src]="image" class="imgSlide" style="height: 125px;">
@@ -86,7 +86,7 @@
           </ion-slides>
         </ion-col>
 
-        <ion-col size="3">
+        <ion-col size="4" class="ion-justify-content-center ta-center">
           <div (click)="onLoadImg()" class="locate-cont">
             <ion-icon name="add" color="light" class="rating-text"></ion-icon>
           </div>

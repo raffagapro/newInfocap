@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoadingController, ModalController, Platform } from '@ionic/angular';
+import { LoadingController, MenuController, ModalController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
 
@@ -9,7 +9,6 @@ import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { EmptyModalComponent } from './empty-modal/empty-modal.component';
 import { SuccessModalComponent } from './success-modal/success-modal.component';
-import { ImgListService } from 'src/app/services/img-list.service';
 import { IMAGE_URL_BLANK } from 'src/shared/constants';
 
 import axios from 'axios';
@@ -76,7 +75,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     private us: UserService,
     private modalController: ModalController,
     private platform: Platform,
-    private ils: ImgListService,
+    private menuController: MenuController,
   ) { }
 
   ngOnInit() {
@@ -150,6 +149,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     }).catch(err => {
       console.log(err)
     })
+    this.menuController.enable(true, 'profesional');
   }
 
   onCatProfileChange(profileID) {
@@ -166,6 +166,10 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
         loadingEl.dismiss();
       })
     });
+  }
+
+  openMenu() {
+    this.menuController.open();
   }
 
   updateForm(info) {

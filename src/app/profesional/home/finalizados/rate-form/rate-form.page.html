@@ -29,7 +29,7 @@
             <small class="ticket">Ticket #{{ loadedInfo.ticket_number }}</small><br>
             <span class="titleSelect main-color">{{ loadedInfo.categoryName }} para <br> {{ loadedInfo.clientName }} {{
               loadedInfo.clientLastName }}</span><br>
-            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">{{ loadedInfo.date_required }}</p>
+            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">{{ formatDate(loadedInfo.date_required) }}</p>
           </ion-text>
         </ion-col>
 
