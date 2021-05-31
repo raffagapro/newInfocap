@@ -21,6 +21,8 @@ export class RatingPage implements OnInit {
   comments = {};
   userSub: Subscription;
 
+  comentarios: []
+
   constructor(
     private menuController: MenuController,
     private us: UserService,
@@ -56,6 +58,11 @@ export class RatingPage implements OnInit {
     axios.get(API + `/supplier/evaluation/filtercategorie/${this.categorySelected}`, { headers: { Authorization: this.headers } }).then(resData => {
       this.comments = resData.data.data
     }).catch(err => {
+      this.comments = {
+        stars_everage: 0,
+        worknumber: 0,
+        comments: []
+      }
       console.log(err)
     })
   }

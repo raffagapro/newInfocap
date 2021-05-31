@@ -77,6 +77,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.solicitudServicio.setCategoryID(resData.data.data.categoryName)
         this.solicitudServicio.setStatusID(resData.data.data.status_id)
         this.solicitudServicio.setClientPhone(resData.data.data.clientPhone1)
+        this.solicitudServicio.setCosto(resData.data.data.request_cost[0] && resData.data.data.request_cost[0].amount_suplier || 0);
 
         this.loadedInfo.clientLastName = resData.data.data.clientLastName;
         this.loadedInfo.clientName = resData.data.data.clientName;
@@ -142,7 +143,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
       message: 'Registrando tiempo de inicio...'
     }).then(loadingEl => {
       loadingEl.present();
-      axios.put(API + `/supplier/updatestatus/requestservice/${this.solServ.solicitud.solicitudID}/4`, null, { headers: { Authorization: this.headers } }).then(resData => {
+      axios.put(API + `/supplier/updatestatus/requestservice/${this.solicitudServicio.solicitud.id}/4`, null, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
         this.modalController.create({
           component: ConfirmSuccessStartComponent,

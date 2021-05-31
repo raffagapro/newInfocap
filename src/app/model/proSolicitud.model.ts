@@ -6,6 +6,7 @@ export class ProSolicitud{
         public clientPhone: string,
         public images: [],
         public category_id: string,
+        public categoryName: string,
         public date_required: string,        
         public description: string,
         public hours: string,

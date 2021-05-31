@@ -7,7 +7,7 @@ import { ProSolicitud } from '../model/proSolicitud.model';
 export class ProSolicitudService {
 
   private _solicitud: ProSolicitud = new ProSolicitud(
-    null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL'
+    null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL'
     );
 
   constructor() { }
@@ -39,6 +39,10 @@ export class ProSolicitudService {
 
   setCategoryID(id:string) {
     this._solicitud.category_id = id
+  }
+
+  setCategoryName(name:string) {
+    this._solicitud.categoryName = name
   }
 
   setDateRequired(date:string) {
@@ -83,7 +87,7 @@ export class ProSolicitudService {
 
 
   clearSolcitud() {
-    this._solicitud = new ProSolicitud(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
+    this._solicitud = new ProSolicitud(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
   }
 
 

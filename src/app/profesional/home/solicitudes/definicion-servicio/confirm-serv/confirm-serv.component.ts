@@ -97,12 +97,14 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
     const body = {
       date_required: this.solServ.solicitud.newDate,
       hours: this.solServ.solicitud.newTime,
+      professional_id: null
     }
 
     try {
       var url = '/supplier/aprove/requestservice/'
       if(this.solicitudServicio.solicitud.type == 'URGENT') {
         var url = '/supplier/aprove/urgentrequestservice/'
+        body.professional_id = this.grabbedUser.id
       }
       let response = await axios.put(
         `${API}${url}${this.solServ.solicitud.solicitudID}`,

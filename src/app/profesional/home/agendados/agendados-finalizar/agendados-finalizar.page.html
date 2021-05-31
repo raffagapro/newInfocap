@@ -52,7 +52,7 @@
       </ion-col>
       <ion-col size="6">
         <ion-item class="select-categories">
-          <ion-select placeholder="Categoría" interface="popover" class="select-categories-component">
+          <ion-select [(ngModel)]="loadedInfo.category_id" placeholder="Categoría" interface="popover" class="select-categories-component">
             <ion-select-option *ngFor="let cat of categories" [value]="cat.id" class="main-color ion-text-center">{{
               cat.name }}</ion-select-option>
           </ion-select>
@@ -124,7 +124,7 @@
       <ion-col size="3" class="ion-text-center">
         <ion-text class="main-color title"><b>Costo</b></ion-text>
         <br>
-        <ion-text class="subMiniTex ion-padding-top">{{ sumInfo(aditionalCosto, loadedInfo.request_cost) }}</ion-text>
+        <ion-text class="subMiniTex ion-padding-top">{{ formatInfo(loadedInfo.request_cost) }}</ion-text>
       </ion-col>
       <ion-col size="1">
         <ion-icon color="danger" name="add-circle" class="addIcon" (click)="extraCharge()"></ion-icon>
