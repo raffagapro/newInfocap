@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 
 import { User } from 'src/app/model/user.model';
-import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API, PHONE_PREFIX } from 'src/environments/environment';
 import { ConfirmSuccessStartComponent } from './confirm-success-start/confirm-success-start.component';
@@ -47,7 +46,6 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     private modalController: ModalController,
     private router: Router,
     private menuController: MenuController,
-    private solServ: SolicitudService,
     private solicitudServicio: ProSolicitudService,
     private us: UserService,
     private lc: LoadingController,
@@ -68,13 +66,14 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.solicitudServicio.setClientLastName(resData.data.data.clientLastName)
         this.solicitudServicio.setClientName(resData.data.data.clientName)
         let wDate = resData.data.data.date_required.split("-");
-        this.solicitudServicio.setDateRequired(wDate)
+        this.solicitudServicio.setDateRequired(wDate[2] + '-' + wDate[1] + '-' + wDate[0])
         this.solicitudServicio.setDescription(resData.data.data.description)
         this.solicitudServicio.setHours(resData.data.data.hours)
         this.solicitudServicio.setImages(resData.data.data.images)
         this.solicitudServicio.setClientImg(resData.data.data.img_client_profile)
         this.solicitudServicio.setTicketNumber(resData.data.data.ticket_number)
-        this.solicitudServicio.setCategoryID(resData.data.data.categoryName)
+        this.solicitudServicio.setCategoryID(resData.data.data.category_id)
+        this.solicitudServicio.setCategoryName(resData.data.data.categoryName)
         this.solicitudServicio.setStatusID(resData.data.data.status_id)
         this.solicitudServicio.setClientPhone(resData.data.data.clientPhone1)
         this.solicitudServicio.setCosto(resData.data.data.request_cost[0] && resData.data.data.request_cost[0].amount_suplier || 0);

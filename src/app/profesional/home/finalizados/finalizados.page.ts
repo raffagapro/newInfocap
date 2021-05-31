@@ -37,9 +37,7 @@ export class FinalizadosPage implements OnInit, OnDestroy {
       this.grabbedUser = user;
       this.headers = 'Bearer ' + this.grabbedUser.access_token;
       this.loadServices("5");
-      //5
       this.loadServices("6");
-      //6
     });
   }
 

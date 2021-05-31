@@ -58,7 +58,9 @@ export class ServiciosAdicionalesPage implements OnInit {
     description: null,
     images: null,
     categoryName: null,
-    clientPhone1: null
+    clientPhone1: null,
+    category_id: null,
+    request_cost:  0
   };
 
   constructor(
@@ -92,30 +94,6 @@ export class ServiciosAdicionalesPage implements OnInit {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
-    });
-
-    this.lc.create({
-      message: "Cargando informacion del servicio..."
-    }).then(loadingEl => {
-      loadingEl.present();
-
-      axios.get(API + `/supplier/requestservicedetail/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
-        loadingEl.dismiss();
-        this.loadedInfo.clientLastName = resData.data.data.clientLastName;
-        this.loadedInfo.clientName = resData.data.data.clientName;
-        let wDate = resData.data.data.date_required.split("-");
-        this.loadedInfo.date_required = wDate[2] + '-' + wDate[1] + '-' + wDate[0];
-        this.loadedInfo.description = resData.data.data.description;
-        this.loadedInfo.hours = resData.data.data.hours;
-        this.loadedInfo.images = resData.data.data.images;
-        this.loadedInfo.img_profile = resData.data.data.img_client_profile;
-        this.loadedInfo.ticket_number = resData.data.data.ticket_number;
-        this.loadedInfo.categoryName = resData.data.data.categoryName;
-        this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
-      }).catch(err => {
-        console.log(err);
-        loadingEl.dismiss();
-      })
     });
   }
 
@@ -172,6 +150,18 @@ export class ServiciosAdicionalesPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName
+    this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName
+    this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
+    this.loadedInfo.description = this.solicitudServicio.solicitud.description
+    this.loadedInfo.hours = this.solicitudServicio.solicitud.hours
+    this.loadedInfo.images = this.solicitudServicio.solicitud.images
+    this.loadedInfo.img_profile = this.solicitudServicio.solicitud.clientImg
+    this.loadedInfo.ticket_number = this.solicitudServicio.solicitud.ticket_number
+    this.loadedInfo.categoryName = this.solicitudServicio.solicitud.categoryName
+    this.loadedInfo.category_id = this.solicitudServicio.solicitud.category_id
+    this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
+    this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
     this.menuController.enable(true, 'profesional');
   }
 

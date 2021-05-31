@@ -79,7 +79,6 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     private solicitudServicio: ProSolicitudService,
     private us: UserService,
     private lc: LoadingController,
-    private adicional: AdicionalServiceService,
   ) { }
 
   async ngOnInit() {
@@ -90,6 +89,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     this.lc.create({
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
+
       loadingEl.present();
       axios.get(API + `/supplier/categories`, { headers: { Authorization: this.headers } }).then(resData => {
         this.categories = resData.data.data;
@@ -100,35 +100,23 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
       axios.get(API + '/payments/type', { headers: { Authorization: this.headers } }).then(resData => {
         this.paymentTypes = resData.data.data
       })
-
-      this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName
-      this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName
-      this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
-      this.loadedInfo.description = this.solicitudServicio.solicitud.description
-      this.loadedInfo.hours = this.solicitudServicio.solicitud.hours
-      this.loadedInfo.images = this.solicitudServicio.solicitud.images
-      this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg
-      this.loadedInfo.ticket_number = this.solicitudServicio.solicitud.ticket_number
-      this.loadedInfo.categoryName = this.solicitudServicio.solicitud.categoryName
-      this.loadedInfo.category_id = this.solicitudServicio.solicitud.category_id
-      this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
-      this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
       loadingEl.dismiss();
     });
   }
 
   ionViewWillEnter() {
-    this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName //resData.data.data.clientLastName;
-    this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName //resData.data.data.clientName;
-    this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required //resData.data.data.date_required;
-    this.loadedInfo.description = this.solicitudServicio.solicitud.description // resData.data.data.description;
-    this.loadedInfo.hours = this.solicitudServicio.solicitud.hours // resData.data.data.hours;
-    this.loadedInfo.images = this.solicitudServicio.solicitud.images // resData.data.data.images;
-    this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg //resData.data.data.img_client_profile;
-    this.loadedInfo.ticket_number = this.solicitudServicio.solicitud.ticket_number // resData.data.data.ticket_number;
-    this.loadedInfo.categoryName = this.solicitudServicio.solicitud.category_id // resData.data.data.categoryName;
-    this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone // resData.data.data.clientPhone1;
-    this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost //resData.data.data.request_cost[0].amount_suplier
+    this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName
+    this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName
+    this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
+    this.loadedInfo.description = this.solicitudServicio.solicitud.description
+    this.loadedInfo.hours = this.solicitudServicio.solicitud.hours
+    this.loadedInfo.images = this.solicitudServicio.solicitud.images
+    this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg
+    this.loadedInfo.ticket_number = this.solicitudServicio.solicitud.ticket_number
+    this.loadedInfo.categoryName = this.solicitudServicio.solicitud.categoryName
+    this.loadedInfo.category_id = this.solicitudServicio.solicitud.category_id
+    this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
+    this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
     this.menuController.enable(true, 'profesional');
   }
 

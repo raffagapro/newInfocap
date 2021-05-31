@@ -2,16 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
-import { LoadingController, MenuController, ModalController } from '@ionic/angular';
+import { MenuController, ModalController } from '@ionic/angular';
 import { ConfirmVisitaComponent } from './confirm-visita/confirm-visita.component';
-import { SolicitudService } from 'src/app/services/solicitud.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
-import axios from 'axios'
-
 import * as moment from 'moment';
-
-import { API } from 'src/environments/environment';
 import { VisitaTecnicaService } from 'src/app/services/visita-tecnica.service';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
@@ -42,6 +36,7 @@ export class VisitaTecnicaPage implements OnInit {
     images: null,
     categoryName: null,
     clientPhone1: null,
+    request_cost: 0
   };
 
   formVisitaTecnica: FormGroup
@@ -50,8 +45,6 @@ export class VisitaTecnicaPage implements OnInit {
     private modalController: ModalController,
     private menuController: MenuController,
     private us: UserService,
-    private lc: LoadingController,
-    private solServ: SolicitudService,
     private solicitudServicio: ProSolicitudService,
     private visitaT: VisitaTecnicaService
   ) { }
@@ -77,35 +70,29 @@ export class VisitaTecnicaPage implements OnInit {
       this.headers = 'Bearer ' + this.grabbedUser.access_token;
     });
 
-    this.lc.create({
-      message: "Cargando informacion del servicio..."
-    }).then(loadingEl => {
-      loadingEl.present();
-      axios.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
-        loadingEl.dismiss();
-        this.loadedInfo.clientLastName = resData.data.data.clientLastName;
-        this.loadedInfo.clientName = resData.data.data.clientName;
-        let wDate = resData.data.data.date_required.split("-");
-        this.loadedInfo.date_required = wDate[2] + '-' + wDate[1] + '-' + wDate[0];
-        this.loadedInfo.description = resData.data.data.description;
-        this.loadedInfo.hours = resData.data.data.hours;
-        this.loadedInfo.images = resData.data.data.images;
-        this.loadedInfo.img_client_profile = resData.data.data.img_client_profile;
-        this.loadedInfo.ticket_number = resData.data.data.ticket_number;
-        this.loadedInfo.categoryName = resData.data.data.categoryName;
-        this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
-      }).catch(err => {
-        loadingEl.dismiss();
-      })
-    });
   }
 
   ionViewWillEnter() {
+    this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName
+    this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName
+    this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
+    this.loadedInfo.description = this.solicitudServicio.solicitud.description
+    this.loadedInfo.hours = this.solicitudServicio.solicitud.hours.split("/")
+    this.loadedInfo.images = this.solicitudServicio.solicitud.images
+    this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg
+    this.loadedInfo.ticket_number = this.solicitudServicio.solicitud.ticket_number
+    this.loadedInfo.categoryName = this.solicitudServicio.solicitud.category_id
+    this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
+    this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
     this.menuController.enable(true, 'user');
   }
 
   openMenu() {
     this.menuController.open();
+  }
+
+  formatDate(date: string){
+    return moment(date, 'DD-MM-YYYY').format('D [de] MMM [de] YYYY');
   }
 
   confirmRequest() {
