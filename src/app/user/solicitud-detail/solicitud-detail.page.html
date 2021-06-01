@@ -166,7 +166,7 @@
     </ion-row>
 
     <!-- enviar solicitud BTN -->
-    <ion-row class="ion-margin-top ion-margin-bottom">
+    <ion-row class="ion-margin-top ion-margin-bottom" *ngIf="loadedService && loadedService.request_cost.length === 0">
       <ion-col size="1"></ion-col>
       <ion-col>
         <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="confirmSolicitud()">

@@ -11,6 +11,7 @@ import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { Moment } from 'moment';
 import * as moment from 'moment';
+import { SuccessModalComponent } from 'src/app/shared/success-modal/success-modal.component';
 
 @Component({
   selector: 'app-visita-detail',
@@ -117,7 +118,7 @@ export class VisitaDetailPage implements OnInit {
     return `${startHour.format('h:mm a')} - ${endHour.format('h:mm a')}`;
   }
 
-  async confirmVisit() {
+  async confirmVisit(client_accepted: number) {
     let loader = await this.loadingController.create({
       message: 'Enviando información...'
     });
@@ -126,7 +127,7 @@ export class VisitaDetailPage implements OnInit {
       let response = await axios.post(
         `${API}/client/requesttechnical/${this.solServ.solicitud.solicitudID}`,
         {
-
+          client_accepted,
         },
         {
           headers: {
@@ -144,12 +145,16 @@ export class VisitaDetailPage implements OnInit {
     loader.dismiss();
 
     if (!this.error) {
-      this.modalController.create({
-        component: ConfirmSuccessModalComponent,
+      let message = client_accepted === 1 ? 'HAZ ACEPTADO LA VISITA TÉCNICA' : 'HAZ OMITIDO LA VISITA TÉCNICA';
+      const successModal = await this.modalController.create({
+        component: SuccessModalComponent,
+        componentProps: {
+          message,
+          redirect: false,
+        },
         cssClass: 'modalSuccess',
-      }).then(modalEl => {
-        modalEl.present();
       });
+      successModal.present();
     }
   }
 
