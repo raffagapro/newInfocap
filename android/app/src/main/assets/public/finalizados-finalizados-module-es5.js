@@ -162,9 +162,15 @@
 
 
       var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
+      /* harmony import */
+
+
+      var src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! src/app/services/pro-solicitud.service */
+      "zMwU");
 
       var FinalizadosPage = /*#__PURE__*/function () {
-        function FinalizadosPage(router, menuController, us, lc, solServ) {
+        function FinalizadosPage(router, menuController, us, lc, solServ, solicitudServicio) {
           _classCallCheck(this, FinalizadosPage);
 
           this.router = router;
@@ -172,6 +178,7 @@
           this.us = us;
           this.lc = lc;
           this.solServ = solServ;
+          this.solicitudServicio = solicitudServicio;
           this.loadedServices = [];
           this.paidServices = [];
           this.parsedHours = null;
@@ -186,11 +193,9 @@
               _this.grabbedUser = user;
               _this.headers = 'Bearer ' + _this.grabbedUser.access_token;
 
-              _this.loadServices("5"); //5
+              _this.loadServices("5");
 
-
-              _this.loadServices("6"); //6
-
+              _this.loadServices("6");
             });
           }
         }, {
@@ -248,6 +253,7 @@
           key: "finalizadosDetail",
           value: function finalizadosDetail(serviceID) {
             this.solServ.setServiceID(serviceID);
+            this.solicitudServicio.setID(serviceID);
             this.router.navigate(['/profesional/finalizados/finalizados-details']);
           }
         }, {
@@ -271,6 +277,8 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
         }, {
           type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__["SolicitudService"]
+        }, {
+          type: src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_10__["ProSolicitudService"]
         }];
       };
 

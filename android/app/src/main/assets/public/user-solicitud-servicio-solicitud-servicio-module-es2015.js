@@ -190,8 +190,8 @@ let SolicitudServicioPage = class SolicitudServicioPage {
             quality: 100,
             source: _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["CameraSource"].Prompt,
             correctOrientation: true,
-            //height: 150,
-            // width: 200,
+            height: 500,
+            width: 500,
             resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl,
             promptLabelPhoto: 'Fotos',
             promptLabelPicture: 'Cámara',
@@ -199,7 +199,7 @@ let SolicitudServicioPage = class SolicitudServicioPage {
         }).then(image => {
             this.saveImgToApi(image.dataUrl);
         }).catch(e => {
-            console.log(e);
+            console.log(e, 'error');
         });
     }
     onLoadImgFromInput(e) {
@@ -226,7 +226,9 @@ let SolicitudServicioPage = class SolicitudServicioPage {
         else {
             imgFile = imageData;
         }
+        console.log(imgFile);
         this.loadedImages.push(imgFile);
+        this.loadedImagesDisplay.push(imageData);
     }
     confirmRequest() {
         //format date

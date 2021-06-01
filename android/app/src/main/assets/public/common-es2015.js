@@ -137,53 +137,6 @@ const openURL = async (url, ev, direction, animation) => {
 
 /***/ }),
 
-/***/ "DbM0":
-/*!*******************************************************!*\
-  !*** ./src/app/services/adicional-service.service.ts ***!
-  \*******************************************************/
-/*! exports provided: AdicionalServiceService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdicionalServiceService", function() { return AdicionalServiceService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _model_adicionalService_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../model/adicionalService.model */ "tzat");
-
-
-
-let AdicionalServiceService = class AdicionalServiceService {
-    constructor() {
-        this._adicionalService = new _model_adicionalService_model__WEBPACK_IMPORTED_MODULE_2__["AdicionalService"](null, [], null);
-    }
-    get adicional() {
-        return this._adicionalService;
-    }
-    setDetail(detail) {
-        this._adicionalService.detail = detail;
-    }
-    setPhoto(photo) {
-        this._adicionalService.photo = photo;
-    }
-    setCost(cost) {
-        this._adicionalService.cost = cost;
-    }
-    clearAdicional() {
-        this._adicionalService = new _model_adicionalService_model__WEBPACK_IMPORTED_MODULE_2__["AdicionalService"](null, [], null);
-    }
-};
-AdicionalServiceService.ctorParameters = () => [];
-AdicionalServiceService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    })
-], AdicionalServiceService);
-
-
-
-/***/ }),
-
 /***/ "Uqb3":
 /*!*******************************************************************!*\
   !*** ./src/app/shared/success-modal/success-modal.component.scss ***!
@@ -556,27 +509,6 @@ const hapticImpact = (options) => {
 };
 
 
-
-
-/***/ }),
-
-/***/ "tzat":
-/*!*************************************************!*\
-  !*** ./src/app/model/adicionalService.model.ts ***!
-  \*************************************************/
-/*! exports provided: AdicionalService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdicionalService", function() { return AdicionalService; });
-class AdicionalService {
-    constructor(detail, photo, cost) {
-        this.detail = detail;
-        this.photo = photo;
-        this.cost = cost;
-    }
-}
 
 
 /***/ })
