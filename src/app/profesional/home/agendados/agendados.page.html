@@ -135,14 +135,17 @@
         <!-- title -->
         <ion-col size="8" class="ion-justify-content-center" (click)="solicitudDetail(service.id)">
           <ion-text>
-            <span class="titleSelect main-color ion-text-capitalize">{{service.clientName+" "+ service.clientLastName}}
+            <span *ngIf="service.type_request == 'NORMAL'" class="titleSelect main-color ion-text-capitalize" color="danger">{{service.clientName+" "+ service.clientLastName}}&nbsp;&nbsp;
+            </span>
+            <span *ngIf="service.type_request == 'URGENT'" class="titleSelect urgent-color ion-text-capitalize" color="danger">{{service.clientName+" "+ service.clientLastName}}
             </span>&nbsp;&nbsp;
-            <ion-badge color="primary" class="badge-text">{{ service.categoryName }}</ion-badge>
+            <ion-badge [color]="service.type_request == 'URGENT' ? 'danger' : 'primary'" class="badge-text">{{ service.categoryName }}</ion-badge>&nbsp;
+            <ion-icon *ngIf="service.type_request == 'URGENT'" src="/assets/icon/ic_error.svg" color="primary" class="iconFix"></ion-icon>
             <br>
             <small>
-              <ion-icon src="/assets/icon/ic_date_range.svg" color="primary" class="iconFix"></ion-icon>
+              <ion-icon src="/assets/icon/ic_date_range.svg" [color]="service.type_request == 'URGENT' ? 'danger' : 'primary'" class="iconFix"></ion-icon>
               {{ formatDate(service.date_required) }}
-              <ion-icon src="/assets/icon/ic_schedule.svg" color="primary" class="iconFix"></ion-icon>
+              <ion-icon src="/assets/icon/ic_schedule.svg" [color]="service.type_request == 'URGENT' ? 'danger' : 'primary'" class="iconFix"></ion-icon>
               {{ formatTime(service.hours) }}
             </small>
           </ion-text>
@@ -160,14 +163,6 @@
                 <ion-icon src="/assets/icon/ic_map.svg" color="primary" class="iconFix"></ion-icon>&nbsp;VER MAPA
               </div>
             </small>
-            <!--
-            <small class="ratingText main-color ion-text-center" *ngIf="service.status_id === 3">
-              SERVICIO AGENDADO
-            </small>
-            <small class="ratingText main-color ion-text-center" *ngIf="service.status_id === 4">
-              SERVICIO EN PROCESO
-            </small>
-          -->
           </ion-text>
         </ion-col>
 
@@ -183,14 +178,17 @@
         <!-- title -->
         <ion-col size="8" class="ion-justify-content-center">
           <ion-text>
-            <span class="titleSelect main-color ion-text-capitalize">{{service.clientName+" "+ service.clientLastName}}
+            <span *ngIf="service.type_request == 'NORMAL'" class="titleSelect main-color ion-text-capitalize" color="danger">{{service.clientName+" "+ service.clientLastName}}&nbsp;&nbsp;
+            </span>
+            <span *ngIf="service.type_request == 'URGENT'" class="titleSelect urgent-color ion-text-capitalize" color="danger">{{service.clientName+" "+ service.clientLastName}}
             </span>&nbsp;&nbsp;
-            <ion-badge color="primary" class="badge-text">{{ service.categoryName }}</ion-badge>
+            <ion-badge [color]="service.type_request == 'URGENT' ? 'danger' : 'primary'" class="badge-text">{{ service.categoryName }}</ion-badge>&nbsp;
+            <ion-icon *ngIf="service.type_request == 'URGENT'" src="/assets/icon/ic_error.svg" color="primary" class="iconFix"></ion-icon>
             <br>
             <small>
-              <ion-icon src="/assets/icon/ic_date_range.svg" color="primary" class="iconFix"></ion-icon>
+              <ion-icon src="/assets/icon/ic_date_range.svg" [color]="service.type_request == 'URGENT' ? 'danger' : 'primary'" class="iconFix"></ion-icon>
               {{ formatDate(service.date_required) }}
-              <ion-icon src="/assets/icon/ic_schedule.svg" color="primary" class="iconFix"></ion-icon>
+              <ion-icon src="/assets/icon/ic_schedule.svg" [color]="service.type_request == 'URGENT' ? 'danger' : 'primary'" class="iconFix"></ion-icon>
               {{ formatTime(service.hours) }}
             </small>
           </ion-text>

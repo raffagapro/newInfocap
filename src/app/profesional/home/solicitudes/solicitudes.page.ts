@@ -86,7 +86,7 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   }
 
   rechazarSolicitud(solicitudID: string) {
-    this.solServ.setServiceID(solicitudID);
+    this.solicitudServicio.setID(solicitudID);
     this.modalController.create({
       component: ServiceRejectModalComponent,
       cssClass: 'modalSE',
@@ -105,7 +105,6 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   }
 
   aceptarSolicitud(solicitudID: string, type: string) {
-    this.solServ.setServiceID(solicitudID);
     this.solicitudServicio.setID(solicitudID)
     this.solicitudServicio.setSolicitudType(type)
     this.router.navigate(['/profesional/solicitudes/solicitudes-detail']);

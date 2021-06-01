@@ -3,14 +3,13 @@ import { Router } from '@angular/router';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
-import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { ConfirmSuccessModalComponent } from './confirm-success-modal/confirm-success-modal.component';
 import axios from 'axios'
 import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
-import { AdicionalServiceService } from 'src/app/services/adicional-service.service';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -43,6 +42,9 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
   userSub: Subscription;
   headers: String;
   useInputPicker = false;
+
+  formFinalizar: FormGroup
+  
   loadedInfo = {
     img_client_profile: null,
     ticket_number: null,
@@ -69,7 +71,8 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     autoplay: true
   };
 
-  categories = []
+  categories = ['Reparación', 'Mantención', 'Instalación', 'Proyectos especiales']
+  categorySelected: string
   paymentTypes = [];
 
   constructor(
@@ -86,20 +89,26 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
       this.grabbedUser = user;
     });
     this.headers = 'Bearer ' + this.grabbedUser.access_token;
+
+    this.formFinalizar = new FormGroup({
+      category: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      work_report: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+    })
     this.lc.create({
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
 
       loadingEl.present();
-      axios.get(API + `/supplier/categories`, { headers: { Authorization: this.headers } }).then(resData => {
-        this.categories = resData.data.data;
-      }).catch(err => {
-        console.log(err)
-      })
 
-      axios.get(API + '/payments/type', { headers: { Authorization: this.headers } }).then(resData => {
-        this.paymentTypes = resData.data.data
-      })
+      // axios.get(API + '/payments/type', { headers: { Authorization: this.headers } }).then(resData => {
+      //   this.paymentTypes = resData.data.data
+      // })
       loadingEl.dismiss();
     });
   }
@@ -145,11 +154,19 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
   }
 
   finalizarSolicitud() {
+    const formData = new FormData();
+    this.loadedImages.forEach(image => {
+      formData.append('images[]', image);
+    });
+    formData.append('category', this.formFinalizar.value.category)
+    formData.append('work_report', this.formFinalizar.value.work_report)
+
+
     this.lc.create({
       message: 'Finalizando Trabajo...'
     }).then(loadingEl => {
       loadingEl.present();
-      axios.put(API + `/supplier/updatestatus/requestservice/${this.solicitudServicio.solicitud.id}/5`, null, { headers: { Authorization: this.headers } }).then(resData => {
+      axios.post(API + `/supplier/finalize/requestservice/${this.solicitudServicio.solicitud.id}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
         this.modalController.create({
           component: ConfirmSuccessModalComponent,

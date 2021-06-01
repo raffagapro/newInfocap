@@ -85,7 +85,7 @@
 
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text > {{ formatDate(loadedInfo.date_required) }}</ion-text>
+        <ion-text> {{ formatDate(loadedInfo.date_required) }}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -143,9 +143,9 @@
       <ion-col size="1"></ion-col>
     </ion-row>
 
-    <br/>
+    <br />
     <!-- Visita de valoracion -->
-    <ion-row>
+    <ion-row *ngIf="loadedInfo.type == 'NORMAL'">
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-text class="main-color subtitle"><b>¿Requieres una visita de valoración?</b></ion-text>
@@ -153,25 +153,28 @@
       <ion-col size="1"></ion-col>
       <ion-col size="1"></ion-col>
       <ion-col>
-        <ion-button size="5" expand="block" class="ion-text-uppercase" color="primary" fill="outline" (click)="confirmVisit()">
+        <ion-button size="5" expand="block" class="ion-text-uppercase" color="primary" fill="outline"
+          (click)="confirmVisit()">
           <ion-icon slot="start" src="/assets/icon/ic_event_available.svg"></ion-icon>
-          <ion-text class="main-color" >VISITA DE VALORACIÓN</ion-text>
+          <ion-text class="main-color">VISITA DE VALORACIÓN</ion-text>
         </ion-button>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
 
     <!-- Visita de valoracion -->
-    <ion-row>
+    <ion-row *ngIf="loadedInfo.type == 'NORMAL'">
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-text class="main-color">Si no requieres una visita de valoración, agenda el trabajo final.</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
+    </ion-row>
 
+    <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col>
-        <ion-button size="5" expand="block" color="success" class="ion-text-uppercase" (click)="accceptSolicitud()">
+        <ion-button size="10" expand="block" color="success" class="ion-text-uppercase" (click)="accceptSolicitud()">
           ACEPTAR TRABAJO FINAL
         </ion-button>
       </ion-col>

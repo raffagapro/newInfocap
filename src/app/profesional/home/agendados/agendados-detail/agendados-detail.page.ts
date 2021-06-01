@@ -12,6 +12,7 @@ import { ConfirmSuccessStartComponent } from './confirm-success-start/confirm-su
 import axios from 'axios'
 import * as moment from 'moment';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
+import { ServiceRejectModalComponent } from '../../solicitudes/service-reject-modal/service-reject-modal.component';
 
 @Component({
   selector: 'app-agendados-detail',
@@ -94,6 +95,12 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         console.log(err);
         loadingEl.dismiss();
       })
+
+      axios.get(API + `/client/detailcostrequest/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
+        console.log(resData.data.data)
+      })
+
+
     });
   }
 
@@ -151,6 +158,35 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
           modalEl.present();
         });
       })
+    });
+  }
+
+  startScheduled() {
+    this.lc.create({
+      message: 'Registrando tiempo de inicio...'
+    }).then(loadingEl => {
+      loadingEl.present();
+      axios.put(API + `/supplier/updatestatus/requestservice/${this.solicitudServicio.solicitud.id}/3`, null, { headers: { Authorization: this.headers } }).then(resData => {
+        loadingEl.dismiss();
+        this.modalController.create({
+          component: ConfirmSuccessStartComponent,
+          cssClass: 'modalSuccess',
+        }).then(modalEl => {
+          modalEl.present();
+        });
+      })
+    });
+  }
+
+  rejectSheduled() {
+    this.modalController.create({
+      component: ServiceRejectModalComponent,
+      cssClass: 'modalSE',
+    }).then(modalEl => {
+      modalEl.present();
+      modalEl.onDidDismiss().then(data => {
+        this.router.navigate(['profesional/agendados/agendados']);
+      });
     });
   }
 

@@ -8,7 +8,6 @@ import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
-import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API, PHONE_PREFIX } from 'src/environments/environment';
 
@@ -32,6 +31,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
     images: null,
     categoryName: null,
     clientPhone1: null,
+    type: null,
     request_cost: 0
   };
 
@@ -44,14 +44,13 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private menuController: MenuController,
-    private solServ: SolicitudService,
     private solicitudServicio: ProSolicitudService,
     private us: UserService,
     private lc: LoadingController,
     private callNumber: CallNumber
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
@@ -60,7 +59,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
       loadingEl.present();
-      axios.get(API + `/supplier/requestservicedetail/${this.solServ.solicitud.solicitudID}`, { headers: { Authorization: this.headers } }).then(resData => {
+      axios.get(API + `/supplier/requestservicedetail/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
         this.solicitudServicio.setClientLastName(resData.data.data.clientLastName)
         this.solicitudServicio.setClientName(resData.data.data.clientName)
@@ -86,6 +85,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
         this.loadedInfo.ticket_number = resData.data.data.ticket_number;
         this.loadedInfo.categoryName = resData.data.data.categoryName;
         this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
+        this.loadedInfo.type = this.solicitudServicio.solicitud.type
       }).catch(err => {
         console.log(err);
         loadingEl.dismiss();
@@ -97,7 +97,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
     this.menuController.enable(true, 'profesional');
   }
 
-  formatDate(date: string){
+  formatDate(date: string) {
     return moment(date, 'DD-MM-YYYY').format('dddd D [de] MMMM [de] YYYY');
   }
 
@@ -132,7 +132,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
       .catch(err => console.log('Error launching dialer', err));
   }
 
-  wa(){
+  wa() {
     this.router.navigateByUrl(`whatsapp://send?phone=${this.loadedInfo.clientPhone1}`);
   }
 

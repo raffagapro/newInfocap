@@ -45,105 +45,108 @@
   </div>
   <ion-grid>
 
-    <ion-row style="align-items: center;">
-      <ion-col size="1"></ion-col>
-      <ion-col size="4">
-        <ion-text class="main-color title"><b>Categoriza el trabajo</b></ion-text>
-      </ion-col>
-      <ion-col size="6">
-        <ion-item class="select-categories">
-          <ion-select [(ngModel)]="loadedInfo.category_id" placeholder="Categoría" interface="popover" class="select-categories-component">
-            <ion-select-option *ngFor="let cat of categories" [value]="cat.id" class="main-color ion-text-center">{{
-              cat.name }}</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+    <form [formGroup]="formFinalizar" (ngSubmit)="finalizarSolicitud()">
 
-    <!-- title -->
-    <ion-row>
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color title"><b>Fotografías del trabajo realizado</b></ion-text>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <ion-row style="align-items: center;">
+        <ion-col size="1"></ion-col>
+        <ion-col size="4">
+          <ion-text class="main-color title"><b>Categoriza el trabajo</b></ion-text>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item class="select-categories">
+            <ion-select formControlName="category" placeholder="Categoría" interface="popover"
+              class="select-categories-component">
+              <ion-select-option *ngFor="let cat of categories" [value]="cat" class="main-color ion-text-center">{{
+                cat }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-    <!-- images -->
-    <ion-row class="ion-align-items-center ion-justify-content-center">
-      <ion-col *ngIf="loadedImagesDisplay.length > 0" size="8">
-        <ion-slides>
-          <ion-slide *ngFor="let image of loadedImagesDisplay" [loadedImagesDisplay]='loadedImagesDisplay'>
-            <ion-img [src]="image" class="imgSlide" style="height: 125px;">
-            </ion-img>
-          </ion-slide>
-        </ion-slides>
-      </ion-col>
+      <!-- title -->
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="ion-text-center">
+          <ion-text class="main-color title"><b>Fotografías del trabajo realizado</b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-      <ion-col size="4" class="ion-justify-content-center ta-center">
-        <div (click)="onLoadImg()" class="locate-cont">
-          <ion-icon name="add" color="light" class="rating-text"></ion-icon>
-        </div>
-      </ion-col>
-    </ion-row>
+      <!-- images -->
+      <ion-row class="ion-align-items-center ion-justify-content-center">
+        <ion-col *ngIf="loadedImagesDisplay.length > 0" size="8">
+          <ion-slides>
+            <ion-slide *ngFor="let image of loadedImagesDisplay" [loadedImagesDisplay]='loadedImagesDisplay'>
+              <ion-img [src]="image" class="imgSlide" style="height: 125px;">
+              </ion-img>
+            </ion-slide>
+          </ion-slides>
+        </ion-col>
 
-    <!-- hidden file input -->
-    <div style="display: none;">
-      <input type="file" #hiddenImgInput *ngIf="useInputPicker" (change)="onLoadImgFromInput($event)">
-    </div>
+        <ion-col size="4" class="ion-justify-content-center ta-center">
+          <div (click)="onLoadImg()" class="locate-cont">
+            <ion-icon name="add" color="light" class="rating-text"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
 
-    <!-- text -->
-    <ion-row>
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color regText"><b>Informe del trabajo</b></ion-text>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- hidden file input -->
+      <div style="display: none;">
+        <input type="file" #hiddenImgInput *ngIf="useInputPicker" (change)="onLoadImgFromInput($event)">
+      </div>
 
-    <!-- text-area -->
-    <ion-row class="ion-margin-top">
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="border ion-text-center">
-        <ion-item lines="none">
-          <ion-textarea rows="3" cols="20" placeholder="Describe el trabajo realizado."></ion-textarea>
-        </ion-item>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- text -->
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="ion-text-center">
+          <ion-text class="main-color regText"><b>Informe del trabajo</b></ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-    <!-- title -->
-    <ion-row class="ion-margin-top">
-      <ion-col size="1"></ion-col>
-      <ion-col size="5" class="ion-text-center border-right">
-        <ion-text class="main-color title"><b>Método de pago</b></ion-text>
-        <br>
-        <ion-text class="subMiniTex ion-padding-top">Efectivo</ion-text>
-      </ion-col>
-      <ion-col size="3" class="ion-text-center">
-        <ion-text class="main-color title"><b>Costo</b></ion-text>
-        <br>
-        <ion-text class="subMiniTex ion-padding-top">{{ formatInfo(loadedInfo.request_cost) }}</ion-text>
-      </ion-col>
-      <ion-col size="1">
-        <ion-icon color="danger" name="add-circle" class="addIcon" (click)="extraCharge()"></ion-icon>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- text-area -->
+      <ion-row class="ion-margin-top">
+        <ion-col size="1"></ion-col>
+        <ion-col size="10" class="border ion-text-center">
+          <ion-item lines="none">
+            <ion-textarea formControlName="work_report" rows="3" cols="20" placeholder="Describe el trabajo realizado."></ion-textarea>
+          </ion-item>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
-    <!-- finalizar trabajo BTN -->
-    <ion-row class="ion-margin-top ion-margin-bottom">
-      <ion-col size="1"></ion-col>
-      <ion-col>
-        <ion-button size="5" expand="block" class="ion-text-uppercase" color="danger" (click)="finalizarSolicitud()">
-          <ion-icon slot="start" name="build"></ion-icon>
-          FINALIZAR
-        </ion-button>
-      </ion-col>
-      <ion-col size="1"></ion-col>
-    </ion-row>
+      <!-- title -->
+      <ion-row class="ion-margin-top">
+        <ion-col size="1"></ion-col>
+        <ion-col size="5" class="ion-text-center border-right">
+          <ion-text class="main-color title"><b>Método de pago</b></ion-text>
+          <br>
+          <ion-text class="subMiniTex ion-padding-top">Efectivo</ion-text>
+        </ion-col>
+        <ion-col size="3" class="ion-text-center">
+          <ion-text class="main-color title"><b>Costo</b></ion-text>
+          <br>
+          <ion-text class="subMiniTex ion-padding-top">{{ formatInfo(loadedInfo.request_cost) }}</ion-text>
+        </ion-col>
+        <ion-col size="1">
+          <ion-icon color="danger" name="add-circle" class="addIcon" (click)="extraCharge()"></ion-icon>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
 
+      <!-- finalizar trabajo BTN -->
+      <ion-row class="ion-margin-top ion-margin-bottom">
+        <ion-col size="1"></ion-col>
+        <ion-col>
+          <ion-button [disabled]="!loadedImages.length > 0 || !formFinalizar.valid" size="5" expand="block" class="ion-text-uppercase" color="danger" (click)="finalizarSolicitud()">
+            <ion-icon slot="start" name="build"></ion-icon>
+            FINALIZAR
+          </ion-button>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+    </form>
   </ion-grid>
 
 </ion-content>

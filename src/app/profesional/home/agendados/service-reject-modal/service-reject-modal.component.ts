@@ -93,6 +93,7 @@ export class ServiceRejectModalComponent implements OnInit, OnDestroy {
           }
         }
       );
+      this.dismiss()
       loader.dismiss();
       await this.modalController.dismiss();
       let confirmModal = await this.modalController.create({
