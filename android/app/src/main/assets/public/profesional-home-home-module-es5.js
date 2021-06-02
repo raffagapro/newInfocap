@@ -224,7 +224,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".tapText {\n  font-size: 10px;\n}\n\n.paddings {\n  padding-top: 10px;\n  padding-bottom: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2hvbWUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUksZUFBQTtBQUFKOztBQUVBO0VBRUksaUJBQUE7RUFDQSxvQkFBQTtBQUFKIiwiZmlsZSI6ImhvbWUucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRhcFRleHRcbntcbiAgICBmb250LXNpemU6IDEwcHg7XG59XG4ucGFkZGluZ3NcbntcbiAgICBwYWRkaW5nLXRvcDogMTBweDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMTBweDtcbn0iXX0= */";
+      __webpack_exports__["default"] = ".tapText {\n  font-size: 10px;\n}\n\n.paddings {\n  padding-top: 10px;\n  padding-bottom: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2hvbWUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUksZUFBQTtBQUFKOztBQUVBO0VBRUksaUJBQUE7RUFDQSxvQkFBQTtBQUFKIiwiZmlsZSI6ImhvbWUucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRhcFRleHRcbntcbiAgICBmb250LXNpemU6IDEwcHg7XG59XG4ucGFkZGluZ3NcbntcbiAgICBwYWRkaW5nLXRvcDogMTBweDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMTBweDtcbn1cblxuIl19 */";
       /***/
     },
 

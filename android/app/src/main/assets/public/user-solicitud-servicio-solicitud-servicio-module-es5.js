@@ -319,8 +319,8 @@
               quality: 100,
               source: _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["CameraSource"].Prompt,
               correctOrientation: true,
-              //height: 150,
-              // width: 200,
+              height: 500,
+              width: 500,
               resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl,
               promptLabelPhoto: 'Fotos',
               promptLabelPicture: 'Cámara',
@@ -328,7 +328,7 @@
             }).then(function (image) {
               _this2.saveImgToApi(image.dataUrl);
             })["catch"](function (e) {
-              console.log(e);
+              console.log(e, 'error');
             });
           }
         }, {
@@ -363,7 +363,9 @@
               imgFile = imageData;
             }
 
+            console.log(imgFile);
             this.loadedImages.push(imgFile);
+            this.loadedImagesDisplay.push(imageData);
           }
         }, {
           key: "confirmRequest",

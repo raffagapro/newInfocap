@@ -46,81 +46,67 @@
       /* harmony import */
 
 
-      var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! @angular/common/http */
-      "tk/3");
-      /* harmony import */
-
-
-      var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/core */
       "fXoL");
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-      /*! @angular/router */
-      "tyNb");
-      /* harmony import */
-
-
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
       /* harmony import */
 
 
-      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-      /*! src/app/services/solicitud.service */
-      "rLtr");
-      /* harmony import */
-
-
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
       /* harmony import */
 
 
-      var _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! ../confirm-success/confirm-success.component */
       "Hjn/");
       /* harmony import */
 
 
-      var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! axios */
       "vDqi");
       /* harmony import */
 
 
-      var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
+      var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
       /* harmony import */
 
 
-      var moment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var moment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! moment */
       "wd/R");
       /* harmony import */
 
 
-      var moment__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_12__);
+      var moment__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_9__);
+      /* harmony import */
+
+
+      var src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! src/app/services/pro-solicitud.service */
+      "zMwU");
 
       var ConfirmServComponent = /*#__PURE__*/function () {
-        function ConfirmServComponent(modalController, router, solServ, us, http, lc) {
+        function ConfirmServComponent(modalController, solicitudServicio, us, lc) {
           _classCallCheck(this, ConfirmServComponent);
 
           this.modalController = modalController;
-          this.router = router;
-          this.solServ = solServ;
+          this.solicitudServicio = solicitudServicio;
           this.us = us;
-          this.http = http;
           this.lc = lc;
           this.loadedInfo = {
             date_required: null,
@@ -147,44 +133,43 @@
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
-                      this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-                      _context.next = 3;
+                      _context.next = 2;
                       return this.lc.create({
                         message: 'Cargando información del servicio...'
                       });
 
-                    case 3:
+                    case 2:
                       loader = _context.sent;
                       loader.present();
-                      _context.prev = 5;
-                      _context.next = 8;
-                      return axios__WEBPACK_IMPORTED_MODULE_11___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"], "/supplier/requestservicedetail/").concat(this.solServ.solicitud.solicitudID), {
+                      _context.prev = 4;
+                      _context.next = 7;
+                      return axios__WEBPACK_IMPORTED_MODULE_8___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"], "/supplier/requestservicedetail/").concat(this.solicitudServicio.solicitud.id), {
                         headers: {
                           Authorization: "Bearer ".concat(this.grabbedUser.access_token)
                         }
                       });
 
-                    case 8:
+                    case 7:
                       response = _context.sent;
                       data = response.data;
                       serverData = data.data;
-                      this.loadedInfo.date_required = this.solServ.solicitud.newDate;
-                      this.loadedInfo.hours = this.solServ.solicitud.newTime;
+                      this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required;
+                      this.loadedInfo.hours = this.solicitudServicio.solicitud.hours;
                       loader.dismiss();
-                      _context.next = 19;
+                      _context.next = 18;
                       break;
 
-                    case 16:
-                      _context.prev = 16;
-                      _context.t0 = _context["catch"](5);
+                    case 15:
+                      _context.prev = 15;
+                      _context.t0 = _context["catch"](4);
                       loader.dismiss();
 
-                    case 19:
+                    case 18:
                     case "end":
                       return _context.stop();
                   }
                 }
-              }, _callee, this, [[5, 16]]);
+              }, _callee, this, [[4, 15]]);
             }));
           }
         }, {
@@ -192,8 +177,8 @@
           value: function p(hours) {
             if (hours) {
               var wHours = hours.split("/");
-              var startHour = moment__WEBPACK_IMPORTED_MODULE_12__(wHours[0]).format('h:mm A');
-              var endHour = moment__WEBPACK_IMPORTED_MODULE_12__(wHours[1]).format('h:mm A');
+              var startHour = moment__WEBPACK_IMPORTED_MODULE_9__(wHours[0]).format('h:mm A');
+              var endHour = moment__WEBPACK_IMPORTED_MODULE_9__(wHours[1]).format('h:mm A');
               return "".concat(startHour, " - ").concat(endHour);
             }
           }
@@ -208,13 +193,13 @@
         }, {
           key: "formatDate",
           value: function formatDate(date) {
-            return moment__WEBPACK_IMPORTED_MODULE_12__(date, 'DD/M/YYYY').format('dddd D [de] MMMM [de] YYYY');
+            return moment__WEBPACK_IMPORTED_MODULE_9__(date, 'YYYY/M/DD').format('dddd D [de] MMMM [de] YYYY');
           }
         }, {
           key: "confirmServicio",
           value: function confirmServicio() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var loader, body, response, successModal;
+              var loader, body, url, response, successModal;
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
                   switch (_context2.prev = _context2.next) {
@@ -228,51 +213,60 @@
                       loader = _context2.sent;
                       loader.present();
                       body = {
-                        date_required: this.solServ.solicitud.newDate,
-                        hours: this.solServ.solicitud.newTime
+                        date_required: this.solicitudServicio.solicitud.date_required,
+                        hours: this.solicitudServicio.solicitud.hours,
+                        professional_id: null
                       };
                       _context2.prev = 5;
-                      _context2.next = 8;
-                      return axios__WEBPACK_IMPORTED_MODULE_11___default.a.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"], "/supplier/aprove/requestservice/").concat(this.solServ.solicitud.solicitudID), body, {
+                      url = '/supplier/aprove/requestservice/';
+
+                      if (this.solicitudServicio.solicitud.type == 'URGENT') {
+                        url = '/supplier/aprove/requestservice/'; //'/supplier/aprove/urgentrequestservice/'
+
+                        body.professional_id = this.grabbedUser.id;
+                      }
+
+                      _context2.next = 10;
+                      return axios__WEBPACK_IMPORTED_MODULE_8___default.a.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"]).concat(url).concat(this.solicitudServicio.solicitud.id), body, {
                         headers: {
                           Authorization: "Bearer ".concat(this.grabbedUser.access_token)
                         }
                       });
 
-                    case 8:
+                    case 10:
                       response = _context2.sent;
-                      _context2.next = 11;
-                      return loader.dismiss();
-
-                    case 11:
                       _context2.next = 13;
-                      return this.modalController.dismiss();
+                      return loader.dismiss();
 
                     case 13:
                       _context2.next = 15;
+                      return this.modalController.dismiss();
+
+                    case 15:
+                      _context2.next = 17;
                       return this.modalController.create({
-                        component: _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_10__["ConfirmSuccessComponent"],
+                        component: _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_7__["ConfirmSuccessComponent"],
                         cssClass: 'modalSuccess'
                       });
 
-                    case 15:
+                    case 17:
                       successModal = _context2.sent;
                       successModal.present();
-                      _context2.next = 23;
+                      _context2.next = 25;
                       break;
 
-                    case 19:
-                      _context2.prev = 19;
+                    case 21:
+                      _context2.prev = 21;
                       _context2.t0 = _context2["catch"](5);
                       console.log(_context2.t0);
                       loader.dismiss();
 
-                    case 23:
+                    case 25:
                     case "end":
                       return _context2.stop();
                   }
                 }
-              }, _callee2, this, [[5, 19]]);
+              }, _callee2, this, [[5, 21]]);
             }));
           }
         }, {
@@ -292,21 +286,17 @@
 
       ConfirmServComponent.ctorParameters = function () {
         return [{
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ModalController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]
         }, {
-          type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]
+          type: src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_10__["ProSolicitudService"]
         }, {
-          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]
         }, {
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
-        }, {
-          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
-        }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
         }];
       };
 
-      ConfirmServComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
+      ConfirmServComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
         selector: 'app-confirm-serv',
         template: _raw_loader_confirm_serv_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_confirm_serv_component_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
@@ -748,6 +738,120 @@
 
 
       __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    \n    <!-- SERVICIO REALIZADO  -->\n    <div style=\"height: 30px;\"></div>\n    <ion-row class=\"ion-margin-top\">\n      <div class=\"status-cont\">\n        <ion-icon name=\"send\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n      </div>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"main-color status-text\"><b>HAZ ACEPTADO LA VISITA TÉCNICA</b></ion-text><br>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text><hr></ion-text>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
+      /***/
+    },
+
+    /***/
+    "55u6":
+    /*!**********************************************************************************************************!*\
+      !*** ./src/app/profesional/home/solicitudes/visita-tecnica/confirm-success/confirm-success.component.ts ***!
+      \**********************************************************************************************************/
+
+    /*! exports provided: ConfirmSuccessComponent */
+
+    /***/
+    function u6(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "ConfirmSuccessComponent", function () {
+        return ConfirmSuccessComponent;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _raw_loader_confirm_success_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! raw-loader!./confirm-success.component.html */
+      "5JEl");
+      /* harmony import */
+
+
+      var _confirm_success_component_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ./confirm-success.component.scss */
+      "j1Gp");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @angular/router */
+      "tyNb");
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @ionic/angular */
+      "TEn/");
+
+      var ConfirmSuccessComponent = /*#__PURE__*/function () {
+        function ConfirmSuccessComponent(router, modalController) {
+          _classCallCheck(this, ConfirmSuccessComponent);
+
+          this.router = router;
+          this.modalController = modalController;
+        }
+
+        _createClass(ConfirmSuccessComponent, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {}
+        }, {
+          key: "dismiss",
+          value: function dismiss() {
+            this.modalController.dismiss();
+            this.router.navigate(['/profesional/home/home-tabs/agendados']);
+          }
+        }]);
+
+        return ConfirmSuccessComponent;
+      }();
+
+      ConfirmSuccessComponent.ctorParameters = function () {
+        return [{
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"]
+        }];
+      };
+
+      ConfirmSuccessComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        selector: 'app-confirm-success',
+        template: _raw_loader_confirm_success_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
+        styles: [_confirm_success_component_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
+      })], ConfirmSuccessComponent);
+      /***/
+    },
+
+    /***/
+    "5JEl":
+    /*!**************************************************************************************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/profesional/home/solicitudes/visita-tecnica/confirm-success/confirm-success.component.html ***!
+      \**************************************************************************************************************************************************/
+
+    /*! exports provided: default */
+
+    /***/
+    function JEl(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    \n    <!-- SERVICIO REALIZADO  -->\n    <div style=\"height: 10px;\"></div>\n    <ion-row class=\"ion-margin-top\">\n      <div class=\"status-cont\">\n        <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n      </div>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"main-color status-text\"><b>SE HA REALIZADO LA SOLICITUD</b></ion-text><br>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text><hr></ion-text>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -2080,9 +2184,15 @@
 
 
       var axios__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_14__);
+      /* harmony import */
+
+
+      var _services_notifications_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
+      /*! ./services/notifications-service */
+      "wBcA");
 
       var AppComponent = /*#__PURE__*/function () {
-        function AppComponent(platform, splashScreen, statusBar, router, menuCtrl, as, us) {
+        function AppComponent(platform, splashScreen, statusBar, router, menuCtrl, as, us, notificationService) {
           _classCallCheck(this, AppComponent);
 
           this.platform = platform;
@@ -2092,9 +2202,11 @@
           this.menuCtrl = menuCtrl;
           this.as = as;
           this.us = us;
+          this.notificationService = notificationService;
           this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_13__["IMAGE_URL_BLANK"];
           this.whatsappPhone = "".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["PHONE_PREFIX"], "9992781314");
           this.firstLoad = false;
+          this.notificationCount = 0;
           this.notifications = [];
           this.logged = this.as.userIsAuthenticated;
           this.initializeApp();
@@ -2116,12 +2228,14 @@
               _this3.menuCtrl.enable(false, _model_user_model__WEBPACK_IMPORTED_MODULE_11__["UserRoles"].PROFESSIONAL);
 
               _this3.menuCtrl.enable(false, _model_user_model__WEBPACK_IMPORTED_MODULE_11__["UserRoles"].USER);
+
+              _this3.notificationSubscription = _this3.notificationService.notifications.subscribe(function (notifications) {
+                _this3.notifications = notifications;
+                _this3.notificationCount = notifications.filter(function (notification) {
+                  return !notification.viewed;
+                }).length;
+              });
             });
-          }
-        }, {
-          key: "ngOnDestroy",
-          value: function ngOnDestroy() {
-            clearTimeout(this.notificationUpdate);
           }
         }, {
           key: "setUser",
@@ -2237,6 +2351,8 @@
           type: _services_auth_service__WEBPACK_IMPORTED_MODULE_9__["AuthService"]
         }, {
           type: _services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"]
+        }, {
+          type: _services_notifications_service__WEBPACK_IMPORTED_MODULE_15__["NotificationsService"]
         }];
       };
 
@@ -2830,7 +2946,13 @@
 
       var _angular_common__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(
       /*! @angular/common */
-      "ofXK"); // geolocation and native-geocoder
+      "ofXK");
+      /* harmony import */
+
+
+      var _services_notifications_service__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(
+      /*! ./services/notifications-service */
+      "wBcA"); // geolocation and native-geocoder
 
 
       var AppModule = function AppModule() {
@@ -2844,10 +2966,55 @@
         providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_8__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_7__["SplashScreen"], _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_33__["CallNumber"], {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicRouteStrategy"]
-        }, _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_9__["Geolocation"], _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_10__["NativeGeocoder"]],
+        }, _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_9__["Geolocation"], _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_10__["NativeGeocoder"], _services_notifications_service__WEBPACK_IMPORTED_MODULE_36__["NotificationsService"]],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"]]
       })], AppModule);
       /***/
+    },
+
+    /***/
+    "a1SQ":
+    /*!*********************************************!*\
+      !*** ./src/app/model/proSolicitud.model.ts ***!
+      \*********************************************/
+
+    /*! exports provided: ProSolicitud */
+
+    /***/
+    function a1SQ(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "ProSolicitud", function () {
+        return ProSolicitud;
+      });
+
+      var ProSolicitud = function ProSolicitud(clientLastName, clientName, clientImg, clientPhone, images, category_id, categoryName, date_required, description, hours, id, status_id, cost, supplierLastName, supplierName, ticket_number, type) {
+        _classCallCheck(this, ProSolicitud);
+
+        this.clientLastName = clientLastName;
+        this.clientName = clientName;
+        this.clientImg = clientImg;
+        this.clientPhone = clientPhone;
+        this.images = images;
+        this.category_id = category_id;
+        this.categoryName = categoryName;
+        this.date_required = date_required;
+        this.description = description;
+        this.hours = hours;
+        this.id = id;
+        this.status_id = status_id;
+        this.cost = cost;
+        this.supplierLastName = supplierLastName;
+        this.supplierName = supplierName;
+        this.ticket_number = ticket_number;
+        this.type = type;
+      };
+      /***/
+
     },
 
     /***/
@@ -2926,7 +3093,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    \n    <!-- SERVICIO REALIZADO  -->\n    <div style=\"height: 0px;\"></div>\n    <ion-row class=\"ion-margin-top\">\n      <div class=\"status-cont\">\n        <ion-icon src=\"/assets/icon/ic_done.svg\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n      </div>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"main-color status-text\"><b>CONFIRMACIÓN AL CLIENTE</b></ion-text><br>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color mini-text\">Pendiente de pago.</ion-text><br>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text><hr></ion-text>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    \n    <!-- SERVICIO REALIZADO  -->\n    <div style=\"height: 0px;\"></div>\n    <ion-row class=\"ion-margin-top\">\n      <div class=\"status-cont\">\n        <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n      </div>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"main-color status-text\"><b>CONFIRMACIÓN AL CLIENTE</b></ion-text><br>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color mini-text\">Pendiente de pago.</ion-text><br>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text><hr></ion-text>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -3121,6 +3288,26 @@
 
 
       __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    \n    <!-- SERVICIO REALIZADO  -->\n    <div style=\"height: 10px;\"></div>\n    <ion-row class=\"ion-margin-top\">\n      <div class=\"status-cont\">\n        <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n      </div>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"main-color status-text\"><b>HA CERRADO LA SOLICITUD</b></ion-text><br>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text><hr></ion-text>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
+      /***/
+    },
+
+    /***/
+    "j1Gp":
+    /*!************************************************************************************************************!*\
+      !*** ./src/app/profesional/home/solicitudes/visita-tecnica/confirm-success/confirm-success.component.scss ***!
+      \************************************************************************************************************/
+
+    /*! exports provided: default */
+
+    /***/
+    function j1Gp(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = ".status-cont {\n  border-radius: 50px;\n  height: 45px;\n  width: 45px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: 5px;\n  background-color: #009ACE;\n}\n\n.status-text-icon {\n  font-size: 20px;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-flex;\n}\n\n.status-text {\n  font-size: 22px;\n}\n\n.mini-text {\n  font-size: 13px;\n}\n\nhr {\n  border-top: 1px solid #009ACE;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uLy4uLy4uL2NvbmZpcm0tc3VjY2Vzcy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUVJLG1CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxvQkFBQTtFQUNBLG1CQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtFQUNBLHlCQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLG9CQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0FBQUo7O0FBRUE7RUFFSSw2QkFBQTtBQUFKIiwiZmlsZSI6ImNvbmZpcm0tc3VjY2Vzcy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zdGF0dXMtY29udFxue1xuICAgIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gICAgaGVpZ2h0OiA0NXB4O1xuICAgIHdpZHRoOiA0NXB4O1xuICAgIGRpc3BsYXk6IGlubGluZS1mbGV4O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICBtYXJnaW4tdG9wOiA1cHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwOUFDRTtcbn1cbi5zdGF0dXMtdGV4dC1pY29uXG57XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbn1cbi5zdGF0dXMtdGV4dFxue1xuICAgIGZvbnQtc2l6ZTogMjJweDtcbn1cbi5taW5pLXRleHRcbntcbiAgICBmb250LXNpemU6IDEzcHg7XG59XG5oclxue1xuICAgIGJvcmRlci10b3A6IDFweCBzb2xpZCAjMDA5QUNFO1xufSJdfQ== */";
       /***/
     },
 
@@ -4946,9 +5133,9 @@
       }, {
         path: 'profesional/agendados/agendados-finalizar',
         loadChildren: function loadChildren() {
-          return Promise.all(
+          return __webpack_require__.e(
           /*! import() | profesional-home-agendados-agendados-finalizar-agendados-finalizar-module */
-          [__webpack_require__.e("common"), __webpack_require__.e("profesional-home-agendados-agendados-finalizar-agendados-finalizar-module")]).then(__webpack_require__.bind(null,
+          "profesional-home-agendados-agendados-finalizar-agendados-finalizar-module").then(__webpack_require__.bind(null,
           /*! ./profesional/home/agendados/agendados-finalizar/agendados-finalizar.module */
           "TGXy")).then(function (m) {
             return m.AgendadosFinalizarPageModule;
@@ -4957,9 +5144,9 @@
       }, {
         path: 'profesional/agendados/servicios-adicionales',
         loadChildren: function loadChildren() {
-          return Promise.all(
+          return __webpack_require__.e(
           /*! import() | profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module */
-          [__webpack_require__.e("common"), __webpack_require__.e("profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module")]).then(__webpack_require__.bind(null,
+          "profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module").then(__webpack_require__.bind(null,
           /*! ./profesional/home/agendados/agendados-finalizar/servicios-adicionales/servicios-adicionales.module */
           "jlIi")).then(function (m) {
             return m.ServiciosAdicionalesPageModule;
@@ -5000,6 +5187,76 @@
         })],
         exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
       })], AppRoutingModule);
+      /***/
+    },
+
+    /***/
+    "wBcA":
+    /*!***************************************************!*\
+      !*** ./src/app/services/notifications-service.ts ***!
+      \***************************************************/
+
+    /*! exports provided: NotificationsService */
+
+    /***/
+    function wBcA(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "NotificationsService", function () {
+        return NotificationsService;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! rxjs */
+      "qCKp");
+
+      var NotificationsService = /*#__PURE__*/function () {
+        function NotificationsService() {
+          _classCallCheck(this, NotificationsService);
+
+          this._notifications = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]([]);
+        }
+
+        _createClass(NotificationsService, [{
+          key: "notifications",
+          get: function get() {
+            return this._notifications.asObservable();
+          }
+        }, {
+          key: "setNotifications",
+          value: function setNotifications(notifications) {
+            this._notifications.next(notifications);
+          }
+        }]);
+
+        return NotificationsService;
+      }();
+
+      NotificationsService.ctorParameters = function () {
+        return [];
+      };
+
+      NotificationsService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+      })], NotificationsService);
       /***/
     },
 
@@ -5122,6 +5379,12 @@
 
 
       var moment__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_11__);
+      /* harmony import */
+
+
+      var _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! ../confirm-success/confirm-success.component */
+      "55u6");
 
       var ConfirmVisitaComponent = /*#__PURE__*/function () {
         function ConfirmVisitaComponent(modalController, router, lc, solServ, visitaT, us) {
@@ -5171,31 +5434,49 @@
         }, {
           key: "confirmVisita",
           value: function confirmVisita() {
-            var _this9 = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+              var _this9 = this;
 
-            this.modalController.dismiss();
-            this.lc.create({
-              message: "Cargando informacion del servicio..."
-            }).then(function (loadingEl) {
-              loadingEl.present();
-              axios__WEBPACK_IMPORTED_MODULE_6___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + "/supplier/visit/requestservice/".concat(_this9.solServ.solicitud.solicitudID), _this9.visita_tecnica, {
-                headers: {
-                  Authorization: _this9.headers
+              return regeneratorRuntime.wrap(function _callee9$(_context9) {
+                while (1) {
+                  switch (_context9.prev = _context9.next) {
+                    case 0:
+                      this.modalController.dismiss();
+                      this.lc.create({
+                        message: "Cargando informacion del servicio..."
+                      }).then(function (loadingEl) {
+                        loadingEl.present();
+                        axios__WEBPACK_IMPORTED_MODULE_6___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + "/supplier/visit/requestservice/".concat(_this9.solServ.solicitud.solicitudID), _this9.visita_tecnica, {
+                          headers: {
+                            Authorization: _this9.headers
+                          }
+                        }).then(function (resData) {
+                          _this9.modalController.create({
+                            component: _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_12__["ConfirmSuccessComponent"],
+                            cssClass: 'modalSuccess'
+                          }).then(function (success) {
+                            success.present();
+                          });
+
+                          _this9.visitaT.clearSolicitud();
+
+                          _this9.lc.dismiss();
+                        })["catch"](function (err) {
+                          console.log(err);
+
+                          _this9.lc.dismiss();
+                        });
+                      })["catch"](function (err) {
+                        _this9.lc.dismiss();
+                      });
+
+                    case 2:
+                    case "end":
+                      return _context9.stop();
+                  }
                 }
-              }).then(function (resData) {
-                _this9.router.navigate(['/profesional/home/home-tabs/agendados']);
-
-                _this9.visitaT.clearSolicitud();
-
-                _this9.lc.dismiss();
-              })["catch"](function (err) {
-                console.log(err);
-
-                _this9.lc.dismiss();
-              });
-            })["catch"](function (err) {
-              _this9.lc.dismiss();
-            });
+              }, _callee9, this);
+            }));
           }
         }]);
 
@@ -5521,6 +5802,161 @@
         template: _raw_loader_success_modal_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_success_modal_component_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], SuccessModalComponent);
+      /***/
+    },
+
+    /***/
+    "zMwU":
+    /*!***************************************************!*\
+      !*** ./src/app/services/pro-solicitud.service.ts ***!
+      \***************************************************/
+
+    /*! exports provided: ProSolicitudService */
+
+    /***/
+    function zMwU(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "ProSolicitudService", function () {
+        return ProSolicitudService;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ../model/proSolicitud.model */
+      "a1SQ");
+
+      var ProSolicitudService = /*#__PURE__*/function () {
+        function ProSolicitudService() {
+          _classCallCheck(this, ProSolicitudService);
+
+          this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
+        }
+
+        _createClass(ProSolicitudService, [{
+          key: "solicitud",
+          get: function get() {
+            return this._solicitud;
+          }
+        }, {
+          key: "setID",
+          value: function setID(id) {
+            this._solicitud.id = id;
+          }
+        }, {
+          key: "setClientLastName",
+          value: function setClientLastName(lastName) {
+            this._solicitud.clientLastName = lastName;
+          }
+        }, {
+          key: "setClientName",
+          value: function setClientName(name) {
+            this._solicitud.clientName = name;
+          }
+        }, {
+          key: "setClientImg",
+          value: function setClientImg(url) {
+            this._solicitud.clientImg = url;
+          }
+        }, {
+          key: "setImages",
+          value: function setImages(url) {
+            this._solicitud.images = url;
+          }
+        }, {
+          key: "setCategoryID",
+          value: function setCategoryID(id) {
+            this._solicitud.category_id = id;
+          }
+        }, {
+          key: "setCategoryName",
+          value: function setCategoryName(name) {
+            this._solicitud.categoryName = name;
+          }
+        }, {
+          key: "setDateRequired",
+          value: function setDateRequired(date) {
+            this._solicitud.date_required = date;
+          }
+        }, {
+          key: "setHours",
+          value: function setHours(hours) {
+            this._solicitud.hours = hours;
+          }
+        }, {
+          key: "setDescription",
+          value: function setDescription(description) {
+            this._solicitud.description = description;
+          }
+        }, {
+          key: "setStatusID",
+          value: function setStatusID(id) {
+            this._solicitud.status_id = id;
+          }
+        }, {
+          key: "setCosto",
+          value: function setCosto(cost) {
+            this._solicitud.cost = cost;
+          }
+        }, {
+          key: "setSuplierLastName",
+          value: function setSuplierLastName(name) {
+            this._solicitud.supplierLastName = name;
+          }
+        }, {
+          key: "setSuplierName",
+          value: function setSuplierName(name) {
+            this._solicitud.supplierName = name;
+          }
+        }, {
+          key: "setTicketNumber",
+          value: function setTicketNumber(ticket) {
+            this._solicitud.ticket_number = ticket;
+          }
+        }, {
+          key: "setClientPhone",
+          value: function setClientPhone(number) {
+            this._solicitud.clientPhone = number;
+          }
+        }, {
+          key: "setSolicitudType",
+          value: function setSolicitudType(type) {
+            this._solicitud.type = type;
+          }
+        }, {
+          key: "clearSolcitud",
+          value: function clearSolcitud() {
+            this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
+          }
+        }]);
+
+        return ProSolicitudService;
+      }();
+
+      ProSolicitudService.ctorParameters = function () {
+        return [];
+      };
+
+      ProSolicitudService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+      })], ProSolicitudService);
       /***/
     },
 

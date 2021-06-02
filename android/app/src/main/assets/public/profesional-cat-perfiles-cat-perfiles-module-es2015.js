@@ -89,7 +89,7 @@ CatPerfilesPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n    <ion-title class=\"title-toolbar\">EDITAR PERFILES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- cat selection -->\n  <ion-grid fixed>\n    <ion-row>\n      <ion-col size=\"9\" offset=\"1\">\n        <ion-item>\n          <ion-select \n            interface=\"action-sheet\" \n            cancelText=\"Cancelar\" \n            (ionChange)=\"onCatProfileChange($event.detail.value)\"\n            value=\"{{ selectedProPerfil }}\"\n            >\n            <ion-select-option\n              *ngFor=\"let cat of profCategories\" \n              value=\"{{ cat.id }}\"\n              class=\"main-color ion-text-center catText\"\n              >{{ cat.categoryName }}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid>\n    <!-- profile Img -->\n    <ion-row class=\"imgCont\">\n      <ion-col>\n        <ion-avatar class=\"ion-margin-start profileImg\">\n          <ion-img src=\"{{ !grabbedUser || grabbedUser.img_profile === imageBlank ? 'assets/images/avatar.png' : grabbedUser.img_profile }}\"></ion-img>\n        </ion-avatar>\n      </ion-col>\n    </ion-row>\n    <!-- edit icon -->\n    <ion-row>\n      <ion-col>\n        <div class=\"rate-cont\" *ngIf=\"grabbedUser.id !== null\" (click)=\"onLoadImg(true)\">\n          <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <form [formGroup]=\"form\" (ngSubmit)=\"onUpdateCatProfile()\">\n      <!-- title -->\n      <ion-row class=\"minusMargin\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Descripción profesional</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea \n              formControlName=\"descProf\"\n              rows=\"3\" cols=\"20\"\n              placeholder=\"Agrega tu descripción. Máximo 140 caracteres con espacios.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- vehiculo -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"car-sport\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Vehículo</ion-text>\n            </ion-label>\n              <ion-select\n                interface=\"popover\"\n                cancelText=\"Cancelar\"\n                (ionChange)=\"onTransportChange($event)\"\n                value=\"{{ selectedTransport }}\">\n              <ion-select-option\n                *ngFor=\"let transport of transports\" \n                value=\"{{ transport.id }}\"\n                >{{ transport.name }}\n              </ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top ion-text-center\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Horario laboral</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- horas -->\n      <ion-row>\n        <ion-col size=\"6\">\n          <ion-item>\n            <ion-label class=\"main-color\" position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Inicio</ion-text>\n            </ion-label>\n            <ion-datetime display-format=\"h:mm A\" picker-format=\"h:mm A\" formControlName=\"sHour\"></ion-datetime>\n          </ion-item>\n        </ion-col>\n\n        <ion-col size=\"5\">\n          <ion-item>\n            <ion-label class=\"main-color\" position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Final</ion-text>\n            </ion-label>\n            <ion-datetime display-format=\"h:mm A\" picker-format=\"h:mm A\" formControlName=\"eHour\"></ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- dias -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item>\n            <ion-input formControlName=\"workDays\" placeholder=\"Días laborales\" value=\"clear me\"></ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- comunas -->\n      <ion-row>\n        <ion-col size=\"11\">\n\n          <ion-searchbar\n            placeholder=\"Sector\"\n            (ionChange)=\"onSearchChange($event)\"\n            [(ngModel)]=\"searchValue\"\n            [ngModelOptions]=\"{standalone: true}\"\n            >\n          </ion-searchbar>\n          <ion-list [hidden]=\"comunas.length === 0\">\n            <ion-item *ngFor=\"let comuna of comunas\" class=\"ion-text-capitalize\" tappable (click)=\"selectComuna(comuna.id)\">\n              {{ comuna.name }}\n            </ion-item>\n          </ion-list>\n        </ion-col>\n        <!-- badges row  -->\n        <ion-col size=\"10\" offset=\"1\">\n          <div>\n            <ion-badge color=\"primary\" *ngFor=\"let sComuna of selectedComunas\" class=\"ion-text-capitalize\">\n              {{ sComuna.name }}\n              <ion-icon name=\"close-outline\" color=\"danger\" tappable (click)=\"onRemoveComuna(sComuna.id)\"></ion-icon>\n            </ion-badge>\n          </div>\n        </ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Descripción del oficio</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea \n              formControlName=\"descOffice\"\n              rows=\"3\" cols=\"20\" \n              placeholder=\"Agrega una descripción de tu oficio. Máximo 140 caracteres con espacios.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- images -->\n      <ion-row class=\"ion-align-items-center ion-margin-top\">\n        <ion-col size=\"7\" offset=\"1\">\n          <ion-slides>\n            <!-- default slide -->\n            <ion-slide *ngIf=\"proCategoryProfile.images && proCategoryProfile.images.length === 0\">\n              <ion-img \n                src=\"/assets/images/unavailable-image.png\"\n                class=\"imgSlide\">\n              </ion-img>\n            </ion-slide>\n\n            <!-- loaded slides  -->\n            <ion-slide *ngFor=\"let image of proCategoryProfile.images\">\n              <ion-img \n                src=\"{{ image.image }}\"\n                class=\"imgSlide\">\n              </ion-img>\n            </ion-slide>\n\n          </ion-slides>\n        </ion-col>\n        <ion-col size=\"4\">\n          <ion-button (click)=\"onLoadImg(false)\" shape=\"round\">\n            <ion-icon name=\"add\" slot=\"end\" color=\"light\" class=\"rating-text\"></ion-icon>\n          </ion-button>\n        </ion-col>\n      </ion-row>\n\n      <!-- hidden file input -->\n      <div style=\"display: none;\">\n        <input type=\"file\" #hiddenImgInput *ngIf=\"useInputPicker\" (change)=\"onLoadImgFromInput($event)\">\n      </div>\n  \n\n      <!-- save BTN -->\n      <ion-row class=\"ion-margin-bottom\">\n        <ion-col offset=\"1\">\n          <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\" >\n            GUARDAR CAMBIOS\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"2\"></ion-col>\n      </ion-row>\n    </form>\n\n  </ion-grid>\n</ion-content>\n<!-- [disabled]=\"!form.valid\"  -->\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n    \n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">EDITAR PERFILES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- cat selection -->\n  <ion-grid fixed>\n    <ion-row>\n      <ion-col size=\"9\" offset=\"1\">\n        <ion-item>\n          <ion-select \n            interface=\"action-sheet\" \n            cancelText=\"Cancelar\" \n            (ionChange)=\"onCatProfileChange($event.detail.value)\"\n            value=\"{{ selectedProPerfil }}\"\n            >\n            <ion-select-option\n              *ngFor=\"let cat of profCategories\" \n              value=\"{{ cat.id }}\"\n              class=\"main-color ion-text-center catText\"\n              >{{ cat.categoryName }}\n            </ion-select-option>\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid>\n    <!-- profile Img -->\n    <ion-row class=\"imgCont\">\n      <ion-col>\n        <ion-avatar class=\"ion-margin-start profileImg\">\n          <ion-img src=\"{{ !grabbedUser || grabbedUser.img_profile === imageBlank ? 'assets/images/avatar.png' : grabbedUser.img_profile }}\"></ion-img>\n        </ion-avatar>\n      </ion-col>\n    </ion-row>\n    <!-- edit icon -->\n    <ion-row>\n      <ion-col>\n        <div class=\"rate-cont\" *ngIf=\"grabbedUser.id !== null\" (click)=\"onLoadImg(true)\">\n          <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <form [formGroup]=\"form\" (ngSubmit)=\"onUpdateCatProfile()\">\n      <!-- title -->\n      <ion-row class=\"minusMargin\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Descripción profesional</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea \n              formControlName=\"descProf\"\n              rows=\"3\" cols=\"20\"\n              placeholder=\"Agrega tu descripción. Máximo 140 caracteres con espacios.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top ion-text-center\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Horario laboral</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- horas -->\n      <ion-row>\n        <ion-col size=\"6\">\n          <ion-item>\n            <ion-label class=\"main-color\" position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Inicio</ion-text>\n            </ion-label>\n            <ion-datetime display-format=\"h:mm A\" picker-format=\"h:mm A\" formControlName=\"sHour\"></ion-datetime>\n          </ion-item>\n        </ion-col>\n\n        <ion-col size=\"5\">\n          <ion-item>\n            <ion-label class=\"main-color\" position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Final</ion-text>\n            </ion-label>\n            <ion-datetime display-format=\"h:mm A\" picker-format=\"h:mm A\" formControlName=\"eHour\"></ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- dias -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item>\n            <ion-input formControlName=\"workDays\" placeholder=\"Días laborales\" value=\"clear me\"></ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Descripción del oficio</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea \n              formControlName=\"descOffice\"\n              rows=\"3\" cols=\"20\" \n              placeholder=\"Agrega una descripción de tu oficio. Máximo 140 caracteres con espacios.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- images -->\n      <ion-row class=\"ion-align-items-center ion-margin-top \">\n        <ion-col size=\"7\" offset=\"1\">\n          <ion-slides>\n\n            <!-- loaded slides  -->\n            <ion-slide *ngFor=\"let image of proCategoryProfile.images\">\n              <ion-img \n                src=\"{{ image.image }}\"\n                class=\"imgSlide\">\n              </ion-img>\n            </ion-slide>\n\n          </ion-slides>\n        </ion-col>\n        <ion-col size=\"4\">\n          <ion-button (click)=\"onLoadImg(false)\" shape=\"round\">\n            <ion-icon name=\"add\" slot=\"end\" color=\"light\" class=\"rating-text\"></ion-icon>\n          </ion-button>\n        </ion-col>\n      </ion-row>\n\n      <!-- hidden file input -->\n      <div style=\"display: none;\">\n        <input type=\"file\" #hiddenImgInput *ngIf=\"useInputPicker\" (change)=\"onLoadImgFromInput($event)\">\n      </div>\n  \n\n      <!-- save BTN -->\n      <ion-row class=\"ion-margin-bottom\">\n        <ion-col offset=\"1\">\n          <ion-button size=\"10\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\" >\n            GUARDAR CAMBIOS\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n    </form>\n\n  </ion-grid>\n</ion-content>\n");
 
 /***/ }),
 
@@ -102,7 +102,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".profileImg {\n  height: 120px;\n  width: 120px;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.imgCont {\n  margin-top: 15px;\n}\n\n.profileIcon {\n  font-size: 16px;\n  color: white;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.rate-cont {\n  border-radius: 50px;\n  height: 30px;\n  width: 30px;\n  background-color: #53657e;\n  display: flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: -22px;\n}\n\n.catText {\n  font-size: 10px;\n}\n\n.border {\n  border: 1px solid #009ACE;\n}\n\n.regText {\n  font-size: 18px;\n}\n\n.imgSingle {\n  height: 150px;\n}\n\n.locate-cont {\n  border-radius: 50px;\n  height: 50px;\n  width: 50px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #009ACE;\n}\n\n.rating-text {\n  font-size: 26px;\n  margin-left: auto;\n  margin-right: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2NhdC1wZXJmaWxlcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFSSxhQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUFBSjs7QUFFQTtFQUVJLGdCQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUFBSjs7QUFFQTtFQUVJLG1CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSx5QkFBQTtFQUNBLGFBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0FBQUo7O0FBRUE7RUFFSSx5QkFBQTtBQUFKOztBQUVBO0VBRUksZUFBQTtBQUFKOztBQUVBO0VBRUksYUFBQTtBQUFKOztBQUVBO0VBRUksbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLG9CQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSx5QkFBQTtBQUFKOztBQUVBO0VBRUksZUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUFBSiIsImZpbGUiOiJjYXQtcGVyZmlsZXMucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnByb2ZpbGVJbWdcbntcbiAgICBoZWlnaHQ6IDEyMHB4O1xuICAgIHdpZHRoOiAxMjBweDtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG59XG4uaW1nQ29udFxue1xuICAgIG1hcmdpbi10b3A6IDE1cHg7XG59XG4ucHJvZmlsZUljb25cbntcbiAgICBmb250LXNpemU6IDE2cHg7XG4gICAgY29sb3I6IHdoaXRlO1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbn1cbi5yYXRlLWNvbnRcbntcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICAgIGhlaWdodDogMzBweDtcbiAgICB3aWR0aDogMzBweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjNTM2NTdlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIG1hcmdpbi10b3A6IC0yMnB4O1xufVxuLmNhdFRleHRcbntcbiAgICBmb250LXNpemU6IDEwcHg7XG59XG4uYm9yZGVyXG57XG4gICAgYm9yZGVyOiAxcHggc29saWQgIzAwOUFDRTtcbn1cbi5yZWdUZXh0XG57XG4gICAgZm9udC1zaXplOiAxOHB4O1xufVxuLmltZ1NpbmdsZVxue1xuICAgIGhlaWdodDogMTUwcHg7XG59XG4ubG9jYXRlLWNvbnRcbntcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICAgIGhlaWdodDogNTBweDtcbiAgICB3aWR0aDogNTBweDtcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwOUFDRTtcbn1cbi5yYXRpbmctdGV4dFxue1xuICAgIGZvbnQtc2l6ZTogMjZweDtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = (".profileImg {\n  height: 120px;\n  width: 120px;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.imgCont {\n  margin-top: 15px;\n}\n\n.profileIcon {\n  font-size: 16px;\n  color: white;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.rate-cont {\n  border-radius: 50px;\n  height: 30px;\n  width: 30px;\n  background-color: #53657e;\n  display: flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: -22px;\n}\n\n.catText {\n  font-size: 10px;\n}\n\n.border {\n  border: 1px solid #009ACE;\n}\n\n.regText {\n  font-size: 18px;\n}\n\n.imgSingle {\n  height: 150px;\n}\n\n.locate-cont {\n  border-radius: 50px;\n  height: 50px;\n  width: 50px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #009ACE;\n}\n\n.rating-text {\n  font-size: 26px;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.imgSlide {\n  height: 300px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2NhdC1wZXJmaWxlcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFSSxhQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUFBSjs7QUFFQTtFQUVJLGdCQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUFBSjs7QUFFQTtFQUVJLG1CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSx5QkFBQTtFQUNBLGFBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0FBQUo7O0FBRUE7RUFFSSx5QkFBQTtBQUFKOztBQUVBO0VBRUksZUFBQTtBQUFKOztBQUVBO0VBRUksYUFBQTtBQUFKOztBQUVBO0VBRUksbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLG9CQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSx5QkFBQTtBQUFKOztBQUVBO0VBRUksZUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUFBSjs7QUFHQTtFQUNJLGFBQUE7QUFBSiIsImZpbGUiOiJjYXQtcGVyZmlsZXMucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnByb2ZpbGVJbWdcbntcbiAgICBoZWlnaHQ6IDEyMHB4O1xuICAgIHdpZHRoOiAxMjBweDtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG59XG4uaW1nQ29udFxue1xuICAgIG1hcmdpbi10b3A6IDE1cHg7XG59XG4ucHJvZmlsZUljb25cbntcbiAgICBmb250LXNpemU6IDE2cHg7XG4gICAgY29sb3I6IHdoaXRlO1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbn1cbi5yYXRlLWNvbnRcbntcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICAgIGhlaWdodDogMzBweDtcbiAgICB3aWR0aDogMzBweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjNTM2NTdlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIG1hcmdpbi10b3A6IC0yMnB4O1xufVxuLmNhdFRleHRcbntcbiAgICBmb250LXNpemU6IDEwcHg7XG59XG4uYm9yZGVyXG57XG4gICAgYm9yZGVyOiAxcHggc29saWQgIzAwOUFDRTtcbn1cbi5yZWdUZXh0XG57XG4gICAgZm9udC1zaXplOiAxOHB4O1xufVxuLmltZ1NpbmdsZVxue1xuICAgIGhlaWdodDogMTUwcHg7XG59XG4ubG9jYXRlLWNvbnRcbntcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICAgIGhlaWdodDogNTBweDtcbiAgICB3aWR0aDogNTBweDtcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwOUFDRTtcbn1cbi5yYXRpbmctdGV4dFxue1xuICAgIGZvbnQtc2l6ZTogMjZweDtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG59XG5cbi5pbWdTbGlkZSB7XG4gICAgaGVpZ2h0OiAzMDBweDtcbn0iXX0= */");
 
 /***/ }),
 
@@ -206,11 +206,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/environments/environment */ "AytR");
 /* harmony import */ var _empty_modal_empty_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./empty-modal/empty-modal.component */ "pvjW");
 /* harmony import */ var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./success-modal/success-modal.component */ "VbkS");
-/* harmony import */ var src_app_services_img_list_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/img-list.service */ "zakx");
-/* harmony import */ var src_shared_constants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/shared/constants */ "p1Kg");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! axios */ "vDqi");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_13__);
-
+/* harmony import */ var src_shared_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/shared/constants */ "p1Kg");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! axios */ "vDqi");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
 
 
 
@@ -243,17 +241,16 @@ function base64toBlob(base64Data, contentType) {
     return new Blob(byteArrays, { type: contentType });
 }
 let CatPerfilesPage = class CatPerfilesPage {
-    constructor(lc, us, modalController, platform, ils) {
+    constructor(lc, us, modalController, platform, menuController) {
         this.lc = lc;
         this.us = us;
         this.modalController = modalController;
         this.platform = platform;
-        this.ils = ils;
-        this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_12__["IMAGE_URL_BLANK"];
+        this.menuController = menuController;
+        this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_11__["IMAGE_URL_BLANK"];
         this.categories = [];
         this.profCategories = [];
         this.grabbedUser = null;
-        this.loadedImgList = [];
         this.comunas = [];
         this.comunasBU = [];
         this.transports = [];
@@ -272,19 +269,12 @@ let CatPerfilesPage = class CatPerfilesPage {
     ngOnInit() {
         this.userSub = this.us.loggedUser.subscribe(user => {
             this.grabbedUser = user;
+            this.headers = 'Bearer ' + this.grabbedUser.access_token;
         });
         //api headers
-        this.headers = 'Bearer ' + this.grabbedUser.access_token;
-        // this.headers.append('Content-Type', 'multipart/form-data');
         //categories list
-        axios__WEBPACK_IMPORTED_MODULE_13___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/supplier/categories', { headers: { Authorization: this.headers } }).then(resData => {
+        axios__WEBPACK_IMPORTED_MODULE_12___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/supplier/categories', { headers: { Authorization: this.headers } }).then(resData => {
             this.categories = resData.data.data;
-        });
-        axios__WEBPACK_IMPORTED_MODULE_13___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/location/communes', { headers: { Authorization: this.headers } }).then(resData => {
-            this.comunasBU = resData.data.data;
-        });
-        axios__WEBPACK_IMPORTED_MODULE_13___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/transports', { headers: { Authorization: this.headers } }).then(resData => {
-            this.transports = resData.data.data;
         });
         //form
         this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
@@ -321,15 +311,10 @@ let CatPerfilesPage = class CatPerfilesPage {
         if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
             this.useInputPicker = true;
         }
-        //loading imgList
-        this.loadedImgList = this.ils.imgList;
-        this.imgListSub = this.ils.listChanged.subscribe(imgList => {
-            this.loadedImgList = imgList;
-        });
     }
     ionViewWillEnter() {
         //prof categories list
-        axios__WEBPACK_IMPORTED_MODULE_13___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/supplier/professions', { headers: { Authorization: this.headers } }).then(resData => {
+        axios__WEBPACK_IMPORTED_MODULE_12___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/supplier/professions', { headers: { Authorization: this.headers } }).then(resData => {
             if (resData.data.code === 200) {
                 if (resData.data.data.length === 0) {
                     this.modalController.create({
@@ -350,22 +335,25 @@ let CatPerfilesPage = class CatPerfilesPage {
         }).catch(err => {
             console.log(err);
         });
+        this.menuController.enable(true, 'profesional');
     }
     onCatProfileChange(profileID) {
         this.lc.create({
             message: 'Cargando informacion...'
         }).then(loadingEl => {
             loadingEl.present();
-            axios__WEBPACK_IMPORTED_MODULE_13___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + `/supplier/profession/${profileID}`, { headers: { Authorization: this.headers } }).then(resData => {
+            axios__WEBPACK_IMPORTED_MODULE_12___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + `/supplier/profession/${profileID}`, { headers: { Authorization: this.headers } }).then(resData => {
                 loadingEl.dismiss();
                 this.selectedProPerfil = profileID;
-                this.updateForm(resData['data']);
-                //loading images
-                this.ils.setImgList(resData['data'].images);
+                this.updateForm(resData.data.data);
+                this.proCategoryProfile = resData.data.data;
             }).catch(err => {
                 loadingEl.dismiss();
             });
         });
+    }
+    openMenu() {
+        this.menuController.open();
     }
     updateForm(info) {
         this.selectedCatId = info.category_id;
@@ -486,7 +474,7 @@ let CatPerfilesPage = class CatPerfilesPage {
             message: 'Actualizando la informacion...'
         }).then(loadingEl => {
             loadingEl.present();
-            axios__WEBPACK_IMPORTED_MODULE_13___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + `/supplier/profession/${this.selectedProPerfil}`, body, { headers: { Authorization: this.headers } }).then(resData => {
+            axios__WEBPACK_IMPORTED_MODULE_12___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + `/supplier/profession/${this.selectedProPerfil}`, body, { headers: { Authorization: this.headers } }).then(resData => {
                 loadingEl.dismiss();
                 this.modalController.create({
                     component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
@@ -550,7 +538,7 @@ let CatPerfilesPage = class CatPerfilesPage {
             if (this.profilePhoto) {
                 const formData = new FormData();
                 formData.append('image', imgFile);
-                axios__WEBPACK_IMPORTED_MODULE_13___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/account/image', formData, { headers: { Authorization: this.headers } }).then(resData => {
+                axios__WEBPACK_IMPORTED_MODULE_12___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/account/image', formData, { headers: { Authorization: this.headers } }).then(resData => {
                     loadingEl.dismiss();
                     this.modalController.create({
                         component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
@@ -569,10 +557,8 @@ let CatPerfilesPage = class CatPerfilesPage {
                 formData.append('images[]', imgFile);
                 formData.append('category_id', this.proCategoryProfile.category_id);
                 formData.append('transport_id', this.proCategoryProfile.transports);
-                // formData.append('communes', this.selectedComunas;
-                axios__WEBPACK_IMPORTED_MODULE_13___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + `/supplier/profession/${this.selectedProPerfil}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
+                axios__WEBPACK_IMPORTED_MODULE_12___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + `/supplier/profession/${this.selectedProPerfil}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
                     loadingEl.dismiss();
-                    this.onCatProfileChange(this.selectedProPerfil);
                 }).catch(err => {
                     loadingEl.dismiss();
                 });
@@ -581,7 +567,6 @@ let CatPerfilesPage = class CatPerfilesPage {
     }
     ngOnDestroy() {
         this.userSub.unsubscribe();
-        this.imgListSub.unsubscribe();
     }
 };
 CatPerfilesPage.ctorParameters = () => [
@@ -589,7 +574,7 @@ CatPerfilesPage.ctorParameters = () => [
     { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
-    { type: src_app_services_img_list_service__WEBPACK_IMPORTED_MODULE_11__["ImgListService"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"] }
 ];
 CatPerfilesPage.propDecorators = {
     imgPick: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["Output"] }],

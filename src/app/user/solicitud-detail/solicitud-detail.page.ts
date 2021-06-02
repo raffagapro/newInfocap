@@ -176,6 +176,7 @@ export class SolicitudDetailPage implements OnInit {
         {
           costs_type_id: 1,
           payment_type_id: payment_type.id,
+          description: 'Actualización del método de pago'
         },
         {
           headers: {
@@ -209,6 +210,7 @@ export class SolicitudDetailPage implements OnInit {
   }
 
   setSelectedButton(type: PaymentMethodType) {
+    if(this.loadedService.request_cost.length > 0) return;
     this.selectedButton = type;
   }
 

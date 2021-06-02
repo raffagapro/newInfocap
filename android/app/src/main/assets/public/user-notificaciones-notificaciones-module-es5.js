@@ -115,7 +115,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">NOTIFICACIONES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"text-center\" *ngIf=\"notifications.length === 0\">\n    <p>No se tienen notificaciones</p>\n  </div>\n\n  <!-- notificacion item -->\n  <div class=\"prof-cont mt-25 no-border\" *ngFor=\"let notification of notifications\" >\n    <ion-grid (click)=\"goToRequestDetail(notification.request_service_id, notification.notification_Id)\">\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <!-- <span class=\"titleSelect main-color\">Cerrajería </span><br> -->\n            <ion-badge color=\"primary\" class=\"titleSelect\">{{notification.category}}</ion-badge>&nbsp;\n            <ion-icon color=\"primary\" src=\"/assets/icon/ic_date_range.svg\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              {{notification.professionalName}} {{notification.motive}}\n            </span><br>\n            <!--<small class=\"main-color\">Cambio de chapas</small>-->\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">#{{notification.ticket_number}}</small>\n          </div>\n          <ion-text>\n            <p class=\"ratingText main-color\">\n              hace {{notification.time}}\n            </p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- notificacion item -->\n  <!--\n  <div class=\"prof-cont mt-25 no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <ion-badge color=\"primary\" class=\"titleSelect\">Soldadura</ion-badge>&nbsp;\n            <ion-icon color=\"medium\" src=\"/assets/icon/ic_engine_disabled.svg\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              La fecha límite de un servicio está por llegar.\n            </span><br>\n            <small class=\"main-color\">Rejas</small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">#100091234</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              16 dic 2020\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n  -->\n\n  <!-- notificacion item -->\n  <!--\n  <div class=\"prof-cont mt-25 no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <ion-badge color=\"danger\" class=\"titleSelect\">Cerrajería</ion-badge>&nbsp;\n            <ion-icon color=\"danger\" name=\"alert-circle\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              Santiago Pérez está en busca de un servicio urgente.\n            </span><br>\n            <small class=\"red-color\">Cambio de chapas</small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">#100091234</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              16 dic 2020\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n  -->\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">NOTIFICACIONES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"text-center\" *ngIf=\"notifications.length === 0\">\n    <p>No se tienen notificaciones</p>\n  </div>\n\n  <!-- notificacion item -->\n  <div class=\"prof-cont mt-25 no-border\" *ngFor=\"let notification of notifications\" >\n    <ion-grid (click)=\"goToRequestDetail(notification.request_service_id, notification.notification_Id)\">\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <!-- <span class=\"titleSelect main-color\">Cerrajería </span><br> -->\n            <ion-badge color=\"primary\" class=\"titleSelect\">{{notification.category}}</ion-badge>&nbsp;\n            <ion-icon color=\"primary\" src=\"/assets/icon/ic_date_range.svg\" class=\"icon-size\" *ngIf=\"notification.type_request === 'NORMAL' && notification.status_id == 1\"></ion-icon>\n            <ion-icon color=\"primary\" src=\"/assets/icon/ic_engine_disabled.svg\" class=\"icon-size\" *ngIf=\"notification.type_request === 'NORMAL' && notification.status_id > 1\"></ion-icon>\n            <ion-icon color=\"danger\" name=\"alert-circle\" class=\"icon-size\" *ngIf=\"notification.type_request !== 'NORMAL'\"></ion-icon>\n            <br>\n            <span class=\"textSelect {{notification.type_request !== 'NORMAL' ? 'red-color' : ''}}\">\n              {{notification.professionalName}} {{notification.motive}}\n            </span><br>\n            <!--<small class=\"main-color\">Cambio de chapas</small>-->\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">#{{notification.ticket_number}}</small>\n          </div>\n          <ion-text>\n            <p class=\"ratingText main-color\">\n              hace {{notification.time}}\n            </p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- notificacion item -->\n  <!--\n  <div class=\"prof-cont mt-25 no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <ion-badge color=\"primary\" class=\"titleSelect\">Soldadura</ion-badge>&nbsp;\n            <ion-icon color=\"medium\" src=\"/assets/icon/ic_engine_disabled.svg\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              La fecha límite de un servicio está por llegar.\n            </span><br>\n            <small class=\"main-color\">Rejas</small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">#100091234</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              16 dic 2020\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n  -->\n\n  <!-- notificacion item -->\n  <!--\n  <div class=\"prof-cont mt-25 no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <ion-badge color=\"danger\" class=\"titleSelect\">Cerrajería</ion-badge>&nbsp;\n            <ion-icon color=\"danger\" name=\"alert-circle\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              Santiago Pérez está en busca de un servicio urgente.\n            </span><br>\n            <small class=\"red-color\">Cambio de chapas</small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">#100091234</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              16 dic 2020\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n  -->\n\n</ion-content>";
       /***/
     },
 
@@ -247,24 +247,30 @@
       /* harmony import */
 
 
-      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! src/app/services/notifications-service */
+      "wBcA");
+      /* harmony import */
+
+
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! src/app/services/solicitud.service */
       "rLtr");
       /* harmony import */
 
 
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
 
       var NotificacionesPage = /*#__PURE__*/function () {
-        function NotificacionesPage(router, menuController, userService, requestService, loadingController) {
+        function NotificacionesPage(router, menuController, userService, requestService, loadingController, notificationService) {
           _classCallCheck(this, NotificacionesPage);
 
           this.router = router;
@@ -272,6 +278,7 @@
           this.userService = userService;
           this.requestService = requestService;
           this.loadingController = loadingController;
+          this.notificationService = notificationService;
           this.notifications = [];
         }
 
@@ -315,7 +322,7 @@
                       loader.present();
                       _context.prev = 4;
                       _context.next = 7;
-                      return axios__WEBPACK_IMPORTED_MODULE_6___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"], "/client/notification"), {
+                      return axios__WEBPACK_IMPORTED_MODULE_6___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/client/notification"), {
                         headers: {
                           Authorization: "Bearer ".concat(this.user.access_token)
                         }
@@ -351,14 +358,14 @@
           key: "updateNotification",
           value: function updateNotification(notificationId) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var response, data, code;
+              var response, data, code, updatedNotifications;
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
                   switch (_context2.prev = _context2.next) {
                     case 0:
                       _context2.prev = 0;
                       _context2.next = 3;
-                      return axios__WEBPACK_IMPORTED_MODULE_6___default.a.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"], "/notification/view/").concat(notificationId), {
+                      return axios__WEBPACK_IMPORTED_MODULE_6___default.a.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/notification/view/").concat(notificationId), {
                         viewed: 1
                       }, {
                         headers: {
@@ -375,20 +382,28 @@
                         alert('Error al actualizar la notificación');
                       }
 
-                      _context2.next = 12;
+                      updatedNotifications = this.notifications.map(function (notification) {
+                        if (notification.notification_Id === notificationId) {
+                          notification.viewed = true;
+                        }
+
+                        return notification;
+                      });
+                      this.notificationService.setNotifications(updatedNotifications);
+                      _context2.next = 14;
                       break;
 
-                    case 9:
-                      _context2.prev = 9;
+                    case 11:
+                      _context2.prev = 11;
                       _context2.t0 = _context2["catch"](0);
                       alert(_context2.t0.message);
 
-                    case 12:
+                    case 14:
                     case "end":
                       return _context2.stop();
                   }
                 }
-              }, _callee2, this, [[0, 9]]);
+              }, _callee2, this, [[0, 11]]);
             }));
           }
         }, {
@@ -431,11 +446,13 @@
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"]
         }, {
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"]
         }, {
-          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"]
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__["SolicitudService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
+        }, {
+          type: src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_7__["NotificationsService"]
         }];
       };
 

@@ -63,6 +63,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/environments/environment */ "AytR");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! axios */ "vDqi");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/pro-solicitud.service */ "zMwU");
+
 
 
 
@@ -74,12 +76,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let FinalizadosPage = class FinalizadosPage {
-    constructor(router, menuController, us, lc, solServ) {
+    constructor(router, menuController, us, lc, solServ, solicitudServicio) {
         this.router = router;
         this.menuController = menuController;
         this.us = us;
         this.lc = lc;
         this.solServ = solServ;
+        this.solicitudServicio = solicitudServicio;
         this.loadedServices = [];
         this.paidServices = [];
         this.parsedHours = null;
@@ -89,9 +92,7 @@ let FinalizadosPage = class FinalizadosPage {
             this.grabbedUser = user;
             this.headers = 'Bearer ' + this.grabbedUser.access_token;
             this.loadServices("5");
-            //5
             this.loadServices("6");
-            //6
         });
     }
     ionViewWillEnter() {
@@ -131,6 +132,7 @@ let FinalizadosPage = class FinalizadosPage {
     }
     finalizadosDetail(serviceID) {
         this.solServ.setServiceID(serviceID);
+        this.solicitudServicio.setID(serviceID);
         this.router.navigate(['/profesional/finalizados/finalizados-details']);
     }
     ngOnDestroy() {
@@ -142,7 +144,8 @@ FinalizadosPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"] },
     { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"] },
-    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__["SolicitudService"] }
+    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__["SolicitudService"] },
+    { type: src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_10__["ProSolicitudService"] }
 ];
 FinalizadosPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

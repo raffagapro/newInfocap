@@ -139,8 +139,8 @@
     <!-- CONFIRMAR BTN -->
     <ion-row class="ion-margin-top">
       <ion-col size="1"></ion-col>
-      <ion-col>
-        <ion-button [disabled]="!servicesCosts" size="5" expand="block" class="ion-text-uppercase"
+      <ion-col> <!-- [disabled]="!servicesCosts" -->
+        <ion-button  size="5" expand="block" class="ion-text-uppercase"
           (click)="paymentForm()">
           PAGAR
         </ion-button>

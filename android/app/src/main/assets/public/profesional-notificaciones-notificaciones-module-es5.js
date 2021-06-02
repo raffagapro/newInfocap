@@ -77,15 +77,36 @@
 
 
       var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! @angular/router */
+      "tyNb");
+      /* harmony import */
+
+
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! src/app/services/solicitud.service */
+      "rLtr");
+      /* harmony import */
+
+
+      var src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! src/app/services/notifications-service */
+      "wBcA");
 
       var NotificacionesPage = /*#__PURE__*/function () {
-        function NotificacionesPage(menuController, lc, us, loadingController) {
+        function NotificacionesPage(router, menuController, lc, us, loadingController, solServ, notificationService) {
           _classCallCheck(this, NotificacionesPage);
 
+          this.router = router;
           this.menuController = menuController;
           this.lc = lc;
           this.us = us;
           this.loadingController = loadingController;
+          this.solServ = solServ;
+          this.notificationService = notificationService;
           this.notifications = [];
         }
 
@@ -130,7 +151,9 @@
                       response = _context.sent;
                       data = response.data;
                       notificationsData = data.data;
-                      this.notifications = notificationsData;
+                      this.notifications = notificationsData.filter(function (n) {
+                        return n.viewed == 0;
+                      });
                       _context.next = 16;
                       break;
 
@@ -155,17 +178,43 @@
         }, {
           key: "goToRequestDetail",
           value: function goToRequestDetail(solicitudId, notificationId) {
-            var redirectToFinished = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var _this2 = this;
+
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
                   switch (_context2.prev = _context2.next) {
                     case 0:
+                      axios__WEBPACK_IMPORTED_MODULE_7___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"] + "/notification/view/".concat(notificationId), {
+                        viewed: 1
+                      }, {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.grabbedUser.access_token)
+                        }
+                      }).then(function (resData) {
+                        _this2.solServ.setServiceID(solicitudId);
+
+                        var updatedNotifications = _this2.notifications.map(function (notification) {
+                          if (notification.notification_Id === notificationId) {
+                            notification.viewed = true;
+                          }
+
+                          return notification;
+                        });
+
+                        _this2.notificationService.setNotifications(updatedNotifications);
+
+                        _this2.router.navigate(['profesional/agendados/agendados-detail']);
+                      })["catch"](function (err) {
+                        console.log(err);
+                      });
+
+                    case 1:
                     case "end":
                       return _context2.stop();
                   }
                 }
-              }, _callee2);
+              }, _callee2, this);
             }));
           }
         }, {
@@ -185,6 +234,8 @@
 
       NotificacionesPage.ctorParameters = function () {
         return [{
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]
+        }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
@@ -192,6 +243,10 @@
           type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
+        }, {
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__["SolicitudService"]
+        }, {
+          type: src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_10__["NotificationsService"]
         }];
       };
 
@@ -279,7 +334,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">NOTIFICACIONES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"text-center\" *ngIf=\"notifications.length === 0\">\n    <p>No se tienen notificaciones</p>\n  </div>\n\n  <!-- notificacion item -->\n  <div class=\"prof-cont mt-25 no-border\" *ngFor=\"let notification of notifications\">\n    <ion-grid (click)=\"goToRequestDetail(notification.request_service_id, notification.notification_Id)\">\n      <ion-row class=\"ion-align-items-center\">\n        <!-- title -->\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <!-- <span class=\"titleSelect main-color\">Cerrajería </span><br> -->\n            <ion-badge color=\"primary\" class=\"titleSelect\">{{ notification.category }}</ion-badge>&nbsp;\n            <ion-icon color=\"primary\" src=\"/assets/icon/ic_date_range.svg\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              {{ notification.motive }}\n            </span><br>\n            <small class=\"main-color\"></small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Solicitud #{{notification.ticket_number}}</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              {{ notification.time }}\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- notificacion item -->\n  <!-- <div class=\"prof-cont mt-25 no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Cerrajería </span><br>\n            <ion-badge color=\"primary\" class=\"titleSelect\">Soldadura</ion-badge>&nbsp;\n            <ion-icon color=\"medium\" src=\"/assets/icon/ic_engine_disabled.svg\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              La fecha límite de un servicio está por llegar.\n            </span><br>\n            <small class=\"main-color\">Rejas</small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Ticket #100091234</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              16 dic 2020\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div> -->\n\n  <!-- notificacion item -->\n  <!-- <div class=\"prof-cont mt-25 no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Cerrajería </span><br>\n            <ion-badge color=\"danger\" class=\"titleSelect\">Cerrajería</ion-badge>&nbsp;\n            <ion-icon color=\"danger\" name=\"alert-circle\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              Santiago Pérez está en busca de un servicio urgente.\n            </span><br>\n            <small class=\"red-color\">Cambio de chapas</small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Ticket #100091234</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              16 dic 2020\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div> -->\n\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">NOTIFICACIONES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"text-center\" *ngIf=\"notifications.length === 0\">\n    <p>No se tienen notificaciones</p>\n  </div>\n\n  <!-- notificacion item -->\n  <div class=\"prof-cont mt-25 no-border\" *ngFor=\"let notification of notifications\">\n    <ion-grid (click)=\"goToRequestDetail(notification.request_service_id, notification.notification_Id)\">\n      <ion-row class=\"ion-align-items-center\">\n        <!-- title -->\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <!-- <span class=\"titleSelect main-color\">Cerrajería </span><br> -->\n            <ion-badge color=\"primary\" class=\"titleSelect\">{{ notification.category }}</ion-badge>&nbsp;\n            <ion-icon color=\"primary\" src=\"/assets/icon/ic_date_range.svg\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              {{ notification.motive }}\n            </span><br>\n            <small class=\"main-color\"></small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Solicitud #{{notification.ticket_number}}</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              {{ notification.time }}\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- notificacion item -->\n  <!-- <div class=\"prof-cont mt-25 no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Cerrajería </span><br>\n            <ion-badge color=\"primary\" class=\"titleSelect\">Soldadura</ion-badge>&nbsp;\n            <ion-icon color=\"medium\" src=\"/assets/icon/ic_engine_disabled.svg\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              La fecha límite de un servicio está por llegar.\n            </span><br>\n            <small class=\"main-color\">Rejas</small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Ticket #100091234</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              16 dic 2020\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div> -->\n\n  <!-- notificacion item -->\n  <!-- <div class=\"prof-cont mt-25 no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Cerrajería </span><br>\n            <ion-badge color=\"danger\" class=\"titleSelect\">Cerrajería</ion-badge>&nbsp;\n            <ion-icon color=\"danger\" name=\"alert-circle\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              Santiago Pérez está en busca de un servicio urgente.\n            </span><br>\n            <small class=\"red-color\">Cambio de chapas</small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Ticket #100091234</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              16 dic 2020\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div> -->\n\n</ion-content>\n";
       /***/
     },
 

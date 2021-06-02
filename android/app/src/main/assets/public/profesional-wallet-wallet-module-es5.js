@@ -4190,22 +4190,179 @@
       var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/core */
       "fXoL");
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @ionic/angular */
+      "TEn/");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+      /* harmony import */
+
+
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! src/app/services/user.service */
+      "qfBg");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
 
       var BankModalComponent = /*#__PURE__*/function () {
-        function BankModalComponent() {
+        function BankModalComponent(us, lc, modalController) {
           _classCallCheck(this, BankModalComponent);
+
+          this.us = us;
+          this.lc = lc;
+          this.modalController = modalController;
+          this.bancos = [{
+            id: "001",
+            name: "Banco de Chile"
+          }, {
+            id: "009",
+            name: "Banco Internacional"
+          }, {
+            id: "014",
+            name: "Scotiabank Chile"
+          }, {
+            id: "016",
+            name: "Banco de Credito E Inversiones"
+          }, {
+            id: "028",
+            name: "Banco Bice"
+          }, {
+            id: "031",
+            name: "HSBC Bank"
+          }, {
+            id: "037",
+            name: "Banco Santander-chile"
+          }, {
+            id: "039",
+            name: "Itaú Corpbanca"
+          }, {
+            id: "049",
+            name: "Banco Security"
+          }, {
+            id: "051",
+            name: "Banco Falabella"
+          }, {
+            id: "053",
+            name: "Banco Ripley"
+          }, {
+            id: "054",
+            name: "Rabobank Chile"
+          }, {
+            id: "055",
+            name: "Banco Consorcio"
+          }, {
+            id: "056",
+            name: "Banco Penta"
+          }, {
+            id: "504",
+            name: "Banco BBVA"
+          }, {
+            id: "059",
+            name: "Banco BTG Pactual Chile"
+          }, {
+            id: "012",
+            name: "Banco del Estado de Chile"
+          }];
         }
 
         _createClass(BankModalComponent, [{
           key: "ngOnInit",
-          value: function ngOnInit() {}
+          value: function ngOnInit() {
+            var _this = this;
+
+            this.userSub = this.us.loggedUser.subscribe(function (user) {
+              _this.grabbedUser = user;
+              _this.headers = 'Bearer ' + _this.grabbedUser.access_token;
+            });
+          }
+        }, {
+          key: "validateInformation",
+          value: function validateInformation(completeName, cardNumber, clabe, banco) {
+            return completeName.length > 0 && cardNumber.length == 16 && clabe.length == 18 && banco.length > 0;
+          }
+        }, {
+          key: "saveBankAccount",
+          value: function saveBankAccount(completeName, cardNumber, clabe, banco) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var _this2 = this;
+
+              return regeneratorRuntime.wrap(function _callee$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      this.lc.create({
+                        message: "Guardando información..."
+                      }).then(function (loadingEl) {
+                        loadingEl.present();
+
+                        var bancoSeleccionado = _this2.bancos.find(function (b) {
+                          return b.id === banco;
+                        });
+
+                        var data_bank = {
+                          professional_profile_id: 1,
+                          bank_id: bancoSeleccionado.id,
+                          debit_account: cardNumber,
+                          clabe: clabe,
+                          name: completeName,
+                          type: 1,
+                          name_bank: bancoSeleccionado.name
+                        };
+                        axios__WEBPACK_IMPORTED_MODULE_5___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_7__["API"] + '/supplier/bankaccount', data_bank, {
+                          headers: {
+                            Authorization: _this2.headers
+                          }
+                        }).then(function (resData) {
+                          loadingEl.dismiss();
+
+                          _this2.modalController.dismiss();
+                        })["catch"](function (err) {
+                          console.log(err);
+                          loadingEl.dismiss();
+                        });
+                        console.log(data_bank);
+                      })["catch"](function (err) {
+                        console.log(err);
+
+                        _this2.lc.dismiss();
+                      });
+
+                    case 1:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
         }]);
 
         return BankModalComponent;
       }();
 
       BankModalComponent.ctorParameters = function () {
-        return [];
+        return [{
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_6__["UserService"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]
+        }];
       };
 
       BankModalComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -4252,7 +4409,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".stacked-modal-label {\n  color: #009ace;\n  font-weight: bold;\n  margin-bottom: 8px;\n}\n\n.modal-cont {\n  display: flex;\n  justify-content: center;\n}\n\n.stacked-input {\n  border: 2px solid #009ace;\n  border-radius: 8px;\n  --placeholder-color: #009ace;\n  --placeholder-font-weight: 500;\n  --padding-start: 8px;\n  --padding-top: 8px;\n  --padding-bottom: 8px;\n}\n\n.no-border {\n  --border-color: white;\n}\n\n.no-border:focus {\n  --border-color: white;\n}\n\n.modal-bank {\n  padding-right: 32px;\n  padding-left: 32px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uL2JhbmstbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBQUNKOztBQUVBO0VBQ0ksYUFBQTtFQUNBLHVCQUFBO0FBQ0o7O0FBRUE7RUFDSSx5QkFBQTtFQUNBLGtCQUFBO0VBQ0EsNEJBQUE7RUFDQSw4QkFBQTtFQUNBLG9CQUFBO0VBQ0Esa0JBQUE7RUFDQSxxQkFBQTtBQUNKOztBQUVBO0VBQ0kscUJBQUE7QUFDSjs7QUFFQTtFQUNJLHFCQUFBO0FBQ0o7O0FBRUE7RUFDSSxtQkFBQTtFQUNBLGtCQUFBO0FBQ0oiLCJmaWxlIjoiYmFuay1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zdGFja2VkLW1vZGFsLWxhYmVsIHtcbiAgICBjb2xvcjogIzAwOWFjZTtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICBtYXJnaW4tYm90dG9tOiA4cHg7XG59XG5cbi5tb2RhbC1jb250IHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xufVxuXG4uc3RhY2tlZC1pbnB1dCB7XG4gICAgYm9yZGVyOiAycHggc29saWQgIzAwOWFjZTtcbiAgICBib3JkZXItcmFkaXVzOiA4cHg7XG4gICAgLS1wbGFjZWhvbGRlci1jb2xvcjogIzAwOWFjZTtcbiAgICAtLXBsYWNlaG9sZGVyLWZvbnQtd2VpZ2h0OiA1MDA7XG4gICAgLS1wYWRkaW5nLXN0YXJ0OiA4cHg7XG4gICAgLS1wYWRkaW5nLXRvcDogOHB4O1xuICAgIC0tcGFkZGluZy1ib3R0b206IDhweDtcbn1cblxuLm5vLWJvcmRlciB7XG4gICAgLS1ib3JkZXItY29sb3I6IHdoaXRlO1xufVxuXG4ubm8tYm9yZGVyOmZvY3VzIHtcbiAgICAtLWJvcmRlci1jb2xvcjogd2hpdGU7XG59XG5cbi5tb2RhbC1iYW5rIHtcbiAgICBwYWRkaW5nLXJpZ2h0OiAzMnB4O1xuICAgIHBhZGRpbmctbGVmdDogMzJweDtcbn0iXX0= */";
+      __webpack_exports__["default"] = ".stacked-modal-label {\n  color: #009ace;\n  font-weight: bold;\n  margin-bottom: 8px;\n}\n\n.modal-cont {\n  display: flex;\n  justify-content: center;\n}\n\n.stacked-input {\n  border: 2px solid #009ace;\n  border-radius: 8px;\n  width: 100%;\n  --placeholder-color: #009ace;\n  --placeholder-font-weight: 500;\n  --padding-start: 8px;\n  --padding-top: 8px;\n  --padding-bottom: 8px;\n}\n\n.no-border {\n  --border-color: white;\n}\n\n.no-border:focus {\n  --border-color: white;\n}\n\n.modal-bank {\n  padding-right: 32px;\n  padding-left: 32px;\n}\n\n.select-categories {\n  border-radius: 8px;\n  height: 2rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uL2JhbmstbW9kYWwuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBQUNKOztBQUVBO0VBQ0ksYUFBQTtFQUNBLHVCQUFBO0FBQ0o7O0FBRUE7RUFDSSx5QkFBQTtFQUNBLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLDRCQUFBO0VBQ0EsOEJBQUE7RUFDQSxvQkFBQTtFQUNBLGtCQUFBO0VBQ0EscUJBQUE7QUFDSjs7QUFFQTtFQUNJLHFCQUFBO0FBQ0o7O0FBRUE7RUFDSSxxQkFBQTtBQUNKOztBQUVBO0VBQ0ksbUJBQUE7RUFDQSxrQkFBQTtBQUNKOztBQUVBO0VBQ0ksa0JBQUE7RUFDQSxZQUFBO0FBQ0oiLCJmaWxlIjoiYmFuay1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5zdGFja2VkLW1vZGFsLWxhYmVsIHtcbiAgICBjb2xvcjogIzAwOWFjZTtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICBtYXJnaW4tYm90dG9tOiA4cHg7XG59XG5cbi5tb2RhbC1jb250IHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xufVxuXG4uc3RhY2tlZC1pbnB1dCB7XG4gICAgYm9yZGVyOiAycHggc29saWQgIzAwOWFjZTtcbiAgICBib3JkZXItcmFkaXVzOiA4cHg7XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgLS1wbGFjZWhvbGRlci1jb2xvcjogIzAwOWFjZTtcbiAgICAtLXBsYWNlaG9sZGVyLWZvbnQtd2VpZ2h0OiA1MDA7XG4gICAgLS1wYWRkaW5nLXN0YXJ0OiA4cHg7XG4gICAgLS1wYWRkaW5nLXRvcDogOHB4O1xuICAgIC0tcGFkZGluZy1ib3R0b206IDhweDtcbn1cblxuLm5vLWJvcmRlciB7XG4gICAgLS1ib3JkZXItY29sb3I6IHdoaXRlO1xufVxuXG4ubm8tYm9yZGVyOmZvY3VzIHtcbiAgICAtLWJvcmRlci1jb2xvcjogd2hpdGU7XG59XG5cbi5tb2RhbC1iYW5rIHtcbiAgICBwYWRkaW5nLXJpZ2h0OiAzMnB4O1xuICAgIHBhZGRpbmctbGVmdDogMzJweDtcbn1cblxuLnNlbGVjdC1jYXRlZ29yaWVzIHtcbiAgICBib3JkZXItcmFkaXVzOiA4cHg7XG4gICAgaGVpZ2h0OiAycmVtO1xufSJdfQ== */";
       /***/
     },
 
@@ -4272,7 +4429,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">MI BILLETERA</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid [hidden]=\"graphicWeek\" fixed>\n\n    <!-- Ingresos semanales -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"title\"><b>Ingresos semanales</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"titleUnder main-color\"><b>$ 0.00</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Servicios realizados -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"title\"><b>Servicios realizados</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"titleUnder main-color\"><b>0</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"12\">\n        <canvas #barChart></canvas>\n      </ion-col>\n    </ion-row>\n\n    <!-- buttons -->\n    <ion-row class=\"ion-text-center\">\n      <!-- <ion-col size=\"5\" offset=\"1\">\n        <ion-button (click)=\"onClick()\" expand=\"block\" fill=\"outline\" class=\"btnTitle\">\n          Balance general\n        </ion-button>\n      </ion-col> -->\n\n      <ion-col size=\"5\">\n        <ion-button (click)=\"openBankDataModal()\" expand=\"block\" fill=\"outline\" class=\"btnTitle\">\n          Datos bancarios\n        </ion-button>\n      </ion-col>\n    </ion-row>\n\n\n  </ion-grid>\n  <ion-grid [hidden]=\"!graphicWeek\" fixed style=\"text-align: center;\">\n\n    <ion-row>\n      <ion-col size=\"4\">\n        <ion-button (click)=\"changeWeek('rest')\" [disabled]=\"actualWeekToShow === 0\" class=\"btn-week-wallet\"><ion-icon name=\"arrow-back-outline\"></ion-icon></ion-button>\n      </ion-col>\n      <ion-col size=\"4\" style=\"display: flex; flex-direction: column;\">\n        <ion-text class=\"main-color\" *ngIf=\"weeksToRender[actualWeekToShow]\">{{ months[selectedMonth] }} {{ weeksToRender[actualWeekToShow][0] }} - {{ weeksToRender[actualWeekToShow][weeksToRender[actualWeekToShow].length - 1] }}</ion-text>\n        <ion-text class=\"titleUnder main-color\"><b>$ 0.00</b></ion-text>\n        <ion-text class=\"main-color\">TARIFA NETA</ion-text>\n      </ion-col>\n      <ion-col size=\"4\">\n        <ion-button (click)=\"changeWeek('add')\" [disabled]=\"actualWeekToShow === weeksToRender.length - 1\" class=\"btn-week-wallet\"><ion-icon name=\"arrow-forward-outline\"></ion-icon></ion-button>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"12\">\n        <canvas #barChartWeek></canvas>\n      </ion-col>\n    </ion-row>\n\n    <ion-col size=\"5\">\n      <ion-button (click)=\"backWalletMain()\" expand=\"block\" fill=\"outline\" class=\"btnTitle\">\n        Regresar\n      </ion-button>\n    </ion-col>\n  </ion-grid>\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">MI BILLETERA</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid [hidden]=\"graphicWeek\" fixed>\n\n    <!-- Ingresos semanales -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"title\"><b>Total</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"titleUnder main-color\"><b>$ {{ yearInfoTotal }}</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Servicios realizados -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"title\"><b>Servicios realizados</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"titleUnder main-color\"><b>{{ yearInfoTotalRequest }}</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"12\">\n        <canvas #barChart></canvas>\n      </ion-col>\n    </ion-row>\n\n    <!-- buttons -->\n    <ion-row class=\"ion-text-center\">\n      <!-- <ion-col size=\"5\" offset=\"1\">\n        <ion-button (click)=\"onClick()\" expand=\"block\" fill=\"outline\" class=\"btnTitle\">\n          Balance general\n        </ion-button>\n      </ion-col> -->\n\n      <ion-col size=\"6\">\n        <ion-button (click)=\"openBankDataModal()\" expand=\"block\" fill=\"outline\" class=\"btnTitle\">\n          Datos bancarios\n        </ion-button>\n      </ion-col>\n    </ion-row>\n\n\n  </ion-grid>\n  <ion-grid [hidden]=\"!graphicWeek\" fixed style=\"text-align: center;\">\n\n    <ion-row>\n      <ion-col size=\"4\">\n        <ion-button (click)=\"changeWeek('rest')\" [disabled]=\"actualWeekToShow === 0\" class=\"btn-week-wallet\"><ion-icon name=\"arrow-back-outline\"></ion-icon></ion-button>\n      </ion-col>\n      <ion-col size=\"4\" style=\"display: flex; flex-direction: column;\">\n        <ion-text class=\"main-color\" *ngIf=\"weeksToRender[actualWeekToShow]\">{{ months[selectedMonth] }} {{ weeksToRender[actualWeekToShow][0] }} - {{ weeksToRender[actualWeekToShow][weeksToRender[actualWeekToShow].length - 1] }}</ion-text>\n        <ion-text class=\"titleUnder main-color\"><b>$ {{ totalWeek }}</b></ion-text>\n        <ion-text class=\"main-color\">TARIFA NETA</ion-text>\n      </ion-col>\n      <ion-col size=\"4\">\n        <ion-button (click)=\"changeWeek('add')\" [disabled]=\"actualWeekToShow === weeksToRender.length - 1\" class=\"btn-week-wallet\"><ion-icon name=\"arrow-forward-outline\"></ion-icon></ion-button>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"12\">\n        <canvas #barChartWeek></canvas>\n      </ion-col>\n    </ion-row>\n\n    <ion-col size=\"5\">\n      <ion-button (click)=\"backWalletMain()\" expand=\"block\" fill=\"outline\" class=\"btnTitle\">\n        Regresar\n      </ion-button>\n    </ion-col>\n  </ion-grid>\n\n</ion-content>";
       /***/
     },
 
@@ -4328,43 +4485,87 @@
       /* harmony import */
 
 
-      var chart_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+      /* harmony import */
+
+
+      var chart_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! chart.js */
       "m0r1");
       /* harmony import */
 
 
-      var _bank_modal_bank_modal_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! src/app/services/user.service */
+      "qfBg");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
+      /* harmony import */
+
+
+      var _bank_modal_bank_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! ./bank-modal/bank-modal.component */
       "9yht");
+      /* harmony import */
 
-      chart_js__WEBPACK_IMPORTED_MODULE_5__["Chart"].register(chart_js__WEBPACK_IMPORTED_MODULE_5__["LinearScale"], chart_js__WEBPACK_IMPORTED_MODULE_5__["BarController"], chart_js__WEBPACK_IMPORTED_MODULE_5__["CategoryScale"], chart_js__WEBPACK_IMPORTED_MODULE_5__["BarElement"]);
+
+      var moment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! moment */
+      "wd/R");
+      /* harmony import */
+
+
+      var moment__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_10__);
+
+      chart_js__WEBPACK_IMPORTED_MODULE_6__["Chart"].register(chart_js__WEBPACK_IMPORTED_MODULE_6__["LinearScale"], chart_js__WEBPACK_IMPORTED_MODULE_6__["BarController"], chart_js__WEBPACK_IMPORTED_MODULE_6__["CategoryScale"], chart_js__WEBPACK_IMPORTED_MODULE_6__["BarElement"]);
 
       var WalletPage = /*#__PURE__*/function () {
-        function WalletPage(menuController, modalController) {
-          var _this = this;
+        function WalletPage(menuController, modalController, us) {
+          var _this3 = this;
 
           _classCallCheck(this, WalletPage);
 
           this.menuController = menuController;
           this.modalController = modalController;
+          this.us = us;
           this.graphicWeek = false;
           this.weeksToRender = [];
           this.selectedMonth = 0;
           this.actualWeekToShow = 0;
+          this.yearInfoTotal = 0;
+          this.yearInfoTotalRequest = 0;
           this.days = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
           this.months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
           this.clickMonth = function (event, point) {
-            _this.graphicWeek = true;
+            if (point.length > 0) {
+              _this3.graphicWeek = true;
 
-            _this.barChartWeekMethod(point[0]);
+              _this3.barChartWeekMethod(point[0]);
+            }
           };
         }
 
         _createClass(WalletPage, [{
           key: "ngOnInit",
-          value: function ngOnInit() {}
+          value: function ngOnInit() {
+            var _this4 = this;
+
+            this.userSub = this.us.loggedUser.subscribe(function (user) {
+              _this4.grabbedUser = user;
+              _this4.headers = 'Bearer ' + _this4.grabbedUser.access_token;
+            });
+          }
         }, {
           key: "ionViewDidEnter",
           value: function ionViewDidEnter() {
@@ -4373,66 +4574,170 @@
         }, {
           key: "barChartMethod",
           value: function barChartMethod() {
-            this.barChart = new chart_js__WEBPACK_IMPORTED_MODULE_5__["Chart"](this.barChart.nativeElement, {
-              type: 'bar',
-              data: {
-                labels: ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'],
-                datasets: [{
-                  label: '',
-                  data: [65, 59, 80, 81, 56, 55, 40, 80, 81, 56, 55, 40],
-                  backgroundColor: ['rgba(50, 182, 221)'],
-                  borderWidth: 1
-                }]
-              },
-              options: {
-                onClick: this.clickMonth,
-                scales: {
-                  y: {
-                    beginAtZero: true
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var _this5 = this;
+
+              var profesionalAmount, commission, taxes;
+              return regeneratorRuntime.wrap(function _callee2$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      profesionalAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                      commission = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                      taxes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                      _context3.next = 5;
+                      return axios__WEBPACK_IMPORTED_MODULE_5___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/payments/years', {
+                        headers: {
+                          Authorization: this.headers
+                        }
+                      }).then(function (resData) {
+                        _this5.yearInfoTotal = resData.data.data.total;
+                        _this5.yearInfoTotalRequest = resData.data.data.requestnumber;
+                        resData.data.data.paymentByMount.map(function (d) {
+                          profesionalAmount[d.month - 1] = d.professionalamount;
+                          taxes[d.month - 1] = d.taxes;
+                          commission[d.month - 1] = d.commission;
+                        });
+                      })["catch"](function (err) {
+                        console.log(err);
+                      });
+
+                    case 5:
+                      this.barChart = new chart_js__WEBPACK_IMPORTED_MODULE_6__["Chart"](this.barChart.nativeElement, {
+                        type: 'bar',
+                        data: {
+                          labels: ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'],
+                          datasets: [{
+                            label: 'Ganancia',
+                            data: profesionalAmount,
+                            backgroundColor: ['rgba(50, 182, 221)'],
+                            borderWidth: 1
+                          }, {
+                            label: 'Comisiones',
+                            data: commission,
+                            backgroundColor: ['rgba(50, 182, 221)'],
+                            borderWidth: 1
+                          }, {
+                            label: 'Impuestos',
+                            data: taxes,
+                            backgroundColor: ['rgba(50, 182, 221)'],
+                            borderWidth: 1
+                          }]
+                        },
+                        options: {
+                          onClick: this.clickMonth,
+                          scales: {
+                            x: {
+                              stacked: true
+                            },
+                            y: {
+                              stacked: true,
+                              beginAtZero: true
+                            }
+                          }
+                        }
+                      });
+
+                    case 6:
+                    case "end":
+                      return _context3.stop();
                   }
                 }
-              }
-            });
+              }, _callee2, this);
+            }));
           }
         }, {
           key: "barChartWeekMethod",
           value: function barChartWeekMethod(month) {
-            var year = new Date().getFullYear();
-            this.selectedMonth = month.index;
-            this.weeksToRender = [];
-            var firstDate = new Date(year, month.index, 1);
-            var lastDate = new Date(year, month.index, 0);
-            var numDays = lastDate.getDate();
-            var dayOfWeekCounter = firstDate.getDay();
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var _this6 = this;
 
-            for (var date = 1; date <= numDays; date++) {
-              if (dayOfWeekCounter === 0 || this.weeksToRender.length === 0) {
-                this.weeksToRender.push([]);
-              }
+              var year, firstDate, lastDate, numDays, dayOfWeekCounter, date, star_date, end_date;
+              return regeneratorRuntime.wrap(function _callee3$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      year = new Date().getFullYear();
+                      this.selectedMonth = month.index;
+                      this.weeksToRender = [];
+                      firstDate = new Date(year, this.selectedMonth + 1, 1);
+                      lastDate = new Date(year, this.selectedMonth + 1, 0);
+                      numDays = lastDate.getDate();
+                      dayOfWeekCounter = firstDate.getDay();
 
-              this.weeksToRender[this.weeksToRender.length - 1].push(date);
-              dayOfWeekCounter = (dayOfWeekCounter + 1) % 7;
-            }
+                      for (date = 1; date <= numDays; date++) {
+                        if (dayOfWeekCounter === 0 || this.weeksToRender.length === 0) {
+                          this.weeksToRender.push([]);
+                        }
 
-            this.barChartWeek = new chart_js__WEBPACK_IMPORTED_MODULE_5__["Chart"](this.barChartWeek.nativeElement, {
-              type: 'bar',
-              data: {
-                labels: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
-                datasets: [{
-                  label: '',
-                  data: [65, 59, 80, 81, 56, 55, 40],
-                  backgroundColor: ['rgba(50, 182, 221)'],
-                  borderWidth: 1
-                }]
-              },
-              options: {
-                scales: {
-                  y: {
-                    beginAtZero: true
+                        this.weeksToRender[this.weeksToRender.length - 1].push(date);
+                        dayOfWeekCounter = (dayOfWeekCounter + 1) % 7;
+                      }
+
+                      star_date = "".concat(this.weeksToRender[this.actualWeekToShow][0], "/").concat(this.selectedMonth + 1, "/").concat(year);
+                      end_date = "".concat(this.weeksToRender[this.actualWeekToShow][this.weeksToRender[this.actualWeekToShow].length - 1], "/").concat(this.selectedMonth + 1, "/").concat(year);
+                      axios__WEBPACK_IMPORTED_MODULE_5___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/payments/weak', {
+                        params: {
+                          "star_date": moment__WEBPACK_IMPORTED_MODULE_10__(star_date, 'D/M/YYYY').format('D/MM/YYYY'),
+                          "end_date": moment__WEBPACK_IMPORTED_MODULE_10__(end_date, 'D/M/YYYY').format('D/MM/YYYY')
+                        },
+                        headers: {
+                          Authorization: this.headers
+                        }
+                      }).then(function (resData) {
+                        _this6.totalWeek = resData.data.data.total || 0;
+                        var profesionalAmount = [];
+                        var taxes = [];
+                        var commission = [];
+                        resData.data.data.paymentByWeek.map(function (d) {
+                          profesionalAmount.push(d.professionalamount);
+                          taxes.push(d.taxes);
+                          commission.push(d.commission);
+                        });
+                        _this6.barChartWeek = new chart_js__WEBPACK_IMPORTED_MODULE_6__["Chart"](_this6.barChartWeek.nativeElement, {
+                          type: 'bar',
+                          data: {
+                            labels: _this6.weeksToRender[_this6.actualWeekToShow],
+                            datasets: [{
+                              label: 'Ganancia',
+                              data: profesionalAmount,
+                              backgroundColor: ['rgba(50, 182, 221)'],
+                              borderWidth: 1
+                            }, {
+                              label: 'Comisiones',
+                              data: commission,
+                              backgroundColor: ['rgba(50, 182, 221)'],
+                              borderWidth: 1
+                            }, {
+                              label: 'Impuestos',
+                              data: taxes,
+                              backgroundColor: ['rgba(50, 182, 221)'],
+                              borderWidth: 1
+                            }]
+                          },
+                          options: {
+                            scales: {
+                              x: {
+                                stacked: true
+                              },
+                              y: {
+                                stacked: true,
+                                beginAtZero: true
+                              }
+                            }
+                          }
+                        });
+                      }).then(function () {
+                        _this6.barChartWeek.update();
+                      });
+
+                    case 11:
+                    case "end":
+                      return _context4.stop();
                   }
                 }
-              }
-            });
+              }, _callee3, this);
+            }));
           }
         }, {
           key: "ionViewWillEnter",
@@ -4448,7 +4753,7 @@
           key: "openBankDataModal",
           value: function openBankDataModal() {
             this.modalController.create({
-              component: _bank_modal_bank_modal_component__WEBPACK_IMPORTED_MODULE_6__["BankModalComponent"],
+              component: _bank_modal_bank_modal_component__WEBPACK_IMPORTED_MODULE_9__["BankModalComponent"],
               cssClass: 'modalBanco'
             }).then(function (modalEl) {
               modalEl.present();
@@ -4462,11 +4767,72 @@
         }, {
           key: "changeWeek",
           value: function changeWeek(type) {
-            if (type === 'add') {
-              this.actualWeekToShow = this.actualWeekToShow + 1;
-            } else {
-              this.actualWeekToShow = this.actualWeekToShow - 1;
-            }
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              var _this7 = this;
+
+              var year, star_date, end_date, profesionalAmount, taxes, commission;
+              return regeneratorRuntime.wrap(function _callee4$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      year = new Date().getFullYear();
+
+                      if (type === 'add') {
+                        this.actualWeekToShow = this.actualWeekToShow + 1;
+                      } else {
+                        this.actualWeekToShow = this.actualWeekToShow - 1;
+                      }
+
+                      star_date = "".concat(this.weeksToRender[this.actualWeekToShow][0], "/").concat(this.selectedMonth + 1, "/").concat(year);
+                      end_date = "".concat(this.weeksToRender[this.actualWeekToShow][this.weeksToRender[this.actualWeekToShow].length - 1], "/").concat(this.selectedMonth + 1, "/").concat(year);
+                      profesionalAmount = [];
+                      taxes = [];
+                      commission = [];
+                      _context5.next = 9;
+                      return axios__WEBPACK_IMPORTED_MODULE_5___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/payments/weak', {
+                        params: {
+                          "star_date": moment__WEBPACK_IMPORTED_MODULE_10__(star_date, 'D/M/YYYY').format('D/MM/YYYY'),
+                          "end_date": moment__WEBPACK_IMPORTED_MODULE_10__(end_date, 'D/M/YYYY').format('D/MM/YYYY')
+                        },
+                        headers: {
+                          Authorization: this.headers
+                        }
+                      }).then(function (resData) {
+                        _this7.totalWeek = resData.data.data.total || 0;
+                        resData.data.data.paymentByWeek.map(function (d) {
+                          profesionalAmount.push(d.professionalamount);
+                          taxes.push(d.taxes);
+                          commission.push(d.commission);
+                        });
+                      });
+
+                    case 9:
+                      this.barChartWeek.data.labels = this.weeksToRender[this.actualWeekToShow];
+                      this.barChartWeek.data.datasets = [{
+                        label: 'Ganancia',
+                        data: profesionalAmount,
+                        backgroundColor: ['rgba(50, 182, 221)'],
+                        borderWidth: 1
+                      }, {
+                        label: 'Comisiones',
+                        data: commission,
+                        backgroundColor: ['rgba(50, 182, 221)'],
+                        borderWidth: 1
+                      }, {
+                        label: 'Impuestos',
+                        data: taxes,
+                        backgroundColor: ['rgba(50, 182, 221)'],
+                        borderWidth: 1
+                      }];
+                      this.barChartWeek.update();
+
+                    case 12:
+                    case "end":
+                      return _context5.stop();
+                  }
+                }
+              }, _callee4, this);
+            }));
           }
         }, {
           key: "imgProfile",
@@ -4482,6 +4848,8 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]
+        }, {
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"]
         }];
       };
 
@@ -4579,7 +4947,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid class=\"modal-bank\">\n    <ion-row class=\"modal-cont ion-margin-bottom\">\n      <div class=\"status-cont\">\n        <ion-text class=\"main-color status-text ion-text-center\"><b>DATOS BANCARIOS</b></ion-text><br>\n      </div>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-item class=\"no-border\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">NOMBRE COMPLETO</ion-label>\n        <ion-input class=\"stacked-input\" placeholder=\"José Alcarraga López\"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-item class=\"no-border\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">NÚMERO DE TARJETA</ion-label>\n        <ion-input class=\"stacked-input\" placeholder=\"1234 5678 9123 4567\"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-item class=\"no-border\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">CLABE INTERBANCARIA</ion-label>\n        <ion-input class=\"stacked-input\" placeholder=\"123456789987654321\"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-item class=\"no-border\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">BANCO</ion-label>\n        <ion-input class=\"stacked-input\" placeholder=\"BBVA\"></ion-input>\n      </ion-item>\n    </ion-row>\n\n    \n    <ion-row class=\"ion-margin-left\">\n      <ion-col offset=\"1\">\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\" [disabled]=\"!form.valid\">\n          GUARDAR DATOS\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"2\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid class=\"modal-bank\">\n    <ion-row class=\"modal-cont ion-margin-bottom\">\n      <div class=\"status-cont\">\n        <ion-text class=\"main-color status-text ion-text-center\"><b>DATOS BANCARIOS</b></ion-text><br>\n      </div>\n    </ion-row>\n\n      <ion-row class=\"ion-margin-left\">\n        <ion-item class=\"no-border\">\n          <ion-label class=\"stacked-modal-label\" position=\"stacked\">NOMBRE COMPLETO</ion-label>\n          <ion-input  #completeName class=\"stacked-input\" placeholder=\"José Alcarraga López\">\n          </ion-input>\n        </ion-item>\n      </ion-row>\n\n      <ion-row class=\"ion-margin-left\">\n        <ion-item class=\"no-border\">\n          <ion-label class=\"stacked-modal-label\" position=\"stacked\">NÚMERO DE TARJETA</ion-label>\n          <ion-input  #cardNumber class=\"stacked-input\" type=\"number\" placeholder=\"1234 5678 9123 4567\"></ion-input>\n        </ion-item>\n      </ion-row>\n\n      <ion-row class=\"ion-margin-left\">\n        <ion-item class=\"no-border\">\n          <ion-label class=\"stacked-modal-label\" position=\"stacked\">CLABE INTERBANCARIA</ion-label>\n          <ion-input #clabe class=\"stacked-input\" type=\"number\" placeholder=\"123456789987654321\"></ion-input>\n        </ion-item>\n      </ion-row>\n\n      <ion-row class=\"ion-margin-left\">\n        <ion-item class=\"no-border\" style=\"width: 93%;\">\n          <ion-label class=\"stacked-modal-label\" position=\"stacked\">BANCO</ion-label>\n          <ion-select #banco placeholder=\"Banco\" interface=\"popover\" class=\"stacked-input\">\n            <ion-select-option value=\"001\" class=\"main-color ion-text-center\">Banco de Chile</ion-select-option>\n            <ion-select-option value=\"009\" class=\"main-color ion-text-center\">Banco Internacional</ion-select-option>\n            <ion-select-option value=\"014\" class=\"main-color ion-text-center\">Scotiabank Chile</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"016\" class=\"main-color ion-text-center\">Banco de Credito E Inversiones</ion-select-option>\n            <ion-select-option value=\"028\" class=\"main-color ion-text-center\">Banco Bice</ion-select-option>\n            <ion-select-option value=\"031\" class=\"main-color ion-text-center\">HSBC Bank</ion-select-option>\n            <ion-select-option value=\"037\" class=\"main-color ion-text-center\">Banco Santander</ion-select-option>\n            <ion-select-option value=\"039\" class=\"main-color ion-text-center\">Itaú Corpbanca</ion-select-option>\n            <ion-select-option value=\"049\" class=\"main-color ion-text-center\">Banco Security</ion-select-option>\n            <ion-select-option value=\"051\" class=\"main-color ion-text-center\">Banco Falabella</ion-select-option>\n            <ion-select-option value=\"053\" class=\"main-color ion-text-center\">Banco Ripley</ion-select-option>\n            <ion-select-option value=\"055\" class=\"main-color ion-text-center\">Banco Consorcio</ion-select-option>\n            <ion-select-option value=\"054\" class=\"main-color ion-text-center\">Rabobank Chile</ion-select-option>\n            <ion-select-option value=\"056\" class=\"main-color ion-text-center\">Banco Penta</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"059\" class=\"main-color ion-text-center\">Banco BTG Pactual Chile</ion-select-option>\n            <ion-select-option value=\"012\" class=\"main-color ion-text-center\">Banco del Estado de Chile</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n\n          </ion-select>\n        </ion-item>\n      </ion-row>\n\n      <ion-row class=\"ion-margin-left\">\n        <ion-col offset=\"1\">\n          <ion-button [disabled]=\"!validateInformation(completeName.value, cardNumber.value, clabe.value, banco.value)\" size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\" (click)=\"saveBankAccount(completeName.value, cardNumber.value, clabe.value, banco.value)\">\n            GUARDAR DATOS\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"2\"></ion-col>\n      </ion-row>\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -7140,17 +7508,17 @@
         var _super3 = _createSuper(DoughnutController);
 
         function DoughnutController(chart, datasetIndex) {
-          var _this2;
+          var _this8;
 
           _classCallCheck(this, DoughnutController);
 
-          _this2 = _super3.call(this, chart, datasetIndex);
-          _this2.enableOptionSharing = true;
-          _this2.innerRadius = undefined;
-          _this2.outerRadius = undefined;
-          _this2.offsetX = undefined;
-          _this2.offsetY = undefined;
-          return _this2;
+          _this8 = _super3.call(this, chart, datasetIndex);
+          _this8.enableOptionSharing = true;
+          _this8.innerRadius = undefined;
+          _this8.outerRadius = undefined;
+          _this8.offsetX = undefined;
+          _this8.offsetY = undefined;
+          return _this8;
         }
 
         _createClass(DoughnutController, [{
@@ -7704,14 +8072,14 @@
         var _super5 = _createSuper(PolarAreaController);
 
         function PolarAreaController(chart, datasetIndex) {
-          var _this3;
+          var _this9;
 
           _classCallCheck(this, PolarAreaController);
 
-          _this3 = _super5.call(this, chart, datasetIndex);
-          _this3.innerRadius = undefined;
-          _this3.outerRadius = undefined;
-          return _this3;
+          _this9 = _super5.call(this, chart, datasetIndex);
+          _this9.innerRadius = undefined;
+          _this9.outerRadius = undefined;
+          return _this9;
         }
 
         _createClass(PolarAreaController, [{
@@ -7794,13 +8162,13 @@
         }, {
           key: "countVisibleElements",
           value: function countVisibleElements() {
-            var _this4 = this;
+            var _this10 = this;
 
             var dataset = this.getDataset();
             var meta = this._cachedMeta;
             var count = 0;
             meta.data.forEach(function (element, index) {
-              if (!isNaN(dataset.data[index]) && _this4.chart.getDataVisibility(index)) {
+              if (!isNaN(dataset.data[index]) && _this10.chart.getDataVisibility(index)) {
                 count++;
               }
             });
@@ -9544,59 +9912,59 @@
         var _super11 = _createSuper(Scale);
 
         function Scale(cfg) {
-          var _this5;
+          var _this11;
 
           _classCallCheck(this, Scale);
 
-          _this5 = _super11.call(this);
-          _this5.id = cfg.id;
-          _this5.type = cfg.type;
-          _this5.options = undefined;
-          _this5.ctx = cfg.ctx;
-          _this5.chart = cfg.chart;
-          _this5.top = undefined;
-          _this5.bottom = undefined;
-          _this5.left = undefined;
-          _this5.right = undefined;
-          _this5.width = undefined;
-          _this5.height = undefined;
-          _this5._margins = {
+          _this11 = _super11.call(this);
+          _this11.id = cfg.id;
+          _this11.type = cfg.type;
+          _this11.options = undefined;
+          _this11.ctx = cfg.ctx;
+          _this11.chart = cfg.chart;
+          _this11.top = undefined;
+          _this11.bottom = undefined;
+          _this11.left = undefined;
+          _this11.right = undefined;
+          _this11.width = undefined;
+          _this11.height = undefined;
+          _this11._margins = {
             left: 0,
             right: 0,
             top: 0,
             bottom: 0
           };
-          _this5.maxWidth = undefined;
-          _this5.maxHeight = undefined;
-          _this5.paddingTop = undefined;
-          _this5.paddingBottom = undefined;
-          _this5.paddingLeft = undefined;
-          _this5.paddingRight = undefined;
-          _this5.axis = undefined;
-          _this5.labelRotation = undefined;
-          _this5.min = undefined;
-          _this5.max = undefined;
-          _this5._range = undefined;
-          _this5.ticks = [];
-          _this5._gridLineItems = null;
-          _this5._labelItems = null;
-          _this5._labelSizes = null;
-          _this5._length = 0;
-          _this5._maxLength = 0;
-          _this5._longestTextCache = {};
-          _this5._startPixel = undefined;
-          _this5._endPixel = undefined;
-          _this5._reversePixels = false;
-          _this5._userMax = undefined;
-          _this5._userMin = undefined;
-          _this5._suggestedMax = undefined;
-          _this5._suggestedMin = undefined;
-          _this5._ticksLength = 0;
-          _this5._borderValue = 0;
-          _this5._cache = {};
-          _this5._dataLimitsCached = false;
-          _this5.$context = undefined;
-          return _this5;
+          _this11.maxWidth = undefined;
+          _this11.maxHeight = undefined;
+          _this11.paddingTop = undefined;
+          _this11.paddingBottom = undefined;
+          _this11.paddingLeft = undefined;
+          _this11.paddingRight = undefined;
+          _this11.axis = undefined;
+          _this11.labelRotation = undefined;
+          _this11.min = undefined;
+          _this11.max = undefined;
+          _this11._range = undefined;
+          _this11.ticks = [];
+          _this11._gridLineItems = null;
+          _this11._labelItems = null;
+          _this11._labelSizes = null;
+          _this11._length = 0;
+          _this11._maxLength = 0;
+          _this11._longestTextCache = {};
+          _this11._startPixel = undefined;
+          _this11._endPixel = undefined;
+          _this11._reversePixels = false;
+          _this11._userMax = undefined;
+          _this11._userMin = undefined;
+          _this11._suggestedMax = undefined;
+          _this11._suggestedMin = undefined;
+          _this11._ticksLength = 0;
+          _this11._borderValue = 0;
+          _this11._cache = {};
+          _this11._dataLimitsCached = false;
+          _this11.$context = undefined;
+          return _this11;
         }
 
         _createClass(Scale, [{
@@ -11800,7 +12168,7 @@
 
       var Chart = /*#__PURE__*/function () {
         function Chart(item, config) {
-          var _this6 = this;
+          var _this12 = this;
 
           _classCallCheck(this, Chart);
 
@@ -11845,7 +12213,7 @@
           this._animationsDisabled = undefined;
           this.$context = undefined;
           this._doResize = Object(_chunks_helpers_segment_js__WEBPACK_IMPORTED_MODULE_0__["a8"])(function () {
-            return _this6.update('resize');
+            return _this12.update('resize');
           }, options.resizeDelay || 0);
           instances[me.id] = me;
 
@@ -12765,7 +13133,7 @@
         }, {
           key: "_eventHandler",
           value: function _eventHandler(e, replay) {
-            var _this7 = this;
+            var _this13 = this;
 
             var me = this;
             var args = {
@@ -12775,7 +13143,7 @@
             };
 
             var eventFilter = function eventFilter(plugin) {
-              return (plugin.options.events || _this7.options.events).includes(e.type);
+              return (plugin.options.events || _this13.options.events).includes(e.type);
             };
 
             if (me.notifyPlugins('beforeEvent', args, eventFilter) === false) {
@@ -13085,25 +13453,25 @@
         var _super12 = _createSuper(ArcElement);
 
         function ArcElement(cfg) {
-          var _this8;
+          var _this14;
 
           _classCallCheck(this, ArcElement);
 
-          _this8 = _super12.call(this);
-          _this8.options = undefined;
-          _this8.circumference = undefined;
-          _this8.startAngle = undefined;
-          _this8.endAngle = undefined;
-          _this8.innerRadius = undefined;
-          _this8.outerRadius = undefined;
-          _this8.pixelMargin = 0;
-          _this8.fullCircles = 0;
+          _this14 = _super12.call(this);
+          _this14.options = undefined;
+          _this14.circumference = undefined;
+          _this14.startAngle = undefined;
+          _this14.endAngle = undefined;
+          _this14.innerRadius = undefined;
+          _this14.outerRadius = undefined;
+          _this14.pixelMargin = 0;
+          _this14.fullCircles = 0;
 
           if (cfg) {
-            Object.assign(_assertThisInitialized(_this8), cfg);
+            Object.assign(_assertThisInitialized(_this14), cfg);
           }
 
-          return _this8;
+          return _this14;
         }
 
         _createClass(ArcElement, [{
@@ -13432,26 +13800,26 @@
         var _super13 = _createSuper(LineElement);
 
         function LineElement(cfg) {
-          var _this9;
+          var _this15;
 
           _classCallCheck(this, LineElement);
 
-          _this9 = _super13.call(this);
-          _this9.animated = true;
-          _this9.options = undefined;
-          _this9._loop = undefined;
-          _this9._fullLoop = undefined;
-          _this9._path = undefined;
-          _this9._points = undefined;
-          _this9._segments = undefined;
-          _this9._decimated = false;
-          _this9._pointsUpdated = false;
+          _this15 = _super13.call(this);
+          _this15.animated = true;
+          _this15.options = undefined;
+          _this15._loop = undefined;
+          _this15._fullLoop = undefined;
+          _this15._path = undefined;
+          _this15._points = undefined;
+          _this15._segments = undefined;
+          _this15._decimated = false;
+          _this15._pointsUpdated = false;
 
           if (cfg) {
-            Object.assign(_assertThisInitialized(_this9), cfg);
+            Object.assign(_assertThisInitialized(_this15), cfg);
           }
 
-          return _this9;
+          return _this15;
         }
 
         _createClass(LineElement, [{
@@ -13648,21 +14016,21 @@
         var _super14 = _createSuper(PointElement);
 
         function PointElement(cfg) {
-          var _this10;
+          var _this16;
 
           _classCallCheck(this, PointElement);
 
-          _this10 = _super14.call(this);
-          _this10.options = undefined;
-          _this10.parsed = undefined;
-          _this10.skip = undefined;
-          _this10.stop = undefined;
+          _this16 = _super14.call(this);
+          _this16.options = undefined;
+          _this16.parsed = undefined;
+          _this16.skip = undefined;
+          _this16.stop = undefined;
 
           if (cfg) {
-            Object.assign(_assertThisInitialized(_this10), cfg);
+            Object.assign(_assertThisInitialized(_this16), cfg);
           }
 
-          return _this10;
+          return _this16;
         }
 
         _createClass(PointElement, [{
@@ -13892,22 +14260,22 @@
         var _super15 = _createSuper(BarElement);
 
         function BarElement(cfg) {
-          var _this11;
+          var _this17;
 
           _classCallCheck(this, BarElement);
 
-          _this11 = _super15.call(this);
-          _this11.options = undefined;
-          _this11.horizontal = undefined;
-          _this11.base = undefined;
-          _this11.width = undefined;
-          _this11.height = undefined;
+          _this17 = _super15.call(this);
+          _this17.options = undefined;
+          _this17.horizontal = undefined;
+          _this17.base = undefined;
+          _this17.width = undefined;
+          _this17.height = undefined;
 
           if (cfg) {
-            Object.assign(_assertThisInitialized(_this11), cfg);
+            Object.assign(_assertThisInitialized(_this17), cfg);
           }
 
-          return _this11;
+          return _this17;
         }
 
         _createClass(BarElement, [{
@@ -14979,34 +15347,34 @@
         var _super16 = _createSuper(Legend);
 
         function Legend(config) {
-          var _this12;
+          var _this18;
 
           _classCallCheck(this, Legend);
 
-          _this12 = _super16.call(this);
-          _this12._added = false;
-          _this12.legendHitBoxes = [];
-          _this12._hoveredItem = null;
-          _this12.doughnutMode = false;
-          _this12.chart = config.chart;
-          _this12.options = config.options;
-          _this12.ctx = config.ctx;
-          _this12.legendItems = undefined;
-          _this12.columnSizes = undefined;
-          _this12.lineWidths = undefined;
-          _this12.maxHeight = undefined;
-          _this12.maxWidth = undefined;
-          _this12.top = undefined;
-          _this12.bottom = undefined;
-          _this12.left = undefined;
-          _this12.right = undefined;
-          _this12.height = undefined;
-          _this12.width = undefined;
-          _this12._margins = undefined;
-          _this12.position = undefined;
-          _this12.weight = undefined;
-          _this12.fullSize = undefined;
-          return _this12;
+          _this18 = _super16.call(this);
+          _this18._added = false;
+          _this18.legendHitBoxes = [];
+          _this18._hoveredItem = null;
+          _this18.doughnutMode = false;
+          _this18.chart = config.chart;
+          _this18.options = config.options;
+          _this18.ctx = config.ctx;
+          _this18.legendItems = undefined;
+          _this18.columnSizes = undefined;
+          _this18.lineWidths = undefined;
+          _this18.maxHeight = undefined;
+          _this18.maxWidth = undefined;
+          _this18.top = undefined;
+          _this18.bottom = undefined;
+          _this18.left = undefined;
+          _this18.right = undefined;
+          _this18.height = undefined;
+          _this18.width = undefined;
+          _this18._margins = undefined;
+          _this18.position = undefined;
+          _this18.weight = undefined;
+          _this18.fullSize = undefined;
+          return _this18;
         }
 
         _createClass(Legend, [{
@@ -15644,25 +16012,25 @@
         var _super17 = _createSuper(Title);
 
         function Title(config) {
-          var _this13;
+          var _this19;
 
           _classCallCheck(this, Title);
 
-          _this13 = _super17.call(this);
-          _this13.chart = config.chart;
-          _this13.options = config.options;
-          _this13.ctx = config.ctx;
-          _this13._padding = undefined;
-          _this13.top = undefined;
-          _this13.bottom = undefined;
-          _this13.left = undefined;
-          _this13.right = undefined;
-          _this13.width = undefined;
-          _this13.height = undefined;
-          _this13.position = undefined;
-          _this13.weight = undefined;
-          _this13.fullSize = undefined;
-          return _this13;
+          _this19 = _super17.call(this);
+          _this19.chart = config.chart;
+          _this19.options = config.options;
+          _this19.ctx = config.ctx;
+          _this19._padding = undefined;
+          _this19.top = undefined;
+          _this19.bottom = undefined;
+          _this19.left = undefined;
+          _this19.right = undefined;
+          _this19.width = undefined;
+          _this19.height = undefined;
+          _this19.position = undefined;
+          _this19.weight = undefined;
+          _this19.fullSize = undefined;
+          return _this19;
         }
 
         _createClass(Title, [{
@@ -16129,39 +16497,39 @@
         var _super18 = _createSuper(Tooltip);
 
         function Tooltip(config) {
-          var _this14;
+          var _this20;
 
           _classCallCheck(this, Tooltip);
 
-          _this14 = _super18.call(this);
-          _this14.opacity = 0;
-          _this14._active = [];
-          _this14._chart = config._chart;
-          _this14._eventPosition = undefined;
-          _this14._size = undefined;
-          _this14._cachedAnimations = undefined;
-          _this14._tooltipItems = [];
-          _this14.$animations = undefined;
-          _this14.$context = undefined;
-          _this14.options = config.options;
-          _this14.dataPoints = undefined;
-          _this14.title = undefined;
-          _this14.beforeBody = undefined;
-          _this14.body = undefined;
-          _this14.afterBody = undefined;
-          _this14.footer = undefined;
-          _this14.xAlign = undefined;
-          _this14.yAlign = undefined;
-          _this14.x = undefined;
-          _this14.y = undefined;
-          _this14.height = undefined;
-          _this14.width = undefined;
-          _this14.caretX = undefined;
-          _this14.caretY = undefined;
-          _this14.labelColors = undefined;
-          _this14.labelPointStyles = undefined;
-          _this14.labelTextColors = undefined;
-          return _this14;
+          _this20 = _super18.call(this);
+          _this20.opacity = 0;
+          _this20._active = [];
+          _this20._chart = config._chart;
+          _this20._eventPosition = undefined;
+          _this20._size = undefined;
+          _this20._cachedAnimations = undefined;
+          _this20._tooltipItems = [];
+          _this20.$animations = undefined;
+          _this20.$context = undefined;
+          _this20.options = config.options;
+          _this20.dataPoints = undefined;
+          _this20.title = undefined;
+          _this20.beforeBody = undefined;
+          _this20.body = undefined;
+          _this20.afterBody = undefined;
+          _this20.footer = undefined;
+          _this20.xAlign = undefined;
+          _this20.yAlign = undefined;
+          _this20.x = undefined;
+          _this20.y = undefined;
+          _this20.height = undefined;
+          _this20.width = undefined;
+          _this20.caretX = undefined;
+          _this20.caretY = undefined;
+          _this20.labelColors = undefined;
+          _this20.labelPointStyles = undefined;
+          _this20.labelTextColors = undefined;
+          return _this20;
         }
 
         _createClass(Tooltip, [{
@@ -17035,14 +17403,14 @@
         var _super19 = _createSuper(CategoryScale);
 
         function CategoryScale(cfg) {
-          var _this15;
+          var _this21;
 
           _classCallCheck(this, CategoryScale);
 
-          _this15 = _super19.call(this, cfg);
-          _this15._startValue = undefined;
-          _this15._valueRange = 0;
-          return _this15;
+          _this21 = _super19.call(this, cfg);
+          _this21._startValue = undefined;
+          _this21._valueRange = 0;
+          return _this21;
         }
 
         _createClass(CategoryScale, [{
@@ -17281,17 +17649,17 @@
         var _super20 = _createSuper(LinearScaleBase);
 
         function LinearScaleBase(cfg) {
-          var _this16;
+          var _this22;
 
           _classCallCheck(this, LinearScaleBase);
 
-          _this16 = _super20.call(this, cfg);
-          _this16.start = undefined;
-          _this16.end = undefined;
-          _this16._startValue = undefined;
-          _this16._endValue = undefined;
-          _this16._valueRange = 0;
-          return _this16;
+          _this22 = _super20.call(this, cfg);
+          _this22.start = undefined;
+          _this22.end = undefined;
+          _this22._startValue = undefined;
+          _this22._endValue = undefined;
+          _this22._valueRange = 0;
+          return _this22;
         }
 
         _createClass(LinearScaleBase, [{
@@ -17546,16 +17914,16 @@
         var _super22 = _createSuper(LogarithmicScale);
 
         function LogarithmicScale(cfg) {
-          var _this17;
+          var _this23;
 
           _classCallCheck(this, LogarithmicScale);
 
-          _this17 = _super22.call(this, cfg);
-          _this17.start = undefined;
-          _this17.end = undefined;
-          _this17._startValue = undefined;
-          _this17._valueRange = 0;
-          return _this17;
+          _this23 = _super22.call(this, cfg);
+          _this23.start = undefined;
+          _this23.end = undefined;
+          _this23._startValue = undefined;
+          _this23._valueRange = 0;
+          return _this23;
         }
 
         _createClass(LogarithmicScale, [{
@@ -17944,17 +18312,17 @@
         var _super23 = _createSuper(RadialLinearScale);
 
         function RadialLinearScale(cfg) {
-          var _this18;
+          var _this24;
 
           _classCallCheck(this, RadialLinearScale);
 
-          _this18 = _super23.call(this, cfg);
-          _this18.xCenter = undefined;
-          _this18.yCenter = undefined;
-          _this18.drawingArea = undefined;
-          _this18._pointLabels = [];
-          _this18._pointLabelItems = [];
-          return _this18;
+          _this24 = _super23.call(this, cfg);
+          _this24.xCenter = undefined;
+          _this24.yCenter = undefined;
+          _this24.drawingArea = undefined;
+          _this24._pointLabels = [];
+          _this24._pointLabelItems = [];
+          return _this24;
         }
 
         _createClass(RadialLinearScale, [{
@@ -18443,21 +18811,21 @@
         var _super24 = _createSuper(TimeScale);
 
         function TimeScale(props) {
-          var _this19;
+          var _this25;
 
           _classCallCheck(this, TimeScale);
 
-          _this19 = _super24.call(this, props);
-          _this19._cache = {
+          _this25 = _super24.call(this, props);
+          _this25._cache = {
             data: [],
             labels: [],
             all: []
           };
-          _this19._unit = 'day';
-          _this19._majorUnit = undefined;
-          _this19._offsets = {};
-          _this19._normalized = false;
-          return _this19;
+          _this25._unit = 'day';
+          _this25._majorUnit = undefined;
+          _this25._offsets = {};
+          _this25._normalized = false;
+          return _this25;
         }
 
         _createClass(TimeScale, [{
@@ -18843,14 +19211,14 @@
         var _super25 = _createSuper(TimeSeriesScale);
 
         function TimeSeriesScale(props) {
-          var _this20;
+          var _this26;
 
           _classCallCheck(this, TimeSeriesScale);
 
-          _this20 = _super25.call(this, props);
-          _this20._table = [];
-          _this20._maxIndex = undefined;
-          return _this20;
+          _this26 = _super25.call(this, props);
+          _this26._table = [];
+          _this26._maxIndex = undefined;
+          return _this26;
         }
 
         _createClass(TimeSeriesScale, [{
