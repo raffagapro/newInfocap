@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MenuController, ModalController, LoadingController } from '@ionic/angular';
+import { MenuController, ModalController } from '@ionic/angular';
 import { ConfirmSuccessComponent } from './confirm-success/confirm-success.component';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { Subscription } from 'rxjs';
@@ -36,7 +35,7 @@ export class RateFormPage implements OnInit {
     images: null,
     categoryName: null,
     clientPhone1: null,
-    request_cost: 0
+    request_cost: {}
   };
 
   formRate: FormGroup
@@ -47,7 +46,6 @@ export class RateFormPage implements OnInit {
     private solServ: SolicitudService,
     private solicitudServicio: ProSolicitudService,
     private us: UserService,
-    private lc: LoadingController,
   ) { }
 
   ngOnInit() {

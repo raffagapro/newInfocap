@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, MenuController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
@@ -30,7 +30,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
   // Calendar
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
   @ViewChild('calendarAgended') myCalAgended: CalendarComponent;
-  
+
   days = ['D', 'L', 'M', 'X', 'J', 'V', 'S']
   datesView = ''
   datesAgendedView = ''
@@ -47,16 +47,21 @@ export class AgendadosPage implements OnInit, OnDestroy {
     private us: UserService,
     private lc: LoadingController,
     private solicitudServicio: ProSolicitudService,
-  ) { }
-
-  async ngOnInit() {
-    this.userSub = this.us.loggedUser.subscribe(user => {
-      this.grabbedUser = user;
-      this.headers =  'Bearer ' + this.grabbedUser.access_token
-      this.loadServices("3");
-      this.loadServices("4");
-      this.loadServices("2");
+    route: ActivatedRoute
+  ) {
+    route.params.subscribe(val => {
+      this.userSub = this.us.loggedUser.subscribe(user => {
+        this.grabbedUser = user;
+        this.headers = 'Bearer ' + this.grabbedUser.access_token
+        this.loadServices("3");
+        this.loadServices("4");
+        this.loadServices("2");
+      });
     });
+  }
+
+  ngOnInit() {
+
   }
 
   formatEvents(data, type) {
@@ -102,7 +107,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
       message: "Cargando lista de servicios..."
     }).then(loadingEl => {
       loadingEl.present();
-      axios.get(API + `/supplier/requestservice/${statusID}`, { headers: { Authorization: this.headers }}).then(resData => {
+      axios.get(API + `/supplier/requestservice/${statusID}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
         if (statusID === "3") {
           this.loadedServices = resData.data.data;
@@ -120,7 +125,15 @@ export class AgendadosPage implements OnInit, OnDestroy {
           this.myCalAgended.loadEvents();
         }
       }).catch(err => {
-        console.log(err);
+        if (statusID === "3") {
+          this.loadedServices = []
+        }
+        if (statusID === "4") {
+          this.loadedStartedServices = []
+        }
+        if (statusID === "2") {
+          this.loadedVisits = [];
+        }
         loadingEl.dismiss();
       })
     });

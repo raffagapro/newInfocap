@@ -110,7 +110,8 @@
         <ion-col size="1"></ion-col>
         <ion-col size="10" class="border ion-text-center">
           <ion-item lines="none">
-            <ion-textarea formControlName="work_report" rows="3" cols="20" placeholder="Describe el trabajo realizado."></ion-textarea>
+            <ion-textarea formControlName="work_report" rows="3" cols="20" placeholder="Describe el trabajo realizado.">
+            </ion-textarea>
           </ion-item>
         </ion-col>
         <ion-col size="1"></ion-col>
@@ -122,7 +123,7 @@
         <ion-col size="5" class="ion-text-center border-right">
           <ion-text class="main-color title"><b>Método de pago</b></ion-text>
           <br>
-          <ion-text class="subMiniTex ion-padding-top">Efectivo</ion-text>
+          <ion-text class="subMiniTex ion-padding-top">{{ paymentValidate(loadedInfo.request_cost) }}</ion-text>
         </ion-col>
         <ion-col size="3" class="ion-text-center">
           <ion-text class="main-color title"><b>Costo</b></ion-text>
@@ -130,7 +131,11 @@
           <ion-text class="subMiniTex ion-padding-top">{{ formatInfo(loadedInfo.request_cost) }}</ion-text>
         </ion-col>
         <ion-col size="1">
-          <ion-icon color="danger" name="add-circle" class="addIcon" (click)="extraCharge()"></ion-icon>
+          <ion-icon *ngIf="loadedInfo.request_cost == null" color="danger" name="add-circle" class="addIcon"
+            (click)="extraCharge()"></ion-icon>
+            <div class="request-null" *ngIf="loadedInfo.request_cost != null">
+              <ion-icon name="pencil-sharp" (click)="extraCharge()"></ion-icon>
+            </div>
         </ion-col>
         <ion-col size="1"></ion-col>
       </ion-row>
@@ -139,7 +144,8 @@
       <ion-row class="ion-margin-top ion-margin-bottom">
         <ion-col size="1"></ion-col>
         <ion-col>
-          <ion-button [disabled]="!loadedImages.length > 0 || !formFinalizar.valid" size="5" expand="block" class="ion-text-uppercase" color="danger" (click)="finalizarSolicitud()">
+          <ion-button [disabled]="!loadedImages.length > 0 || !formFinalizar.valid" size="5" expand="block"
+            class="ion-text-uppercase" color="danger" (click)="finalizarSolicitud()">
             <ion-icon slot="start" name="build"></ion-icon>
             FINALIZAR
           </ion-button>

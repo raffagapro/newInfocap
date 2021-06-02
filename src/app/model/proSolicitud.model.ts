@@ -12,10 +12,11 @@ export class ProSolicitud{
         public hours: string,
         public id: string,
         public status_id: number,
-        public cost: number,
+        public cost: {},
         public supplierLastName: string,
         public supplierName: string,
         public ticket_number: string,
+        public aditional: [],
         public type: string,
     ){}
 }

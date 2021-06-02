@@ -72,6 +72,18 @@ margin-right: auto;
 {
     font-size: 35px;
 }
+
+.request-null {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    color: white;
+    background-color: #eb445a;
+} 
+
 .border-right
 {
     border-right: 1px solid red;

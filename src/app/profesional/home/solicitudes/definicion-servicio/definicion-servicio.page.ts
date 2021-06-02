@@ -32,7 +32,7 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     categoryName: null,
     clientPhone1: null,
     type: null,
-    request_cost: 0,
+    request_cost: {},
   };
   form: FormGroup;
 

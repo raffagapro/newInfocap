@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
@@ -44,7 +44,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
   useInputPicker = false;
 
   formFinalizar: FormGroup
-  
+
   loadedInfo = {
     img_client_profile: null,
     ticket_number: null,
@@ -57,7 +57,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     categoryName: null,
     category_id: null,
     clientPhone1: null,
-    request_cost: 0
+    request_cost: {}
   };
 
   @ViewChild('hiddenImgInput') hiddenImgInputRef: ElementRef<HTMLInputElement>;
@@ -82,7 +82,21 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     private solicitudServicio: ProSolicitudService,
     private us: UserService,
     private lc: LoadingController,
-  ) { }
+    route: ActivatedRoute
+  ) {
+    route.params.subscribe(val => {
+      this.userSub = this.us.loggedUser.subscribe(user => {
+        this.grabbedUser = user;
+      });
+      this.headers = 'Bearer ' + this.grabbedUser.access_token
+      axios.get(API + `/client/costrequest/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
+        if(resData.data.data[0]) {
+          this.solicitudServicio.setCosto(resData.data.data[0]);
+          this.loadedInfo.request_cost = resData.data.data[0]
+        }
+      })
+    })
+  }
 
   async ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
@@ -100,17 +114,6 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
         validators: [Validators.required]
       }),
     })
-    this.lc.create({
-      message: "Cargando informacion del servicio..."
-    }).then(loadingEl => {
-
-      loadingEl.present();
-
-      // axios.get(API + '/payments/type', { headers: { Authorization: this.headers } }).then(resData => {
-      //   this.paymentTypes = resData.data.data
-      // })
-      loadingEl.dismiss();
-    });
   }
 
   ionViewWillEnter() {
@@ -237,7 +240,20 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     this.userSub.unsubscribe();
   }
 
-  formatInfo(num1) {
-    return parseFloat(num1).toFixed(2)
+  paymentValidate(request_cost) {
+    if (request_cost !== null) {
+      return request_cost.payment_name
+    } else {
+      return 'Efectivo'
+    }
+  }
+
+  formatInfo(request_cost) {
+    if (request_cost !== null) {
+      return parseFloat(request_cost.amount_suplier).toFixed(2)
+    } else {
+      return 0
+    }
+
   }
 }

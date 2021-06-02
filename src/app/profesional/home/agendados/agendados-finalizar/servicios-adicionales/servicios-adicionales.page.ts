@@ -60,7 +60,9 @@ export class ServiciosAdicionalesPage implements OnInit {
     categoryName: null,
     clientPhone1: null,
     category_id: null,
-    request_cost:  0
+    request_cost: {
+
+    }
   };
 
   constructor(
@@ -162,6 +164,15 @@ export class ServiciosAdicionalesPage implements OnInit {
     this.loadedInfo.category_id = this.solicitudServicio.solicitud.category_id
     this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
     this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
+
+    var aditionalCost = null
+    if(this.solicitudServicio.solicitud.cost != null) {
+      aditionalCost = this.solicitudServicio.solicitud.cost
+    }
+    
+    this.formAdicional.patchValue({
+      price: aditionalCost.amount_suplier
+    })
     this.menuController.enable(true, 'profesional');
   }
 
@@ -183,6 +194,8 @@ export class ServiciosAdicionalesPage implements OnInit {
       formData.append('amount', this.formAdicional.value.price)
       formData.append('payment_type_id', '1')
       formData.append('request_services_id', this.solicitudServicio.solicitud.id)
+
+      
       this.solicitudServicio.setCosto(parseFloat(this.formAdicional.value.price))
 
       axios.post(API + '/supplier/additionalrequest', formData, { headers: { Authorization: this.headers } } ).then(resData => {

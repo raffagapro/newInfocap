@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
 import axios from 'axios';
 import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
-import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { ServiceRejectModalComponent } from './service-reject-modal/service-reject-modal.component';
@@ -34,20 +33,24 @@ export class SolicitudesPage implements OnInit, OnDestroy {
     private menuController: MenuController,
     private us: UserService,
     private lc: LoadingController,
-    private solServ: SolicitudService,
-    private solicitudServicio: ProSolicitudService
-  ) { }
+    private solicitudServicio: ProSolicitudService,
+    route: ActivatedRoute
+  ) {
+    route.params.subscribe(val => {
+      this.userSub = this.us.loggedUser.subscribe(user => {
+        this.grabbedUser = user;
+        this.headers = 'Bearer ' + this.grabbedUser.access_token
+        this.loadServices("1");
+      });
+    });
+   }
 
   ngOnInit() {
-    this.userSub = this.us.loggedUser.subscribe(user => {
-      this.grabbedUser = user;
-    });
   }
 
   ionViewWillEnter() {
     this.menuController.enable(true, 'profesional');
-    this.headers = 'Bearer ' + this.grabbedUser.access_token;
-    this.loadServices("1");
+
   }
 
   loadServices(statusID: string) {

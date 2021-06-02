@@ -6,9 +6,10 @@ import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { Notification } from 'src/shared/types/Notification';
 import axios from 'axios'
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { NotificationsService } from 'src/app/services/notifications-service';
+import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
 @Component({
   selector: 'app-notificaciones',
@@ -25,19 +26,23 @@ export class NotificacionesPage implements OnInit {
   constructor(
     private router: Router,
     private menuController: MenuController,
-    private lc: LoadingController,
     private us: UserService,
     private loadingController: LoadingController,
-    private solServ: SolicitudService,
+    private solicitudServicio: ProSolicitudService,
     private notificationService: NotificationsService,
-  ) { }
+    route: ActivatedRoute
+  ) {
+    route.params.subscribe(val => {
+      this.userSub = this.us.loggedUser.subscribe(user => {
+        this.grabbedUser = user;
+        this.headers = 'Bearer ' + this.grabbedUser.access_token;
+        this.loadNotifications()
+      });
+    })
+  }
 
   ngOnInit() {
-    this.userSub = this.us.loggedUser.subscribe(user => {
-      this.grabbedUser = user;
-      this.headers = 'Bearer ' + this.grabbedUser.access_token;
-      this.loadNotifications()
-    });
+
   }
 
   async loadNotifications() {
@@ -63,10 +68,10 @@ export class NotificacionesPage implements OnInit {
   }
 
   async goToRequestDetail(solicitudId: string, notificationId: number) {
-    axios.put(API + `/notification/view/${notificationId}`, { viewed: 1, },{ headers: { Authorization: `Bearer ${this.grabbedUser.access_token}` } }).then(resData => {
-      this.solServ.setServiceID(solicitudId);
+    axios.put(API + `/notification/view/${notificationId}`, { viewed: 1, }, { headers: { Authorization: `Bearer ${this.grabbedUser.access_token}` } }).then(resData => {
+      this.solicitudServicio.setID(solicitudId);
 
-      
+
       let updatedNotifications = this.notifications.map((notification: Notification) => {
         if (notification.notification_Id === notificationId) {
           notification.viewed = true;

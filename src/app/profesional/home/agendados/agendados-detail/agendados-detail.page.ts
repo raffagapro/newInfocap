@@ -77,7 +77,6 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.solicitudServicio.setCategoryName(resData.data.data.categoryName)
         this.solicitudServicio.setStatusID(resData.data.data.status_id)
         this.solicitudServicio.setClientPhone(resData.data.data.clientPhone1)
-        this.solicitudServicio.setCosto(resData.data.data.request_cost[0] && resData.data.data.request_cost[0].amount_suplier || 0);
 
         this.loadedInfo.clientLastName = resData.data.data.clientLastName;
         this.loadedInfo.clientName = resData.data.data.clientName;
@@ -96,8 +95,12 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         loadingEl.dismiss();
       })
 
-      axios.get(API + `/client/detailcostrequest/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
-        console.log(resData.data.data)
+      axios.get(API + `/client/costrequest/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
+        if(resData.data.data[0]) {
+          this.solicitudServicio.setCosto(resData.data.data[0]);
+        } else {
+          this.solicitudServicio.setCosto(null)
+        }
       })
 
 

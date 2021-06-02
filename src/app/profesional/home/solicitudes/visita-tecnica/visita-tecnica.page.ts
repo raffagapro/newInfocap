@@ -36,7 +36,7 @@ export class VisitaTecnicaPage implements OnInit {
     images: null,
     categoryName: null,
     clientPhone1: null,
-    request_cost: 0
+    request_cost: {}
   };
 
   formVisitaTecnica: FormGroup
