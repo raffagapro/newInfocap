@@ -30,8 +30,9 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     description: null,
     images: null,
     categoryName: null,
-    clientPhone1: null, 
-    request_cost: 0,
+    clientPhone1: null,
+    type: null,
+    request_cost: {},
   };
   form: FormGroup;
 
@@ -77,8 +78,16 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
   async ionViewWillEnter() {
     this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName
     this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName
-    this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
     this.loadedInfo.description = this.solicitudServicio.solicitud.description
+    moment().format('YYYY-MM-D')
+    if (this.solicitudServicio.solicitud.type === 'URGENT') {
+      this.solicitudServicio.setDateRequired(moment().format('YYYY-MM-D'))
+      let secondHour = this.solicitudServicio.solicitud.hours.split("/")
+
+      this.solicitudServicio.setHours(moment().toISOString(true) + '/' + secondHour[1]);
+    }
+
+    this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
     this.loadedInfo.hours = this.solicitudServicio.solicitud.hours.split("/")
     this.loadedInfo.images = this.solicitudServicio.solicitud.images
     this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg
@@ -86,6 +95,7 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     this.loadedInfo.categoryName = this.solicitudServicio.solicitud.category_id
     this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
     this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
+    this.loadedInfo.type = this.solicitudServicio.solicitud.type
 
     this.form.patchValue({
       sHour: this.loadedInfo.hours[0],

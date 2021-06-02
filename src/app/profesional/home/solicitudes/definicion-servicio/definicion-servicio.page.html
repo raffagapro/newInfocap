@@ -91,6 +91,7 @@
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
             </ion-label>
             <ion-datetime
+            [disabled]="loadedInfo.type == 'URGENT'"
             dayShortNames="Domingo,Lunes,Martes,Miércoles,Jueves,Viernes,Sábado" 
             monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" 
             [min]="minDate" formControlName="dateReq" display-format="DDD D de MMM de YYYY">
@@ -115,7 +116,7 @@
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora inicial</ion-text>
             </ion-label>
-            <ion-datetime formControlName="sHour" display-format="h:mm A" picker-format="h:mm A">
+            <ion-datetime [disabled]="loadedInfo.type == 'URGENT'" formControlName="sHour" display-format="h:mm A" picker-format="h:mm A">
             </ion-datetime>
           </ion-item>
         </ion-col>
@@ -125,7 +126,7 @@
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora final</ion-text>
             </ion-label>
-            <ion-datetime formControlName="eHour" display-format="h:mm A" picker-format="h:mm A">
+            <ion-datetime [disabled]="loadedInfo.type == 'URGENT'" formControlName="eHour" display-format="h:mm A" picker-format="h:mm A">
             </ion-datetime>
           </ion-item>
         </ion-col>

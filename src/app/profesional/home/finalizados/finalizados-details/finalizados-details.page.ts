@@ -70,7 +70,7 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
         this.solicitudServicio.setCategoryID(resData.data.data.categoryName)
         this.solicitudServicio.setStatusID(resData.data.data.status_id)
         this.solicitudServicio.setClientPhone(resData.data.data.clientPhone1)
-        this.solicitudServicio.setCosto(resData.data.data.request_cost[0] && resData.data.data.request_cost[0].amount_suplier || 0);
+        this.solicitudServicio.setCosto(resData.data.data.request_cost[0] && resData.data.data.request_cost[0]);
 
         this.loadedInfo.clientLastName = resData.data.data.clientLastName;
         this.loadedInfo.clientName = resData.data.data.clientName;

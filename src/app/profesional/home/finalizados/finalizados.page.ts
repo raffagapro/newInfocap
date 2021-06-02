@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, MenuController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
@@ -29,20 +29,26 @@ export class FinalizadosPage implements OnInit, OnDestroy {
     private us: UserService,
     private lc: LoadingController,
     private solServ: SolicitudService,
-    private solicitudServicio: ProSolicitudService
-  ) { }
+    private solicitudServicio: ProSolicitudService,
+    route: ActivatedRoute
+  ) {
+    route.params.subscribe(val => {
+      this.userSub = this.us.loggedUser.subscribe(user => {
+        this.grabbedUser = user;
+        this.headers = 'Bearer ' + this.grabbedUser.access_token;
+        this.loadServices("5");
+        this.loadServices("6");
+      });
+    })
+  }
 
   ngOnInit() {
-    this.userSub = this.us.loggedUser.subscribe(user => {
-      this.grabbedUser = user;
-      this.headers = 'Bearer ' + this.grabbedUser.access_token;
-      this.loadServices("5");
-      this.loadServices("6");
-    });
+
   }
 
   ionViewWillEnter() {
     this.menuController.enable(true, 'profesional');
+
   }
 
   loadServices(statusID: string) {

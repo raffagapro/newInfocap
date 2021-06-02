@@ -81,7 +81,8 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
   }
 
   formatDate(date: string) {
-    return moment(date, 'YYYY/M/DD').format('dddd D [de] MMMM [de] YYYY');
+    console.log(date)
+    return moment(date, 'DD/M/YYYY').format('dddd D [de] MMMM [de] YYYY');
   }
 
   async confirmServicio() {

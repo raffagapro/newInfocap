@@ -12,6 +12,7 @@ import { ConfirmSuccessStartComponent } from './confirm-success-start/confirm-su
 import axios from 'axios'
 import * as moment from 'moment';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
+import { ServiceRejectModalComponent } from '../../solicitudes/service-reject-modal/service-reject-modal.component';
 
 @Component({
   selector: 'app-agendados-detail',
@@ -76,7 +77,6 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.solicitudServicio.setCategoryName(resData.data.data.categoryName)
         this.solicitudServicio.setStatusID(resData.data.data.status_id)
         this.solicitudServicio.setClientPhone(resData.data.data.clientPhone1)
-        this.solicitudServicio.setCosto(resData.data.data.request_cost[0] && resData.data.data.request_cost[0].amount_suplier || 0);
 
         this.loadedInfo.clientLastName = resData.data.data.clientLastName;
         this.loadedInfo.clientName = resData.data.data.clientName;
@@ -94,6 +94,16 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         console.log(err);
         loadingEl.dismiss();
       })
+
+      axios.get(API + `/client/costrequest/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
+        if(resData.data.data[0]) {
+          this.solicitudServicio.setCosto(resData.data.data[0]);
+        } else {
+          this.solicitudServicio.setCosto(null)
+        }
+      })
+
+
     });
   }
 
@@ -151,6 +161,35 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
           modalEl.present();
         });
       })
+    });
+  }
+
+  startScheduled() {
+    this.lc.create({
+      message: 'Registrando tiempo de inicio...'
+    }).then(loadingEl => {
+      loadingEl.present();
+      axios.put(API + `/supplier/updatestatus/requestservice/${this.solicitudServicio.solicitud.id}/3`, null, { headers: { Authorization: this.headers } }).then(resData => {
+        loadingEl.dismiss();
+        this.modalController.create({
+          component: ConfirmSuccessStartComponent,
+          cssClass: 'modalSuccess',
+        }).then(modalEl => {
+          modalEl.present();
+        });
+      })
+    });
+  }
+
+  rejectSheduled() {
+    this.modalController.create({
+      component: ServiceRejectModalComponent,
+      cssClass: 'modalSE',
+    }).then(modalEl => {
+      modalEl.present();
+      modalEl.onDidDismiss().then(data => {
+        this.router.navigate(['profesional/agendados/agendados']);
+      });
     });
   }
 

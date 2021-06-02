@@ -166,9 +166,9 @@
           </ion-item>
 
           <!-- Soporte -->
-          <ion-item lines="none" href="https://wa.me/{{whatappPhone}}">
+          <ion-item lines="none">
             <ion-icon slot="start" name="headset" color="primary"></ion-icon>
-            <ion-label color="primary" class="label-text">Soporte</ion-label>
+            <ion-label color="primary" class="label-text" (click)="openWhatsapp()">Soporte</ion-label>
           </ion-item>
 
           <!-- Mi billetera -->
@@ -178,9 +178,9 @@
           </ion-item>
 
           <!-- Términos y condiciones -->
-          <ion-item lines="none">
+          <ion-item lines="none" routerLink="/terms">
             <ion-icon slot="start" src="/assets/icon/ic_terms.svg" color="primary"></ion-icon>
-            <ion-label color="primary" class="label-text" (click)="openWhatsapp()">Términos y condiciones</ion-label>
+            <ion-label color="primary" class="label-text">Términos y condiciones</ion-label>
           </ion-item>
 
         </ion-menu-toggle>

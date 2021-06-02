@@ -1,0 +1,84 @@
+<ion-content>
+  <ion-grid fixed>
+    <!-- SERVICIO Rechazado  -->
+    <div style="height: 10px;"></div>
+    <ion-row class="ion-margin-top">
+      <ion-col size="10" offset="1" class="ion-text-center ion-margin-top">
+        <ion-text class="status-text" color="danger"><b>RECHAZO DE LA SOLICITUD</b></ion-text><br>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- profesional card item -->
+  <div class="no-border ion-margin-top">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <!-- profile img -->
+        <ion-col size="4" offset="1">
+          <ion-avatar class="ion-margin-start profileImg">
+            <ion-img
+              src="{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_client_profile  }}">
+            </ion-img>
+          </ion-avatar>
+        </ion-col>
+
+        <!-- title -->
+        <ion-col size="6">
+          <ion-text>
+            <small class="ticket">Solicitud #{{ loadedInfo.ticket_number }}</small><br>
+            <span class="titleSelect main-color ion-text-capitalize">{{ loadedInfo.categoryName }} <br>
+              <span class="titleName ion-text-capitalize">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName
+                }}</span>
+            </span><br>
+            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">{{ formatDate(loadedInfo.date_required) }}</p>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-grid fixed>
+    <!-- subtitle  -->
+    <ion-row>
+      <ion-col size="10" offset="1" class="ion-text-center ion-margin-top">
+        <ion-text class="subtitle" color="danger">Motivo de cierre</ion-text><br>
+      </ion-col>
+    </ion-row>
+
+    <!-- text-area -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="border ion-text-center">
+        <ion-item lines="none">
+          <ion-textarea #rejectDesc rows="3" cols="20" placeholder="Describe aquí el motivo del cierre.">
+          </ion-textarea>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+      <!-- error  -->
+      <ion-col size="12" *ngIf="showError" class="text-center">
+        <ion-label class="errorMess">
+          <ion-icon name="alert-circle-outline" class="iconFixG" color="danger"></ion-icon>
+          <ion-text color="danger">
+            <small>El motivo de rechazo es obligatorio</small>
+          </ion-text>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <!-- finalizar trabajo BTN -->
+    <ion-row class="ion-margin-top ion-margin-bottom">
+      <ion-col size="1"></ion-col>
+      <ion-col>
+        <ion-button size="5" expand="block" class="ion-text-uppercase" color="danger"
+          (click)="rechazarSolicitud(rejectDesc.value)">
+          RECHAZAR SOLICITUD
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+</ion-content>

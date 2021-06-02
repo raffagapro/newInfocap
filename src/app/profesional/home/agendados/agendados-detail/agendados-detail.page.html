@@ -165,12 +165,34 @@
     
 
     <!-- iniciar trabajo BTN -->
-    <ion-row class="ion-margin-top ion-margin-bottom" *ngIf="loadedInfo.status_id <= 3">
+    <ion-row class="ion-margin-top ion-margin-bottom" *ngIf="loadedInfo.status_id == 3">
       <ion-col size="1"></ion-col>
       <ion-col>
         <ion-button size="5" expand="block" class="ion-text-uppercase" color="success" (click)="startSolicitud()">
           <ion-icon slot="start" name="build"></ion-icon>
           INICIO DEL TRABAJO
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <ion-row class="ion-margin-top ion-margin-bottom" *ngIf="loadedInfo.status_id == 2">
+      <ion-col size="1"></ion-col>
+      <ion-col>
+        <ion-button size="5" expand="block" class="ion-text-uppercase" color="success" (click)="startScheduled()">
+          <ion-icon slot="start" name="build"></ion-icon>
+          ACEPTAR TRABAJO FINAL
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <ion-row class="ion-margin-top ion-margin-bottom" *ngIf="loadedInfo.status_id == 2">
+      <ion-col size="1"></ion-col>
+      <ion-col>
+        <ion-button size="5" expand="block" class="ion-text-uppercase" color="danger" (click)="rejectSheduled()">
+          <ion-icon slot="start" name="build"></ion-icon>
+          RECHAZAR TRABAJO FINAL
         </ion-button>
       </ion-col>
       <ion-col size="1"></ion-col>
