@@ -41,6 +41,7 @@ function base64toBlob(base64Data, contentType) {
 })
 export class UrgenServicePage implements OnInit {
   minDate = moment().add('hour', 1);
+  maxDate = moment().add('hour', 24);
 
   grabbedUser: User;
   userSub: Subscription;
@@ -122,8 +123,8 @@ export class UrgenServicePage implements OnInit {
       quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,
-      //height: 150,
-      // width: 200,
+      height: 500,
+      width: 500,
       resultType: CameraResultType.DataUrl,
       promptLabelPhoto: 'Fotos',
       promptLabelPicture: 'Cámara',
@@ -182,6 +183,7 @@ export class UrgenServicePage implements OnInit {
 
     let startHour = moment(this.form.value.sHour);
     let endHour = moment(this.form.value.eHour);
+
     if (startHour.isAfter(endHour)) {
       this.showError = true;
       return
@@ -199,7 +201,8 @@ export class UrgenServicePage implements OnInit {
             component: SuccessModalComponent,
             componentProps: {
               message: 'PRONTO UN PROFESIONAL SE CONTACTARÁ CONTIGO',
-              redirect: false,
+              redirect: true,
+              redirectUrl: '/user/solicitudes'
             },
             cssClass: 'modalSuccess',
           }).then(modalEl => {

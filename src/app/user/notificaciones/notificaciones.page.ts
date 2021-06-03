@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController } from '@ionic/angular';
 import axios from 'axios';
+import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { NotificationsService } from 'src/app/services/notifications-service';
@@ -109,6 +110,10 @@ export class NotificacionesPage implements OnInit {
       this.router.navigate(['/user/solicitud-status']);
     }
 
+  }
+
+  formatdate(date: string, hours: string) {
+    return moment(`${date} ${hours}`, 'DD-MM-YYYY hh:mm:ss').startOf('minute').fromNow();
   }
 
 }

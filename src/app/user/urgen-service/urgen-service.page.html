@@ -93,7 +93,7 @@
               <ion-text color="danger">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
             </ion-label>
             <ion-datetime formControlName="date_required" placeholder="Definir fecha" [pickerFormat]="'DD MMM YYYY'" [displayFormat]="'DDDD DD de MMM de YYYY'"
-              [min]="minDate.format('YYYY-MM-DD')" (ngModelChange)="onDateChange($event)"
+              [min]="minDate.format('YYYY-MM-DD')" [max]="maxDate.format('YYYY-MM-DD')" (ngModelChange)="onDateChange($event)"
               [dayNames]="['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']"
               monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre">
             </ion-datetime>
