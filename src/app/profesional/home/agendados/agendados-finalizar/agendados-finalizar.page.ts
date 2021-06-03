@@ -89,11 +89,9 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
         this.grabbedUser = user;
       });
       this.headers = 'Bearer ' + this.grabbedUser.access_token
-      axios.get(API + `/client/costrequest/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
-        if(resData.data.data[0]) {
-          this.solicitudServicio.setCosto(resData.data.data[0]);
-          this.loadedInfo.request_cost = resData.data.data[0]
-        }
+      axios.get(API + `/client/detailcostrequest/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
+        this.solicitudServicio.setCosto(resData.data.data);
+        this.loadedInfo.request_cost = resData.data.data
       })
     })
   }
@@ -249,11 +247,11 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
   }
 
   formatInfo(request_cost) {
-    if (request_cost !== null) {
-      return parseFloat(request_cost.amount_suplier).toFixed(2)
+    if(request_cost.addittional && request_cost.addittional[0]) {
+      return (parseFloat(request_cost.amount_suplier) + parseFloat(request_cost.addittional[0].amount_suplier)).toFixed(2)
     } else {
-      return 0
+      return parseFloat(request_cost.amount_suplier).toFixed(2)
     }
-
+      
   }
 }

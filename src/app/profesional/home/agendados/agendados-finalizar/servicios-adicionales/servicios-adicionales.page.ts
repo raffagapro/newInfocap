@@ -171,8 +171,14 @@ export class ServiciosAdicionalesPage implements OnInit {
     }
     
     this.formAdicional.patchValue({
-      price: aditionalCost.amount_suplier
+      detailes: aditionalCost.addittional[0] && aditionalCost.addittional[0].description,
+      price: aditionalCost.addittional[0] && aditionalCost.addittional[0].amount_suplier
     })
+
+    aditionalCost.img_addittional.forEach(img => {
+      this.loadedImagesDisplay.push(img.image)
+    });
+
     this.menuController.enable(true, 'profesional');
   }
 
