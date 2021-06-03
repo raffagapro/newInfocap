@@ -173,7 +173,8 @@ export class ProfilePagePage implements OnInit, OnDestroy {
               componentProps: {
                 message: 'INFORMACIÓN ACTUALIZADA',
                 redirect: false,
-              }
+              },
+              cssClass: 'modalSuccess',
             }).then(modalEl => {
               modalEl.present();
             });
