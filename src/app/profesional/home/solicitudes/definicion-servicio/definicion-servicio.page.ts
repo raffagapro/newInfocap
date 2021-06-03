@@ -132,6 +132,7 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     wDate = wDate[2] + '/' + wDate[1] + '/' + wDate[0];
     this.solicitudServicio.setDateRequired(wDate);
     this.solicitudServicio.setHours(this.form.value.sHour + '/' + this.form.value.eHour);
+    this.solicitudServicio.setCosto(this.form.value.costo)
 
     let starHour = moment(this.form.value.sHour);
     let endHour = moment(this.form.value.eHour);

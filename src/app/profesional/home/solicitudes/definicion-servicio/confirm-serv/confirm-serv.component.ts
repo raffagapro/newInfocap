@@ -3,7 +3,6 @@ import { LoadingController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
 import { User } from 'src/app/model/user.model';
-import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { ConfirmSuccessComponent } from '../confirm-success/confirm-success.component';
@@ -81,7 +80,6 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
   }
 
   formatDate(date: string) {
-    console.log(date)
     return moment(date, 'DD/M/YYYY').format('dddd D [de] MMMM [de] YYYY');
   }
 
@@ -98,7 +96,7 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
 
     try {
       var url = '/supplier/aprove/requestservice/'
-      if(this.solicitudServicio.solicitud.type == 'URGENT') {
+      if (this.solicitudServicio.solicitud.type == 'URGENT') {
         var url = '/supplier/aprove/requestservice/' //'/supplier/aprove/urgentrequestservice/'
         body.professional_id = this.grabbedUser.id
       }
@@ -111,6 +109,20 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
           }
         }
       );
+
+      console.log(this.solicitudServicio.solicitud.cost)
+
+      axios.put(API + `/supplier/cost/requestservice/${this.solicitudServicio.solicitud.id}`,
+        {
+          "amount": this.solicitudServicio.solicitud.cost,
+          "costs_type_id": 1,
+          "description": "costo inical",
+          "payment_type_id": 1
+        }, {
+        headers: {
+          Authorization: `Bearer ${this.grabbedUser.access_token}`,
+        }
+      })
       await loader.dismiss();
       await this.modalController.dismiss();
       let successModal = await this.modalController.create({
