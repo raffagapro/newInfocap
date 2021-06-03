@@ -121,14 +121,18 @@ export class ServiceFinishedPage implements OnInit {
   async validateIfRatingYet() {
     try {
       let response = await axios.get(
-        `${API}/supplier/evaluation/done/${this.solServ.solicitud.solicitudID}`
+        `${API}/supplier/evaluation/done/${this.solServ.solicitud.solicitudID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.user.access_token}`
+          }
+        }
       );
       if (response.data && response.data.status === 200) {
-        this.showRateProfessional = true;
+        this.showRateProfessional = response.data.data ? response.data.data.length > 0 : false;
       }
     } catch (error) {
-      console.log(error);
-      this.showRateProfessional = true;
+      this.showRateProfessional = false;
     }
   }
 

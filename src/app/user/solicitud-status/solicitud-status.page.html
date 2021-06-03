@@ -243,7 +243,7 @@
       </ion-row> -->
 
       <!-- Solicitud rechazada  -->
-      <ion-row *ngIf="loadedService.status_id === 7">
+      <ion-row *ngIf="loadedService.status_id === 7" (click)="serviceDetal(7)">
         <div class="status-cont-red">
           <ion-icon name="close-outline" color="light" class="status-text-icon"></ion-icon>
         </div>

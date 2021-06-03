@@ -82,7 +82,7 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color iconFix"></ion-icon>
-        <ion-text class="main-color subText"> {{formatDate(loadedService.date_required)}}</ion-text>
+        <ion-text class="subText"> {{formatDate(loadedService.date_required)}}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -98,13 +98,13 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_schedule.svg" class="main-color iconFix"></ion-icon>
-        <ion-text class="main-color subText"> {{formatTime()}}</ion-text>
+        <ion-text class="subText"> {{formatTime()}}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
 
     <!-- eceptar visita BTN -->
-    <ion-row class="ion-margin-top">
+    <ion-row class="ion-margin-top" *ngIf="loadedService.status_id === 2">
       <ion-col size="1"></ion-col>
       <ion-col>
         <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="confirmVisit(1)">
@@ -115,7 +115,7 @@
     </ion-row>
 
     <!-- imitir por el momento BTN -->
-    <ion-row class="ion-margin-bottom">
+    <ion-row class="ion-margin-bottom" *ngIf="loadedService.status_id === 2">
       <ion-col size="1"></ion-col>
       <ion-col>
         <ion-button size="5" expand="block" fill="outline" class="ion-text-uppercase" (click)="confirmVisit(1)">

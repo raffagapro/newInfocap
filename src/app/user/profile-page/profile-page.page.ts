@@ -62,8 +62,6 @@ export class ProfilePagePage implements OnInit, OnDestroy {
       this.grabbedUser = user;
       //api headers
       this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-      // updates to the most current info from DB
-      this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
     });
 
     let phone1: string;
@@ -231,6 +229,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
     this.form.patchValue({ image: imgFile })
     const formData = new FormData();
     formData.append('image', imgFile);
+    
     this.http.post(API + '/account/image', formData, { headers: this.headers })
       .subscribe(resData => {
         this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
@@ -239,7 +238,8 @@ export class ProfilePagePage implements OnInit, OnDestroy {
           componentProps: {
             message: 'INFORMACIÓN ACTUALIZADA',
             redirect: false,
-          }
+          },
+          cssClass: 'modalSuccess',
         }).then(modalEl => {
           modalEl.present();
         });
@@ -257,6 +257,20 @@ export class ProfilePagePage implements OnInit, OnDestroy {
       return this.grabbedUser.img_profile;
     }
     return 'assets/images/avatar.png';
+  }
+
+  dbUserGrab(token: string, role: string) {
+    let headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    this.http.get(API + '/account/me', { headers: headers })
+      .subscribe(resData => {
+        let img: string;
+        if (resData['data'].img_profile === null) {
+          img = null;
+        } else {
+          img = resData['data'].img_profile;
+        }
+        this.grabbedUser = resData['data'];
+      });
   }
 
 }

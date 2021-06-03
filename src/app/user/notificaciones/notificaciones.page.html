@@ -28,23 +28,21 @@
             <ion-icon color="primary" src="/assets/icon/ic_date_range.svg" class="icon-size" *ngIf="notification.type_request === 'NORMAL' && notification.status_id == 1"></ion-icon>
             <ion-icon color="primary" src="/assets/icon/ic_engine_disabled.svg" class="icon-size" *ngIf="notification.type_request === 'NORMAL' && notification.status_id > 1"></ion-icon>
             <ion-icon color="danger" name="alert-circle" class="icon-size" *ngIf="notification.type_request !== 'NORMAL'"></ion-icon>
-            <br>
-            <span class="textSelect {{notification.type_request !== 'NORMAL' ? 'red-color' : ''}}">
+            <p class="textSelect {{notification.type_request !== 'NORMAL' ? 'red-color' : ''}}">
               {{notification.professionalName}} {{notification.motive}}
-            </span><br>
+            </p>
             <!--<small class="main-color">Cambio de chapas</small>-->
           </ion-text>
         </ion-col>
-        <ion-col size="1"></ion-col>
 
         <!-- rating -->
-        <ion-col size="4" class="ion-text-center">
+        <ion-col size="5" class="ion-text-center">
           <div class="ion-text-end">
             <small class="ticket">#{{notification.ticket_number}}</small>
           </div>
           <ion-text>
             <p class="ratingText main-color">
-              hace {{notification.time}}
+              {{formatdate(notification.date, notification.hours)}}
             </p>
           </ion-text>
         </ion-col>

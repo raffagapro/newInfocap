@@ -14,6 +14,8 @@ import { API, PHONE_PREFIX } from 'src/environments/environment';
 import { ServicioAgendadoModalComponent } from './servicio-agendado-modal/servicio-agendado-modal.component';
 import { SolicitudEnviadaModalComponent } from './solicitud-enviada-modal/solicitud-enviada-modal.component';
 import { SolicitudRechazadaModalComponent } from './solicitud-rechazada-modal/solicitud-rechazada-modal.component';
+import { SuccessModalComponent } from 'src/app/shared/success-modal/success-modal.component';
+import { RejectedModalComponent } from './rejected-modal/rejected-modal.component';
 
 moment.locale('es');
 @Component({
@@ -48,6 +50,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     user_client_id: null,
     work_days: null,
     suplierPhone1: null,
+    reasons: null,
   };
   serviceId: string;
   wDate;
@@ -109,7 +112,6 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
   }
 
   serviceDetal(statusID: number) {
-    this.solServ.clearSolicitud();
     this.solServ.setServiceID(this.loadedService.request_id);
     switch (statusID) {
       case ServiceStatus.SolicitudEnviada:
@@ -127,10 +129,25 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
       case ServiceStatus.ServicioRealizado:
         this.srvPay();
         break;
+      case ServiceStatus.ServicioRechazado:
+        this.openReasonsModal();
+        break;
       default:
         this.saModal();
         break;
     }
+  }
+
+  async openReasonsModal() {
+    const successModal = await this.modalController.create({
+      component: RejectedModalComponent,
+      componentProps: {
+        message: this.loadedService.reasons || 'No disponible',
+        redirect: false,
+      },
+      cssClass: 'modalSuccess',
+    });
+    successModal.present();
   }
 
   seModal() {
