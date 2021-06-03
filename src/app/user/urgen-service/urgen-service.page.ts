@@ -160,6 +160,7 @@ export class UrgenServicePage implements OnInit {
       imgFile = imageData;
     }
     this.loadedImages.push(imgFile);
+    this.loadedImagesDisplay.push(imageData);
   }
 
   confirmRequest() {
