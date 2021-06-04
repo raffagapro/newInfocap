@@ -116,4 +116,24 @@ export class NotificacionesPage implements OnInit {
     return moment(`${date} ${hours}`, 'DD-MM-YYYY hh:mm:ss').startOf('minute').fromNow();
   }
 
+  async deleteNotification(notificationId: number) {
+    let loader = await this.loadingController.create({ message: 'Eliminando notificación...' });
+    try {
+      await loader.present();
+      await axios.delete(
+        `${API}/notification/${notificationId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.user.access_token}`
+          }
+        }
+      );
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      await loader.dismiss();
+      this.loadNotifications();
+    }
+  }
+
 }

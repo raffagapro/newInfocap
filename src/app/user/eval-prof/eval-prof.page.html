@@ -92,9 +92,31 @@
     </ion-row>
 
     <!-- title -->
+    <ion-row *ngIf="currentRate <= 3" class="ion-margin-top">
+      <ion-col size="10" offset="1" class="ion-text-center">
+        <ion-text class="main-color title"><b>¡Lamentamos que no te encuentres satisfecho!</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- text-area -->
+    <ion-row *ngIf="currentRate <= 3" class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="border ion-text-center">
+        <ion-item lines="none">
+          <ion-textarea [(ngModel)]="comment_bad_services" name="comment_bad_services" rows="3" cols="20"
+            placeholder="Agrega una descripción del porque no se encuentra satisfecho.">
+          </ion-textarea>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <!-- title -->
     <ion-row class="ion-margin-top">
       <ion-col size="10" offset="1" class="ion-text-center">
-        <ion-text class="main-color title"><b>Deja un comentario para el profesional</b></ion-text>
+        <ion-text class="main-color title"><b>Coméntanos el motivo de la calificación otrogada <span
+              class="redText">*</span></b></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -104,7 +126,8 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="border ion-text-center">
         <ion-item lines="none">
-          <ion-textarea rows="3" cols="20" placeholder="Agrega una descripción." [(ngModel)]="comment" name="comment"></ion-textarea>
+          <ion-textarea rows="3" cols="20" placeholder="Agrega una descripción." [(ngModel)]="comment" name="comment">
+          </ion-textarea>
         </ion-item>
       </ion-col>
       <ion-col size="1"></ion-col>
@@ -126,8 +149,7 @@
     <ion-row class="ion-margin-top ion-margin-bottom">
       <ion-col size="1"></ion-col>
       <ion-col size="4">
-        <ion-button size="5" expand="block" fill="outline" class="btn-text ion-text-uppercase"
-          (click)="goBack()">
+        <ion-button size="5" expand="block" fill="outline" class="btn-text ion-text-uppercase" (click)="goBack()">
           Omitir
         </ion-button>
       </ion-col>

@@ -48,16 +48,18 @@
             <ion-badge color="primary" class="badge-text">
               {{ selectedProCat.categoryName }}
             </ion-badge>
-            <div *ngIf="selectedProCat && selectedProCat.categories && selectedProCat.categories.length > 1" style="display: inline-flex">
-              <ion-badge *ngFor="let category of selectedProCat.categories.slice(1, selectedProCat.categories.length);" color="medium" class="badge-text">
+            <div *ngIf="selectedProCat && selectedProCat.categories && selectedProCat.categories.length > 1"
+              style="display: inline-flex">
+              <ion-badge *ngFor="let category of selectedProCat.categories.slice(1, selectedProCat.categories.length);"
+                color="medium" class="badge-text">
                 {{ category.categoryName }}
               </ion-badge>
             </div>
             <br>
             <!-- <ion-badge color="medium" class="badge-text">Gasfiter</ion-badge>
             <ion-badge color="medium" class="badge-text">Eléctrico</ion-badge><br> -->
-            <p class="textSelect main-color ion-text-capitalize" style="margin-top: 0; margin-bottom: 0;">Vehículo: {{
-              selectedProCat.transportName}}</p>
+            <!--<p class="textSelect main-color ion-text-capitalize" style="margin-top: 0; margin-bottom: 0;">Vehículo: {{
+              selectedProCat.transportName}}</p>-->
             <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">Horario: {{ editedHours }}</p>
             <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">Dias: {{ editedDays }}</p>
             <p class="textSelect main-color ion-text-capitalize" style="margin-top: 0; margin-bottom: 0;">{{
