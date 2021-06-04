@@ -26,10 +26,12 @@
       </ion-col>
       <ion-col size="6">
         <ion-item class="select-categories">
-          <ion-select [(ngModel)]="categorySelected" placeholder="Categorías" interface="popover" class="select-categories-component" (ngModelChange)="changeCategory()">
-            <ion-select-option *ngFor="let cat of categories" [value]="cat.id"  class="main-color ion-text-center">{{
-              cat.name }}</ion-select-option>
-          </ion-select>
+          <select class="select-categories-component"         
+          (ngModelChange)="changeCategory($event)"
+          [ngModel]="categorySelected">
+            <option value="null" disabled>Categoría</option>
+            <option *ngFor="let cat of categories"  value="{{ cat.id }}">{{ cat.name }}</option>
+          </select>
         </ion-item>
       </ion-col>
       <ion-col size="1"></ion-col>

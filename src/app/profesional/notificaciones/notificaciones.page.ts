@@ -7,9 +7,10 @@ import { API } from 'src/environments/environment';
 import { Notification } from 'src/shared/types/Notification';
 import axios from 'axios'
 import { ActivatedRoute, Router } from '@angular/router';
-import { SolicitudService } from 'src/app/services/solicitud.service';
 import { NotificationsService } from 'src/app/services/notifications-service';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
+
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-notificaciones',
@@ -85,6 +86,10 @@ export class NotificacionesPage implements OnInit {
     }).catch(err => {
       console.log(err)
     })
+  }
+
+  formatdate(date: string, hours: string) {
+    return moment(`${date} ${hours}`, 'DD-MM-YYYY hh:mm:ss').startOf('minute').fromNow();
   }
 
   ionViewWillEnter() {

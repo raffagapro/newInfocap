@@ -10,6 +10,8 @@ import { API } from 'src/environments/environment';
 import axios from 'axios'
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
+import * as lodash from 'lodash'
+
 @Component({
   selector: 'app-finalizados',
   templateUrl: './finalizados.page.html',
@@ -60,9 +62,15 @@ export class FinalizadosPage implements OnInit, OnDestroy {
         loadingEl.dismiss();
         if (statusID === "5") {
           this.loadedServices = resData.data.data;
+          this.loadedServices = lodash.orderBy(this.loadedServices, function(dateObj) {
+            return new Date(dateObj.date_required);
+          });
         }
         if (statusID === "6") {
           this.paidServices = resData.data.data;
+          this.paidServices = lodash.orderBy(this.paidServices, function(dateObj) {
+            return new Date(dateObj.date_required);
+          });
         }
       }).catch(err => {
         console.log(err);

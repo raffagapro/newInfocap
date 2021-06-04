@@ -76,6 +76,7 @@ export class LoginPage implements OnInit {
           roles[0],
           access_token,
         );
+
         this.us.setUser(this.grabbedUSer);
         this.as.login();
         form.control.reset();

@@ -1,38 +1,37 @@
-.prof-cont
-{
+.prof-cont {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     margin-bottom: 10px;
 }
-.titleSelect
-{
+.titleSelect {
     font-size: 16px;
     font-weight: bold;
 }
-.mainText
-{
+.mainText {
     font-size: 13px;
 }
-.miniText
-{
+.miniText {
     font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-height: 16px;
+    max-height: 32px;
+    -webkit-box-orient: vertical;
 }
-.title
-{
+.title {
     font-size: 17px;
 }
-.miniBtnTxt
-{
+.miniBtnTxt {
     font-size: 8px;
 }
-.iconSize
-{
+.iconSize {
     font-size: 20px;
 }
-.iconS{
+.iconS {
     font-size: 22px;
 }
-.iconFix
-{
+.iconFix {
     margin-bottom: -2px;
 }
 

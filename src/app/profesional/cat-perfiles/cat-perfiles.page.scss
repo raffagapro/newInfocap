@@ -67,3 +67,27 @@
 .imgSlide {
     height: 300px;
 }
+.select-categories-component {
+    --padding-top: 0;
+    --padding-bottom: 0;
+    margin-top: -16px;
+    height: 2rem;
+    width: 155px;
+    background-color: white;
+    color: #009ACE;
+    border-color: white;
+    margin-left: -4px;
+}
+.select-categories {
+    border: 1px solid #009ACE;
+    border-radius: 32px;
+    height: 2rem;
+}
+.delete-icon {
+    font-size: 32px;
+    background-color: white;
+    position: absolute;
+    border-radius: 50%;
+    right: 0px;
+    top: 0;
+}

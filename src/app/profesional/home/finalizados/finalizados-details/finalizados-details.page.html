@@ -108,9 +108,9 @@
     <ion-row class="ion-margin-top ion-margin-bottom">
       <ion-col size="1"></ion-col>
       <ion-col>
-        <ion-button expand="block" class="ion-text-uppercase" color="primary" (click)="rateClient()">
+        <ion-button [disabled]="!showRateProfessional" expand="block" class="ion-text-uppercase" color="primary" (click)="rateClient()">
           <ion-icon slot="start" name="thumbs-up"></ion-icon>
-          CALIFICAR CLIENTE
+          {{showRateProfessional ? 'CALIFICAR AL CLIENTE' : 'YA HAS CALIFICADO AL CLIENTE'}}
         </ion-button>
       </ion-col>
       <ion-col size="1"></ion-col>

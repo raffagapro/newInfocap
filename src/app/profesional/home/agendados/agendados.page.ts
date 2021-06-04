@@ -11,6 +11,7 @@ import { CalendarComponent } from 'ionic2-calendar';
 import axios from 'axios'
 import * as moment from 'moment';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
+import * as lodash from 'lodash'
 
 @Component({
   selector: 'app-agendados',
@@ -111,16 +112,25 @@ export class AgendadosPage implements OnInit, OnDestroy {
         loadingEl.dismiss();
         if (statusID === "3") {
           this.loadedServices = resData.data.data;
+          this.loadedServices = lodash.orderBy(this.loadedServices, function(dateObj) {
+            return new Date(dateObj.date_required);
+          });
           this.formatEvents(resData.data.data, "3")
           this.myCal.loadEvents();
         }
         if (statusID === "4") {
           this.loadedStartedServices = resData.data.data;
+          this.loadedStartedServices = lodash.orderBy(this.loadedStartedServices, function(dateObj) {
+            return new Date(dateObj.date_required);
+          });
           this.formatEvents(resData.data.data, "4")
           this.myCal.loadEvents();
         }
         if (statusID === "2") {
           this.loadedVisits = resData.data.data;
+          this.loadedVisits = lodash.orderBy(this.loadedVisits, function(dateObj) {
+            return new Date(dateObj.date_required);
+          });
           this.formatEvents(resData.data.data, "2")
           this.myCalAgended.loadEvents();
         }

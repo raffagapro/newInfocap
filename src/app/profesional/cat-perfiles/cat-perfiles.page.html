@@ -19,21 +19,14 @@
   <!-- cat selection -->
   <ion-grid fixed>
     <ion-row>
-      <ion-col size="9" offset="1">
-        <ion-item>
-          <ion-select 
-            interface="action-sheet" 
-            cancelText="Cancelar" 
-            (ionChange)="onCatProfileChange($event.detail.value)"
-            value="{{ selectedProPerfil }}"
-            >
-            <ion-select-option
-              *ngFor="let cat of profCategories" 
-              value="{{ cat.id }}"
-              class="main-color ion-text-center catText"
-              >{{ cat.categoryName }}
-            </ion-select-option>
-          </ion-select>
+      <ion-col size="6" offset="3">
+        <ion-item  class="select-categories">
+          <select class="select-categories-component"         
+          (ngModelChange)="onCatProfileChange($event)"
+          [ngModel]="selectedProPerfil">
+            <option value="null" disabled>Categoría</option>
+            <option *ngFor="let cat of profCategories"  value="{{ cat.id }}">{{ cat.categoryName }}</option>
+          </select>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -148,12 +141,13 @@
       </ion-row>
 
       <!-- images -->
-      <ion-row class="ion-align-items-center ion-margin-top ">
-        <ion-col size="7" offset="1">
+      <ion-row class="ion-align-items-center ion-justify-content-center ion-margin-top">
+        <ion-col *ngIf="proCategoryImg && proCategoryImg.length > 0" size="8">
           <ion-slides>
 
             <!-- loaded slides  -->
-            <ion-slide *ngFor="let image of proCategoryProfile.images">
+            <ion-slide *ngFor="let image of proCategoryImg">
+              <!-- <ion-icon class="delete-icon" name="close-circle" color="danger"></ion-icon> -->
               <ion-img 
                 src="{{ image.image }}"
                 class="imgSlide">
@@ -162,7 +156,7 @@
 
           </ion-slides>
         </ion-col>
-        <ion-col size="4">
+        <ion-col size="4" class="ion-justify-content-center">
           <ion-button (click)="onLoadImg(false)" shape="round">
             <ion-icon name="add" slot="end" color="light" class="rating-text"></ion-icon>
           </ion-button>
