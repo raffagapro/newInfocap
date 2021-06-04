@@ -23,6 +23,8 @@ export class EvalProfPage implements OnInit {
   currentRate: number = 1;
   error;
   comment;
+  comment_bad_services = '';
+
   constructor(
     private modalController: ModalController,
     private router: Router,
@@ -64,8 +66,6 @@ export class EvalProfPage implements OnInit {
   }
 
   async rateProfessional() {
-    console.log(this.comment)
-
     try {
       let loader = await this.loadingController.create({ message: 'Enviando calificación...' });
       loader.present();
@@ -77,7 +77,7 @@ export class EvalProfPage implements OnInit {
         service_and_satisfaction: this.selectedIcons.includes('diamond') ? '1' : '0',
         stars: this.currentRate.toString(),
         comment: this.comment,
-        comment_bad_services: this.comment,
+        comment_bad_services: this.comment_bad_services,
       }
       let response = await axios.post(
         `${API}/supplier/evaluation`,

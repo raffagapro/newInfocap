@@ -54,7 +54,7 @@
     text-align: right;
     font-weight: bold;
 }
-.red-text{
+.red-text {
     color: #eb445a;
 }
 .gray-text {
@@ -62,4 +62,7 @@
 }
 .blue-text {
     color: #009ace;
+}
+ion-item {
+    --border-color: transparent !important;
 }
