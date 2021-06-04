@@ -80,12 +80,12 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName
     this.loadedInfo.description = this.solicitudServicio.solicitud.description
     moment().format('YYYY-MM-D')
-    if (this.solicitudServicio.solicitud.type === 'URGENT') {
-      this.solicitudServicio.setDateRequired(moment().format('YYYY-MM-D'))
-      let secondHour = this.solicitudServicio.solicitud.hours.split("/")
+    // if (this.solicitudServicio.solicitud.type === 'URGENT') {
+    //   this.solicitudServicio.setDateRequired(moment().format('YYYY-MM-D'))
+    //   let secondHour = this.solicitudServicio.solicitud.hours.split("/")
 
-      this.solicitudServicio.setHours(moment().toISOString(true) + '/' + secondHour[1]);
-    }
+    //   this.solicitudServicio.setHours(moment().toISOString(true) + '/' + secondHour[1]);
+    // }
 
     this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
     this.loadedInfo.hours = this.solicitudServicio.solicitud.hours.split("/")

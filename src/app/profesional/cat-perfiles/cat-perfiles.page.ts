@@ -64,11 +64,12 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   searchValue: string;
 
   proCategoryProfile = {
-    images: [],
     communes: null,
     category_id: null,
     transports: null
   };
+
+  proCategoryImg: Object[]
 
   constructor(
     private lc: LoadingController,
@@ -141,8 +142,10 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
         } else {
           this.profCategories = resData.data.data;
           this.proCategoryProfile =  resData.data.data[0];
+          this.proCategoryImg = resData.data.data[0].images
           this.selectedProPerfil = this.profCategories[0].id;
           this.selectedCatId = this.profCategories[0].category_id
+          this.onCatProfileChange(this.selectedProPerfil)
           this.updateForm(this.profCategories[0]);
         }
       }
@@ -162,6 +165,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
         this.selectedProPerfil = profileID;
         this.updateForm(resData.data.data)
         this.proCategoryProfile =  resData.data.data;
+        this.proCategoryImg = resData.data.data.images
       }).catch(err => {
         loadingEl.dismiss();
       })
@@ -352,6 +356,9 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     } else {
       imgFile = imageData;
     }
+
+    this.proCategoryImg.push({image: URL.createObjectURL(imgFile)})
+
     this.form.patchValue({ image: imgFile });
     this.lc.create({
       message: 'Guardando imagen...'

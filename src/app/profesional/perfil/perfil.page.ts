@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ModalController, Platform } from '@ionic/angular';
@@ -52,7 +51,6 @@ export class PerfilPage implements OnInit, OnDestroy {
   constructor(
     private us: UserService,
     private lc: LoadingController,
-    private http: HttpClient,
     private modalController: ModalController,
     private platform: Platform,
   ) { }
@@ -64,9 +62,9 @@ export class PerfilPage implements OnInit, OnDestroy {
     //api headers
     this.headers = 'Bearer ' + this.grabbedUser.access_token;
     // updates to the most current info from DB
-    this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
     let phone1: string;
     let phone2: string;
+    this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
     if (this.grabbedUser.phone1 === '-') {
       phone1 = null;
     } else {
@@ -107,6 +105,23 @@ export class PerfilPage implements OnInit, OnDestroy {
     if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
       this.useInputPicker = true;
     }
+
+    this.ckeckUpdateUser(this.headers)
+  }
+
+  async ckeckUpdateUser(token)
+  {
+    await axios.get(API + '/account/me', { headers: { Authorization: token } }).then(res => {
+      this.form.setValue({
+        name: res.data.data.name + ' ' + res.data.data.last_name,
+        email: res.data.data.email,
+        phone1: res.data.data.phone1,
+        phone2: res.data.data.phone2,
+        password: null,
+        newPassword: null,
+        confirmPassword: null,
+      });
+    })
   }
 
   onUpdateUser() {

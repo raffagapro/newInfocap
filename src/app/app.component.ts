@@ -63,6 +63,10 @@ export class AppComponent {
     });
   }
 
+  ionViewWillEnter() {
+    console.log('Enter')
+  }
+
   private setUser() {
     this.logged.subscribe(v => {
       if (v) {

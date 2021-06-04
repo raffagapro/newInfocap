@@ -39,6 +39,8 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
     autoplay: true
   };
 
+  showRateProfessional = false
+
   constructor(
     private router: Router,
     private menuController: MenuController,
@@ -85,6 +87,13 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
       }).catch(err => {
         console.log(err)
         loadingEl.dismiss();
+      })
+
+      axios.get(API + `/supplier/evaluation/done/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(response => {
+        this.showRateProfessional = response.data.data ? response.data.data.length > 0 : false;
+      }).catch(err => {
+        console.log(err)
+        this.showRateProfessional = false;
       })
     });
   }

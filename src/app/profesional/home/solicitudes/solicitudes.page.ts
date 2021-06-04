@@ -10,6 +10,7 @@ import { API } from 'src/environments/environment';
 import { ServiceRejectModalComponent } from './service-reject-modal/service-reject-modal.component';
 
 import * as moment from 'moment'
+import * as lodash from 'lodash'
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
 @Component({
@@ -61,6 +62,8 @@ export class SolicitudesPage implements OnInit, OnDestroy {
       axios.get(API + `/supplier/requestservice/${statusID}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
         this.loadedServices = resData.data.data.filter(s => s.hours_creation == "0");
+        this.loadedServices = lodash.sortBy(this.loadedServices, ['id'])
+        this.loadedServices = lodash.reverse(this.loadedServices)
       }).catch(err => {
         console.log(err);
         loadingEl.dismiss();

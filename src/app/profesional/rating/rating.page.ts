@@ -43,7 +43,7 @@ export class RatingPage implements OnInit {
         this.categories = resData.data.data;
         if(this.categories.length > 0) {
           this.categorySelected = this.categories[0].id
-          this.changeCategory()
+          this.changeCategory(this.categories[0].id)
         }
         
         loadingEl.dismiss();
@@ -53,9 +53,9 @@ export class RatingPage implements OnInit {
     })
   }
 
-  changeCategory()
+  changeCategory(categoryID)
   {
-    axios.get(API + `/supplier/evaluation/filtercategorie/${this.categorySelected}`, { headers: { Authorization: this.headers } }).then(resData => {
+    axios.get(API + `/supplier/evaluation/filtercategorie/${categoryID}`, { headers: { Authorization: this.headers } }).then(resData => {
       this.comments = resData.data.data
     }).catch(err => {
       this.comments = {
