@@ -26,7 +26,7 @@ export class MapaPage implements OnInit, OnDestroy {
   map: any;
   // lat: string;
   // long: string;  
-  autocomplete: { input: string; };
+  autocomplete: { input: string; } = { input: '-' };
   autocompleteItems: any[];
   placeid: any;
   GoogleAutocomplete: any;
@@ -203,7 +203,7 @@ export class MapaPage implements OnInit, OnDestroy {
     this.userSub.unsubscribe();
   }
 
-  async getComunes(){
+  async getComunes() {
     try {
       let response = await axios.get(
         `${API}/location/communes`,
@@ -214,7 +214,7 @@ export class MapaPage implements OnInit, OnDestroy {
         }
       );
       this.comunas = response.data.data;
-    }catch(error){
+    } catch (error) {
       console.log(error)
     }
   }

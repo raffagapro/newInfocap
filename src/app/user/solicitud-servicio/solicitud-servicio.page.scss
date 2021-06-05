@@ -1,29 +1,29 @@
-.no-border{
+.no-border {
   padding-top: 2px;
   padding-bottom: 2px;
 }
-.profileImg{
+.profileImg {
   margin: auto;
   height: 75px;
   width: 75px;
 }
-.titleSelect{
+.titleSelect {
   font-size: 23px;
   font-weight: bold;
 }
-.tittle{
+.tittle {
   font-size: 18px;
 }
-.border{
-  border: 1px solid #009ACE;
+.border {
+  border: 1px solid #009ace;
 }
-.regText{
+.regText {
   font-size: 14px;
 }
-.imgSingle{
+.imgSingle {
   height: 125px;
 }
-.locate-cont{
+.locate-cont {
   border-radius: 50px;
   height: 50px;
   width: 50px;
@@ -32,17 +32,32 @@
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  background-color: #009ACE;
+  background-color: #009ace;
 }
-.rating-text{
+.rating-text {
   font-size: 26px;
   margin-left: auto;
   margin-right: auto;
 }
 .textarea::placeholder {
-  color: #009ACE;
-  --placeholder-color: #009ACE;
+  color: #009ace;
+  --placeholder-color: #009ace;
 }
-.slide{
+.slide {
   margin: 0 5px;
+}
+.deleteBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 100%;
+  color: white;
+  width: 32px;
+  padding: 0;
+  margin: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  ion-icon {
+    position: absolute;
+  }
 }

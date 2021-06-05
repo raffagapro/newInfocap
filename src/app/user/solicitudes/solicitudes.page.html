@@ -28,23 +28,25 @@
   <ion-grid class="ion-margin-top" *ngIf="!loadedServices || loadedServices.length < 1">
     <ion-row class="subtitle ion-margin-top">
       <ion-col size="8" offset="2" class="ion-text-center">
-        <ion-text class="footer-text main-color" ><b>Aún no tienes solicitudes hechas.</b></ion-text>
+        <ion-text class="footer-text main-color"><b>Aún no tienes solicitudes hechas.</b></ion-text>
       </ion-col>
     </ion-row>
   </ion-grid>
 
   <!-- servicio iterable -->
-  <div class="prof-cont ion-margin-top no-border" *ngFor="let service of loadedServices" (click)="solicitudDetails(service.request_id, service.status_id === 6)">
+  <div class="prof-cont ion-margin-top no-border" *ngFor="let service of loadedServices"
+    (click)="solicitudDetails(service.request_id, service.status_id === 6)">
     <ion-grid>
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
         <ion-col size="8" sizeMd="10" class="ion-justify-content-center">
           <ion-text>
-            <span class="titleSelect main-color ion-text-capitalize">{{ service.supplierName+" "+service.supplierLastName }} </span><br>
+            <span class="titleSelect main-color ion-text-capitalize">{{ service.supplierName+"
+              "+service.supplierLastName }} </span><br>
             <!-- <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp; -->
             <ion-badge color="medium" class="badge-text">{{ service.categoryName }}</ion-badge><br>
-            <span class="textSelect">{{ service.description }}</span><br>
+            <p class="textSelect">{{ service.description }}</p>
             <small class="main-color">{{ formatdate(service.created_date) }}</small>
           </ion-text>
         </ion-col>

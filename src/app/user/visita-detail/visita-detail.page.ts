@@ -5,8 +5,6 @@ import axios from 'axios';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { API } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
-
-import { ConfirmSuccessModalComponent } from './confirm-success-modal/confirm-success-modal.component';
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { Moment } from 'moment';
@@ -52,6 +50,7 @@ export class VisitaDetailPage implements OnInit {
     autoplay: true
   };
 
+  showButtons: boolean = true;
   error: boolean = false;
   errorMessage: string = '';
 
@@ -93,6 +92,7 @@ export class VisitaDetailPage implements OnInit {
       if (this.loadedService.img_request.length < 2) {
         this.slideOptions.slidesPerView = 1;
       }
+      this.showButtons = this.loadedService.status_id === 2
     } catch (error) {
       console.log(error);
     } finally {
@@ -145,6 +145,7 @@ export class VisitaDetailPage implements OnInit {
     loader.dismiss();
 
     if (!this.error) {
+      this.showButtons = false;
       let message = client_accepted === 1 ? 'HAZ ACEPTADO LA VISITA TÉCNICA' : 'HAZ OMITIDO LA VISITA TÉCNICA';
       const successModal = await this.modalController.create({
         component: SuccessModalComponent,

@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -151,11 +152,12 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
 
   onLoadImgFromInput(e: Event) {
     const loadedFile = (e.target as HTMLInputElement).files[0];
-    this.saveImgToApi(loadedFile);
+    //this.saveImgToApi(loadedFile);
     //converting images to blob for diplaying
     const fr = new FileReader();
     fr.onload = () => {
-      this.loadedImagesDisplay.push(fr.result.toString());
+      this.saveImgToApi(fr.result.toString());
+      //this.loadedImagesDisplay.push(fr.result.toString());
     };
     fr.readAsDataURL((e.target as HTMLInputElement).files[0]);
   }
@@ -174,6 +176,11 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
     }
     this.loadedImages.push(imgFile);
     this.loadedImagesDisplay.push(imageData);
+  }
+
+  removeImage(imageIndex: number) {
+    this.loadedImages = this.loadedImages.filter((image: any, index: number) => index !== imageIndex)
+    this.loadedImagesDisplay = this.loadedImagesDisplay.filter((image: any, index: number) => index !== imageIndex)
   }
 
   confirmRequest() {
@@ -226,6 +233,17 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
           console.log(err);
         });
     });
+  }
+
+  async openImage(image: string) {
+    const successModal = await this.modalController.create({
+      component: ImageModalComponent,
+      componentProps: {
+        image,
+      },
+      cssClass: 'modalImage',
+    });
+    successModal.present();
   }
 
   ngOnDestroy() {

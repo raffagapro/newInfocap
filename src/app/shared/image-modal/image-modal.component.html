@@ -1,0 +1,23 @@
+<ion-content class="success-modal">
+  <ion-grid style="height: 100%;">
+
+    <!-- SERVICIO REALIZADO  -->
+    <div class="modal-cont">
+      <ion-row>
+        <ion-col size="10" offset="1" class="ion-text-center">
+          <ion-img src="{{ image }}" class="imgSlide"></ion-img>
+          <br>
+        </ion-col>
+        <ion-col size="10" offset="1" class="ion-text-center">
+          <ion-text>
+            <hr>
+          </ion-text>
+        </ion-col>
+        <ion-col size="10" offset="1" class="ion-text-center">
+          <ion-text class="main-color mini-text" (click)="dismiss()">CERRAR</ion-text><br>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </ion-grid>
+</ion-content>

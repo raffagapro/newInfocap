@@ -104,7 +104,7 @@
     </ion-row>
 
     <!-- eceptar visita BTN -->
-    <ion-row class="ion-margin-top" *ngIf="loadedService.status_id === 2">
+    <ion-row class="ion-margin-top" *ngIf="showButtons">
       <ion-col size="1"></ion-col>
       <ion-col>
         <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="confirmVisit(1)">
@@ -115,10 +115,10 @@
     </ion-row>
 
     <!-- imitir por el momento BTN -->
-    <ion-row class="ion-margin-bottom" *ngIf="loadedService.status_id === 2">
+    <ion-row class="ion-margin-bottom" *ngIf="showButtons">
       <ion-col size="1"></ion-col>
       <ion-col>
-        <ion-button size="5" expand="block" fill="outline" class="ion-text-uppercase" (click)="confirmVisit(1)">
+        <ion-button size="5" expand="block" fill="outline" class="ion-text-uppercase" (click)="confirmVisit(0)">
           OMITIR POR EL MOMENTO
         </ion-button>
       </ion-col>

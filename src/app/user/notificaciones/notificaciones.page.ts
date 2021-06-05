@@ -113,7 +113,7 @@ export class NotificacionesPage implements OnInit {
   }
 
   formatdate(date: string, hours: string) {
-    return moment(`${date} ${hours}`, 'DD-MM-YYYY hh:mm:ss').startOf('minute').fromNow();
+    return moment.utc(`${date} ${hours}`, 'DD-MM-YYYY hh:mm:ss').startOf('minute').fromNow();
   }
 
   async deleteNotification(notificationId: number) {

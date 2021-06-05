@@ -47,7 +47,7 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   formatdate(date: string) {
     //moment(new Date(markerOpened.location.registration * 1000)).lang(translator.language).startOf('minute').fromNow()
     //return moment(date, 'DD/MM/YYYY').format('DD MMM YYYY');
-    return moment(date, 'DD/MM/YYYY').startOf('minute').fromNow();
+    return moment(date, 'DD/MM/YYYY hh:mm:ss').startOf('minute').fromNow();
   }
 
   loadServices() {
@@ -59,7 +59,7 @@ export class SolicitudesPage implements OnInit, OnDestroy {
         .subscribe(resData => {
           loadingEl.dismiss();
           this.loadedServices = resData['data'];
-          //this.loadedServices.sort(this.compare);
+          this.loadedServices = this.loadedServices.sort(this.compare);
         }, err => {
           console.log(err);
           loadingEl.dismiss();
@@ -68,10 +68,12 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   }
 
   compare(a, b) {
-    if (a.status_id < b.status_id) {
+    let firstDate = moment(a.created_date, 'DD/MM/YYYY');
+    let secondDate = moment(b.created_date, 'DD/MM/YYYY');
+    if (firstDate > secondDate) {
       return -1;
     }
-    if (a.status_id > b.status_id) {
+    if (firstDate < secondDate) {
       return 1;
     }
     return 0;
