@@ -29,6 +29,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     clientName: null,
     clientLastName: null,
     date_required: null,
+    create_date: null,
     hours: null,
     description: null,
     images: null,
@@ -68,6 +69,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.solicitudServicio.setClientName(resData.data.data.clientName)
         let wDate = resData.data.data.date_required.split("-");
         this.solicitudServicio.setDateRequired(wDate[2] + '-' + wDate[1] + '-' + wDate[0])
+        this.solicitudServicio.setDateCreated(resData.data.data.create_date)
         this.solicitudServicio.setDescription(resData.data.data.description)
         this.solicitudServicio.setHours(resData.data.data.hours)
         this.solicitudServicio.setImages(resData.data.data.images)
@@ -82,6 +84,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.loadedInfo.clientName = resData.data.data.clientName;
 
         this.loadedInfo.date_required = wDate[2] + '-' + wDate[1] + '-' + wDate[0];
+        this.loadedInfo.create_date = resData.data.data.create_date
         this.loadedInfo.description = resData.data.data.description;
         this.loadedInfo.hours = resData.data.data.hours;
         this.loadedInfo.images = resData.data.data.images;
@@ -107,12 +110,12 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     this.menuController.enable(true, 'profesional');
   }
 
-  openWhatsapp(phone: string) {
-    window.open(`https://api.whatsapp.com/send?phone=${PHONE_PREFIX}${phone}`);
+  openWhatsapp() {
+    window.open(`https://api.whatsapp.com/send?phone=${PHONE_PREFIX}${this.loadedInfo.clientPhone1}`);
   }
 
-  call(clientNumb: string) {
-    this.callNumber.callNumber(clientNumb, true)
+  call() {
+    this.callNumber.callNumber(this.loadedInfo.clientPhone1, true)
       .then(res => console.log('Launched dialer!', res))
       .catch(err => console.log('Error launching dialer', err));
   }
@@ -165,8 +168,19 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
       message: 'Registrando tiempo de inicio...'
     }).then(loadingEl => {
       loadingEl.present();
-      axios.put(API + `/supplier/updatestatus/requestservice/${this.solicitudServicio.solicitud.id}/3`, null, { headers: { Authorization: this.headers } }).then(resData => {
+      axios.put(API + `/supplier/updatestatus/requestservice/${this.solicitudServicio.solicitud.id}/4`, null, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
+        axios.put(API + `/supplier/cost/requestservice/${this.solicitudServicio.solicitud.id}`,
+          {
+            "amount": 0,
+            "costs_type_id": 1,
+            "description": "costo inical",
+            "payment_type_id": 1
+          }, {
+          headers: {
+            Authorization: `Bearer ${this.grabbedUser.access_token}`,
+          }
+        })
         this.modalController.create({
           component: ConfirmSuccessStartComponent,
           cssClass: 'modalSuccess',

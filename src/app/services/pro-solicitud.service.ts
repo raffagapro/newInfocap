@@ -7,7 +7,7 @@ import { ProSolicitud } from '../model/proSolicitud.model';
 export class ProSolicitudService {
 
   private _solicitud: ProSolicitud = new ProSolicitud(
-    null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL'
+    null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL'
     );
 
   constructor() { }
@@ -47,6 +47,10 @@ export class ProSolicitudService {
 
   setDateRequired(date:string) {
     this._solicitud.date_required = date
+  }
+
+  setDateCreated(date:string) {
+    this._solicitud.created_date = date
   }
 
   setHours(hours:string) {
@@ -91,7 +95,7 @@ export class ProSolicitudService {
 
 
   clearSolcitud() {
-    this._solicitud = new ProSolicitud(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
+    this._solicitud = new ProSolicitud(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
   }
 
 

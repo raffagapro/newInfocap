@@ -60,7 +60,7 @@
         </ion-grid>
       </ion-item>
 
-      <ion-item class="ion-item-solicitudes" button (click)="aceptarSolicitud(service.id, service.type_request)" #elseBlock>
+      <ion-item class="ion-item-solicitudes" button (click)="aceptarSolicitud(service.id, service.type_request)" *ngIf="service.type_request === 'URGENT'">
         <ion-grid>
           <ion-row class="ion-align-items-center">
             <!-- title -->

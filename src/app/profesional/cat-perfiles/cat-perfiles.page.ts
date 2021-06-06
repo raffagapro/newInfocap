@@ -338,6 +338,11 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     });
   }
 
+  removeImage(imageIndex: number) {
+    // this.loadedImages = this.loadedImages.filter((image: any, index: number) => index !== imageIndex)
+    this.proCategoryImg = this.proCategoryImg.filter((image: any, index: number) => index !== imageIndex)
+  }
+
   onLoadImgFromInput(e: Event) {
     const loadedFile = (e.target as HTMLInputElement).files[0];
     this.saveImgToApi(loadedFile);

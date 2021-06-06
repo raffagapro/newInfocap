@@ -10,6 +10,7 @@ import { VisitaTecnicaService } from 'src/app/services/visita-tecnica.service';
 import { API } from 'src/environments/environment';
 import * as moment from 'moment';
 import { ConfirmSuccessComponent } from '../confirm-success/confirm-success.component';
+import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
 @Component({
   selector: 'app-confirm-visita',
@@ -30,6 +31,7 @@ export class ConfirmVisitaComponent implements OnInit {
     private router: Router,
     private lc: LoadingController,
     private solServ: SolicitudService,
+    private solicitudServicio: ProSolicitudService,
     private visitaT: VisitaTecnicaService,
     private us: UserService,
   ) { }
@@ -71,7 +73,7 @@ export class ConfirmVisitaComponent implements OnInit {
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
       loadingEl.present();
-      axios.put(API + `/supplier/visit/requestservice/${this.solServ.solicitud.solicitudID}`, this.visita_tecnica, { headers: { Authorization: this.headers } }).then(resData => {
+      axios.put(API + `/supplier/visit/requestservice/${this.solicitudServicio.solicitud.id}`, this.visita_tecnica, { headers: { Authorization: this.headers } }).then(resData => {
 
         this.modalController.create({
           component: ConfirmSuccessComponent,

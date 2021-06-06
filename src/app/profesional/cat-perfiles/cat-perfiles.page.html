@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/profesional/home" text="" icon="arrow-back"></ion-back-button>
     </ion-buttons>
-    
+
     <ion-buttons slot="start">
       <ion-button class="homeBtn" (click)="openMenu()">
         <ion-icon name="menu" class="homeBtn"></ion-icon>
@@ -19,15 +19,11 @@
   <!-- cat selection -->
   <ion-grid fixed>
     <ion-row>
-      <ion-col size="6" offset="3">
-        <ion-item  class="select-categories">
-          <select class="select-categories-component"         
-          (ngModelChange)="onCatProfileChange($event)"
-          [ngModel]="selectedProPerfil">
-            <option value="null" disabled>Categoría</option>
-            <option *ngFor="let cat of profCategories"  value="{{ cat.id }}">{{ cat.categoryName }}</option>
-          </select>
-        </ion-item>
+      <ion-col size="7" offset="3">
+        <select class="main-color cusSelect" (ngModelChange)="onCatProfileChange($event)" [ngModel]="selectedProPerfil">
+          <option value="null" disabled>Categoría</option>
+          <option *ngFor="let cat of profCategories" value="{{ cat.id }}">{{ cat.categoryName }}</option>
+        </select>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -37,7 +33,9 @@
     <ion-row class="imgCont">
       <ion-col>
         <ion-avatar class="ion-margin-start profileImg">
-          <ion-img src="{{ !grabbedUser || grabbedUser.img_profile === imageBlank ? 'assets/images/avatar.png' : grabbedUser.img_profile }}"></ion-img>
+          <ion-img
+            src="{{ !grabbedUser || grabbedUser.img_profile === imageBlank ? 'assets/images/avatar.png' : grabbedUser.img_profile }}">
+          </ion-img>
         </ion-avatar>
       </ion-col>
     </ion-row>
@@ -65,9 +63,7 @@
         <ion-col size="1"></ion-col>
         <ion-col size="10" class="border ion-text-center">
           <ion-item lines="none">
-            <ion-textarea 
-              formControlName="descProf"
-              rows="3" cols="20"
+            <ion-textarea formControlName="descProf" rows="3" cols="20"
               placeholder="Agrega tu descripción. Máximo 140 caracteres con espacios.">
             </ion-textarea>
           </ion-item>
@@ -130,9 +126,7 @@
         <ion-col size="1"></ion-col>
         <ion-col size="10" class="border ion-text-center">
           <ion-item lines="none">
-            <ion-textarea 
-              formControlName="descOffice"
-              rows="3" cols="20" 
+            <ion-textarea formControlName="descOffice" rows="3" cols="20"
               placeholder="Agrega una descripción de tu oficio. Máximo 140 caracteres con espacios.">
             </ion-textarea>
           </ion-item>
@@ -146,12 +140,13 @@
           <ion-slides>
 
             <!-- loaded slides  -->
-            <ion-slide *ngFor="let image of proCategoryImg">
+            <ion-slide *ngFor="let image of proCategoryImg; let i = index">
               <!-- <ion-icon class="delete-icon" name="close-circle" color="danger"></ion-icon> -->
-              <ion-img 
-                src="{{ image.image }}"
-                class="imgSlide">
+              <ion-img src="{{ image.image }}" class="imgSlide">
               </ion-img>
+              <ion-button (click)="removeImage(i)" size="small" shape="round" color="danger" class="deleteBtn">
+                <ion-icon name="close-circle-outline"></ion-icon>
+              </ion-button>
             </ion-slide>
 
           </ion-slides>
@@ -167,12 +162,12 @@
       <div style="display: none;">
         <input type="file" #hiddenImgInput *ngIf="useInputPicker" (change)="onLoadImgFromInput($event)">
       </div>
-  
+
 
       <!-- save BTN -->
       <ion-row class="ion-margin-bottom">
         <ion-col offset="1">
-          <ion-button size="10" expand="block" class="ion-text-uppercase" type="submit" >
+          <ion-button size="10" expand="block" class="ion-text-uppercase" type="submit">
             GUARDAR CAMBIOS
           </ion-button>
         </ion-col>

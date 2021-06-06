@@ -16,38 +16,117 @@
   </div>
 
   <!-- notificacion item -->
-  <div class="prof-cont mt-25 no-border" *ngFor="let notification of notifications" >
-    <ion-grid (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id)">
+  <div class="prof-cont mt-25 no-border" *ngFor="let notification of notifications">
+    <ion-grid>
+      <ion-item-sliding no-lines>
+        <ion-item no-lines (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id)">
+          <ion-row class="ion-align-items-center">
+
+            <!-- title -->
+            <ion-col size="7" class="ion-justify-content-center">
+              <ion-text>
+                <!-- <span class="titleSelect main-color">Cerrajería </span><br> -->
+                <ion-badge color="primary" class="titleSelect">{{notification.category}}</ion-badge>&nbsp;
+                <ion-icon color="primary" src="/assets/icon/ic_date_range.svg" class="icon-size"
+                  *ngIf="notification.type_request === 'NORMAL' && notification.status_id == 1"></ion-icon>
+                <ion-icon color="primary" src="/assets/icon/ic_engine_disabled.svg" class="icon-size"
+                  *ngIf="notification.type_request === 'NORMAL' && notification.status_id > 1"></ion-icon>
+                <ion-icon color="danger" name="alert-circle" class="icon-size"
+                  *ngIf="notification.type_request !== 'NORMAL'"></ion-icon>
+                <p class="textSelect {{notification.type_request !== 'NORMAL' ? 'red-color' : ''}}">
+                  {{notification.professionalName}} {{notification.motive}}
+                </p>
+                <!--<small class="main-color">Cambio de chapas</small>-->
+              </ion-text>
+            </ion-col>
+
+            <!-- rating -->
+            <ion-col size="5" class="ion-text-center">
+              <div class="ion-text-end">
+                <small class="ticket">#{{notification.ticket_number}}</small>
+              </div>
+              <ion-text>
+                <p class="ratingText main-color">
+                  {{formatdate(notification.date, notification.hours)}}
+                </p>
+              </ion-text>
+            </ion-col>
+
+          </ion-row>
+        </ion-item>
+        <ion-item-options side="end" no-lines>
+          <ion-item-option color="danger" (click)="deleteNotification(notification.notification_Id)">Eliminar</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-grid>
+  </div>
+
+  <!-- notificacion item -->
+  <!--
+  <div class="prof-cont mt-25 no-border">
+    <ion-grid>
       <ion-row class="ion-align-items-center">
 
-        <!-- title -->
         <ion-col size="7" class="ion-justify-content-center">
           <ion-text>
-            <!-- <span class="titleSelect main-color">Cerrajería </span><br> -->
-            <ion-badge color="primary" class="titleSelect">{{notification.category}}</ion-badge>&nbsp;
-            <ion-icon color="primary" src="/assets/icon/ic_date_range.svg" class="icon-size" *ngIf="notification.type_request === 'NORMAL' && notification.status_id == 1"></ion-icon>
-            <ion-icon color="primary" src="/assets/icon/ic_engine_disabled.svg" class="icon-size" *ngIf="notification.type_request === 'NORMAL' && notification.status_id > 1"></ion-icon>
-            <ion-icon color="danger" name="alert-circle" class="icon-size" *ngIf="notification.type_request !== 'NORMAL'"></ion-icon>
-            <p class="textSelect {{notification.type_request !== 'NORMAL' ? 'red-color' : ''}}">
-              {{notification.professionalName}} {{notification.motive}}
-            </p>
-            <!--<small class="main-color">Cambio de chapas</small>-->
+            <ion-badge color="primary" class="titleSelect">Soldadura</ion-badge>&nbsp;
+            <ion-icon color="medium" src="/assets/icon/ic_engine_disabled.svg" class="icon-size"></ion-icon><br>
+            <span class="textSelect">
+              La fecha límite de un servicio está por llegar.
+            </span><br>
+            <small class="main-color">Rejas</small>
           </ion-text>
         </ion-col>
+        <ion-col size="1"></ion-col>
 
-        <!-- rating -->
-        <ion-col size="5" class="ion-text-center">
+        <ion-col size="4" class="ion-text-center">
           <div class="ion-text-end">
-            <small class="ticket">#{{notification.ticket_number}}</small>
+            <small class="ticket">#100091234</small>
           </div>
           <ion-text>
-            <p class="ratingText main-color">
-              {{formatdate(notification.date, notification.hours)}}
-            </p>
+            <small class="ratingText main-color ion-text-center">
+              16 dic 2020
+            </small>
           </ion-text>
         </ion-col>
 
       </ion-row>
     </ion-grid>
   </div>
+  -->
+
+  <!-- notificacion item -->
+  <!--
+  <div class="prof-cont mt-25 no-border">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+
+        <ion-col size="7" class="ion-justify-content-center">
+          <ion-text>
+            <ion-badge color="danger" class="titleSelect">Cerrajería</ion-badge>&nbsp;
+            <ion-icon color="danger" name="alert-circle" class="icon-size"></ion-icon><br>
+            <span class="textSelect">
+              Santiago Pérez está en busca de un servicio urgente.
+            </span><br>
+            <small class="red-color">Cambio de chapas</small>
+          </ion-text>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+
+        <ion-col size="4" class="ion-text-center">
+          <div class="ion-text-end">
+            <small class="ticket">#100091234</small>
+          </div>
+          <ion-text>
+            <small class="ratingText main-color ion-text-center">
+              16 dic 2020
+            </small>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+  -->
+
 </ion-content>

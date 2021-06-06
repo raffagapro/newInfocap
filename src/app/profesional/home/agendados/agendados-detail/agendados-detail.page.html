@@ -153,12 +153,12 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <!-- icons -->
-        <div class="locate-cont bg-green-color" (click)="openWhatsapp(loadedInfo.clientPhone1)">
-          <ion-icon name="call" color="light" class="rating-text"></ion-icon>
+        <div class="locate-cont" (click)="call()">
+          <ion-icon src="/assets/icon/ic_phone_circle.svg" color="light" class="rating-text"></ion-icon>
         </div>
-        <!-- <div class="locate-cont bg-green-color">
-          <ion-icon name="logo-whatsapp" color="light" class="rating-text"></ion-icon>
-        </div> -->
+        <div class="locate-cont" (click)="openWhatsapp()">
+          <ion-icon src="/assets/icon/ic_whatsapp.svg" color="light" class="rating-text"></ion-icon>
+        </div>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>

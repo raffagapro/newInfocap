@@ -117,4 +117,40 @@ margin-right: auto;
     border-color: white;
     margin-left: -4px;
 }
+
+.deleteBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 100%;
+    color: white;
+    width: 32px;
+    padding: 0;
+    margin: 0;
+    --padding-start: 0;
+    --padding-end: 0;
+    ion-icon {
+      position: absolute;
+    }
+  }
+
+  
+  .cusSelect {
+    border: 0px;
+    outline: 0px;
+    font-size: 14px;
+    background-color: white;
+    width: 100%;
+    border: solid 2px #009ace;
+    border-radius: 10px;
+    padding: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none; /* Firefox */
+    -webkit-appearance: none; /* Safari and Chrome */
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='#009ace' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 98%;
+    background-position-y: 50%;
+  }
   

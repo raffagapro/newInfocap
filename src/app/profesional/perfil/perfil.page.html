@@ -62,7 +62,7 @@
               <ion-icon name="mail" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Email</ion-text>
             </ion-label>
-            <ion-input readonly type="text" formControlName="email"></ion-input>
+            <ion-input disabled type="text" formControlName="email"></ion-input>
           </ion-item>
           <!-- error requerido  -->
           <ion-label *ngIf="form.get('email').hasError('required')" class="errorMess">
