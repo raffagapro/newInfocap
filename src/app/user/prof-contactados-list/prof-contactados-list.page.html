@@ -33,9 +33,9 @@
             <span class="titleSelect main-color ion-text-capitalize">{{ service.supplierName+" "+service.supplierLastName }} </span><br>
             <ion-badge color="medium" class="badge-text"  *ngFor="let cat of service.categories">{{ cat.categoryName }}</ion-badge>
             <br>
-            <span class="textSelect">
+            <p class="textSelect">
               {{ service.descProf }}
-            </span><br>
+            </p>
             <small class="main-color">{{ p(service.created_date) }}</small>
           </ion-text>
         </ion-col>

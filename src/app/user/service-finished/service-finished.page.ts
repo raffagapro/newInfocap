@@ -49,6 +49,7 @@ export class ServiceFinishedPage implements OnInit {
     autoplay: true
   };
   showRateProfessional = false;
+  requestCost = 'N/D';
 
   constructor(
     private modalController: ModalController,
@@ -89,6 +90,7 @@ export class ServiceFinishedPage implements OnInit {
         this.slideOptions.slidesPerView = 1;
       }
       await this.validateIfRatingYet();
+      await this.getRequestCosts();
     } catch (error) {
       console.log(error);
     } finally {
@@ -118,6 +120,27 @@ export class ServiceFinishedPage implements OnInit {
     return `${startHour.format('h:mm a')} a ${endHour.format('h:mm a')}`;
   }
 
+  async getRequestCosts() {
+    try {
+      let response = await axios.get(
+        `${API}/client/costrequest/${this.solServ.solicitud.solicitudID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.user.access_token}`
+          }
+        }
+      );
+      if (response.data && response.data.status === 200) {
+        console.log(response)
+        if (response.data.data && response.data.data.total) {
+          this.requestCost = response.data.data.total.reduce((accumulator, entry) => (entry.toal || 0) + accumulator, 0);
+        }
+      }
+    } catch (error) {
+
+    }
+  }
+
   async validateIfRatingYet() {
     try {
       let response = await axios.get(
@@ -128,8 +151,11 @@ export class ServiceFinishedPage implements OnInit {
           }
         }
       );
-      if (response.data && response.data.status === 200) {
-        this.showRateProfessional = response.data.data ? response.data.data.length > 0 : false;
+      if (response.data && response.data.code === 200) {
+        if (response.data.data && response.data.data.length > 0) {
+          this.showRateProfessional = response.data.data[0].evaluate === 0
+          console.log(this.showRateProfessional)
+        }
       }
     } catch (error) {
       this.showRateProfessional = false;

@@ -5,7 +5,7 @@
       <ion-back-button defaultHref="/user/solicitudes" text="" icon="arrow-back"></ion-back-button>
     </ion-buttons>
 
-    <ion-title class="title-toolbar">DETALLES DEL SERVICIO</ion-title>
+    <ion-title class="title-toolbar">PAGO FINALIZADO</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -119,7 +119,7 @@
 
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color subText"> 30 USD</ion-text>
+        <ion-text class="main-color subText"> {{requestCost}} <span *ngIf="requestCost !== 'N/D'">USD</span></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>

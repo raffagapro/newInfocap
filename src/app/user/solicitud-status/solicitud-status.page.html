@@ -218,17 +218,17 @@
         </div>
         <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color status-text-grey">PAGO FINALIZADO</ion-text><br>
-          <ion-text class="main-color status-subtext-grey">Pendiente calificar el servicio</ion-text>
+          <ion-text class="main-color status-subtext-grey" *ngIf="showRateProfessional">Pendiente calificar el servicio</ion-text>
         </ion-col>
       </ion-row>
       <!-- active  -->
       <ion-row *ngIf="loadedService.status_id > 5 && loadedService.status_id !== 7">
-        <div class="status-cont" (click)="serviceDetal(1)">
+        <div class="status-cont" (click)="serviceDetal(6)">
           <ion-icon src="/assets/icon/ic_card_blue.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color status-text">PAGO FINALIZADO</ion-text><br>
-          <ion-text class="main-color status-subtext">Pendiente calificar el servicio</ion-text>
+          <ion-text class="main-color status-subtext" *ngIf="showRateProfessional">Pendiente calificar el servicio</ion-text>
         </ion-col>
       </ion-row>
 

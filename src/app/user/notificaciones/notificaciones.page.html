@@ -19,7 +19,7 @@
   <div class="prof-cont mt-25 no-border" *ngFor="let notification of notifications">
     <ion-grid>
       <ion-item-sliding no-lines>
-        <ion-item no-lines (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id)">
+        <ion-item class="ion-no-padding" no-lines (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id)">
           <ion-row class="ion-align-items-center">
 
             <!-- title -->

@@ -16,6 +16,7 @@ import { SolicitudEnviadaModalComponent } from './solicitud-enviada-modal/solici
 import { SolicitudRechazadaModalComponent } from './solicitud-rechazada-modal/solicitud-rechazada-modal.component';
 import { SuccessModalComponent } from 'src/app/shared/success-modal/success-modal.component';
 import { RejectedModalComponent } from './rejected-modal/rejected-modal.component';
+import axios from 'axios';
 
 moment.locale('es');
 @Component({
@@ -54,6 +55,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
   };
   serviceId: string;
   wDate;
+  showRateProfessional: boolean = false;
 
   constructor(
     private modalController: ModalController,
@@ -90,6 +92,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
           this.loadedService = resData['data'];
           this.solServ.setServiceObj(resData['data']);
           this.wDate = moment(this.loadedService.created_date, 'DD/MM/YYYY').format('DD MMMM YYYY');
+          this.validateIfRatingYet();
         }, err => {
           loadingEl.dismiss();
           console.log(err);
@@ -128,6 +131,9 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
         break;
       case ServiceStatus.ServicioRealizado:
         this.srvPay();
+        break;
+      case ServiceStatus.ServicioFinalizado:
+        this.gotToServicePaid();
         break;
       case ServiceStatus.ServicioRechazado:
         this.openReasonsModal();
@@ -189,6 +195,10 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     this.router.navigate(['/user/service-resume']);
   }
 
+  gotToServicePaid() {
+    this.router.navigate(['/user/solicitud-finished']);
+  }
+
   srvPay() {
     this.solServ.setServiceID(this.serviceId);
     this.router.navigate(['/user/servicio-pagar']);
@@ -196,5 +206,23 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSub.unsubscribe();
+  }
+
+  async validateIfRatingYet() {
+    try {
+      let response = await axios.get(
+        `${API}/supplier/evaluation/done/${this.solServ.solicitud.solicitudID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.grabbedUser.access_token}`
+          }
+        }
+      );
+      if (response.data && response.data.status === 200) {
+        this.showRateProfessional = response.data.data ? response.data.data.length > 0 : false;
+      }
+    } catch (error) {
+      this.showRateProfessional = false;
+    }
   }
 }
