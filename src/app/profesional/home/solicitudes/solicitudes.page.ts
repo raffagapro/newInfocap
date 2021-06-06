@@ -107,12 +107,23 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   }
 
   formatDate(date: string) {
-    return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
+    console.log(date)
+    return moment(date, 'DD/MM/YYYY').format('DD MMM YYYY');
   }
 
   aceptarSolicitud(solicitudID: string, type: string) {
     this.solicitudServicio.setID(solicitudID)
     this.solicitudServicio.setSolicitudType(type)
+    if(type === 'URGENT') {
+      let body = {
+        "date_required": "11/02/2021",
+        "hours": "10:30 a 11:00",
+        "professional_id": this.grabbedUser.id,
+        "cummune_id": 1
+      }
+      axios.put(API + '/supplier/aprove/urgentrequestservice/' + this.solicitudServicio.solicitud.id, body, { headers: { Authorization: this.headers } } ).then(resData => {
+      })
+    }
     this.router.navigate(['/profesional/solicitudes/solicitudes-detail']);
   }
 
