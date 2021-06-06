@@ -60,9 +60,9 @@ export class NotificacionesPage implements OnInit {
       );
       const { data } = response;
       const { data: notificationsData } = data;
-      this.notifications = notificationsData.filter(n => n.viewed == 0);
+      this.notifications = notificationsData;
     } catch (error) {
-      console.log(error)
+      alert(error.message);
     } finally {
       loader.dismiss();
     }
@@ -88,8 +88,28 @@ export class NotificacionesPage implements OnInit {
     })
   }
 
+  async deleteNotification(notificationId: number) {
+    let loader = await this.loadingController.create({ message: 'Eliminando notificación...' });
+    try {
+      await loader.present();
+      await axios.delete(
+        `${API}/notification/${notificationId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.grabbedUser.access_token}`
+          }
+        }
+      );
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      await loader.dismiss();
+      this.loadNotifications();
+    }
+  }
+
   formatdate(date: string, hours: string) {
-    return moment(`${date} ${hours}`, 'DD-MM-YYYY hh:mm:ss').startOf('minute').fromNow();
+    return moment.utc(`${date} ${hours}`, 'DD-MM-YYYY hh:mm:ss').startOf('minute').fromNow();
   }
 
   ionViewWillEnter() {

@@ -52,13 +52,11 @@
         <ion-col size="4">
           <ion-text class="main-color title"><b>Categoriza el trabajo</b></ion-text>
         </ion-col>
-        <ion-col size="6">
-          <ion-item class="select-categories">
-            <select class="select-categories-component" formControlName="category">
-              <option value="null" disabled>Categoría</option>
-              <option *ngFor="let cat of categories"  [value]="cat">{{ cat }}</option>
-            </select>
-          </ion-item>
+        <ion-col size="7">
+          <select class="main-color cusSelect" value="{{ categorySelected }}" formControlName="category">
+            <option value="null" disabled>Categoría</option>
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+          </select>
         </ion-col>
         <ion-col size="1"></ion-col>
       </ion-row>
@@ -73,20 +71,27 @@
       </ion-row>
 
       <!-- images -->
-      <ion-row class="ion-align-items-center ion-justify-content-center">
-        <ion-col *ngIf="loadedImagesDisplay.length > 0" size="8">
-          <ion-slides>
-            <ion-slide *ngFor="let image of loadedImagesDisplay" [loadedImagesDisplay]='loadedImagesDisplay'>
-              <ion-img [src]="image" class="imgSlide" style="height: 125px;">
+      <ion-row class="ion-align-items-center">
+        <ion-col size="7" offset="1" *ngIf="loadedImagesDisplay.length > 0">
+          <ion-slides [options]="slideOptions">
+
+            <!-- slide -->
+            <ion-slide class="slide" *ngFor="let image of loadedImagesDisplay; let i = index"
+              [loadedImagesDisplay]='loadedImagesDisplay'>
+              <ion-img (click)="openImage(image)" src="{{ image }}" class="imgSlide">
               </ion-img>
+              <ion-button (click)="removeImage(i)" size="small" shape="round" color="danger" class="deleteBtn">
+                <ion-icon name="close-circle-outline"></ion-icon>
+              </ion-button>
             </ion-slide>
+
           </ion-slides>
         </ion-col>
-
-        <ion-col size="4" class="ion-justify-content-center ta-center">
-          <div (click)="onLoadImg()" class="locate-cont">
-            <ion-icon name="add" color="light" class="rating-text"></ion-icon>
-          </div>
+        <ion-col class="{{loadedImagesDisplay.length > 0 ? '' : 'text-center'}}"
+          [size]="loadedImagesDisplay.length > 0 ? '4' : '12'">
+          <ion-button (click)="onLoadImg()" shape="round">
+            <ion-icon name="add" slot="end" color="light" class="rating-text"></ion-icon>
+          </ion-button>
         </ion-col>
       </ion-row>
 
@@ -130,11 +135,12 @@
           <ion-text class="subMiniTex ion-padding-top">{{ formatInfo(loadedInfo.request_cost) }}</ion-text>
         </ion-col>
         <ion-col size="1">
-          <ion-icon *ngIf="loadedInfo.request_cost.addittional && loadedInfo.request_cost.addittional.length == 0" color="danger" name="add-circle" class="addIcon"
-            (click)="extraCharge()"></ion-icon>
-            <div class="request-null" *ngIf="loadedInfo.request_cost.addittional && loadedInfo.request_cost.addittional.length > 0">
-              <ion-icon name="pencil-sharp" (click)="extraCharge()"></ion-icon>
-            </div>
+          <ion-icon *ngIf="loadedInfo.request_cost.addittional && loadedInfo.request_cost.addittional.length == 0"
+            color="danger" name="add-circle" class="addIcon" (click)="extraCharge()"></ion-icon>
+          <div class="request-null"
+            *ngIf="loadedInfo.request_cost.addittional && loadedInfo.request_cost.addittional.length > 0">
+            <ion-icon name="pencil-sharp" (click)="extraCharge()"></ion-icon>
+          </div>
         </ion-col>
         <ion-col size="1"></ion-col>
       </ion-row>
@@ -143,8 +149,8 @@
       <ion-row class="ion-margin-top ion-margin-bottom">
         <ion-col size="1"></ion-col>
         <ion-col>
-          <ion-button [disabled]="!loadedImages.length > 0 || !formFinalizar.valid" size="5" expand="block"
-            class="ion-text-uppercase" color="danger" (click)="finalizarSolicitud()">
+          <ion-button [disabled]="!formFinalizar.valid" size="5" expand="block" class="ion-text-uppercase"
+            color="danger" (click)="finalizarSolicitud()">
             <ion-icon slot="start" name="build"></ion-icon>
             FINALIZAR
           </ion-button>

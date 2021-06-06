@@ -8,10 +8,17 @@
     font-size: 16px;
     font-weight: bold;
 }
-.mainText
-{
-    font-size: 13px;
+.miniText {
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-height: 16px;
+    max-height: 32px;
+    -webkit-box-orient: vertical;
 }
+
 .miniText
 {
     font-size: 12px;

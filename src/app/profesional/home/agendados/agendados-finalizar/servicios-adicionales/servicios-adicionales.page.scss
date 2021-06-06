@@ -79,4 +79,19 @@ margin-right: auto;
 .ta-center {
     text-align: center;
 }
+.deleteBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 100%;
+    color: white;
+    width: 32px;
+    padding: 0;
+    margin: 0;
+    --padding-start: 0;
+    --padding-end: 0;
+    ion-icon {
+      position: absolute;
+    }
+  }
   

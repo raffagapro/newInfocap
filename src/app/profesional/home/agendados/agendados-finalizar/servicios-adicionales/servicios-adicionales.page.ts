@@ -182,6 +182,11 @@ export class ServiciosAdicionalesPage implements OnInit {
     this.menuController.enable(true, 'profesional');
   }
 
+  removeImage(imageIndex: number) {
+    this.loadedImages = this.loadedImages.filter((image: any, index: number) => index !== imageIndex)
+    this.loadedImagesDisplay = this.loadedImagesDisplay.filter((image: any, index: number) => index !== imageIndex)
+  }
+
   openMenu() {
     this.menuController.open();
   }
@@ -203,6 +208,13 @@ export class ServiciosAdicionalesPage implements OnInit {
 
       
       this.solicitudServicio.setCosto(parseFloat(this.formAdicional.value.price))
+
+      
+    if (this.loadedImages.length === 0) {
+      alert('Debes agregar al menos una foto a la solicitud.');
+      loadingEl.dismiss();
+      return
+    }
 
       axios.post(API + '/supplier/additionalrequest', formData, { headers: { Authorization: this.headers } } ).then(resData => {
         this.router.navigate(['profesional/agendados/agendados-finalizar']);

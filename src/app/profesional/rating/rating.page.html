@@ -24,15 +24,13 @@
         <ion-icon style="margin-right: 4px;" src="/assets/icon/ic_filter.svg"></ion-icon>
         <ion-text class="main-color"><b>Categoría</b></ion-text>
       </ion-col>
-      <ion-col size="6">
-        <ion-item class="select-categories">
-          <select class="select-categories-component"         
+      <ion-col size="7">
+          <select class="main-color cusSelect"      
           (ngModelChange)="changeCategory($event)"
           [ngModel]="categorySelected">
             <option value="null" disabled>Categoría</option>
             <option *ngFor="let cat of categories"  value="{{ cat.id }}">{{ cat.name }}</option>
           </select>
-        </ion-item>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>

@@ -76,20 +76,28 @@
       </ion-row>
 
       <!-- images -->
-      <ion-row class="ion-align-items-center ion-justify-content-center">
-        <ion-col size="8" *ngIf="loadedImagesDisplay.length > 0">
-          <ion-slides>
-            <ion-slide *ngFor="let image of loadedImagesDisplay" [loadedImagesDisplay]='loadedImagesDisplay'>
-              <ion-img [src]="image" class="imgSlide" style="height: 125px;">
+      <!-- images -->
+      <ion-row class="ion-align-items-center">
+        <ion-col size="7" offset="1" *ngIf="loadedImagesDisplay.length > 0">
+          <ion-slides [options]="slideOptions">
+
+            <!-- slide -->
+            <ion-slide class="slide" *ngFor="let image of loadedImagesDisplay; let i = index"
+              [loadedImagesDisplay]='loadedImagesDisplay'>
+              <ion-img (click)="openImage(image)" src="{{ image }}" class="imgSlide">
               </ion-img>
+              <ion-button (click)="removeImage(i)" size="small" shape="round" color="danger" class="deleteBtn">
+                <ion-icon name="close-circle-outline"></ion-icon>
+              </ion-button>
             </ion-slide>
+
           </ion-slides>
         </ion-col>
-
-        <ion-col size="4" class="ion-justify-content-center ta-center">
-          <div (click)="onLoadImg()" class="locate-cont">
-            <ion-icon name="add" color="light" class="rating-text"></ion-icon>
-          </div>
+        <ion-col class="{{loadedImagesDisplay.length > 0 ? '' : 'text-center'}}"
+          [size]="loadedImagesDisplay.length > 0 ? '4' : '12'">
+          <ion-button (click)="onLoadImg()" shape="round">
+            <ion-icon name="add" slot="end" color="light" class="rating-text"></ion-icon>
+          </ion-button>
         </ion-col>
       </ion-row>
 

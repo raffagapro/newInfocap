@@ -26,6 +26,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
     clientName: null,
     clientLastName: null,
     date_required: null,
+    created_date: null,
     hours: null,
     description: null,
     images: null,
@@ -65,6 +66,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
         this.solicitudServicio.setClientName(resData.data.data.clientName)
         let wDate = resData.data.data.date_required.split("-");
         this.solicitudServicio.setDateRequired(resData.data.data.date_required)
+        this.solicitudServicio.setDateCreated(resData.data.data.created_date)
         this.solicitudServicio.setDescription(resData.data.data.description)
         this.solicitudServicio.setHours(resData.data.data.hours)
         this.solicitudServicio.setImages(resData.data.data.images)
@@ -78,6 +80,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
         this.loadedInfo.clientLastName = resData.data.data.clientLastName;
         this.loadedInfo.clientName = resData.data.data.clientName;
         this.loadedInfo.date_required = wDate[2] + '-' + wDate[1] + '-' + wDate[0];
+        this.loadedInfo.created_date = resData.data.data.created_date
         this.loadedInfo.description = resData.data.data.description;
         this.loadedInfo.hours = resData.data.data.hours;
         this.loadedInfo.images = resData.data.data.images;
@@ -98,7 +101,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
   }
 
   formatDate(date: string) {
-    return moment(date, 'DD-MM-YYYY').format('dddd D [de] MMMM [de] YYYY');
+    return moment(date, 'DD/MM/YYYY').format('dddd D [de] MMMM [de] YYYY');
   }
 
   formatTime(hours: string) {
@@ -114,7 +117,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
   d(date: string) {
     if (date) {
       let wDate = date.split(" ");
-      return wDate[0];
+      return moment(wDate[0], 'DD/MM/YYYY').format('D [de] MMM [de] YYYY');
     }
   }
 

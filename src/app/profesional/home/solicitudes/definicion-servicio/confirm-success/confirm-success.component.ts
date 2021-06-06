@@ -18,7 +18,7 @@ export class ConfirmSuccessComponent implements OnInit {
 
   dismiss(){
     this.modalController.dismiss();
-    this.router.navigate(['/profesional/home/home-tabs/agendados/']);
+    this.router.navigate(['/profesional/home/home-tabs/agendados']);
   }
 
 }

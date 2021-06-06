@@ -162,6 +162,10 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     formData.append('category', this.formFinalizar.value.category)
     formData.append('work_report', this.formFinalizar.value.work_report)
 
+    if (this.loadedImages.length === 0) {
+      alert('Debes agregar al menos una foto a la solicitud.');
+      return
+    }
 
     this.lc.create({
       message: 'Finalizando Trabajo...'
@@ -191,6 +195,11 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
       this.loadedImagesDisplay.push(fr.result.toString());
     };
     fr.readAsDataURL((e.target as HTMLInputElement).files[0]);
+  }
+
+  removeImage(imageIndex: number) {
+    this.loadedImages = this.loadedImages.filter((image: any, index: number) => index !== imageIndex)
+    this.loadedImagesDisplay = this.loadedImagesDisplay.filter((image: any, index: number) => index !== imageIndex)
   }
 
   onLoadImg() {

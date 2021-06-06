@@ -31,6 +31,7 @@ export class VisitaTecnicaPage implements OnInit {
     clientName: null,
     clientLastName: null,
     date_required: null,
+    created_date: null,
     hours: null,
     description: null,
     images: null,
@@ -84,6 +85,7 @@ export class VisitaTecnicaPage implements OnInit {
     this.loadedInfo.categoryName = this.solicitudServicio.solicitud.category_id
     this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
     this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
+    this.loadedInfo.created_date = this.solicitudServicio.solicitud.created_date
     this.menuController.enable(true, 'user');
   }
 
@@ -92,7 +94,10 @@ export class VisitaTecnicaPage implements OnInit {
   }
 
   formatDate(date: string){
-    return moment(date, 'DD-MM-YYYY').format('D [de] MMM [de] YYYY');
+    if(date !== null) {
+      let fecha = date.split(' ')
+      return moment(fecha[0], 'DD/MM/YYYY').format('D [de] MMM [de] YYYY');
+    }
   }
 
   confirmRequest() {
