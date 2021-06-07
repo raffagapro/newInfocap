@@ -9,6 +9,8 @@ import { ModalController } from '@ionic/angular';
 })
 export class ConfirmSuccessComponent implements OnInit {
 
+  redirectUrl = false;
+
   constructor(
     private modalController: ModalController,
     private router: Router,
@@ -18,7 +20,9 @@ export class ConfirmSuccessComponent implements OnInit {
 
   dismiss(){
     this.modalController.dismiss();
-    // this.router.navigate(['/profesional/home/home-tabs/finalizados/']);
+    if(this.redirectUrl) {
+      this.router.navigate([this.redirectUrl]);
+    } 
   }
 
 }

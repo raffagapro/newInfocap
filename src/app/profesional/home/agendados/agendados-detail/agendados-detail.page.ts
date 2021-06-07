@@ -35,7 +35,9 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     images: null,
     categoryName: null,
     clientPhone1: null,
+    created_date: null,
     status_id: null,
+    type: null,
   };
 
   slideOptions = {
@@ -68,23 +70,22 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.solicitudServicio.setClientLastName(resData.data.data.clientLastName)
         this.solicitudServicio.setClientName(resData.data.data.clientName)
         let wDate = resData.data.data.date_required.split("-");
-        this.solicitudServicio.setDateRequired(wDate[2] + '-' + wDate[1] + '-' + wDate[0])
-        this.solicitudServicio.setDateCreated(resData.data.data.create_date)
+        this.solicitudServicio.setDateRequired(resData.data.data.date_required)
+        this.solicitudServicio.setDateCreated(resData.data.data.created_date)
         this.solicitudServicio.setDescription(resData.data.data.description)
         this.solicitudServicio.setHours(resData.data.data.hours)
         this.solicitudServicio.setImages(resData.data.data.images)
         this.solicitudServicio.setClientImg(resData.data.data.img_client_profile)
         this.solicitudServicio.setTicketNumber(resData.data.data.ticket_number)
-        this.solicitudServicio.setCategoryID(resData.data.data.category_id)
-        this.solicitudServicio.setCategoryName(resData.data.data.categoryName)
+        this.solicitudServicio.setCategoryID(resData.data.data.categoryName)
         this.solicitudServicio.setStatusID(resData.data.data.status_id)
         this.solicitudServicio.setClientPhone(resData.data.data.clientPhone1)
+        this.solicitudServicio.setCosto(resData.data.data.request_cost[0] && resData.data.data.request_cost[0]);
 
         this.loadedInfo.clientLastName = resData.data.data.clientLastName;
         this.loadedInfo.clientName = resData.data.data.clientName;
-
         this.loadedInfo.date_required = wDate[2] + '-' + wDate[1] + '-' + wDate[0];
-        this.loadedInfo.create_date = resData.data.data.create_date
+        this.loadedInfo.created_date = resData.data.data.created_date
         this.loadedInfo.description = resData.data.data.description;
         this.loadedInfo.hours = resData.data.data.hours;
         this.loadedInfo.images = resData.data.data.images;
@@ -92,6 +93,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.loadedInfo.ticket_number = resData.data.data.ticket_number;
         this.loadedInfo.categoryName = resData.data.data.categoryName;
         this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
+        this.loadedInfo.type = this.solicitudServicio.solicitud.type;
         this.loadedInfo.status_id = resData.data.data.status_id;
       }).catch(err => {
         console.log(err);
@@ -167,27 +169,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     this.lc.create({
       message: 'Registrando tiempo de inicio...'
     }).then(loadingEl => {
-      loadingEl.present();
-      axios.put(API + `/supplier/updatestatus/requestservice/${this.solicitudServicio.solicitud.id}/4`, null, { headers: { Authorization: this.headers } }).then(resData => {
-        loadingEl.dismiss();
-        axios.put(API + `/supplier/cost/requestservice/${this.solicitudServicio.solicitud.id}`,
-          {
-            "amount": 0,
-            "costs_type_id": 1,
-            "description": "costo inical",
-            "payment_type_id": 1
-          }, {
-          headers: {
-            Authorization: `Bearer ${this.grabbedUser.access_token}`,
-          }
-        })
-        this.modalController.create({
-          component: ConfirmSuccessStartComponent,
-          cssClass: 'modalSuccess',
-        }).then(modalEl => {
-          modalEl.present();
-        });
-      })
+        this.router.navigate(['/profesional/solicitudes/definicion-servicio']);
     });
   }
 
