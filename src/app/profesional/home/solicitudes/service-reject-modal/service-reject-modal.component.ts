@@ -98,6 +98,9 @@ export class ServiceRejectModalComponent implements OnInit, OnDestroy {
       let confirmModal = await this.modalController.create({
         component: ConfirmSuccessComponent,
         cssClass: 'modalSuccess',
+        componentProps: {
+          redirectUrl: '/profesional/home/home-tabs/solicitudes/'
+        }
       });
       confirmModal.present();
     } catch (error) {
