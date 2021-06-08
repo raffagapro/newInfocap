@@ -61,10 +61,7 @@
         <ion-slides [options]="slideOptions">
           <!-- slide -->
           <ion-slide *ngFor="let image of loadedService.img_request">
-            <img
-              src="{{ image.image }}"
-              class="imgSlide"
-            >
+            <img (click)="openImage(image.image)" src="{{ image.image }}" class="imgSlide">
           </ion-slide>
 
         </ion-slides>

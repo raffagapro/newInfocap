@@ -94,7 +94,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
       loadingEl.present();
-      this.http.get(API + `/client/requestservice/${this.solServ.solicitud.solicitudID}`, { headers: this.headers })
+      this.http.get(API + `/client/requestservice/${this.serviceId}`, { headers: this.headers })
         .subscribe(resData => {
           loadingEl.dismiss();
           this.loadedService = resData['data'];
@@ -125,7 +125,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
     loader.present();
     try {
       let response = await axios.get(
-        `${API}/client/detailcostrequest/${this.solServ.solicitud.solicitudID}`,
+        `${API}/client/detailcostrequest/${this.serviceId}`,
         {
           headers: {
             Authorization: `Bearer ${this.grabbedUser.access_token}`
@@ -139,7 +139,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
           alert('Error');
           return
         }
-        this.servicesCosts = data.data;
+        this.servicesCosts = data;
       }
     } catch (error) {
       console.log(error)
@@ -148,15 +148,22 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
     }
   }
 
+  getServiceCost() {
+    if (this.loadedService && this.loadedService.request_cost.length > 0) {
+      return Number(this.loadedService.request_cost.reduce((total, entity) => total += Number(entity.amount_client), 0)).toFixed(2);
+    }
+    return 0;
+  }
+
   getServiceAditional() {
-    if (this.servicesCosts && this.servicesCosts.request_cost.length > 0) {
-      return this.servicesCosts.request_cost.addittional.reduce((total, entity) => total += Number(entity.amount_client), 0);
+    if (this.servicesCosts && this.servicesCosts.addittional.length > 0) {
+      return Number(this.servicesCosts.addittional.reduce((total, entity) => total += Number(entity.amount_client), 0)).toFixed(2);
     }
     return 0;
   }
 
   getTotal() {
-    return this.getServiceAditional() + this.servicesCosts.amount_client;
+    return Number(this.getServiceAditional()) + Number(parseFloat(this.servicesCosts.amount_client).toFixed(2));
   }
 
   openMenu() {
@@ -171,8 +178,8 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
     this.selectedButton = type;
   }
 
-  nothing() {
-    // do something awesome
+  goToReport() {
+    this.router.navigate(['/user/service-report']);
   }
 
   ngOnDestroy() {

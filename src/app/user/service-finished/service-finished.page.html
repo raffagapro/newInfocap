@@ -84,7 +84,7 @@
 
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color subText"> {{formatDate(loadedService.date_required)}}</ion-text>
+        <ion-text class="subText"> {{formatDate(loadedService.date_required)}}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -102,7 +102,7 @@
 
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color subText"> {{formatTime()}}</ion-text>
+        <ion-text class="subText"> {{formatTime()}}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -119,7 +119,7 @@
 
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color subText"> {{requestCost}} <span *ngIf="requestCost !== 'N/D'">USD</span></ion-text>
+        <ion-text class="subText"> {{requestCost}} <span *ngIf="requestCost !== 'N/D'"></span></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
