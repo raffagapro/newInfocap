@@ -8,7 +8,8 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./rejected-modal.component.scss'],
 })
 export class RejectedModalComponent implements OnInit {
-
+  message;
+  
   constructor(
     private modalController: ModalController,
     private router: Router,

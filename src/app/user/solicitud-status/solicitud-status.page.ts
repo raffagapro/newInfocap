@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { LoadingController, MenuController, ModalController } from '@ionic/angular';
-import * as moment from 'moment';
+import moment from 'moment-timezone';
 import { Subscription } from 'rxjs';
 import { ServiceStatus } from 'src/app/model/solicitud.model';
 
@@ -14,7 +14,6 @@ import { API, PHONE_PREFIX } from 'src/environments/environment';
 import { ServicioAgendadoModalComponent } from './servicio-agendado-modal/servicio-agendado-modal.component';
 import { SolicitudEnviadaModalComponent } from './solicitud-enviada-modal/solicitud-enviada-modal.component';
 import { SolicitudRechazadaModalComponent } from './solicitud-rechazada-modal/solicitud-rechazada-modal.component';
-import { SuccessModalComponent } from 'src/app/shared/success-modal/success-modal.component';
 import { RejectedModalComponent } from './rejected-modal/rejected-modal.component';
 import axios from 'axios';
 
@@ -51,7 +50,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     user_client_id: null,
     work_days: null,
     suplierPhone1: null,
-    reasons: null,
+    history_status: [],
   };
   serviceId: string;
   wDate;
@@ -91,7 +90,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
           loadingEl.dismiss();
           this.loadedService = resData['data'];
           this.solServ.setServiceObj(resData['data']);
-          this.wDate = moment(this.loadedService.created_date, 'DD/MM/YYYY').format('DD MMMM YYYY');
+          this.wDate = moment.utc(this.loadedService.created_date, 'DD/MM/YYYY HH:mm:ss').tz(moment.tz.guess()).format('DD MMMM YYYY');
           this.validateIfRatingYet();
         }, err => {
           loadingEl.dismiss();
@@ -145,10 +144,14 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
   }
 
   async openReasonsModal() {
+    let rejectedItem = this.loadedService.history_status.find(entry => entry.name === 'ServicioRechazado');
+    if (!rejectedItem) {
+      return
+    }
     const successModal = await this.modalController.create({
       component: RejectedModalComponent,
       componentProps: {
-        message: this.loadedService.reasons || 'No disponible',
+        message: rejectedItem.reason || 'No disponible',
         redirect: false,
       },
       cssClass: 'modalSuccess',

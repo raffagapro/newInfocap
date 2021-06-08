@@ -99,8 +99,12 @@ export class ServiceResumePage implements OnInit {
     this.menuController.open();
   }
 
-  formatDate(date: Moment, dateFormat: any = 'YYYY-MM-DD') {
-    return moment.utc(date, dateFormat).format('dddd D [de] MMMM [de] YYYY');
+  formatDate(date: Moment, dateFormat: any = 'YYYY-MM-DD', useTimezone: boolean = false) {
+    let momentDate = moment.utc(date, dateFormat);
+    if (useTimezone) {
+      momentDate.tz(moment.tz.guess())
+    }
+    return momentDate.format('dddd D [de] MMMM [de] YYYY');
   }
 
   formatTime() {

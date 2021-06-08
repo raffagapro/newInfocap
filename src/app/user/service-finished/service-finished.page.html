@@ -28,7 +28,7 @@
             <span class="titleSelect main-color">{{loadedService.categoryName}} de {{loadedService.supplierName}}
               {{loadedService.supplierLastName}}</span><br>
             <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">
-              {{formatDate(loadedService.created_date, 'DD/MM/YYYY')}}</p>
+              {{formatDate(loadedService.created_date, 'DD/MM/YYYY', true)}}</p>
           </ion-text>
         </ion-col>
 
@@ -64,7 +64,7 @@
         <ion-slides [options]="slideOptions">
           <!-- slide -->
           <ion-slide *ngFor="let image of loadedService.img_request">
-            <img src="{{ image.image }}" class="imgSlide">
+            <img (click)="openImage(image.image)" src="{{ image.image }}" class="imgSlide">
           </ion-slide>
         </ion-slides>
         <br />
