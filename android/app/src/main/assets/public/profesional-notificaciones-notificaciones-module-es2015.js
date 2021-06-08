@@ -20,8 +20,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! axios */ "vDqi");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
-/* harmony import */ var src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/notifications-service */ "wBcA");
+/* harmony import */ var src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/notifications-service */ "wBcA");
+/* harmony import */ var src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/pro-solicitud.service */ "zMwU");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! moment */ "wd/R");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_11__);
+
 
 
 
@@ -34,22 +37,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let NotificacionesPage = class NotificacionesPage {
-    constructor(router, menuController, lc, us, loadingController, solServ, notificationService) {
+    constructor(router, menuController, us, loadingController, solicitudServicio, notificationService, route) {
         this.router = router;
         this.menuController = menuController;
-        this.lc = lc;
         this.us = us;
         this.loadingController = loadingController;
-        this.solServ = solServ;
+        this.solicitudServicio = solicitudServicio;
         this.notificationService = notificationService;
         this.notifications = [];
+        route.params.subscribe(val => {
+            this.userSub = this.us.loggedUser.subscribe(user => {
+                this.grabbedUser = user;
+                this.headers = 'Bearer ' + this.grabbedUser.access_token;
+                this.loadNotifications();
+            });
+        });
     }
     ngOnInit() {
-        this.userSub = this.us.loggedUser.subscribe(user => {
-            this.grabbedUser = user;
-            this.headers = 'Bearer ' + this.grabbedUser.access_token;
-            this.loadNotifications();
-        });
     }
     loadNotifications() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -63,10 +67,10 @@ let NotificacionesPage = class NotificacionesPage {
                 });
                 const { data } = response;
                 const { data: notificationsData } = data;
-                this.notifications = notificationsData.filter(n => n.viewed == 0);
+                this.notifications = notificationsData;
             }
             catch (error) {
-                console.log(error);
+                alert(error.message);
             }
             finally {
                 loader.dismiss();
@@ -76,7 +80,7 @@ let NotificacionesPage = class NotificacionesPage {
     goToRequestDetail(solicitudId, notificationId) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             axios__WEBPACK_IMPORTED_MODULE_7___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"] + `/notification/view/${notificationId}`, { viewed: 1, }, { headers: { Authorization: `Bearer ${this.grabbedUser.access_token}` } }).then(resData => {
-                this.solServ.setServiceID(solicitudId);
+                this.solicitudServicio.setID(solicitudId);
                 let updatedNotifications = this.notifications.map((notification) => {
                     if (notification.notification_Id === notificationId) {
                         notification.viewed = true;
@@ -90,6 +94,29 @@ let NotificacionesPage = class NotificacionesPage {
             });
         });
     }
+    deleteNotification(notificationId) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            let loader = yield this.loadingController.create({ message: 'Eliminando notificación...' });
+            try {
+                yield loader.present();
+                yield axios__WEBPACK_IMPORTED_MODULE_7___default.a.delete(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"]}/notification/${notificationId}`, {
+                    headers: {
+                        Authorization: `Bearer ${this.grabbedUser.access_token}`
+                    }
+                });
+            }
+            catch (error) {
+                alert(error.message);
+            }
+            finally {
+                yield loader.dismiss();
+                this.loadNotifications();
+            }
+        });
+    }
+    formatdate(date, hours) {
+        return moment__WEBPACK_IMPORTED_MODULE_11__["utc"](`${date} ${hours}`, 'DD-MM-YYYY hh:mm:ss').startOf('minute').fromNow();
+    }
     ionViewWillEnter() {
         this.menuController.enable(true, 'profesional');
     }
@@ -100,11 +127,11 @@ let NotificacionesPage = class NotificacionesPage {
 NotificacionesPage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["MenuController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
     { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
-    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__["SolicitudService"] },
-    { type: src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_10__["NotificationsService"] }
+    { type: src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_10__["ProSolicitudService"] },
+    { type: src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_9__["NotificationsService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"] }
 ];
 NotificacionesPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -164,7 +191,7 @@ NotificacionesPageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__d
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">NOTIFICACIONES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"text-center\" *ngIf=\"notifications.length === 0\">\n    <p>No se tienen notificaciones</p>\n  </div>\n\n  <!-- notificacion item -->\n  <div class=\"prof-cont mt-25 no-border\" *ngFor=\"let notification of notifications\">\n    <ion-grid (click)=\"goToRequestDetail(notification.request_service_id, notification.notification_Id)\">\n      <ion-row class=\"ion-align-items-center\">\n        <!-- title -->\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <!-- <span class=\"titleSelect main-color\">Cerrajería </span><br> -->\n            <ion-badge color=\"primary\" class=\"titleSelect\">{{ notification.category }}</ion-badge>&nbsp;\n            <ion-icon color=\"primary\" src=\"/assets/icon/ic_date_range.svg\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              {{ notification.motive }}\n            </span><br>\n            <small class=\"main-color\"></small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Solicitud #{{notification.ticket_number}}</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              {{ notification.time }}\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- notificacion item -->\n  <!-- <div class=\"prof-cont mt-25 no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Cerrajería </span><br>\n            <ion-badge color=\"primary\" class=\"titleSelect\">Soldadura</ion-badge>&nbsp;\n            <ion-icon color=\"medium\" src=\"/assets/icon/ic_engine_disabled.svg\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              La fecha límite de un servicio está por llegar.\n            </span><br>\n            <small class=\"main-color\">Rejas</small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Ticket #100091234</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              16 dic 2020\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div> -->\n\n  <!-- notificacion item -->\n  <!-- <div class=\"prof-cont mt-25 no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">Cerrajería </span><br>\n            <ion-badge color=\"danger\" class=\"titleSelect\">Cerrajería</ion-badge>&nbsp;\n            <ion-icon color=\"danger\" name=\"alert-circle\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              Santiago Pérez está en busca de un servicio urgente.\n            </span><br>\n            <small class=\"red-color\">Cambio de chapas</small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">Ticket #100091234</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              16 dic 2020\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div> -->\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">NOTIFICACIONES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <div class=\"text-center\" *ngIf=\"notifications.length === 0\">\n    <p>No se tienen notificaciones</p>\n  </div>\n\n  <!-- notificacion item -->\n  <div class=\"prof-cont mt-25 no-border\" *ngFor=\"let notification of notifications\">\n    <ion-grid>\n      <ion-item-sliding no-lines>\n        <ion-item class=\"ion-item-notificaciones\" no-lines (click)=\"goToRequestDetail(notification.request_service_id, notification.notification_Id)\">\n          <ion-row class=\"ion-align-items-center\">\n\n            <!-- title -->\n            <ion-col size=\"7\" class=\"ion-justify-content-center\">\n              <ion-text>\n                <!-- <span class=\"titleSelect main-color\">Cerrajería </span><br> -->\n                <ion-badge color=\"primary\" class=\"titleSelect\">{{notification.category}}</ion-badge>&nbsp;\n                <ion-icon color=\"primary\" src=\"/assets/icon/ic_date_range.svg\" class=\"icon-size\"\n                  *ngIf=\"notification.type_request === 'NORMAL' && notification.status_id == 1\"></ion-icon>\n                <ion-icon color=\"primary\" src=\"/assets/icon/ic_engine_disabled.svg\" class=\"icon-size\"\n                  *ngIf=\"notification.type_request === 'NORMAL' && notification.status_id > 1\"></ion-icon>\n                <ion-icon color=\"danger\" name=\"alert-circle\" class=\"icon-size\"\n                  *ngIf=\"notification.type_request !== 'NORMAL'\"></ion-icon>\n                <p class=\"textSelect {{notification.type_request !== 'NORMAL' ? 'red-color' : ''}}\">\n                  {{notification.professionalName}} {{notification.motive}}\n                </p>\n                <!--<small class=\"main-color\">Cambio de chapas</small>-->\n              </ion-text>\n            </ion-col>\n\n            <!-- rating -->\n            <ion-col size=\"5\" class=\"ion-text-center\">\n              <div class=\"ion-text-end\">\n                <small class=\"ticket\">#{{notification.ticket_number}}</small>\n              </div>\n              <ion-text>\n                <p class=\"ratingText main-color\">\n                  {{formatdate(notification.date, notification.hours)}}\n                </p>\n              </ion-text>\n            </ion-col>\n\n          </ion-row>\n        </ion-item>\n        <ion-item-options side=\"end\" no-lines>\n          <ion-item-option color=\"danger\" (click)=\"deleteNotification(notification.notification_Id)\">Eliminar</ion-item-option>\n        </ion-item-options>\n      </ion-item-sliding>\n    </ion-grid>\n  </div>\n\n  <!-- notificacion item -->\n  <!--\n  <div class=\"prof-cont mt-25 no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <ion-badge color=\"primary\" class=\"titleSelect\">Soldadura</ion-badge>&nbsp;\n            <ion-icon color=\"medium\" src=\"/assets/icon/ic_engine_disabled.svg\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              La fecha límite de un servicio está por llegar.\n            </span><br>\n            <small class=\"main-color\">Rejas</small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">#100091234</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              16 dic 2020\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n  -->\n\n  <!-- notificacion item -->\n  <!--\n  <div class=\"prof-cont mt-25 no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n\n        <ion-col size=\"7\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <ion-badge color=\"danger\" class=\"titleSelect\">Cerrajería</ion-badge>&nbsp;\n            <ion-icon color=\"danger\" name=\"alert-circle\" class=\"icon-size\"></ion-icon><br>\n            <span class=\"textSelect\">\n              Santiago Pérez está en busca de un servicio urgente.\n            </span><br>\n            <small class=\"red-color\">Cambio de chapas</small>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n\n        <ion-col size=\"4\" class=\"ion-text-center\">\n          <div class=\"ion-text-end\">\n            <small class=\"ticket\">#100091234</small>\n          </div>\n          <ion-text>\n            <small class=\"ratingText main-color ion-text-center\">\n              16 dic 2020\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n  -->\n\n</ion-content>");
 
 /***/ }),
 
@@ -219,7 +246,7 @@ NotificacionesPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".prof-cont {\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\n}\n\n.titleSelect {\n  font-size: 16px;\n  font-weight: bold;\n  padding: 5px 20px;\n}\n\n.mt-25 {\n  margin-top: 25px;\n}\n\n.icon-size {\n  margin-top: -3px;\n  font-size: 20px;\n}\n\n.miniText {\n  color: #39ae50;\n}\n\n.red-color {\n  color: #eb445a;\n}\n\n.textSelect {\n  font-size: 10px;\n  line-height: 0.5;\n}\n\n.ticket {\n  color: #eb445a;\n  font-size: 11px;\n}\n\n.locate-cont {\n  margin-top: 5px;\n  border-radius: 50px;\n  height: 30px;\n  width: 30px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #009ace;\n}\n\n.rating-text {\n  font-size: 12px;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-flex;\n}\n\n.ratingText {\n  font-size: 14px;\n  margin: 0;\n  padding: 0;\n}\n\n.red-text {\n  color: #eb445a;\n}\n\n.gray-text {\n  color: #757575;\n}\n\n.blue-text {\n  color: #009ace;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL25vdGlmaWNhY2lvbmVzLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHdFQUFBO0FBQ0o7O0FBQ0E7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQUVKOztBQUFBO0VBQ0ksZ0JBQUE7QUFHSjs7QUFEQTtFQUNJLGdCQUFBO0VBQ0EsZUFBQTtBQUlKOztBQUZBO0VBQ0ksY0FBQTtBQUtKOztBQUhBO0VBQ0ksY0FBQTtBQU1KOztBQUpBO0VBQ0ksZUFBQTtFQUNBLGdCQUFBO0FBT0o7O0FBTEE7RUFDSSxjQUFBO0VBQ0EsZUFBQTtBQVFKOztBQU5BO0VBQ0ksZUFBQTtFQUNBLG1CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxvQkFBQTtFQUNBLG1CQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0EseUJBQUE7QUFTSjs7QUFQQTtFQUNJLGVBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0Esb0JBQUE7QUFVSjs7QUFSQTtFQUNJLGVBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtBQVdKOztBQVRBO0VBQ0ksY0FBQTtBQVlKOztBQVZBO0VBQ0ksY0FBQTtBQWFKOztBQVhBO0VBQ0ksY0FBQTtBQWNKIiwiZmlsZSI6Im5vdGlmaWNhY2lvbmVzLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wcm9mLWNvbnQge1xuICAgIGJveC1zaGFkb3c6IDAgM3B4IDZweCByZ2JhKDAsIDAsIDAsIDAuMTYpLCAwIDNweCA2cHggcmdiYSgwLCAwLCAwLCAwLjIzKTtcbn1cbi50aXRsZVNlbGVjdCB7XG4gICAgZm9udC1zaXplOiAxNnB4O1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIHBhZGRpbmc6IDVweCAyMHB4O1xufVxuLm10LTI1IHtcbiAgICBtYXJnaW4tdG9wOiAyNXB4O1xufVxuLmljb24tc2l6ZSB7XG4gICAgbWFyZ2luLXRvcDogLTNweDtcbiAgICBmb250LXNpemU6IDIwcHg7XG59XG4ubWluaVRleHQge1xuICAgIGNvbG9yOiAjMzlhZTUwO1xufVxuLnJlZC1jb2xvciB7XG4gICAgY29sb3I6ICNlYjQ0NWE7XG59XG4udGV4dFNlbGVjdCB7XG4gICAgZm9udC1zaXplOiAxMHB4O1xuICAgIGxpbmUtaGVpZ2h0OiAwLjU7XG59XG4udGlja2V0IHtcbiAgICBjb2xvcjogI2ViNDQ1YTtcbiAgICBmb250LXNpemU6IDExcHg7XG59XG4ubG9jYXRlLWNvbnQge1xuICAgIG1hcmdpbi10b3A6IDVweDtcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICAgIGhlaWdodDogMzBweDtcbiAgICB3aWR0aDogMzBweDtcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwOWFjZTtcbn1cbi5yYXRpbmctdGV4dCB7XG4gICAgZm9udC1zaXplOiAxMnB4O1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbn1cbi5yYXRpbmdUZXh0IHtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgbWFyZ2luOiAwO1xuICAgIHBhZGRpbmc6IDA7XG59XG4ucmVkLXRleHR7XG4gICAgY29sb3I6ICNlYjQ0NWE7XG59XG4uZ3JheS10ZXh0IHtcbiAgICBjb2xvcjogIzc1NzU3NTtcbn1cbi5ibHVlLXRleHQge1xuICAgIGNvbG9yOiAjMDA5YWNlO1xufVxuIl19 */");
+/* harmony default export */ __webpack_exports__["default"] = (".prof-cont {\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\n}\n\n.titleSelect {\n  font-size: 16px;\n  font-weight: bold;\n  padding: 5px 20px;\n}\n\n.mt-25 {\n  margin-top: 25px;\n}\n\n.icon-size {\n  margin-top: -3px;\n  font-size: 20px;\n}\n\n.miniText {\n  color: #39ae50;\n}\n\n.red-color {\n  color: #eb445a;\n}\n\n.textSelect {\n  font-size: 10px;\n  line-height: 1.4;\n  margin-bottom: 0;\n}\n\n.ticket {\n  color: #eb445a;\n  font-size: 14px;\n  font-weight: bold;\n}\n\n.locate-cont {\n  margin-top: 5px;\n  border-radius: 50px;\n  height: 30px;\n  width: 30px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #009ace;\n}\n\n.rating-text {\n  font-size: 12px;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-flex;\n}\n\n.ratingText {\n  font-size: 14px;\n  margin: 0;\n  padding: 0;\n  text-align: right;\n  font-weight: bold;\n}\n\n.red-text {\n  color: #eb445a;\n}\n\n.gray-text {\n  color: #757575;\n}\n\n.blue-text {\n  color: #009ace;\n}\n\nion-item {\n  --border-color: transparent !important;\n}\n\n.ion-item-notificaciones {\n  --background: white;\n  --border-color: white;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL25vdGlmaWNhY2lvbmVzLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHdFQUFBO0FBQ0o7O0FBQ0E7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxpQkFBQTtBQUVKOztBQUFBO0VBQ0ksZ0JBQUE7QUFHSjs7QUFEQTtFQUNJLGdCQUFBO0VBQ0EsZUFBQTtBQUlKOztBQUZBO0VBQ0ksY0FBQTtBQUtKOztBQUhBO0VBQ0ksY0FBQTtBQU1KOztBQUpBO0VBQ0ksZUFBQTtFQUNBLGdCQUFBO0VBQ0EsZ0JBQUE7QUFPSjs7QUFMQTtFQUNJLGNBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7QUFRSjs7QUFOQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0Esb0JBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLHlCQUFBO0FBU0o7O0FBUEE7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLG9CQUFBO0FBVUo7O0FBUkE7RUFDSSxlQUFBO0VBQ0EsU0FBQTtFQUNBLFVBQUE7RUFDQSxpQkFBQTtFQUNBLGlCQUFBO0FBV0o7O0FBVEE7RUFDSSxjQUFBO0FBWUo7O0FBVkE7RUFDSSxjQUFBO0FBYUo7O0FBWEE7RUFDSSxjQUFBO0FBY0o7O0FBWkE7RUFDSSxzQ0FBQTtBQWVKOztBQWJBO0VBQ0ksbUJBQUE7RUFDQSxxQkFBQTtBQWdCSiIsImZpbGUiOiJub3RpZmljYWNpb25lcy5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucHJvZi1jb250IHtcbiAgICBib3gtc2hhZG93OiAwIDNweCA2cHggcmdiYSgwLCAwLCAwLCAwLjE2KSwgMCAzcHggNnB4IHJnYmEoMCwgMCwgMCwgMC4yMyk7XG59XG4udGl0bGVTZWxlY3Qge1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICBwYWRkaW5nOiA1cHggMjBweDtcbn1cbi5tdC0yNSB7XG4gICAgbWFyZ2luLXRvcDogMjVweDtcbn1cbi5pY29uLXNpemUge1xuICAgIG1hcmdpbi10b3A6IC0zcHg7XG4gICAgZm9udC1zaXplOiAyMHB4O1xufVxuLm1pbmlUZXh0IHtcbiAgICBjb2xvcjogIzM5YWU1MDtcbn1cbi5yZWQtY29sb3Ige1xuICAgIGNvbG9yOiAjZWI0NDVhO1xufVxuLnRleHRTZWxlY3Qge1xuICAgIGZvbnQtc2l6ZTogMTBweDtcbiAgICBsaW5lLWhlaWdodDogMS40O1xuICAgIG1hcmdpbi1ib3R0b206IDA7XG59XG4udGlja2V0IHtcbiAgICBjb2xvcjogI2ViNDQ1YTtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG4ubG9jYXRlLWNvbnQge1xuICAgIG1hcmdpbi10b3A6IDVweDtcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICAgIGhlaWdodDogMzBweDtcbiAgICB3aWR0aDogMzBweDtcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwOWFjZTtcbn1cbi5yYXRpbmctdGV4dCB7XG4gICAgZm9udC1zaXplOiAxMnB4O1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbn1cbi5yYXRpbmdUZXh0IHtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgbWFyZ2luOiAwO1xuICAgIHBhZGRpbmc6IDA7XG4gICAgdGV4dC1hbGlnbjogcmlnaHQ7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG4ucmVkLXRleHQge1xuICAgIGNvbG9yOiAjZWI0NDVhO1xufVxuLmdyYXktdGV4dCB7XG4gICAgY29sb3I6ICM3NTc1NzU7XG59XG4uYmx1ZS10ZXh0IHtcbiAgICBjb2xvcjogIzAwOWFjZTtcbn1cbmlvbi1pdGVtIHtcbiAgICAtLWJvcmRlci1jb2xvcjogdHJhbnNwYXJlbnQgIWltcG9ydGFudDtcbn1cbi5pb24taXRlbS1ub3RpZmljYWNpb25lcyB7XG4gICAgLS1iYWNrZ3JvdW5kOiB3aGl0ZTtcbiAgICAtLWJvcmRlci1jb2xvcjogd2hpdGU7XG59XG4iXX0= */");
 
 /***/ })
 

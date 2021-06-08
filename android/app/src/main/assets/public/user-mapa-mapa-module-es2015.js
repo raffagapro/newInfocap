@@ -143,6 +143,9 @@ let MapaPage = class MapaPage {
         this.us = us;
         this.solServ = solServ;
         this.platform = platform;
+        // lat: string;
+        // long: string;  
+        this.autocomplete = { input: '-' };
         this.comunas = [];
         this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
         this.autocomplete = { input: '' };

@@ -1192,6 +1192,20 @@ ion-item {
     --height: 60%;
   }
 }
+.modalImage {
+  --height: 55%;
+  --width: 90%;
+}
+@media (max-height: 580px) {
+  .modalImage {
+    --height: 80%;
+  }
+}
+@media (min-width: 768px) {
+  .modalImage {
+    --height: 60%;
+  }
+}
 .modalServRechazado {
   --height: 50%;
   --width: 90%;
