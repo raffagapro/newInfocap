@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, MenuController, ModalController } from '@ionic/angular';
+import { LoadingController, MenuController, ModalController, NavController } from '@ionic/angular';
 import axios from 'axios';
-import { Moment } from 'moment';
-import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
-import { API } from 'src/environments/environment';
 import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
+import { API } from 'src/environments/environment';
+import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-service-resume',
-  templateUrl: './service-resume.page.html',
-  styleUrls: ['./service-resume.page.scss'],
+  selector: 'app-service-report',
+  templateUrl: './service-report.page.html',
+  styleUrls: ['./service-report.page.scss'],
 })
-export class ServiceResumePage implements OnInit {
+export class ServiceReportPageComponent implements OnInit {
   userSubscription: Subscription;
   user: User;
   loadedService = {
+    addittional: [],
     categoryName: null,
     cummunename: null,
     category_id: null,
@@ -41,9 +41,11 @@ export class ServiceResumePage implements OnInit {
     ticket_number: null,
     user_client_id: null,
     work_days: null,
-    suplierPhone1: null,
     img_request: [],
   };
+  serviceId: string;
+  servicesCosts;
+  imagesToDisplay: string[] = [];
   slideOptions = {
     initialSlide: 0,
     slidesPerView: 2,
@@ -52,11 +54,12 @@ export class ServiceResumePage implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private router: Router,
+    private menuController: MenuController,
     private loadingController: LoadingController,
     private userService: UserService,
-    private menuController: MenuController,
     private solServ: SolicitudService,
+    private router: Router,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -71,10 +74,9 @@ export class ServiceResumePage implements OnInit {
   }
 
   async loadService() {
-    let loader = await this.loadingController.create({ message: '' });
-
+    let loader = await this.loadingController.create({ message: 'Cargando solicitud...' });
+    await loader.present();
     try {
-      await loader.present();
       let response = await axios.get(
         `${API}/client/requestservice/${this.solServ.solicitud.solicitudID}`,
         {
@@ -83,38 +85,45 @@ export class ServiceResumePage implements OnInit {
           }
         }
       );
-      this.solServ.setServiceObj(response.data.data);
       this.loadedService = response.data.data;
-      if (this.loadedService.img_request.length < 2) {
-        this.slideOptions.slidesPerView = 1;
-      }
+      await this.loadCosts();
     } catch (error) {
       console.log(error);
     } finally {
+      await loader.dismiss();
+    }
+  }
+
+  async loadCosts() {
+    let loader = await this.loadingController.create({ message: 'Consultando información...' });
+    loader.present();
+    try {
+      let response = await axios.get(
+        `${API}/client/detailcostrequest/${this.solServ.solicitud.solicitudID}`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.user.access_token}`
+          }
+        }
+      );
+      console.log(response);
+      if (response.data) {
+        let data = response.data.data;
+        if (response.data.code !== 200) {
+          alert('Error');
+          return
+        }
+        this.servicesCosts = data;
+        this.imagesToDisplay = this.servicesCosts.img_addittional.map(image => image.image);
+        if (this.imagesToDisplay.length === 1) {
+          this.slideOptions.slidesPerView = 1;
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
       loader.dismiss();
     }
-  }
-
-  openMenu() {
-    this.menuController.open();
-  }
-
-  formatDate(date: Moment, dateFormat: any = 'YYYY-MM-DD', useTimezone: boolean = false) {
-    let momentDate = moment.utc(date, dateFormat);
-    if (useTimezone) {
-      momentDate.tz(moment.tz.guess())
-    }
-    return momentDate.format('dddd D [de] MMMM [de] YYYY');
-  }
-
-  formatTime() {
-    if (!this.loadedService.hours_requestservice) {
-      return 'ND';
-    }
-    let hours = this.loadedService.hours_requestservice.split('/');
-    let startHour = moment(hours[0]);
-    let endHour = moment(hours[1]);
-    return `${startHour.format('h:mm a')} - ${endHour.format('h:mm a')}`;
   }
 
   async openImage(image: string) {
@@ -127,4 +136,21 @@ export class ServiceResumePage implements OnInit {
     });
     successModal.present();
   }
+
+  getServiceAditional() {
+    if (this.servicesCosts && this.servicesCosts.addittional.length > 0) {
+      return Number(this.servicesCosts.addittional.reduce((total, entity) => total += Number(entity.amount_client), 0)).toFixed(2);
+    }
+    return 0;
+  }
+
+  getTotal() {
+    if (!this.servicesCosts) return 0;
+    return Number(this.getServiceAditional()) + Number(parseFloat(this.servicesCosts.amount_client).toFixed(2));
+  }
+
+  goBack() {
+    this.navCtrl.back();
+  }
+
 }

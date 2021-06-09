@@ -1,0 +1,137 @@
+<ion-header>
+  <ion-toolbar mode="ios" color="primary">
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/user/servicio-pagar" text="" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title class="title-toolbar">INGRESA TU PAGO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- profesional card item -->
+  <div class="no-border">
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <!-- profile img -->
+        <ion-col size="4" offset="1">
+          <ion-avatar class="profileImg">
+            <img
+              src="{{ loadedService && loadedService.img_profile ? loadedService.img_profile : 'assets/images/avatar.png' }}" />
+          </ion-avatar>
+        </ion-col>
+
+        <!-- title -->
+        <ion-col size="7">
+          <ion-text>
+            <span class="titleSelect main-color">{{loadedService.supplierName}}
+              {{loadedService.supplierLastName}}</span><br>
+            <p class="main-color subtitleSelect" style="margin-top: 0; margin-bottom: 0;">{{loadedService.categoryName}}
+            </p>
+          </ion-text>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-grid fixed>
+
+    <!-- services  -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="8" class="ion-text-left">
+        <ion-text class="text main-color">
+          <b>Servicios pactados</b>
+        </ion-text>
+      </ion-col>
+
+      <ion-col size="4" class="ion-text-right">
+        <ion-text class="text" color="danger">
+          <b>${{getTotal()}}</b>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- description  -->
+    <ion-row class="margin-top">
+      <ion-col size="12" class="ion-text-left">
+        <ion-text class="description">
+          {{loadedService.description}}
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- additional services  -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="8" class="ion-text-left">
+        <ion-text class="text main-color">
+          <b>Servicios adicionales</b>
+        </ion-text>
+      </ion-col>
+
+      <ion-col size="4" class="ion-text-right">
+        <ion-text class="text" color="danger">
+          <b>${{getServiceAditional()}}</b>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- description  -->
+    <ion-row class="margin-top" *ngIf="servicesCosts && servicesCosts.addittional.length === 0">
+      <ion-col size="12" class="ion-text-left">
+        <ion-text class="description">
+          No se tienen adicionales
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- description  -->
+    <div *ngIf="servicesCosts && servicesCosts.addittional.length > 0">
+      <ion-row class="margin-top" *ngFor="let additional of servicesCosts.addittional">
+        <ion-col size="12" class="ion-text-left">
+          <ion-text class="description">
+            {{additional.description}}
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <!-- additional services  -->
+    <ion-row class="ion-margin-top" *ngIf="servicesCosts && servicesCosts.addittional.length > 0">
+      <ion-col size="12" class="ion-text-left">
+        <ion-text class="text main-color">
+          <b>Fotografías de los adicionales</b>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+     <!-- images -->
+     <ion-row class="ion-align-items-center">
+      <ion-col size="12" *ngIf="imagesToDisplay.length > 0">
+        <ion-slides [options]="slideOptions">
+          <!-- slide -->
+          <ion-slide class="slide" *ngFor="let image of imagesToDisplay; let i = index"
+            [loadedImagesDisplay]='imagesToDisplay'>
+            <ion-img (click)="openImage(image)" src="{{ image }}" class="imgSlide">
+            </ion-img>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+
+    <!-- CONFIRMAR BTN -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="1"></ion-col>
+      <ion-col>
+        <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="goBack()">
+          ENTENDIDO
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>

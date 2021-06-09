@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/solicitudes\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar text-center\">VISITA TÉCNICA</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- profesional card item -->\n  <div class=\"no-border ion-margin-top\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"{{ loadedService.img_profile || '/assets/images/avatar.png'}}\" />\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"6\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">{{loadedService.categoryName}} de {{loadedService.supplierName}}\n              {{loadedService.supplierLastName}}</span><br>\n            <p class=\"main-color mini-text\" style=\"margin-top: 0; margin-bottom: 0;\">\n              {{formatDate(loadedService.created_date, 'DD/MM/YYYY')}}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Trabajo a realizar</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"titleText\">\n          {{loadedService.description}}\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Slider -->\n    <ion-row class=\"\" *ngIf=\"loadedService.img_request.length > 0\">\n      <ion-col size=\"12\">\n        <ion-slides [options]=\"slideOptions\">\n          <!-- slide -->\n          <ion-slide *ngFor=\"let image of loadedService.img_request\">\n            <img\n              src=\"{{ image.image }}\"\n              class=\"imgSlide\"\n            >\n          </ion-slide>\n\n        </ion-slides>\n      </ion-col>\n    </ion-row>\n\n    <!-- Fecha de visita -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Fecha de visita</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"main-color subText\"> {{formatDate(loadedService.date_required)}}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Rango de horas -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Rango de horas</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"main-color subText\"> {{formatTime()}}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- eceptar visita BTN -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"confirmVisit()\">\n          ACEPTAR VISITA\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- imitir por el momento BTN -->\n    <ion-row class=\"ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" fill=\"outline\" class=\"ion-text-uppercase\">\n          OMITIR POR EL MOMENTO\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/solicitudes\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar text-center\">VISITA TÉCNICA</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- profesional card item -->\n  <div class=\"no-border ion-margin-top\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"{{ loadedService.img_profile || '/assets/images/avatar.png'}}\" />\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"6\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">{{loadedService.categoryName}} de {{loadedService.supplierName}}\n              {{loadedService.supplierLastName}}</span><br>\n            <p class=\"main-color mini-text\" style=\"margin-top: 0; margin-bottom: 0;\">\n              {{formatDate(loadedService.created_date, 'DD/MM/YYYY', true)}}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Trabajo a realizar</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"titleText\">\n          {{loadedService.description}}\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Slider -->\n    <ion-row class=\"\" *ngIf=\"loadedService.img_request.length > 0\">\n      <ion-col size=\"12\">\n        <ion-slides [options]=\"slideOptions\">\n          <!-- slide -->\n          <ion-slide *ngFor=\"let image of loadedService.img_request\">\n            <img (click)=\"openImage(image.image)\" src=\"{{ image.image }}\" class=\"imgSlide\">\n          </ion-slide>\n\n        </ion-slides>\n      </ion-col>\n    </ion-row>\n\n    <!-- Fecha de visita -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Fecha de visita</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\"> {{formatDate(loadedService.date_required)}}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Rango de horas -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Rango de horas</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\"> {{formatTime()}}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- eceptar visita BTN -->\n    <ion-row class=\"ion-margin-top\" *ngIf=\"showButtons\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"confirmVisit(1)\">\n          ACEPTAR VISITA\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- imitir por el momento BTN -->\n    <ion-row class=\"ion-margin-bottom\" *ngIf=\"showButtons\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" fill=\"outline\" class=\"ion-text-uppercase\" (click)=\"confirmVisit(0)\">\n          OMITIR POR EL MOMENTO\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -259,25 +259,31 @@
       /* harmony import */
 
 
-      var _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
-      /*! ./confirm-success-modal/confirm-success-modal.component */
-      "m8q8");
-      /* harmony import */
-
-
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var moment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var moment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! moment */
       "wd/R");
       /* harmony import */
 
 
-      var moment__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_11__);
+      var moment__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_10__);
+      /* harmony import */
+
+
+      var src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      /*! src/app/shared/success-modal/success-modal.component */
+      "W/u7");
+      /* harmony import */
+
+
+      var src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! src/app/shared/image-modal/image-modal.component */
+      "BPum");
 
       var VisitaDetailPage = /*#__PURE__*/function () {
         function VisitaDetailPage(modalController, router, loadingController, userService, menuController, solServ) {
@@ -319,6 +325,7 @@
             slidesPerView: 2,
             autoplay: true
           };
+          this.showButtons = true;
           this.error = false;
           this.errorMessage = '';
         }
@@ -376,25 +383,26 @@
                         this.slideOptions.slidesPerView = 1;
                       }
 
-                      _context.next = 17;
+                      this.showButtons = this.loadedService.status_id === 2;
+                      _context.next = 18;
                       break;
 
-                    case 14:
-                      _context.prev = 14;
+                    case 15:
+                      _context.prev = 15;
                       _context.t0 = _context["catch"](3);
                       console.log(_context.t0);
 
-                    case 17:
-                      _context.prev = 17;
+                    case 18:
+                      _context.prev = 18;
                       loader.dismiss();
-                      return _context.finish(17);
+                      return _context.finish(18);
 
-                    case 20:
+                    case 21:
                     case "end":
                       return _context.stop();
                   }
                 }
-              }, _callee, this, [[3, 14, 17, 20]]);
+              }, _callee, this, [[3, 15, 18, 21]]);
             }));
           }
         }, {
@@ -406,7 +414,14 @@
           key: "formatDate",
           value: function formatDate(date) {
             var dateFormat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY-MM-DD';
-            return moment__WEBPACK_IMPORTED_MODULE_11__(date, dateFormat).format('dddd D [de] MMMM [de] YYYY');
+            var useTimezone = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+            var momentDate = moment__WEBPACK_IMPORTED_MODULE_10__["utc"](date, dateFormat);
+
+            if (useTimezone) {
+              momentDate.tz(moment__WEBPACK_IMPORTED_MODULE_10__["tz"].guess());
+            }
+
+            return momentDate.format('dddd D [de] MMMM [de] YYYY');
           }
         }, {
           key: "formatTime",
@@ -416,15 +431,15 @@
             }
 
             var hours = this.loadedService.hours_requestservice.split('/');
-            var startHour = moment__WEBPACK_IMPORTED_MODULE_11__(hours[0]);
-            var endHour = moment__WEBPACK_IMPORTED_MODULE_11__(hours[1]);
+            var startHour = moment__WEBPACK_IMPORTED_MODULE_10__(hours[0]);
+            var endHour = moment__WEBPACK_IMPORTED_MODULE_10__(hours[1]);
             return "".concat(startHour.format('h:mm a'), " - ").concat(endHour.format('h:mm a'));
           }
         }, {
           key: "confirmVisit",
-          value: function confirmVisit() {
+          value: function confirmVisit(client_accepted) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var loader, response;
+              var loader, response, message, successModal;
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
                   switch (_context2.prev = _context2.next) {
@@ -439,7 +454,9 @@
                       loader.present();
                       _context2.prev = 4;
                       _context2.next = 7;
-                      return axios__WEBPACK_IMPORTED_MODULE_6___default.a.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"], "/client/requesttechnical/").concat(this.solServ.solicitud.solicitudID), {}, {
+                      return axios__WEBPACK_IMPORTED_MODULE_6___default.a.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"], "/client/requesttechnical/").concat(this.solServ.solicitud.solicitudID), {
+                        client_accepted: client_accepted
+                      }, {
                         headers: {
                           Authorization: "Bearer ".concat(this.user.access_token)
                         }
@@ -464,21 +481,63 @@
                     case 14:
                       loader.dismiss();
 
-                      if (!this.error) {
-                        this.modalController.create({
-                          component: _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_9__["ConfirmSuccessModalComponent"],
-                          cssClass: 'modalSuccess'
-                        }).then(function (modalEl) {
-                          modalEl.present();
-                        });
+                      if (this.error) {
+                        _context2.next = 22;
+                        break;
                       }
 
-                    case 16:
+                      this.showButtons = false;
+                      message = client_accepted === 1 ? 'HAZ ACEPTADO LA VISITA TÉCNICA' : 'HAZ OMITIDO LA VISITA TÉCNICA';
+                      _context2.next = 20;
+                      return this.modalController.create({
+                        component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
+                        componentProps: {
+                          message: message,
+                          redirect: false
+                        },
+                        cssClass: 'modalSuccess'
+                      });
+
+                    case 20:
+                      successModal = _context2.sent;
+                      successModal.present();
+
+                    case 22:
                     case "end":
                       return _context2.stop();
                   }
                 }
               }, _callee2, this, [[4, 11]]);
+            }));
+          }
+        }, {
+          key: "openImage",
+          value: function openImage(image) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var successModal;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      _context3.next = 2;
+                      return this.modalController.create({
+                        component: src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_12__["ImageModalComponent"],
+                        componentProps: {
+                          image: image
+                        },
+                        cssClass: 'modalImage'
+                      });
+
+                    case 2:
+                      successModal = _context3.sent;
+                      successModal.present();
+
+                    case 4:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee3, this);
             }));
           }
         }]);
@@ -494,7 +553,7 @@
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
         }, {
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"]
         }, {

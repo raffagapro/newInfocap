@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { API } from 'src/environments/environment';
 import axios from 'axios';
 import { SuccessModalComponent } from 'src/app/shared/success-modal/success-modal.component';
+import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
 
 
 export type PaymentMethodType = 'credit' | 'debit' | 'cash' | 'transfer';
@@ -131,8 +132,12 @@ export class SolicitudDetailPage implements OnInit {
     this.menuController.open();
   }
 
-  formatDate(date: Moment, dateFormat: any = 'YYYY-MM-DD') {
-    return moment(date, dateFormat).format('dddd D [de] MMMM [de] YYYY');
+  formatDate(date: Moment, dateFormat: any = 'YYYY-MM-DD', useTimezone: boolean = false) {
+    let momentDate = moment.utc(date, dateFormat);
+    if (useTimezone) {
+      momentDate.tz(moment.tz.guess())
+    }
+    return momentDate.format('dddd D [de] MMMM [de] YYYY');
   }
 
   formatTime() {
@@ -147,7 +152,7 @@ export class SolicitudDetailPage implements OnInit {
 
   getServiceCost() {
     if (this.loadedService && this.loadedService.request_cost.length > 0) {
-      return this.loadedService.request_cost.reduce((total, entity) => total += Number(entity.amount_client), 0);
+      return this.loadedService.request_cost.reduce((total, entity) => total += Number(entity.amount_client), 0).toFixed(2);
     }
     return 0;
   }
@@ -212,6 +217,17 @@ export class SolicitudDetailPage implements OnInit {
   setSelectedButton(type: PaymentMethodType) {
     if(this.loadedService.request_cost.length > 0) return;
     this.selectedButton = type;
+  }
+
+  async openImage(image: string) {
+    const successModal = await this.modalController.create({
+      component: ImageModalComponent,
+      componentProps: {
+        image,
+      },
+      cssClass: 'modalImage',
+    });
+    successModal.present();
   }
 
 }

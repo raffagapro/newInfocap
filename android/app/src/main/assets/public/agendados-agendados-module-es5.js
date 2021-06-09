@@ -175,9 +175,19 @@
       var src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! src/app/services/pro-solicitud.service */
       "zMwU");
+      /* harmony import */
+
+
+      var lodash__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! lodash */
+      "LvDl");
+      /* harmony import */
+
+
+      var lodash__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_12__);
 
       var AgendadosPage = /*#__PURE__*/function () {
-        function AgendadosPage(router, menuController, us, lc, solicitudServicio) {
+        function AgendadosPage(router, menuController, us, lc, solicitudServicio, route) {
           var _this = this;
 
           _classCallCheck(this, AgendadosPage);
@@ -217,41 +227,28 @@
           this.backAgended = function () {
             _this.myCalAgended.slidePrev();
           };
+
+          route.params.subscribe(function (val) {
+            _this.userSub = _this.us.loggedUser.subscribe(function (user) {
+              _this.grabbedUser = user;
+              _this.headers = 'Bearer ' + _this.grabbedUser.access_token;
+
+              _this.loadServices("3");
+
+              _this.loadServices("4");
+
+              _this.loadServices("2");
+            });
+          });
         }
 
         _createClass(AgendadosPage, [{
           key: "ngOnInit",
-          value: function ngOnInit() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              var _this2 = this;
-
-              return regeneratorRuntime.wrap(function _callee$(_context) {
-                while (1) {
-                  switch (_context.prev = _context.next) {
-                    case 0:
-                      this.userSub = this.us.loggedUser.subscribe(function (user) {
-                        _this2.grabbedUser = user;
-                        _this2.headers = 'Bearer ' + _this2.grabbedUser.access_token;
-
-                        _this2.loadServices("3");
-
-                        _this2.loadServices("4");
-
-                        _this2.loadServices("2");
-                      });
-
-                    case 1:
-                    case "end":
-                      return _context.stop();
-                  }
-                }
-              }, _callee, this);
-            }));
-          }
+          value: function ngOnInit() {}
         }, {
           key: "formatEvents",
           value: function formatEvents(data, type) {
-            var _this3 = this;
+            var _this2 = this;
 
             data.map(function (r) {
               var date = r.date_required.split('-');
@@ -273,9 +270,9 @@
               };
 
               if (type === "2") {
-                _this3.eventSourceAgended.push(new_event);
+                _this2.eventSourceAgended.push(new_event);
               } else {
-                _this3.eventSource.push(new_event);
+                _this2.eventSource.push(new_event);
               }
             });
           }
@@ -292,7 +289,7 @@
         }, {
           key: "loadServices",
           value: function loadServices(statusID) {
-            var _this4 = this;
+            var _this3 = this;
 
             this.lc.create({
               message: "Cargando lista de servicios..."
@@ -300,36 +297,56 @@
               loadingEl.present();
               axios__WEBPACK_IMPORTED_MODULE_9___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_7__["API"] + "/supplier/requestservice/".concat(statusID), {
                 headers: {
-                  Authorization: _this4.headers
+                  Authorization: _this3.headers
                 }
               }).then(function (resData) {
                 loadingEl.dismiss();
 
                 if (statusID === "3") {
-                  _this4.loadedServices = resData.data.data;
+                  _this3.loadedServices = resData.data.data;
+                  _this3.loadedServices = lodash__WEBPACK_IMPORTED_MODULE_12__["orderBy"](_this3.loadedServices, function (dateObj) {
+                    return new Date(dateObj.date_required);
+                  });
 
-                  _this4.formatEvents(resData.data.data, "3");
+                  _this3.formatEvents(resData.data.data, "3");
 
-                  _this4.myCal.loadEvents();
+                  _this3.myCal.loadEvents();
                 }
 
                 if (statusID === "4") {
-                  _this4.loadedStartedServices = resData.data.data;
+                  _this3.loadedStartedServices = resData.data.data;
+                  _this3.loadedStartedServices = lodash__WEBPACK_IMPORTED_MODULE_12__["orderBy"](_this3.loadedStartedServices, function (dateObj) {
+                    return new Date(dateObj.date_required);
+                  });
 
-                  _this4.formatEvents(resData.data.data, "4");
+                  _this3.formatEvents(resData.data.data, "4");
 
-                  _this4.myCal.loadEvents();
+                  _this3.myCal.loadEvents();
                 }
 
                 if (statusID === "2") {
-                  _this4.loadedVisits = resData.data.data;
+                  _this3.loadedVisits = resData.data.data;
+                  _this3.loadedVisits = lodash__WEBPACK_IMPORTED_MODULE_12__["orderBy"](_this3.loadedVisits, function (dateObj) {
+                    return new Date(dateObj.date_required);
+                  });
 
-                  _this4.formatEvents(resData.data.data, "2");
+                  _this3.formatEvents(resData.data.data, "2");
 
-                  _this4.myCalAgended.loadEvents();
+                  _this3.myCalAgended.loadEvents();
                 }
               })["catch"](function (err) {
-                console.log(err);
+                if (statusID === "3") {
+                  _this3.loadedServices = [];
+                }
+
+                if (statusID === "4") {
+                  _this3.loadedStartedServices = [];
+                }
+
+                if (statusID === "2") {
+                  _this3.loadedVisits = [];
+                }
+
                 loadingEl.dismiss();
               });
             });
@@ -418,6 +435,8 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
         }, {
           type: src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_11__["ProSolicitudService"]
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]
         }];
       };
 
@@ -455,7 +474,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".prof-cont {\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\n  margin-bottom: 10px;\n}\n\n.titleSelect {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.badge-text {\n  font-size: 10px;\n  margin-bottom: -2px;\n}\n\n.ticket {\n  color: red;\n  font-size: 11px;\n}\n\n.title {\n  font-size: 17px;\n}\n\n.superMarginTop {\n  margin-top: 60px;\n}\n\n.tapText {\n  font-size: 10px;\n}\n\n.iconFix {\n  margin-bottom: -2px;\n}\n\n.miniBtnTxt {\n  font-size: 9px;\n}\n\n.locate-cont {\n  margin-top: 5px;\n  border-radius: 50px;\n  height: 30px;\n  width: 30px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #009ace;\n}\n\n.rating-text {\n  font-size: 12px;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-flex;\n}\n\n.ratingText {\n  font-size: 12px;\n  margin: 0;\n  padding: 0;\n}\n\n.location_button {\n  margin: 5px 0;\n  padding: 2px 5px;\n  border: solid 2px #009ace;\n  border-radius: 10px;\n}\n\n.week-day-header {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: gray;\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.btn-week-wallet {\n  --border-radius: 50%;\n  height: 3rem;\n  width: 3rem;\n}\n\n.calendar-event-inner {\n  border-radius: 4px;\n  font-size: 8px;\n  background-color: white;\n  border: 2px solid #9bafb6;\n}\n\n.category-event-inner {\n  background-color: #009ace;\n  color: white;\n  font-weight: bold;\n  font-size: 8px;\n  border-bottom-left-radius: 8px;\n  border-bottom-right-radius: 8px;\n}\n\n.name-event-inner {\n  font-weight: bold;\n  font-size: 10px;\n  color: #009ace;\n}\n\n.iconFixCalendar {\n  background-color: #009ace;\n  border-radius: 40%;\n  width: 32px;\n  height: 16px;\n}\n\n.dates-text-calendar {\n  font-size: 16px;\n  font-weight: bold;\n  color: #009ace;\n}\n\n.icon-type-view {\n  color: #009ace;\n  margin-left: 8px;\n  margin-right: 8px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uL2FnZW5kYWRvcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSx3RUFBQTtFQUNBLG1CQUFBO0FBQ0o7O0FBQ0E7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7QUFFSjs7QUFBQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtBQUdKOztBQURBO0VBQ0ksVUFBQTtFQUNBLGVBQUE7QUFJSjs7QUFGQTtFQUNJLGVBQUE7QUFLSjs7QUFIQTtFQUNJLGdCQUFBO0FBTUo7O0FBSkE7RUFDSSxlQUFBO0FBT0o7O0FBTEE7RUFDSSxtQkFBQTtBQVFKOztBQU5BO0VBQ0ksY0FBQTtBQVNKOztBQVBBO0VBQ0ksZUFBQTtFQUNBLG1CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxvQkFBQTtFQUNBLG1CQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0EseUJBQUE7QUFVSjs7QUFSQTtFQUNJLGVBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0Esb0JBQUE7QUFXSjs7QUFUQTtFQUNJLGVBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtBQVlKOztBQVZBO0VBQ0ksYUFBQTtFQUNBLGdCQUFBO0VBQ0EseUJBQUE7RUFDQSxtQkFBQTtBQWFKOztBQVZBO0VBQ0ksYUFBQTtFQUNBLHNCQUFBO0VBQ0EsdUJBQUE7RUFDQSxtQkFBQTtFQUNBLFdBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7QUFhSjs7QUFWQTtFQUNJLG9CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7QUFhSjs7QUFWQTtFQUNJLGtCQUFBO0VBQ0EsY0FBQTtFQUNBLHVCQUFBO0VBQ0EseUJBQUE7QUFhSjs7QUFWQTtFQUNJLHlCQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0EsY0FBQTtFQUNBLDhCQUFBO0VBQ0EsK0JBQUE7QUFhSjs7QUFWQTtFQUNJLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLGNBQUE7QUFhSjs7QUFWQTtFQUNJLHlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtBQWFKOztBQVZBO0VBQ0ksZUFBQTtFQUNBLGlCQUFBO0VBQ0EsY0FBQTtBQWFKOztBQVZBO0VBQ0ksY0FBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7QUFhSiIsImZpbGUiOiJhZ2VuZGFkb3MucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnByb2YtY29udCB7XG4gICAgYm94LXNoYWRvdzogMCAzcHggNnB4IHJnYmEoMCwgMCwgMCwgMC4xNiksIDAgM3B4IDZweCByZ2JhKDAsIDAsIDAsIDAuMjMpO1xuICAgIG1hcmdpbi1ib3R0b206IDEwcHg7XG59XG4udGl0bGVTZWxlY3Qge1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbn1cbi5iYWRnZS10ZXh0IHtcbiAgICBmb250LXNpemU6IDEwcHg7XG4gICAgbWFyZ2luLWJvdHRvbTogLTJweDtcbn1cbi50aWNrZXQge1xuICAgIGNvbG9yOiByZWQ7XG4gICAgZm9udC1zaXplOiAxMXB4O1xufVxuLnRpdGxlIHtcbiAgICBmb250LXNpemU6IDE3cHg7XG59XG4uc3VwZXJNYXJnaW5Ub3Age1xuICAgIG1hcmdpbi10b3A6IDYwcHg7XG59XG4udGFwVGV4dCB7XG4gICAgZm9udC1zaXplOiAxMHB4O1xufVxuLmljb25GaXgge1xuICAgIG1hcmdpbi1ib3R0b206IC0ycHg7XG59XG4ubWluaUJ0blR4dCB7XG4gICAgZm9udC1zaXplOiA5cHg7XG59XG4ubG9jYXRlLWNvbnQge1xuICAgIG1hcmdpbi10b3A6IDVweDtcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICAgIGhlaWdodDogMzBweDtcbiAgICB3aWR0aDogMzBweDtcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwOWFjZTtcbn1cbi5yYXRpbmctdGV4dCB7XG4gICAgZm9udC1zaXplOiAxMnB4O1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbn1cbi5yYXRpbmdUZXh0IHtcbiAgICBmb250LXNpemU6IDEycHg7XG4gICAgbWFyZ2luOiAwO1xuICAgIHBhZGRpbmc6IDA7XG59XG4ubG9jYXRpb25fYnV0dG9uIHtcbiAgICBtYXJnaW46IDVweCAwO1xuICAgIHBhZGRpbmc6IDJweCA1cHg7XG4gICAgYm9yZGVyOiBzb2xpZCAycHggIzAwOWFjZTtcbiAgICBib3JkZXItcmFkaXVzOiAxMHB4O1xufVxuXG4ud2Vlay1kYXktaGVhZGVyIHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBjb2xvcjogZ3JheTtcbiAgICBmb250LXNpemU6IDE2cHg7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbi5idG4td2Vlay13YWxsZXQge1xuICAgIC0tYm9yZGVyLXJhZGl1czogNTAlO1xuICAgIGhlaWdodDogM3JlbTtcbiAgICB3aWR0aDogM3JlbTtcbn1cblxuLmNhbGVuZGFyLWV2ZW50LWlubmVyIHtcbiAgICBib3JkZXItcmFkaXVzOiA0cHg7XG4gICAgZm9udC1zaXplOiA4cHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgYm9yZGVyOiAycHggc29saWQgIzliYWZiNjtcbn1cblxuLmNhdGVnb3J5LWV2ZW50LWlubmVyIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5YWNlO1xuICAgIGNvbG9yOiB3aGl0ZTtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICBmb250LXNpemU6IDhweDtcbiAgICBib3JkZXItYm90dG9tLWxlZnQtcmFkaXVzOiA4cHg7XG4gICAgYm9yZGVyLWJvdHRvbS1yaWdodC1yYWRpdXM6IDhweDtcbn1cblxuLm5hbWUtZXZlbnQtaW5uZXIge1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIGZvbnQtc2l6ZTogMTBweDtcbiAgICBjb2xvcjogIzAwOWFjZTtcbn1cblxuLmljb25GaXhDYWxlbmRhciB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwOWFjZTtcbiAgICBib3JkZXItcmFkaXVzOiA0MCU7XG4gICAgd2lkdGg6IDMycHg7XG4gICAgaGVpZ2h0OiAxNnB4O1xufVxuXG4uZGF0ZXMtdGV4dC1jYWxlbmRhciB7XG4gICAgZm9udC1zaXplOiAxNnB4O1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIGNvbG9yOiAjMDA5YWNlO1xufVxuXG4uaWNvbi10eXBlLXZpZXcge1xuICAgIGNvbG9yOiAjMDA5YWNlO1xuICAgIG1hcmdpbi1sZWZ0OiA4cHg7XG4gICAgbWFyZ2luLXJpZ2h0OiA4cHg7XG59Il19 */";
+      __webpack_exports__["default"] = ".prof-cont {\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\n  margin-bottom: 10px;\n}\n\n.titleSelect {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.badge-text {\n  font-size: 10px;\n  margin-bottom: -2px;\n}\n\n.ticket {\n  color: red;\n  font-size: 11px;\n}\n\n.title {\n  font-size: 17px;\n}\n\n.superMarginTop {\n  margin-top: 60px;\n}\n\n.tapText {\n  font-size: 10px;\n}\n\n.iconFix {\n  margin-bottom: -2px;\n}\n\n.miniBtnTxt {\n  font-size: 9px;\n}\n\n.locate-cont {\n  margin-top: 5px;\n  border-radius: 50px;\n  height: 30px;\n  width: 30px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #009ace;\n}\n\n.rating-text {\n  font-size: 12px;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-flex;\n}\n\n.ratingText {\n  font-size: 12px;\n  margin: 0;\n  padding: 0;\n}\n\n.location_button {\n  margin: 5px 0;\n  padding: 2px 5px;\n  border: solid 2px #009ace;\n  border-radius: 10px;\n}\n\n.week-day-header {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  color: gray;\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.btn-week-wallet {\n  --border-radius: 50%;\n  height: 3rem;\n  width: 3rem;\n}\n\n.calendar-event-inner {\n  border-radius: 4px;\n  font-size: 8px;\n  background-color: white;\n  border: 2px solid #9bafb6;\n}\n\n.category-event-inner {\n  background-color: #009ace;\n  color: white;\n  font-weight: bold;\n  font-size: 8px;\n  border-bottom-left-radius: 8px;\n  border-bottom-right-radius: 8px;\n}\n\n.name-event-inner {\n  font-weight: bold;\n  font-size: 10px;\n  color: #009ace;\n}\n\n.iconFixCalendar {\n  background-color: #009ace;\n  border-radius: 40%;\n  width: 32px;\n  height: 16px;\n}\n\n.dates-text-calendar {\n  font-size: 16px;\n  font-weight: bold;\n  color: #009ace;\n}\n\n.icon-type-view {\n  color: #009ace;\n  margin-left: 8px;\n  margin-right: 8px;\n}\n\n.urgent-color {\n  color: #eb445a;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uL2FnZW5kYWRvcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSx3RUFBQTtFQUNBLG1CQUFBO0FBQ0o7O0FBQ0E7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7QUFFSjs7QUFBQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtBQUdKOztBQURBO0VBQ0ksVUFBQTtFQUNBLGVBQUE7QUFJSjs7QUFGQTtFQUNJLGVBQUE7QUFLSjs7QUFIQTtFQUNJLGdCQUFBO0FBTUo7O0FBSkE7RUFDSSxlQUFBO0FBT0o7O0FBTEE7RUFDSSxtQkFBQTtBQVFKOztBQU5BO0VBQ0ksY0FBQTtBQVNKOztBQVBBO0VBQ0ksZUFBQTtFQUNBLG1CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxvQkFBQTtFQUNBLG1CQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0EseUJBQUE7QUFVSjs7QUFSQTtFQUNJLGVBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0Esb0JBQUE7QUFXSjs7QUFUQTtFQUNJLGVBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtBQVlKOztBQVZBO0VBQ0ksYUFBQTtFQUNBLGdCQUFBO0VBQ0EseUJBQUE7RUFDQSxtQkFBQTtBQWFKOztBQVZBO0VBQ0ksYUFBQTtFQUNBLHNCQUFBO0VBQ0EsdUJBQUE7RUFDQSxtQkFBQTtFQUNBLFdBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7QUFhSjs7QUFWQTtFQUNJLG9CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7QUFhSjs7QUFWQTtFQUNJLGtCQUFBO0VBQ0EsY0FBQTtFQUNBLHVCQUFBO0VBQ0EseUJBQUE7QUFhSjs7QUFWQTtFQUNJLHlCQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0EsY0FBQTtFQUNBLDhCQUFBO0VBQ0EsK0JBQUE7QUFhSjs7QUFWQTtFQUNJLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLGNBQUE7QUFhSjs7QUFWQTtFQUNJLHlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtBQWFKOztBQVZBO0VBQ0ksZUFBQTtFQUNBLGlCQUFBO0VBQ0EsY0FBQTtBQWFKOztBQVZBO0VBQ0ksY0FBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7QUFhSjs7QUFYQTtFQUNJLGNBQUE7QUFjSiIsImZpbGUiOiJhZ2VuZGFkb3MucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnByb2YtY29udCB7XG4gICAgYm94LXNoYWRvdzogMCAzcHggNnB4IHJnYmEoMCwgMCwgMCwgMC4xNiksIDAgM3B4IDZweCByZ2JhKDAsIDAsIDAsIDAuMjMpO1xuICAgIG1hcmdpbi1ib3R0b206IDEwcHg7XG59XG4udGl0bGVTZWxlY3Qge1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbn1cbi5iYWRnZS10ZXh0IHtcbiAgICBmb250LXNpemU6IDEwcHg7XG4gICAgbWFyZ2luLWJvdHRvbTogLTJweDtcbn1cbi50aWNrZXQge1xuICAgIGNvbG9yOiByZWQ7XG4gICAgZm9udC1zaXplOiAxMXB4O1xufVxuLnRpdGxlIHtcbiAgICBmb250LXNpemU6IDE3cHg7XG59XG4uc3VwZXJNYXJnaW5Ub3Age1xuICAgIG1hcmdpbi10b3A6IDYwcHg7XG59XG4udGFwVGV4dCB7XG4gICAgZm9udC1zaXplOiAxMHB4O1xufVxuLmljb25GaXgge1xuICAgIG1hcmdpbi1ib3R0b206IC0ycHg7XG59XG4ubWluaUJ0blR4dCB7XG4gICAgZm9udC1zaXplOiA5cHg7XG59XG4ubG9jYXRlLWNvbnQge1xuICAgIG1hcmdpbi10b3A6IDVweDtcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICAgIGhlaWdodDogMzBweDtcbiAgICB3aWR0aDogMzBweDtcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwOWFjZTtcbn1cbi5yYXRpbmctdGV4dCB7XG4gICAgZm9udC1zaXplOiAxMnB4O1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbn1cbi5yYXRpbmdUZXh0IHtcbiAgICBmb250LXNpemU6IDEycHg7XG4gICAgbWFyZ2luOiAwO1xuICAgIHBhZGRpbmc6IDA7XG59XG4ubG9jYXRpb25fYnV0dG9uIHtcbiAgICBtYXJnaW46IDVweCAwO1xuICAgIHBhZGRpbmc6IDJweCA1cHg7XG4gICAgYm9yZGVyOiBzb2xpZCAycHggIzAwOWFjZTtcbiAgICBib3JkZXItcmFkaXVzOiAxMHB4O1xufVxuXG4ud2Vlay1kYXktaGVhZGVyIHtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICBjb2xvcjogZ3JheTtcbiAgICBmb250LXNpemU6IDE2cHg7XG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG5cbi5idG4td2Vlay13YWxsZXQge1xuICAgIC0tYm9yZGVyLXJhZGl1czogNTAlO1xuICAgIGhlaWdodDogM3JlbTtcbiAgICB3aWR0aDogM3JlbTtcbn1cblxuLmNhbGVuZGFyLWV2ZW50LWlubmVyIHtcbiAgICBib3JkZXItcmFkaXVzOiA0cHg7XG4gICAgZm9udC1zaXplOiA4cHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgYm9yZGVyOiAycHggc29saWQgIzliYWZiNjtcbn1cblxuLmNhdGVnb3J5LWV2ZW50LWlubmVyIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5YWNlO1xuICAgIGNvbG9yOiB3aGl0ZTtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICBmb250LXNpemU6IDhweDtcbiAgICBib3JkZXItYm90dG9tLWxlZnQtcmFkaXVzOiA4cHg7XG4gICAgYm9yZGVyLWJvdHRvbS1yaWdodC1yYWRpdXM6IDhweDtcbn1cblxuLm5hbWUtZXZlbnQtaW5uZXIge1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIGZvbnQtc2l6ZTogMTBweDtcbiAgICBjb2xvcjogIzAwOWFjZTtcbn1cblxuLmljb25GaXhDYWxlbmRhciB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwOWFjZTtcbiAgICBib3JkZXItcmFkaXVzOiA0MCU7XG4gICAgd2lkdGg6IDMycHg7XG4gICAgaGVpZ2h0OiAxNnB4O1xufVxuXG4uZGF0ZXMtdGV4dC1jYWxlbmRhciB7XG4gICAgZm9udC1zaXplOiAxNnB4O1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIGNvbG9yOiAjMDA5YWNlO1xufVxuXG4uaWNvbi10eXBlLXZpZXcge1xuICAgIGNvbG9yOiAjMDA5YWNlO1xuICAgIG1hcmdpbi1sZWZ0OiA4cHg7XG4gICAgbWFyZ2luLXJpZ2h0OiA4cHg7XG59XG4udXJnZW50LWNvbG9ye1xuICAgIGNvbG9yOiAjZWI0NDVhO1xufSJdfQ== */";
       /***/
     },
 
@@ -3777,7 +3796,7 @@
         _createClass(MonthViewComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this5 = this;
+            var _this4 = this;
 
             if (!this.sliderOptions) {
               this.sliderOptions = {};
@@ -3826,20 +3845,20 @@
             this.refreshView();
             this.inited = true;
             this.currentDateChangedFromParentSubscription = this.calendarService.currentDateChangedFromParent$.subscribe(function (currentDate) {
-              _this5.refreshView();
+              _this4.refreshView();
             });
             this.eventSourceChangedSubscription = this.calendarService.eventSourceChanged$.subscribe(function () {
-              _this5.onDataLoaded();
+              _this4.onDataLoaded();
             });
             this.slideChangedSubscription = this.calendarService.slideChanged$.subscribe(function (direction) {
               if (direction === 1) {
-                _this5.slider.slideNext();
+                _this4.slider.slideNext();
               } else if (direction === -1) {
-                _this5.slider.slidePrev();
+                _this4.slider.slidePrev();
               }
             });
             this.slideUpdatedSubscription = this.calendarService.slideUpdated$.subscribe(function () {
-              _this5.slider.update();
+              _this4.slider.update();
             });
           }
         }, {
@@ -3899,7 +3918,7 @@
         }, {
           key: "onSlideChanged",
           value: function onSlideChanged() {
-            var _this6 = this;
+            var _this5 = this;
 
             if (this.callbackOnInit) {
               this.callbackOnInit = false;
@@ -3920,18 +3939,18 @@
               } else if (currentSlideIndex === 0 && currentViewIndex === 2) {
                 direction = 1;
 
-                _this6.slider.slideTo(1, 0, false);
+                _this5.slider.slideTo(1, 0, false);
               } else if (currentViewIndex - currentSlideIndex === 1) {
                 direction = -1;
               } else if (currentSlideIndex === 2 && currentViewIndex === 0) {
                 direction = -1;
 
-                _this6.slider.slideTo(3, 0, false);
+                _this5.slider.slideTo(3, 0, false);
               }
 
-              _this6.currentViewIndex = currentSlideIndex;
+              _this5.currentViewIndex = currentSlideIndex;
 
-              _this6.move(direction);
+              _this5.move(direction);
             });
           }
         }, {
@@ -4502,7 +4521,7 @@
         _createClass(WeekViewComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this7 = this;
+            var _this6 = this;
 
             if (!this.sliderOptions) {
               this.sliderOptions = {};
@@ -4553,20 +4572,20 @@
             this.hourColumnLabels = this.getHourColumnLabels();
             this.inited = true;
             this.currentDateChangedFromParentSubscription = this.calendarService.currentDateChangedFromParent$.subscribe(function (currentDate) {
-              _this7.refreshView();
+              _this6.refreshView();
             });
             this.eventSourceChangedSubscription = this.calendarService.eventSourceChanged$.subscribe(function () {
-              _this7.onDataLoaded();
+              _this6.onDataLoaded();
             });
             this.slideChangedSubscription = this.calendarService.slideChanged$.subscribe(function (direction) {
               if (direction === 1) {
-                _this7.slider.slideNext();
+                _this6.slider.slideNext();
               } else if (direction === -1) {
-                _this7.slider.slidePrev();
+                _this6.slider.slidePrev();
               }
             });
             this.slideUpdatedSubscription = this.calendarService.slideUpdated$.subscribe(function () {
-              _this7.slider.update();
+              _this6.slider.update();
             });
           }
         }, {
@@ -4634,7 +4653,7 @@
         }, {
           key: "onSlideChanged",
           value: function onSlideChanged() {
-            var _this8 = this;
+            var _this7 = this;
 
             if (this.callbackOnInit) {
               this.callbackOnInit = false;
@@ -4655,18 +4674,18 @@
               } else if (currentSlideIndex === 0 && currentViewIndex === 2) {
                 direction = 1;
 
-                _this8.slider.slideTo(1, 0, false);
+                _this7.slider.slideTo(1, 0, false);
               } else if (currentViewIndex - currentSlideIndex === 1) {
                 direction = -1;
               } else if (currentSlideIndex === 2 && currentViewIndex === 0) {
                 direction = -1;
 
-                _this8.slider.slideTo(3, 0, false);
+                _this7.slider.slideTo(3, 0, false);
               }
 
-              _this8.currentViewIndex = currentSlideIndex;
+              _this7.currentViewIndex = currentSlideIndex;
 
-              _this8.move(direction);
+              _this7.move(direction);
             });
           }
         }, {
@@ -5569,7 +5588,7 @@
         _createClass(DayViewComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this9 = this;
+            var _this8 = this;
 
             if (!this.sliderOptions) {
               this.sliderOptions = {};
@@ -5610,20 +5629,20 @@
             this.hourColumnLabels = this.getHourColumnLabels();
             this.inited = true;
             this.currentDateChangedFromParentSubscription = this.calendarService.currentDateChangedFromParent$.subscribe(function (currentDate) {
-              _this9.refreshView();
+              _this8.refreshView();
             });
             this.eventSourceChangedSubscription = this.calendarService.eventSourceChanged$.subscribe(function () {
-              _this9.onDataLoaded();
+              _this8.onDataLoaded();
             });
             this.slideChangedSubscription = this.calendarService.slideChanged$.subscribe(function (direction) {
               if (direction === 1) {
-                _this9.slider.slideNext();
+                _this8.slider.slideNext();
               } else if (direction === -1) {
-                _this9.slider.slidePrev();
+                _this8.slider.slidePrev();
               }
             });
             this.slideUpdatedSubscription = this.calendarService.slideUpdated$.subscribe(function () {
-              _this9.slider.update();
+              _this8.slider.update();
             });
           }
         }, {
@@ -5691,7 +5710,7 @@
         }, {
           key: "onSlideChanged",
           value: function onSlideChanged() {
-            var _this10 = this;
+            var _this9 = this;
 
             if (this.callbackOnInit) {
               this.callbackOnInit = false;
@@ -5712,18 +5731,18 @@
               } else if (currentSlideIndex === 0 && currentViewIndex === 2) {
                 direction = 1;
 
-                _this10.slider.slideTo(1, 0, false);
+                _this9.slider.slideTo(1, 0, false);
               } else if (currentViewIndex - currentSlideIndex === 1) {
                 direction = -1;
               } else if (currentSlideIndex === 2 && currentViewIndex === 0) {
                 direction = -1;
 
-                _this10.slider.slideTo(3, 0, false);
+                _this9.slider.slideTo(3, 0, false);
               }
 
-              _this10.currentViewIndex = currentSlideIndex;
+              _this9.currentViewIndex = currentSlideIndex;
 
-              _this10.move(direction);
+              _this9.move(direction);
             });
           }
         }, {
@@ -6492,7 +6511,7 @@
         }, {
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this11 = this;
+            var _this10 = this;
 
             if (this.autoSelect) {
               if (this.autoSelect.toString() === 'false') {
@@ -6515,9 +6534,9 @@
             this.endHour = parseInt(this.endHour.toString());
             this.calendarService.queryMode = this.queryMode;
             this.currentDateChangedFromChildrenSubscription = this.calendarService.currentDateChangedFromChildren$.subscribe(function (currentDate) {
-              _this11._currentDate = currentDate;
+              _this10._currentDate = currentDate;
 
-              _this11.onCurrentDateChanged.emit(currentDate);
+              _this10.onCurrentDateChanged.emit(currentDate);
             });
           }
         }, {
@@ -7607,7 +7626,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">AGENDADOS</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <!-- title -->\n  <ion-grid fixed>\n    <ion-row class=\"ion-margin-top\" style=\"align-items: center;\">\n      <ion-col offset=\"7\">\n        <span style=\"color: #009ace\">Ver como</span>\n        <ion-icon (click)=\"changeView('list')\" class=\"icon-type-view\" name=\"menu-outline\"></ion-icon>\n        <ion-icon (click)=\"changeView('cal')\" class=\"icon-type-view\" name=\"calendar-clear-outline\"></ion-icon>\n      </ion-col>\n    </ion-row>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"11\" class=\"ion-text-left\">\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length > 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes\n            los siguientes trabajos en tu agenda.</b>\n        </ion-text>\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length === 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no\n            tienes trabajos en tu agenda.</b>\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- servicios agendados -->\n  <ion-row [hidden]=\"viewMood !== 'cal'\" style=\"text-align: center;align-items: center;\">\n    <ion-col size=\"3\">\n      <ion-button (click)=\"back()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-back-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n    <ion-col size=\"6\">\n      <ion-text class=\"dates-text-calendar\">{{ datesView }}</ion-text>\n    </ion-col>\n    <ion-col size=\"3\">\n      <ion-button (click)=\"next()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-forward-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n  </ion-row>\n\n  <div [hidden]=\"viewMood !== 'cal'\" style=\"height: 50vh; padding-left: 16px; padding-right: 16px;\">\n    <calendar [eventSource]=\"eventSource\" [calendarMode]=\"calendar.mode\" [currentDate]=\"calendar.currentDate\"\n      (onTitleChanged)=\"onViewTitleChanged($event)\" [weekviewHeaderTemplate]=\"headerWeek\"\n      [weekviewNormalEventTemplate]=\"event\">\n    </calendar>\n  </div>\n\n  <ion-row [hidden]=\"viewMood !== 'cal'\">\n    <ion-col size=\"11\" class=\"ion-text-left\">\n      <ion-text color=\"danger\" class=\"title\"><b>Tienes las siguientes visitas de valoración agendadas.</b></ion-text>\n    </ion-col>\n    <ion-col size=\"1\"></ion-col>\n  </ion-row>\n\n  <ion-row [hidden]=\"viewMood !== 'cal'\" style=\"text-align: center;align-items: center;\">\n    <ion-col size=\"3\">\n      <ion-button (click)=\"backAgended()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-back-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n    <ion-col size=\"6\">\n      <ion-text class=\"dates-text-calendar\">{{ datesAgendedView }}</ion-text>\n    </ion-col>\n    <ion-col size=\"3\">\n      <ion-button (click)=\"nextAgended()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-forward-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n  </ion-row>\n\n  <div [hidden]=\"viewMood !== 'cal'\" style=\"height: 50vh; padding-left: 16px; padding-right: 16px;\">\n    <calendar #calendarAgended [hidden]=\"viewMood !== 'cal'\" [eventSource]=\"eventSourceAgended\" [calendarMode]=\"calendar.mode\"\n      [currentDate]=\"calendar.currentDate\" (onTitleChanged)=\"onViewTitleAgendedChanged($event)\"\n      [weekviewHeaderTemplate]=\"headerWeekAgended\" [weekviewNormalEventTemplate]=\"eventAgended\">\n    </calendar>\n  </div>\n\n  <ng-template #event let-displayEvent=\"displayEvent\">\n    <div class=\"calendar-event-inner\" (click)=\"solicitudDetail(displayEvent.event.title.id)\">\n      <div class=\"category-event-inner\">\n        {{displayEvent.event.title.ticket}}\n      </div>\n    </div>\n  </ng-template>\n\n  <ng-template #eventAgended let-displayEvent=\"displayEvent\">\n    <div class=\"calendar-event-inner\" (click)=\"solicitudDetail(displayEvent.event.title.id)\">\n      <div class=\"category-event-inner\">\n        {{displayEvent.event.title.ticket}}\n      </div>\n    </div>\n  </ng-template>\n\n  <ng-template #headerWeek let-viewDate=\"viewDate\">\n    <div class=\"week-day-header\">\n      <ion-row>\n        {{ view(viewDate) }}\n      </ion-row>\n      <ion-row>\n        {{ viewDay(viewDate) }}\n      </ion-row>\n    </div>\n  </ng-template>\n\n  <ng-template #headerWeekAgended let-viewDate=\"viewDate\">\n    <div class=\"week-day-header\">\n      <ion-row>\n        {{ view(viewDate) }}\n      </ion-row>\n      <ion-row>\n        {{ viewDay(viewDate) }}\n      </ion-row>\n    </div>\n  </ng-template>\n\n\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedServices\">\n    <ion-grid [hidden]=\"viewMood !== 'list'\">\n      <ion-row class=\"ion-align-items-center\">\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\" (click)=\"solicitudDetail(service.id)\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{service.clientName+\" \"+ service.clientLastName}}\n            </span>&nbsp;&nbsp;\n            <ion-badge color=\"primary\" class=\"badge-text\">{{ service.categoryName }}</ion-badge>\n            <br>\n            <small>\n              <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ formatDate(service.date_required) }}\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ formatTime(service.hours) }}\n            </small>\n          </ion-text>\n        </ion-col>\n\n        <!-- ticket numer -->\n        <ion-col size=\"4\" class=\"text-center\">\n\n          <!-- enviada -->\n          <ion-text>\n            <!-- icons -->\n            <small class=\"ticket ion-text-center\">Solicitud #{{ service.ticket_number }}</small>\n            <small class=\"ratingText main-color ion-text-center\">\n              <div class=\"location_button\" (click)=\"openMaps(service.adress)\">\n                <ion-icon src=\"/assets/icon/ic_map.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>&nbsp;VER MAPA\n              </div>\n            </small>\n            <!--\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 3\">\n              SERVICIO AGENDADO\n            </small>\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 4\">\n              SERVICIO EN PROCESO\n            </small>\n          -->\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- servicios Iniciados -->\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedStartedServices\" (click)=\"solicitudDetail(service.id)\">\n    <ion-grid [hidden]=\"viewMood !== 'list'\">\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{service.clientName+\" \"+ service.clientLastName}}\n            </span>&nbsp;&nbsp;\n            <ion-badge color=\"primary\" class=\"badge-text\">{{ service.categoryName }}</ion-badge>\n            <br>\n            <small>\n              <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ formatDate(service.date_required) }}\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ formatTime(service.hours) }}\n            </small>\n          </ion-text>\n        </ion-col>\n\n        <!-- ticket numer -->\n        <ion-col size=\"4\">\n\n          <!-- enviada -->\n          <ion-text>\n            <!-- icons -->\n            <small class=\"ticket ion-text-center\">Solicitud #{{ service.ticket_number }}</small>\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 3\">\n              SERVICIO AGENDADO\n            </small>\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 4\">\n              SERVICIO EN PROCESO\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- title -->\n  <ion-grid *ngIf=\"loadedVisits.length > 0\">\n    <ion-row [hidden]=\"viewMood !== 'list'\">\n      <ion-col size=\"11\" class=\"ion-text-left\">\n        <ion-text color=\"danger\" class=\"title\"><b>Tienes las siguientes visitas de evaluación agendadas.</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- visitas agendadas -->\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedVisits\" (click)=\"solicitudDetail(service.id)\">\n    <ion-grid [hidden]=\"viewMood !== 'list'\">\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{service.clientName+\" \"+ service.clientLastName}}\n            </span>&nbsp;&nbsp;\n            <ion-badge color=\"primary\" class=\"badge-text\">{{ service.categoryName }}</ion-badge>\n            <br>\n            <small>\n              <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ formatDate(service.date_required) }}\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ formatTime(service.hours) }}\n            </small>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\">\n          <ion-text>\n            <p class=\"ticket ion-text-center\">Solicitud #{{service.ticket_number}}</p>\n            <!-- <ion-button expand=\"block\" fill=\"outline\" shape=\"round\" class=\"miniBtnTxt\" (click)=\"map()\">\n              <ion-icon slot=\"start\" name=\"map\"></ion-icon>\n              VER MAPA\n            </ion-button> -->\n\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">AGENDADOS</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n\n  <!-- title -->\n  <ion-grid fixed>\n    <ion-row class=\"ion-margin-top\" style=\"align-items: center;\">\n      <ion-col offset=\"7\">\n        <span style=\"color: #009ace\">Ver como</span>\n        <ion-icon (click)=\"changeView('list')\" class=\"icon-type-view\" name=\"menu-outline\"></ion-icon>\n        <ion-icon (click)=\"changeView('cal')\" class=\"icon-type-view\" name=\"calendar-clear-outline\"></ion-icon>\n      </ion-col>\n    </ion-row>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"11\" class=\"ion-text-left\">\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length > 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, tienes\n            los siguientes trabajos en tu agenda.</b>\n        </ion-text>\n        <ion-text class=\"main-color title\" *ngIf=\"loadedServices.length === 0\">\n          <b>Buenos días <span class=\"ion-text-capitalize\">{{grabbedUser.name}} {{grabbedUser.last_name}}</span>, no\n            tienes trabajos en tu agenda.</b>\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- servicios agendados -->\n  <ion-row [hidden]=\"viewMood !== 'cal'\" style=\"text-align: center;align-items: center;\">\n    <ion-col size=\"3\">\n      <ion-button (click)=\"back()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-back-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n    <ion-col size=\"6\">\n      <ion-text class=\"dates-text-calendar\">{{ datesView }}</ion-text>\n    </ion-col>\n    <ion-col size=\"3\">\n      <ion-button (click)=\"next()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-forward-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n  </ion-row>\n\n  <div [hidden]=\"viewMood !== 'cal'\" style=\"height: 50vh; padding-left: 16px; padding-right: 16px;\">\n    <calendar [eventSource]=\"eventSource\" [calendarMode]=\"calendar.mode\" [currentDate]=\"calendar.currentDate\"\n      (onTitleChanged)=\"onViewTitleChanged($event)\" [weekviewHeaderTemplate]=\"headerWeek\"\n      [weekviewNormalEventTemplate]=\"event\">\n    </calendar>\n  </div>\n\n  <ion-row [hidden]=\"viewMood !== 'cal'\">\n    <ion-col size=\"11\" class=\"ion-text-left\">\n      <ion-text color=\"danger\" class=\"title\"><b>Tienes las siguientes visitas de valoración agendadas.</b></ion-text>\n    </ion-col>\n    <ion-col size=\"1\"></ion-col>\n  </ion-row>\n\n  <ion-row [hidden]=\"viewMood !== 'cal'\" style=\"text-align: center;align-items: center;\">\n    <ion-col size=\"3\">\n      <ion-button (click)=\"backAgended()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-back-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n    <ion-col size=\"6\">\n      <ion-text class=\"dates-text-calendar\">{{ datesAgendedView }}</ion-text>\n    </ion-col>\n    <ion-col size=\"3\">\n      <ion-button (click)=\"nextAgended()\" class=\"btn-week-wallet\">\n        <ion-icon name=\"arrow-forward-outline\"></ion-icon>\n      </ion-button>\n    </ion-col>\n  </ion-row>\n\n  <div [hidden]=\"viewMood !== 'cal'\" style=\"height: 50vh; padding-left: 16px; padding-right: 16px;\">\n    <calendar #calendarAgended [hidden]=\"viewMood !== 'cal'\" [eventSource]=\"eventSourceAgended\" [calendarMode]=\"calendar.mode\"\n      [currentDate]=\"calendar.currentDate\" (onTitleChanged)=\"onViewTitleAgendedChanged($event)\"\n      [weekviewHeaderTemplate]=\"headerWeekAgended\" [weekviewNormalEventTemplate]=\"eventAgended\">\n    </calendar>\n  </div>\n\n  <ng-template #event let-displayEvent=\"displayEvent\">\n    <div class=\"calendar-event-inner\" (click)=\"solicitudDetail(displayEvent.event.title.id)\">\n      <div class=\"category-event-inner\">\n        {{displayEvent.event.title.ticket}}\n      </div>\n    </div>\n  </ng-template>\n\n  <ng-template #eventAgended let-displayEvent=\"displayEvent\">\n    <div class=\"calendar-event-inner\" (click)=\"solicitudDetail(displayEvent.event.title.id)\">\n      <div class=\"category-event-inner\">\n        {{displayEvent.event.title.ticket}}\n      </div>\n    </div>\n  </ng-template>\n\n  <ng-template #headerWeek let-viewDate=\"viewDate\">\n    <div class=\"week-day-header\">\n      <ion-row>\n        {{ view(viewDate) }}\n      </ion-row>\n      <ion-row>\n        {{ viewDay(viewDate) }}\n      </ion-row>\n    </div>\n  </ng-template>\n\n  <ng-template #headerWeekAgended let-viewDate=\"viewDate\">\n    <div class=\"week-day-header\">\n      <ion-row>\n        {{ view(viewDate) }}\n      </ion-row>\n      <ion-row>\n        {{ viewDay(viewDate) }}\n      </ion-row>\n    </div>\n  </ng-template>\n\n\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedServices\">\n    <ion-grid [hidden]=\"viewMood !== 'list'\">\n      <ion-row class=\"ion-align-items-center\">\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\" (click)=\"solicitudDetail(service.id)\">\n          <ion-text>\n            <span *ngIf=\"service.type_request == 'NORMAL'\" class=\"titleSelect main-color ion-text-capitalize\" color=\"danger\">{{service.clientName+\" \"+ service.clientLastName}}&nbsp;&nbsp;\n            </span>\n            <span *ngIf=\"service.type_request == 'URGENT'\" class=\"titleSelect urgent-color ion-text-capitalize\" color=\"danger\">{{service.clientName+\" \"+ service.clientLastName}}\n            </span>&nbsp;&nbsp;\n            <ion-badge [color]=\"service.type_request == 'URGENT' ? 'danger' : 'primary'\" class=\"badge-text\">{{ service.categoryName }}</ion-badge>&nbsp;\n            <ion-icon *ngIf=\"service.type_request == 'URGENT'\" src=\"/assets/icon/ic_error.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n            <br>\n            <small>\n              <ion-icon src=\"/assets/icon/ic_date_range.svg\" [color]=\"service.type_request == 'URGENT' ? 'danger' : 'primary'\" class=\"iconFix\"></ion-icon>\n              {{ formatDate(service.date_required) }}\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" [color]=\"service.type_request == 'URGENT' ? 'danger' : 'primary'\" class=\"iconFix\"></ion-icon>\n              {{ formatTime(service.hours) }}\n            </small>\n          </ion-text>\n        </ion-col>\n\n        <!-- ticket numer -->\n        <ion-col size=\"4\" class=\"text-center\">\n\n          <!-- enviada -->\n          <ion-text>\n            <!-- icons -->\n            <small class=\"ticket ion-text-center\">Solicitud #{{ service.ticket_number }}</small>\n            <small class=\"ratingText main-color ion-text-center\">\n              <div class=\"location_button\" (click)=\"openMaps(service.adress)\">\n                <ion-icon src=\"/assets/icon/ic_map.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>&nbsp;VER MAPA\n              </div>\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- servicios Iniciados -->\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedStartedServices\" (click)=\"solicitudDetail(service.id)\">\n    <ion-grid [hidden]=\"viewMood !== 'list'\">\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span *ngIf=\"service.type_request == 'NORMAL'\" class=\"titleSelect main-color ion-text-capitalize\" color=\"danger\">{{service.clientName+\" \"+ service.clientLastName}}&nbsp;&nbsp;\n            </span>\n            <span *ngIf=\"service.type_request == 'URGENT'\" class=\"titleSelect urgent-color ion-text-capitalize\" color=\"danger\">{{service.clientName+\" \"+ service.clientLastName}}\n            </span>&nbsp;&nbsp;\n            <ion-badge [color]=\"service.type_request == 'URGENT' ? 'danger' : 'primary'\" class=\"badge-text\">{{ service.categoryName }}</ion-badge>&nbsp;\n            <ion-icon *ngIf=\"service.type_request == 'URGENT'\" src=\"/assets/icon/ic_error.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n            <br>\n            <small>\n              <ion-icon src=\"/assets/icon/ic_date_range.svg\" [color]=\"service.type_request == 'URGENT' ? 'danger' : 'primary'\" class=\"iconFix\"></ion-icon>\n              {{ formatDate(service.date_required) }}\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" [color]=\"service.type_request == 'URGENT' ? 'danger' : 'primary'\" class=\"iconFix\"></ion-icon>\n              {{ formatTime(service.hours) }}\n            </small>\n          </ion-text>\n        </ion-col>\n\n        <!-- ticket numer -->\n        <ion-col size=\"4\">\n\n          <!-- enviada -->\n          <ion-text>\n            <!-- icons -->\n            <small class=\"ticket ion-text-center\">Solicitud #{{ service.ticket_number }}</small>\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 3\">\n              SERVICIO AGENDADO\n            </small>\n            <small class=\"ratingText main-color ion-text-center\" *ngIf=\"service.status_id === 4\">\n              SERVICIO EN PROCESO\n            </small>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <!-- title -->\n  <ion-grid *ngIf=\"loadedVisits.length > 0\">\n    <ion-row [hidden]=\"viewMood !== 'list'\">\n      <ion-col size=\"11\" class=\"ion-text-left\">\n        <ion-text color=\"danger\" class=\"title\"><b>Tienes las siguientes visitas de evaluación agendadas.</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <!-- visitas agendadas -->\n  <div class=\"prof-cont no-border\" *ngFor=\"let service of loadedVisits\" (click)=\"solicitudDetail(service.id)\">\n    <ion-grid [hidden]=\"viewMood !== 'list'\">\n      <ion-row class=\"ion-align-items-center\">\n\n        <!-- title -->\n        <ion-col size=\"8\" class=\"ion-justify-content-center\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{service.clientName+\" \"+ service.clientLastName}}\n            </span>&nbsp;&nbsp;\n            <ion-badge color=\"primary\" class=\"badge-text\">{{ service.categoryName }}</ion-badge>\n            <br>\n            <small>\n              <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ formatDate(service.date_required) }}\n              <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconFix\"></ion-icon>\n              {{ formatTime(service.hours) }}\n            </small>\n          </ion-text>\n        </ion-col>\n\n        <!-- rating -->\n        <ion-col size=\"4\">\n          <ion-text>\n            <p class=\"ticket ion-text-center\">Solicitud #{{service.ticket_number}}</p>\n            <!-- <ion-button expand=\"block\" fill=\"outline\" shape=\"round\" class=\"miniBtnTxt\" (click)=\"map()\">\n              <ion-icon slot=\"start\" name=\"map\"></ion-icon>\n              VER MAPA\n            </ion-button> -->\n\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n</ion-content>";
       /***/
     }
   }]);

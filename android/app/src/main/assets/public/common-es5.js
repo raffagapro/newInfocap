@@ -135,6 +135,26 @@
     },
 
     /***/
+    "5w0X":
+    /*!***************************************************************!*\
+      !*** ./src/app/shared/image-modal/image-modal.component.scss ***!
+      \***************************************************************/
+
+    /*! exports provided: default */
+
+    /***/
+    function w0X(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = ".modal-cont {\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n\n.status-cont {\n  border-radius: 50px;\n  height: 45px;\n  width: 45px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: 5px;\n  background-color: #009ace;\n}\n\n.status-text-icon {\n  font-size: 20px;\n  margin-left: auto;\n  margin-right: auto;\n  display: inline-flex;\n}\n\n.status-text {\n  font-size: 22px;\n}\n\n.mini-text {\n  font-size: 13px;\n}\n\nhr {\n  border-top: 1px solid #009ace;\n}\n\n.imgSingle {\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2ltYWdlLW1vZGFsLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBQTtFQUNBLGFBQUE7RUFDQSx1QkFBQTtFQUNBLG1CQUFBO0FBQ0o7O0FBQ0E7RUFDSSxtQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0Esb0JBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLGVBQUE7RUFDQSx5QkFBQTtBQUVKOztBQUFBO0VBQ0ksZUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxvQkFBQTtBQUdKOztBQURBO0VBQ0ksZUFBQTtBQUlKOztBQUZBO0VBQ0ksZUFBQTtBQUtKOztBQUhBO0VBQ0ksNkJBQUE7QUFNSjs7QUFKQTtFQUNJLFdBQUE7QUFPSiIsImZpbGUiOiJpbWFnZS1tb2RhbC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5tb2RhbC1jb250IHtcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xufVxuLnN0YXR1cy1jb250IHtcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICAgIGhlaWdodDogNDVweDtcbiAgICB3aWR0aDogNDVweDtcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgbWFyZ2luLXRvcDogNXB4O1xuICAgIGJhY2tncm91bmQtY29sb3I6ICMwMDlhY2U7XG59XG4uc3RhdHVzLXRleHQtaWNvbiB7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbn1cbi5zdGF0dXMtdGV4dCB7XG4gICAgZm9udC1zaXplOiAyMnB4O1xufVxuLm1pbmktdGV4dCB7XG4gICAgZm9udC1zaXplOiAxM3B4O1xufVxuaHIge1xuICAgIGJvcmRlci10b3A6IDFweCBzb2xpZCAjMDA5YWNlO1xufVxuLmltZ1NpbmdsZSB7XG4gICAgd2lkdGg6IDEwMCU7XG59XG4iXX0= */";
+      /***/
+    },
+
+    /***/
     "74mu":
     /*!*************************************************************!*\
       !*** ./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js ***!
@@ -253,6 +273,99 @@
       }();
       /***/
 
+    },
+
+    /***/
+    "BPum":
+    /*!*************************************************************!*\
+      !*** ./src/app/shared/image-modal/image-modal.component.ts ***!
+      \*************************************************************/
+
+    /*! exports provided: ImageModalComponent */
+
+    /***/
+    function BPum(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "ImageModalComponent", function () {
+        return ImageModalComponent;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _raw_loader_image_modal_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! raw-loader!./image-modal.component.html */
+      "mBTF");
+      /* harmony import */
+
+
+      var _image_modal_component_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ./image-modal.component.scss */
+      "5w0X");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @angular/router */
+      "tyNb");
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @ionic/angular */
+      "TEn/");
+
+      var ImageModalComponent = /*#__PURE__*/function () {
+        function ImageModalComponent(modalController, router) {
+          _classCallCheck(this, ImageModalComponent);
+
+          this.modalController = modalController;
+          this.router = router;
+        }
+
+        _createClass(ImageModalComponent, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {}
+        }, {
+          key: "dismiss",
+          value: function dismiss() {
+            this.modalController.dismiss();
+          }
+        }]);
+
+        return ImageModalComponent;
+      }();
+
+      ImageModalComponent.ctorParameters = function () {
+        return [{
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"]
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
+        }];
+      };
+
+      ImageModalComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        selector: 'app-image-modal',
+        template: _raw_loader_image_modal_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
+        styles: [_image_modal_component_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
+      })], ImageModalComponent);
+      /***/
     },
 
     /***/
@@ -625,6 +738,26 @@
         }
       };
       var SPINNERS = spinners;
+      /***/
+    },
+
+    /***/
+    "mBTF":
+    /*!*****************************************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/shared/image-modal/image-modal.component.html ***!
+      \*****************************************************************************************************/
+
+    /*! exports provided: default */
+
+    /***/
+    function mBTF(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<ion-content class=\"success-modal\">\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-img src=\"{{ image }}\" class=\"imgSlide\"></ion-img>\n          <br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">CERRAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n\n  </ion-grid>\n</ion-content>";
       /***/
     },
 

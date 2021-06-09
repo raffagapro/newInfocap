@@ -113,6 +113,12 @@
 
 
       var moment__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_13__);
+      /* harmony import */
+
+
+      var src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      /*! src/app/shared/image-modal/image-modal.component */
+      "BPum");
 
       function base64toBlob(base64Data, contentType) {
         contentType = contentType || '';
@@ -152,6 +158,7 @@
           this.lc = lc;
           this.platform = platform;
           this.minDate = moment__WEBPACK_IMPORTED_MODULE_13__().add('hour', 1);
+          this.maxDate = moment__WEBPACK_IMPORTED_MODULE_13__().add('hour', 24);
           this.useInputPicker = false;
           this.loadedImages = [];
           this.loadedImagesDisplay = [];
@@ -224,8 +231,8 @@
               quality: 100,
               source: _capacitor_core__WEBPACK_IMPORTED_MODULE_8__["CameraSource"].Prompt,
               correctOrientation: true,
-              //height: 150,
-              // width: 200,
+              height: 500,
+              width: 500,
               resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_8__["CameraResultType"].DataUrl,
               promptLabelPhoto: 'Fotos',
               promptLabelPicture: 'Cámara',
@@ -241,13 +248,14 @@
           value: function onLoadImgFromInput(e) {
             var _this3 = this;
 
-            var loadedFile = e.target.files[0];
-            this.saveImgToApi(loadedFile); //converting images to blob for diplaying
+            var loadedFile = e.target.files[0]; //this.saveImgToApi(loadedFile);
+            //converting images to blob for diplaying
 
             var fr = new FileReader();
 
             fr.onload = function () {
-              _this3.loadedImagesDisplay.push(fr.result.toString());
+              //this.loadedImagesDisplay.push(fr.result.toString());
+              _this3.saveImgToApi(fr.result.toString());
             };
 
             fr.readAsDataURL(e.target.files[0]);
@@ -269,6 +277,17 @@
             }
 
             this.loadedImages.push(imgFile);
+            this.loadedImagesDisplay.push(imageData);
+          }
+        }, {
+          key: "removeImage",
+          value: function removeImage(imageIndex) {
+            this.loadedImages = this.loadedImages.filter(function (image, index) {
+              return index !== imageIndex;
+            });
+            this.loadedImagesDisplay = this.loadedImagesDisplay.filter(function (image, index) {
+              return index !== imageIndex;
+            });
           }
         }, {
           key: "confirmRequest",
@@ -301,6 +320,12 @@
             }
 
             this.showError = false;
+
+            if (this.loadedImages.length === 0) {
+              alert('Debes agregar al menos una foto a la solicitud.');
+              return;
+            }
+
             this.lc.create({
               message: 'Creando su solicitud...'
             }).then(function (loadingEl) {
@@ -315,7 +340,8 @@
                   component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_3__["SuccessModalComponent"],
                   componentProps: {
                     message: 'PRONTO UN PROFESIONAL SE CONTACTARÁ CONTIGO',
-                    redirect: false
+                    redirect: true,
+                    redirectUrl: '/user/solicitudes'
                   },
                   cssClass: 'modalSuccess'
                 }).then(function (modalEl) {
@@ -326,6 +352,36 @@
                 console.log(err);
               });
             });
+          }
+        }, {
+          key: "openImage",
+          value: function openImage(image) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var successModal;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return this.modalController.create({
+                        component: src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_14__["ImageModalComponent"],
+                        componentProps: {
+                          image: image
+                        },
+                        cssClass: 'modalImage'
+                      });
+
+                    case 2:
+                      successModal = _context.sent;
+                      successModal.present();
+
+                    case 4:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
           }
         }, {
           key: "ngOnDestroy",
@@ -447,7 +503,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"danger\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/profesional-detail\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">SOLICITUD URGENTE</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <form [formGroup]=\"form\" (ngSubmit)=\"confirmRequest()\">\n    <ion-grid>\n\n      <!-- text -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"ion-text-center\">\n          <ion-text class=\"regText\">\n            Esta solicitud es de carácter urgente y será enviada a los 10 profesionales mejor catalogados para que\n            puedan atender tu solicitud lo antes posible.\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row>\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"ion-text-center\">\n          <ion-text class=\"title\" color=\"danger\"><b>Cuéntanos ¿Cuál es la solicitud del trabajo?</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea class=\"textarea\" rows=\"3\" cols=\"20\" formControlName=\"description\"\n              placeholder=\"Describe lo más posible y claro el trabajo, así podremos dar respuesta más rápido.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"ion-text-center\">\n          <ion-text color=\"danger\" class=\"regText\"><b>Agrega imágenes que ayudarán al profesional a responder mejor a tu\n              solicitud.</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- images -->\n      <ion-row class=\"ion-align-items-center\">\n        <ion-col size=\"7\" offset=\"1\" *ngIf=\"loadedImagesDisplay.length > 0\">\n          <ion-slides [options]=\"slideOptions\">\n\n            <!-- slide -->\n            <ion-slide class=\"slide\" *ngFor=\"let image of loadedImagesDisplay\"\n              [loadedImagesDisplay]='loadedImagesDisplay'>\n              <ion-img src=\"{{ image }}\" class=\"imgSlide\">\n              </ion-img>\n            </ion-slide>\n\n          </ion-slides>\n        </ion-col>\n        <ion-col class=\"{{loadedImagesDisplay.length > 0 ? '' : 'text-center'}}\"\n          [size]=\"loadedImagesDisplay.length > 0 ? '4' : '12'\">\n          <div class=\"locate-cont\" (click)=\"onLoadImg()\">\n            <ion-icon name=\"add\" color=\"light\" class=\"rating-text\"></ion-icon>\n          </div>\n        </ion-col>\n      </ion-row>\n\n      <!-- hidden file input -->\n      <div style=\"display: none;\">\n        <input type=\"file\" #hiddenImgInput *ngIf=\"useInputPicker\" (change)=\"onLoadImgFromInput($event)\">\n      </div>\n\n      <!-- Fecha requerida -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_date_range_red.svg\" slot=\"start\"></ion-icon>\n              <ion-text color=\"danger\">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>\n            </ion-label>\n            <ion-datetime formControlName=\"date_required\" placeholder=\"Definir fecha\" [pickerFormat]=\"'DD MMM YYYY'\" [displayFormat]=\"'DDDD DD de MMM de YYYY'\"\n              [min]=\"minDate.format('YYYY-MM-DD')\" (ngModelChange)=\"onDateChange($event)\"\n              [dayNames]=\"['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']\"\n              monthShortNames=\"Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- Rango de horas -->\n\n      <!-- pickers -->\n      <ion-row>\n        <ion-col size=\"6\">\n          <ion-item>\n            <ion-label position=\"floating\">\n              <ion-icon color=\"danger\" src=\"/assets/icon/ic_schedule_red.svg\" slot=\"start\"></ion-icon>\n              <ion-text color=\"danger\">&nbsp;&nbsp;&nbsp;Hora inicial</ion-text>\n            </ion-label>\n            <ion-datetime formControlName=\"sHour\" display-format=\"h:mm A\" picker-format=\"h:mm A\"\n              [min]=\"minDate.format('YYYY-MM-DD')\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n\n        <ion-col size=\"5\">\n          <ion-item>\n            <ion-label position=\"floating\">\n              <ion-icon color=\"danger\" src=\"/assets/icon/ic_schedule_red.svg\" slot=\"start\"></ion-icon>\n              <ion-text color=\"danger\">&nbsp;&nbsp;&nbsp;Hora final</ion-text>\n            </ion-label>\n            <ion-datetime formControlName=\"eHour\" display-format=\"h:mm A\" picker-format=\"h:mm A\"\n              [min]=\"minDate.format('YYYY-MM-DD')\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n\n        <!-- error  -->\n        <ion-col size=\"12\" *ngIf=\"showError\">\n          <ion-label class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text class=\"text-center\" color=\"danger\">\n              <small> La hora de inicio debe ser menor que la hora de fin</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- enviar solicitud BTN -->\n      <ion-row class=\"ion-margin-top ion-margin-bottom\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col>\n          <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" color=\"danger\" type=\"submit\"\n            [disabled]=\"!form.valid\">\n            CONFIRMAR SOLICITUD\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n    </ion-grid>\n  </form>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"danger\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/profesional-detail\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">SOLICITUD URGENTE</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <form [formGroup]=\"form\" (ngSubmit)=\"confirmRequest()\">\n    <ion-grid>\n\n      <!-- text -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"ion-text-center\">\n          <ion-text class=\"regText\">\n            Esta solicitud es de carácter urgente y será enviada a los 10 profesionales mejor catalogados para que\n            puedan atender tu solicitud lo antes posible.\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row>\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"ion-text-center\">\n          <ion-text class=\"title\" color=\"danger\"><b>Cuéntanos ¿Cuál es la solicitud del trabajo?</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea class=\"textarea\" rows=\"3\" cols=\"20\" formControlName=\"description\"\n              placeholder=\"Describe lo más posible y claro el trabajo, así podremos dar respuesta más rápido.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"ion-text-center\">\n          <ion-text color=\"danger\" class=\"regText\"><b>Agrega imágenes que ayudarán al profesional a responder mejor a tu\n              solicitud.</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- images -->\n      <ion-row class=\"ion-align-items-center\">\n        <ion-col size=\"7\" offset=\"1\" *ngIf=\"loadedImagesDisplay.length > 0\">\n          <ion-slides [options]=\"slideOptions\">\n\n            <!-- slide -->\n            <ion-slide class=\"slide\" *ngFor=\"let image of loadedImagesDisplay; let i = index\"\n              [loadedImagesDisplay]='loadedImagesDisplay'>\n              <ion-img (click)=\"openImage(image)\" src=\"{{ image }}\" class=\"imgSlide\">\n              </ion-img>\n              <ion-button (click)=\"removeImage(i)\" size=\"small\" shape=\"round\" color=\"danger\" class=\"deleteBtn\">\n                <ion-icon name=\"close-circle-outline\"></ion-icon>\n              </ion-button>\n            </ion-slide>\n\n          </ion-slides>\n        </ion-col>\n        <ion-col class=\"{{loadedImagesDisplay.length > 0 ? '' : 'text-center'}}\"\n          [size]=\"loadedImagesDisplay.length > 0 ? '4' : '12'\">\n          <div class=\"locate-cont\" (click)=\"onLoadImg()\">\n            <ion-icon name=\"add\" color=\"light\" class=\"rating-text\"></ion-icon>\n          </div>\n        </ion-col>\n      </ion-row>\n\n      <!-- hidden file input -->\n      <div style=\"display: none;\">\n        <input type=\"file\" #hiddenImgInput *ngIf=\"useInputPicker\" (change)=\"onLoadImgFromInput($event)\">\n      </div>\n\n      <!-- Fecha requerida -->\n      <ion-row>\n        <ion-col size=\"11\">\n          <ion-item>\n            <ion-label position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_date_range_red.svg\" slot=\"start\"></ion-icon>\n              <ion-text color=\"danger\">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>\n            </ion-label>\n            <ion-datetime formControlName=\"date_required\" placeholder=\"Definir fecha\" [pickerFormat]=\"'DD MMM YYYY'\"\n              [displayFormat]=\"'DDDD DD de MMM de YYYY'\" [min]=\"minDate.format('YYYY-MM-DD')\"\n              [max]=\"maxDate.format('YYYY-MM-DD')\" (ngModelChange)=\"onDateChange($event)\"\n              [dayNames]=\"['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']\"\n              monthShortNames=\"Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- Rango de horas -->\n\n      <!-- pickers -->\n      <ion-row>\n        <ion-col size=\"6\">\n          <ion-item>\n            <ion-label position=\"floating\">\n              <ion-icon color=\"danger\" src=\"/assets/icon/ic_schedule_red.svg\" slot=\"start\"></ion-icon>\n              <ion-text color=\"danger\">&nbsp;&nbsp;&nbsp;Hora inicial</ion-text>\n            </ion-label>\n            <ion-datetime formControlName=\"sHour\" display-format=\"h:mm A\" picker-format=\"h:mm A\"\n              [min]=\"minDate.format('YYYY-MM-DD')\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n\n        <ion-col size=\"5\">\n          <ion-item>\n            <ion-label position=\"floating\">\n              <ion-icon color=\"danger\" src=\"/assets/icon/ic_schedule_red.svg\" slot=\"start\"></ion-icon>\n              <ion-text color=\"danger\">&nbsp;&nbsp;&nbsp;Hora final</ion-text>\n            </ion-label>\n            <ion-datetime formControlName=\"eHour\" display-format=\"h:mm A\" picker-format=\"h:mm A\"\n              [min]=\"minDate.format('YYYY-MM-DD')\">\n            </ion-datetime>\n          </ion-item>\n        </ion-col>\n\n        <!-- error  -->\n        <ion-col size=\"12\" *ngIf=\"showError\">\n          <ion-label class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text class=\"text-center\" color=\"danger\">\n              <small> La hora de inicio debe ser menor que la hora de fin</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- enviar solicitud BTN -->\n      <ion-row class=\"ion-margin-top ion-margin-bottom\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col>\n          <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" color=\"danger\" type=\"submit\"\n            [disabled]=\"!form.valid\">\n            CONFIRMAR SOLICITUD\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n    </ion-grid>\n  </form>\n</ion-content>";
       /***/
     },
 
@@ -540,7 +596,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".no-border {\n  padding-top: 2px;\n  padding-bottom: 2px;\n}\n\n.profileImg {\n  margin-left: 10px;\n  height: 75px;\n  width: 75px;\n}\n\n.titleSelect {\n  font-size: 23px;\n  font-weight: bold;\n}\n\n.tittle {\n  font-size: 18px;\n}\n\n.border {\n  border: 1px solid red;\n}\n\n.regText {\n  font-size: 14px;\n}\n\n.imgSingle {\n  height: 125px;\n}\n\n.locate-cont {\n  border-radius: 50px;\n  height: 50px;\n  width: 50px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: red;\n}\n\n.rating-text {\n  font-size: 26px;\n  margin-left: auto;\n  margin-right: auto;\n}\n\nion-item {\n  --border-color: var(--ion-color-danger, red);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3VyZ2VuLXNlcnZpY2UucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7RUFDQSxtQkFBQTtBQUNKOztBQUNFO0VBQ0UsaUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtBQUVKOztBQUFFO0VBQ0UsZUFBQTtFQUNBLGlCQUFBO0FBR0o7O0FBREU7RUFDRSxlQUFBO0FBSUo7O0FBRkU7RUFDRSxxQkFBQTtBQUtKOztBQUhFO0VBQ0UsZUFBQTtBQU1KOztBQUpFO0VBQ0UsYUFBQTtBQU9KOztBQUxFO0VBQ0UsbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLG9CQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxxQkFBQTtBQVFKOztBQU5FO0VBQ0UsZUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUFTSjs7QUFQRTtFQUNFLDRDQUFBO0FBVUoiLCJmaWxlIjoidXJnZW4tc2VydmljZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubm8tYm9yZGVye1xuICAgIHBhZGRpbmctdG9wOiAycHg7XG4gICAgcGFkZGluZy1ib3R0b206IDJweDtcbiAgfVxuICAucHJvZmlsZUltZ3tcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbiAgICBoZWlnaHQ6IDc1cHg7XG4gICAgd2lkdGg6IDc1cHg7XG4gIH1cbiAgLnRpdGxlU2VsZWN0e1xuICAgIGZvbnQtc2l6ZTogMjNweDtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbiAgfVxuICAudGl0dGxle1xuICAgIGZvbnQtc2l6ZTogMThweDtcbiAgfVxuICAuYm9yZGVye1xuICAgIGJvcmRlcjogMXB4IHNvbGlkIHJlZDtcbiAgfVxuICAucmVnVGV4dHtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gIH1cbiAgLmltZ1NpbmdsZXtcbiAgICBoZWlnaHQ6IDEyNXB4O1xuICB9XG4gIC5sb2NhdGUtY29udHtcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICAgIGhlaWdodDogNTBweDtcbiAgICB3aWR0aDogNTBweDtcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmVkO1xuICB9XG4gIC5yYXRpbmctdGV4dHtcbiAgICBmb250LXNpemU6IDI2cHg7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICB9XG4gIGlvbi1pdGVtIHtcbiAgICAtLWJvcmRlci1jb2xvcjogdmFyKC0taW9uLWNvbG9yLWRhbmdlciwgcmVkKTtcbiAgfVxuICAiXX0= */";
+      __webpack_exports__["default"] = ".no-border {\n  padding-top: 2px;\n  padding-bottom: 2px;\n}\n\n.profileImg {\n  margin-left: 10px;\n  height: 75px;\n  width: 75px;\n}\n\n.titleSelect {\n  font-size: 23px;\n  font-weight: bold;\n}\n\n.tittle {\n  font-size: 18px;\n}\n\n.border {\n  border: 1px solid red;\n}\n\n.regText {\n  font-size: 14px;\n}\n\n.imgSingle {\n  height: 125px;\n}\n\n.locate-cont {\n  border-radius: 50px;\n  height: 50px;\n  width: 50px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: red;\n}\n\n.rating-text {\n  font-size: 26px;\n  margin-left: auto;\n  margin-right: auto;\n}\n\nion-item {\n  --border-color: var(--ion-color-danger, red);\n}\n\n.deleteBtn {\n  position: absolute;\n  top: 0;\n  right: 0;\n  border-radius: 100%;\n  color: white;\n  width: 32px;\n  padding: 0;\n  margin: 0;\n  --padding-start: 0;\n  --padding-end: 0;\n}\n\n.deleteBtn ion-icon {\n  position: absolute;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3VyZ2VuLXNlcnZpY2UucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQUE7RUFDQSxtQkFBQTtBQUNKOztBQUNFO0VBQ0UsaUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtBQUVKOztBQUFFO0VBQ0UsZUFBQTtFQUNBLGlCQUFBO0FBR0o7O0FBREU7RUFDRSxlQUFBO0FBSUo7O0FBRkU7RUFDRSxxQkFBQTtBQUtKOztBQUhFO0VBQ0UsZUFBQTtBQU1KOztBQUpFO0VBQ0UsYUFBQTtBQU9KOztBQUxFO0VBQ0UsbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLG9CQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxxQkFBQTtBQVFKOztBQU5FO0VBQ0UsZUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUFTSjs7QUFQRTtFQUNFLDRDQUFBO0FBVUo7O0FBUkU7RUFDRSxrQkFBQTtFQUNBLE1BQUE7RUFDQSxRQUFBO0VBQ0EsbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLFVBQUE7RUFDQSxTQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQkFBQTtBQVdKOztBQVZJO0VBQ0Usa0JBQUE7QUFZTiIsImZpbGUiOiJ1cmdlbi1zZXJ2aWNlLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5uby1ib3JkZXJ7XG4gICAgcGFkZGluZy10b3A6IDJweDtcbiAgICBwYWRkaW5nLWJvdHRvbTogMnB4O1xuICB9XG4gIC5wcm9maWxlSW1ne1xuICAgIG1hcmdpbi1sZWZ0OiAxMHB4O1xuICAgIGhlaWdodDogNzVweDtcbiAgICB3aWR0aDogNzVweDtcbiAgfVxuICAudGl0bGVTZWxlY3R7XG4gICAgZm9udC1zaXplOiAyM3B4O1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICB9XG4gIC50aXR0bGV7XG4gICAgZm9udC1zaXplOiAxOHB4O1xuICB9XG4gIC5ib3JkZXJ7XG4gICAgYm9yZGVyOiAxcHggc29saWQgcmVkO1xuICB9XG4gIC5yZWdUZXh0e1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgfVxuICAuaW1nU2luZ2xle1xuICAgIGhlaWdodDogMTI1cHg7XG4gIH1cbiAgLmxvY2F0ZS1jb250e1xuICAgIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gICAgaGVpZ2h0OiA1MHB4O1xuICAgIHdpZHRoOiA1MHB4O1xuICAgIGRpc3BsYXk6IGlubGluZS1mbGV4O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XG4gIH1cbiAgLnJhdGluZy10ZXh0e1xuICAgIGZvbnQtc2l6ZTogMjZweDtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gIH1cbiAgaW9uLWl0ZW0ge1xuICAgIC0tYm9yZGVyLWNvbG9yOiB2YXIoLS1pb24tY29sb3ItZGFuZ2VyLCByZWQpO1xuICB9XG4gIC5kZWxldGVCdG4ge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDA7XG4gICAgcmlnaHQ6IDA7XG4gICAgYm9yZGVyLXJhZGl1czogMTAwJTtcbiAgICBjb2xvcjogd2hpdGU7XG4gICAgd2lkdGg6IDMycHg7XG4gICAgcGFkZGluZzogMDtcbiAgICBtYXJnaW46IDA7XG4gICAgLS1wYWRkaW5nLXN0YXJ0OiAwO1xuICAgIC0tcGFkZGluZy1lbmQ6IDA7XG4gICAgaW9uLWljb24ge1xuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIH1cbiAgfVxuICAiXX0= */";
       /***/
     }
   }]);

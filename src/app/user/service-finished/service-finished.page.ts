@@ -9,6 +9,7 @@ import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
+import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
 
 @Component({
   selector: 'app-service-finished',
@@ -106,8 +107,12 @@ export class ServiceFinishedPage implements OnInit {
     this.menuController.open();
   }
 
-  formatDate(date: Moment, dateFormat: any = 'YYYY-MM-DD') {
-    return moment(date, dateFormat).format('dddd D [de] MMMM [de] YYYY');
+  formatDate(date: Moment, dateFormat: any = 'YYYY-MM-DD', useTimezone: boolean = false) {
+    let momentDate = moment.utc(date, dateFormat);
+    if (useTimezone) {
+      momentDate.tz(moment.tz.guess())
+    }
+    return momentDate.format('dddd D [de] MMMM [de] YYYY');
   }
 
   formatTime() {
@@ -160,6 +165,17 @@ export class ServiceFinishedPage implements OnInit {
     } catch (error) {
       this.showRateProfessional = false;
     }
+  }
+
+  async openImage(image: string) {
+    const successModal = await this.modalController.create({
+      component: ImageModalComponent,
+      componentProps: {
+        image,
+      },
+      cssClass: 'modalImage',
+    });
+    successModal.present();
   }
 
 }

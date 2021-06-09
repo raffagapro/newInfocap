@@ -78,9 +78,9 @@
           children: [{
             path: '',
             loadChildren: function loadChildren() {
-              return __webpack_require__.e(
+              return Promise.all(
               /*! import() | solicitudes-solicitudes-module */
-              "solicitudes-solicitudes-module").then(__webpack_require__.bind(null,
+              [__webpack_require__.e("default~agendados-agendados-module~finalizados-finalizados-module~solicitudes-solicitudes-module"), __webpack_require__.e("solicitudes-solicitudes-module")]).then(__webpack_require__.bind(null,
               /*! ./solicitudes/solicitudes.module */
               "tQ1+")).then(function (m) {
                 return m.SolicitudesPageModule;
@@ -92,9 +92,9 @@
           children: [{
             path: '',
             loadChildren: function loadChildren() {
-              return __webpack_require__.e(
+              return Promise.all(
               /*! import() | agendados-agendados-module */
-              "agendados-agendados-module").then(__webpack_require__.bind(null,
+              [__webpack_require__.e("default~agendados-agendados-module~finalizados-finalizados-module~solicitudes-solicitudes-module"), __webpack_require__.e("agendados-agendados-module")]).then(__webpack_require__.bind(null,
               /*! ./agendados/agendados.module */
               "hPVO")).then(function (m) {
                 return m.AgendadosPageModule;
@@ -106,9 +106,9 @@
           children: [{
             path: '',
             loadChildren: function loadChildren() {
-              return __webpack_require__.e(
+              return Promise.all(
               /*! import() | finalizados-finalizados-module */
-              "finalizados-finalizados-module").then(__webpack_require__.bind(null,
+              [__webpack_require__.e("default~agendados-agendados-module~finalizados-finalizados-module~solicitudes-solicitudes-module"), __webpack_require__.e("finalizados-finalizados-module")]).then(__webpack_require__.bind(null,
               /*! ./finalizados/finalizados.module */
               "1xSf")).then(function (m) {
                 return m.FinalizadosPageModule;

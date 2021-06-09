@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 import { SuccessModalComponent } from 'src/app/shared/success-modal/success-modal.component';
+import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
 
 @Component({
   selector: 'app-visita-detail',
@@ -104,8 +105,12 @@ export class VisitaDetailPage implements OnInit {
     this.menuController.open();
   }
 
-  formatDate(date: Moment, dateFormat: any = 'YYYY-MM-DD') {
-    return moment(date, dateFormat).format('dddd D [de] MMMM [de] YYYY');
+  formatDate(date: Moment, dateFormat: any = 'YYYY-MM-DD', useTimezone: boolean = false) {
+    let momentDate = moment.utc(date, dateFormat);
+    if (useTimezone) {
+      momentDate.tz(moment.tz.guess())
+    }
+    return momentDate.format('dddd D [de] MMMM [de] YYYY');
   }
 
   formatTime() {
@@ -157,6 +162,17 @@ export class VisitaDetailPage implements OnInit {
       });
       successModal.present();
     }
+  }
+
+  async openImage(image: string) {
+    const successModal = await this.modalController.create({
+      component: ImageModalComponent,
+      componentProps: {
+        image,
+      },
+      cssClass: 'modalImage',
+    });
+    successModal.present();
   }
 
 }

@@ -98,6 +98,11 @@ const routes: Routes = [
     // canLoad: [AuthGuard, UserGuard],
   },
   {
+    path: 'user/service-report',
+    loadChildren: () => import('./user/service-report/service-report.module').then( m => m.ServiceReportPageModule),
+    // canLoad: [AuthGuard, UserGuard],
+  },
+  {
     path: 'user/servicio-pagar-forma',
     loadChildren: () => import('./user/servicio-pagar-forma/servicio-pagar-forma.module').then( m => m.ServicioPagarFormaPageModule),
     // canLoad: [AuthGuard, UserGuard],
