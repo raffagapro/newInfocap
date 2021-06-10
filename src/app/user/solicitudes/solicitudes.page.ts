@@ -68,8 +68,8 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   }
 
   compare(a, b) {
-    let firstDate = moment(a.created_date, 'DD/MM/YYYY');
-    let secondDate = moment(b.created_date, 'DD/MM/YYYY');
+    let firstDate = moment.utc(a.created_date, 'DD/MM/YYYY HH:mm:ss').tz(moment.tz.guess())
+    let secondDate = moment.utc(b.created_date, 'DD/MM/YYYY HH:mm:ss').tz(moment.tz.guess())
     if (firstDate > secondDate) {
       return -1;
     }

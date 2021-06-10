@@ -63,6 +63,12 @@ export class ProfesionalListPage implements OnInit, OnDestroy {
         { headers: this.headers }
       ).subscribe(resData => {
         this.profList = resData['data'];
+        this.profList = this.profList.sort(function (a, b) {
+          if (a.supplierName < b.supplierName) { return -1; }
+          if (a.supplierName > b.supplierName) { return 1; }
+          return 0;
+        });
+        
         loadingEl.dismiss();
       }, e => {
         console.log(e);

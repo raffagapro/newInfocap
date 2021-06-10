@@ -24,7 +24,7 @@
     class="prof-cont ion-margin-top no-border"
     *ngFor="let service of sortedServices"
     (click)="solicitudes(service.supplier_id)">
-    <ion-grid>
+    <ion-grid *nfIf="service.supplierName">
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
