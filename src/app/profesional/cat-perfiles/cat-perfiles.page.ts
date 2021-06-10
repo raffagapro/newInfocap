@@ -100,11 +100,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       transport: new FormControl(null, {
         updateOn: 'blur'
       }),
-      sHour: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      eHour: new FormControl(null, {
+      workHours: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
@@ -193,34 +189,11 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     } else {
       descOff = info.description;
     }
-    let sHour;
-    let eHour;
-    if (info.hours === 'empty') {
-      sHour = null;
-      eHour = null;
-    } else {
-      let tempHours = info.hours.split('/');
-      sHour = tempHours[0];
-      eHour = tempHours[1];
-    }
-    let wDays;
-    let zDays = [];
-    if (info.work_days === 'empty') {
-      wDays = null;
-    } else {
-      wDays = info.work_days;
-      let tempDays = info.work_days.split('-');
-      tempDays.forEach(i => {
-        zDays.push(i);
-      });
-      this.selectedDays = zDays;
-    }
     //pasing values to from
     this.form.patchValue({
       descProf: descPro,
       transport: info.transport_id,
-      sHour: sHour,
-      eHour: eHour,
+      workHours: info.hours,
       workDays: info.work_days,
       comuna: info.commune_id,
       descOffice: descOff
@@ -291,7 +264,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       transport_id: this.selectedTransport,
       descProf: this.form.value.descProf,
       description: this.form.value.descOffice,
-      hours: this.form.value.sHour + '/' + this.form.value.eHour,
+      hours: this.form.value.workHours,
       work_days: this.form.value.workDays,
     }
 

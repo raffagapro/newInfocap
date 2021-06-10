@@ -34,31 +34,12 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
     });
-    this.getServiceData();
   }
 
-  async getServiceData() {
-    let loader = await this.lc.create({
-      message: 'Cargando información del servicio...'
-    });
-    loader.present();
-    try {
-      let response = await axios.get(
-        `${API}/supplier/requestservicedetail/${this.solicitudServicio.solicitud.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${this.grabbedUser.access_token}`,
-          }
-        }
-      );
-      const { data } = response;
-      const { data: serverData } = data;
-      this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
-      this.loadedInfo.hours = this.solicitudServicio.solicitud.hours;
-      loader.dismiss();
-    } catch (error) {
-      loader.dismiss();
-    }
+  ionViewWillEnter() {
+
+    this.loadedInfo.hours = this.solicitudServicio.solicitud.hours
+    this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
   }
 
   p(hours: string) {
@@ -91,14 +72,14 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
     const body = {
       date_required: this.solicitudServicio.solicitud.date_required,
       hours: this.solicitudServicio.solicitud.hours,
-      professional_id: null
+      professional_id: this.grabbedUser.id
     }
+
 
     try {
       var url = '/supplier/aprove/requestservice/'
       if (this.solicitudServicio.solicitud.type == 'URGENT') {
         var url = '/supplier/aprove/requestservice/' //'/supplier/aprove/urgentrequestservice/'
-        body.professional_id = this.grabbedUser.id
       }
       let response = await axios.put(
         `${API}${url}${this.solicitudServicio.solicitud.id}`,

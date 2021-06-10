@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    
+
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/profesional/home/home-tabs/agendados" text="" icon="arrow-back"></ion-back-button>
     </ion-buttons>
@@ -24,7 +24,9 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <ion-img src="{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? '/assets/images/avatar.png' : loadedInfo.img_client_profile  }}"></ion-img>
+            <ion-img
+              src="{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? '/assets/images/avatar.png' : loadedInfo.img_client_profile  }}">
+            </ion-img>
           </ion-avatar>
         </ion-col>
 
@@ -33,9 +35,11 @@
           <ion-text>
             <small class="ticket">Solicitud #{{ loadedInfo.ticket_number }}</small><br>
             <span class="titleSelect main-color ion-text-capitalize">{{ loadedInfo.categoryName }} para<br>
-              <span class="ion-text-capitalize titleName">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName }}</span>
+              <span class="ion-text-capitalize titleName">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName
+                }}</span>
             </span><br>
-            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">{{ d(loadedInfo.created_date) }}</p>
+            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">{{ d(loadedInfo.created_date) }}
+            </p>
           </ion-text>
         </ion-col>
 
@@ -44,7 +48,7 @@
   </div>
 
   <ion-grid>
-    
+
     <!-- title -->
     <ion-row>
       <ion-col size="1"></ion-col>
@@ -65,13 +69,10 @@
     <ion-row>
       <ion-col size="12">
         <ion-slides [options]="slideOptions">
-          
+
           <!-- slide -->
           <ion-slide *ngFor="let image of loadedInfo.images">
-            <img
-              src="{{ image.image }}"
-              class="imgSlide"
-            >
+            <img src="{{ image.image }}" class="imgSlide">
           </ion-slide>
 
         </ion-slides>
@@ -88,8 +89,11 @@
       <ion-col size="1"></ion-col>
 
       <ion-col size="1"></ion-col>
-      <ion-col size="10" class="ion-text-center">
+      <ion-col *ngIf="loadedInfo.status_id !== 2" size="10" class="ion-text-center">
         <ion-text> {{ formatDate(loadedInfo.date_required) }}</ion-text>
+      </ion-col>
+      <ion-col *ngIf="loadedInfo.status_id === 2" size="10" class="ion-text-center">
+        <ion-text> {{ formatDateTecnical(loadedInfo.tecnical) }}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -104,8 +108,11 @@
       <ion-col size="1"></ion-col>
 
       <ion-col size="1"></ion-col>
-      <ion-col size="10" class="ion-text-center">
+      <ion-col *ngIf="loadedInfo.status_id !== 2" size="10" class="ion-text-center">
         <ion-text class="subText"> {{ formatTime(loadedInfo.hours) }}</ion-text>
+      </ion-col>
+      <ion-col *ngIf="loadedInfo.status_id === 2" size="10" class="ion-text-center">
+        <ion-text> {{ formatTimeTecnical(loadedInfo.tecnical) }}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -153,16 +160,16 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <!-- icons -->
-        <div class="locate-cont" (click)="call()">
+        <a class="locate-cont" [href]="'tel:'+ loadedInfo.clientPhone1">
           <ion-icon src="/assets/icon/ic_phone_circle.svg" color="light" class="rating-text"></ion-icon>
-        </div>
+        </a>
         <div class="locate-cont" (click)="openWhatsapp()">
           <ion-icon src="/assets/icon/ic_whatsapp.svg" color="light" class="rating-text"></ion-icon>
         </div>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
-    
+
 
     <!-- iniciar trabajo BTN -->
     <ion-row class="ion-margin-top ion-margin-bottom" *ngIf="loadedInfo.status_id == 3">

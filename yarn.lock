@@ -1140,10 +1140,10 @@
   resolved "https://registry.npmjs.org/@capacitor/ios/-/ios-2.4.6.tgz"
   integrity sha512-/IMmgVUgQgMm1Yv5CaWhZ9UTkVh5GFDX1vFZOB0bMu5v5jkolO/9SLyjbqogDNE2EIl9GuH6RSqZaOh2Xu2Ebg==
 
-"@ionic-native/call-number@^5.31.1":
-  version "5.31.1"
-  resolved "https://registry.npmjs.org/@ionic-native/call-number/-/call-number-5.31.1.tgz"
-  integrity sha512-EsaDDhnRkEb2AxnBiQgV7hmA5kcOz5v70tJ9vucpJ4KHKGBMsB7c9E3mWvRIVKkVXpT57s9oQNlcmmGrb5u6pg==
+"@ionic-native/call-number@^5.33.1":
+  version "5.33.1"
+  resolved "https://registry.npmjs.org/@ionic-native/call-number/-/call-number-5.33.1.tgz"
+  integrity sha512-30LxoDdDajU6nAT1QQ+lt0YPiWLMwESAUepwh8h2UdsQTOAi0gEiKwLx7axfvYzvxJq+pgemr/UNWSr/yfovcA==
   dependencies:
     "@types/cordova" latest
 
@@ -1395,7 +1395,7 @@
   resolved "https://registry.npmjs.org/@types/cookie/-/cookie-0.4.0.tgz"
   integrity sha512-y7mImlc/rNkvCRmg8gC3/lj87S7pTUIJ6QGjwHR9WQJcFs+ZMTOaoPrkdFA/YdbuqVEmEbb5RdhVxMkAcgOnpg==
 
-"@types/cordova@^0.0.34":
+"@types/cordova@^0.0.34", "@types/cordova@latest":
   version "0.0.34"
   resolved "https://registry.npmjs.org/@types/cordova/-/cordova-0.0.34.tgz"
   integrity sha1-6nrd907Ow9dimCegw54smt3HPQQ=
@@ -6309,7 +6309,14 @@ moment-range@^4.0.2:
   dependencies:
     es6-symbol "^3.1.0"
 
-moment@^2.29.1:
+moment-timezone@^0.5.33:
+  version "0.5.33"
+  resolved "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.5.33.tgz"
+  integrity sha512-PTc2vcT8K9J5/9rDEPe5czSIKgLoGsH8UNpA4qZTVw0Vd/Uz19geE9abbIOQKaAQFcnQ3v5YEXrbSc5BpshH+w==
+  dependencies:
+    moment ">= 2.9.0"
+
+"moment@>= 2.9.0", moment@^2.29.1:
   version "2.29.1"
   resolved "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==

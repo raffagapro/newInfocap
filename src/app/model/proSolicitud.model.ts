@@ -18,6 +18,7 @@ export class ProSolicitud{
         public supplierName: string,
         public ticket_number: string,
         public aditional: [],
+        public evaluationService: object,
         public type: string,
     ){}
 }
