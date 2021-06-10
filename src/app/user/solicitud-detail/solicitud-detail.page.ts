@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LoadingController, MenuController, ModalController } from "@ionic/angular";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
@@ -49,7 +49,9 @@ export class SolicitudDetailPage implements OnInit {
     suplierPhone1: null,
     img_request: [],
     request_cost: [],
+    history_status: [],
   };
+  isProcess = false
   slideOptions = {
     initialSlide: 0,
     slidesPerView: 2,
@@ -63,6 +65,7 @@ export class SolicitudDetailPage implements OnInit {
     private userService: UserService,
     private menuController: MenuController,
     private solServ: SolicitudService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -70,8 +73,13 @@ export class SolicitudDetailPage implements OnInit {
       this.user = user;
       this.loadPaymentTypes();
     });
-  }
 
+    this.route.queryParamMap
+      .subscribe((params: any) => {
+        let queryParams = {...params};
+        this.isProcess = queryParams.params?.inProcess === "true"
+      });
+  }
   ionViewWillEnter() {
     this.menuController.enable(true, 'user');
   }
@@ -157,6 +165,10 @@ export class SolicitudDetailPage implements OnInit {
     return 0;
   }
 
+  isInProcess() {
+    return this.isProcess
+  }
+
   async confirmSolicitud() {
     let loader = await this.loadingController.create({ message: 'Actualizando solicitud...' });
     loader.present();
@@ -215,7 +227,7 @@ export class SolicitudDetailPage implements OnInit {
   }
 
   setSelectedButton(type: PaymentMethodType) {
-    if(this.loadedService.request_cost.length > 0) return;
+    if (this.loadedService.request_cost.length > 0) return;
     this.selectedButton = type;
   }
 

@@ -126,13 +126,14 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
         this.goToServiceDetail();
         break;
       case ServiceStatus.ServicioProceso:
-        this.srvPay();
+        this.goToServiceDetail(true);
         break;
       case ServiceStatus.ServicioRealizado:
         this.srvPay();
         break;
       case ServiceStatus.ServicioFinalizado:
-        this.gotToServicePaid();
+        //this.gotToServicePaid();
+        this.srvPay(true);
         break;
       case ServiceStatus.ServicioRechazado:
         this.openReasonsModal();
@@ -190,8 +191,8 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     this.router.navigate(['/user/visita-detail']);
   }
 
-  goToServiceDetail() {
-    this.router.navigate(['/user/solicitud-detail']);
+  goToServiceDetail(isInProcess = false) {
+    this.router.navigate(['/user/solicitud-detail'], isInProcess ? { queryParams: { inProcess: true } } : {});
   }
 
   goToServiceResume() {
@@ -202,9 +203,9 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
     this.router.navigate(['/user/solicitud-finished']);
   }
 
-  srvPay() {
+  srvPay(isFinished = false) {
     this.solServ.setServiceID(this.serviceId);
-    this.router.navigate(['/user/servicio-pagar']);
+    this.router.navigate(['/user/servicio-pagar'], isFinished ? { queryParams: { finished: true } } : {});
   }
 
   ngOnDestroy() {

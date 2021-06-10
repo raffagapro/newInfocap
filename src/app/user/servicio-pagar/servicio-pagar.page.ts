@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, MenuController } from '@ionic/angular';
 import axios from 'axios';
 import { Subscription } from 'rxjs';
@@ -48,6 +48,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
   servicesCosts;
   selectedButton: PaymentMethodType = 'credit';
   paymentTypes = [];
+  isFinished = false
 
   constructor(
     private router: Router,
@@ -56,6 +57,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
     private us: UserService,
     private lc: LoadingController,
     private solServ: SolicitudService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -65,6 +67,12 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
       this.serviceId = this.solServ.solicitud.solicitudID;
       this.loadPaymentTypes();
     });
+
+    this.route.queryParamMap
+      .subscribe((params: any) => {
+        let queryParams = { ...params };
+        this.isFinished = queryParams.params?.finished === "true"
+      });
   }
 
   ionViewWillEnter() {
