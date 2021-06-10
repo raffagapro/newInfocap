@@ -42,10 +42,17 @@
         <!-- title -->
         <ion-col size="8" sizeMd="10" class="ion-justify-content-center">
           <ion-text>
-            <span class="titleSelect main-color ion-text-capitalize">{{ service.supplierName+"
-              "+service.supplierLastName }} </span><br>
+            <span *ngIf="service.type_request !== 'URGENT'" class="titleSelect main-color ion-text-capitalize">{{
+              service.supplierName+"
+              "+service.supplierLastName }} </span>
+            <span *ngIf="service.type_request === 'URGENT'" class="titleSelect red-color ion-text-capitalize">
+              Solicitud urgente </span><br>
             <!-- <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp; -->
-            <ion-badge color="medium" class="badge-text">{{ service.categoryName }}</ion-badge><br>
+            <div *ngIf="service.type_request !== 'URGENT'" >
+              <ion-badge color="medium" class="badge-text">{{
+                service.categoryName }}</ion-badge>
+              <br>
+            </div>
             <p class="textSelect">{{ service.description }}</p>
             <small class="main-color">{{ formatdate(service.created_date) }}</small>
           </ion-text>

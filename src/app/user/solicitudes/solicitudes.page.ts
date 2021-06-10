@@ -91,11 +91,14 @@ export class SolicitudesPage implements OnInit, OnDestroy {
     this.solServ.clearSolicitud();
     this.solServ.setServiceID(solicitudId);
 
+    /*
     if (redirectToFinished) {
       this.router.navigate(['/user/solicitud-finished']);
     } else {
       this.router.navigate(['/user/solicitud-status']);
     }
+    */
+    this.router.navigate(['/user/solicitud-status']);
 
   }
 
