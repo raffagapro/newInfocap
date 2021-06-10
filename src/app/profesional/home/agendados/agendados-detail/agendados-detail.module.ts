@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -15,6 +16,9 @@ import { AgendadosDetailPage } from './agendados-detail.page';
     IonicModule,
     AgendadosDetailPageRoutingModule
   ],
-  declarations: [AgendadosDetailPage]
+  declarations: [AgendadosDetailPage],
+  providers: [
+    CallNumber
+  ]
 })
 export class AgendadosDetailPageModule {}

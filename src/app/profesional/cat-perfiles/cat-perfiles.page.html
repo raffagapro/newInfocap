@@ -82,30 +82,16 @@
 
       <!-- horas -->
       <ion-row>
-        <ion-col size="6">
+        <ion-col offset="1" size="10">
           <ion-item>
-            <ion-label class="main-color" position="floating">
-              <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
-              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Inicio</ion-text>
-            </ion-label>
-            <ion-datetime display-format="h:mm A" picker-format="h:mm A" formControlName="sHour"></ion-datetime>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="5">
-          <ion-item>
-            <ion-label class="main-color" position="floating">
-              <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
-              <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Final</ion-text>
-            </ion-label>
-            <ion-datetime display-format="h:mm A" picker-format="h:mm A" formControlName="eHour"></ion-datetime>
+            <ion-input formControlName="workHours" placeholder="Horario laboral" value="clear me"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
 
       <!-- dias -->
       <ion-row>
-        <ion-col size="12">
+        <ion-col offset="1" size="10">
           <ion-item>
             <ion-input formControlName="workDays" placeholder="Días laborales" value="clear me"></ion-input>
           </ion-item>

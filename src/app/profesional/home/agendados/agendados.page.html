@@ -225,7 +225,7 @@
   </ion-grid>
 
   <!-- visitas agendadas -->
-  <div class="prof-cont no-border" *ngFor="let service of loadedVisits" (click)="solicitudDetail(service.id)">
+  <div class="prof-cont no-border" *ngFor="let service of loadedVisits" (click)="solicitudDetailTecnical(service.id, service.request_technical[0])">
     <ion-grid [hidden]="viewMood !== 'list'">
       <ion-row class="ion-align-items-center">
 
@@ -238,9 +238,9 @@
             <br>
             <small>
               <ion-icon src="/assets/icon/ic_date_range.svg" color="primary" class="iconFix"></ion-icon>
-              {{ formatDate(service.date_required) }}
+              {{ formatDateTecnical(service.request_technical[0]) }}
               <ion-icon src="/assets/icon/ic_schedule.svg" color="primary" class="iconFix"></ion-icon>
-              {{ formatTime(service.hours) }}
+              {{ formatTimeTecnical(service.request_technical[0]) }}
             </small>
           </ion-text>
         </ion-col>

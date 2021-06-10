@@ -7,7 +7,7 @@ import { ProSolicitud } from '../model/proSolicitud.model';
 export class ProSolicitudService {
 
   private _solicitud: ProSolicitud = new ProSolicitud(
-    null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL'
+    null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL'
     );
 
   constructor() { }
@@ -89,13 +89,17 @@ export class ProSolicitudService {
     this._solicitud.aditional = aditionals
   }
 
+  setEvaluateService(tecnical:object) {
+    this._solicitud.evaluationService = tecnical
+  }
+
   setSolicitudType(type:string) {
     this._solicitud.type = type
   }
 
 
   clearSolcitud() {
-    this._solicitud = new ProSolicitud(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
+    this._solicitud = new ProSolicitud(null, null, null, null, null, null, null,null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
   }
 
 

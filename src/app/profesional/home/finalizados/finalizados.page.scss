@@ -19,10 +19,14 @@
     -webkit-box-orient: vertical;
 }
 
-.miniText
-{
-    font-size: 12px;
+.mainText {
+    font-size: 13px;
 }
+
+.miniText::first-letter {
+    text-transform: capitalize;
+}
+
 .title
 {
     font-size: 17px;

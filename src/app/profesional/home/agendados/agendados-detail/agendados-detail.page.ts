@@ -37,6 +37,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     clientPhone1: null,
     created_date: null,
     status_id: null,
+    tecnical: null,
     type: null,
   };
 
@@ -95,6 +96,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
         this.loadedInfo.type = this.solicitudServicio.solicitud.type;
         this.loadedInfo.status_id = resData.data.data.status_id;
+        this.loadedInfo.tecnical = this.solicitudServicio.solicitud.evaluationService
       }).catch(err => {
         console.log(err);
         loadingEl.dismiss();
@@ -144,8 +146,17 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
   d(date: string) {
     if (date) {
       let wDate = date.split(" ");
-      return wDate[0];
+      return moment(wDate[0], 'DD/MM/YYYY').format('D [de] MMM [de] YYYY');
     }
+  }
+
+  formatDateTecnical(tecnical) {
+    let date = tecnical.visit_date.split(' ')
+    return moment(date[0], 'YYYY-MM-DD').format('dddd D [de] MMMM [de] YYYY')
+  }
+
+  formatTimeTecnical(tecnical) {
+    return tecnical.visit_hours
   }
 
   startSolicitud() {

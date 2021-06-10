@@ -79,14 +79,6 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName
     this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName
     this.loadedInfo.description = this.solicitudServicio.solicitud.description
-    moment().format('YYYY-MM-D')
-    // if (this.solicitudServicio.solicitud.type === 'URGENT') {
-    //   this.solicitudServicio.setDateRequired(moment().format('YYYY-MM-D'))
-    //   let secondHour = this.solicitudServicio.solicitud.hours.split("/")
-
-    //   this.solicitudServicio.setHours(moment().toISOString(true) + '/' + secondHour[1]);
-    // }
-
     this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
     this.loadedInfo.hours = this.solicitudServicio.solicitud.hours.split("/")
     this.loadedInfo.images = this.solicitudServicio.solicitud.images
@@ -100,7 +92,7 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     this.form.patchValue({
       sHour: this.loadedInfo.hours[0],
       eHour: this.loadedInfo.hours[1],
-      dateReq: this.loadedInfo.date_required,
+      dateReq: moment(this.loadedInfo.date_required, 'DD/MM/YYYY').format('YYYY-MM-DD'),
     });
     this.menuController.enable(true, 'user');
   }
@@ -130,6 +122,8 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     wDate = wDate[0];
     wDate = wDate.split('-');
     wDate = wDate[2] + '/' + wDate[1] + '/' + wDate[0];
+
+    console.log(wDate)
     this.solicitudServicio.setDateRequired(wDate);
     this.solicitudServicio.setHours(this.form.value.sHour + '/' + this.form.value.eHour);
     this.solicitudServicio.setCosto(this.form.value.costo)

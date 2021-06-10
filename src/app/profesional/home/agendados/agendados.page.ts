@@ -99,6 +99,15 @@ export class AgendadosPage implements OnInit, OnDestroy {
     return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
   }
 
+  formatDateTecnical(tecnical) {
+    let date = tecnical.visit_date.split(' ')
+    return moment(date[0], 'YYYY-MM-DD').format('DD MMM YYYY')
+  }
+
+  formatTimeTecnical(tecnical) {
+    return tecnical.visit_hours
+  }
+
   ionViewWillEnter() {
     this.menuController.enable(true, 'profesional');
   }
@@ -170,6 +179,12 @@ export class AgendadosPage implements OnInit, OnDestroy {
 
   solicitudDetail(serviceID: string) {
     this.solicitudServicio.setID(serviceID);
+    this.router.navigate(['profesional/agendados/agendados-detail']);
+  }
+
+  solicitudDetailTecnical(serviceID: string, tecnical: object) {
+    this.solicitudServicio.setID(serviceID);
+    this.solicitudServicio.setEvaluateService(tecnical);
     this.router.navigate(['profesional/agendados/agendados-detail']);
   }
 
