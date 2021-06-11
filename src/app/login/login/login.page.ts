@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LoadingController, NavController } from "@ionic/angular";
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -16,8 +16,10 @@ import axios from 'axios';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  @ViewChild('passwordEyeRegister', { read: ElementRef }) passwordEye: ElementRef;
   error: any;
   grabbedUSer: User;
+  passwordTypeInput = 'password';
 
   constructor(
     private navController: NavController,
@@ -82,9 +84,9 @@ export class LoginPage implements OnInit {
         form.control.reset();
         loader.dismiss();
         if (roles[0] === 'usuario') {
-          this.router.navigate(['/user/home']);
+          this.router.navigate(['/user/home'], { replaceUrl: true });
         } else {
-          this.router.navigate(['/profesional/home']);
+          this.router.navigate(['/profesional/home'], { replaceUrl: true });
         }
       } else {
         const errorMessage = message === 'Unauthorized' ? 'Credenciales inválidas' : 'Ocurrió un error';
@@ -101,7 +103,7 @@ export class LoginPage implements OnInit {
       console.log(error);
       let message = 'Ocurrió un error';
 
-      if(error.response){
+      if (error.response) {
         message = error.response.data.message;
       }
 
@@ -129,6 +131,17 @@ export class LoginPage implements OnInit {
 
   loginFacebook() {
     // do seomthing swesome 
+  }
+
+  togglePasswordMode() {
+    this.passwordTypeInput = this.passwordTypeInput === 'text' ? 'password' : 'text';
+    const nativeEl = this.passwordEye.nativeElement.querySelector('input');
+    const inputSelection = nativeEl.selectionStart;
+    nativeEl.focus();
+    setTimeout(() => {
+      nativeEl.setSelectionRange(inputSelection, inputSelection);
+    }, 1);
+
   }
 
 }

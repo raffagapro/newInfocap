@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { API } from 'src/environments/environment';
@@ -14,7 +14,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-
+  @ViewChild('passwordEyeRegister', { read: ElementRef }) passwordEye: ElementRef;
+  passwordTypeInput = 'password';
   errors: any = {
     name: [],
     last_name: [],
@@ -138,5 +139,7 @@ export class RegisterPage implements OnInit {
   goToPrivacy() {
     this.router.navigate(['/privacy']);
   }
-
+  togglePasswordMode() {
+    this.passwordTypeInput = this.passwordTypeInput === 'text' ? 'password' : 'text';
+  }
 }

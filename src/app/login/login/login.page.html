@@ -23,22 +23,22 @@
 
     <!-- Social Icons -->
     <!-- <ion-row class="ion-margin-top"> -->
-      <!-- facebook -->
-      <!-- <ion-col size="2" offset="2">
+    <!-- facebook -->
+    <!-- <ion-col size="2" offset="2">
         <div class="logo-facebook">
           <ion-icon name="logo-facebook" (click)="loginFacebook()" color="light"></ion-icon>
         </div>
       </ion-col> -->
-      <!-- apple -->
-      <!-- <ion-col size="1"></ion-col>
+    <!-- apple -->
+    <!-- <ion-col size="1"></ion-col>
       <ion-col size="2">
         <div class="logo-apple">
           <ion-icon name="logo-apple" (click)="loginApple()" color="light"></ion-icon>
         </div>
       </ion-col>
       <ion-col size="1"></ion-col> -->
-      <!-- google -->
-      <!-- <ion-col size="2">
+    <!-- google -->
+    <!-- <ion-col size="2">
         <div class="logo-google">
           <ion-icon name="logo-google" (click)="loginGoogle()" color="light"></ion-icon>
         </div>
@@ -55,11 +55,7 @@
               <ion-icon src="/assets/icon/ic_mail.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Email</ion-text>
             </ion-label>
-            <ion-input
-              ngModel name="email"
-              required
-              #emailCtrl="ngModel"
-              type="email">
+            <ion-input ngModel name="email" required #emailCtrl="ngModel" type="email">
             </ion-input>
           </ion-item>
           <!-- error  -->
@@ -80,12 +76,12 @@
               <ion-icon src="/assets/icon/ic_lock.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Contraseña</ion-text>
             </ion-label>
-            <ion-input
-              ngModel name="password"
-              required
-              #passwordCtrl="ngModel"
-              type="password">
+            <ion-input #passwordEyeRegister ngModel name="password" required #passwordCtrl="ngModel"
+              [type]="passwordTypeInput">
             </ion-input>
+            <button item-end type="button" class="btn_eye_icon" (click)="togglePasswordMode()">
+              <ion-icon [name]="(passwordTypeInput === 'text')?'eye':'eye-off'"></ion-icon>
+            </button>
           </ion-item>
           <!-- error  -->
           <ion-label *ngIf="!passwordCtrl.valid && passwordCtrl.touched" class="errorMess">
@@ -108,15 +104,11 @@
           </ion-label>
         </ion-col>
       </ion-row>
-    
+
       <!-- Login BTN -->
       <ion-row class="ion-margin-top">
         <ion-col>
-          <ion-button
-            type="submit"
-            [disabled]="!f.valid" 
-            expand="block"
-            class="ion-text-uppercase">
+          <ion-button type="submit" [disabled]="!f.valid" expand="block" class="ion-text-uppercase">
             Ingresar
           </ion-button>
         </ion-col>

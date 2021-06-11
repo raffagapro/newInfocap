@@ -76,10 +76,10 @@ export class AppComponent {
             this.firstLoad = true;
             if (this.user.role === UserRoles.USER) {
               this.loadNotifications('client');
-              this.router.navigate(['/user/home']);
+              this.router.navigate(['/user/home'], { replaceUrl: true });
             } else {
               this.loadNotifications('supplier');
-              this.router.navigate(['/profesional/home']);
+              this.router.navigate(['/profesional/home'], { replaceUrl: true });
             }
           }
         })
@@ -92,7 +92,7 @@ export class AppComponent {
     this.menuCtrl.enable(false, UserRoles.PROFESSIONAL);
     this.menuCtrl.enable(false, UserRoles.USER);
     this.as.logout();
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/', { replaceUrl: true });
   }
 
   profile() {

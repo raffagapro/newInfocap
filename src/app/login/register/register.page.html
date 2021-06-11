@@ -127,8 +127,12 @@
               <ion-icon src="/assets/icon/ic_lock.svg" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Contraseña</ion-text>
             </ion-label>
-            <ion-input ngModel name="password" minlength="8" required #passwordCtrl="ngModel" type="password">
+            <ion-input ngModel name="password" minlength="8" required #passwordCtrl="ngModel"
+              [type]="passwordTypeInput">
             </ion-input>
+            <button item-end class="btn_eye_icon" type="button" (click)="togglePasswordMode()">
+              <ion-icon [name]="(passwordTypeInput === 'text')?'eye':'eye-off'"></ion-icon>
+            </button>
           </ion-item>
           <!-- error  -->
           <ion-label *ngIf="!passwordCtrl.valid && passwordCtrl.touched" class="errorMess">
@@ -156,8 +160,11 @@
               <ion-icon src="/assets/icon/ic_lock.svg" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Repetir contraseña</ion-text>
             </ion-label>
-            <ion-input ngModel name="confirm_password" minlength="8" required type="password">
+            <ion-input ngModel name="confirm_password" minlength="8" required [type]="passwordTypeInput">
             </ion-input>
+            <button item-end class="btn_eye_icon" type="button" (click)="togglePasswordMode()">
+              <ion-icon [name]="(passwordTypeInput === 'text')?'eye':'eye-off'"></ion-icon>
+            </button>
           </ion-item>
         </ion-col>
       </ion-row>
