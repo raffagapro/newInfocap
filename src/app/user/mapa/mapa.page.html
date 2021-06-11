@@ -30,8 +30,8 @@
     <ion-row>
       <ion-col size="12">
         <ion-searchbar class="search_bar_map" placeholder="¿Cuál es la dirección?" [(ngModel)]="autocomplete.input"
-          (ionChange)="updateSearchResults($event)" searchIcon="{{showIcon ? 'search-outline' : 'undefined'}}"
-          (ionClear)="clearAutocomplete()" color="transparent" (ionFocus)="showSearchIcon(false)" (ionBlur)="showSearchIcon(true)">
+          (ionChange)="updateSearchResults($event)" searchIcon="{{showIcon ? 'search-outline' : '/assets/icon/empty.svg'}}"
+          (ionClear)="clearAutocomplete()" color="transparent" (ionFocus)="showSearchIcon($event, false)" (ionBlur)="showSearchIcon($event, true)">
         </ion-searchbar>
         <ion-list [hidden]="autocompleteItems.length == 0">
           <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">

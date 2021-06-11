@@ -220,8 +220,7 @@ export class MapaPage implements OnInit, OnDestroy {
     }
   }
 
-  showSearchIcon(show: boolean) {
+  showSearchIcon(event: any, show: boolean) {
     this.showIcon = show;
-    console.log('pasó')
   }
 }
