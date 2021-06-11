@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoadingController, MenuController, ModalController } from '@ionic/angular';
+import { LoadingController, MenuController, ModalController, PickerController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
@@ -10,6 +10,7 @@ import axios from 'axios'
 import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { PickerOptions } from '@ionic/core'
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -71,8 +72,9 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     autoplay: true
   };
 
-  categories = ['Reparación', 'Mantención', 'Instalación', 'Proyectos especiales']
+  categories = []
   categorySelected: string
+  categoryIDSelected = null
   paymentTypes = [];
 
   constructor(
@@ -82,7 +84,8 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     private solicitudServicio: ProSolicitudService,
     private us: UserService,
     private lc: LoadingController,
-    route: ActivatedRoute
+    route: ActivatedRoute,
+    private pickerController: PickerController
   ) {
     route.params.subscribe(val => {
       this.userSub = this.us.loggedUser.subscribe(user => {
@@ -92,6 +95,10 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
       axios.get(API + `/client/detailcostrequest/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
         this.solicitudServicio.setCosto(resData.data.data);
         this.loadedInfo.request_cost = resData.data.data
+      })
+
+      axios.get(API + '/supplier/categorization', { headers: { Authorization: this.headers } }).then(cat => {
+        this.categories = cat.data.data
       })
     })
   }
@@ -103,10 +110,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     this.headers = 'Bearer ' + this.grabbedUser.access_token;
 
     this.formFinalizar = new FormGroup({
-      category: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
+
       work_report: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required]
@@ -159,8 +163,8 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     this.loadedImages.forEach(image => {
       formData.append('images[]', image);
     });
-    formData.append('category', this.formFinalizar.value.category)
     formData.append('work_report', this.formFinalizar.value.work_report)
+    formData.append('categorization_id', this.categoryIDSelected)
 
     if (this.loadedImages.length === 0) {
       alert('Debes agregar al menos una foto a la solicitud.');
@@ -202,20 +206,50 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     this.loadedImagesDisplay = this.loadedImagesDisplay.filter((image: any, index: number) => index !== imageIndex)
   }
 
+  async showPicker() {
+    let options: PickerOptions = {
+      buttons: [
+        {
+          text:'Listo',
+          handler:(value:any) => {
+            this.categorySelected = value.category.text
+            this.categoryIDSelected = value.category.value
+          }
+        }
+      ],
+      columns:[{
+        name:'category',
+        options:this.getColumnOptions()
+      }]
+    };
+
+    let picker = await this.pickerController.create(options);
+    picker.present()
+  }
+
+  getColumnOptions(){
+    let options = [];
+    console.log()
+    this.categories.forEach(x => {
+      options.push({text: x.name, value: x.categorization_id});
+    });
+    return options;
+  }
+
   onLoadImg() {
     if (!Capacitor.isPluginAvailable('Camera') || this.useInputPicker) {
       this.hiddenImgInputRef.nativeElement.click();
       return;
     }
     Plugins.Camera.getPhoto({
-      quality: 25,
+      quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,
-      height: 150,
-      // width: 200,
+      height: 500,
+      width: 500,
       resultType: CameraResultType.DataUrl,
       promptLabelPhoto: 'Fotos',
-      promptLabelPicture: 'Camara',
+      promptLabelPicture: 'Cámara',
       promptLabelCancel: 'Cancelar'
     }).then(image => {
       this.saveImgToApi(image.dataUrl);

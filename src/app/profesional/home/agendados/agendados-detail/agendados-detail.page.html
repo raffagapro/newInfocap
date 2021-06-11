@@ -72,7 +72,7 @@
 
           <!-- slide -->
           <ion-slide *ngFor="let image of loadedInfo.images">
-            <img src="{{ image.image }}" class="imgSlide">
+            <img (click)="openImage(image.image)" src="{{ image.image }}" class="imgSlide">
           </ion-slide>
 
         </ion-slides>
@@ -84,7 +84,7 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color iconFixTitle"></ion-icon>
-        <ion-text class="main-color subtitle"><b> Fecha requerida</b></ion-text>
+        <ion-text class="main-color subtitle"><b> Fecha agendada</b></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
 

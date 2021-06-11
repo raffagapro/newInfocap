@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
-import { LoadingController, MenuController } from '@ionic/angular';
+import { LoadingController, MenuController, ModalController } from '@ionic/angular';
 import axios from 'axios';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 import { UserService } from 'src/app/services/user.service';
+import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
 import { API, PHONE_PREFIX } from 'src/environments/environment';
 
 @Component({
@@ -48,7 +49,8 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
     private solicitudServicio: ProSolicitudService,
     private us: UserService,
     private lc: LoadingController,
-    private callNumber: CallNumber
+    private callNumber: CallNumber,
+    private modalController: ModalController,
   ) { }
 
   async ngOnInit() {
@@ -145,6 +147,17 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
 
   accceptSolicitud() {
     this.router.navigate(['/profesional/solicitudes/definicion-servicio']);
+  }
+
+  async openImage(image: string) {
+    const successModal = await this.modalController.create({
+      component: ImageModalComponent,
+      componentProps: {
+        image,
+      },
+      cssClass: 'modalImage',
+    });
+    successModal.present();
   }
 
   ngOnDestroy() {

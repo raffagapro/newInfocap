@@ -202,11 +202,11 @@ export class PerfilPage implements OnInit, OnDestroy {
       return;
     }
     Plugins.Camera.getPhoto({
-      quality: 25,
+      quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,
-      height: 150,
-      // width: 200,
+      height: 500,
+      width: 500,
       resultType: CameraResultType.DataUrl,
       promptLabelPhoto: 'Fotos',
       promptLabelPicture: 'Cámara',

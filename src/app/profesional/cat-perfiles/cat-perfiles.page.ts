@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoadingController, MenuController, ModalController, Platform } from '@ionic/angular';
+import { IonSelect, LoadingController, MenuController, ModalController, Platform, PickerController } from '@ionic/angular';
+import { PickerOptions } from '@ionic/core'
 import { Subscription } from 'rxjs';
 import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
 
@@ -12,6 +13,7 @@ import { SuccessModalComponent } from './success-modal/success-modal.component';
 import { IMAGE_URL_BLANK } from 'src/shared/constants';
 
 import axios from 'axios';
+import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -70,6 +72,8 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   };
 
   proCategoryImg: Object[]
+  hideList = true;
+  @ViewChild('categoryList') categorySelect: IonSelect;
 
   constructor(
     private lc: LoadingController,
@@ -77,6 +81,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     private modalController: ModalController,
     private platform: Platform,
     private menuController: MenuController,
+    private pickerController: PickerController
   ) { }
 
   ngOnInit() {
@@ -87,7 +92,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     //api headers
 
     //categories list
-    axios.get(API + '/supplier/categories', { headers: { Authorization: this.headers } }).then(resData => {
+    axios.get(API + '/supplier/categories', { headers: { Authorization: this.headers } }).then(async resData => {
       this.categories = resData.data.data;
     })
 
@@ -124,6 +129,37 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     }
   }
 
+  async showPicker() {
+    let options: PickerOptions = {
+      buttons: [
+        {
+          text:'Listo',
+          handler:(value:any) => {
+            console.log(value)
+            this.selectedProPerfil = value.category.text
+            this.onCatProfileChange(value.category.value)
+          }
+        }
+      ],
+      columns:[{
+        name:'category',
+        options:this.getColumnOptions()
+      }]
+    };
+
+    let picker = await this.pickerController.create(options);
+    picker.present()
+  }
+
+  getColumnOptions(){
+    let options = [];
+    console.log()
+    this.profCategories.forEach(x => {
+      options.push({text: x.categoryName, value: x.id});
+    });
+    return options;
+  }
+
   ionViewWillEnter() {
     //prof categories list
     axios.get(API + '/supplier/professions', { headers: { Authorization: this.headers } }).then(resData => {
@@ -139,7 +175,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
           this.profCategories = resData.data.data;
           this.proCategoryProfile =  resData.data.data[0];
           this.proCategoryImg = resData.data.data[0].images
-          this.selectedProPerfil = this.profCategories[0].id;
+          this.selectedProPerfil = this.profCategories[0].categoryName;
           this.selectedCatId = this.profCategories[0].category_id
           this.onCatProfileChange(this.selectedProPerfil)
           this.updateForm(this.profCategories[0]);
@@ -158,7 +194,6 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       loadingEl.present();
       axios.get(API + `/supplier/profession/${profileID}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
-        this.selectedProPerfil = profileID;
         this.updateForm(resData.data.data)
         this.proCategoryProfile =  resData.data.data;
         this.proCategoryImg = resData.data.data.images
@@ -295,11 +330,11 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       return;
     }
     Plugins.Camera.getPhoto({
-      quality: 25,
+      quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,
-      height: 150,
-      // width: 200,
+      height: 500,
+      width: 500,
       resultType: CameraResultType.DataUrl,
       promptLabelPhoto: 'Fotos',
       promptLabelPicture: 'Cámara',
@@ -309,6 +344,17 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     }).catch(e => {
       console.log(e);
     });
+  }
+
+  async openImage(image: string) {
+    const successModal = await this.modalController.create({
+      component: ImageModalComponent,
+      componentProps: {
+        image,
+      },
+      cssClass: 'modalImage',
+    });
+    successModal.present();
   }
 
   removeImage(imageIndex: number) {
@@ -335,7 +381,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       imgFile = imageData;
     }
 
-    this.proCategoryImg.push({image: URL.createObjectURL(imgFile)})
+    this.proCategoryImg.unshift({image: URL.createObjectURL(imgFile)})
 
     this.form.patchValue({ image: imgFile });
     this.lc.create({

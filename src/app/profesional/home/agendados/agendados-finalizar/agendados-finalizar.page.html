@@ -53,10 +53,7 @@
           <ion-text class="main-color title"><b>Categoriza el trabajo</b></ion-text>
         </ion-col>
         <ion-col size="7">
-          <select class="main-color cusSelect" value="{{ categorySelected }}" formControlName="category">
-            <option value="null" disabled>Categoría</option>
-            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
-          </select>
+          <ion-input class="main-color cusSelect" readonly value="{{ categorySelected }}" (click)="showPicker()" placeholder="Categoría"></ion-input>
         </ion-col>
         <ion-col size="1"></ion-col>
       </ion-row>
@@ -149,7 +146,7 @@
       <ion-row class="ion-margin-top ion-margin-bottom">
         <ion-col size="1"></ion-col>
         <ion-col>
-          <ion-button [disabled]="!formFinalizar.valid" size="5" expand="block" class="ion-text-uppercase"
+          <ion-button [disabled]="!(formFinalizar.valid && categoryIDSelected !== null)" size="5" expand="block" class="ion-text-uppercase"
             color="danger" (click)="finalizarSolicitud()">
             <ion-icon slot="start" name="build"></ion-icon>
             FINALIZAR

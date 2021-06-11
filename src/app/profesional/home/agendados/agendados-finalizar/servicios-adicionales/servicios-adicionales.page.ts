@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, MenuController, Platform } from '@ionic/angular';
+import { LoadingController, MenuController, ModalController, Platform } from '@ionic/angular';
 import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import axios from 'axios';
@@ -9,6 +9,7 @@ import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
+import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -68,6 +69,7 @@ export class ServiciosAdicionalesPage implements OnInit {
   constructor(
     private router: Router,
     private menuController: MenuController,
+    private modalController: ModalController,
     private lc: LoadingController,
     private us: UserService,
     private platform: Platform,
@@ -105,20 +107,31 @@ export class ServiciosAdicionalesPage implements OnInit {
       return;
     }
     Plugins.Camera.getPhoto({
-      quality: 25,
+      quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,
-      height: 150,
-      // width: 200,
+      height: 500,
+      width: 500,
       resultType: CameraResultType.DataUrl,
       promptLabelPhoto: 'Fotos',
-      promptLabelPicture: 'Camara',
+      promptLabelPicture: 'Cámara',
       promptLabelCancel: 'Cancelar'
     }).then(image => {
       this.saveImgToApi(image.dataUrl);
     }).catch(e => {
       console.log(e);
     });
+  }
+
+  async openImage(image: string) {
+    const successModal = await this.modalController.create({
+      component: ImageModalComponent,
+      componentProps: {
+        image,
+      },
+      cssClass: 'modalImage',
+    });
+    successModal.present();
   }
 
   onLoadImgFromInput(e: Event) {
