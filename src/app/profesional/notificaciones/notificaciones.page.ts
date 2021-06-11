@@ -108,6 +108,14 @@ export class NotificacionesPage implements OnInit {
     }
   }
 
+  validationName(customerName, supplierName, status) {
+    if(status == 'ServicioAgendado' || status == 'VisitaTecnica' || status == 'ServicioRechazado') {
+      return supplierName
+    } else {
+      return customerName
+    }
+  }
+
   formatdate(date: string, hours: string) {
     return moment.utc(`${date} ${hours}`, 'DD-MM-YYYY hh:mm:ss').startOf('minute').fromNow();
   }

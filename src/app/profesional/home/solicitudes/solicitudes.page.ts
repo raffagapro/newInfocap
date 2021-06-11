@@ -107,7 +107,6 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   }
 
   formatDate(date: string) {
-    console.log(date)
     return moment(date, 'DD/MM/YYYY').format('DD MMM YYYY');
   }
 

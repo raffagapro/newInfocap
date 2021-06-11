@@ -39,7 +39,8 @@
         </ion-item-option>
       </ion-item-options>
 
-      <ion-item class="ion-item-solicitudes" button (click)="aceptarSolicitud(service.id, service.type_request)" *ngIf="service.type_request != 'URGENT'">
+      <ion-item class="ion-no-padding ion-item-solicitudes" button
+        (click)="aceptarSolicitud(service.id, service.type_request)" *ngIf="service.type_request != 'URGENT'">
         <ion-grid>
           <ion-row class="ion-align-items-center">
             <!-- title -->
@@ -52,40 +53,48 @@
                   {{ service.adress }}
                 </ion-text>
                 <br>
-                
-                <ion-text class="miniText" color="primary">{{ service.description }}</ion-text>
+
+                <ion-text class="miniText textSelect" color="primary">{{ service.description }}</ion-text>
               </ion-text>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item>
 
-      <ion-item class="ion-item-solicitudes" button (click)="aceptarSolicitud(service.id, service.type_request)" *ngIf="service.type_request === 'URGENT'">
+      <ion-item class="ion-no-padding ion-item-solicitudes" button
+        (click)="aceptarSolicitud(service.id, service.type_request)" *ngIf="service.type_request === 'URGENT'">
         <ion-grid>
           <ion-row class="ion-align-items-center">
             <!-- title -->
-            <ion-col size="12" class="ion-justify-content-center">
+            <ion-col size="8" class="ion-justify-content-center">
               <ion-text>
                 <ion-row class="ion-align-items-center">
-                <ion-badge color="danger" class="titleSelect ion-text-capitalize">{{ service.categoryName }}
-                </ion-badge>
-                <ion-icon src="/assets/icon/ic_error.svg" color="primary" class="iconFix"></ion-icon>
-              </ion-row>
+                  <ion-badge color="danger" class="titleSelect ion-text-capitalize">{{ service.categoryName }}
+                  </ion-badge>
+                  <ion-icon src="/assets/icon/ic_error.svg" color="primary" class="iconFix"></ion-icon>
+                </ion-row>
                 <ion-text class="mainText">
                   {{ service.adress }}
                 </ion-text>
                 <br>
                 <ion-row>
-                  <ion-col size="6">
-                    <ion-text class="miniText urgent-text" color="danger">{{ service.description }}</ion-text>
-                  </ion-col>
-                  <ion-col size="6">
-                    <ion-text class="miniText urgent-text" color="danger">
-                      <ion-icon src="/assets/icon/ic_date_range_red.svg" color="primary" class="iconFix"></ion-icon> 
-                      {{ formatDate(service.date_required) }}
+                  <ion-col class="ion-no-padding" size="6">
+                    <ion-text class="miniText urgent-text textSelect" color="danger">{{ service.description }}
                     </ion-text>
                   </ion-col>
-              </ion-row>
+                  <!-- <ion-col size="6">
+                    <ion-text class="miniText urgent-text" color="danger">
+                      <ion-icon src="/assets/icon/ic_date_range_red.svg" color="primary" class="iconFix"></ion-icon>
+                      {{ formatDate(service.date_required) }}
+                    </ion-text>
+                  </ion-col> -->
+                </ion-row>
+              </ion-text>
+            </ion-col>
+            <ion-col size="4">
+              <ion-text class="miniText urgent-text" color="danger">
+                <ion-icon src="/assets/icon/ic_date_range_red.svg" color="primary" class="iconFix"></ion-icon>
+                {{ formatDate(service.date_required) }}
               </ion-text>
             </ion-col>
           </ion-row>

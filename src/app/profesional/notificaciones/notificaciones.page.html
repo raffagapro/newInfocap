@@ -19,7 +19,7 @@
   <div class="prof-cont mt-25 no-border" *ngFor="let notification of notifications">
     <ion-grid>
       <ion-item-sliding no-lines>
-        <ion-item class="ion-item-notificaciones" no-lines (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id)">
+        <ion-item class="ion-no-padding ion-item-notificaciones" no-lines (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id)">
           <ion-row class="ion-align-items-center">
 
             <!-- title -->
@@ -34,7 +34,7 @@
                 <ion-icon color="danger" name="alert-circle" class="icon-size"
                   *ngIf="notification.type_request !== 'NORMAL'"></ion-icon>
                 <p class="textSelect {{notification.type_request !== 'NORMAL' ? 'red-color' : ''}}">
-                  {{notification.professionalName}} {{notification.motive}}
+                  {{ validationName(notification.customerName, notification.professionalName, notification.status_name) }} {{notification.motive}}
                 </p>
                 <!--<small class="main-color">Cambio de chapas</small>-->
               </ion-text>

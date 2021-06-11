@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, MenuController } from '@ionic/angular';
+import { LoadingController, MenuController, PickerController } from '@ionic/angular';
+import { PickerOptions } from '@ionic/core'
 import { API } from 'src/environments/environment';
 
 import axios from 'axios';
@@ -27,6 +28,7 @@ export class RatingPage implements OnInit {
     private menuController: MenuController,
     private us: UserService,
     private lc: LoadingController,
+    private pickerController: PickerController
   ) { }
 
   ngOnInit() {
@@ -42,7 +44,7 @@ export class RatingPage implements OnInit {
       axios.get(API + `/supplier/categories`, { headers: { Authorization: this.headers } }).then(resData => {
         this.categories = resData.data.data;
         if(this.categories.length > 0) {
-          this.categorySelected = this.categories[0].id
+          this.categorySelected = this.categories[0].name
           this.changeCategory(this.categories[0].id)
         }
         
@@ -63,8 +65,38 @@ export class RatingPage implements OnInit {
         worknumber: 0,
         comments: []
       }
-      console.log(err)
     })
+  }
+
+  async showPicker() {
+    let options: PickerOptions = {
+      buttons: [
+        {
+          text:'Listo',
+          handler:(value:any) => {
+            console.log(value)
+            this.categorySelected = value.category.text
+            this.changeCategory(value.category.value)
+          }
+        }
+      ],
+      columns:[{
+        name:'category',
+        options:this.getColumnOptions()
+      }]
+    };
+
+    let picker = await this.pickerController.create(options);
+    picker.present()
+  }
+
+  getColumnOptions(){
+    let options = [];
+    console.log()
+    this.categories.forEach(x => {
+      options.push({text: x.name, value: x.id});
+    });
+    return options;
   }
 
   ionViewWillEnter() {

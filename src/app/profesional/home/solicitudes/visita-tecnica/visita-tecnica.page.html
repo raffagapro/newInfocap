@@ -61,12 +61,12 @@
     </ion-row>
 
     <!-- Slider -->
-    <ion-row class="mt-12">
+    <ion-row>
       <ion-col size="12">
         <ion-slides [options]="slideOptions">
 
           <ion-slide *ngFor="let image of loadedInfo.images">
-            <img src="{{ image.image }}" class="imgSlide">
+            <img (click)="openImage(image.image)" src="{{ image.image }}" class="imgSlide">
           </ion-slide>
 
         </ion-slides>

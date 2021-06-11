@@ -13,6 +13,7 @@ import axios from 'axios'
 import * as moment from 'moment';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 import { ServiceRejectModalComponent } from '../../solicitudes/service-reject-modal/service-reject-modal.component';
+import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
 
 @Component({
   selector: 'app-agendados-detail',
@@ -174,6 +175,17 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         });
       })
     });
+  }
+
+  async openImage(image: string) {
+    const successModal = await this.modalController.create({
+      component: ImageModalComponent,
+      componentProps: {
+        image,
+      },
+      cssClass: 'modalImage',
+    });
+    successModal.present();
   }
 
   startScheduled() {

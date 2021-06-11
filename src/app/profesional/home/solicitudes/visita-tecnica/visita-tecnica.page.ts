@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { VisitaTecnicaService } from 'src/app/services/visita-tecnica.service';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
+import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
 
 @Component({
   selector: 'app-visita-tecnica',
@@ -98,6 +99,17 @@ export class VisitaTecnicaPage implements OnInit {
       let fecha = date.split(' ')
       return moment(fecha[0], 'DD/MM/YYYY').format('D [de] MMM [de] YYYY');
     }
+  }
+
+  async openImage(image: string) {
+    const successModal = await this.modalController.create({
+      component: ImageModalComponent,
+      componentProps: {
+        image,
+      },
+      cssClass: 'modalImage',
+    });
+    successModal.present();
   }
 
   confirmRequest() {
