@@ -36,6 +36,7 @@ export class MapaPage implements OnInit, OnDestroy {
   userSub: Subscription;
   marker: any;
   form: FormGroup;
+  showIcon = true;
 
   constructor(
     // private geolocation: Geolocation,
@@ -217,5 +218,10 @@ export class MapaPage implements OnInit, OnDestroy {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  showSearchIcon(show: boolean) {
+    this.showIcon = show;
+    console.log('pasó')
   }
 }
