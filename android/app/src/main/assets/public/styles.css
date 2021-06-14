@@ -1126,6 +1126,9 @@ body {
 .main-color {
   color: #009ace;
 }
+.red-color {
+  color: red;
+}
 .bg-main-color {
   --background: #009ace;
 }
@@ -1225,7 +1228,7 @@ ion-item {
   --border-color: red;
 }
 .errorMess {
-  margin-left: 18px;
+  margin-left: 0;
 }
 .iconFixG {
   margin-bottom: -3px;
@@ -1257,7 +1260,8 @@ ion-item {
 .weekview-normal-event-container {
   margin-top: 58px !important;
 }
-.calendar-hour-column, .calendar-hour-column {
+.calendar-hour-column,
+.calendar-hour-column {
   width: 3.2rem !important;
 }
 .calendar-hour-column {
@@ -1272,4 +1276,19 @@ ion-item {
 }
 .header-md::after {
   background-image: none;
+}
+.btn_eye_icon {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  background: transparent;
+  width: 50px;
+  z-index: 10;
+}
+.btn_eye_icon ion-icon {
+  font-size: 22px;
+  color: #757575;
+}
+.btn_eye_icon:focus {
+  outline: none !important;
 }

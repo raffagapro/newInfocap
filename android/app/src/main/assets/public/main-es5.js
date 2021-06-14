@@ -122,55 +122,12 @@
             this.userSub = this.us.loggedUser.subscribe(function (user) {
               _this.grabbedUser = user;
             });
-            this.getServiceData();
           }
         }, {
-          key: "getServiceData",
-          value: function getServiceData() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              var loader, response, data, serverData;
-              return regeneratorRuntime.wrap(function _callee$(_context) {
-                while (1) {
-                  switch (_context.prev = _context.next) {
-                    case 0:
-                      _context.next = 2;
-                      return this.lc.create({
-                        message: 'Cargando información del servicio...'
-                      });
-
-                    case 2:
-                      loader = _context.sent;
-                      loader.present();
-                      _context.prev = 4;
-                      _context.next = 7;
-                      return axios__WEBPACK_IMPORTED_MODULE_8___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"], "/supplier/requestservicedetail/").concat(this.solicitudServicio.solicitud.id), {
-                        headers: {
-                          Authorization: "Bearer ".concat(this.grabbedUser.access_token)
-                        }
-                      });
-
-                    case 7:
-                      response = _context.sent;
-                      data = response.data;
-                      serverData = data.data;
-                      this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required;
-                      this.loadedInfo.hours = this.solicitudServicio.solicitud.hours;
-                      loader.dismiss();
-                      _context.next = 18;
-                      break;
-
-                    case 15:
-                      _context.prev = 15;
-                      _context.t0 = _context["catch"](4);
-                      loader.dismiss();
-
-                    case 18:
-                    case "end":
-                      return _context.stop();
-                  }
-                }
-              }, _callee, this, [[4, 15]]);
-            }));
+          key: "ionViewWillEnter",
+          value: function ionViewWillEnter() {
+            this.loadedInfo.hours = this.solicitudServicio.solicitud.hours;
+            this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required;
           }
         }, {
           key: "p",
@@ -198,35 +155,33 @@
         }, {
           key: "confirmServicio",
           value: function confirmServicio() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
               var loader, body, url, response, successModal;
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+              return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
-                  switch (_context2.prev = _context2.next) {
+                  switch (_context.prev = _context.next) {
                     case 0:
-                      _context2.next = 2;
+                      _context.next = 2;
                       return this.lc.create({
                         message: 'Confirmando solicitud...'
                       });
 
                     case 2:
-                      loader = _context2.sent;
+                      loader = _context.sent;
                       loader.present();
                       body = {
                         date_required: this.solicitudServicio.solicitud.date_required,
                         hours: this.solicitudServicio.solicitud.hours,
-                        professional_id: null
+                        professional_id: this.grabbedUser.id
                       };
-                      _context2.prev = 5;
+                      _context.prev = 5;
                       url = '/supplier/aprove/requestservice/';
 
                       if (this.solicitudServicio.solicitud.type == 'URGENT') {
                         url = '/supplier/aprove/requestservice/'; //'/supplier/aprove/urgentrequestservice/'
-
-                        body.professional_id = this.grabbedUser.id;
                       }
 
-                      _context2.next = 10;
+                      _context.next = 10;
                       return axios__WEBPACK_IMPORTED_MODULE_8___default.a.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"]).concat(url).concat(this.solicitudServicio.solicitud.id), body, {
                         headers: {
                           Authorization: "Bearer ".concat(this.grabbedUser.access_token)
@@ -234,7 +189,7 @@
                       });
 
                     case 10:
-                      response = _context2.sent;
+                      response = _context.sent;
                       console.log(this.solicitudServicio.solicitud.cost);
                       axios__WEBPACK_IMPORTED_MODULE_8___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"] + "/supplier/cost/requestservice/".concat(this.solicitudServicio.solicitud.id), {
                         "amount": this.solicitudServicio.solicitud.cost,
@@ -246,38 +201,38 @@
                           Authorization: "Bearer ".concat(this.grabbedUser.access_token)
                         }
                       });
-                      _context2.next = 15;
+                      _context.next = 15;
                       return loader.dismiss();
 
                     case 15:
-                      _context2.next = 17;
+                      _context.next = 17;
                       return this.modalController.dismiss();
 
                     case 17:
-                      _context2.next = 19;
+                      _context.next = 19;
                       return this.modalController.create({
                         component: _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_7__["ConfirmSuccessComponent"],
                         cssClass: 'modalSuccess'
                       });
 
                     case 19:
-                      successModal = _context2.sent;
+                      successModal = _context.sent;
                       successModal.present();
-                      _context2.next = 27;
+                      _context.next = 27;
                       break;
 
                     case 23:
-                      _context2.prev = 23;
-                      _context2.t0 = _context2["catch"](5);
-                      console.log(_context2.t0);
+                      _context.prev = 23;
+                      _context.t0 = _context["catch"](5);
+                      console.log(_context.t0);
                       loader.dismiss();
 
                     case 27:
                     case "end":
-                      return _context2.stop();
+                      return _context.stop();
                   }
                 }
-              }, _callee2, this, [[5, 23]]);
+              }, _callee, this, [[5, 23]]);
             }));
           }
         }, {
@@ -2269,11 +2224,15 @@
                     if (_this4.user.role === _model_user_model__WEBPACK_IMPORTED_MODULE_11__["UserRoles"].USER) {
                       _this4.loadNotifications('client');
 
-                      _this4.router.navigate(['/user/home']);
+                      _this4.router.navigate(['/user/home'], {
+                        replaceUrl: true
+                      });
                     } else {
                       _this4.loadNotifications('supplier');
 
-                      _this4.router.navigate(['/profesional/home']);
+                      _this4.router.navigate(['/profesional/home'], {
+                        replaceUrl: true
+                      });
                     }
                   }
                 });
@@ -2287,7 +2246,9 @@
             this.menuCtrl.enable(false, _model_user_model__WEBPACK_IMPORTED_MODULE_11__["UserRoles"].PROFESSIONAL);
             this.menuCtrl.enable(false, _model_user_model__WEBPACK_IMPORTED_MODULE_11__["UserRoles"].USER);
             this.as.logout();
-            this.router.navigateByUrl('/');
+            this.router.navigateByUrl('/', {
+              replaceUrl: true
+            });
           }
         }, {
           key: "profile",
@@ -2309,14 +2270,14 @@
         }, {
           key: "loadNotifications",
           value: function loadNotifications(type) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
               var response, data, notificationsData;
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
-                  switch (_context3.prev = _context3.next) {
+                  switch (_context2.prev = _context2.next) {
                     case 0:
-                      _context3.prev = 0;
-                      _context3.next = 3;
+                      _context2.prev = 0;
+                      _context2.next = 3;
                       return axios__WEBPACK_IMPORTED_MODULE_14___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["API"], "/").concat(type, "/notification"), {
                         headers: {
                           Authorization: "Bearer ".concat(this.user.access_token)
@@ -2324,27 +2285,27 @@
                       });
 
                     case 3:
-                      response = _context3.sent;
+                      response = _context2.sent;
                       data = response.data;
                       notificationsData = data.data;
                       this.notifications = notificationsData;
                       this.notificationCount = notificationsData.filter(function (notification) {
                         return !notification.viewed;
                       }).length;
-                      _context3.next = 13;
+                      _context2.next = 13;
                       break;
 
                     case 10:
-                      _context3.prev = 10;
-                      _context3.t0 = _context3["catch"](0);
-                      alert(_context3.t0.message);
+                      _context2.prev = 10;
+                      _context2.t0 = _context2["catch"](0);
+                      alert(_context2.t0.message);
 
                     case 13:
                     case "end":
-                      return _context3.stop();
+                      return _context2.stop();
                   }
                 }
-              }, _callee3, this, [[0, 10]]);
+              }, _callee2, this, [[0, 10]]);
             }));
           }
         }]);
@@ -3008,7 +2969,7 @@
         return ProSolicitud;
       });
 
-      var ProSolicitud = function ProSolicitud(clientLastName, clientName, clientImg, clientPhone, images, category_id, categoryName, date_required, created_date, description, hours, id, status_id, cost, supplierLastName, supplierName, ticket_number, aditional, type) {
+      var ProSolicitud = function ProSolicitud(clientLastName, clientName, clientImg, clientPhone, images, category_id, categoryName, date_required, created_date, description, hours, id, status_id, cost, supplierLastName, supplierName, ticket_number, aditional, evaluationService, type) {
         _classCallCheck(this, ProSolicitud);
 
         this.clientLastName = clientLastName;
@@ -3029,6 +2990,7 @@
         this.supplierName = supplierName;
         this.ticket_number = ticket_number;
         this.aditional = aditional;
+        this.evaluationService = evaluationService;
         this.type = type;
       };
       /***/
@@ -3585,51 +3547,51 @@
         _createClass(AuthService, [{
           key: "initStorage",
           value: function initStorage() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
               var storage;
-              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
-                  switch (_context4.prev = _context4.next) {
+                  switch (_context3.prev = _context3.next) {
                     case 0:
-                      _context4.next = 2;
+                      _context3.next = 2;
                       return this.storage.create();
 
                     case 2:
-                      storage = _context4.sent;
+                      storage = _context3.sent;
                       this._storage = storage;
                       this.validateLoggedIn();
 
                     case 5:
                     case "end":
-                      return _context4.stop();
+                      return _context3.stop();
                   }
                 }
-              }, _callee4, this);
+              }, _callee3, this);
             }));
           }
         }, {
           key: "validateLoggedIn",
           value: function validateLoggedIn() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
               var id;
-              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
-                  switch (_context5.prev = _context5.next) {
+                  switch (_context4.prev = _context4.next) {
                     case 0:
-                      _context5.next = 2;
+                      _context4.next = 2;
                       return this._storage.get('id');
 
                     case 2:
-                      id = _context5.sent;
+                      id = _context4.sent;
 
                       this._userIsAuthenticated.next(id !== null && id !== undefined);
 
                     case 4:
                     case "end":
-                      return _context5.stop();
+                      return _context4.stop();
                   }
                 }
-              }, _callee5, this);
+              }, _callee4, this);
             }));
           }
         }, {
@@ -3828,34 +3790,34 @@
         }, {
           key: "rechazarSolicitud",
           value: function rechazarSolicitud(rejectDesc) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
               var loader, body, confirmModal;
-              return regeneratorRuntime.wrap(function _callee6$(_context6) {
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
                 while (1) {
-                  switch (_context6.prev = _context6.next) {
+                  switch (_context5.prev = _context5.next) {
                     case 0:
                       if (!(!rejectDesc || rejectDesc.trim() === '')) {
-                        _context6.next = 3;
+                        _context5.next = 3;
                         break;
                       }
 
                       this.showError = true;
-                      return _context6.abrupt("return");
+                      return _context5.abrupt("return");
 
                     case 3:
-                      _context6.next = 5;
+                      _context5.next = 5;
                       return this.lc.create({
                         message: "Procesando la solicitud..."
                       });
 
                     case 5:
-                      loader = _context6.sent;
+                      loader = _context5.sent;
                       loader.present();
-                      _context6.prev = 7;
+                      _context5.prev = 7;
                       body = {
                         reason: rejectDesc
                       };
-                      _context6.next = 11;
+                      _context5.next = 11;
                       return axios__WEBPACK_IMPORTED_MODULE_6___default.a.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/supplier/reject/requestservice/").concat(this.solicitudServicio.solicitud.id), body, {
                         headers: {
                           Authorization: "Bearer ".concat(this.grabbedUser.access_token)
@@ -3864,11 +3826,11 @@
 
                     case 11:
                       loader.dismiss();
-                      _context6.next = 14;
+                      _context5.next = 14;
                       return this.modalController.dismiss();
 
                     case 14:
-                      _context6.next = 16;
+                      _context5.next = 16;
                       return this.modalController.create({
                         component: _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_11__["ConfirmSuccessComponent"],
                         cssClass: 'modalSuccess',
@@ -3878,25 +3840,25 @@
                       });
 
                     case 16:
-                      confirmModal = _context6.sent;
+                      confirmModal = _context5.sent;
                       confirmModal.present();
-                      _context6.next = 24;
+                      _context5.next = 24;
                       break;
 
                     case 20:
-                      _context6.prev = 20;
-                      _context6.t0 = _context6["catch"](7);
-                      console.log(_context6.t0);
+                      _context5.prev = 20;
+                      _context5.t0 = _context5["catch"](7);
+                      console.log(_context5.t0);
                       loader.dismiss({
                         reload: true
                       });
 
                     case 24:
                     case "end":
-                      return _context6.stop();
+                      return _context5.stop();
                   }
                 }
-              }, _callee6, this, [[7, 20]]);
+              }, _callee5, this, [[7, 20]]);
             }));
           }
         }, {
@@ -4269,98 +4231,98 @@
         _createClass(UserService, [{
           key: "initStorage",
           value: function initStorage() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
               var storage;
-              return regeneratorRuntime.wrap(function _callee7$(_context7) {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context7.prev = _context7.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
-                      _context7.next = 2;
+                      _context6.next = 2;
                       return this.storage.create();
 
                     case 2:
-                      storage = _context7.sent;
+                      storage = _context6.sent;
                       this._storage = storage;
                       this.getUser();
 
                     case 5:
                     case "end":
-                      return _context7.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee7, this);
+              }, _callee6, this);
             }));
           }
         }, {
           key: "getUser",
           value: function getUser() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
               var id, name, last_name, img_profile, email, phone1, phone2, role, access_token, user;
-              return regeneratorRuntime.wrap(function _callee8$(_context8) {
+              return regeneratorRuntime.wrap(function _callee7$(_context7) {
                 while (1) {
-                  switch (_context8.prev = _context8.next) {
+                  switch (_context7.prev = _context7.next) {
                     case 0:
-                      _context8.next = 2;
+                      _context7.next = 2;
                       return this._storage.get('id');
 
                     case 2:
-                      id = _context8.sent;
+                      id = _context7.sent;
 
                       if (!id) {
-                        _context8.next = 30;
+                        _context7.next = 30;
                         break;
                       }
 
-                      _context8.next = 6;
+                      _context7.next = 6;
                       return this._storage.get('name');
 
                     case 6:
-                      name = _context8.sent;
-                      _context8.next = 9;
+                      name = _context7.sent;
+                      _context7.next = 9;
                       return this._storage.get('last_name');
 
                     case 9:
-                      last_name = _context8.sent;
-                      _context8.next = 12;
+                      last_name = _context7.sent;
+                      _context7.next = 12;
                       return this._storage.get('img_profile');
 
                     case 12:
-                      img_profile = _context8.sent;
-                      _context8.next = 15;
+                      img_profile = _context7.sent;
+                      _context7.next = 15;
                       return this._storage.get('email');
 
                     case 15:
-                      email = _context8.sent;
-                      _context8.next = 18;
+                      email = _context7.sent;
+                      _context7.next = 18;
                       return this._storage.get('phone1');
 
                     case 18:
-                      phone1 = _context8.sent;
-                      _context8.next = 21;
+                      phone1 = _context7.sent;
+                      _context7.next = 21;
                       return this._storage.get('phone2');
 
                     case 21:
-                      phone2 = _context8.sent;
-                      _context8.next = 24;
+                      phone2 = _context7.sent;
+                      _context7.next = 24;
                       return this._storage.get('role');
 
                     case 24:
-                      role = _context8.sent;
-                      _context8.next = 27;
+                      role = _context7.sent;
+                      _context7.next = 27;
                       return this._storage.get('access_token');
 
                     case 27:
-                      access_token = _context8.sent;
+                      access_token = _context7.sent;
                       user = new _model_user_model__WEBPACK_IMPORTED_MODULE_6__["User"](id, name, last_name, img_profile === 'http://167.71.251.136/storage/' ? '/' : img_profile, email, phone1, phone2, role, access_token);
 
                       this._loggedUser.next(user);
 
                     case 30:
                     case "end":
-                      return _context8.stop();
+                      return _context7.stop();
                   }
                 }
-              }, _callee8, this);
+              }, _callee7, this);
             }));
           }
         }, {
@@ -5106,9 +5068,9 @@
       }, {
         path: 'profesional/cat-perfiles',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | profesional-cat-perfiles-cat-perfiles-module */
-          "profesional-cat-perfiles-cat-perfiles-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("profesional-cat-perfiles-cat-perfiles-module")]).then(__webpack_require__.bind(null,
           /*! ./profesional/cat-perfiles/cat-perfiles.module */
           "OZRK")).then(function (m) {
             return m.CatPerfilesPageModule;
@@ -5117,9 +5079,9 @@
       }, {
         path: 'profesional/solicitudes/solicitudes-detail',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | profesional-home-solicitudes-solicitudes-detail-solicitudes-detail-module */
-          "profesional-home-solicitudes-solicitudes-detail-solicitudes-detail-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("profesional-home-solicitudes-solicitudes-detail-solicitudes-detail-module")]).then(__webpack_require__.bind(null,
           /*! ./profesional/home/solicitudes/solicitudes-detail/solicitudes-detail.module */
           "jCiK")).then(function (m) {
             return m.SolicitudesDetailPageModule;
@@ -5139,9 +5101,9 @@
       }, {
         path: 'profesional/solicitudes/visita-tecnica',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | profesional-home-solicitudes-visita-tecnica-visita-tecnica-module */
-          "profesional-home-solicitudes-visita-tecnica-visita-tecnica-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("profesional-home-solicitudes-visita-tecnica-visita-tecnica-module")]).then(__webpack_require__.bind(null,
           /*! ./profesional/home/solicitudes/visita-tecnica/visita-tecnica.module */
           "B1EP")).then(function (m) {
             return m.VisitaTecnicaPageModule;
@@ -5150,9 +5112,9 @@
       }, {
         path: 'profesional/agendados/agendados-detail',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | profesional-home-agendados-agendados-detail-agendados-detail-module */
-          "profesional-home-agendados-agendados-detail-agendados-detail-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("profesional-home-agendados-agendados-detail-agendados-detail-module")]).then(__webpack_require__.bind(null,
           /*! ./profesional/home/agendados/agendados-detail/agendados-detail.module */
           "DPWe")).then(function (m) {
             return m.AgendadosDetailPageModule;
@@ -5172,9 +5134,9 @@
       }, {
         path: 'profesional/agendados/servicios-adicionales',
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module */
-          "profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module")]).then(__webpack_require__.bind(null,
           /*! ./profesional/home/agendados/agendados-finalizar/servicios-adicionales/servicios-adicionales.module */
           "jlIi")).then(function (m) {
             return m.ServiciosAdicionalesPageModule;
@@ -5469,12 +5431,12 @@
         }, {
           key: "confirmVisita",
           value: function confirmVisita() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
               var _this9 = this;
 
-              return regeneratorRuntime.wrap(function _callee9$(_context9) {
+              return regeneratorRuntime.wrap(function _callee8$(_context8) {
                 while (1) {
-                  switch (_context9.prev = _context9.next) {
+                  switch (_context8.prev = _context8.next) {
                     case 0:
                       this.modalController.dismiss();
                       this.lc.create({
@@ -5507,10 +5469,10 @@
 
                     case 2:
                     case "end":
-                      return _context9.stop();
+                      return _context8.stop();
                   }
                 }
-              }, _callee9, this);
+              }, _callee8, this);
             }));
           }
         }]);
@@ -5884,7 +5846,7 @@
         function ProSolicitudService() {
           _classCallCheck(this, ProSolicitudService);
 
-          this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
+          this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
         }
 
         _createClass(ProSolicitudService, [{
@@ -5983,6 +5945,11 @@
             this._solicitud.aditional = aditionals;
           }
         }, {
+          key: "setEvaluateService",
+          value: function setEvaluateService(tecnical) {
+            this._solicitud.evaluationService = tecnical;
+          }
+        }, {
           key: "setSolicitudType",
           value: function setSolicitudType(type) {
             this._solicitud.type = type;
@@ -5990,7 +5957,7 @@
         }, {
           key: "clearSolcitud",
           value: function clearSolcitud() {
-            this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
+            this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
           }
         }]);
 

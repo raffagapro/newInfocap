@@ -321,9 +321,8 @@
 
             this.showError = false;
 
-            if (this.loadedImages.length === 0) {
-              alert('Debes agregar al menos una foto a la solicitud.');
-              return;
+            if (this.loadedImages.length === 0) {//alert('Debes agregar al menos una foto a la solicitud.');
+              //return
             }
 
             this.lc.create({

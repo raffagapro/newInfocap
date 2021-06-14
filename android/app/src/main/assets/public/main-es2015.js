@@ -49,30 +49,10 @@ let ConfirmServComponent = class ConfirmServComponent {
         this.userSub = this.us.loggedUser.subscribe(user => {
             this.grabbedUser = user;
         });
-        this.getServiceData();
     }
-    getServiceData() {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            let loader = yield this.lc.create({
-                message: 'Cargando información del servicio...'
-            });
-            loader.present();
-            try {
-                let response = yield axios__WEBPACK_IMPORTED_MODULE_8___default.a.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"]}/supplier/requestservicedetail/${this.solicitudServicio.solicitud.id}`, {
-                    headers: {
-                        Authorization: `Bearer ${this.grabbedUser.access_token}`,
-                    }
-                });
-                const { data } = response;
-                const { data: serverData } = data;
-                this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required;
-                this.loadedInfo.hours = this.solicitudServicio.solicitud.hours;
-                loader.dismiss();
-            }
-            catch (error) {
-                loader.dismiss();
-            }
-        });
+    ionViewWillEnter() {
+        this.loadedInfo.hours = this.solicitudServicio.solicitud.hours;
+        this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required;
     }
     p(hours) {
         if (hours) {
@@ -100,13 +80,12 @@ let ConfirmServComponent = class ConfirmServComponent {
             const body = {
                 date_required: this.solicitudServicio.solicitud.date_required,
                 hours: this.solicitudServicio.solicitud.hours,
-                professional_id: null
+                professional_id: this.grabbedUser.id
             };
             try {
                 var url = '/supplier/aprove/requestservice/';
                 if (this.solicitudServicio.solicitud.type == 'URGENT') {
                     var url = '/supplier/aprove/requestservice/'; //'/supplier/aprove/urgentrequestservice/'
-                    body.professional_id = this.grabbedUser.id;
                 }
                 let response = yield axios__WEBPACK_IMPORTED_MODULE_8___default.a.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"]}${url}${this.solicitudServicio.solicitud.id}`, body, {
                     headers: {
@@ -1383,11 +1362,11 @@ let AppComponent = class AppComponent {
                         this.firstLoad = true;
                         if (this.user.role === _model_user_model__WEBPACK_IMPORTED_MODULE_11__["UserRoles"].USER) {
                             this.loadNotifications('client');
-                            this.router.navigate(['/user/home']);
+                            this.router.navigate(['/user/home'], { replaceUrl: true });
                         }
                         else {
                             this.loadNotifications('supplier');
-                            this.router.navigate(['/profesional/home']);
+                            this.router.navigate(['/profesional/home'], { replaceUrl: true });
                         }
                     }
                 });
@@ -1399,7 +1378,7 @@ let AppComponent = class AppComponent {
         this.menuCtrl.enable(false, _model_user_model__WEBPACK_IMPORTED_MODULE_11__["UserRoles"].PROFESSIONAL);
         this.menuCtrl.enable(false, _model_user_model__WEBPACK_IMPORTED_MODULE_11__["UserRoles"].USER);
         this.as.logout();
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/', { replaceUrl: true });
     }
     profile() {
         this.menuCtrl.close();
@@ -1812,7 +1791,7 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProSolicitud", function() { return ProSolicitud; });
 class ProSolicitud {
-    constructor(clientLastName, clientName, clientImg, clientPhone, images, category_id, categoryName, date_required, created_date, description, hours, id, status_id, cost, supplierLastName, supplierName, ticket_number, aditional, type) {
+    constructor(clientLastName, clientName, clientImg, clientPhone, images, category_id, categoryName, date_required, created_date, description, hours, id, status_id, cost, supplierLastName, supplierName, ticket_number, aditional, evaluationService, type) {
         this.clientLastName = clientLastName;
         this.clientName = clientName;
         this.clientImg = clientImg;
@@ -1831,6 +1810,7 @@ class ProSolicitud {
         this.supplierName = supplierName;
         this.ticket_number = ticket_number;
         this.aditional = aditional;
+        this.evaluationService = evaluationService;
         this.type = type;
     }
 }
@@ -3092,11 +3072,11 @@ const routes = [
     },
     {
         path: 'profesional/cat-perfiles',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-cat-perfiles-cat-perfiles-module */ "profesional-cat-perfiles-cat-perfiles-module").then(__webpack_require__.bind(null, /*! ./profesional/cat-perfiles/cat-perfiles.module */ "OZRK")).then(m => m.CatPerfilesPageModule),
+        loadChildren: () => Promise.all(/*! import() | profesional-cat-perfiles-cat-perfiles-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-cat-perfiles-cat-perfiles-module")]).then(__webpack_require__.bind(null, /*! ./profesional/cat-perfiles/cat-perfiles.module */ "OZRK")).then(m => m.CatPerfilesPageModule),
     },
     {
         path: 'profesional/solicitudes/solicitudes-detail',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-solicitudes-solicitudes-detail-solicitudes-detail-module */ "profesional-home-solicitudes-solicitudes-detail-solicitudes-detail-module").then(__webpack_require__.bind(null, /*! ./profesional/home/solicitudes/solicitudes-detail/solicitudes-detail.module */ "jCiK")).then(m => m.SolicitudesDetailPageModule),
+        loadChildren: () => Promise.all(/*! import() | profesional-home-solicitudes-solicitudes-detail-solicitudes-detail-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-solicitudes-solicitudes-detail-solicitudes-detail-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/solicitudes/solicitudes-detail/solicitudes-detail.module */ "jCiK")).then(m => m.SolicitudesDetailPageModule),
     },
     {
         path: 'profesional/solicitudes/definicion-servicio',
@@ -3104,11 +3084,11 @@ const routes = [
     },
     {
         path: 'profesional/solicitudes/visita-tecnica',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-solicitudes-visita-tecnica-visita-tecnica-module */ "profesional-home-solicitudes-visita-tecnica-visita-tecnica-module").then(__webpack_require__.bind(null, /*! ./profesional/home/solicitudes/visita-tecnica/visita-tecnica.module */ "B1EP")).then(m => m.VisitaTecnicaPageModule),
+        loadChildren: () => Promise.all(/*! import() | profesional-home-solicitudes-visita-tecnica-visita-tecnica-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-solicitudes-visita-tecnica-visita-tecnica-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/solicitudes/visita-tecnica/visita-tecnica.module */ "B1EP")).then(m => m.VisitaTecnicaPageModule),
     },
     {
         path: 'profesional/agendados/agendados-detail',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-agendados-agendados-detail-agendados-detail-module */ "profesional-home-agendados-agendados-detail-agendados-detail-module").then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-detail/agendados-detail.module */ "DPWe")).then(m => m.AgendadosDetailPageModule),
+        loadChildren: () => Promise.all(/*! import() | profesional-home-agendados-agendados-detail-agendados-detail-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-agendados-agendados-detail-agendados-detail-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-detail/agendados-detail.module */ "DPWe")).then(m => m.AgendadosDetailPageModule),
     },
     {
         path: 'profesional/agendados/agendados-finalizar',
@@ -3116,7 +3096,7 @@ const routes = [
     },
     {
         path: 'profesional/agendados/servicios-adicionales',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module */ "profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module").then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-finalizar/servicios-adicionales/servicios-adicionales.module */ "jlIi")).then(m => m.ServiciosAdicionalesPageModule),
+        loadChildren: () => Promise.all(/*! import() | profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-finalizar/servicios-adicionales/servicios-adicionales.module */ "jlIi")).then(m => m.ServiciosAdicionalesPageModule),
     },
     {
         path: 'profesional/finalizados/finalizados-details',
@@ -3505,7 +3485,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let ProSolicitudService = class ProSolicitudService {
     constructor() {
-        this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
+        this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
     }
     get solicitud() {
         return this._solicitud;
@@ -3564,11 +3544,14 @@ let ProSolicitudService = class ProSolicitudService {
     setAditional(aditionals) {
         this._solicitud.aditional = aditionals;
     }
+    setEvaluateService(tecnical) {
+        this._solicitud.evaluationService = tecnical;
+    }
     setSolicitudType(type) {
         this._solicitud.type = type;
     }
     clearSolcitud() {
-        this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
+        this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
     }
 };
 ProSolicitudService.ctorParameters = () => [];

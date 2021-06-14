@@ -473,11 +473,11 @@
             }
 
             _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Plugins"].Camera.getPhoto({
-              quality: 25,
+              quality: 100,
               source: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraSource"].Prompt,
               correctOrientation: true,
-              height: 150,
-              // width: 200,
+              height: 500,
+              width: 500,
               resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraResultType"].DataUrl,
               promptLabelPhoto: 'Fotos',
               promptLabelPicture: 'Cámara',
