@@ -27,8 +27,8 @@
 
   <ion-grid class="ion-margin-top" *ngIf="!loadedServices || loadedServices.length < 1">
     <ion-row class="subtitle ion-margin-top">
-      <ion-col size="8" offset="2" class="ion-text-center">
-        <ion-text class="footer-text main-color"><b>Aún no tienes solicitudes hechas.</b></ion-text>
+      <ion-col size="12" class="ion-text-center">
+        <ion-text class="footer-text main-color"><b>Aún no tienes<br />solicitudes hechas</b></ion-text>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -48,7 +48,7 @@
             <span *ngIf="service.type_request === 'URGENT'" class="titleSelect red-color ion-text-capitalize">
               Solicitud urgente </span><br>
             <!-- <ion-badge color="medium" class="badge-text">Soldador</ion-badge>&nbsp; -->
-            <div *ngIf="service.type_request !== 'URGENT'" >
+            <div *ngIf="service.type_request !== 'URGENT'">
               <ion-badge color="medium" class="badge-text">{{
                 service.categoryName }}</ion-badge>
               <br>

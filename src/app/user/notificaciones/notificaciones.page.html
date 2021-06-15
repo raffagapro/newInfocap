@@ -19,14 +19,16 @@
   <div class="prof-cont mt-25 no-border" *ngFor="let notification of notifications">
     <ion-grid>
       <ion-item-sliding no-lines>
-        <ion-item class="ion-no-padding ion-item-notificaciones" no-lines (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id)">
+        <ion-item class="ion-no-padding ion-item-notificaciones" no-lines
+          (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id)">
+          <div class="marker" *ngIf="!notification.viewed">&nbsp;</div>
           <ion-row class="ion-align-items-center">
 
             <!-- title -->
             <ion-col size="7" class="ion-justify-content-center">
-              <ion-text>
+              <ion-text style="position: relative;">
                 <!-- <span class="titleSelect main-color">Cerrajería </span><br> -->
-                <ion-badge color="primary" class="titleSelect">{{notification.category}}</ion-badge>&nbsp;
+                <ion-badge color="{{notification.type_request !== 'URGENT' ? 'primary' : 'danger'}}" class="titleSelect">{{notification.category}}</ion-badge>&nbsp;
                 <ion-icon color="primary" src="/assets/icon/ic_date_range.svg" class="icon-size"
                   *ngIf="notification.type_request === 'NORMAL' && notification.status_id == 1"></ion-icon>
                 <ion-icon color="primary" src="/assets/icon/ic_engine_disabled.svg" class="icon-size"
@@ -46,7 +48,7 @@
                 <small class="ticket">#{{notification.ticket_number}}</small>
               </div>
               <ion-text>
-                <p class="ratingText main-color">
+                <p class="ratingText {{notification.type_request !== 'NORMAL' ? 'red-color' : 'main-color'}}">
                   {{formatdate(notification.date, notification.hours)}}
                 </p>
               </ion-text>
@@ -55,7 +57,8 @@
           </ion-row>
         </ion-item>
         <ion-item-options side="end" no-lines>
-          <ion-item-option color="danger" (click)="deleteNotification(notification.notification_Id)">Eliminar</ion-item-option>
+          <ion-item-option color="danger" (click)="deleteNotification(notification.notification_Id)">Eliminar
+          </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-grid>

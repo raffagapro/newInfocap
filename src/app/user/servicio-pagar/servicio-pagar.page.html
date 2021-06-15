@@ -103,7 +103,7 @@
     <ion-row class="ion-margin-top">
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color subtitle"><b>¿Cómo desea pagar?</b></ion-text>
+        <ion-text class="main-color subtitle"><b>{{isFinished ? 'Método de pago aplicado' : '¿Cómo desea pagar?'}}</b></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
 
@@ -111,7 +111,7 @@
         <section>
           <!-- btn -->
           <ion-button size="small"
-            [fill]="selectedButton === 'credit' ? 'solid' : 'outline'">
+            [fill]="selectedButton === 'credit' ? 'solid' : 'outline'" *ngIf="isFinished && selectedButton === 'credit'">
             <ion-icon slot="start" src="assets/icon/visa.svg"></ion-icon>
             Tarjeta
           </ion-button>
@@ -126,7 +126,7 @@
 
           <!-- btn -->
           <ion-button size="small"
-            [fill]="selectedButton === 'cash' ? 'solid' : 'outline'">
+            [fill]="selectedButton === 'cash' ? 'solid' : 'outline'" *ngIf="isFinished && selectedButton === 'cash'">
             <ion-icon slot="start" src="/assets/icon/ic_dollar_blank.svg"></ion-icon>
             Efectivo
           </ion-button>

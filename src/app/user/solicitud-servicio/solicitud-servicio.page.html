@@ -113,7 +113,7 @@
             </ion-label>
             <ion-datetime formControlName="date_required" placeholder="Definir fecha" [pickerFormat]="'DD MMM YYYY'"
               [displayFormat]="'DDDD DD de MMM de YYYY'" [min]="minDate.format('YYYY-MM-DD')"
-              (ngModelChange)="onDateChange($event)"
+              (ngModelChange)="onDateChange($event)" cancelText="Cancelar" doneText="Listo"
               [dayNames]="['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']"
               monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre">
             </ion-datetime>
@@ -131,8 +131,8 @@
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora inicial</ion-text>
             </ion-label>
-            <ion-datetime formControlName="sHour" display-format="h:mm A" picker-format="h:mm A"
-              [min]="minDate.format('YYYY-MM-DD')">
+            <ion-datetime formControlName="sHour" display-format="h:mm A" picker-format="h:mm A" cancelText="Cancelar"
+              doneText="Listo" [min]="minDate.format('YYYY-MM-DD')">
             </ion-datetime>
           </ion-item>
         </ion-col>
@@ -143,8 +143,8 @@
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora final</ion-text>
             </ion-label>
-            <ion-datetime formControlName="eHour" display-format="h:mm A" picker-format="h:mm A"
-              [min]="minDate.format('YYYY-MM-DD')">
+            <ion-datetime formControlName="eHour" display-format="h:mm A" picker-format="h:mm A" cancelText="Cancelar"
+              doneText="Listo" [min]="minDate.format('YYYY-MM-DD')">
             </ion-datetime>
           </ion-item>
         </ion-col>

@@ -18,15 +18,24 @@
         <!-- profile img -->
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
-            <img src="{{ loadedService.img_profile || '/assets/images/avatar.png'}}" />
+            <img *ngIf="loadedService.img_profile !== 'http://167.71.251.136/storage/'" src="{{ loadedService.img_profile || '/assets/images/avatar.png'}}" />
+            <img *ngIf="loadedService.img_profile === 'http://167.71.251.136/storage/'" src="/assets/images/avatar.png" />
           </ion-avatar>
         </ion-col>
 
         <!-- title -->
-        <ion-col size="6">
+        <ion-col size="6" *ngIf="loadedService.supplierName">
           <ion-text>
             <span class="titleSelect main-color">{{loadedService.categoryName}} de {{loadedService.supplierName}}
               {{loadedService.supplierLastName}}</span><br>
+            <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">
+              {{formatDate(loadedService.created_date, 'DD/MM/YYYY', true)}}</p>
+          </ion-text>
+        </ion-col>
+
+        <ion-col size="6" *ngIf="!loadedService.supplierName">
+          <ion-text>
+            <span class="titleSelect main-color">Sin profesional asignado</span><br>
             <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">
               {{formatDate(loadedService.created_date, 'DD/MM/YYYY', true)}}</p>
           </ion-text>

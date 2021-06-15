@@ -38,6 +38,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NotificationsService } from './services/notifications-service';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { NotificationsService } from './services/notifications-service';
     Geolocation,
     NativeGeocoder,
     NotificationsService,
+    ScreenOrientation
   ],
   bootstrap: [AppComponent]
 })

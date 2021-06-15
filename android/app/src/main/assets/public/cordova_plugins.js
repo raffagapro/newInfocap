@@ -18,6 +18,14 @@
         ]
         },
       {
+          "id": "cordova-plugin-screen-orientation.screenorientation",
+          "file": "plugins/cordova-plugin-screen-orientation/www/screenorientation.js",
+          "pluginId": "cordova-plugin-screen-orientation",
+        "clobbers": [
+          "cordova.plugins.screenorientation"
+        ]
+        },
+      {
           "id": "cordova-plugin-device.device",
           "file": "plugins/cordova-plugin-device/www/device.js",
           "pluginId": "cordova-plugin-device",
@@ -181,18 +189,14 @@
         ]
         },
       {
+          "id": "cordova-plugin-file.isChrome",
+          "file": "plugins/cordova-plugin-file/www/browser/isChrome.js",
+          "pluginId": "cordova-plugin-file",
+        "runs": true
+        },
+      {
           "id": "cordova-plugin-advanced-http.cookie-handler",
           "file": "plugins/cordova-plugin-advanced-http/www/cookie-handler.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
-          "id": "cordova-plugin-advanced-http.tough-cookie",
-          "file": "plugins/cordova-plugin-advanced-http/www/umd-tough-cookie.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
-          "id": "cordova-plugin-advanced-http.js-util",
-          "file": "plugins/cordova-plugin-advanced-http/www/js-util.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -206,11 +210,6 @@
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
-          "id": "cordova-plugin-advanced-http.url-util",
-          "file": "plugins/cordova-plugin-advanced-http/www/url-util.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
           "id": "cordova-plugin-advanced-http.messages",
           "file": "plugins/cordova-plugin-advanced-http/www/messages.js",
           "pluginId": "cordova-plugin-advanced-http"
@@ -218,6 +217,11 @@
       {
           "id": "cordova-plugin-advanced-http.ponyfills",
           "file": "plugins/cordova-plugin-advanced-http/www/ponyfills.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
+          "id": "cordova-plugin-advanced-http.tough-cookie",
+          "file": "plugins/cordova-plugin-advanced-http/www/umd-tough-cookie.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -231,20 +235,20 @@
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
-          "id": "cordova-plugin-advanced-http.helpers",
-          "file": "plugins/cordova-plugin-advanced-http/www/helpers.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
-          "id": "cordova-plugin-file.isChrome",
-          "file": "plugins/cordova-plugin-file/www/browser/isChrome.js",
-          "pluginId": "cordova-plugin-file",
-        "runs": true
-        },
-      {
           "id": "cordova-plugin-advanced-http.dependency-validator",
           "file": "plugins/cordova-plugin-advanced-http/www/dependency-validator.js",
           "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
+          "id": "cordova-plugin-advanced-http.js-util",
+          "file": "plugins/cordova-plugin-advanced-http/www/js-util.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
+          "id": "es6-promise-plugin.Promise",
+          "file": "plugins/es6-promise-plugin/www/promise.js",
+          "pluginId": "es6-promise-plugin",
+        "runs": true
         },
       {
           "id": "cordova-plugin-file.fileSystems-roots",
@@ -258,8 +262,8 @@
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
-          "id": "cordova-plugin-advanced-http.global-configs",
-          "file": "plugins/cordova-plugin-advanced-http/www/global-configs.js",
+          "id": "cordova-plugin-advanced-http.helpers",
+          "file": "plugins/cordova-plugin-advanced-http/www/helpers.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -267,6 +271,16 @@
           "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
           "pluginId": "cordova-plugin-geolocation",
         "runs": true
+        },
+      {
+          "id": "cordova-plugin-advanced-http.global-configs",
+          "file": "plugins/cordova-plugin-advanced-http/www/global-configs.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
+          "id": "cordova-plugin-advanced-http.url-util",
+          "file": "plugins/cordova-plugin-advanced-http/www/url-util.js",
+          "pluginId": "cordova-plugin-advanced-http"
         },
       {
           "id": "cordova-plugin-file.fileSystemPaths",
@@ -302,6 +316,8 @@
       "cordova-plugin-file": "6.0.2",
       "cordova-plugin-geolocation": "4.1.0",
       "cordova-plugin-nativegeocoder": "3.4.1",
+      "cordova-plugin-screen-orientation": "3.0.2",
+      "es6-promise-plugin": "4.2.2",
       "cordova-plugin-device": "2.0.2",
       "cordova-plugin-statusbar": "2.4.2",
       "cordova-plugin-whitelist": "1.3.3"
