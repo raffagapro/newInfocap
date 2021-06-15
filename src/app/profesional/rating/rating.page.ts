@@ -36,6 +36,8 @@ export class RatingPage implements OnInit {
       this.grabbedUser = user;
     });
 
+    console.log(this.grabbedUser)
+
     this.lc.create({
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
@@ -70,7 +72,12 @@ export class RatingPage implements OnInit {
 
   async showPicker() {
     let options: PickerOptions = {
+      mode: 'ios',
       buttons: [
+        {
+          text:'Cancelar',
+          role: 'cancel'
+        },
         {
           text:'Listo',
           handler:(value:any) => {
@@ -97,6 +104,14 @@ export class RatingPage implements OnInit {
       options.push({text: x.name, value: x.id});
     });
     return options;
+  }
+
+  getUrl() {
+    if(!this.grabbedUser.img_profile || this.grabbedUser.img_profile === '') {
+      return "url('assets/images/avatar.png')"
+    } else {
+      return `url(${this.grabbedUser.img_profile})`
+    }
   }
 
   ionViewWillEnter() {

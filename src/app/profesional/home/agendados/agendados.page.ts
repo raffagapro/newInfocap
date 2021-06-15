@@ -79,9 +79,12 @@ export class AgendadosPage implements OnInit, OnDestroy {
       var startTime = new Date(date[0], date[1] - 1, date[2], startHour, startMinute);
 
       var endTime = new Date(date[0], date[1] - 1, date[2], endHour, endMinute);
+      console.log()
+
+      var ticket_format = r.ticket_number.toString().substr(-3)
 
       let new_event = {
-        title: { id: r.id, ticket: `#${r.ticket_number}` },
+        title: { id: r.id, ticket: `#${ticket_format}` },
         startTime: startTime,
         endTime: endTime,
         allDay: false
@@ -95,8 +98,13 @@ export class AgendadosPage implements OnInit, OnDestroy {
     })
   }
 
-  formatDate(date: string) {
-    return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
+  formatDate(date: string, type: string) {
+    if(type === 'NORMAL') {
+      return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
+    } else {
+      return moment(date, 'DD-MM-YYYY').format('DD MMM YYYY');
+    }
+    
   }
 
   formatDateTecnical(tecnical) {

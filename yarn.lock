@@ -1175,6 +1175,13 @@
   dependencies:
     "@types/cordova" latest
 
+"@ionic-native/screen-orientation@^5.33.1":
+  version "5.33.1"
+  resolved "https://registry.yarnpkg.com/@ionic-native/screen-orientation/-/screen-orientation-5.33.1.tgz#5334f536db1c69e929e825c4c943fa7f456b100e"
+  integrity sha512-H6lIcvNSwZgkOVM734DgTO22EcHkrPGPuRslN9jiC8kcvaDkJseIo755cyWmKTaNxnxUJAfNHBCgJCs5Wh7S3w==
+  dependencies:
+    "@types/cordova" latest
+
 "@ionic-native/splash-screen@^5.0.0":
   version "5.31.1"
   resolved "https://registry.npmjs.org/@ionic-native/splash-screen/-/splash-screen-5.31.1.tgz"
@@ -1395,7 +1402,7 @@
   resolved "https://registry.npmjs.org/@types/cookie/-/cookie-0.4.0.tgz"
   integrity sha512-y7mImlc/rNkvCRmg8gC3/lj87S7pTUIJ6QGjwHR9WQJcFs+ZMTOaoPrkdFA/YdbuqVEmEbb5RdhVxMkAcgOnpg==
 
-"@types/cordova@^0.0.34", "@types/cordova@latest":
+"@types/cordova@latest":
   version "0.0.34"
   resolved "https://registry.npmjs.org/@types/cordova/-/cordova-0.0.34.tgz"
   integrity sha1-6nrd907Ow9dimCegw54smt3HPQQ=
@@ -3099,6 +3106,11 @@ cordova-plugin-nativegeocoder@^3.4.1:
   resolved "https://registry.npmjs.org/cordova-plugin-nativegeocoder/-/cordova-plugin-nativegeocoder-3.4.1.tgz"
   integrity sha512-2VDRWFJIRk7mYGxPctadvtdeyYpgX/PZl3xAc8zglLK83YQnAp5p2sNoiYokkCMEXK+vSeuff3E7b3fkAC1TsQ==
 
+cordova-plugin-screen-orientation@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-screen-orientation/-/cordova-plugin-screen-orientation-3.0.2.tgz#81290a933cfe84d35482cfcb251c931cc7b71931"
+  integrity sha512-2w6CMC+HGvbhogJetalwGurL2Fx8DQCCPy3wlSZHN1/W7WoQ5n9ujVozcoKrY4VaagK6bxrPFih+ElkO8Uqfzg==
+
 cordova-plugin-splashscreen@^5.0.2:
   version "5.0.2"
   resolved "https://registry.npmjs.org/cordova-plugin-splashscreen/-/cordova-plugin-splashscreen-5.0.2.tgz"
@@ -4003,6 +4015,11 @@ es6-iterator@2.0.3, es6-iterator@~2.0.3:
     d "1"
     es5-ext "^0.10.35"
     es6-symbol "^3.1.1"
+
+es6-promise-plugin@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/es6-promise-plugin/-/es6-promise-plugin-4.2.2.tgz#cfa0cc1383d91f999a62a2bbf4bd97bec305e0ac"
+  integrity sha512-uoA4aVplXI9oqUYJFBAVRwAqIN9/n9JgrTAUGX3qPbnSZVE5yY1+6/MsoN5f4xsaPO62WjPHOdtts6okMN6tNA==
 
 es6-promise@^4.0.3:
   version "4.2.8"

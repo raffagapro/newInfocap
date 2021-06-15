@@ -18,11 +18,12 @@
       <ion-row class="ion-align-items-center">
         <!-- profile img -->
         <ion-col size="4" offset="1">
-          <ion-avatar class="profileImg">
+          <div class="ion-margin-start profileImg" [ngStyle]="{'background-image': getUrl()}"></div>
+          <!-- <ion-avatar class="profileImg">
             <ion-img
               src="{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_client_profile  }}">
             </ion-img>
-          </ion-avatar>
+          </ion-avatar> -->
         </ion-col>
 
         <!-- title -->
@@ -67,7 +68,7 @@
 
           <!-- slide -->
           <ion-slide *ngFor="let image of loadedInfo.images">
-            <img (click)="openImage(image.image)" src="{{ image.image }}" class="imgSlide">
+            <div (click)="openImage(image.image)" class="ion-margin-start imgSlide" [ngStyle]="{'background-image': 'url(' + image.image + ')'}"></div>
           </ion-slide>
 
         </ion-slides>

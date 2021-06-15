@@ -8,6 +8,12 @@
     margin-left: 10px;
     height: 75px;
     width: 75px;
+    margin-left: auto;
+    margin-right: auto;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 50%;
 }
 .titleSelect
 {
@@ -25,7 +31,12 @@
     font-size: 16px;
 }
 .imgSlide{
-    height:125px;
+    margin-left: 10px;
+    height: 125px;
+    width: 125px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .subtitle{
     font-size: 18px;
@@ -80,10 +91,10 @@
 .font-strong {
     font-weight: 900;
 }
-.btn-valoracion:hover {
-    background-color: white;
-}
 
-.btn-valoracio:active {
-    background-color: white;
+.btn-valoracion {
+    --background-activated: white;
+    --background: white;
+    --background-focused: white;
+    --background-hover: white;
 }
