@@ -62,10 +62,7 @@
           
           <!-- slide -->
           <ion-slide *ngFor="let image of loadedInfo.images">
-            <img
-              src="{{ image.image }}"
-              class="imgSlide"
-            >
+            <div (click)="openImage(image.image)" class="ion-margin-start imgSlide" [ngStyle]="{'background-image': 'url(' + image.image + ')'}"></div>
           </ion-slide>
 
         </ion-slides>

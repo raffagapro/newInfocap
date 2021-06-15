@@ -1,6 +1,10 @@
 .prof-cont {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
+.title
+{
+    font-size: 17px;
+}
 .titleSelect {
     font-size: 16px;
     font-weight: bold;
@@ -69,4 +73,14 @@ ion-item {
 .ion-item-notificaciones {
     --background: white;
     --border-color: white;
+}
+
+.marker {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    width: 10px;
+    height: 10px;
+    background: #bdbdbd;
+    border-radius: 50%;
 }

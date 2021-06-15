@@ -52,6 +52,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   headers: String;
   selectedCatId;
   selectedProPerfil;
+  selectedProPerfilID;
   comunas = [];
   comunasBU = [];
   transports = [];
@@ -102,18 +103,11 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
-      transport: new FormControl(null, {
-        updateOn: 'blur'
-      }),
       workHours: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
       workDays: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      comuna: new FormControl(null, {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
@@ -131,12 +125,17 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
 
   async showPicker() {
     let options: PickerOptions = {
+      mode: 'ios',
       buttons: [
+        {
+          text:'Cancelar',
+          role: 'cancel'
+        },
         {
           text:'Listo',
           handler:(value:any) => {
-            console.log(value)
             this.selectedProPerfil = value.category.text
+            this.selectedProPerfilID = value.category.value
             this.onCatProfileChange(value.category.value)
           }
         }
@@ -149,6 +148,14 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
 
     let picker = await this.pickerController.create(options);
     picker.present()
+  }
+
+  getUrl() {
+    if(!this.grabbedUser.img_profile || this.grabbedUser.img_profile === '') {
+      return "url('assets/images/avatar.png')"
+    } else {
+      return `url(${this.grabbedUser.img_profile})`
+    }
   }
 
   getColumnOptions(){
@@ -177,7 +184,8 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
           this.proCategoryImg = resData.data.data[0].images
           this.selectedProPerfil = this.profCategories[0].categoryName;
           this.selectedCatId = this.profCategories[0].category_id
-          this.onCatProfileChange(this.selectedProPerfil)
+          this.selectedProPerfilID = this.profCategories[0].id
+          this.onCatProfileChange(this.selectedProPerfilID)
           this.updateForm(this.profCategories[0]);
         }
       }
@@ -213,23 +221,38 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     this.selectedComunas = info.communes;
     let descPro;
 
-    if (info.descProf === 'empty') {
+    if (info.descProf === 'empty' || info.descProf === 'ND') {
       descPro = null;
     } else {
       descPro = info.descProf;
     }
     let descOff;
-    if (info.description === 'empty') {
+    if (info.description === 'empty' || info.descProf === 'ND') {
       descOff = null;
     } else {
       descOff = info.description;
     }
+
+    let daysWork;
+    if(info.work_days === '0') {
+      daysWork = null
+    } else {
+      daysWork = info.work_days
+    }
+
+    let hoursWork;
+    if(info.hours === '0') {
+      hoursWork = null
+    } else {
+      hoursWork = info.hours
+    }
+
     //pasing values to from
     this.form.patchValue({
       descProf: descPro,
       transport: info.transport_id,
-      workHours: info.hours,
-      workDays: info.work_days,
+      workHours: hoursWork,
+      workDays: daysWork,
       comuna: info.commune_id,
       descOffice: descOff
     })
@@ -307,8 +330,9 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       message: 'Actualizando la informacion...'
     }).then(loadingEl => {
       loadingEl.present();
-      axios.post(API + `/supplier/profession/${this.selectedProPerfil}`, body, { headers: { Authorization: this.headers } }).then(resData => {
+      axios.post(API + `/supplier/profession/${this.selectedProPerfilID}`, body, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
+        console.log('Enter')
         this.modalController.create({
           component: SuccessModalComponent,
           cssClass: 'modalSuccess',
@@ -316,7 +340,6 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
           modalEl.present();
         });
       }).catch(err => {
-        console.log(err)
         loadingEl.dismiss();
       })
     });

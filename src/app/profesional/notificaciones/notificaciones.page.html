@@ -11,11 +11,12 @@
 
 <ion-content>
 
-  <ion-grid class="ion-margin-top" *ngIf="notifications.length === 0">
-    <ion-row class="subtitle ion-margin-top">
-      <ion-col size="8" offset="2" class="ion-text-center">
-        <ion-text class="footer-text main-color"><b>Aún no tienes<br />notificationes</b></ion-text>
+  <ion-grid fixed  *ngIf="notifications.length === 0">
+    <ion-row class="ion-margin-top">
+      <ion-col size="11" class="ion-text-left">
+        <ion-text class="title main-color"><b>Aún no tienes notificationes</b></ion-text>
       </ion-col>
+      <ion-col size="1"></ion-col>
     </ion-row>
   </ion-grid>
 
@@ -25,6 +26,7 @@
       <ion-item-sliding no-lines>
         <ion-item class="ion-no-padding ion-item-notificaciones" no-lines
           (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id)">
+          <div class="marker" *ngIf="!notification.viewed">&nbsp;</div>
           <ion-row class="ion-align-items-center">
 
             <!-- title -->

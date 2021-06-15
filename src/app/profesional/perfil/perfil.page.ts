@@ -218,6 +218,14 @@ export class PerfilPage implements OnInit, OnDestroy {
     });
   }
 
+  getUrl() {
+    if(!this.grabbedUser.img_profile || this.grabbedUser.img_profile === '') {
+      return "url('assets/images/avatar.png')"
+    } else {
+      return `url(${this.grabbedUser.img_profile})`
+    }
+  }
+
   onLoadImgFromInput(e: Event) {
     const loadedFile = (e.target as HTMLInputElement).files[0];
     this.saveImgToApi(loadedFile);

@@ -216,6 +216,15 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     // do something awesome
   }
 
+  getUrl() {
+    if(!this.loadedInfo.img_client_profile || this.loadedInfo.img_client_profile === '/') {
+      return "url('assets/images/avatar.png')"
+    } else {
+      return `url(${this.loadedInfo.img_client_profile})`
+    }
+  }
+
+
   ngOnDestroy() {
     this.userSub.unsubscribe();
   }

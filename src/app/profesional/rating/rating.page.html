@@ -25,7 +25,8 @@
         <ion-text class="main-color"><b>Categoría</b></ion-text>
       </ion-col>
       <ion-col size="7">
-        <ion-input class="main-color cusSelect" readonly [ngModel]="categorySelected" (click)="showPicker()" placeholder="Categoría"></ion-input>
+        <ion-input class="main-color cusSelect" readonly [ngModel]="categorySelected" (click)="showPicker()"
+          placeholder="Categoría"></ion-input>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -37,15 +38,14 @@
       <ion-row class="ion-align-items-center">
         <!-- profile img -->
         <ion-col size="4" offset="1">
-          <ion-avatar class="profileImg">
-            <img src="{{ comments.img_profile }}" />
-          </ion-avatar>
+          <div class="ion-margin-start profileImg" [ngStyle]="{'background-image': getUrl()}"></div>
         </ion-col>
 
         <!-- title -->
         <ion-col size="6">
           <ion-text>
-            <span class="titleSelect main-color">{{ comments.categoryName }} para <br> {{ comments.supplierName }} {{ comments.supplierLastName }}</span><br>
+            <span class="titleSelect main-color">{{ categorySelected }} para <br> {{ grabbedUser.name }} {{
+              grabbedUser.last_name }}</span><br>
             <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;"></p>
           </ion-text>
         </ion-col>
@@ -64,28 +64,37 @@
           <ion-icon color="primary" name="thumbs-up" class="iconFix"></ion-icon>
         </ion-text>
         <br>
-        <ion-icon name="{{ comments.stars_everage > 0 ? 'star' : 'star-outline' }}" color="primary" class="starIcon ion-margin-top"></ion-icon>
-        <ion-icon name="{{ comments.stars_everage > 1 ? 'star' : 'star-outline' }}" color="primary" class="starIcon"></ion-icon>
-        <ion-icon name="{{ comments.stars_everage > 2 ? 'star' : 'star-outline' }}" color="primary" class="starIcon"></ion-icon>
-        <ion-icon name="{{ comments.stars_everage > 3 ? 'star' : 'star-outline' }}" color="primary" class="starIcon"></ion-icon>
-        <ion-icon name="{{ comments.stars_everage > 4 ? 'star' : 'star-outline' }}" color="primary" class="starIcon"></ion-icon>
+        <ion-icon name="{{ comments.stars_everage > 0 ? 'star' : 'star-outline' }}" color="primary"
+          class="starIcon ion-margin-top"></ion-icon>
+        <ion-icon name="{{ comments.stars_everage > 1 ? 'star' : 'star-outline' }}" color="primary" class="starIcon">
+        </ion-icon>
+        <ion-icon name="{{ comments.stars_everage > 2 ? 'star' : 'star-outline' }}" color="primary" class="starIcon">
+        </ion-icon>
+        <ion-icon name="{{ comments.stars_everage > 3 ? 'star' : 'star-outline' }}" color="primary" class="starIcon">
+        </ion-icon>
+        <ion-icon name="{{ comments.stars_everage > 4 ? 'star' : 'star-outline' }}" color="primary" class="starIcon">
+        </ion-icon>
       </ion-col>
       <!-- reconocimiento  -->
       <ion-col size="5" class="ion-text-center">
         <ion-text color="primary" class="ratingText">Reconocimientos</ion-text>
         <br>
         <!-- icons -->
-        <div class="locate-cont ion-margin-top">
-          <ion-icon name="hammer" color="light" class="rating-text"></ion-icon>
+        <div
+          [class]="comments.technical_capacity_everage && comments.technical_capacity_everage > 0 ? 'locate-cont ion-margin-top' : 'locate-cont lc-disabled ion-margin-top'">
+          <ion-icon src="assets/icon/ic_engine_circle.svg" color="light" class="rating-text"></ion-icon>
         </div>
-        <div class="locate-cont">
-          <ion-icon name="time" color="light" class="rating-text"></ion-icon>
+        <div
+          [class]="comments.puntuality_everage && comments.puntuality_everage > 0 ? 'locate-cont' : 'locate-cont lc-disabled'">
+          <ion-icon src="assets/icon/ic_time_circle.svg" color="light" class="rating-text"></ion-icon>
         </div>
-        <div class="locate-cont">
-          <ion-icon name="heart" color="light" class="rating-text"></ion-icon>
+        <div
+          [class]="comments.cordiality_everage && comments.cordiality_everage > 0 ? 'locate-cont' : 'locate-cont lc-disabled'">
+          <ion-icon src="assets/icon/ic_heart_circle.svg" color="light" class="rating-text"></ion-icon>
         </div>
-        <div class="locate-cont">
-          <ion-icon name="trophy" color="light" class="rating-text"></ion-icon>
+        <div
+          [class]="comments.service_and_satisfaction_everage && comments.service_and_satisfaction_everage > 0 ? 'locate-cont' : 'locate-cont lc-disabled'">
+          <ion-icon src="assets/icon/ic_diamont_circle.svg" color="light" class="rating-text"></ion-icon>
         </div>
       </ion-col>
     </ion-row>
@@ -101,6 +110,16 @@
   </ion-row>
 
   <!-- notificacion item -->
+
+  <ion-grid fixed>
+    <ion-row class="ion-margin-top">
+      <ion-col size="11" class="ion-text-left" *ngIf="comments.comments && comments.comments.length === 0">
+        <ion-text class="titleSelect main-color"><b>Aún no te han otorgado un comentario</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+  </ion-grid>
+
   <div class="prof-cont ion-margin-top" *ngFor="let com of comments.comments">
     <ion-grid>
       <ion-row class="ion-align-items-center">

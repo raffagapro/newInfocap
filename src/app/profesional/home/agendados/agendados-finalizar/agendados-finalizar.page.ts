@@ -208,7 +208,12 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
 
   async showPicker() {
     let options: PickerOptions = {
+      mode: 'ios',
       buttons: [
+        {
+          text:'Cancelar',
+          role: 'cancel'
+        },
         {
           text:'Listo',
           handler:(value:any) => {
@@ -256,6 +261,14 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     }).catch(e => {
       console.log(e);
     });
+  }
+
+  getUrl() {
+    if(!this.loadedInfo.img_client_profile || this.loadedInfo.img_client_profile === '/') {
+      return "url('assets/images/avatar.png')"
+    } else {
+      return `url(${this.loadedInfo.img_client_profile})`
+    }
   }
 
   async saveImgToApi(imageData: string | File) {

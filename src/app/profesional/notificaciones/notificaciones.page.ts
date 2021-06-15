@@ -101,7 +101,7 @@ export class NotificacionesPage implements OnInit {
         }
       );
     } catch (error) {
-      alert(error.message);
+      console.log(error)
     } finally {
       await loader.dismiss();
       this.loadNotifications();
