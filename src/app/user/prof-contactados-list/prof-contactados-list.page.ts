@@ -85,8 +85,7 @@ export class ProfContactadosListPage implements OnInit {
 	}
 
 	p(passingDate: string) {
-		let woDate = passingDate.split(" ");
-		return woDate[0];
+		return moment.utc(passingDate, 'DD/MM/YYYY hh:mm:ss').startOf('minute').fromNow();
 	}
 
 	openMenu() {

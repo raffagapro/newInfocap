@@ -226,8 +226,66 @@ export class SolicitudDetailPage implements OnInit {
     }
   }
 
+  async setPaymentType(type: string) {
+    let loader = await this.loadingController.create({ message: 'Actualizando método de pago...' });
+    loader.present();
+    try {
+      let payment_type;
+      switch (type) {
+        case 'credit':
+          payment_type = this.paymentTypes.find((entry) => entry.name === 'Tarjeta');
+          break;
+        case 'cash':
+          payment_type = this.paymentTypes.find((entry) => entry.name === 'Efectivo');
+          break
+        default:
+          return
+      }
+      if (!payment_type) {
+        return;
+      }
+
+      let response = await axios.put(
+        `${API}/client/cost/paymentType/${this.loadedService.request_id}`,
+        {
+          costs_type_id: 1,
+          payment_type_id: payment_type.id,
+          description: 'Actualización del método de pago'
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${this.user.access_token}`
+          }
+        }
+      );
+      await loader.dismiss();
+
+      console.log(response);
+      if (response.data && response.data.code !== 200) {
+        // TODO: Set error logic
+        return;
+      }
+      this.selectedButton = type
+
+      this.modalController.create({
+        component: SuccessModalComponent,
+        componentProps: {
+          message: 'HAZ ACTUALIZADO EL MÉTODO DE PAGO',
+          redirect: false,
+        },
+        cssClass: 'modalSuccess',
+      }).then(modalEl => {
+        modalEl.present();
+      });
+    } catch (error) {
+      console.log(error);
+      await loader.dismiss();
+    }
+  }
+
+
   setSelectedButton(type: PaymentMethodType) {
-    if (this.loadedService.request_cost.length > 0) return;
+    //if (this.loadedService.request_cost.length > 0) return;
     this.selectedButton = type;
   }
 
