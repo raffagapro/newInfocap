@@ -28,7 +28,7 @@
             <span class="titleSelect main-color">{{loadedService.categoryName}} de {{loadedService.supplierName}}
               {{loadedService.supplierLastName}}</span><br>
             <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">
-              {{formatDate(loadedService.created_date, 'DD/MM/YYYY', true)}}</p>
+              {{formatDate(loadedService.created_date, 'DD/MM/YYYY HH:mm:ss', true)}}</p>
           </ion-text>
         </ion-col>
 
@@ -74,14 +74,14 @@
     <ion-row class="minusMargin">
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color subtitle"><b>Fecha de agendada</b></ion-text>
+        <ion-text class="main-color subtitle"><b>Fecha agendada</b></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
 
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color iconFix"></ion-icon>
-        <ion-text class="subText"> {{formatDate(loadedService.date_required)}}</ion-text>
+        <ion-text class="subText"> {{formatDate(loadedService.date_required, 'DD/MM/YYYY')}}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>

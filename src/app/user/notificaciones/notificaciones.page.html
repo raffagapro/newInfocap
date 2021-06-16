@@ -11,9 +11,13 @@
 
 <ion-content>
 
-  <div class="text-center" *ngIf="notifications.length === 0">
-    <p class="footer-text main-color">No se tienen notificaciones</p>
-  </div>
+  <ion-grid class="ion-margin-top" *ngIf="notifications.length === 0">
+    <ion-row class="subtitle ion-margin-top">
+      <ion-col size="12" class="ion-text-center">
+        <ion-text class="footer-text main-color">No se tienen notificaciones</ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <!-- notificacion item -->
   <div class="prof-cont mt-25 no-border" *ngFor="let notification of notifications">
@@ -28,7 +32,8 @@
             <ion-col size="7" class="ion-justify-content-center">
               <ion-text style="position: relative;">
                 <!-- <span class="titleSelect main-color">Cerrajería </span><br> -->
-                <ion-badge color="{{notification.type_request !== 'URGENT' ? 'primary' : 'danger'}}" class="titleSelect">{{notification.category}}</ion-badge>&nbsp;
+                <ion-badge color="{{notification.type_request !== 'URGENT' ? 'primary' : 'danger'}}"
+                  class="titleSelect">{{notification.category}}</ion-badge>&nbsp;
                 <ion-icon color="primary" src="/assets/icon/ic_date_range.svg" class="icon-size"
                   *ngIf="notification.type_request === 'NORMAL' && notification.status_id == 1"></ion-icon>
                 <ion-icon color="primary" src="/assets/icon/ic_engine_disabled.svg" class="icon-size"

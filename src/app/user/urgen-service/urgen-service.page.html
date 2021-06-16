@@ -117,7 +117,7 @@
               <ion-text color="danger">&nbsp;&nbsp;&nbsp;Hora inicial</ion-text>
             </ion-label>
             <ion-datetime formControlName="sHour" display-format="h:mm A" picker-format="h:mm A" cancelText="Cancelar"
-              doneText="Listo" [min]="minDate.format('YYYY-MM-DD')">
+              doneText="Listo" [min]="minDate.format('YYYY-MM-DD')" minuteValues="0,10,20,30,40,50">
             </ion-datetime>
           </ion-item>
         </ion-col>
@@ -129,7 +129,7 @@
               <ion-text color="danger">&nbsp;&nbsp;&nbsp;Hora final</ion-text>
             </ion-label>
             <ion-datetime formControlName="eHour" display-format="h:mm A" picker-format="h:mm A" cancelText="Cancelar"
-              doneText="Listo" [min]="minDate.format('YYYY-MM-DD')">
+              doneText="Listo" [min]="minDate.format('YYYY-MM-DD')" minuteValues="0,10,20,30,40,50">
             </ion-datetime>
           </ion-item>
         </ion-col>

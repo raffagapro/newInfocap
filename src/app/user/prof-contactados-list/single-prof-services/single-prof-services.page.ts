@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController } from '@ionic/angular';
+import moment from 'moment';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
@@ -52,7 +53,7 @@ export class SingleProfServicesPage implements OnInit, OnDestroy {
       .subscribe(resData =>{
         loadingEl.dismiss();
         this.loadedServices = resData['data'];
-        this.loadedServices.sort( this.compare );
+        this.loadedServices.sort( this.sortByCreatedDate );
         this.loadedServices.forEach(i => {
           if (i.supplier_id === this.solServ.solicitud.profId) {
             this.sortedServices.push(i);
@@ -65,20 +66,25 @@ export class SingleProfServicesPage implements OnInit, OnDestroy {
     });
   }
 
-  p(passingDate: string){
-    let woDate = passingDate.split(" ");
-    return woDate[0];
-  }
+  p(passingDate: string) {
+		return moment.utc(passingDate, 'DD/MM/YYYY hh:mm:ss').startOf('minute').fromNow();
+	}
 
-  compare( a, b ) {
-    if ( a.status_id < b.status_id ){
-      return -1;
-    }
-    if ( a.status_id > b.status_id ){
-      return 1;
-    }
-    return 0;
-  }
+  sortByCreatedDate(a, b) {
+		let firstDate = moment
+			.utc(a.created_date, "DD/MM/YYYY HH:mm:ss")
+			.tz(moment.tz.guess());
+		let secondDate = moment
+			.utc(b.created_date, "DD/MM/YYYY HH:mm:ss")
+			.tz(moment.tz.guess());
+		if (firstDate > secondDate) {
+			return -1;
+		}
+		if (firstDate < secondDate) {
+			return 1;
+		}
+		return 0;
+	}
 
   openMenu(){
     this.menuController.open();
