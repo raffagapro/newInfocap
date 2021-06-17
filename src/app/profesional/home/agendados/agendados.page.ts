@@ -51,6 +51,8 @@ export class AgendadosPage implements OnInit, OnDestroy {
     route: ActivatedRoute
   ) {
     route.params.subscribe(val => {
+      this.eventSourceAgended = []
+      this.eventSource = []
       this.userSub = this.us.loggedUser.subscribe(user => {
         this.grabbedUser = user;
         this.headers = 'Bearer ' + this.grabbedUser.access_token
@@ -65,40 +67,59 @@ export class AgendadosPage implements OnInit, OnDestroy {
 
   }
 
-  formatEvents(data, type) {
+  async formatEvents(data, type) {
     data.map(r => {
-      var date = r.date_required.split('-')
-      var hour = r.hours.split('/')
 
-      var startHour = hour[0].substring(11, 13)
-      var startMinute = hour[0].substring(14, 16)
+      if(type === "2") {
+        var date = r.request_technical[0].visit_date.substring(0, 10).split('-')
+        var hour = r.request_technical[0].visit_hours.split(' - ')
+        var hoursTime = hour[0].split(':')
+        var hoursFinish = hour[1].split(':')
 
-      var endHour = hour[1].substring(11, 13)
-      var endMinute = hour[1].substring(14, 16)
+        var startTime = new Date(date[0], date[1] - 1, date[2], hoursTime[0], hoursTime[1]);
+  
+        var endTime = new Date(date[0], date[1] - 1, date[2], hoursFinish[0], hoursFinish[1]);
 
-      var startTime = new Date(date[0], date[1] - 1, date[2], startHour, startMinute);
+        var ticket_format = r.ticket_number.toString().substr(-3)
 
-      var endTime = new Date(date[0], date[1] - 1, date[2], endHour, endMinute);
-      console.log()
+        let new_event = {
+          title: { id: r.id, ticket: `#${ticket_format}` },
+          startTime: startTime,
+          endTime: endTime,
+          allDay: false
+        }
 
-      var ticket_format = r.ticket_number.toString().substr(-3)
-
-      let new_event = {
-        title: { id: r.id, ticket: `#${ticket_format}` },
-        startTime: startTime,
-        endTime: endTime,
-        allDay: false
-      }
-
-      if (type === "2") {
         this.eventSourceAgended.push(new_event)
+
       } else {
+        var date = r.date_required.split('-')
+        var hour = r.hours.split('/')
+  
+        var startHour = hour[0].substring(11, 13)
+        var startMinute = hour[0].substring(14, 16)
+  
+        var endHour = hour[1].substring(11, 13)
+        var endMinute = hour[1].substring(14, 16)
+  
+        var startTime = new Date(date[0], date[1] - 1, date[2], startHour, startMinute);
+  
+        var endTime = new Date(date[0], date[1] - 1, date[2], endHour, endMinute);
+  
+        var ticket_format = r.ticket_number.toString().substr(-3)
+  
+        let new_event = {
+          title: { id: r.id, ticket: `#${ticket_format}` },
+          startTime: startTime,
+          endTime: endTime,
+          allDay: false
+        }
         this.eventSource.push(new_event)
       }
     })
   }
 
   formatDate(date: string, type: string) {
+    
     if(type === 'NORMAL') {
       return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
     } else {

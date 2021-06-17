@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/model/user.model';
 import { API } from 'src/environments/environment';
 import axios from 'axios';
+import { NotificationsService } from 'src/app/services/notifications-service';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,7 @@ export class LoginPage implements OnInit {
     private as: AuthService,
     private us: UserService,
     private lc: LoadingController,
+    private notificationService: NotificationsService,
   ) { }
 
   ngOnInit() {
@@ -88,6 +90,8 @@ export class LoginPage implements OnInit {
         } else {
           this.router.navigate(['/profesional/home'], { replaceUrl: true });
         }
+
+        this.loadNotifications()
       } else {
         const errorMessage = message === 'Unauthorized' ? 'Credenciales inválidas' : 'Ocurrió un error';
         this.error = errorMessage;
@@ -114,6 +118,25 @@ export class LoginPage implements OnInit {
         password: '',
       });
       loader.dismiss();
+    }
+  }
+
+  async loadNotifications() {
+    try {
+      let response = await axios.get(
+        `${API}/supplier/notification`,
+        {
+          headers: {
+            Authorization: `Bearer ${this.grabbedUSer.access_token}`
+          }
+        }
+      );
+      const { data } = response;
+      const { data: notificationsData } = data;
+      this.notificationService.setNotifications(notificationsData);
+    } catch (error) {
+      console.log(error)
+    } finally {
     }
   }
 

@@ -23,9 +23,10 @@ export class VisitaTecnicaPage implements OnInit {
   minDate = moment().format('YYYY-MM-DD')
   slideOptions = {
     initialSlide: 0,
-    slidesPerView: 2,
+    slidesPerView: 1,
     autoplay: true
   };
+
   loadedInfo = {
     img_client_profile: null,
     ticket_number: null,

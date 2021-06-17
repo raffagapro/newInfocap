@@ -11,7 +11,7 @@
 
 <ion-content>
 
-  <ion-grid fixed  *ngIf="notifications.length === 0">
+  <ion-grid fixed *ngIf="notifications.length === 0">
     <ion-row class="ion-margin-top">
       <ion-col size="11" class="ion-text-left">
         <ion-text class="title main-color"><b>Aún no tienes notificationes</b></ion-text>
@@ -27,40 +27,43 @@
         <ion-item class="ion-no-padding ion-item-notificaciones" no-lines
           (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id)">
           <div class="marker" *ngIf="!notification.viewed">&nbsp;</div>
-          <ion-row class="ion-align-items-center">
+          <ion-grid>
+            <ion-row class="ion-align-items-center">
+              <!-- title -->
+              <ion-col size="8" class="ion-justify-content-center">
+                <ion-text>
+                  <!-- <span class="titleSelect main-color">Cerrajería </span><br> -->
+                  <ion-badge *ngIf="notification.type_request === 'NORMAL'" color="primary" class="titleSelect">{{notification.category}}</ion-badge>&nbsp;
+                  <ion-badge *ngIf="notification.type_request !== 'NORMAL'" color="danger" class="titleSelect">{{notification.category}}</ion-badge>&nbsp;
+                  <ion-icon color="primary" src="/assets/icon/ic_date_range.svg" class="icon-size"
+                    *ngIf="notification.type_request === 'NORMAL' && notification.status_id == 1"></ion-icon>
+                  <ion-icon color="primary" src="/assets/icon/ic_engine_disabled.svg" class="icon-size"
+                    *ngIf="notification.type_request === 'NORMAL' && notification.status_id > 1"></ion-icon>
+                  <ion-icon color="danger" name="alert-circle" class="icon-size"
+                    *ngIf="notification.type_request !== 'NORMAL'"></ion-icon>
+                  <p class="textSelect {{notification.type_request !== 'NORMAL' ? 'red-color' : ''}}">
+                    {{ validationName(notification.customerName, notification.professionalName,
+                    notification.status_name)
+                    }} {{ notification.type_request === 'NORMAL' ? notification.motive : ' ha generado una solicitud urgente, por favor atiéndela, si no puedes, no olvides rechazar.' }}
+                  </p>
+                  <!--<small class="main-color">Cambio de chapas</small>-->
+                </ion-text>
+              </ion-col>
 
-            <!-- title -->
-            <ion-col size="7" class="ion-justify-content-center">
-              <ion-text>
-                <!-- <span class="titleSelect main-color">Cerrajería </span><br> -->
-                <ion-badge color="primary" class="titleSelect">{{notification.category}}</ion-badge>&nbsp;
-                <ion-icon color="primary" src="/assets/icon/ic_date_range.svg" class="icon-size"
-                  *ngIf="notification.type_request === 'NORMAL' && notification.status_id == 1"></ion-icon>
-                <ion-icon color="primary" src="/assets/icon/ic_engine_disabled.svg" class="icon-size"
-                  *ngIf="notification.type_request === 'NORMAL' && notification.status_id > 1"></ion-icon>
-                <ion-icon color="danger" name="alert-circle" class="icon-size"
-                  *ngIf="notification.type_request !== 'NORMAL'"></ion-icon>
-                <p class="textSelect {{notification.type_request !== 'NORMAL' ? 'red-color' : ''}}">
-                  {{ validationName(notification.customerName, notification.professionalName, notification.status_name)
-                  }} {{notification.motive}}
-                </p>
-                <!--<small class="main-color">Cambio de chapas</small>-->
-              </ion-text>
-            </ion-col>
+              <!-- rating -->
+              <ion-col size="4" class="text-center">
+                <div class="ion-text-end">
+                  <small class="ticket">#{{notification.ticket_number}}</small>
+                </div>
+                <ion-text>
+                  <p class="ratingText main-color">
+                    {{formatdate(notification.date, notification.hours)}}
+                  </p>
+                </ion-text>
+              </ion-col>
 
-            <!-- rating -->
-            <ion-col size="5" class="ion-text-center">
-              <div class="ion-text-end">
-                <small class="ticket">#{{notification.ticket_number}}</small>
-              </div>
-              <ion-text>
-                <p class="ratingText main-color">
-                  {{formatdate(notification.date, notification.hours)}}
-                </p>
-              </ion-text>
-            </ion-col>
-
-          </ion-row>
+            </ion-row>
+          </ion-grid>
         </ion-item>
         <ion-item-options side="end" no-lines>
           <ion-item-option color="danger" (click)="deleteNotification(notification.notification_Id)">Eliminar
