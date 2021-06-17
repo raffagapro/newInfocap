@@ -10,6 +10,7 @@ import { ModalController } from '@ionic/angular';
 export class SuccessModalComponent implements OnInit {
 
   message;
+  secondMessage = undefined;
   redirect = true;
   redirectUrl = '/login';
 

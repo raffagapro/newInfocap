@@ -78,4 +78,9 @@ ion-item {
     height: 10px;
     background: #bdbdbd;
     border-radius: 50%;
+
+    @media (min-width: 767px) {
+        right: 20px;
+        top: 0px;
+    }
 }
