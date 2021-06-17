@@ -87,11 +87,13 @@ export class LoginPage implements OnInit {
         loader.dismiss();
         if (roles[0] === 'usuario') {
           this.router.navigate(['/user/home'], { replaceUrl: true });
+          this.loadNotifications('client')
         } else {
           this.router.navigate(['/profesional/home'], { replaceUrl: true });
+          this.loadNotifications('supplier')
         }
 
-        this.loadNotifications()
+        
       } else {
         const errorMessage = message === 'Unauthorized' ? 'Credenciales inválidas' : 'Ocurrió un error';
         this.error = errorMessage;
@@ -121,10 +123,10 @@ export class LoginPage implements OnInit {
     }
   }
 
-  async loadNotifications() {
+  async loadNotifications(type) {
     try {
       let response = await axios.get(
-        `${API}/supplier/notification`,
+        `${API}/${type}/notification`,
         {
           headers: {
             Authorization: `Bearer ${this.grabbedUSer.access_token}`
