@@ -36,8 +36,6 @@ export class RatingPage implements OnInit {
       this.grabbedUser = user;
     });
 
-    console.log(this.grabbedUser)
-
     this.lc.create({
       message: "Cargando informacion del servicio..."
     }).then(loadingEl => {
@@ -81,7 +79,6 @@ export class RatingPage implements OnInit {
         {
           text:'Listo',
           handler:(value:any) => {
-            console.log(value)
             this.categorySelected = value.category.text
             this.changeCategory(value.category.value)
           }
@@ -99,7 +96,6 @@ export class RatingPage implements OnInit {
 
   getColumnOptions(){
     let options = [];
-    console.log()
     this.categories.forEach(x => {
       options.push({text: x.name, value: x.id});
     });

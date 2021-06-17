@@ -11,6 +11,7 @@ import { NotificationsService } from 'src/app/services/notifications-service';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 
 import * as moment from 'moment'
+import * as lodash from 'lodash'
 
 @Component({
   selector: 'app-notificaciones',
@@ -61,8 +62,10 @@ export class NotificacionesPage implements OnInit {
       const { data } = response;
       const { data: notificationsData } = data;
       this.notifications = notificationsData;
+
+      this.notifications = lodash.orderBy(this.notifications, ['notification_Id'], ['desc', 'asc']);
     } catch (error) {
-      alert(error.message);
+      console.log(error)
     } finally {
       loader.dismiss();
     }

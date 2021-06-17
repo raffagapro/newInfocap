@@ -44,7 +44,7 @@
         <!-- title -->
         <ion-col size="6">
           <ion-text>
-            <span class="titleSelect main-color">{{ categorySelected }} para <br> {{ grabbedUser.name }} {{
+            <span class="titleSelect main-color">{{ categorySelected }} de <br> {{ grabbedUser.name }} {{
               grabbedUser.last_name }}</span><br>
             <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;"></p>
           </ion-text>
@@ -81,20 +81,20 @@
         <br>
         <!-- icons -->
         <div
-          [class]="comments.technical_capacity_everage && comments.technical_capacity_everage > 0 ? 'locate-cont ion-margin-top' : 'locate-cont lc-disabled ion-margin-top'">
-          <ion-icon src="assets/icon/ic_engine_circle.svg" color="light" class="rating-text"></ion-icon>
+          class="locate-cont">
+          <ion-icon src="assets/icon/ic_engine_circle.svg" color="light" class="rating-text {{ comments.technical_capacity_everage && comments.technical_capacity_everage > 0 ? '' : 'op-5' }}"></ion-icon>
         </div>
         <div
-          [class]="comments.puntuality_everage && comments.puntuality_everage > 0 ? 'locate-cont' : 'locate-cont lc-disabled'">
-          <ion-icon src="assets/icon/ic_time_circle.svg" color="light" class="rating-text"></ion-icon>
+          class="locate-cont">
+          <ion-icon src="assets/icon/ic_time_circle.svg" color="light" class="rating-text {{ comments.puntuality_everage && comments.puntuality_everage > 0 ? '' : 'op-5' }}"></ion-icon>
         </div>
         <div
-          [class]="comments.cordiality_everage && comments.cordiality_everage > 0 ? 'locate-cont' : 'locate-cont lc-disabled'">
-          <ion-icon src="assets/icon/ic_heart_circle.svg" color="light" class="rating-text"></ion-icon>
+          class="locate-cont">
+          <ion-icon src="assets/icon/ic_heart_circle.svg" color="light" class="rating-text {{ comments.cordiality_everage && comments.cordiality_everage > 0 ? '' : 'op-5' }}"></ion-icon>
         </div>
         <div
-          [class]="comments.service_and_satisfaction_everage && comments.service_and_satisfaction_everage > 0 ? 'locate-cont' : 'locate-cont lc-disabled'">
-          <ion-icon src="assets/icon/ic_diamont_circle.svg" color="light" class="rating-text"></ion-icon>
+          class="locate-cont">
+          <ion-icon src="assets/icon/ic_diamont_circle.svg" color="light" class="rating-text {{ comments.service_and_satisfaction_everage && comments.service_and_satisfaction_everage > 0 ? '' : 'op-5' }}"></ion-icon>
         </div>
       </ion-col>
     </ion-row>

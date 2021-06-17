@@ -54,6 +54,7 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   selectedProPerfil;
   selectedProPerfilID;
   comunas = [];
+  proCategoryImgSave = [];
   comunasBU = [];
   transports = [];
   selectedTransport;
@@ -316,21 +317,24 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       aComunas.push(c.id);
     });
     packedComunas = aComunas.join(", ");
-    const body = {
-      category_id: this.selectedCatId,
-      communes: packedComunas,
-      transport_id: this.selectedTransport,
-      descProf: this.form.value.descProf,
-      description: this.form.value.descOffice,
-      hours: this.form.value.workHours,
-      work_days: this.form.value.workDays,
-    }
+
+    var formData = new FormData()
+    this.proCategoryImgSave.forEach(image => {
+      formData.append('images[]', image);
+    });
+    formData.append('category_id', this.selectedCatId);
+    formData.append('communes', packedComunas)
+    formData.append('transport_id', this.selectedTransport)
+    formData.append('descProf', this.form.value.descProf)
+    formData.append('description', this.form.value.descOffice)
+    formData.append('hours', this.form.value.workHours)
+    formData.append('work_days', this.form.value.workDays)
 
     this.lc.create({
       message: 'Actualizando la informacion...'
     }).then(loadingEl => {
       loadingEl.present();
-      axios.post(API + `/supplier/profession/${this.selectedProPerfilID}`, body, { headers: { Authorization: this.headers } }).then(resData => {
+      axios.post(API + `/supplier/profession/${this.selectedProPerfilID}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
         console.log('Enter')
         this.modalController.create({
@@ -405,41 +409,42 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     }
 
     this.proCategoryImg.unshift({image: URL.createObjectURL(imgFile)})
+    this.proCategoryImgSave.push(imgFile);
 
     this.form.patchValue({ image: imgFile });
-    this.lc.create({
-      message: 'Guardando imagen...'
-    }).then(loadingEl => {
-      loadingEl.present();
-      //check to see if we are loading a profile img
-      if (this.profilePhoto) {
-        const formData = new FormData();
-        formData.append('image', imgFile);
-        axios.post(API + '/account/image', formData, { headers: { Authorization: this.headers } }).then(resData => {
-          loadingEl.dismiss();
-          this.modalController.create({
-            component: SuccessModalComponent,
-            cssClass: 'modalSuccess',
-          }).then(modalEl => {
-            modalEl.present();
-          });
-        }).catch(err => {
-          console.log(err)
-          loadingEl.dismiss();
-        })
-      } else {
-        const formData = new FormData();
-        console.log(this.selectedCatId)
-        formData.append('images[]', imgFile);
-        formData.append('category_id', this.proCategoryProfile.category_id);
-        formData.append('transport_id', this.proCategoryProfile.transports);
-        axios.post(API + `/supplier/profession/${this.selectedProPerfil}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
-          loadingEl.dismiss();
-        }).catch(err => {
-          loadingEl.dismiss();
-        })
-      }
-    });
+    // this.lc.create({
+    //   message: 'Guardando imagen...'
+    // }).then(loadingEl => {
+    //   loadingEl.present();
+    //   //check to see if we are loading a profile img
+    //   if (this.profilePhoto) {
+    //     const formData = new FormData();
+    //     formData.append('image', imgFile);
+    //     axios.post(API + '/account/image', formData, { headers: { Authorization: this.headers } }).then(resData => {
+    //       loadingEl.dismiss();
+    //       this.modalController.create({
+    //         component: SuccessModalComponent,
+    //         cssClass: 'modalSuccess',
+    //       }).then(modalEl => {
+    //         modalEl.present();
+    //       });
+    //     }).catch(err => {
+    //       console.log(err)
+    //       loadingEl.dismiss();
+    //     })
+    //   } else {
+    //     const formData = new FormData();
+    //     console.log(this.selectedCatId)
+    //     formData.append('images[]', imgFile);
+    //     formData.append('category_id', this.proCategoryProfile.category_id);
+    //     formData.append('transport_id', this.proCategoryProfile.transports);
+    //     axios.post(API + `/supplier/profession/${this.selectedProPerfil}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
+    //       loadingEl.dismiss();
+    //     }).catch(err => {
+    //       loadingEl.dismiss();
+    //     })
+    //   }
+    // });
   }
 
   ngOnDestroy() {

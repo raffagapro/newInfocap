@@ -115,7 +115,7 @@
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora inicial</ion-text>
             </ion-label>
-            <ion-datetime formControlName="sHour" display-format="h:mm A" picker-format="h:mm A">
+            <ion-datetime minuteValues="0,10,20,30,40,50" cancel-text="Cancelar" done-text="Listo" formControlName="sHour" display-format="h:mm A" picker-format="h:mm A">
             </ion-datetime>
           </ion-item>
         </ion-col>

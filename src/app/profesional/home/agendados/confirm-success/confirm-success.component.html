@@ -1,22 +1,27 @@
 <ion-content>
-  <ion-grid fixed>
-    
+  <ion-grid style="height: 100%;">
+
     <!-- SERVICIO REALIZADO  -->
-    <div style="height: 10px;"></div>
-    <ion-row class="ion-margin-top">
-      <div class="status-cont">
-        <ion-icon name="checkmark" color="light" class="status-text-icon"></ion-icon>
-      </div>
-      <ion-col size="10"  offset="1" class="ion-text-center ion-margin-top">
-        <ion-text class="main-color status-text"><b>HA CERRADO LA SOLICITUD</b></ion-text><br>
-      </ion-col>
-      <ion-col size="10"  offset="1" class="ion-text-center">
-        <ion-text><hr></ion-text>
-      </ion-col>
-      <ion-col size="10"  offset="1" class="ion-text-center">
-        <ion-text class="main-color mini-text" (click)="dismiss()">ACEPTAR</ion-text><br>
-      </ion-col>
-    </ion-row>
+    <div class="modal-cont">
+      <ion-row class="ion-margin-top">
+        <ion-col size="12" class="text-center">
+          <div class="status-cont">
+            <ion-icon name="checkmark" color="light" class="status-text-icon"></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col size="10" offset="1" class="ion-text-center ion-margin-top">
+          <ion-text class="main-color status-text"><b>HA CERRADO LA SOLICITUD</b></ion-text><br>
+        </ion-col>
+        <ion-col size="10" offset="1" class="ion-text-center">
+          <ion-text>
+            <hr>
+          </ion-text>
+        </ion-col>
+        <ion-col size="10" offset="1" class="ion-text-center">
+          <ion-text class="main-color mini-text" (click)="dismiss()">ACEPTAR</ion-text><br>
+        </ion-col>
+      </ion-row>
+    </div>
 
   </ion-grid>
 </ion-content>
