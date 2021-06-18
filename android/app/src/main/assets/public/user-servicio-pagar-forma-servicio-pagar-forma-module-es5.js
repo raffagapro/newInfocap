@@ -239,9 +239,9 @@
       /* harmony import */
 
 
-      var _pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
-      /*! ./pago-exitoso-modal/pago-exitoso-modal.component */
-      "2dcQ");
+      var src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! src/app/shared/success-modal/success-modal.component */
+      "W/u7");
 
       var ServicioPagarFormaPage = /*#__PURE__*/function () {
         function ServicioPagarFormaPage(modalController, menuController, loadingController, userService, solServ) {
@@ -266,7 +266,7 @@
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
-            this.menuController.enable(true, 'user');
+            this.menuController.enable(true, "user");
           }
         }, {
           key: "openMenu",
@@ -287,7 +287,7 @@
                         request_service_id: 1,
                         payment_type_id: 1,
                         grossamount: 1,
-                        comment: ''
+                        comment: ""
                       };
                       _context.next = 4;
                       return axios__WEBPACK_IMPORTED_MODULE_5___default.a.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"], "/client/payment"), body, {
@@ -319,8 +319,14 @@
           key: "submitPayment",
           value: function submitPayment() {
             this.modalController.create({
-              component: _pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_9__["PagoExitosoModalComponent"],
-              cssClass: 'modalSuccess'
+              component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_9__["SuccessModalComponent"],
+              componentProps: {
+                message: "¡EL PAGO HA SIDO EXISTOSO!",
+                secondMessage: "Recuerda evaluar el servicio.",
+                redirect: true,
+                redirectUrl: "/user/seval-prof"
+              },
+              cssClass: "modalSuccess"
             }).then(function (modalEl) {
               modalEl.present();
             });
@@ -345,7 +351,7 @@
       };
 
       ServicioPagarFormaPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-servicio-pagar-forma',
+        selector: "app-servicio-pagar-forma",
         template: _raw_loader_servicio_pagar_forma_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_servicio_pagar_forma_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], ServicioPagarFormaPage);

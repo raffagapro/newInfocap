@@ -155,7 +155,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">EDITAR PERFILES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- cat selection -->\n  <ion-grid fixed>\n    <ion-row>\n      <ion-col size=\"7\" offset=\"3\">\n        <ion-input class=\"main-color cusSelect\" readonly [ngModel]=\"selectedProPerfil\" (click)=\"showPicker()\" placeholder=\"Categoría\"></ion-input>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid>\n    <!-- profile Img -->\n    <ion-row class=\"imgCont\">\n      <ion-col>\n        <ion-avatar class=\"ion-margin-start profileImg\">\n          <ion-img\n            src=\"{{ !grabbedUser || grabbedUser.img_profile === imageBlank ? 'assets/images/avatar.png' : grabbedUser.img_profile }}\">\n          </ion-img>\n        </ion-avatar>\n      </ion-col>\n    </ion-row>\n    <!-- edit icon -->\n    <ion-row>\n      <ion-col>\n        <div class=\"rate-cont\" *ngIf=\"grabbedUser.id !== null\" (click)=\"onLoadImg(true)\">\n          <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <form [formGroup]=\"form\" (ngSubmit)=\"onUpdateCatProfile()\">\n      <!-- title -->\n      <ion-row class=\"minusMargin\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Descripción profesional</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea formControlName=\"descProf\" rows=\"3\" cols=\"20\"\n              placeholder=\"Agrega tu descripción. Máximo 140 caracteres con espacios.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top ion-text-center\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Horario laboral</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- horas -->\n      <ion-row>\n        <ion-col offset=\"1\" size=\"10\">\n          <ion-item>\n            <ion-input formControlName=\"workHours\" placeholder=\"Horario laboral\" value=\"clear me\"></ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- dias -->\n      <ion-row>\n        <ion-col offset=\"1\" size=\"10\">\n          <ion-item>\n            <ion-input formControlName=\"workDays\" placeholder=\"Días laborales\" value=\"clear me\"></ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Descripción del oficio</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea formControlName=\"descOffice\" rows=\"3\" cols=\"20\"\n              placeholder=\"Agrega una descripción de tu oficio. Máximo 140 caracteres con espacios.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- images -->\n      <ion-row class=\"ion-align-items-center ion-justify-content-center ion-margin-top\">\n        <ion-col *ngIf=\"proCategoryImg && proCategoryImg.length > 0\" size=\"8\">\n          <ion-slides>\n\n            <!-- loaded slides  -->\n            <ion-slide *ngFor=\"let image of proCategoryImg; let i = index\">\n              <!-- <ion-icon class=\"delete-icon\" name=\"close-circle\" color=\"danger\"></ion-icon> -->\n              <ion-img (click)=\"openImage(image.image)\" src=\"{{ image.image }}\" class=\"imgSlide\">\n              </ion-img>\n              <ion-button (click)=\"removeImage(i)\" size=\"small\" shape=\"round\" color=\"danger\" class=\"deleteBtn\">\n                <ion-icon name=\"close-circle-outline\"></ion-icon>\n              </ion-button>\n            </ion-slide>\n\n          </ion-slides>\n        </ion-col>\n        <ion-col size=\"4\" class=\"ion-justify-content-center\">\n          <ion-button (click)=\"onLoadImg(false)\" shape=\"round\">\n            <ion-icon name=\"add\" slot=\"end\" color=\"light\" class=\"rating-text\"></ion-icon>\n          </ion-button>\n        </ion-col>\n      </ion-row>\n\n      <!-- hidden file input -->\n      <div style=\"display: none;\">\n        <input type=\"file\" #hiddenImgInput *ngIf=\"useInputPicker\" (change)=\"onLoadImgFromInput($event)\">\n      </div>\n\n\n      <!-- save BTN -->\n      <ion-row class=\"ion-margin-bottom\">\n        <ion-col offset=\"1\">\n          <ion-button size=\"10\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\">\n            GUARDAR CAMBIOS\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n    </form>\n\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-buttons slot=\"start\">\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">EDITAR PERFILES</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- cat selection -->\n  <ion-grid fixed>\n    <ion-row>\n      <ion-col size=\"2\"></ion-col>\n      <ion-col size=\"8\">\n        <ion-input class=\"main-color cusSelect\" readonly [ngModel]=\"selectedProPerfil\" (click)=\"showPicker()\" placeholder=\"Categoría\"></ion-input>\n      </ion-col>\n      <ion-col size=\"2\"></ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid>\n    <!-- profile Img -->\n    <ion-row class=\"imgCont\">\n      <ion-col>\n        <ion-avatar class=\"ion-margin-start profileImg\">\n          <ion-img\n            src=\"{{ !grabbedUser || grabbedUser.img_profile === imageBlank ? 'assets/images/avatar.png' : grabbedUser.img_profile }}\">\n          </ion-img>\n        </ion-avatar>\n      </ion-col>\n    </ion-row>\n    <!-- edit icon -->\n    <ion-row>\n      <ion-col>\n        <div class=\"rate-cont\" *ngIf=\"grabbedUser.id !== null\" (click)=\"onLoadImg(true)\">\n          <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <form [formGroup]=\"form\" (ngSubmit)=\"onUpdateCatProfile()\">\n      <!-- title -->\n      <ion-row class=\"minusMargin\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Descripción profesional</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea formControlName=\"descProf\" rows=\"3\" cols=\"20\"\n              placeholder=\"Agrega tu descripción. Máximo 140 caracteres con espacios.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top ion-text-center\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Horario laboral</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- horas -->\n      <ion-row>\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-item>\n            <ion-label position=\"floating\">\n              <ion-icon name=\"time\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Horario laboral</ion-text>\n            </ion-label>\n            <ion-input formControlName=\"workHours\"></ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- dias -->\n      <ion-row>\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-item>\n            <ion-label position=\"floating\">\n              <ion-icon name=\"calendar-outline\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Días laborales</ion-text>\n            </ion-label>\n            <ion-input formControlName=\"workDays\"></ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- title -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\">\n          <ion-text class=\"main-color regText\"><b>Descripción del oficio</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- text-area -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\"></ion-col>\n        <ion-col size=\"10\" class=\"border ion-text-center\">\n          <ion-item lines=\"none\">\n            <ion-textarea formControlName=\"descOffice\" rows=\"3\" cols=\"20\"\n              placeholder=\"Agrega una descripción de tu oficio. Máximo 140 caracteres con espacios.\">\n            </ion-textarea>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- images -->\n      <ion-row class=\"ion-align-items-center ion-justify-content-center ion-margin-top\">\n        <ion-col *ngIf=\"proCategoryImg && proCategoryImg.length > 0\" size=\"8\">\n          <ion-slides>\n\n            <!-- loaded slides  -->\n            <ion-slide *ngFor=\"let image of proCategoryImg; let i = index\">\n              <!-- <ion-icon class=\"delete-icon\" name=\"close-circle\" color=\"danger\"></ion-icon> -->\n              <ion-img (click)=\"openImage(image.image)\" src=\"{{ image.image }}\" class=\"imgSlide\">\n              </ion-img>\n              <ion-button (click)=\"removeImage(i)\" size=\"small\" shape=\"round\" color=\"danger\" class=\"deleteBtn\">\n                <ion-icon name=\"close-circle-outline\"></ion-icon>\n              </ion-button>\n            </ion-slide>\n\n          </ion-slides>\n        </ion-col>\n        <ion-col size=\"4\" class=\"ion-justify-content-center\" style=\"text-align: center;\">\n          <ion-button (click)=\"onLoadImg(false)\" shape=\"round\">\n            <ion-icon name=\"add\" slot=\"end\" color=\"light\" class=\"rating-text\"></ion-icon>\n          </ion-button>\n        </ion-col>\n      </ion-row>\n\n      <!-- hidden file input -->\n      <div style=\"display: none;\">\n        <input type=\"file\" #hiddenImgInput *ngIf=\"useInputPicker\" (change)=\"onLoadImgFromInput($event)\">\n      </div>\n\n\n      <!-- save BTN -->\n      <ion-row class=\"ion-margin-bottom\">\n        <ion-col offset=\"1\">\n          <ion-button [disabled]=\"!form.valid\" size=\"10\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\">\n            GUARDAR CAMBIOS\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n    </form>\n\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -175,7 +175,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".profileImg {\n  height: 120px;\n  width: 120px;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.imgCont {\n  margin-top: 15px;\n}\n\n.profileIcon {\n  font-size: 16px;\n  color: white;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.rate-cont {\n  border-radius: 50px;\n  height: 30px;\n  width: 30px;\n  background-color: #53657e;\n  display: flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: -22px;\n}\n\n.catText {\n  font-size: 10px;\n}\n\n.border {\n  border: 1px solid #009ACE;\n}\n\n.regText {\n  font-size: 18px;\n}\n\n.imgSingle {\n  height: 150px;\n}\n\n.locate-cont {\n  border-radius: 50px;\n  height: 50px;\n  width: 50px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #009ACE;\n}\n\n.rating-text {\n  font-size: 26px;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.imgSlide {\n  height: 300px;\n}\n\n.select-categories-component {\n  --padding-top: 0;\n  --padding-bottom: 0;\n  margin-top: -16px;\n  height: 2rem;\n  width: 155px;\n  background-color: white;\n  color: #009ACE;\n  border-color: white;\n  margin-left: -4px;\n}\n\n.select-categories {\n  border: 1px solid #009ACE;\n  border-radius: 32px;\n  height: 2rem;\n}\n\n.delete-icon {\n  font-size: 32px;\n  background-color: white;\n  position: absolute;\n  border-radius: 50%;\n  right: 0px;\n  top: 0;\n}\n\n.deleteBtn {\n  position: absolute;\n  top: 0;\n  right: 0;\n  border-radius: 100%;\n  color: white;\n  width: 32px;\n  padding: 0;\n  margin: 0;\n  --padding-start: 0;\n  --padding-end: 0;\n}\n\n.deleteBtn ion-icon {\n  position: absolute;\n}\n\n.cusSelect {\n  border: 0px;\n  outline: 0px;\n  font-size: 14px;\n  height: 32px;\n  background-color: white;\n  width: 100%;\n  border: solid 2px #009ace;\n  border-radius: 10px;\n  padding: 5px;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  /* Firefox */\n  -webkit-appearance: none;\n  /* Safari and Chrome */\n  appearance: none;\n  background-image: url(\"data:image/svg+xml;utf8,<svg fill='#009ace' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>\");\n  background-repeat: no-repeat;\n  background-position-x: 98%;\n  background-position-y: 50%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2NhdC1wZXJmaWxlcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFSSxhQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUFBSjs7QUFFQTtFQUVJLGdCQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUFBSjs7QUFFQTtFQUVJLG1CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSx5QkFBQTtFQUNBLGFBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0FBQUo7O0FBRUE7RUFFSSx5QkFBQTtBQUFKOztBQUVBO0VBRUksZUFBQTtBQUFKOztBQUVBO0VBRUksYUFBQTtBQUFKOztBQUVBO0VBRUksbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLG9CQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSx5QkFBQTtBQUFKOztBQUVBO0VBRUksZUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7QUFBSjs7QUFHQTtFQUNJLGFBQUE7QUFBSjs7QUFFQTtFQUNJLGdCQUFBO0VBQ0EsbUJBQUE7RUFDQSxpQkFBQTtFQUNBLFlBQUE7RUFDQSxZQUFBO0VBQ0EsdUJBQUE7RUFDQSxjQUFBO0VBQ0EsbUJBQUE7RUFDQSxpQkFBQTtBQUNKOztBQUNBO0VBQ0kseUJBQUE7RUFDQSxtQkFBQTtFQUNBLFlBQUE7QUFFSjs7QUFBQTtFQUNJLGVBQUE7RUFDQSx1QkFBQTtFQUNBLGtCQUFBO0VBQ0Esa0JBQUE7RUFDQSxVQUFBO0VBQ0EsTUFBQTtBQUdKOztBQURBO0VBQ0ksa0JBQUE7RUFDQSxNQUFBO0VBQ0EsUUFBQTtFQUNBLG1CQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxVQUFBO0VBQ0EsU0FBQTtFQUNBLGtCQUFBO0VBQ0EsZ0JBQUE7QUFJSjs7QUFISTtFQUNFLGtCQUFBO0FBS047O0FBREU7RUFDRSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGVBQUE7RUFDQSxZQUFBO0VBQ0EsdUJBQUE7RUFDQSxXQUFBO0VBQ0EseUJBQUE7RUFDQSxtQkFBQTtFQUNBLFlBQUE7RUFDQSx3QkFBQTtFQUNBLHFCQUFBO0VBQXVCLFlBQUE7RUFDdkIsd0JBQUE7RUFBMEIsc0JBQUE7RUFDMUIsZ0JBQUE7RUFDQSx3TkFBQTtFQUNBLDRCQUFBO0VBQ0EsMEJBQUE7RUFDQSwwQkFBQTtBQU1KIiwiZmlsZSI6ImNhdC1wZXJmaWxlcy5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucHJvZmlsZUltZ1xue1xuICAgIGhlaWdodDogMTIwcHg7XG4gICAgd2lkdGg6IDEyMHB4O1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbn1cbi5pbWdDb250XG57XG4gICAgbWFyZ2luLXRvcDogMTVweDtcbn1cbi5wcm9maWxlSWNvblxue1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBjb2xvcjogd2hpdGU7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xufVxuLnJhdGUtY29udFxue1xuICAgIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gICAgaGVpZ2h0OiAzMHB4O1xuICAgIHdpZHRoOiAzMHB4O1xuICAgIGJhY2tncm91bmQtY29sb3I6ICM1MzY1N2U7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgbWFyZ2luLXRvcDogLTIycHg7XG59XG4uY2F0VGV4dFxue1xuICAgIGZvbnQtc2l6ZTogMTBweDtcbn1cbi5ib3JkZXJcbntcbiAgICBib3JkZXI6IDFweCBzb2xpZCAjMDA5QUNFO1xufVxuLnJlZ1RleHRcbntcbiAgICBmb250LXNpemU6IDE4cHg7XG59XG4uaW1nU2luZ2xlXG57XG4gICAgaGVpZ2h0OiAxNTBweDtcbn1cbi5sb2NhdGUtY29udFxue1xuICAgIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gICAgaGVpZ2h0OiA1MHB4O1xuICAgIHdpZHRoOiA1MHB4O1xuICAgIGRpc3BsYXk6IGlubGluZS1mbGV4O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5QUNFO1xufVxuLnJhdGluZy10ZXh0XG57XG4gICAgZm9udC1zaXplOiAyNnB4O1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbn1cblxuLmltZ1NsaWRlIHtcbiAgICBoZWlnaHQ6IDMwMHB4O1xufVxuLnNlbGVjdC1jYXRlZ29yaWVzLWNvbXBvbmVudCB7XG4gICAgLS1wYWRkaW5nLXRvcDogMDtcbiAgICAtLXBhZGRpbmctYm90dG9tOiAwO1xuICAgIG1hcmdpbi10b3A6IC0xNnB4O1xuICAgIGhlaWdodDogMnJlbTtcbiAgICB3aWR0aDogMTU1cHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgY29sb3I6ICMwMDlBQ0U7XG4gICAgYm9yZGVyLWNvbG9yOiB3aGl0ZTtcbiAgICBtYXJnaW4tbGVmdDogLTRweDtcbn1cbi5zZWxlY3QtY2F0ZWdvcmllcyB7XG4gICAgYm9yZGVyOiAxcHggc29saWQgIzAwOUFDRTtcbiAgICBib3JkZXItcmFkaXVzOiAzMnB4O1xuICAgIGhlaWdodDogMnJlbTtcbn1cbi5kZWxldGUtaWNvbiB7XG4gICAgZm9udC1zaXplOiAzMnB4O1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XG4gICAgcmlnaHQ6IDBweDtcbiAgICB0b3A6IDA7XG59XG4uZGVsZXRlQnRuIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgdG9wOiAwO1xuICAgIHJpZ2h0OiAwO1xuICAgIGJvcmRlci1yYWRpdXM6IDEwMCU7XG4gICAgY29sb3I6IHdoaXRlO1xuICAgIHdpZHRoOiAzMnB4O1xuICAgIHBhZGRpbmc6IDA7XG4gICAgbWFyZ2luOiAwO1xuICAgIC0tcGFkZGluZy1zdGFydDogMDtcbiAgICAtLXBhZGRpbmctZW5kOiAwO1xuICAgIGlvbi1pY29uIHtcbiAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB9XG4gIH1cblxuICAuY3VzU2VsZWN0IHtcbiAgICBib3JkZXI6IDBweDtcbiAgICBvdXRsaW5lOiAwcHg7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIGhlaWdodDogMzJweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBib3JkZXI6IHNvbGlkIDJweCAjMDA5YWNlO1xuICAgIGJvcmRlci1yYWRpdXM6IDEwcHg7XG4gICAgcGFkZGluZzogNXB4O1xuICAgIC13ZWJraXQtYXBwZWFyYW5jZTogbm9uZTtcbiAgICAtbW96LWFwcGVhcmFuY2U6IG5vbmU7IC8qIEZpcmVmb3ggKi9cbiAgICAtd2Via2l0LWFwcGVhcmFuY2U6IG5vbmU7IC8qIFNhZmFyaSBhbmQgQ2hyb21lICovXG4gICAgYXBwZWFyYW5jZTogbm9uZTtcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCJkYXRhOmltYWdlL3N2Zyt4bWw7dXRmOCw8c3ZnIGZpbGw9JyMwMDlhY2UnIGhlaWdodD0nMjQnIHZpZXdCb3g9JzAgMCAyNCAyNCcgd2lkdGg9JzI0JyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnPjxwYXRoIGQ9J003IDEwbDUgNSA1LTV6Jy8+PHBhdGggZD0nTTAgMGgyNHYyNEgweicgZmlsbD0nbm9uZScvPjwvc3ZnPlwiKTtcbiAgICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICAgIGJhY2tncm91bmQtcG9zaXRpb24teDogOTglO1xuICAgIGJhY2tncm91bmQtcG9zaXRpb24teTogNTAlO1xuICB9Il19 */";
+      __webpack_exports__["default"] = ".profileImg {\n  height: 120px;\n  width: 120px;\n  margin-left: auto;\n  margin-right: auto;\n  background-position: center;\n  background-size: cover;\n  background-repeat: no-repeat;\n  border-radius: 50%;\n}\n\n.imgCont {\n  margin-top: 15px;\n}\n\n.profileIcon {\n  font-size: 16px;\n  color: white;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.rate-cont {\n  border-radius: 50px;\n  height: 30px;\n  width: 30px;\n  background-color: #53657e;\n  display: flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: -22px;\n}\n\n.catText {\n  font-size: 10px;\n}\n\n.border {\n  border: 1px solid #009ACE;\n}\n\n.regText {\n  font-size: 18px;\n}\n\n.imgSingle {\n  height: 150px;\n}\n\n.locate-cont {\n  border-radius: 50px;\n  height: 50px;\n  width: 50px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #009ACE;\n}\n\n.rating-text {\n  font-size: 26px;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.imgSlide {\n  height: 125px;\n}\n\n.select-categories-component {\n  --padding-top: 0;\n  --padding-bottom: 0;\n  margin-top: -16px;\n  height: 2rem;\n  width: 155px;\n  background-color: white;\n  color: #009ACE;\n  border-color: white;\n  margin-left: -4px;\n}\n\n.select-categories {\n  border: 1px solid #009ACE;\n  border-radius: 32px;\n  height: 2rem;\n}\n\n.delete-icon {\n  font-size: 32px;\n  background-color: white;\n  position: absolute;\n  border-radius: 50%;\n  right: 0px;\n  top: 0;\n}\n\n.deleteBtn {\n  position: absolute;\n  top: 0;\n  right: 0;\n  border-radius: 100%;\n  color: white;\n  width: 32px;\n  padding: 0;\n  margin: 0;\n  --padding-start: 0;\n  --padding-end: 0;\n}\n\n.deleteBtn ion-icon {\n  position: absolute;\n}\n\n.cusSelect {\n  border: 0px;\n  outline: 0px;\n  font-size: 14px;\n  height: 32px;\n  background-color: white;\n  width: 100%;\n  border: solid 2px #009ace;\n  border-radius: 10px;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  /* Firefox */\n  -webkit-appearance: none;\n  /* Safari and Chrome */\n  appearance: none;\n  background-repeat: no-repeat;\n  background-position-x: center;\n  background-position-y: center;\n  text-align: center;\n  --padding-star: 0 ;\n}\n\nion-input {\n  --padding-start: 0px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL2NhdC1wZXJmaWxlcy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFSSxhQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSwyQkFBQTtFQUNBLHNCQUFBO0VBQ0EsNEJBQUE7RUFDQSxrQkFBQTtBQUFKOztBQUVBO0VBRUksZ0JBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7RUFDQSxZQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBQUFKOztBQUVBO0VBRUksbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLHlCQUFBO0VBQ0EsYUFBQTtFQUNBLG1CQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7QUFBSjs7QUFFQTtFQUVJLHlCQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0FBQUo7O0FBRUE7RUFFSSxhQUFBO0FBQUo7O0FBRUE7RUFFSSxtQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0Esb0JBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLHlCQUFBO0FBQUo7O0FBRUE7RUFFSSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBQUFKOztBQUdBO0VBQ0ksYUFBQTtBQUFKOztBQUVBO0VBQ0ksZ0JBQUE7RUFDQSxtQkFBQTtFQUNBLGlCQUFBO0VBQ0EsWUFBQTtFQUNBLFlBQUE7RUFDQSx1QkFBQTtFQUNBLGNBQUE7RUFDQSxtQkFBQTtFQUNBLGlCQUFBO0FBQ0o7O0FBQ0E7RUFDSSx5QkFBQTtFQUNBLG1CQUFBO0VBQ0EsWUFBQTtBQUVKOztBQUFBO0VBQ0ksZUFBQTtFQUNBLHVCQUFBO0VBQ0Esa0JBQUE7RUFDQSxrQkFBQTtFQUNBLFVBQUE7RUFDQSxNQUFBO0FBR0o7O0FBREE7RUFDSSxrQkFBQTtFQUNBLE1BQUE7RUFDQSxRQUFBO0VBQ0EsbUJBQUE7RUFDQSxZQUFBO0VBQ0EsV0FBQTtFQUNBLFVBQUE7RUFDQSxTQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQkFBQTtBQUlKOztBQUhJO0VBQ0Usa0JBQUE7QUFLTjs7QUFERTtFQUNFLFdBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtFQUNBLFlBQUE7RUFDQSx1QkFBQTtFQUNBLFdBQUE7RUFDQSx5QkFBQTtFQUNBLG1CQUFBO0VBQ0Esd0JBQUE7RUFDQSxxQkFBQTtFQUF1QixZQUFBO0VBQ3ZCLHdCQUFBO0VBQTBCLHNCQUFBO0VBQzFCLGdCQUFBO0VBRUEsNEJBQUE7RUFDQSw2QkFBQTtFQUNBLDZCQUFBO0VBQ0Esa0JBQUE7RUFDQSxrQkFBQTtBQUtKOztBQUZFO0VBQ0Usb0JBQUE7QUFLSiIsImZpbGUiOiJjYXQtcGVyZmlsZXMucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnByb2ZpbGVJbWdcbntcbiAgICBoZWlnaHQ6IDEyMHB4O1xuICAgIHdpZHRoOiAxMjBweDtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgYmFja2dyb3VuZC1wb3NpdGlvbjogY2VudGVyO1xuICAgIGJhY2tncm91bmQtc2l6ZTogY292ZXI7XG4gICAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XG59XG4uaW1nQ29udFxue1xuICAgIG1hcmdpbi10b3A6IDE1cHg7XG59XG4ucHJvZmlsZUljb25cbntcbiAgICBmb250LXNpemU6IDE2cHg7XG4gICAgY29sb3I6IHdoaXRlO1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbn1cbi5yYXRlLWNvbnRcbntcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICAgIGhlaWdodDogMzBweDtcbiAgICB3aWR0aDogMzBweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjNTM2NTdlO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xuICAgIG1hcmdpbi10b3A6IC0yMnB4O1xufVxuLmNhdFRleHRcbntcbiAgICBmb250LXNpemU6IDEwcHg7XG59XG4uYm9yZGVyXG57XG4gICAgYm9yZGVyOiAxcHggc29saWQgIzAwOUFDRTtcbn1cbi5yZWdUZXh0XG57XG4gICAgZm9udC1zaXplOiAxOHB4O1xufVxuLmltZ1NpbmdsZVxue1xuICAgIGhlaWdodDogMTUwcHg7XG59XG4ubG9jYXRlLWNvbnRcbntcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICAgIGhlaWdodDogNTBweDtcbiAgICB3aWR0aDogNTBweDtcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwOUFDRTtcbn1cbi5yYXRpbmctdGV4dFxue1xuICAgIGZvbnQtc2l6ZTogMjZweDtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG59XG5cbi5pbWdTbGlkZXtcbiAgICBoZWlnaHQ6MTI1cHg7XG59XG4uc2VsZWN0LWNhdGVnb3JpZXMtY29tcG9uZW50IHtcbiAgICAtLXBhZGRpbmctdG9wOiAwO1xuICAgIC0tcGFkZGluZy1ib3R0b206IDA7XG4gICAgbWFyZ2luLXRvcDogLTE2cHg7XG4gICAgaGVpZ2h0OiAycmVtO1xuICAgIHdpZHRoOiAxNTVweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbiAgICBjb2xvcjogIzAwOUFDRTtcbiAgICBib3JkZXItY29sb3I6IHdoaXRlO1xuICAgIG1hcmdpbi1sZWZ0OiAtNHB4O1xufVxuLnNlbGVjdC1jYXRlZ29yaWVzIHtcbiAgICBib3JkZXI6IDFweCBzb2xpZCAjMDA5QUNFO1xuICAgIGJvcmRlci1yYWRpdXM6IDMycHg7XG4gICAgaGVpZ2h0OiAycmVtO1xufVxuLmRlbGV0ZS1pY29uIHtcbiAgICBmb250LXNpemU6IDMycHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgICByaWdodDogMHB4O1xuICAgIHRvcDogMDtcbn1cbi5kZWxldGVCdG4ge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDA7XG4gICAgcmlnaHQ6IDA7XG4gICAgYm9yZGVyLXJhZGl1czogMTAwJTtcbiAgICBjb2xvcjogd2hpdGU7XG4gICAgd2lkdGg6IDMycHg7XG4gICAgcGFkZGluZzogMDtcbiAgICBtYXJnaW46IDA7XG4gICAgLS1wYWRkaW5nLXN0YXJ0OiAwO1xuICAgIC0tcGFkZGluZy1lbmQ6IDA7XG4gICAgaW9uLWljb24ge1xuICAgICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIH1cbiAgfVxuXG4gIC5jdXNTZWxlY3Qge1xuICAgIGJvcmRlcjogMHB4O1xuICAgIG91dGxpbmU6IDBweDtcbiAgICBmb250LXNpemU6IDE0cHg7XG4gICAgaGVpZ2h0OiAzMnB4O1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGJvcmRlcjogc29saWQgMnB4ICMwMDlhY2U7XG4gICAgYm9yZGVyLXJhZGl1czogMTBweDtcbiAgICAtd2Via2l0LWFwcGVhcmFuY2U6IG5vbmU7XG4gICAgLW1vei1hcHBlYXJhbmNlOiBub25lOyAvKiBGaXJlZm94ICovXG4gICAgLXdlYmtpdC1hcHBlYXJhbmNlOiBub25lOyAvKiBTYWZhcmkgYW5kIENocm9tZSAqL1xuICAgIGFwcGVhcmFuY2U6IG5vbmU7XG4gICAgLy8gYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiZGF0YTppbWFnZS9zdmcreG1sO3V0ZjgsPHN2ZyBmaWxsPScjMDA5YWNlJyBoZWlnaHQ9JzI0JyB2aWV3Qm94PScwIDAgMjQgMjQnIHdpZHRoPScyNCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNNyAxMGw1IDUgNS01eicvPjxwYXRoIGQ9J00wIDBoMjR2MjRIMHonIGZpbGw9J25vbmUnLz48L3N2Zz5cIik7XG4gICAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcbiAgICBiYWNrZ3JvdW5kLXBvc2l0aW9uLXg6IGNlbnRlcjtcbiAgICBiYWNrZ3JvdW5kLXBvc2l0aW9uLXk6IGNlbnRlcjtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgLS1wYWRkaW5nLXN0YXI6IDBcbiAgfVxuXG4gIGlvbi1pbnB1dCB7XG4gICAgLS1wYWRkaW5nLXN0YXJ0OiAwcHg7XG59Il19 */";
       /***/
     },
 
@@ -195,7 +195,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO Rechazado  -->\n    <div style=\"height: 10px;\"></div>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"danger\"><b>SIN CATEGORIAS ASIGNADAS</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"danger\">Contacte al administrado para que le asigne perfiles de categorias.</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" color=\"danger\" (click)=\"dismissModal()\">\n          CERRAR SOLICITUD\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid  style=\"height: 100%;\">\n    <!-- SERVICIO Rechazado  -->\n    <div style=\"height: 10px;\"></div>\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"danger\"><b>SIN CATEGORIAS ASIGNADAS</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid  style=\"height: 100%;\">\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"danger\">Contacte al administrado para que le asigne perfiles de categorias.</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" color=\"danger\" (click)=\"dismissModal()\">\n          CERRAR SOLICITUD\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n";
       /***/
     },
 
@@ -467,6 +467,7 @@
           this.profCategories = [];
           this.grabbedUser = null;
           this.comunas = [];
+          this.proCategoryImgSave = [];
           this.comunasBU = [];
           this.transports = [];
           this.selectedComunas = [];
@@ -519,18 +520,11 @@
                 updateOn: 'blur',
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
               }),
-              transport: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, {
-                updateOn: 'blur'
-              }),
               workHours: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, {
                 updateOn: 'blur',
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
               }),
               workDays: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, {
-                updateOn: 'blur',
-                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
-              }),
-              comuna: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](null, {
                 updateOn: 'blur',
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
               }),
@@ -557,11 +551,15 @@
                   switch (_context2.prev = _context2.next) {
                     case 0:
                       options = {
+                        mode: 'ios',
                         buttons: [{
+                          text: 'Cancelar',
+                          role: 'cancel'
+                        }, {
                           text: 'Listo',
                           handler: function handler(value) {
-                            console.log(value);
                             _this2.selectedProPerfil = value.category.text;
+                            _this2.selectedProPerfilID = value.category.value;
 
                             _this2.onCatProfileChange(value.category.value);
                           }
@@ -585,6 +583,15 @@
                 }
               }, _callee2, this);
             }));
+          }
+        }, {
+          key: "getUrl",
+          value: function getUrl() {
+            if (!this.grabbedUser.img_profile || this.grabbedUser.img_profile === '') {
+              return "url('assets/images/avatar.png')";
+            } else {
+              return "url(".concat(this.grabbedUser.img_profile, ")");
+            }
           }
         }, {
           key: "getColumnOptions",
@@ -624,8 +631,9 @@
                   _this3.proCategoryImg = resData.data.data[0].images;
                   _this3.selectedProPerfil = _this3.profCategories[0].categoryName;
                   _this3.selectedCatId = _this3.profCategories[0].category_id;
+                  _this3.selectedProPerfilID = _this3.profCategories[0].id;
 
-                  _this3.onCatProfileChange(_this3.selectedProPerfil);
+                  _this3.onCatProfileChange(_this3.selectedProPerfilID);
 
                   _this3.updateForm(_this3.profCategories[0]);
                 }
@@ -673,7 +681,7 @@
             this.selectedComunas = info.communes;
             var descPro;
 
-            if (info.descProf === 'empty') {
+            if (info.descProf === 'empty' || info.descProf === 'ND') {
               descPro = null;
             } else {
               descPro = info.descProf;
@@ -681,18 +689,34 @@
 
             var descOff;
 
-            if (info.description === 'empty') {
+            if (info.description === 'empty' || info.descProf === 'ND') {
               descOff = null;
             } else {
               descOff = info.description;
+            }
+
+            var daysWork;
+
+            if (info.work_days === '0') {
+              daysWork = null;
+            } else {
+              daysWork = info.work_days;
+            }
+
+            var hoursWork;
+
+            if (info.hours === '0') {
+              hoursWork = null;
+            } else {
+              hoursWork = info.hours;
             } //pasing values to from
 
 
             this.form.patchValue({
               descProf: descPro,
               transport: info.transport_id,
-              workHours: info.hours,
-              workDays: info.work_days,
+              workHours: hoursWork,
+              workDays: daysWork,
               comuna: info.commune_id,
               descOffice: descOff
             });
@@ -771,25 +795,28 @@
               aComunas.push(c.id);
             });
             packedComunas = aComunas.join(", ");
-            var body = {
-              category_id: this.selectedCatId,
-              communes: packedComunas,
-              transport_id: this.selectedTransport,
-              descProf: this.form.value.descProf,
-              description: this.form.value.descOffice,
-              hours: this.form.value.workHours,
-              work_days: this.form.value.workDays
-            };
+            var formData = new FormData();
+            this.proCategoryImgSave.forEach(function (image) {
+              formData.append('images[]', image);
+            });
+            formData.append('category_id', this.selectedCatId);
+            formData.append('communes', packedComunas);
+            formData.append('transport_id', this.selectedTransport);
+            formData.append('descProf', this.form.value.descProf);
+            formData.append('description', this.form.value.descOffice);
+            formData.append('hours', this.form.value.workHours);
+            formData.append('work_days', this.form.value.workDays);
             this.lc.create({
               message: 'Actualizando la informacion...'
             }).then(function (loadingEl) {
               loadingEl.present();
-              axios__WEBPACK_IMPORTED_MODULE_12___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + "/supplier/profession/".concat(_this6.selectedProPerfil), body, {
+              axios__WEBPACK_IMPORTED_MODULE_12___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + "/supplier/profession/".concat(_this6.selectedProPerfilID), formData, {
                 headers: {
                   Authorization: _this6.headers
                 }
               }).then(function (resData) {
                 loadingEl.dismiss();
+                console.log('Enter');
 
                 _this6.modalController.create({
                   component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
@@ -798,7 +825,6 @@
                   modalEl.present();
                 });
               })["catch"](function (err) {
-                console.log(err);
                 loadingEl.dismiss();
               });
             });
@@ -878,8 +904,6 @@
         }, {
           key: "saveImgToApi",
           value: function saveImgToApi(imageData) {
-            var _this8 = this;
-
             var imgFile;
 
             if (typeof imageData === 'string') {
@@ -896,56 +920,42 @@
             this.proCategoryImg.unshift({
               image: URL.createObjectURL(imgFile)
             });
+            this.proCategoryImgSave.push(imgFile);
             this.form.patchValue({
               image: imgFile
-            });
-            this.lc.create({
-              message: 'Guardando imagen...'
-            }).then(function (loadingEl) {
-              loadingEl.present(); //check to see if we are loading a profile img
-
-              if (_this8.profilePhoto) {
-                var formData = new FormData();
-                formData.append('image', imgFile);
-                axios__WEBPACK_IMPORTED_MODULE_12___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/account/image', formData, {
-                  headers: {
-                    Authorization: _this8.headers
-                  }
-                }).then(function (resData) {
-                  loadingEl.dismiss();
-
-                  _this8.modalController.create({
-                    component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
-                    cssClass: 'modalSuccess'
-                  }).then(function (modalEl) {
-                    modalEl.present();
-                  });
-                })["catch"](function (err) {
-                  console.log(err);
-                  loadingEl.dismiss();
-                });
-              } else {
-                var _formData = new FormData();
-
-                console.log(_this8.selectedCatId);
-
-                _formData.append('images[]', imgFile);
-
-                _formData.append('category_id', _this8.proCategoryProfile.category_id);
-
-                _formData.append('transport_id', _this8.proCategoryProfile.transports);
-
-                axios__WEBPACK_IMPORTED_MODULE_12___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + "/supplier/profession/".concat(_this8.selectedProPerfil), _formData, {
-                  headers: {
-                    Authorization: _this8.headers
-                  }
-                }).then(function (resData) {
-                  loadingEl.dismiss();
-                })["catch"](function (err) {
-                  loadingEl.dismiss();
-                });
-              }
-            });
+            }); // this.lc.create({
+            //   message: 'Guardando imagen...'
+            // }).then(loadingEl => {
+            //   loadingEl.present();
+            //   //check to see if we are loading a profile img
+            //   if (this.profilePhoto) {
+            //     const formData = new FormData();
+            //     formData.append('image', imgFile);
+            //     axios.post(API + '/account/image', formData, { headers: { Authorization: this.headers } }).then(resData => {
+            //       loadingEl.dismiss();
+            //       this.modalController.create({
+            //         component: SuccessModalComponent,
+            //         cssClass: 'modalSuccess',
+            //       }).then(modalEl => {
+            //         modalEl.present();
+            //       });
+            //     }).catch(err => {
+            //       console.log(err)
+            //       loadingEl.dismiss();
+            //     })
+            //   } else {
+            //     const formData = new FormData();
+            //     console.log(this.selectedCatId)
+            //     formData.append('images[]', imgFile);
+            //     formData.append('category_id', this.proCategoryProfile.category_id);
+            //     formData.append('transport_id', this.proCategoryProfile.transports);
+            //     axios.post(API + `/supplier/profession/${this.selectedProPerfil}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
+            //       loadingEl.dismiss();
+            //     }).catch(err => {
+            //       loadingEl.dismiss();
+            //     })
+            //   }
+            // });
           }
         }, {
           key: "ngOnDestroy",

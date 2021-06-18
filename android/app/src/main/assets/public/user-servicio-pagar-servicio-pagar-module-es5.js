@@ -264,7 +264,7 @@
             work_days: null,
             request_cost: []
           };
-          this.selectedButton = 'credit';
+          this.selectedButton = "credit";
           this.paymentTypes = [];
           this.isFinished = false;
         }
@@ -276,7 +276,7 @@
 
             this.userSub = this.us.loggedUser.subscribe(function (user) {
               _this.grabbedUser = user;
-              _this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + _this.grabbedUser.access_token);
+              _this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set("Authorization", "Bearer " + _this.grabbedUser.access_token);
               _this.serviceId = _this.solServ.solicitud.solicitudID;
 
               _this.loadPaymentTypes();
@@ -291,7 +291,7 @@
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
-            this.menuController.enable(true, 'user');
+            this.menuController.enable(true, "user");
           }
         }, {
           key: "loadPaymentTypes",
@@ -348,9 +348,9 @@
                 headers: _this2.headers
               }).subscribe(function (resData) {
                 loadingEl.dismiss();
-                _this2.loadedService = resData['data'];
+                _this2.loadedService = resData["data"];
 
-                _this2.solServ.setServiceObj(resData['data']);
+                _this2.solServ.setServiceObj(resData["data"]);
 
                 var worDate = _this2.loadedService.created_date.split(" ");
 
@@ -363,10 +363,10 @@
                     return paymentType.id === firstCost.payment_type_id;
                   });
 
-                  if (paymentType.name === 'Efectivo') {
-                    _this2.selectedButton = 'cash';
+                  if (paymentType.name === "Efectivo") {
+                    _this2.selectedButton = "cash";
                   } else {
-                    _this2.selectedButton = 'credit';
+                    _this2.selectedButton = "credit";
                   }
                 }
 
@@ -388,7 +388,7 @@
                     case 0:
                       _context2.next = 2;
                       return this.lc.create({
-                        message: 'Consultando información...'
+                        message: "Consultando información..."
                       });
 
                     case 2:
@@ -418,7 +418,7 @@
                         break;
                       }
 
-                      alert('Error');
+                      alert("Error");
                       return _context2.abrupt("return");
 
                     case 14:
@@ -471,6 +471,10 @@
         }, {
           key: "getTotal",
           value: function getTotal() {
+            if (!this.servicesCosts) {
+              return this.getServiceCost();
+            }
+
             return Number(this.getServiceAditional()) + Number(parseFloat(this.servicesCosts.amount_client).toFixed(2));
           }
         }, {
@@ -481,7 +485,7 @@
         }, {
           key: "paymentForm",
           value: function paymentForm() {
-            this.router.navigate(['/user/servicio-pagar-forma']);
+            this.router.navigate(["/user/servicio-pagar-forma"]);
           }
         }, {
           key: "setSelectedButton",
@@ -491,7 +495,7 @@
         }, {
           key: "goToReport",
           value: function goToReport() {
-            this.router.navigate(['/user/service-report']);
+            this.router.navigate(["/user/service-report"]);
           }
         }, {
           key: "ngOnDestroy",
@@ -522,7 +526,7 @@
       };
 
       ServicioPagarPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
-        selector: 'app-servicio-pagar',
+        selector: "app-servicio-pagar",
         template: _raw_loader_servicio_pagar_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_servicio_pagar_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], ServicioPagarPage);
@@ -565,7 +569,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/solicitud-status\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar text-center\">MÉTODO DE PAGO</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid fixed>\n\n    <!-- OMITIR POR EL MOMENTO BTN -->\n    <ion-row class=\"ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" fill=\"outline\" (click)=\"goToReport()\" *ngIf=\"loadedService && loadedService.request_cost.length > 0\">\n          <ion-icon slot=\"start\" name=\"document-text-outline\"></ion-icon>\n          Ver informe de los servicios\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- title  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b>Detalle del pago</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- servicios pactados  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text class=\"text\">\n          <b>Servicios pactados</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- costo  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b *ngIf=\"servicesCosts\">${{servicesCosts.amount_client}}</b>\n          <b *ngIf=\"!servicesCosts\" class=\"small\">Aún no se ha asignado un costo</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- servicios adicionales  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text class=\"text\">\n          <b>Servicios adicionales</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- costo  -->\n    <ion-row *ngIf=\"servicesCosts && servicesCosts.addittional.length > 0\">\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b *ngIf=\"servicesCosts\">${{getServiceAditional()}}</b>\n          <b *ngIf=\"!servicesCosts\" class=\"small\">Aún no se ha asignado un costo</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- empty aditionals  -->\n    <ion-row *ngIf=\"servicesCosts && servicesCosts.addittional.length === 0\">\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b class=\"small\">No se tienen adicionales</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- servicios adicionales  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text class=\"text ion-text-uppercase\">\n          <b>TOTAL</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- costo  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"danger\" class=\"title\">\n          <b *ngIf=\"servicesCosts !== undefined\">${{getTotal()}}</b>\n          <b *ngIf=\"!servicesCosts\" class=\"small\">No se ha asignado un costo</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Costo & pay BTNS-->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>¿Cómo desea pagar?</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"12\" class=\"ion-text-center\">\n        <section>\n          <!-- btn -->\n          <ion-button size=\"small\"\n            [fill]=\"selectedButton === 'credit' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/visa.svg\"></ion-icon>\n            Tarjeta\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('debit')\"  [fill]=\"selectedButton === 'debit' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/mastercard.svg\"></ion-icon>\n            Débito\n          </ion-button>\n          -->\n\n          <!-- btn -->\n          <ion-button size=\"small\"\n            [fill]=\"selectedButton === 'cash' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_dollar_blank.svg\"></ion-icon>\n            Efectivo\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('transfer')\"\n            [fill]=\"selectedButton === 'transfer' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_money_blank.svg\"></ion-icon>\n            Transferencia\n          </ion-button>\n          -->\n\n        </section>\n      </ion-col>\n\n    </ion-row>\n\n    <!-- CONFIRMAR BTN -->\n    <ion-row class=\"ion-margin-top\" *ngIf=\"!isFinished\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col> <!-- [disabled]=\"!servicesCosts\" -->\n        <ion-button  size=\"5\" expand=\"block\" class=\"ion-text-uppercase\"\n          (click)=\"paymentForm()\">\n          PAGAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/solicitud-status\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar text-center\">MÉTODO DE PAGO</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid fixed>\n\n    <!-- OMITIR POR EL MOMENTO BTN -->\n    <ion-row class=\"ion-margin-bottom\" *ngIf=\"loadedService && loadedService.type_request !== 'URGENT'\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" fill=\"outline\" (click)=\"goToReport()\" *ngIf=\"loadedService && loadedService.request_cost.length > 0\">\n          <ion-icon slot=\"start\" name=\"document-text-outline\"></ion-icon>\n          Ver informe de los servicios\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- title  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b>Detalle del pago</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- servicios pactados  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text class=\"text\">\n          <b>Servicios pactados</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- costo  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b *ngIf=\"loadedService && loadedService.request_cost.length > 0\">${{getServiceCost()}}</b>\n          <b *ngIf=\"loadedService && loadedService.request_cost.length == 0\" class=\"small\">Aún no se ha asignado un costo</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- servicios adicionales  -->\n    <ion-row *ngIf=\"loadedService && loadedService.type_request !== 'URGENT'\">\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text class=\"text\">\n          <b>Servicios adicionales</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- costo  -->\n    <ion-row *ngIf=\"servicesCosts && servicesCosts.addittional.length > 0 && loadedService.type_request !== 'URGENT'\">\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b *ngIf=\"servicesCosts\">${{getServiceAditional()}}</b>\n          <b *ngIf=\"!servicesCosts\" class=\"small\">Aún no se ha asignado un costo</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- empty aditionals  -->\n    <ion-row *ngIf=\"servicesCosts && servicesCosts.addittional.length === 0 && loadedService.type_request !== 'URGENT'\">\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"primary\" class=\"title\">\n          <b class=\"small\">No se tienen adicionales</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- servicios adicionales  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text class=\"text ion-text-uppercase\">\n          <b>TOTAL</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- costo  -->\n    <ion-row>\n      <ion-col size=\"11\" offset=\"1\">\n        <ion-text color=\"danger\" class=\"title\">\n          <b *ngIf=\"loadedService && loadedService.request_cost.length > 0\">${{getTotal()}}</b>\n          <b *ngIf=\"loadedService && loadedService.request_cost.length === 0\" class=\"small\">No se ha asignado un costo</b>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Costo & pay BTNS-->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>{{isFinished ? 'Método de pago aplicado' : '¿Cómo desea pagar?'}}</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"12\" class=\"ion-text-center\">\n        <section>\n          <!-- btn -->\n          <ion-button size=\"small\"\n            [fill]=\"selectedButton === 'credit' ? 'solid' : 'outline'\" *ngIf=\"isFinished && selectedButton === 'credit'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/visa.svg\"></ion-icon>\n            Tarjeta\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('debit')\"  [fill]=\"selectedButton === 'debit' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/mastercard.svg\"></ion-icon>\n            Débito\n          </ion-button>\n          -->\n\n          <!-- btn -->\n          <ion-button size=\"small\"\n            [fill]=\"selectedButton === 'cash' ? 'solid' : 'outline'\" *ngIf=\"isFinished && selectedButton === 'cash'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_dollar_blank.svg\"></ion-icon>\n            Efectivo\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('transfer')\"\n            [fill]=\"selectedButton === 'transfer' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_money_blank.svg\"></ion-icon>\n            Transferencia\n          </ion-button>\n          -->\n\n        </section>\n      </ion-col>\n\n    </ion-row>\n\n    <!-- CONFIRMAR BTN -->\n    <ion-row class=\"ion-margin-top\" *ngIf=\"!isFinished\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col> <!-- [disabled]=\"!servicesCosts\" -->\n        <ion-button  size=\"5\" expand=\"block\" class=\"ion-text-uppercase\"\n          (click)=\"paymentForm()\">\n          PAGAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
       /***/
     }
   }]);

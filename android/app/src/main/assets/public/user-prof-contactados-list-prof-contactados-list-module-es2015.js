@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".prof-cont {\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\n}\n\n.titleSelect {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.icon-size {\n  margin-top: -3px;\n  font-size: 20px;\n}\n\n.textSelect {\n  font-size: 12px;\n  line-height: 1.4;\n  margin-bottom: 2px;\n}\n\n.ticket {\n  color: red;\n  font-size: 11px;\n}\n\n.ratingText {\n  font-size: 14px;\n  margin: 0;\n  padding: 0;\n}\n\n.badge-text {\n  font-size: 9px;\n}\n\n.locate-cont {\n  border-radius: 50px;\n  height: 25px;\n  width: 25px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #009ACE;\n}\n\n.rating-text {\n  font-size: 14px;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.footer-text {\n  font-size: 18px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3Byb2YtY29udGFjdGFkb3MtbGlzdC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFFSSx3RUFBQTtBQUFKOztBQUVBO0VBRUksZUFBQTtFQUNBLGlCQUFBO0FBQUo7O0FBRUE7RUFFSSxnQkFBQTtFQUNBLGVBQUE7QUFBSjs7QUFFQTtFQUVJLGVBQUE7RUFDQSxnQkFBQTtFQUNBLGtCQUFBO0FBQUo7O0FBRUE7RUFFSSxVQUFBO0VBQ0EsZUFBQTtBQUFKOztBQUVBO0VBRUksZUFBQTtFQUNBLFNBQUE7RUFDQSxVQUFBO0FBQUo7O0FBRUE7RUFFSSxjQUFBO0FBQUo7O0FBRUE7RUFHSSxtQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0Esb0JBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLHlCQUFBO0FBREo7O0FBR0E7RUFFSSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBQURKOztBQUdBO0VBQ0ksZUFBQTtBQUFKIiwiZmlsZSI6InByb2YtY29udGFjdGFkb3MtbGlzdC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucHJvZi1jb250XG57XG4gICAgYm94LXNoYWRvdzogMCAzcHggNnB4IHJnYmEoMCwgMCwgMCwgMC4xNiksIDAgM3B4IDZweCByZ2JhKDAsIDAsIDAsIDAuMjMpO1xufVxuLnRpdGxlU2VsZWN0XG57XG4gICAgZm9udC1zaXplOiAxNnB4O1xuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xufVxuLmljb24tc2l6ZVxue1xuICAgIG1hcmdpbi10b3A6IC0zcHg7XG4gICAgZm9udC1zaXplOiAyMHB4O1xufVxuLnRleHRTZWxlY3RcbntcbiAgICBmb250LXNpemU6IDEycHg7XG4gICAgbGluZS1oZWlnaHQ6IDEuNDtcbiAgICBtYXJnaW4tYm90dG9tOiAycHg7XG59XG4udGlja2V0XG57XG4gICAgY29sb3I6IHJlZDtcbiAgICBmb250LXNpemU6IDExcHg7XG59XG4ucmF0aW5nVGV4dFxue1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICBtYXJnaW46IDA7XG4gICAgcGFkZGluZzogMDtcbn1cbi5iYWRnZS10ZXh0XG57XG4gICAgZm9udC1zaXplOiA5cHg7XG59XG4ubG9jYXRlLWNvbnRcbntcbiAgICAvLyBtYXJnaW4tdG9wOiAyMHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gICAgaGVpZ2h0OiAyNXB4O1xuICAgIHdpZHRoOiAyNXB4O1xuICAgIGRpc3BsYXk6IGlubGluZS1mbGV4O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA5QUNFO1xufVxuLnJhdGluZy10ZXh0XG57XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbn1cbi5mb290ZXItdGV4dHtcbiAgICBmb250LXNpemU6IDE4cHg7XG4gIH0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = (".prof-cont {\n  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);\n}\n\n.titleSelect {\n  font-size: 16px;\n  font-weight: bold;\n}\n\n.icon-size {\n  margin-top: -3px;\n  font-size: 20px;\n}\n\n.textSelect {\n  font-size: 12px;\n  line-height: 1.4;\n  margin-bottom: 2px;\n}\n\n.ticket {\n  color: red;\n  font-size: 11px;\n}\n\n.ratingText {\n  font-size: 14px;\n  margin: 0;\n  padding: 0;\n}\n\n.badge-text {\n  font-size: 9px;\n}\n\n.locate-cont {\n  border-radius: 50px;\n  height: 25px;\n  width: 25px;\n  display: inline-flex;\n  align-items: center;\n  text-align: center;\n  margin-left: auto;\n  margin-right: auto;\n  background-color: #009ace;\n}\n\n.rating-text {\n  font-size: 14px;\n  margin-left: auto;\n  margin-right: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uL3Byb2YtY29udGFjdGFkb3MtbGlzdC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSx3RUFBQTtBQUNKOztBQUNBO0VBQ0ksZUFBQTtFQUNBLGlCQUFBO0FBRUo7O0FBQUE7RUFDSSxnQkFBQTtFQUNBLGVBQUE7QUFHSjs7QUFEQTtFQUNJLGVBQUE7RUFDQSxnQkFBQTtFQUNBLGtCQUFBO0FBSUo7O0FBRkE7RUFDSSxVQUFBO0VBQ0EsZUFBQTtBQUtKOztBQUhBO0VBQ0ksZUFBQTtFQUNBLFNBQUE7RUFDQSxVQUFBO0FBTUo7O0FBSkE7RUFDSSxjQUFBO0FBT0o7O0FBTEE7RUFFSSxtQkFBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0Esb0JBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtFQUNBLHlCQUFBO0FBT0o7O0FBTEE7RUFDSSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBQVFKIiwiZmlsZSI6InByb2YtY29udGFjdGFkb3MtbGlzdC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucHJvZi1jb250IHtcbiAgICBib3gtc2hhZG93OiAwIDNweCA2cHggcmdiYSgwLCAwLCAwLCAwLjE2KSwgMCAzcHggNnB4IHJnYmEoMCwgMCwgMCwgMC4yMyk7XG59XG4udGl0bGVTZWxlY3Qge1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbn1cbi5pY29uLXNpemUge1xuICAgIG1hcmdpbi10b3A6IC0zcHg7XG4gICAgZm9udC1zaXplOiAyMHB4O1xufVxuLnRleHRTZWxlY3Qge1xuICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICBsaW5lLWhlaWdodDogMS40O1xuICAgIG1hcmdpbi1ib3R0b206IDJweDtcbn1cbi50aWNrZXQge1xuICAgIGNvbG9yOiByZWQ7XG4gICAgZm9udC1zaXplOiAxMXB4O1xufVxuLnJhdGluZ1RleHQge1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICBtYXJnaW46IDA7XG4gICAgcGFkZGluZzogMDtcbn1cbi5iYWRnZS10ZXh0IHtcbiAgICBmb250LXNpemU6IDlweDtcbn1cbi5sb2NhdGUtY29udCB7XG4gICAgLy8gbWFyZ2luLXRvcDogMjBweDtcbiAgICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICAgIGhlaWdodDogMjVweDtcbiAgICB3aWR0aDogMjVweDtcbiAgICBkaXNwbGF5OiBpbmxpbmUtZmxleDtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBtYXJnaW4tbGVmdDogYXV0bztcbiAgICBtYXJnaW4tcmlnaHQ6IGF1dG87XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwOWFjZTtcbn1cbi5yYXRpbmctdGV4dCB7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xuICAgIG1hcmdpbi1yaWdodDogYXV0bztcbn1cbiJdfQ== */");
 
 /***/ }),
 
@@ -109,9 +109,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "tyNb");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
-/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
-/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment */ "wd/R");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+
 
 
 
@@ -133,29 +136,33 @@ let ProfContactadosListPage = class ProfContactadosListPage {
         this.sortedServices = [];
     }
     ngOnInit() {
-        this.userSub = this.us.loggedUser.subscribe(user => {
+        this.userSub = this.us.loggedUser.subscribe((user) => {
             this.grabbedUser = user;
         });
     }
     ionViewWillEnter() {
-        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-        this.menuController.enable(true, 'user');
+        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set("Authorization", "Bearer " + this.grabbedUser.access_token);
+        this.menuController.enable(true, "user");
         this.sortedServices = [];
         this.loadServices();
     }
     loadServices() {
-        this.lc.create({
-            message: "Cargando lista de servicios..."
-        }).then(loadingEl => {
+        this.lc
+            .create({
+            message: "Cargando lista de servicios...",
+        })
+            .then((loadingEl) => {
             loadingEl.present();
-            this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/client/requestservices', { headers: this.headers })
-                .subscribe(resData => {
+            this.http
+                .get(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + "/client/requestservices", { headers: this.headers })
+                .subscribe((resData) => {
                 loadingEl.dismiss();
-                this.loadedServices = resData['data'];
+                this.loadedServices = resData["data"];
                 let prof = [];
-                this.loadedServices.forEach(i => {
+                this.loadedServices = this.loadedServices.sort(this.sortByCreatedDate);
+                this.loadedServices.forEach((i) => {
                     let go = true;
-                    prof.forEach(p => {
+                    prof.forEach((p) => {
                         if (p === i.supplier_id) {
                             go = false;
                         }
@@ -165,35 +172,49 @@ let ProfContactadosListPage = class ProfContactadosListPage {
                         this.sortedServices.push(i);
                     }
                 });
-            }, err => {
+            }, (err) => {
                 console.log(err);
                 loadingEl.dismiss();
             });
         });
     }
     p(passingDate) {
-        let woDate = passingDate.split(" ");
-        return woDate[0];
+        return moment__WEBPACK_IMPORTED_MODULE_7___default.a.utc(passingDate, 'DD/MM/YYYY hh:mm:ss').startOf('minute').fromNow();
     }
     openMenu() {
         this.menuController.open();
     }
     solicitudes(profId) {
         this.solServ.setProfId(profId);
-        this.router.navigate(['/user/single-prof-services']);
+        this.router.navigate(["/user/single-prof-services"]);
+    }
+    sortByCreatedDate(a, b) {
+        let firstDate = moment__WEBPACK_IMPORTED_MODULE_7___default.a
+            .utc(a.created_date, "DD/MM/YYYY HH:mm:ss")
+            .tz(moment__WEBPACK_IMPORTED_MODULE_7___default.a.tz.guess());
+        let secondDate = moment__WEBPACK_IMPORTED_MODULE_7___default.a
+            .utc(b.created_date, "DD/MM/YYYY HH:mm:ss")
+            .tz(moment__WEBPACK_IMPORTED_MODULE_7___default.a.tz.guess());
+        if (firstDate > secondDate) {
+            return -1;
+        }
+        if (firstDate < secondDate) {
+            return 1;
+        }
+        return 0;
     }
 };
 ProfContactadosListPage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"] },
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
-    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"] },
-    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"] }
+    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__["SolicitudService"] }
 ];
 ProfContactadosListPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
-        selector: 'app-prof-contactados-list',
+        selector: "app-prof-contactados-list",
         template: _raw_loader_prof_contactados_list_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_prof_contactados_list_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
     })

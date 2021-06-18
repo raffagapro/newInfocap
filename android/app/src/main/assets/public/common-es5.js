@@ -450,6 +450,7 @@
 
           this.modalController = modalController;
           this.router = router;
+          this.secondMessage = undefined;
           this.redirect = true;
           this.redirectUrl = '/login';
         }
@@ -503,7 +504,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content class=\"success-modal\">\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row>\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\"><b>{{message || 'SE HA ENVIADO EL CORREO EXITOSAMENTE'}}</b>\n          </ion-text>\n          <br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content class=\"success-modal\">\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row>\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color status-text\"><b>{{message || 'SE HA ENVIADO EL CORREO EXITOSAMENTE'}}</b>\n          </ion-text>\n          <br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\" *ngIf=\"secondMessage !== undefined\">\n          <ion-text class=\"main-color mini-text\">{{secondMessage}}</ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n\n  </ion-grid>\n</ion-content>";
       /***/
     },
 

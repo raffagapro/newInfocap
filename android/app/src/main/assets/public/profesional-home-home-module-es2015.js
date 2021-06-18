@@ -40,7 +40,7 @@ const routes = [
                 path: 'solicitudes', children: [
                     {
                         path: '',
-                        loadChildren: () => Promise.all(/*! import() | solicitudes-solicitudes-module */[__webpack_require__.e("default~agendados-agendados-module~finalizados-finalizados-module~solicitudes-solicitudes-module"), __webpack_require__.e("solicitudes-solicitudes-module")]).then(__webpack_require__.bind(null, /*! ./solicitudes/solicitudes.module */ "tQ1+")).then(m => m.SolicitudesPageModule),
+                        loadChildren: () => Promise.all(/*! import() | solicitudes-solicitudes-module */[__webpack_require__.e("default~agendados-agendados-module~finalizados-finalizados-module~profesional-notificaciones-notific~62cb1172"), __webpack_require__.e("solicitudes-solicitudes-module")]).then(__webpack_require__.bind(null, /*! ./solicitudes/solicitudes.module */ "tQ1+")).then(m => m.SolicitudesPageModule),
                     },
                 ]
             },
@@ -48,7 +48,7 @@ const routes = [
                 path: 'agendados', children: [
                     {
                         path: '',
-                        loadChildren: () => Promise.all(/*! import() | agendados-agendados-module */[__webpack_require__.e("default~agendados-agendados-module~finalizados-finalizados-module~solicitudes-solicitudes-module"), __webpack_require__.e("agendados-agendados-module")]).then(__webpack_require__.bind(null, /*! ./agendados/agendados.module */ "hPVO")).then(m => m.AgendadosPageModule),
+                        loadChildren: () => Promise.all(/*! import() | agendados-agendados-module */[__webpack_require__.e("default~agendados-agendados-module~finalizados-finalizados-module~profesional-notificaciones-notific~62cb1172"), __webpack_require__.e("agendados-agendados-module")]).then(__webpack_require__.bind(null, /*! ./agendados/agendados.module */ "hPVO")).then(m => m.AgendadosPageModule),
                     },
                 ]
             },
@@ -56,7 +56,7 @@ const routes = [
                 path: 'finalizados', children: [
                     {
                         path: '',
-                        loadChildren: () => Promise.all(/*! import() | finalizados-finalizados-module */[__webpack_require__.e("default~agendados-agendados-module~finalizados-finalizados-module~solicitudes-solicitudes-module"), __webpack_require__.e("finalizados-finalizados-module")]).then(__webpack_require__.bind(null, /*! ./finalizados/finalizados.module */ "1xSf")).then(m => m.FinalizadosPageModule),
+                        loadChildren: () => Promise.all(/*! import() | finalizados-finalizados-module */[__webpack_require__.e("default~agendados-agendados-module~finalizados-finalizados-module~profesional-notificaciones-notific~62cb1172"), __webpack_require__.e("finalizados-finalizados-module")]).then(__webpack_require__.bind(null, /*! ./finalizados/finalizados.module */ "1xSf")).then(m => m.FinalizadosPageModule),
                     },
                 ]
             },
