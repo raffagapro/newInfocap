@@ -103,7 +103,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         loadingEl.dismiss();
       })
 
-      axios.get(API + `/client/detailcostrequest/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
+      axios.get(API + `/supplier/detailcostrequest/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
         this.solicitudServicio.setCosto(resData.data.data);
       })
 
