@@ -91,7 +91,9 @@
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
             </ion-label>
             <ion-datetime
+            cancel-text="Cancelar" done-text="Listo"
             dayShortNames="Domingo,Lunes,Martes,Miércoles,Jueves,Viernes,Sábado" 
+            max="{{ loadedInfo.type === 'URGENT' ? maxDate : undefined }}"
             monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" 
             [min]="minDate" formControlName="dateReq" display-format="DDD D de MMM de YYYY">
             </ion-datetime>
@@ -125,7 +127,7 @@
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora final</ion-text>
             </ion-label>
-            <ion-datetime formControlName="eHour" display-format="h:mm A" picker-format="h:mm A">
+            <ion-datetime  minuteValues="0,10,20,30,40,50" cancel-text="Cancelar" done-text="Listo"  formControlName="eHour" display-format="h:mm A" picker-format="h:mm A">
             </ion-datetime>
           </ion-item>
         </ion-col>
