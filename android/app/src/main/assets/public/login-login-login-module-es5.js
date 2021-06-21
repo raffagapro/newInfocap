@@ -101,9 +101,15 @@
 
 
       var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
+      /* harmony import */
+
+
+      var src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! src/app/services/notifications-service */
+      "wBcA");
 
       var LoginPage = /*#__PURE__*/function () {
-        function LoginPage(navController, router, http, as, us, lc) {
+        function LoginPage(navController, router, http, as, us, lc, notificationService) {
           _classCallCheck(this, LoginPage);
 
           this.navController = navController;
@@ -112,6 +118,7 @@
           this.as = as;
           this.us = us;
           this.lc = lc;
+          this.notificationService = notificationService;
           this.passwordTypeInput = 'password';
         }
 
@@ -179,10 +186,12 @@
                           this.router.navigate(['/user/home'], {
                             replaceUrl: true
                           });
+                          this.loadNotifications('client');
                         } else {
                           this.router.navigate(['/profesional/home'], {
                             replaceUrl: true
                           });
+                          this.loadNotifications('supplier');
                         }
                       } else {
                         errorMessage = message === 'Unauthorized' ? 'Credenciales inválidas' : 'Ocurrió un error';
@@ -222,6 +231,48 @@
                   }
                 }
               }, _callee, this, [[8, 18]]);
+            }));
+          }
+        }, {
+          key: "loadNotifications",
+          value: function loadNotifications(type) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var response, data, notificationsData;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.prev = 0;
+                      _context2.next = 3;
+                      return axios__WEBPACK_IMPORTED_MODULE_11___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/").concat(type, "/notification"), {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.grabbedUSer.access_token)
+                        }
+                      });
+
+                    case 3:
+                      response = _context2.sent;
+                      data = response.data;
+                      notificationsData = data.data;
+                      this.notificationService.setNotifications(notificationsData);
+                      _context2.next = 12;
+                      break;
+
+                    case 9:
+                      _context2.prev = 9;
+                      _context2.t0 = _context2["catch"](0);
+                      console.log(_context2.t0);
+
+                    case 12:
+                      _context2.prev = 12;
+                      return _context2.finish(12);
+
+                    case 14:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this, [[0, 9, 12, 14]]);
             }));
           }
         }, {
@@ -270,6 +321,8 @@
           type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
+        }, {
+          type: src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_12__["NotificationsService"]
         }];
       };
 

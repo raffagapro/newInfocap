@@ -72,7 +72,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
 /* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/environments/environment */ "AytR");
-/* harmony import */ var _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./confirm-success-modal/confirm-success-modal.component */ "E1bO");
+/* harmony import */ var src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/shared/success-modal/success-modal.component */ "W/u7");
 
 
 
@@ -96,15 +96,15 @@ let EvalProfPage = class EvalProfPage {
         this.location = location;
         this.selectedIcons = [];
         this.currentRate = 1;
-        this.comment_bad_services = '';
+        this.comment_bad_services = "";
     }
     ngOnInit() {
-        this.userSub = this.userService.loggedUser.subscribe(user => {
+        this.userSub = this.userService.loggedUser.subscribe((user) => {
             this.grabbedUser = user;
         });
     }
     ionViewWillEnter() {
-        this.menuController.enable(true, 'user');
+        this.menuController.enable(true, "user");
     }
     openMenu() {
         this.menuController.open();
@@ -126,14 +126,18 @@ let EvalProfPage = class EvalProfPage {
     rateProfessional() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             try {
-                let loader = yield this.loadingController.create({ message: 'Enviando calificación...' });
+                let loader = yield this.loadingController.create({
+                    message: "Enviando calificación...",
+                });
                 loader.present();
                 let body = {
                     request_services_id: this.requestService.solicitud.solicitudID,
-                    technical_capacity: this.selectedIcons.includes('engine') ? '1' : '0',
-                    puntuality: this.selectedIcons.includes('time') ? '1' : '0',
-                    cordiality: this.selectedIcons.includes('heart') ? '1' : '0',
-                    service_and_satisfaction: this.selectedIcons.includes('diamond') ? '1' : '0',
+                    technical_capacity: this.selectedIcons.includes("engine") ? "1" : "0",
+                    puntuality: this.selectedIcons.includes("time") ? "1" : "0",
+                    cordiality: this.selectedIcons.includes("heart") ? "1" : "0",
+                    service_and_satisfaction: this.selectedIcons.includes("diamond")
+                        ? "1"
+                        : "0",
                     stars: this.currentRate.toString(),
                     comment: this.comment,
                     comment_bad_services: this.comment_bad_services,
@@ -141,11 +145,11 @@ let EvalProfPage = class EvalProfPage {
                 let response = yield axios__WEBPACK_IMPORTED_MODULE_7___default.a.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/supplier/evaluation`, body, {
                     headers: {
                         Authorization: `Bearer ${this.grabbedUser.access_token}`,
-                    }
+                    },
                 });
                 yield loader.dismiss();
                 if (response.data && response.data.code && response.data.code !== 200) {
-                    this.error = 'Ocurrió un error al enviar la calificación';
+                    this.error = "Ocurrió un error al enviar la calificación";
                 }
                 else {
                     this.confirmRequest();
@@ -153,15 +157,22 @@ let EvalProfPage = class EvalProfPage {
             }
             catch (error) {
                 console.log(error);
-                this.error = 'Ocurrió un error al enviar la calificación.';
+                this.error = "Ocurrió un error al enviar la calificación.";
             }
         });
     }
     confirmRequest() {
-        this.modalController.create({
-            component: _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["ConfirmSuccessModalComponent"],
-            cssClass: 'modalSuccess',
-        }).then(modalEl => {
+        this.modalController
+            .create({
+            component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
+            componentProps: {
+                message: "¡GRACIAS POR TU EVALUACIÓN!",
+                redirect: true,
+                redirectUrl: "/user/solicitudes",
+            },
+            cssClass: "modalSuccess",
+        })
+            .then((modalEl) => {
             modalEl.present();
         });
     }
@@ -180,7 +191,7 @@ EvalProfPage.ctorParameters = () => [
 ];
 EvalProfPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-eval-prof',
+        selector: "app-eval-prof",
         template: _raw_loader_eval_prof_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_eval_prof_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
     })

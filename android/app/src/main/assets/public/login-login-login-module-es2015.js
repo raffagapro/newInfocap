@@ -23,6 +23,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/environments/environment */ "AytR");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! axios */ "vDqi");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/services/notifications-service */ "wBcA");
+
 
 
 
@@ -36,13 +38,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let LoginPage = class LoginPage {
-    constructor(navController, router, http, as, us, lc) {
+    constructor(navController, router, http, as, us, lc, notificationService) {
         this.navController = navController;
         this.router = router;
         this.http = http;
         this.as = as;
         this.us = us;
         this.lc = lc;
+        this.notificationService = notificationService;
         this.passwordTypeInput = 'password';
     }
     ngOnInit() {
@@ -84,9 +87,11 @@ let LoginPage = class LoginPage {
                     loader.dismiss();
                     if (roles[0] === 'usuario') {
                         this.router.navigate(['/user/home'], { replaceUrl: true });
+                        this.loadNotifications('client');
                     }
                     else {
                         this.router.navigate(['/profesional/home'], { replaceUrl: true });
+                        this.loadNotifications('supplier');
                     }
                 }
                 else {
@@ -113,6 +118,25 @@ let LoginPage = class LoginPage {
                     password: '',
                 });
                 loader.dismiss();
+            }
+        });
+    }
+    loadNotifications(type) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            try {
+                let response = yield axios__WEBPACK_IMPORTED_MODULE_11___default.a.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/${type}/notification`, {
+                    headers: {
+                        Authorization: `Bearer ${this.grabbedUSer.access_token}`
+                    }
+                });
+                const { data } = response;
+                const { data: notificationsData } = data;
+                this.notificationService.setNotifications(notificationsData);
+            }
+            catch (error) {
+                console.log(error);
+            }
+            finally {
             }
         });
     }
@@ -144,7 +168,8 @@ LoginPage.ctorParameters = () => [
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"] },
     { type: src_app_services_auth_service__WEBPACK_IMPORTED_MODULE_7__["AuthService"] },
     { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
+    { type: src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_12__["NotificationsService"] }
 ];
 LoginPage.propDecorators = {
     passwordEye: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"], args: ['passwordEyeRegister', { read: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ElementRef"] },] }]

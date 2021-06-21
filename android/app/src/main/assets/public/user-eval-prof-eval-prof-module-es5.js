@@ -178,9 +178,9 @@
       /* harmony import */
 
 
-      var _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
-      /*! ./confirm-success-modal/confirm-success-modal.component */
-      "E1bO");
+      var src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      /*! src/app/shared/success-modal/success-modal.component */
+      "W/u7");
 
       var EvalProfPage = /*#__PURE__*/function () {
         function EvalProfPage(modalController, router, userService, menuController, requestService, loadingController, location) {
@@ -195,7 +195,7 @@
           this.location = location;
           this.selectedIcons = [];
           this.currentRate = 1;
-          this.comment_bad_services = '';
+          this.comment_bad_services = "";
         }
 
         _createClass(EvalProfPage, [{
@@ -210,7 +210,7 @@
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
-            this.menuController.enable(true, 'user');
+            this.menuController.enable(true, "user");
           }
         }, {
           key: "openMenu",
@@ -250,7 +250,7 @@
                       _context.prev = 0;
                       _context.next = 3;
                       return this.loadingController.create({
-                        message: 'Enviando calificación...'
+                        message: "Enviando calificación..."
                       });
 
                     case 3:
@@ -258,10 +258,10 @@
                       loader.present();
                       body = {
                         request_services_id: this.requestService.solicitud.solicitudID,
-                        technical_capacity: this.selectedIcons.includes('engine') ? '1' : '0',
-                        puntuality: this.selectedIcons.includes('time') ? '1' : '0',
-                        cordiality: this.selectedIcons.includes('heart') ? '1' : '0',
-                        service_and_satisfaction: this.selectedIcons.includes('diamond') ? '1' : '0',
+                        technical_capacity: this.selectedIcons.includes("engine") ? "1" : "0",
+                        puntuality: this.selectedIcons.includes("time") ? "1" : "0",
+                        cordiality: this.selectedIcons.includes("heart") ? "1" : "0",
+                        service_and_satisfaction: this.selectedIcons.includes("diamond") ? "1" : "0",
                         stars: this.currentRate.toString(),
                         comment: this.comment,
                         comment_bad_services: this.comment_bad_services
@@ -280,7 +280,7 @@
 
                     case 11:
                       if (response.data && response.data.code && response.data.code !== 200) {
-                        this.error = 'Ocurrió un error al enviar la calificación';
+                        this.error = "Ocurrió un error al enviar la calificación";
                       } else {
                         this.confirmRequest();
                       }
@@ -292,7 +292,7 @@
                       _context.prev = 14;
                       _context.t0 = _context["catch"](0);
                       console.log(_context.t0);
-                      this.error = 'Ocurrió un error al enviar la calificación.';
+                      this.error = "Ocurrió un error al enviar la calificación.";
 
                     case 18:
                     case "end":
@@ -306,8 +306,13 @@
           key: "confirmRequest",
           value: function confirmRequest() {
             this.modalController.create({
-              component: _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["ConfirmSuccessModalComponent"],
-              cssClass: 'modalSuccess'
+              component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
+              componentProps: {
+                message: "¡GRACIAS POR TU EVALUACIÓN!",
+                redirect: true,
+                redirectUrl: "/user/solicitudes"
+              },
+              cssClass: "modalSuccess"
             }).then(function (modalEl) {
               modalEl.present();
             });
@@ -341,7 +346,7 @@
       };
 
       EvalProfPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-eval-prof',
+        selector: "app-eval-prof",
         template: _raw_loader_eval_prof_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_eval_prof_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], EvalProfPage);

@@ -102,7 +102,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/solicitudes\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">{{ isInProcess() ? 'TRABAJO EN PROCESO' : 'TRABAJO AGENDADO'}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- profesional card item -->\n  <div class=\"no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"{{ loadedService.img_profile || '/assets/images/avatar.png'}}\" />\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"6\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">{{loadedService.categoryName}} de {{loadedService.supplierName}}\n              {{loadedService.supplierLastName}}</span><br>\n            <p class=\"main-color mini-text\" style=\"margin-top: 0; margin-bottom: 0;\">\n              {{formatDate(loadedService.created_date, 'DD/MM/YYYY', true)}}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Trabajo a realizar</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"titleText\">\n          {{loadedService.description}}\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Slider -->\n    <ion-row class=\"\" *ngIf=\"loadedService.img_request.length > 0\">\n      <ion-col size=\"12\">\n        <ion-slides [options]=\"slideOptions\">\n          <!-- slide -->\n          <ion-slide *ngFor=\"let image of loadedService.img_request\">\n            <img (click)=\"openImage(image.image)\" src=\"{{ image.image }}\" class=\"imgSlide\">\n          </ion-slide>\n\n        </ion-slides>\n      </ion-col>\n    </ion-row>\n\n    <br /><br />\n\n    <!-- Fecha de visita -->\n    <ion-row class=\"minusMargin\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Fecha de requerida</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\"> {{formatDate(loadedService.date_required)}}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Rango de horas -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Rango de horas</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\"> {{formatTime()}}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Costo -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Costo</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_money.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\" *ngIf=\"loadedService && loadedService.request_cost.length > 0\"> ${{getServiceCost()}}</ion-text>\n        <ion-text class=\"subText\" *ngIf=\"loadedService && loadedService.request_cost.length == 0\"> No se ha asignado un Costo</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Costo & pay BTNS-->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>¿Cómo desea pagar?</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"12\" class=\"ion-text-center\">\n        <section>\n          <!-- btn -->\n          <ion-button size=\"small\" (click)=\"setSelectedButton('credit')\"\n            [fill]=\"selectedButton === 'credit' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/visa.svg\"></ion-icon>\n            Tarjeta\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('debit')\"  [fill]=\"selectedButton === 'debit' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/mastercard.svg\"></ion-icon>\n            Débito\n          </ion-button>\n          -->\n\n          <!-- btn -->\n          <ion-button size=\"small\" (click)=\"setSelectedButton('cash')\"\n            [fill]=\"selectedButton === 'cash' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_dollar_blank.svg\"></ion-icon>\n            Efectivo\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('transfer')\"\n            [fill]=\"selectedButton === 'transfer' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_money_blank.svg\"></ion-icon>\n            Transferencia\n          </ion-button>\n          --> \n\n        </section>\n      </ion-col>\n\n    </ion-row>\n\n    <!-- enviar solicitud BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\" *ngIf=\"loadedService && loadedService.request_cost.length === 0\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"confirmSolicitud()\">\n          ACEPTAR VISITA\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/solicitudes\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">{{ isInProcess() ? 'TRABAJO EN PROCESO' : 'TRABAJO AGENDADO'}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- profesional card item -->\n  <div class=\"no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"{{ loadedService.img_profile || '/assets/images/avatar.png'}}\" />\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"6\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">{{loadedService.categoryName}} de {{loadedService.supplierName}}\n              {{loadedService.supplierLastName}}</span><br>\n            <p class=\"main-color mini-text\" style=\"margin-top: 0; margin-bottom: 0;\">\n              {{formatDate(loadedService.created_date, 'DD/MM/YYYY HH:mm:ss', true)}}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Trabajo a realizar</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"titleText\">\n          {{loadedService.description}}\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Slider -->\n    <ion-row class=\"\" *ngIf=\"loadedService.img_request.length > 0\">\n      <ion-col size=\"12\">\n        <ion-slides [options]=\"slideOptions\">\n          <!-- slide -->\n          <ion-slide *ngFor=\"let image of loadedService.img_request\">\n            <img (click)=\"openImage(image.image)\" src=\"{{ image.image }}\" class=\"imgSlide\">\n          </ion-slide>\n\n        </ion-slides>\n      </ion-col>\n    </ion-row>\n\n    <br /><br />\n\n    <!-- Fecha de visita -->\n    <ion-row class=\"minusMargin\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Fecha agendada</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\"> {{formatDate(loadedService.date_required, 'DD/MM/YYYY')}}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Rango de horas -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Rango de horas</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\"> {{formatTime()}}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Costo -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Costo</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_money.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\" *ngIf=\"loadedService && loadedService.request_cost.length > 0\"> ${{getServiceCost()}}</ion-text>\n        <ion-text class=\"subText\" *ngIf=\"loadedService && loadedService.request_cost.length == 0\"> No se ha asignado un Costo</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Costo & pay BTNS-->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>¿Cómo desea pagar?</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"12\" class=\"ion-text-center\">\n        <section>\n          <!-- btn -->\n          <ion-button size=\"small\" (click)=\"setPaymentType('credit')\"\n            [fill]=\"selectedButton === 'credit' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/visa.svg\"></ion-icon>\n            Tarjeta\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('debit')\"  [fill]=\"selectedButton === 'debit' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/mastercard.svg\"></ion-icon>\n            Débito\n          </ion-button>\n          -->\n\n          <!-- btn -->\n          <ion-button size=\"small\" (click)=\"setPaymentType('cash')\"\n            [fill]=\"selectedButton === 'cash' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_dollar_blank.svg\"></ion-icon>\n            Efectivo\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('transfer')\"\n            [fill]=\"selectedButton === 'transfer' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_money_blank.svg\"></ion-icon>\n            Transferencia\n          </ion-button>\n          --> \n\n        </section>\n      </ion-col>\n\n    </ion-row>\n\n    <!-- enviar solicitud BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\" *ngIf=\"loadedService && loadedService.request_cost.length === 0\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"confirmSolicitud()\">\n          ACEPTAR VISITA\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -543,21 +543,123 @@
             }));
           }
         }, {
-          key: "setSelectedButton",
-          value: function setSelectedButton(type) {
-            if (this.loadedService.request_cost.length > 0) return;
-            this.selectedButton = type;
-          }
-        }, {
-          key: "openImage",
-          value: function openImage(image) {
+          key: "setPaymentType",
+          value: function setPaymentType(type) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-              var successModal;
+              var loader, payment_type, response;
               return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
                   switch (_context4.prev = _context4.next) {
                     case 0:
                       _context4.next = 2;
+                      return this.loadingController.create({
+                        message: 'Actualizando método de pago...'
+                      });
+
+                    case 2:
+                      loader = _context4.sent;
+                      loader.present();
+                      _context4.prev = 4;
+                      _context4.t0 = type;
+                      _context4.next = _context4.t0 === 'credit' ? 8 : _context4.t0 === 'cash' ? 10 : 12;
+                      break;
+
+                    case 8:
+                      payment_type = this.paymentTypes.find(function (entry) {
+                        return entry.name === 'Tarjeta';
+                      });
+                      return _context4.abrupt("break", 13);
+
+                    case 10:
+                      payment_type = this.paymentTypes.find(function (entry) {
+                        return entry.name === 'Efectivo';
+                      });
+                      return _context4.abrupt("break", 13);
+
+                    case 12:
+                      return _context4.abrupt("return");
+
+                    case 13:
+                      if (payment_type) {
+                        _context4.next = 15;
+                        break;
+                      }
+
+                      return _context4.abrupt("return");
+
+                    case 15:
+                      _context4.next = 17;
+                      return axios__WEBPACK_IMPORTED_MODULE_10___default.a.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"], "/client/cost/paymentType/").concat(this.loadedService.request_id), {
+                        costs_type_id: 1,
+                        payment_type_id: payment_type.id,
+                        description: 'Actualización del método de pago'
+                      }, {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.user.access_token)
+                        }
+                      });
+
+                    case 17:
+                      response = _context4.sent;
+                      _context4.next = 20;
+                      return loader.dismiss();
+
+                    case 20:
+                      console.log(response);
+
+                      if (!(response.data && response.data.code !== 200)) {
+                        _context4.next = 23;
+                        break;
+                      }
+
+                      return _context4.abrupt("return");
+
+                    case 23:
+                      this.selectedButton = type;
+                      this.modalController.create({
+                        component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
+                        componentProps: {
+                          message: 'HAZ ACTUALIZADO EL MÉTODO DE PAGO',
+                          redirect: false
+                        },
+                        cssClass: 'modalSuccess'
+                      }).then(function (modalEl) {
+                        modalEl.present();
+                      });
+                      _context4.next = 32;
+                      break;
+
+                    case 27:
+                      _context4.prev = 27;
+                      _context4.t1 = _context4["catch"](4);
+                      console.log(_context4.t1);
+                      _context4.next = 32;
+                      return loader.dismiss();
+
+                    case 32:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this, [[4, 27]]);
+            }));
+          }
+        }, {
+          key: "setSelectedButton",
+          value: function setSelectedButton(type) {
+            //if (this.loadedService.request_cost.length > 0) return;
+            this.selectedButton = type;
+          }
+        }, {
+          key: "openImage",
+          value: function openImage(image) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var successModal;
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      _context5.next = 2;
                       return this.modalController.create({
                         component: src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_12__["ImageModalComponent"],
                         componentProps: {
@@ -567,15 +669,15 @@
                       });
 
                     case 2:
-                      successModal = _context4.sent;
+                      successModal = _context5.sent;
                       successModal.present();
 
                     case 4:
                     case "end":
-                      return _context4.stop();
+                      return _context5.stop();
                   }
                 }
-              }, _callee4, this);
+              }, _callee5, this);
             }));
           }
         }]);

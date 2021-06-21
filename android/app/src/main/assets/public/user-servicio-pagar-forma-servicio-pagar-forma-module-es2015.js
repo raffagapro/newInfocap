@@ -112,7 +112,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
 /* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/environments/environment */ "AytR");
-/* harmony import */ var _pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pago-exitoso-modal/pago-exitoso-modal.component */ "2dcQ");
+/* harmony import */ var src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/shared/success-modal/success-modal.component */ "W/u7");
 
 
 
@@ -132,12 +132,12 @@ let ServicioPagarFormaPage = class ServicioPagarFormaPage {
         this.solServ = solServ;
     }
     ngOnInit() {
-        this.userSubscription = this.userService.loggedUser.subscribe(user => {
+        this.userSubscription = this.userService.loggedUser.subscribe((user) => {
             this.user = user;
         });
     }
     ionViewWillEnter() {
-        this.menuController.enable(true, 'user');
+        this.menuController.enable(true, "user");
     }
     openMenu() {
         this.menuController.open();
@@ -149,12 +149,12 @@ let ServicioPagarFormaPage = class ServicioPagarFormaPage {
                     request_service_id: 1,
                     payment_type_id: 1,
                     grossamount: 1,
-                    comment: '',
+                    comment: "",
                 };
                 let response = yield axios__WEBPACK_IMPORTED_MODULE_5___default.a.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"]}/client/payment`, body, {
                     headers: {
-                        Authorization: `Bearer ${this.user.access_token}`
-                    }
+                        Authorization: `Bearer ${this.user.access_token}`,
+                    },
                 });
                 console.log(response);
             }
@@ -164,10 +164,18 @@ let ServicioPagarFormaPage = class ServicioPagarFormaPage {
         });
     }
     submitPayment() {
-        this.modalController.create({
-            component: _pago_exitoso_modal_pago_exitoso_modal_component__WEBPACK_IMPORTED_MODULE_9__["PagoExitosoModalComponent"],
-            cssClass: 'modalSuccess',
-        }).then(modalEl => {
+        this.modalController
+            .create({
+            component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_9__["SuccessModalComponent"],
+            componentProps: {
+                message: "¡EL PAGO HA SIDO EXISTOSO!",
+                secondMessage: "Recuerda evaluar el servicio.",
+                redirect: true,
+                redirectUrl: "/user/seval-prof",
+            },
+            cssClass: "modalSuccess",
+        })
+            .then((modalEl) => {
             modalEl.present();
         });
     }
@@ -181,7 +189,7 @@ ServicioPagarFormaPage.ctorParameters = () => [
 ];
 ServicioPagarFormaPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-servicio-pagar-forma',
+        selector: "app-servicio-pagar-forma",
         template: _raw_loader_servicio_pagar_forma_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_servicio_pagar_forma_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
     })
