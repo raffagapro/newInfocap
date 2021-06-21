@@ -17,6 +17,7 @@ import { ConfirmServComponent } from './confirm-serv/confirm-serv.component';
 export class DefinicionServicioPage implements OnInit, OnDestroy {
   showError = false;
   minDate = moment().format('YYYY-MM-DD');
+  maxDate = moment().add('hour', 24).format('YYYY-MM-DD');
   grabbedUser: User;
   userSub: Subscription;
   headers: String;

@@ -89,6 +89,7 @@
               <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color"></ion-icon>
             </ion-label>
             <ion-datetime dayShortNames="Domingo,Lunes,Martes,Miércoles,Jueves,Viernes,Sábado" 
+            cancel-text="Cancelar" done-text="Listo" 
             monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" 
             placeholder="Definir fecha" formControlName="requiredDate" [min]="minDate" display-format="DDD D de MMM de YYYY"></ion-datetime>
           </ion-item>
@@ -121,7 +122,7 @@
             <ion-label position="float" class="main-color mw-20">
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
             </ion-label>
-            <ion-datetime placeholder="Hora final" formControlName="endTime" display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
+            <ion-datetime  minuteValues="0,10,20,30,40,50" cancel-text="Cancelar" done-text="Listo" placeholder="Hora final" formControlName="endTime" display-format="h:mm A" picker-format="h:mm A"></ion-datetime>
           </ion-item>
         </ion-col>
       </ion-row>
