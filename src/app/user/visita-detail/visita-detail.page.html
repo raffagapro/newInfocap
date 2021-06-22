@@ -28,7 +28,7 @@
             <span class="titleSelect main-color">{{loadedService.categoryName}} de {{loadedService.supplierName}}
               {{loadedService.supplierLastName}}</span><br>
             <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">
-              {{formatDate(loadedService.created_date, 'DD/MM/YYYY', true)}}</p>
+              {{formatDate(loadedService.created_date, 'DD/MM/YYYY HH:mm:ss', true)}}</p>
           </ion-text>
         </ion-col>
 
@@ -79,7 +79,9 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color iconFix"></ion-icon>
-        <ion-text class="subText"> {{formatDate(loadedService.date_required)}}</ion-text>
+        <ion-text *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length === 0" class="subText"> {{formatDate(loadedService.date_required, 'DD/MM/YYYY')}}</ion-text>
+        <ion-text *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length > 0" class="subText"> {{formatDate(loadedService.request_technical[0].visit_date, 'YYYY-MM-DD')}}</ion-text>
+
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -95,7 +97,8 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_schedule.svg" class="main-color iconFix"></ion-icon>
-        <ion-text class="subText"> {{formatTime()}}</ion-text>
+        <ion-text *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length === 0" class="subText"> {{formatTime()}}</ion-text>
+        <ion-text *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length > 0" class="subText"> {{formatVisitTime()}}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>

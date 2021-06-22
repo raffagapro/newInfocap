@@ -44,6 +44,7 @@ export class VisitaDetailPage implements OnInit {
     work_days: null,
     suplierPhone1: null,
     img_request: [],
+    request_technical: [],
   };
   slideOptions = {
     initialSlide: 0,
@@ -118,8 +119,20 @@ export class VisitaDetailPage implements OnInit {
       return 'ND';
     }
     let hours = this.loadedService.hours_requestservice.split('/');
-    let startHour = moment(hours[0]);
-    let endHour = moment(hours[1]);
+    let startHour = moment.utc(hours[0]);
+    let endHour = moment.utc(hours[1]);
+    return `${startHour.format('h:mm a')} - ${endHour.format('h:mm a')}`;
+  }
+
+  formatVisitTime() {
+    if (!this.loadedService.request_technical || this.loadedService.request_technical.length == 0) {
+      return 'ND';
+    }
+    let hours = this.loadedService.request_technical[0].visit_hours.replace(' ', '').split('-');
+    let startHour = moment.utc(hours[0], 'HH:mm');
+    let endHour = moment.utc(hours[1], 'HH:mm');
+    console.log(startHour)
+    console.log(endHour)
     return `${startHour.format('h:mm a')} - ${endHour.format('h:mm a')}`;
   }
 
