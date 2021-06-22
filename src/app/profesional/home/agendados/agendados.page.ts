@@ -39,7 +39,13 @@ export class AgendadosPage implements OnInit, OnDestroy {
   eventSourceAgended = [];
   calendar = {
     mode: 'week',
-    currentDate: new Date()
+    currentDate: new Date(),
+    dateFormatter: {
+      formatWeekViewHourColumn: function(date:Date) {
+        let format_date = moment(date).format('h a');
+        return format_date;
+    },
+    }
   }
 
   constructor(
@@ -257,6 +263,11 @@ export class AgendadosPage implements OnInit, OnDestroy {
   viewDay(i) {
     var date = new Date(i.date).getDate()
     return date
+  }
+
+  viewHour(i) {
+    console.log(i)
+    return i
   }
 
   changeView(type) {

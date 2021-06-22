@@ -298,16 +298,13 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     if (request_cost !== null) {
       return request_cost.payment_name
     } else {
-      return 'Efectivo'
+      return 'Sin especificar'
     }
   }
 
   formatInfo(request_cost) {
-    if(request_cost.addittional && request_cost.addittional[0]) {
-      return (parseFloat(request_cost.amount_suplier) + parseFloat(request_cost.addittional[0].amount_suplier)).toFixed(2)
-    } else {
-      return parseFloat(request_cost.amount_suplier).toFixed(2)
-    }
-      
+    if(request_cost.total) {
+      return request_cost.total[0].total
+    }      
   }
 }

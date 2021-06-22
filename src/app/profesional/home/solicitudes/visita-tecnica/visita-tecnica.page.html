@@ -42,22 +42,17 @@
     </ion-grid>
   </div>
 
-  <ion-grid>
+  <ion-grid style="padding-left: 24px; padding-right: 24px;">
 
     <!-- title -->
     <ion-row>
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="ion-text-center">
+      <ion-col size="12" class="ion-text-center">
         <ion-icon name="build" class="main-color"></ion-icon>
         <ion-text class="main-color title"><b> Trabajo requerido</b></ion-text>
       </ion-col>
-      <ion-col size="1"></ion-col>
-
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="ion-text-center">
+      <ion-col size="12" class="ion-text-center">
         <ion-text class="titleText">{{ loadedInfo.description }}</ion-text>
       </ion-col>
-      <ion-col size="1"></ion-col>
     </ion-row>
 
     <!-- Slider -->
@@ -76,14 +71,12 @@
     <!-- Fecha requerida -->
     <form [formGroup]="formVisitaTecnica" (ngSubmit)="confirmRequest()">
       <ion-row>
-        <ion-col size="1"></ion-col>
-        <ion-col size="10" class="ion-text-center">
+        <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color subtitle"><b>Definir fecha</b></ion-text>
         </ion-col>
-        <ion-col size="1"></ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="11">
+        <ion-col size="12">
           <ion-item>
             <ion-label position="float" class="main-color mw-20">
               <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color"></ion-icon>
@@ -100,11 +93,9 @@
 
       <!-- pickers -->
       <ion-row>
-        <ion-col size="1"></ion-col>
-        <ion-col size="10" class="ion-text-center">
+        <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color subtitle"><b>Rango de horas</b></ion-text>
         </ion-col>
-        <ion-col size="1"></ion-col>
       </ion-row>
 
       <ion-row>
@@ -129,13 +120,11 @@
 
       <!-- enviar solicitud BTN -->
       <ion-row class="ion-margin-top ion-margin-bottom">
-        <ion-col size="1"></ion-col>
         <ion-col>
-          <ion-button type="submit" size="5" expand="block" class="ion-text-uppercase">
+          <ion-button type="submit" size="12" expand="block" class="ion-text-uppercase">
             NOTIFICAR AL CLIENTE
           </ion-button>
         </ion-col>
-        <ion-col size="1"></ion-col>
       </ion-row>
     </form>
 

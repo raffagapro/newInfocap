@@ -42,22 +42,17 @@
     </ion-grid>
   </div>
 
-  <ion-grid>
+  <ion-grid style="padding-left: 24px; padding-right: 24px;">
 
     <!-- title -->
     <ion-row>
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="ion-text-center">
+      <ion-col size="12" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_engine.svg" class="main-color"></ion-icon>
         <ion-text class="main-color subtitle"><b> Trabajo requerido</b></ion-text>
       </ion-col>
-      <ion-col size="1"></ion-col>
-
-      <ion-col size="1"></ion-col>
-      <ion-col size="10" class="ion-text-center">
+      <ion-col size="12" class="ion-text-center">
         <ion-text class="titleText">{{ loadedInfo.description }}</ion-text>
       </ion-col>
-      <ion-col size="1"></ion-col>
     </ion-row>
 
     <form [formGroup]="form" (ngSubmit)="confirmRequest()">
@@ -77,14 +72,10 @@
 
       <!-- Fecha requerida -->
       <ion-row>
-        <ion-col size="1"></ion-col>
-        <ion-col size="10" class="ion-text-center">
+        <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color subtitle"><b>Definir fecha <span class="red-color">*</span></b></ion-text>
         </ion-col>
-        <ion-col size="1"></ion-col>
-
-        <ion-col size="1"></ion-col>
-        <ion-col size="10">
+        <ion-col size="12">
           <ion-item>
             <ion-label class="main-color" position="floating">
               <ion-icon src="/assets/icon/ic_date_range.svg" slot="start" class="main-color"></ion-icon>
@@ -99,19 +90,14 @@
             </ion-datetime>
           </ion-item>
         </ion-col>
-        <ion-col size="1"></ion-col>
       </ion-row>
 
       <!-- Hora incial -->
       <ion-row>
-        <ion-col size="1"></ion-col>
         <ion-col size="10" class="ion-text-center">
           <ion-text class="main-color subtitle"><b>Rango de horas <span class="red-color">*</span></b></ion-text>
         </ion-col>
-        <ion-col size="1"></ion-col>
-
-        <ion-col size="1"></ion-col>
-        <ion-col size="5">
+        <ion-col size="6">
           <ion-item>
             <ion-label class="main-color" position="floating">
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
@@ -121,7 +107,7 @@
             </ion-datetime>
           </ion-item>
         </ion-col>
-        <ion-col size="5">
+        <ion-col size="6">
           <ion-item>
             <ion-label class="main-color" position="floating">
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
@@ -131,7 +117,6 @@
             </ion-datetime>
           </ion-item>
         </ion-col>
-        <ion-col size="1"></ion-col>
       </ion-row>
 
       <!-- hora final  -->
@@ -150,14 +135,10 @@
 
       <!-- costo -->
       <ion-row>
-        <ion-col size="1"></ion-col>
-        <ion-col size="10" class="ion-text-center">
+        <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color subtitle"><b>Costo <span class="red-color">*</span></b></ion-text>
         </ion-col>
-        <ion-col size="1"></ion-col>
-
-        <ion-col size="1"></ion-col>
-        <ion-col size="10">
+        <ion-col size="12">
           <ion-item>
             <ion-label position="floating">
               <ion-icon src="/assets/icon/ic_money.svg" slot="start" class="main-color"></ion-icon>
@@ -166,18 +147,15 @@
             <ion-input formControlName="costo" type="number"></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col size="1"></ion-col>
       </ion-row>
 
       <!-- enviar solicitud BTN -->
       <ion-row class="ion-margin-top ion-margin-bottom">
-        <ion-col size="1"></ion-col>
         <ion-col>
-          <ion-button [disabled]="!form.valid" size="5" expand="block" type="submit" class="ion-text-uppercase">
+          <ion-button [disabled]="!form.valid" size="12" expand="block" type="submit" class="ion-text-uppercase">
             ACEPTAR SOLICITUD
           </ion-button>
         </ion-col>
-        <ion-col size="1"></ion-col>
       </ion-row>
     </form>
 
