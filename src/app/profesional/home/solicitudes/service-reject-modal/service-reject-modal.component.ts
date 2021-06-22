@@ -27,7 +27,13 @@ export class ServiceRejectModalComponent implements OnInit, OnDestroy {
     clientName: null,
     clientLastName: null,
     date_required: null,
+    hours: null,
+    description: null,
+    images: null,
     categoryName: null,
+    category_id: null,
+    clientPhone1: null,
+    request_cost: {}
   };
 
   constructor(
@@ -41,8 +47,8 @@ export class ServiceRejectModalComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
-      this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-      this.loadService();
+      // this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+      // this.loadService();
     });
   }
 
@@ -67,6 +73,21 @@ export class ServiceRejectModalComponent implements OnInit, OnDestroy {
 
         });
     });
+  }
+
+  ionViewWillEnter() {
+    this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName
+    this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName
+    this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
+    this.loadedInfo.description = this.solicitudServicio.solicitud.description
+    this.loadedInfo.hours = this.solicitudServicio.solicitud.hours
+    this.loadedInfo.images = this.solicitudServicio.solicitud.images
+    this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg
+    this.loadedInfo.ticket_number = this.solicitudServicio.solicitud.ticket_number
+    this.loadedInfo.categoryName = this.solicitudServicio.solicitud.categoryName
+    this.loadedInfo.category_id = this.solicitudServicio.solicitud.category_id
+    this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
+    this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
   }
 
   async rechazarSolicitud(rejectDesc: string) {

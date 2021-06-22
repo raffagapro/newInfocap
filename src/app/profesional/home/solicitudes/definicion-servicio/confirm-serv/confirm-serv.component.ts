@@ -79,7 +79,7 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
     try {
       var url = '/supplier/aprove/requestservice/'
       if (this.solicitudServicio.solicitud.type == 'URGENT') {
-        var url = '/supplier/aprove/requestservice/' //'/supplier/aprove/urgentrequestservice/'
+        var url = '/supplier/aprove/urgentrequestservice/'
       }
       let response = await axios.put(
         `${API}${url}${this.solicitudServicio.solicitud.id}`,

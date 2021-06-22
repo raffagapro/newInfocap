@@ -92,9 +92,8 @@
     font-weight: 900;
 }
 
-.btn-valoracion {
-    --background-activated: white;
+.btn-val {
     --background: white;
-    --background-focused: white;
-    --background-hover: white;
+    --background-activated: white;
+    --ripple-color: white;
 }

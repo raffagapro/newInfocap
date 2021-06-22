@@ -54,7 +54,7 @@
   </ion-row>
 
   <div [hidden]="viewMood !== 'cal'" style="height: 50vh; padding-left: 16px; padding-right: 16px;">
-    <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+    <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [dateFormatter]="calendar.dateFormatter" [currentDate]="calendar.currentDate"
       (onTitleChanged)="onViewTitleChanged($event)" [weekviewHeaderTemplate]="headerWeek"
       [weekviewNormalEventTemplate]="event">
     </calendar>
@@ -86,9 +86,13 @@
   <div [hidden]="viewMood !== 'cal'" style="height: 50vh; padding-left: 16px; padding-right: 16px;">
     <calendar #calendarAgended [hidden]="viewMood !== 'cal'" [eventSource]="eventSourceAgended" [calendarMode]="calendar.mode"
       [currentDate]="calendar.currentDate" (onTitleChanged)="onViewTitleAgendedChanged($event)"
-      [weekviewHeaderTemplate]="headerWeekAgended" [weekviewNormalEventTemplate]="eventAgended">
+      [weekviewHeaderTemplate]="headerWeekAgended" [dateFormatter]="calendar.dateFormatter" [weekviewNormalEventTemplate]="eventAgended">
     </calendar>
   </div>
+
+  <ng-template #headerHourAgended let-viewDate="viewDate">
+    {{ viewHour(viewDate) }}
+  </ng-template>
 
   <ng-template #event let-displayEvent="displayEvent">
     <div class="calendar-event-inner" (click)="solicitudDetail(displayEvent.event.title.id)">
