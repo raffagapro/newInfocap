@@ -1,0 +1,137 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-uppercase walkthrougth-title">
+      BIENVENIDO A WORKIN
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="padding">
+  <ion-slides slidesPerView="auto" #mainSlider pager="true" [options]="slideOpts" mode="ios" class="slider"
+    (ionSlidePrevEnd)="onLastSlide($event, false)" (ionSlideReachEnd)="onLastSlide($event, true)"
+    (ionSlidesDidLoad)="updateSlider()">
+    <ion-slide class="slide">
+      <div class="step-container">
+        <img src="/assets/images/person-one-red.svg" class="step-image" />
+
+        <div class="step-content">
+          <ion-grid>
+            <ion-col size="12">
+              <div class="step-btn red">
+                crea un usuario
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-text class="step-description">
+                <p>
+                  regístrate con tu correo<br />electrónico o con alguna de las<br />opciones que te ofrecemos
+                </p>
+              </ion-text>
+            </ion-col>
+          </ion-grid>
+        </div>
+        <img class="arrow" src="/assets/images/arrow-red.svg" />
+      </div>
+    </ion-slide>
+    <ion-slide class="slide">
+      <div class="step-container">
+        <img src="/assets/images/two-cellphone-blue.svg" class="step-image" />
+
+        <div class="step-content" style="width: 100%;">
+          <ion-grid>
+            <ion-col size="12">
+              <div class="step-btn blue">
+                selecciona
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-text class="step-description">
+                <p>
+                  la categoría del servicio que deseas contratar
+                </p>
+              </ion-text>
+            </ion-col>
+          </ion-grid>
+        </div>
+        <img class="arrow" src="/assets/images/arrow-blue.svg" />
+      </div>
+    </ion-slide>
+    <ion-slide class="slide">
+      <div class="step-container">
+        <img src="/assets/images/three-map-red.svg" class="step-image" />
+
+        <div class="step-content">
+          <ion-grid>
+            <ion-col size="12">
+              <div class="step-btn red">
+                ingresa
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-text class="step-description">
+                <p>
+                  la ubicación donde necesitas el servicio
+                </p>
+              </ion-text>
+            </ion-col>
+          </ion-grid>
+        </div>
+        <img class="arrow" src="/assets/images/arrow-red.svg" />
+      </div>
+    </ion-slide>
+    <ion-slide class="slide">
+      <div class="step-container">
+        <img src="/assets/images/four-choose-blue.svg" class="step-image" />
+
+        <div class="step-content">
+          <ion-grid>
+            <ion-col size="12">
+              <div class="step-btn blue">
+                elige
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-text class="step-description">
+                <p>
+                  los profesionales disponibles en tu área y envía la solucitud
+                </p>
+              </ion-text>
+            </ion-col>
+          </ion-grid>
+        </div>
+        <img class="arrow" src="/assets/images/arrow-blue.svg" />
+      </div>
+    </ion-slide>
+    <ion-slide class="slide">
+      <div class="step-container">
+        <img src="/assets/images/five-calendar-red.svg" class="step-image" />
+
+        <div class="step-content">
+          <ion-grid>
+            <ion-col size="12">
+              <div class="step-btn red">
+                agenda
+              </div>
+            </ion-col>
+            <ion-col size="12">
+              <ion-text class="step-description">
+                <p>
+                  una visita con el profesional seleccionado para cumplir el servicio
+                </p>
+              </ion-text>
+            </ion-col>
+          </ion-grid>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+  <div class="skip-container" (click)="goToLogin()">
+    <ion-text>omitir</ion-text>
+  </div>
+  <div class="next-container" *ngIf="!showLast" (click)="move(mainSlider)">
+    <ion-text>siguiente</ion-text>
+  </div>
+  <div class="last-container" *ngIf="showLast" (click)="goToLogin()">
+    <ion-text>comenzar</ion-text>
+  </div>
+</ion-content>

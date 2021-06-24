@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="302" height="349" viewBox="0 0 302 349">
+  <defs>
+    <filter id="Elipse_245" x="47" y="93" width="255" height="256" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Grupo_4255" data-name="Grupo 4255" transform="translate(-38 -100)">
+    <g id="Grupo_4230" data-name="Grupo 4230" transform="translate(-7278.952 -6870)">
+      <circle id="Elipse_243" data-name="Elipse 243" cx="66" cy="66" r="66" transform="translate(7316.952 6994)" fill="#32b6dd" opacity="0.3"/>
+      <g id="Grupo_4226" data-name="Grupo 4226" transform="translate(7361.462 6970)">
+        <text id="_2" data-name="2" transform="translate(21.49 135)" fill="#fff" font-size="129" font-family="Poppins-SemiBold, Poppins" font-weight="600"><tspan x="-36.507" y="0">2</tspan></text>
+      </g>
+    </g>
+    <g id="Grupo_4245" data-name="Grupo 4245">
+      <g transform="matrix(1, 0, 0, 1, 38, 100)" filter="url(#Elipse_245)">
+        <ellipse id="Elipse_245-2" data-name="Elipse 245" cx="112.5" cy="113" rx="112.5" ry="113" transform="translate(57 103)" fill="#fff"/>
+      </g>
+      <g id="Grupo_4239" data-name="Grupo 4239" transform="translate(-6936 -7559)">
+        <line id="Línea_11" data-name="Línea 11" x1="62.336" transform="translate(7087.084 7924.707)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <line id="Línea_12" data-name="Línea 12" x1="84.467" transform="translate(7087.084 7815.187)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <path id="Trazado_661" data-name="Trazado 661" d="M375.242,11019h-58.1A11.138,11.138,0,0,1,306,11007.861v-120.723A11.138,11.138,0,0,1,317.138,10876h62.275a11.138,11.138,0,0,1,11.138,11.139v73.1" transform="translate(6781 -3075)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <rect id="Rectángulo_3440" data-name="Rectángulo 3440" width="14" height="14" rx="4.713" transform="translate(7097 7826)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <rect id="Rectángulo_3441" data-name="Rectángulo 3441" width="14" height="14" rx="4.713" transform="translate(7122 7826)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <rect id="Rectángulo_3442" data-name="Rectángulo 3442" width="14" height="14" rx="4.713" transform="translate(7147 7826)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <rect id="Rectángulo_3443" data-name="Rectángulo 3443" width="14" height="15" rx="4.713" transform="translate(7097 7850)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <rect id="Rectángulo_3444" data-name="Rectángulo 3444" width="14" height="15" rx="4.713" transform="translate(7122 7850)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <rect id="Rectángulo_3445" data-name="Rectángulo 3445" width="14" height="15" rx="4.713" transform="translate(7147 7850)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <rect id="Rectángulo_3446" data-name="Rectángulo 3446" width="14" height="15" rx="4.713" transform="translate(7097 7875)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <rect id="Rectángulo_3447" data-name="Rectángulo 3447" width="14" height="15" rx="4.713" transform="translate(7122 7875)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <rect id="Rectángulo_3448" data-name="Rectángulo 3448" width="14" height="14" rx="4.713" transform="translate(7097 7900)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <rect id="Rectángulo_3449" data-name="Rectángulo 3449" width="14" height="14" rx="4.713" transform="translate(7122 7900)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <path id="Trazado_662" data-name="Trazado 662" d="M469.894,10975.5l13.795,13.941a25.111,25.111,0,0,1,7.261,17.662v54.934" transform="translate(6710.109 -3118.038)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <path id="Trazado_663" data-name="Trazado 663" d="M420.462,11074.815s1.123-22.131,9.635-34.048L410.8,11020.34l.1-1.183c-1.8-9.032,3.308-15.842,14.09-13.729h0l28.373,27.963" transform="translate(6735.78 -3130.815)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        <line id="Línea_13" data-name="Línea 13" y1="1.545" x2="0.042" transform="translate(7129.276 7933.146)" fill="none" stroke="#009ace" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+      </g>
+    </g>
+  </g>
+</svg>
