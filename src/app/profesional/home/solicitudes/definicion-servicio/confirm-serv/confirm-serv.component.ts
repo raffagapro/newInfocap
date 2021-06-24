@@ -21,6 +21,7 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
   loadedInfo = {
     date_required: null,
     hours: null,
+    type: null,
   };
 
   constructor(
@@ -37,9 +38,9 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
   }
 
   ionViewWillEnter() {
-
     this.loadedInfo.hours = this.solicitudServicio.solicitud.hours
     this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
+    this.loadedInfo.type = this.solicitudServicio.solicitud.type
   }
 
   p(hours: string) {
@@ -78,7 +79,7 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
 
     try {
       var url = '/supplier/aprove/requestservice/'
-      if (this.solicitudServicio.solicitud.type == 'URGENT') {
+      if (this.loadedInfo.type == 'URGENT') {
         var url = '/supplier/aprove/urgentrequestservice/'
       }
       let response = await axios.put(
@@ -90,8 +91,6 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
           }
         }
       );
-
-      console.log(this.solicitudServicio.solicitud.cost)
 
       axios.put(API + `/supplier/cost/requestservice/${this.solicitudServicio.solicitud.id}`,
         {

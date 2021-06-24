@@ -47,8 +47,6 @@ export class ServiceRejectModalComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
-      // this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-      // this.loadService();
     });
   }
 
@@ -133,7 +131,7 @@ export class ServiceRejectModalComponent implements OnInit, OnDestroy {
   }
 
   formatDate(date: string) {
-    return moment(date, 'YYYY-MM-DD').format('DD [de] MMMM [de] YYYY');
+    return moment(date, 'DD/MM/YYYY').format('DD [de] MMMM [de] YYYY');
   }
 
   dismiss() {

@@ -81,10 +81,20 @@
               <ion-icon src="/assets/icon/ic_date_range.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
             </ion-label>
+
             <ion-datetime
+            *ngIf="loadedInfo.type === 'URGENT'"
             cancel-text="Cancelar" done-text="Listo"
             dayShortNames="Domingo,Lunes,Martes,Miércoles,Jueves,Viernes,Sábado" 
-            max="{{ loadedInfo.type === 'URGENT' ? maxDate : undefined }}"
+            max="{{ maxDate }}"
+            monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" 
+            [min]="minDate" formControlName="dateReq" display-format="DDD D de MMM de YYYY">
+            </ion-datetime>
+
+            <ion-datetime
+            *ngIf="loadedInfo.type !== 'URGENT'"
+            cancel-text="Cancelar" done-text="Listo"
+            dayShortNames="Domingo,Lunes,Martes,Miércoles,Jueves,Viernes,Sábado" 
             monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" 
             [min]="minDate" formControlName="dateReq" display-format="DDD D de MMM de YYYY">
             </ion-datetime>

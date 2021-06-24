@@ -90,6 +90,8 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
     this.loadedInfo.type = this.solicitudServicio.solicitud.type
 
+    console.log(this.loadedInfo)
+
     this.form.patchValue({
       sHour: this.loadedInfo.hours[0],
       eHour: this.loadedInfo.hours[1],

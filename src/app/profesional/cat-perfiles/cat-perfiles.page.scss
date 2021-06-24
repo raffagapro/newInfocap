@@ -69,7 +69,7 @@
 }
 
 .imgSlide{
-    height:125px;
+    width: 100%;
 }
 .select-categories-component {
     --padding-top: 0;
@@ -142,4 +142,9 @@
 
 .pr-0 {
     padding-right: 0;
+}
+
+.pd-8 {
+ padding-left: 12px;
+ padding-right: 12px;
 }

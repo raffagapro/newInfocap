@@ -73,6 +73,12 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     transports: null
   };
 
+  slideOptions = {
+    initialSlide: 0,
+    slidesPerView: 2,
+    autoplay: true
+  };
+
   proCategoryImg: Object[]
   hideList = true;
   @ViewChild('categoryList') categorySelect: IonSelect;
