@@ -44,7 +44,7 @@ export class SolicitudesPage implements OnInit, OnDestroy {
         this.loadServices("1");
       });
     });
-   }
+  }
 
   ngOnInit() {
   }
@@ -92,18 +92,43 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   }
 
   rechazarSolicitud(solicitudID: string) {
-    this.solicitudServicio.setID(solicitudID);
-    this.modalController.create({
-      component: ServiceRejectModalComponent,
-      cssClass: 'modalSE',
-    }).then(modalEl => {
-      modalEl.present();
-      modalEl.onDidDismiss().then(data => {
-        if (data) {
-          this.loadServices("1");
-        }
-      });
-    });
+    this.lc.create({
+      message: "Cargando informacion del servicio..."
+    }).then(loadingEl => {
+      loadingEl.present();
+      this.solicitudServicio.setID(solicitudID);
+      axios.get(API + `/supplier/requestservicedetail/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
+        loadingEl.dismiss();
+        this.solicitudServicio.setClientLastName(resData.data.data.clientLastName)
+        this.solicitudServicio.setClientName(resData.data.data.clientName)
+        let wDate = resData.data.data.date_required.split("-");
+        this.solicitudServicio.setDateRequired(resData.data.data.date_required)
+        this.solicitudServicio.setDateCreated(resData.data.data.created_date)
+        this.solicitudServicio.setDescription(resData.data.data.description)
+        this.solicitudServicio.setHours(resData.data.data.hours)
+        this.solicitudServicio.setImages(resData.data.data.images)
+        this.solicitudServicio.setClientImg(resData.data.data.img_client_profile)
+        this.solicitudServicio.setTicketNumber(resData.data.data.ticket_number)
+        this.solicitudServicio.setCategoryID(resData.data.data.categoryName)
+        this.solicitudServicio.setStatusID(resData.data.data.status_id)
+        this.solicitudServicio.setClientPhone(resData.data.data.clientPhone1)
+        this.solicitudServicio.setCosto(resData.data.data.request_cost[0] && resData.data.data.request_cost[0]);
+      }).then(() => {
+        this.modalController.create({
+          component: ServiceRejectModalComponent,
+          cssClass: 'modalSE',
+        }).then(modalEl => {
+          modalEl.present();
+          modalEl.onDidDismiss().then(data => {
+            if (data) {
+              this.loadServices("1");
+            }
+          });
+        });
+      }).catch(err => {
+        loadingEl.dismiss();
+      })
+    })
   }
 
   formatDate(date: string) {

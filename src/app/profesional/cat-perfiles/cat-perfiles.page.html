@@ -21,13 +21,14 @@
     <ion-row>
       <ion-col size="2"></ion-col>
       <ion-col size="8">
-        <ion-input class="main-color cusSelect" readonly [ngModel]="selectedProPerfil" (click)="showPicker()" placeholder="Categoría"></ion-input>
+        <ion-input class="main-color cusSelect" readonly [ngModel]="selectedProPerfil" (click)="showPicker()"
+          placeholder="Categoría"></ion-input>
       </ion-col>
       <ion-col size="2"></ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-grid>
+  <ion-grid class="pd-8">
     <!-- profile Img -->
     <ion-row class="imgCont">
       <ion-col>
@@ -50,39 +51,39 @@
     <form [formGroup]="form" (ngSubmit)="onUpdateCatProfile()">
       <!-- title -->
       <ion-row class="minusMargin">
-        <ion-col size="1"></ion-col>
-        <ion-col size="10">
+        
+        <ion-col size="12">
           <ion-text class="main-color regText"><b>Descripción profesional</b></ion-text>
         </ion-col>
-        <ion-col size="1"></ion-col>
+        
       </ion-row>
 
       <!-- text-area -->
       <ion-row class="ion-margin-top">
-        <ion-col size="1"></ion-col>
-        <ion-col size="10" class="border ion-text-center">
+        
+        <ion-col size="12" class="border ion-text-center">
           <ion-item lines="none">
             <ion-textarea formControlName="descProf" rows="3" cols="20"
               placeholder="Agrega tu descripción. Máximo 140 caracteres con espacios.">
             </ion-textarea>
           </ion-item>
         </ion-col>
-        <ion-col size="1"></ion-col>
+        
       </ion-row>
 
       <!-- title -->
       <ion-row class="ion-margin-top ion-text-center">
-        <ion-col size="1"></ion-col>
-        <ion-col size="10">
+        
+        <ion-col size="12">
           <ion-text class="main-color regText"><b>Horario laboral</b></ion-text>
         </ion-col>
-        <ion-col size="1"></ion-col>
+        
       </ion-row>
 
       <!-- horas -->
       <ion-row>
-        <ion-col size="1"></ion-col>
-        <ion-col size="10" class="pl-0 pr-0">
+        
+        <ion-col size="12" class="pl-0 pr-0">
           <ion-item>
             <ion-label position="floating">
               <ion-icon name="time" slot="start" class="main-color"></ion-icon>
@@ -91,13 +92,12 @@
             <ion-input formControlName="workHours"></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col size="1"></ion-col>
+        
       </ion-row>
 
       <!-- dias -->
       <ion-row>
-        <ion-col size="1"></ion-col>
-        <ion-col size="10"  class="pl-0 pr-0">
+        <ion-col size="12" class="pl-0 pr-0">
           <ion-item>
             <ion-label position="floating">
               <ion-icon name="calendar-outline" slot="start" class="main-color"></ion-icon>
@@ -106,53 +106,59 @@
             <ion-input formControlName="workDays"></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col size="1"></ion-col>
+        
       </ion-row>
 
       <!-- title -->
       <ion-row class="ion-margin-top">
-        <ion-col size="1"></ion-col>
-        <ion-col size="10">
+        
+        <ion-col size="12">
           <ion-text class="main-color regText"><b>Descripción del oficio</b></ion-text>
         </ion-col>
-        <ion-col size="1"></ion-col>
+        
       </ion-row>
 
       <!-- text-area -->
       <ion-row class="ion-margin-top">
-        <ion-col size="1"></ion-col>
-        <ion-col size="10" class="border ion-text-center">
+        
+        <ion-col size="12" class="border ion-text-center">
           <ion-item lines="none">
             <ion-textarea formControlName="descOffice" rows="3" cols="20"
               placeholder="Agrega una descripción de tu oficio. Máximo 140 caracteres con espacios.">
             </ion-textarea>
           </ion-item>
         </ion-col>
-        <ion-col size="1"></ion-col>
+        
       </ion-row>
 
       <!-- images -->
-      <ion-row class="ion-align-items-center ion-justify-content-center ion-margin-top">
-        <ion-col *ngIf="proCategoryImg && proCategoryImg.length > 0" size="8">
-          <ion-slides>
+      <ion-row class="ion-margin-top">
+        
+        <ion-col size="12" class="ion-text-center">
+          <ion-row class="ion-align-items-center ion-justify-content-center ion-margin-top">
+            <ion-col *ngIf="proCategoryImg && proCategoryImg.length > 0" size="8">
+              <ion-slides [options]="slideOptions">
 
-            <!-- loaded slides  -->
-            <ion-slide *ngFor="let image of proCategoryImg; let i = index">
-              <!-- <ion-icon class="delete-icon" name="close-circle" color="danger"></ion-icon> -->
-              <ion-img (click)="openImage(image.image)" src="{{ image.image }}" class="imgSlide">
-              </ion-img>
-              <ion-button (click)="removeImage(i)" size="small" shape="round" color="danger" class="deleteBtn">
-                <ion-icon name="close-circle-outline"></ion-icon>
+                <!-- loaded slides  -->
+                <ion-slide *ngFor="let image of proCategoryImg; let i = index">
+                  <!-- <ion-icon class="delete-icon" name="close-circle" color="danger"></ion-icon> -->
+                  <ion-img (click)="openImage(image.image)" src="{{ image.image }}" class="imgSlide">
+                  </ion-img>
+                  <ion-button (click)="removeImage(i)" size="small" shape="round" color="danger" class="deleteBtn">
+                    <ion-icon name="close-circle-outline"></ion-icon>
+                  </ion-button>
+                </ion-slide>
+
+              </ion-slides>
+            </ion-col>
+            <ion-col size="4" class="ion-justify-content-center" style="text-align: center;">
+              <ion-button (click)="onLoadImg(false)" shape="round">
+                <ion-icon name="add" slot="end" color="light" class="rating-text"></ion-icon>
               </ion-button>
-            </ion-slide>
-
-          </ion-slides>
+            </ion-col>
+          </ion-row>
         </ion-col>
-        <ion-col size="4" class="ion-justify-content-center" style="text-align: center;">
-          <ion-button (click)="onLoadImg(false)" shape="round">
-            <ion-icon name="add" slot="end" color="light" class="rating-text"></ion-icon>
-          </ion-button>
-        </ion-col>
+        
       </ion-row>
 
       <!-- hidden file input -->
@@ -164,11 +170,11 @@
       <!-- save BTN -->
       <ion-row class="ion-margin-bottom">
         <ion-col offset="1">
-          <ion-button [disabled]="!form.valid" size="10" expand="block" class="ion-text-uppercase" type="submit">
+          <ion-button [disabled]="!form.valid" size="12" expand="block" class="ion-text-uppercase" type="submit">
             GUARDAR CAMBIOS
           </ion-button>
         </ion-col>
-        <ion-col size="1"></ion-col>
+        
       </ion-row>
     </form>
 

@@ -8,8 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-
+  <ion-grid style="padding-left: 12px; padding-right: 12px;">
     <!-- profile Img -->
     <ion-row class="imgCont">
       <ion-col>
@@ -35,8 +34,8 @@
     <form [formGroup]="form" (ngSubmit)="onUpdateUser()">
       <!-- nombre -->
       <ion-row>
-        <ion-col size="1"></ion-col>
-        <ion-col size="10">
+        
+        <ion-col size="12">
           <ion-item>
             <ion-label position="floating" class="main-color">
               <ion-icon name="person" slot="start" class="main-color"></ion-icon>
@@ -56,8 +55,8 @@
 
       <!-- email -->
       <ion-row>
-        <ion-col size="1"></ion-col>
-        <ion-col size="10">
+        
+        <ion-col size="12">
           <ion-item>
             <ion-label position="floating">
               <ion-icon name="mail" slot="start" class="main-color"></ion-icon>
@@ -84,8 +83,8 @@
 
       <!-- Número de contacto 1 -->
       <ion-row>
-        <ion-col size="1"></ion-col>
-        <ion-col size="10">
+        
+        <ion-col size="12">
           <ion-item>
             <ion-label position="floating" class="main-color">
               <ion-icon name="call" slot="start" class="main-color"></ion-icon>
@@ -105,8 +104,8 @@
 
       <!-- Número de contacto 2 -->
       <ion-row>
-        <ion-col size="1"></ion-col>
-        <ion-col size="10">
+        
+        <ion-col size="12">
           <ion-item>
             <ion-label position="floating" class="main-color">
               <ion-icon name="call" slot="start" class="main-color"></ion-icon>
@@ -125,13 +124,13 @@
         <ion-col size="8" class="ion-text-center">
           <ion-text class="main-color ion-text-uppercase title"><b>CAMBIAR CONTRASEÑA</b></ion-text>
         </ion-col>
-        <ion-col size="1"></ion-col>
+        
       </ion-row>
 
       <!-- Contraseña actual -->
       <ion-row>
-                <ion-col size="1"></ion-col>
-        <ion-col size="10">
+                
+        <ion-col size="12">
           <ion-item>
             <ion-label position="floating" class="main-color">
               <ion-icon name="lock-closed" slot="start" class="main-color"></ion-icon>
@@ -151,8 +150,8 @@
 
       <!-- Nueva contraseña -->
       <ion-row>
-                <ion-col size="1"></ion-col>
-        <ion-col size="10">
+                
+        <ion-col size="12">
           <ion-item>
             <ion-label position="floating" class="main-color">
               <ion-icon name="lock-closed" slot="start" class="main-color"></ion-icon>
@@ -172,8 +171,8 @@
 
       <!-- Repetir nueva contraseña -->
       <ion-row>
-                <ion-col size="1"></ion-col>
-        <ion-col size="10">
+                
+        <ion-col size="12">
           <ion-item>
             <ion-label position="floating" class="main-color">
               <ion-icon name="lock-closed" slot="start" class="main-color"></ion-icon>
@@ -193,16 +192,14 @@
 
       <!-- BTN -->
       <ion-row class="ion-margin-top ion-margin-bottom">
-        <ion-col size="1"></ion-col>
-        <ion-col size="10">
+        
+        <ion-col size="12">
           <ion-button size="5" expand="block" class="ion-text-uppercase" type="submit" [disabled]="!form.valid">
             GUARDAR CAMBIOS
           </ion-button>
         </ion-col>
-        <ion-col size="1"></ion-col>
+        
       </ion-row>
     </form>
-
-
   </ion-grid>
 </ion-content>
