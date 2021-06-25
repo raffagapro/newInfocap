@@ -6,7 +6,7 @@ ion-toolbar {
 
 /* Without setting height the slides will take up the height of the slide's content */
 ion-slides {
-  height: 100%;
+  height: calc(100% - 20px);
   --bullet-background: #009ace !important;
   --bullet-background-active: #009ace !important;
 }
@@ -91,12 +91,13 @@ ion-slides {
     font-size: 28px;
     padding: 20px 0;
     text-align: center;
+    font-weight: 600;
   }
 }
 
 .skip-container {
   position: absolute;
-  bottom: 10px;
+  bottom: 30px;
   left: 20%;
   color: #bdbdbd;
   font-size: 14px;
@@ -107,7 +108,7 @@ ion-slides {
 
 .next-container {
   position: absolute;
-  bottom: 10px;
+  bottom: 30px;
   right: 15%;
   color: #009ace;
   text-transform: uppercase;
@@ -119,7 +120,7 @@ ion-slides {
 
 .last-container {
   position: absolute;
-  bottom: 10px;
+  bottom: 30px;
   right: 8%;
   background: #009ace;
   border-radius: 10px;
@@ -137,6 +138,6 @@ ion-slides {
 
 .arrow {
   position: absolute;
-  bottom: 40px;
+  bottom: 50px;
   right: 13%;
 }
