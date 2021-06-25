@@ -102,23 +102,23 @@
             <ion-row class="items-center">
               <ion-col size="12">
                 <p class="ratingText main-color ion-text-right">
-                  {{prof.stars_everage || '-'}}
-                  <ion-icon src="/assets/icon/ic_star.svg"></ion-icon>
-                  / {{prof.worknumber}}
+                  {{prof.stars_everage || ''}}
+                  <ion-icon src="/assets/icon/ic_star.svg" *ngIf="prof.stars_everage !== null"></ion-icon>
+                  <span *ngIf="prof.stars_everage !== null">/</span> {{prof.worknumber}}
                   <ion-icon src="/assets/icon/ic_hands.svg"></ion-icon>
                 </p>
               </ion-col>
               <ion-col size="12" class="ion-text-right">
-                <div class="locate-cont">
+                <div class="locate-cont" *ngIf="prof.technical_capacity_everage !== null">
                   <ion-icon src="/assets/icon/ic_engine_circle.svg" class="rating-text"></ion-icon>
                 </div>
-                <div class="locate-cont">
+                <div class="locate-cont" *ngIf="prof.puntuality_everage !== null">
                   <ion-icon src="/assets/icon/ic_time_circle.svg" class="rating-text"></ion-icon>
                 </div>
-                <div class="locate-cont">
+                <div class="locate-cont" *ngIf="prof.cordiality_everage !== null">
                   <ion-icon src="/assets/icon/ic_heart_circle.svg" class="rating-text"></ion-icon>
                 </div>
-                <div class="locate-cont">
+                <div class="locate-cont" *ngIf="prof.service_and_satisfaction_everage !== null">
                   <ion-icon src="/assets/icon/ic_diamont_circle.svg" class="rating-text"></ion-icon>
                 </div>
               </ion-col>

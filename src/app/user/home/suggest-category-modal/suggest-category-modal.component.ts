@@ -76,7 +76,7 @@ export class SuggestCategoryModalComponent implements OnInit {
       const successModal = await this.modalController.create({
         component: SuccessModalComponent,
         componentProps: {
-          message: 'Se ha enviado la información correctamente',
+          message: 'SE HA ENVIADO LA INFORMACIÓN CORRECTAMENTE',
           redirect: false,
         },
         cssClass: 'modalSuccess',
