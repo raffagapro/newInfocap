@@ -43,6 +43,7 @@ let ConfirmServComponent = class ConfirmServComponent {
         this.loadedInfo = {
             date_required: null,
             hours: null,
+            type: null,
         };
     }
     ngOnInit() {
@@ -53,6 +54,7 @@ let ConfirmServComponent = class ConfirmServComponent {
     ionViewWillEnter() {
         this.loadedInfo.hours = this.solicitudServicio.solicitud.hours;
         this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required;
+        this.loadedInfo.type = this.solicitudServicio.solicitud.type;
     }
     p(hours) {
         if (hours) {
@@ -84,15 +86,14 @@ let ConfirmServComponent = class ConfirmServComponent {
             };
             try {
                 var url = '/supplier/aprove/requestservice/';
-                if (this.solicitudServicio.solicitud.type == 'URGENT') {
-                    var url = '/supplier/aprove/requestservice/'; //'/supplier/aprove/urgentrequestservice/'
+                if (this.loadedInfo.type == 'URGENT') {
+                    var url = '/supplier/aprove/urgentrequestservice/';
                 }
                 let response = yield axios__WEBPACK_IMPORTED_MODULE_8___default.a.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"]}${url}${this.solicitudServicio.solicitud.id}`, body, {
                     headers: {
                         Authorization: `Bearer ${this.grabbedUser.access_token}`,
                     }
                 });
-                console.log(this.solicitudServicio.solicitud.cost);
                 axios__WEBPACK_IMPORTED_MODULE_8___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"] + `/supplier/cost/requestservice/${this.solicitudServicio.solicitud.id}`, {
                     "amount": this.solicitudServicio.solicitud.cost,
                     "costs_type_id": 1,
@@ -314,7 +315,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE SERVICIO</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre el trabajo a realizar.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Fecha: {{ formatDate(loadedInfo.date_required) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Horario: {{ p(loadedInfo.hours) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmServicio()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE SERVICIO</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre el trabajo a realizar</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Fecha: {{ formatDate(loadedInfo.date_required) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Horario: {{ p(loadedInfo.hours) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmServicio()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n");
 
 /***/ }),
 
@@ -451,7 +452,7 @@ ConfirmSuccessComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n    \n    <!-- SERVICIO REALIZADO  -->\n    <div style=\"height: 10px;\"></div>\n    <ion-row class=\"ion-margin-top\">\n      <div class=\"status-cont\">\n        <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n      </div>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"main-color status-text\"><b>SE HA REALIZADO LA SOLICITUD</b></ion-text><br>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text><hr></ion-text>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>SE HA REALIZADO LA SOLICITUD</b></ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n</ion-content>");
 
 /***/ }),
 
@@ -1546,7 +1547,7 @@ ServicioAgendadoModalComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__de
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE VISITA TÉCNICA</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre tu visita de valoración.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ formatDate(visita_tecnica.visit_date) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ visita_tecnica.visit_hours }} horas</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmVisita()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE VISITA TÉCNICA</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre tu visita de valoración</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ formatDate(visita_tecnica.visit_date) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ visita_tecnica.visit_hours }} horas</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmVisita()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n");
 
 /***/ }),
 
@@ -1875,7 +1876,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>CONFIRMACIÓN AL CLIENTE</b></ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\">Pendiente de pago.</ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>CONFIRMACIÓN AL CLIENTE</b></ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\">Pendiente de pago</ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n</ion-content>");
 
 /***/ }),
 
@@ -2421,14 +2422,18 @@ let ServiceRejectModalComponent = class ServiceRejectModalComponent {
             clientName: null,
             clientLastName: null,
             date_required: null,
+            hours: null,
+            description: null,
+            images: null,
             categoryName: null,
+            category_id: null,
+            clientPhone1: null,
+            request_cost: {}
         };
     }
     ngOnInit() {
         this.userSub = this.us.loggedUser.subscribe(user => {
             this.grabbedUser = user;
-            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-            this.loadService();
         });
     }
     loadService() {
@@ -2451,6 +2456,20 @@ let ServiceRejectModalComponent = class ServiceRejectModalComponent {
                 loadingEl.dismiss();
             });
         });
+    }
+    ionViewWillEnter() {
+        this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName;
+        this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName;
+        this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required;
+        this.loadedInfo.description = this.solicitudServicio.solicitud.description;
+        this.loadedInfo.hours = this.solicitudServicio.solicitud.hours;
+        this.loadedInfo.images = this.solicitudServicio.solicitud.images;
+        this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg;
+        this.loadedInfo.ticket_number = this.solicitudServicio.solicitud.ticket_number;
+        this.loadedInfo.categoryName = this.solicitudServicio.solicitud.categoryName;
+        this.loadedInfo.category_id = this.solicitudServicio.solicitud.category_id;
+        this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone;
+        this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost;
     }
     rechazarSolicitud(rejectDesc) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -2491,7 +2510,7 @@ let ServiceRejectModalComponent = class ServiceRejectModalComponent {
         });
     }
     formatDate(date) {
-        return moment__WEBPACK_IMPORTED_MODULE_7__(date, 'YYYY-MM-DD').format('DD [de] MMMM [de] YYYY');
+        return moment__WEBPACK_IMPORTED_MODULE_7__(date, 'DD/MM/YYYY').format('DD [de] MMMM [de] YYYY');
     }
     dismiss() {
         this.modalController.dismiss();
@@ -2948,172 +2967,171 @@ __webpack_require__.r(__webpack_exports__);
 
 const routes = [
     {
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full'
+        path: "",
+        loadChildren: () => __webpack_require__.e(/*! import() | walkthrougth-walkthrougth-module */ "walkthrougth-walkthrougth-module").then(__webpack_require__.bind(null, /*! ./walkthrougth/walkthrougth.module */ "Hj6Z")).then((m) => m.WalkthrougthPageModule),
     },
     {
-        path: 'terms',
-        loadChildren: () => __webpack_require__.e(/*! import() | terms-terms-module */ "terms-terms-module").then(__webpack_require__.bind(null, /*! ./terms/terms.module */ "eNqe")).then(m => m.TermsPageModule)
+        path: "terms",
+        loadChildren: () => __webpack_require__.e(/*! import() | terms-terms-module */ "terms-terms-module").then(__webpack_require__.bind(null, /*! ./terms/terms.module */ "eNqe")).then((m) => m.TermsPageModule),
     },
     {
-        path: 'privacy',
-        loadChildren: () => __webpack_require__.e(/*! import() | privacy-privacy-module */ "privacy-privacy-module").then(__webpack_require__.bind(null, /*! ./privacy/privacy.module */ "Q2gd")).then(m => m.PrivacyPageModule)
+        path: "privacy",
+        loadChildren: () => __webpack_require__.e(/*! import() | privacy-privacy-module */ "privacy-privacy-module").then(__webpack_require__.bind(null, /*! ./privacy/privacy.module */ "Q2gd")).then((m) => m.PrivacyPageModule),
     },
     {
-        path: 'register',
-        loadChildren: () => __webpack_require__.e(/*! import() | login-register-register-module */ "login-register-register-module").then(__webpack_require__.bind(null, /*! ./login/register/register.module */ "dymE")).then(m => m.RegisterPageModule)
+        path: "register",
+        loadChildren: () => __webpack_require__.e(/*! import() | login-register-register-module */ "login-register-register-module").then(__webpack_require__.bind(null, /*! ./login/register/register.module */ "dymE")).then((m) => m.RegisterPageModule),
     },
     {
-        path: 'login',
-        loadChildren: () => __webpack_require__.e(/*! import() | login-login-login-module */ "login-login-login-module").then(__webpack_require__.bind(null, /*! ./login/login/login.module */ "Ktwe")).then(m => m.LoginPageModule)
+        path: "login",
+        loadChildren: () => __webpack_require__.e(/*! import() | login-login-login-module */ "login-login-login-module").then(__webpack_require__.bind(null, /*! ./login/login/login.module */ "Ktwe")).then((m) => m.LoginPageModule),
     },
     {
-        path: 'recovery',
-        loadChildren: () => __webpack_require__.e(/*! import() | login-recovery-recovery-module */ "login-recovery-recovery-module").then(__webpack_require__.bind(null, /*! ./login/recovery/recovery.module */ "XhiX")).then(m => m.RecoveryPageModule)
+        path: "recovery",
+        loadChildren: () => __webpack_require__.e(/*! import() | login-recovery-recovery-module */ "login-recovery-recovery-module").then(__webpack_require__.bind(null, /*! ./login/recovery/recovery.module */ "XhiX")).then((m) => m.RecoveryPageModule),
     },
     {
-        path: 'user/home',
-        loadChildren: () => Promise.all(/*! import() | user-home-home-module */[__webpack_require__.e("common"), __webpack_require__.e("user-home-home-module")]).then(__webpack_require__.bind(null, /*! ./user/home/home.module */ "VjR+")).then(m => m.HomePageModule),
+        path: "user/home",
+        loadChildren: () => Promise.all(/*! import() | user-home-home-module */[__webpack_require__.e("common"), __webpack_require__.e("user-home-home-module")]).then(__webpack_require__.bind(null, /*! ./user/home/home.module */ "VjR+")).then((m) => m.HomePageModule),
     },
     {
-        path: 'user/profile-page',
-        loadChildren: () => Promise.all(/*! import() | user-profile-page-profile-page-module */[__webpack_require__.e("common"), __webpack_require__.e("user-profile-page-profile-page-module")]).then(__webpack_require__.bind(null, /*! ./user/profile-page/profile-page.module */ "zXXN")).then(m => m.ProfilePagePageModule),
+        path: "user/profile-page",
+        loadChildren: () => Promise.all(/*! import() | user-profile-page-profile-page-module */[__webpack_require__.e("common"), __webpack_require__.e("user-profile-page-profile-page-module")]).then(__webpack_require__.bind(null, /*! ./user/profile-page/profile-page.module */ "zXXN")).then((m) => m.ProfilePagePageModule),
     },
     {
-        path: 'user/map',
-        loadChildren: () => __webpack_require__.e(/*! import() | user-mapa-mapa-module */ "user-mapa-mapa-module").then(__webpack_require__.bind(null, /*! ./user/mapa/mapa.module */ "4zUd")).then(m => m.MapaPageModule),
+        path: "user/map",
+        loadChildren: () => __webpack_require__.e(/*! import() | user-mapa-mapa-module */ "user-mapa-mapa-module").then(__webpack_require__.bind(null, /*! ./user/mapa/mapa.module */ "4zUd")).then((m) => m.MapaPageModule),
     },
     {
-        path: 'user/profesional-list',
-        loadChildren: () => __webpack_require__.e(/*! import() | user-profesional-list-profesional-list-module */ "user-profesional-list-profesional-list-module").then(__webpack_require__.bind(null, /*! ./user/profesional-list/profesional-list.module */ "PHrt")).then(m => m.ProfesionalListPageModule),
+        path: "user/profesional-list",
+        loadChildren: () => __webpack_require__.e(/*! import() | user-profesional-list-profesional-list-module */ "user-profesional-list-profesional-list-module").then(__webpack_require__.bind(null, /*! ./user/profesional-list/profesional-list.module */ "PHrt")).then((m) => m.ProfesionalListPageModule),
     },
     {
-        path: 'user/profesional-detail',
-        loadChildren: () => __webpack_require__.e(/*! import() | user-profesional-detail-profesional-detail-module */ "user-profesional-detail-profesional-detail-module").then(__webpack_require__.bind(null, /*! ./user/profesional-detail/profesional-detail.module */ "dBxP")).then(m => m.ProfesionalDetailPageModule),
+        path: "user/profesional-detail",
+        loadChildren: () => __webpack_require__.e(/*! import() | user-profesional-detail-profesional-detail-module */ "user-profesional-detail-profesional-detail-module").then(__webpack_require__.bind(null, /*! ./user/profesional-detail/profesional-detail.module */ "dBxP")).then((m) => m.ProfesionalDetailPageModule),
     },
     {
-        path: 'user/solicitud-servicio',
-        loadChildren: () => Promise.all(/*! import() | user-solicitud-servicio-solicitud-servicio-module */[__webpack_require__.e("common"), __webpack_require__.e("user-solicitud-servicio-solicitud-servicio-module")]).then(__webpack_require__.bind(null, /*! ./user/solicitud-servicio/solicitud-servicio.module */ "Y6vn")).then(m => m.SolicitudServicioPageModule),
+        path: "user/solicitud-servicio",
+        loadChildren: () => Promise.all(/*! import() | user-solicitud-servicio-solicitud-servicio-module */[__webpack_require__.e("common"), __webpack_require__.e("user-solicitud-servicio-solicitud-servicio-module")]).then(__webpack_require__.bind(null, /*! ./user/solicitud-servicio/solicitud-servicio.module */ "Y6vn")).then((m) => m.SolicitudServicioPageModule),
     },
     /*
+  {
+    path: 'user/solicitud-urgente-servicio',
+    loadChildren: () => import('./user/solicitud-urgente-servicio/solicitud-urgente-servicio.module').then( m => m.SolicitudUrgenteServicioPageModule),
+    // canLoad: [AuthGuard, UserGuard],
+  },
+  */
     {
-      path: 'user/solicitud-urgente-servicio',
-      loadChildren: () => import('./user/solicitud-urgente-servicio/solicitud-urgente-servicio.module').then( m => m.SolicitudUrgenteServicioPageModule),
-      // canLoad: [AuthGuard, UserGuard],
-    },
-    */
-    {
-        path: 'user/solicitudes',
-        loadChildren: () => __webpack_require__.e(/*! import() | user-solicitudes-solicitudes-module */ "user-solicitudes-solicitudes-module").then(__webpack_require__.bind(null, /*! ./user/solicitudes/solicitudes.module */ "8+Dq")).then(m => m.SolicitudesPageModule),
-    },
-    {
-        path: 'user/solicitud-finished',
-        loadChildren: () => Promise.all(/*! import() | user-service-finished-service-finished-module */[__webpack_require__.e("common"), __webpack_require__.e("user-service-finished-service-finished-module")]).then(__webpack_require__.bind(null, /*! ./user/service-finished/service-finished.module */ "Qbf1")).then(m => m.ServiceFinishedPageModule),
+        path: "user/solicitudes",
+        loadChildren: () => __webpack_require__.e(/*! import() | user-solicitudes-solicitudes-module */ "user-solicitudes-solicitudes-module").then(__webpack_require__.bind(null, /*! ./user/solicitudes/solicitudes.module */ "8+Dq")).then((m) => m.SolicitudesPageModule),
     },
     {
-        path: 'user/solicitud-detail',
-        loadChildren: () => Promise.all(/*! import() | user-solicitud-detail-solicitud-detail-module */[__webpack_require__.e("common"), __webpack_require__.e("user-solicitud-detail-solicitud-detail-module")]).then(__webpack_require__.bind(null, /*! ./user/solicitud-detail/solicitud-detail.module */ "w+Nm")).then(m => m.SolicitudDetailPageModule),
+        path: "user/solicitud-finished",
+        loadChildren: () => Promise.all(/*! import() | user-service-finished-service-finished-module */[__webpack_require__.e("common"), __webpack_require__.e("user-service-finished-service-finished-module")]).then(__webpack_require__.bind(null, /*! ./user/service-finished/service-finished.module */ "Qbf1")).then((m) => m.ServiceFinishedPageModule),
     },
     {
-        path: 'user/service-resume',
-        loadChildren: () => Promise.all(/*! import() | user-service-resume-service-resume-module */[__webpack_require__.e("common"), __webpack_require__.e("user-service-resume-service-resume-module")]).then(__webpack_require__.bind(null, /*! ./user/service-resume/service-resume.module */ "/tfj")).then(m => m.ServiceResumePageModule),
+        path: "user/solicitud-detail",
+        loadChildren: () => Promise.all(/*! import() | user-solicitud-detail-solicitud-detail-module */[__webpack_require__.e("common"), __webpack_require__.e("user-solicitud-detail-solicitud-detail-module")]).then(__webpack_require__.bind(null, /*! ./user/solicitud-detail/solicitud-detail.module */ "w+Nm")).then((m) => m.SolicitudDetailPageModule),
     },
     {
-        path: 'user/solicitud-status',
-        loadChildren: () => __webpack_require__.e(/*! import() | user-solicitud-status-solicitud-status-module */ "user-solicitud-status-solicitud-status-module").then(__webpack_require__.bind(null, /*! ./user/solicitud-status/solicitud-status.module */ "aFCw")).then(m => m.SolicitudStatusPageModule),
+        path: "user/service-resume",
+        loadChildren: () => Promise.all(/*! import() | user-service-resume-service-resume-module */[__webpack_require__.e("common"), __webpack_require__.e("user-service-resume-service-resume-module")]).then(__webpack_require__.bind(null, /*! ./user/service-resume/service-resume.module */ "/tfj")).then((m) => m.ServiceResumePageModule),
     },
     {
-        path: 'user/servicio-pagar',
-        loadChildren: () => __webpack_require__.e(/*! import() | user-servicio-pagar-servicio-pagar-module */ "user-servicio-pagar-servicio-pagar-module").then(__webpack_require__.bind(null, /*! ./user/servicio-pagar/servicio-pagar.module */ "8GJd")).then(m => m.ServicioPagarPageModule),
+        path: "user/solicitud-status",
+        loadChildren: () => __webpack_require__.e(/*! import() | user-solicitud-status-solicitud-status-module */ "user-solicitud-status-solicitud-status-module").then(__webpack_require__.bind(null, /*! ./user/solicitud-status/solicitud-status.module */ "aFCw")).then((m) => m.SolicitudStatusPageModule),
     },
     {
-        path: 'user/service-report',
-        loadChildren: () => Promise.all(/*! import() | user-service-report-service-report-module */[__webpack_require__.e("common"), __webpack_require__.e("user-service-report-service-report-module")]).then(__webpack_require__.bind(null, /*! ./user/service-report/service-report.module */ "DkN8")).then(m => m.ServiceReportPageModule),
+        path: "user/servicio-pagar",
+        loadChildren: () => __webpack_require__.e(/*! import() | user-servicio-pagar-servicio-pagar-module */ "user-servicio-pagar-servicio-pagar-module").then(__webpack_require__.bind(null, /*! ./user/servicio-pagar/servicio-pagar.module */ "8GJd")).then((m) => m.ServicioPagarPageModule),
     },
     {
-        path: 'user/servicio-pagar-forma',
-        loadChildren: () => Promise.all(/*! import() | user-servicio-pagar-forma-servicio-pagar-forma-module */[__webpack_require__.e("common"), __webpack_require__.e("user-servicio-pagar-forma-servicio-pagar-forma-module")]).then(__webpack_require__.bind(null, /*! ./user/servicio-pagar-forma/servicio-pagar-forma.module */ "KPXj")).then(m => m.ServicioPagarFormaPageModule),
+        path: "user/service-report",
+        loadChildren: () => Promise.all(/*! import() | user-service-report-service-report-module */[__webpack_require__.e("common"), __webpack_require__.e("user-service-report-service-report-module")]).then(__webpack_require__.bind(null, /*! ./user/service-report/service-report.module */ "DkN8")).then((m) => m.ServiceReportPageModule),
     },
     {
-        path: 'user/seval-prof',
-        loadChildren: () => Promise.all(/*! import() | user-eval-prof-eval-prof-module */[__webpack_require__.e("common"), __webpack_require__.e("user-eval-prof-eval-prof-module")]).then(__webpack_require__.bind(null, /*! ./user/eval-prof/eval-prof.module */ "tjQ7")).then(m => m.EvalProfPageModule),
+        path: "user/servicio-pagar-forma",
+        loadChildren: () => Promise.all(/*! import() | user-servicio-pagar-forma-servicio-pagar-forma-module */[__webpack_require__.e("common"), __webpack_require__.e("user-servicio-pagar-forma-servicio-pagar-forma-module")]).then(__webpack_require__.bind(null, /*! ./user/servicio-pagar-forma/servicio-pagar-forma.module */ "KPXj")).then((m) => m.ServicioPagarFormaPageModule),
     },
     {
-        path: 'user/visita-detail',
-        loadChildren: () => Promise.all(/*! import() | user-visita-detail-visita-detail-module */[__webpack_require__.e("common"), __webpack_require__.e("user-visita-detail-visita-detail-module")]).then(__webpack_require__.bind(null, /*! ./user/visita-detail/visita-detail.module */ "KgL3")).then(m => m.VisitaDetailPageModule),
+        path: "user/seval-prof",
+        loadChildren: () => Promise.all(/*! import() | user-eval-prof-eval-prof-module */[__webpack_require__.e("common"), __webpack_require__.e("user-eval-prof-eval-prof-module")]).then(__webpack_require__.bind(null, /*! ./user/eval-prof/eval-prof.module */ "tjQ7")).then((m) => m.EvalProfPageModule),
     },
     {
-        path: 'user/notificaciones',
-        loadChildren: () => __webpack_require__.e(/*! import() | user-notificaciones-notificaciones-module */ "user-notificaciones-notificaciones-module").then(__webpack_require__.bind(null, /*! ./user/notificaciones/notificaciones.module */ "4hak")).then(m => m.NotificacionesPageModule),
+        path: "user/visita-detail",
+        loadChildren: () => Promise.all(/*! import() | user-visita-detail-visita-detail-module */[__webpack_require__.e("common"), __webpack_require__.e("user-visita-detail-visita-detail-module")]).then(__webpack_require__.bind(null, /*! ./user/visita-detail/visita-detail.module */ "KgL3")).then((m) => m.VisitaDetailPageModule),
     },
     {
-        path: 'user/prof-contactados-list',
-        loadChildren: () => __webpack_require__.e(/*! import() | user-prof-contactados-list-prof-contactados-list-module */ "user-prof-contactados-list-prof-contactados-list-module").then(__webpack_require__.bind(null, /*! ./user/prof-contactados-list/prof-contactados-list.module */ "UTZ2")).then(m => m.ProfContactadosListPageModule),
+        path: "user/notificaciones",
+        loadChildren: () => __webpack_require__.e(/*! import() | user-notificaciones-notificaciones-module */ "user-notificaciones-notificaciones-module").then(__webpack_require__.bind(null, /*! ./user/notificaciones/notificaciones.module */ "4hak")).then((m) => m.NotificacionesPageModule),
     },
     {
-        path: 'user/single-prof-services',
-        loadChildren: () => __webpack_require__.e(/*! import() | user-prof-contactados-list-single-prof-services-single-prof-services-module */ "user-prof-contactados-list-single-prof-services-single-prof-services-module").then(__webpack_require__.bind(null, /*! ./user/prof-contactados-list/single-prof-services/single-prof-services.module */ "lepG")).then(m => m.SingleProfServicesPageModule),
+        path: "user/prof-contactados-list",
+        loadChildren: () => __webpack_require__.e(/*! import() | user-prof-contactados-list-prof-contactados-list-module */ "user-prof-contactados-list-prof-contactados-list-module").then(__webpack_require__.bind(null, /*! ./user/prof-contactados-list/prof-contactados-list.module */ "UTZ2")).then((m) => m.ProfContactadosListPageModule),
     },
     {
-        path: 'user/urgen-service',
-        loadChildren: () => Promise.all(/*! import() | user-urgen-service-urgen-service-module */[__webpack_require__.e("common"), __webpack_require__.e("user-urgen-service-urgen-service-module")]).then(__webpack_require__.bind(null, /*! ./user/urgen-service/urgen-service.module */ "bSEB")).then(m => m.UrgenServicePageModule),
+        path: "user/single-prof-services",
+        loadChildren: () => __webpack_require__.e(/*! import() | user-prof-contactados-list-single-prof-services-single-prof-services-module */ "user-prof-contactados-list-single-prof-services-single-prof-services-module").then(__webpack_require__.bind(null, /*! ./user/prof-contactados-list/single-prof-services/single-prof-services.module */ "lepG")).then((m) => m.SingleProfServicesPageModule),
     },
     {
-        path: 'profesional/home',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-home-module */ "profesional-home-home-module").then(__webpack_require__.bind(null, /*! ./profesional/home/home.module */ "iVdC")).then(m => m.HomePageModule),
+        path: "user/urgen-service",
+        loadChildren: () => Promise.all(/*! import() | user-urgen-service-urgen-service-module */[__webpack_require__.e("common"), __webpack_require__.e("user-urgen-service-urgen-service-module")]).then(__webpack_require__.bind(null, /*! ./user/urgen-service/urgen-service.module */ "bSEB")).then((m) => m.UrgenServicePageModule),
     },
     {
-        path: 'profesional/notificaciones',
-        loadChildren: () => Promise.all(/*! import() | profesional-notificaciones-notificaciones-module */[__webpack_require__.e("default~agendados-agendados-module~finalizados-finalizados-module~profesional-notificaciones-notific~62cb1172"), __webpack_require__.e("profesional-notificaciones-notificaciones-module")]).then(__webpack_require__.bind(null, /*! ./profesional/notificaciones/notificaciones.module */ "q60K")).then(m => m.NotificacionesPageModule),
+        path: "profesional/home",
+        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-home-module */ "profesional-home-home-module").then(__webpack_require__.bind(null, /*! ./profesional/home/home.module */ "iVdC")).then((m) => m.HomePageModule),
     },
     {
-        path: 'profesional/wallet',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-wallet-wallet-module */ "profesional-wallet-wallet-module").then(__webpack_require__.bind(null, /*! ./profesional/wallet/wallet.module */ "26Mx")).then(m => m.WalletPageModule),
+        path: "profesional/notificaciones",
+        loadChildren: () => Promise.all(/*! import() | profesional-notificaciones-notificaciones-module */[__webpack_require__.e("default~agendados-agendados-module~finalizados-finalizados-module~profesional-notificaciones-notific~62cb1172"), __webpack_require__.e("profesional-notificaciones-notificaciones-module")]).then(__webpack_require__.bind(null, /*! ./profesional/notificaciones/notificaciones.module */ "q60K")).then((m) => m.NotificacionesPageModule),
     },
     {
-        path: 'profesional/rating',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-rating-rating-module */ "profesional-rating-rating-module").then(__webpack_require__.bind(null, /*! ./profesional/rating/rating.module */ "hscP")).then(m => m.RatingPageModule),
+        path: "profesional/wallet",
+        loadChildren: () => __webpack_require__.e(/*! import() | profesional-wallet-wallet-module */ "profesional-wallet-wallet-module").then(__webpack_require__.bind(null, /*! ./profesional/wallet/wallet.module */ "26Mx")).then((m) => m.WalletPageModule),
     },
     {
-        path: 'profesional/perfil',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-perfil-perfil-module */ "profesional-perfil-perfil-module").then(__webpack_require__.bind(null, /*! ./profesional/perfil/perfil.module */ "gr1p")).then(m => m.PerfilPageModule),
+        path: "profesional/rating",
+        loadChildren: () => __webpack_require__.e(/*! import() | profesional-rating-rating-module */ "profesional-rating-rating-module").then(__webpack_require__.bind(null, /*! ./profesional/rating/rating.module */ "hscP")).then((m) => m.RatingPageModule),
     },
     {
-        path: 'profesional/cat-perfiles',
-        loadChildren: () => Promise.all(/*! import() | profesional-cat-perfiles-cat-perfiles-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-cat-perfiles-cat-perfiles-module")]).then(__webpack_require__.bind(null, /*! ./profesional/cat-perfiles/cat-perfiles.module */ "OZRK")).then(m => m.CatPerfilesPageModule),
+        path: "profesional/perfil",
+        loadChildren: () => __webpack_require__.e(/*! import() | profesional-perfil-perfil-module */ "profesional-perfil-perfil-module").then(__webpack_require__.bind(null, /*! ./profesional/perfil/perfil.module */ "gr1p")).then((m) => m.PerfilPageModule),
     },
     {
-        path: 'profesional/solicitudes/solicitudes-detail',
-        loadChildren: () => Promise.all(/*! import() | profesional-home-solicitudes-solicitudes-detail-solicitudes-detail-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-solicitudes-solicitudes-detail-solicitudes-detail-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/solicitudes/solicitudes-detail/solicitudes-detail.module */ "jCiK")).then(m => m.SolicitudesDetailPageModule),
+        path: "profesional/cat-perfiles",
+        loadChildren: () => Promise.all(/*! import() | profesional-cat-perfiles-cat-perfiles-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-cat-perfiles-cat-perfiles-module")]).then(__webpack_require__.bind(null, /*! ./profesional/cat-perfiles/cat-perfiles.module */ "OZRK")).then((m) => m.CatPerfilesPageModule),
     },
     {
-        path: 'profesional/solicitudes/definicion-servicio',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-solicitudes-definicion-servicio-definicion-servicio-module */ "profesional-home-solicitudes-definicion-servicio-definicion-servicio-module").then(__webpack_require__.bind(null, /*! ./profesional/home/solicitudes/definicion-servicio/definicion-servicio.module */ "Md0a")).then(m => m.DefinicionServicioPageModule),
+        path: "profesional/solicitudes/solicitudes-detail",
+        loadChildren: () => Promise.all(/*! import() | profesional-home-solicitudes-solicitudes-detail-solicitudes-detail-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-solicitudes-solicitudes-detail-solicitudes-detail-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/solicitudes/solicitudes-detail/solicitudes-detail.module */ "jCiK")).then((m) => m.SolicitudesDetailPageModule),
     },
     {
-        path: 'profesional/solicitudes/visita-tecnica',
-        loadChildren: () => Promise.all(/*! import() | profesional-home-solicitudes-visita-tecnica-visita-tecnica-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-solicitudes-visita-tecnica-visita-tecnica-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/solicitudes/visita-tecnica/visita-tecnica.module */ "B1EP")).then(m => m.VisitaTecnicaPageModule),
+        path: "profesional/solicitudes/definicion-servicio",
+        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-solicitudes-definicion-servicio-definicion-servicio-module */ "profesional-home-solicitudes-definicion-servicio-definicion-servicio-module").then(__webpack_require__.bind(null, /*! ./profesional/home/solicitudes/definicion-servicio/definicion-servicio.module */ "Md0a")).then((m) => m.DefinicionServicioPageModule),
     },
     {
-        path: 'profesional/agendados/agendados-detail',
-        loadChildren: () => Promise.all(/*! import() | profesional-home-agendados-agendados-detail-agendados-detail-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-agendados-agendados-detail-agendados-detail-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-detail/agendados-detail.module */ "DPWe")).then(m => m.AgendadosDetailPageModule),
+        path: "profesional/solicitudes/visita-tecnica",
+        loadChildren: () => Promise.all(/*! import() | profesional-home-solicitudes-visita-tecnica-visita-tecnica-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-solicitudes-visita-tecnica-visita-tecnica-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/solicitudes/visita-tecnica/visita-tecnica.module */ "B1EP")).then((m) => m.VisitaTecnicaPageModule),
     },
     {
-        path: 'profesional/agendados/agendados-finalizar',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-agendados-agendados-finalizar-agendados-finalizar-module */ "profesional-home-agendados-agendados-finalizar-agendados-finalizar-module").then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-finalizar/agendados-finalizar.module */ "TGXy")).then(m => m.AgendadosFinalizarPageModule),
+        path: "profesional/agendados/agendados-detail",
+        loadChildren: () => Promise.all(/*! import() | profesional-home-agendados-agendados-detail-agendados-detail-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-agendados-agendados-detail-agendados-detail-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-detail/agendados-detail.module */ "DPWe")).then((m) => m.AgendadosDetailPageModule),
     },
     {
-        path: 'profesional/agendados/servicios-adicionales',
-        loadChildren: () => Promise.all(/*! import() | profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-finalizar/servicios-adicionales/servicios-adicionales.module */ "jlIi")).then(m => m.ServiciosAdicionalesPageModule),
+        path: "profesional/agendados/agendados-finalizar",
+        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-agendados-agendados-finalizar-agendados-finalizar-module */ "profesional-home-agendados-agendados-finalizar-agendados-finalizar-module").then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-finalizar/agendados-finalizar.module */ "TGXy")).then((m) => m.AgendadosFinalizarPageModule),
     },
     {
-        path: 'profesional/finalizados/finalizados-details',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-finalizados-finalizados-details-finalizados-details-module */ "profesional-home-finalizados-finalizados-details-finalizados-details-module").then(__webpack_require__.bind(null, /*! ./profesional/home/finalizados/finalizados-details/finalizados-details.module */ "CeUq")).then(m => m.FinalizadosDetailsPageModule),
+        path: "profesional/agendados/servicios-adicionales",
+        loadChildren: () => Promise.all(/*! import() | profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module */[__webpack_require__.e("common"), __webpack_require__.e("profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module")]).then(__webpack_require__.bind(null, /*! ./profesional/home/agendados/agendados-finalizar/servicios-adicionales/servicios-adicionales.module */ "jlIi")).then((m) => m.ServiciosAdicionalesPageModule),
     },
     {
-        path: 'profesional/finalizados/rate-form',
-        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-finalizados-rate-form-rate-form-module */ "profesional-home-finalizados-rate-form-rate-form-module").then(__webpack_require__.bind(null, /*! ./profesional/home/finalizados/rate-form/rate-form.module */ "OCis")).then(m => m.RateFormPageModule),
+        path: "profesional/finalizados/finalizados-details",
+        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-finalizados-finalizados-details-finalizados-details-module */ "profesional-home-finalizados-finalizados-details-finalizados-details-module").then(__webpack_require__.bind(null, /*! ./profesional/home/finalizados/finalizados-details/finalizados-details.module */ "CeUq")).then((m) => m.FinalizadosDetailsPageModule),
+    },
+    {
+        path: "profesional/finalizados/rate-form",
+        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-finalizados-rate-form-rate-form-module */ "profesional-home-finalizados-rate-form-rate-form-module").then(__webpack_require__.bind(null, /*! ./profesional/home/finalizados/rate-form/rate-form.module */ "OCis")).then((m) => m.RateFormPageModule),
     },
 ];
 let AppRoutingModule = class AppRoutingModule {
@@ -3121,9 +3139,12 @@ let AppRoutingModule = class AppRoutingModule {
 AppRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         imports: [
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes, { preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_2__["PreloadAllModules"], relativeLinkResolution: 'legacy' })
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes, {
+                preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_2__["PreloadAllModules"],
+                relativeLinkResolution: "legacy",
+            }),
         ],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]],
     })
 ], AppRoutingModule);
 
@@ -3376,7 +3397,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>¡SOLICITUD ACEPTADA CON ÉXITO!</b></ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\">El cliente será notificado.</ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>¡SOLICITUD ACEPTADA CON ÉXITO!</b></ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\">El cliente será notificado</ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n</ion-content>");
 
 /***/ }),
 
@@ -3389,7 +3410,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid style=\"height: 100%;\">\n    <!-- SERVICIO Rechazado  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"status-text\" color=\"danger\"><b>RECHAZO DE LA SOLICITUD</b></ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n\n  <!-- profesional card item -->\n  <div class=\"no-border ion-margin-top\">\n    <ion-grid style=\"height: 100%;\">\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"ion-margin-start profileImg\">\n            <ion-img\n              src=\"{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_client_profile  }}\">\n            </ion-img>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"6\">\n          <ion-text>\n            <small class=\"ticket\">Solicitud #{{ loadedInfo.ticket_number }}</small><br>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ loadedInfo.categoryName }} <br>\n              <span class=\"titleName ion-text-capitalize\">{{ loadedInfo.clientName+\" \"+loadedInfo.clientLastName\n                }}</span>\n            </span><br>\n            <p class=\"main-color mini-text\" style=\"margin-top: 0; margin-bottom: 0;\">{{\n              formatDate(loadedInfo.date_required) }}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"danger\">Motivo de cierre</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n    <!-- text-area -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"border ion-text-center\">\n        <ion-item lines=\"none\">\n          <ion-textarea #rejectDesc rows=\"3\" cols=\"20\" placeholder=\"Describe aquí el motivo del cierre.\">\n          </ion-textarea>\n        </ion-item>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n      <!-- error  -->\n      <ion-col size=\"12\" *ngIf=\"showError\" class=\"text-center\">\n        <ion-label class=\"errorMess\">\n          <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n          <ion-text color=\"danger\">\n            <small>El motivo de rechazo es obligatorio</small>\n          </ion-text>\n        </ion-label>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" color=\"danger\"\n          (click)=\"rechazarSolicitud(rejectDesc.value)\">\n          RECHAZAR SOLICITUD\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n\n  </ion-grid>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid>\n    <!-- SERVICIO Rechazado  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"status-text\" color=\"danger\"><b>RECHAZO DE LA SOLICITUD</b></ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n\n  <!-- profesional card item -->\n  <div class=\"no-border ion-margin-top\">\n    <ion-grid style=\"height: 100%;\">\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"ion-margin-start profileImg\">\n            <ion-img\n              src=\"{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_client_profile  }}\">\n            </ion-img>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"6\">\n          <ion-text>\n            <small class=\"ticket\">Solicitud #{{ loadedInfo.ticket_number }}</small><br>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ loadedInfo.categoryName }} <br>\n              <span class=\"titleName ion-text-capitalize\">{{ loadedInfo.clientName+\" \"+loadedInfo.clientLastName\n                }}</span>\n            </span><br>\n            <p class=\"main-color mini-text\" style=\"margin-top: 0; margin-bottom: 0;\">{{\n              formatDate(loadedInfo.date_required) }}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"danger\">Motivo de cierre</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n    <!-- text-area -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"border ion-text-center\">\n        <ion-item lines=\"none\">\n          <ion-textarea #rejectDesc rows=\"3\" cols=\"20\" placeholder=\"Describe aquí el motivo del cierre.\">\n          </ion-textarea>\n        </ion-item>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n      <!-- error  -->\n      <ion-col size=\"12\" *ngIf=\"showError\" class=\"text-center\">\n        <ion-label class=\"errorMess\">\n          <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n          <ion-text color=\"danger\">\n            <small>El motivo de rechazo es obligatorio</small>\n          </ion-text>\n        </ion-label>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" color=\"danger\"\n          (click)=\"rechazarSolicitud(rejectDesc.value)\">\n          RECHAZAR SOLICITUD\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n\n  </ion-grid>\n</ion-content>");
 
 /***/ }),
 

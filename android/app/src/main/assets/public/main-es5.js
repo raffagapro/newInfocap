@@ -110,7 +110,8 @@
           this.lc = lc;
           this.loadedInfo = {
             date_required: null,
-            hours: null
+            hours: null,
+            type: null
           };
         }
 
@@ -128,6 +129,7 @@
           value: function ionViewWillEnter() {
             this.loadedInfo.hours = this.solicitudServicio.solicitud.hours;
             this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required;
+            this.loadedInfo.type = this.solicitudServicio.solicitud.type;
           }
         }, {
           key: "p",
@@ -177,8 +179,8 @@
                       _context.prev = 5;
                       url = '/supplier/aprove/requestservice/';
 
-                      if (this.solicitudServicio.solicitud.type == 'URGENT') {
-                        url = '/supplier/aprove/requestservice/'; //'/supplier/aprove/urgentrequestservice/'
+                      if (this.loadedInfo.type == 'URGENT') {
+                        url = '/supplier/aprove/urgentrequestservice/';
                       }
 
                       _context.next = 10;
@@ -190,7 +192,6 @@
 
                     case 10:
                       response = _context.sent;
-                      console.log(this.solicitudServicio.solicitud.cost);
                       axios__WEBPACK_IMPORTED_MODULE_8___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"] + "/supplier/cost/requestservice/".concat(this.solicitudServicio.solicitud.id), {
                         "amount": this.solicitudServicio.solicitud.cost,
                         "costs_type_id": 1,
@@ -201,38 +202,38 @@
                           Authorization: "Bearer ".concat(this.grabbedUser.access_token)
                         }
                       });
-                      _context.next = 15;
+                      _context.next = 14;
                       return loader.dismiss();
 
-                    case 15:
-                      _context.next = 17;
+                    case 14:
+                      _context.next = 16;
                       return this.modalController.dismiss();
 
-                    case 17:
-                      _context.next = 19;
+                    case 16:
+                      _context.next = 18;
                       return this.modalController.create({
                         component: _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_7__["ConfirmSuccessComponent"],
                         cssClass: 'modalSuccess'
                       });
 
-                    case 19:
+                    case 18:
                       successModal = _context.sent;
                       successModal.present();
-                      _context.next = 27;
+                      _context.next = 26;
                       break;
 
-                    case 23:
-                      _context.prev = 23;
+                    case 22:
+                      _context.prev = 22;
                       _context.t0 = _context["catch"](5);
                       console.log(_context.t0);
                       loader.dismiss();
 
-                    case 27:
+                    case 26:
                     case "end":
                       return _context.stop();
                   }
                 }
-              }, _callee, this, [[5, 23]]);
+              }, _callee, this, [[5, 22]]);
             }));
           }
         }, {
@@ -569,7 +570,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE SERVICIO</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre el trabajo a realizar.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Fecha: {{ formatDate(loadedInfo.date_required) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Horario: {{ p(loadedInfo.hours) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmServicio()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE SERVICIO</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre el trabajo a realizar</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Fecha: {{ formatDate(loadedInfo.date_required) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Horario: {{ p(loadedInfo.hours) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmServicio()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n";
       /***/
     },
 
@@ -817,7 +818,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    \n    <!-- SERVICIO REALIZADO  -->\n    <div style=\"height: 10px;\"></div>\n    <ion-row class=\"ion-margin-top\">\n      <div class=\"status-cont\">\n        <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n      </div>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"main-color status-text\"><b>SE HA REALIZADO LA SOLICITUD</b></ion-text><br>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text><hr></ion-text>\n      </ion-col>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>SE HA REALIZADO LA SOLICITUD</b></ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -2532,7 +2533,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE VISITA TÉCNICA</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre tu visita de valoración.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ formatDate(visita_tecnica.visit_date) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ visita_tecnica.visit_hours }} horas</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmVisita()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE VISITA TÉCNICA</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre tu visita de valoración</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ formatDate(visita_tecnica.visit_date) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ visita_tecnica.visit_hours }} horas</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmVisita()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n";
       /***/
     },
 
@@ -3090,7 +3091,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>CONFIRMACIÓN AL CLIENTE</b></ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\">Pendiente de pago.</ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>CONFIRMACIÓN AL CLIENTE</b></ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\">Pendiente de pago</ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -3761,7 +3762,13 @@
             clientName: null,
             clientLastName: null,
             date_required: null,
-            categoryName: null
+            hours: null,
+            description: null,
+            images: null,
+            categoryName: null,
+            category_id: null,
+            clientPhone1: null,
+            request_cost: {}
           };
         }
 
@@ -3772,9 +3779,6 @@
 
             this.userSub = this.us.loggedUser.subscribe(function (user) {
               _this5.grabbedUser = user;
-              _this5.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + _this5.grabbedUser.access_token);
-
-              _this5.loadService();
             });
           }
         }, {
@@ -3803,6 +3807,22 @@
                 loadingEl.dismiss();
               });
             });
+          }
+        }, {
+          key: "ionViewWillEnter",
+          value: function ionViewWillEnter() {
+            this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName;
+            this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName;
+            this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required;
+            this.loadedInfo.description = this.solicitudServicio.solicitud.description;
+            this.loadedInfo.hours = this.solicitudServicio.solicitud.hours;
+            this.loadedInfo.images = this.solicitudServicio.solicitud.images;
+            this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg;
+            this.loadedInfo.ticket_number = this.solicitudServicio.solicitud.ticket_number;
+            this.loadedInfo.categoryName = this.solicitudServicio.solicitud.categoryName;
+            this.loadedInfo.category_id = this.solicitudServicio.solicitud.category_id;
+            this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone;
+            this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost;
           }
         }, {
           key: "rechazarSolicitud",
@@ -3881,7 +3901,7 @@
         }, {
           key: "formatDate",
           value: function formatDate(date) {
-            return moment__WEBPACK_IMPORTED_MODULE_7__(date, 'YYYY-MM-DD').format('DD [de] MMMM [de] YYYY');
+            return moment__WEBPACK_IMPORTED_MODULE_7__(date, 'DD/MM/YYYY').format('DD [de] MMMM [de] YYYY');
           }
         }, {
           key: "dismiss",
@@ -4741,11 +4761,18 @@
       "tyNb");
 
       var routes = [{
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full'
+        path: "",
+        loadChildren: function loadChildren() {
+          return __webpack_require__.e(
+          /*! import() | walkthrougth-walkthrougth-module */
+          "walkthrougth-walkthrougth-module").then(__webpack_require__.bind(null,
+          /*! ./walkthrougth/walkthrougth.module */
+          "Hj6Z")).then(function (m) {
+            return m.WalkthrougthPageModule;
+          });
+        }
       }, {
-        path: 'terms',
+        path: "terms",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | terms-terms-module */
@@ -4756,7 +4783,7 @@
           });
         }
       }, {
-        path: 'privacy',
+        path: "privacy",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | privacy-privacy-module */
@@ -4767,7 +4794,7 @@
           });
         }
       }, {
-        path: 'register',
+        path: "register",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | login-register-register-module */
@@ -4778,7 +4805,7 @@
           });
         }
       }, {
-        path: 'login',
+        path: "login",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | login-login-login-module */
@@ -4789,7 +4816,7 @@
           });
         }
       }, {
-        path: 'recovery',
+        path: "recovery",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | login-recovery-recovery-module */
@@ -4800,7 +4827,7 @@
           });
         }
       }, {
-        path: 'user/home',
+        path: "user/home",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | user-home-home-module */
@@ -4811,7 +4838,7 @@
           });
         }
       }, {
-        path: 'user/profile-page',
+        path: "user/profile-page",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | user-profile-page-profile-page-module */
@@ -4822,7 +4849,7 @@
           });
         }
       }, {
-        path: 'user/map',
+        path: "user/map",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | user-mapa-mapa-module */
@@ -4833,7 +4860,7 @@
           });
         }
       }, {
-        path: 'user/profesional-list',
+        path: "user/profesional-list",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | user-profesional-list-profesional-list-module */
@@ -4844,7 +4871,7 @@
           });
         }
       }, {
-        path: 'user/profesional-detail',
+        path: "user/profesional-detail",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | user-profesional-detail-profesional-detail-module */
@@ -4855,7 +4882,7 @@
           });
         }
       }, {
-        path: 'user/solicitud-servicio',
+        path: "user/solicitud-servicio",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | user-solicitud-servicio-solicitud-servicio-module */
@@ -4868,13 +4895,13 @@
       },
       /*
       {
-        path: 'user/solicitud-urgente-servicio',
-        loadChildren: () => import('./user/solicitud-urgente-servicio/solicitud-urgente-servicio.module').then( m => m.SolicitudUrgenteServicioPageModule),
-        // canLoad: [AuthGuard, UserGuard],
+      path: 'user/solicitud-urgente-servicio',
+      loadChildren: () => import('./user/solicitud-urgente-servicio/solicitud-urgente-servicio.module').then( m => m.SolicitudUrgenteServicioPageModule),
+      // canLoad: [AuthGuard, UserGuard],
       },
       */
       {
-        path: 'user/solicitudes',
+        path: "user/solicitudes",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | user-solicitudes-solicitudes-module */
@@ -4885,7 +4912,7 @@
           });
         }
       }, {
-        path: 'user/solicitud-finished',
+        path: "user/solicitud-finished",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | user-service-finished-service-finished-module */
@@ -4896,7 +4923,7 @@
           });
         }
       }, {
-        path: 'user/solicitud-detail',
+        path: "user/solicitud-detail",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | user-solicitud-detail-solicitud-detail-module */
@@ -4907,7 +4934,7 @@
           });
         }
       }, {
-        path: 'user/service-resume',
+        path: "user/service-resume",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | user-service-resume-service-resume-module */
@@ -4918,7 +4945,7 @@
           });
         }
       }, {
-        path: 'user/solicitud-status',
+        path: "user/solicitud-status",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | user-solicitud-status-solicitud-status-module */
@@ -4929,7 +4956,7 @@
           });
         }
       }, {
-        path: 'user/servicio-pagar',
+        path: "user/servicio-pagar",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | user-servicio-pagar-servicio-pagar-module */
@@ -4940,7 +4967,7 @@
           });
         }
       }, {
-        path: 'user/service-report',
+        path: "user/service-report",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | user-service-report-service-report-module */
@@ -4951,7 +4978,7 @@
           });
         }
       }, {
-        path: 'user/servicio-pagar-forma',
+        path: "user/servicio-pagar-forma",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | user-servicio-pagar-forma-servicio-pagar-forma-module */
@@ -4962,7 +4989,7 @@
           });
         }
       }, {
-        path: 'user/seval-prof',
+        path: "user/seval-prof",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | user-eval-prof-eval-prof-module */
@@ -4973,7 +5000,7 @@
           });
         }
       }, {
-        path: 'user/visita-detail',
+        path: "user/visita-detail",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | user-visita-detail-visita-detail-module */
@@ -4984,7 +5011,7 @@
           });
         }
       }, {
-        path: 'user/notificaciones',
+        path: "user/notificaciones",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | user-notificaciones-notificaciones-module */
@@ -4995,7 +5022,7 @@
           });
         }
       }, {
-        path: 'user/prof-contactados-list',
+        path: "user/prof-contactados-list",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | user-prof-contactados-list-prof-contactados-list-module */
@@ -5006,7 +5033,7 @@
           });
         }
       }, {
-        path: 'user/single-prof-services',
+        path: "user/single-prof-services",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | user-prof-contactados-list-single-prof-services-single-prof-services-module */
@@ -5017,7 +5044,7 @@
           });
         }
       }, {
-        path: 'user/urgen-service',
+        path: "user/urgen-service",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | user-urgen-service-urgen-service-module */
@@ -5028,7 +5055,7 @@
           });
         }
       }, {
-        path: 'profesional/home',
+        path: "profesional/home",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | profesional-home-home-module */
@@ -5039,7 +5066,7 @@
           });
         }
       }, {
-        path: 'profesional/notificaciones',
+        path: "profesional/notificaciones",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | profesional-notificaciones-notificaciones-module */
@@ -5050,7 +5077,7 @@
           });
         }
       }, {
-        path: 'profesional/wallet',
+        path: "profesional/wallet",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | profesional-wallet-wallet-module */
@@ -5061,7 +5088,7 @@
           });
         }
       }, {
-        path: 'profesional/rating',
+        path: "profesional/rating",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | profesional-rating-rating-module */
@@ -5072,7 +5099,7 @@
           });
         }
       }, {
-        path: 'profesional/perfil',
+        path: "profesional/perfil",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | profesional-perfil-perfil-module */
@@ -5083,7 +5110,7 @@
           });
         }
       }, {
-        path: 'profesional/cat-perfiles',
+        path: "profesional/cat-perfiles",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | profesional-cat-perfiles-cat-perfiles-module */
@@ -5094,7 +5121,7 @@
           });
         }
       }, {
-        path: 'profesional/solicitudes/solicitudes-detail',
+        path: "profesional/solicitudes/solicitudes-detail",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | profesional-home-solicitudes-solicitudes-detail-solicitudes-detail-module */
@@ -5105,7 +5132,7 @@
           });
         }
       }, {
-        path: 'profesional/solicitudes/definicion-servicio',
+        path: "profesional/solicitudes/definicion-servicio",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | profesional-home-solicitudes-definicion-servicio-definicion-servicio-module */
@@ -5116,7 +5143,7 @@
           });
         }
       }, {
-        path: 'profesional/solicitudes/visita-tecnica',
+        path: "profesional/solicitudes/visita-tecnica",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | profesional-home-solicitudes-visita-tecnica-visita-tecnica-module */
@@ -5127,7 +5154,7 @@
           });
         }
       }, {
-        path: 'profesional/agendados/agendados-detail',
+        path: "profesional/agendados/agendados-detail",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | profesional-home-agendados-agendados-detail-agendados-detail-module */
@@ -5138,7 +5165,7 @@
           });
         }
       }, {
-        path: 'profesional/agendados/agendados-finalizar',
+        path: "profesional/agendados/agendados-finalizar",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | profesional-home-agendados-agendados-finalizar-agendados-finalizar-module */
@@ -5149,7 +5176,7 @@
           });
         }
       }, {
-        path: 'profesional/agendados/servicios-adicionales',
+        path: "profesional/agendados/servicios-adicionales",
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | profesional-home-agendados-agendados-finalizar-servicios-adicionales-servicios-adicionales-module */
@@ -5160,7 +5187,7 @@
           });
         }
       }, {
-        path: 'profesional/finalizados/finalizados-details',
+        path: "profesional/finalizados/finalizados-details",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | profesional-home-finalizados-finalizados-details-finalizados-details-module */
@@ -5171,7 +5198,7 @@
           });
         }
       }, {
-        path: 'profesional/finalizados/rate-form',
+        path: "profesional/finalizados/rate-form",
         loadChildren: function loadChildren() {
           return __webpack_require__.e(
           /*! import() | profesional-home-finalizados-rate-form-rate-form-module */
@@ -5190,7 +5217,7 @@
       AppRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes, {
           preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_2__["PreloadAllModules"],
-          relativeLinkResolution: 'legacy'
+          relativeLinkResolution: "legacy"
         })],
         exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
       })], AppRoutingModule);
@@ -5653,7 +5680,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>¡SOLICITUD ACEPTADA CON ÉXITO!</b></ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\">El cliente será notificado.</ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>¡SOLICITUD ACEPTADA CON ÉXITO!</b></ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\">El cliente será notificado</ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -5673,7 +5700,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid style=\"height: 100%;\">\n    <!-- SERVICIO Rechazado  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"status-text\" color=\"danger\"><b>RECHAZO DE LA SOLICITUD</b></ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n\n  <!-- profesional card item -->\n  <div class=\"no-border ion-margin-top\">\n    <ion-grid style=\"height: 100%;\">\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"ion-margin-start profileImg\">\n            <ion-img\n              src=\"{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_client_profile  }}\">\n            </ion-img>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"6\">\n          <ion-text>\n            <small class=\"ticket\">Solicitud #{{ loadedInfo.ticket_number }}</small><br>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ loadedInfo.categoryName }} <br>\n              <span class=\"titleName ion-text-capitalize\">{{ loadedInfo.clientName+\" \"+loadedInfo.clientLastName\n                }}</span>\n            </span><br>\n            <p class=\"main-color mini-text\" style=\"margin-top: 0; margin-bottom: 0;\">{{\n              formatDate(loadedInfo.date_required) }}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"danger\">Motivo de cierre</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n    <!-- text-area -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"border ion-text-center\">\n        <ion-item lines=\"none\">\n          <ion-textarea #rejectDesc rows=\"3\" cols=\"20\" placeholder=\"Describe aquí el motivo del cierre.\">\n          </ion-textarea>\n        </ion-item>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n      <!-- error  -->\n      <ion-col size=\"12\" *ngIf=\"showError\" class=\"text-center\">\n        <ion-label class=\"errorMess\">\n          <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n          <ion-text color=\"danger\">\n            <small>El motivo de rechazo es obligatorio</small>\n          </ion-text>\n        </ion-label>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" color=\"danger\"\n          (click)=\"rechazarSolicitud(rejectDesc.value)\">\n          RECHAZAR SOLICITUD\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid>\n    <!-- SERVICIO Rechazado  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"status-text\" color=\"danger\"><b>RECHAZO DE LA SOLICITUD</b></ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n\n  <!-- profesional card item -->\n  <div class=\"no-border ion-margin-top\">\n    <ion-grid style=\"height: 100%;\">\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"ion-margin-start profileImg\">\n            <ion-img\n              src=\"{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_client_profile  }}\">\n            </ion-img>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"6\">\n          <ion-text>\n            <small class=\"ticket\">Solicitud #{{ loadedInfo.ticket_number }}</small><br>\n            <span class=\"titleSelect main-color ion-text-capitalize\">{{ loadedInfo.categoryName }} <br>\n              <span class=\"titleName ion-text-capitalize\">{{ loadedInfo.clientName+\" \"+loadedInfo.clientLastName\n                }}</span>\n            </span><br>\n            <p class=\"main-color mini-text\" style=\"margin-top: 0; margin-bottom: 0;\">{{\n              formatDate(loadedInfo.date_required) }}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"danger\">Motivo de cierre</ion-text><br>\n      </ion-col>\n    </ion-row>\n\n    <!-- text-area -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"border ion-text-center\">\n        <ion-item lines=\"none\">\n          <ion-textarea #rejectDesc rows=\"3\" cols=\"20\" placeholder=\"Describe aquí el motivo del cierre.\">\n          </ion-textarea>\n        </ion-item>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n      <!-- error  -->\n      <ion-col size=\"12\" *ngIf=\"showError\" class=\"text-center\">\n        <ion-label class=\"errorMess\">\n          <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n          <ion-text color=\"danger\">\n            <small>El motivo de rechazo es obligatorio</small>\n          </ion-text>\n        </ion-label>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" color=\"danger\"\n          (click)=\"rechazarSolicitud(rejectDesc.value)\">\n          RECHAZAR SOLICITUD\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n\n  </ion-grid>\n</ion-content>";
       /***/
     },
 

@@ -325,7 +325,7 @@
               quality: 100,
               source: _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["CameraSource"].Prompt,
               correctOrientation: true,
-              height: 500,
+              //height: 500,
               width: 500,
               resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl,
               promptLabelPhoto: 'Fotos',
