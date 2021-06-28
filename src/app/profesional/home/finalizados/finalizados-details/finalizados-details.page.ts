@@ -89,7 +89,7 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
         loadingEl.dismiss();
       })
 
-      axios.get(API + `/supplier/evaluation/done/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(response => {
+      axios.get(API + `/client/evaluation/done/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(response => {
         this.showRateProfessional = response.data.data[0] && response.data.data[0].evaluate == 0 ? true : false;
 
         console.log(response.data.data[0])
