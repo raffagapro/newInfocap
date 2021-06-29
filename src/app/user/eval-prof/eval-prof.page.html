@@ -92,7 +92,7 @@
     </ion-row>
 
     <!-- title -->
-    <ion-row *ngIf="currentRate <= 3" class="ion-margin-top">
+    <ion-row *ngIf="currentRate <= 3 && isTouched" class="ion-margin-top">
       <ion-col size="10" offset="1" class="ion-text-center">
         <ion-text class="main-color title"><b>¡Lamentamos que no te encuentres satisfecho!</b></ion-text>
       </ion-col>
@@ -100,7 +100,7 @@
     </ion-row>
 
     <!-- text-area -->
-    <ion-row *ngIf="currentRate <= 3" class="ion-margin-top">
+    <ion-row *ngIf="currentRate <= 3 && isTouched" class="ion-margin-top">
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="border ion-text-center">
         <ion-item lines="none">

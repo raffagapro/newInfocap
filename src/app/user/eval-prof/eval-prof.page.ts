@@ -28,6 +28,7 @@ export class EvalProfPage implements OnInit {
 	error;
 	comment;
 	comment_bad_services = "";
+	isTouched = false;
 
 	constructor(
 		private modalController: ModalController,
@@ -59,6 +60,7 @@ export class EvalProfPage implements OnInit {
 
 	setCurrentRate(rate: number) {
 		this.currentRate = rate;
+		this.isTouched = true;
 	}
 
 	setSelectedIcon(type: IconType) {

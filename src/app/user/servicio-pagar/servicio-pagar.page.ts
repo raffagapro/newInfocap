@@ -20,6 +20,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 	userSub: Subscription;
 	headers: HttpHeaders;
 	loadedService = {
+		amount_client: null,
 		categoryName: null,
 		cummunename: null,
 		category_id: null,
@@ -151,7 +152,6 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 					},
 				}
 			);
-			console.log(response);
 			if (response.data) {
 				let data = response.data.data;
 				if (response.data.code !== 200) {
@@ -168,12 +168,9 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 	}
 
 	getServiceCost() {
-		if (this.loadedService && this.loadedService.request_cost.length > 0) {
+		if (this.servicesCosts && this.servicesCosts.amount_client) {
 			return Number(
-				this.loadedService.request_cost.reduce(
-					(total, entity) => (total += Number(entity.amount_client)),
-					0
-				)
+				this.servicesCosts.amount_client
 			).toFixed(2);
 		}
 		return 0;

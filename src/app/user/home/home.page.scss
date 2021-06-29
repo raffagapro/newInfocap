@@ -69,7 +69,12 @@ hr {
 }
 
 .btn-category {
-  background-color: #009ace;
-  background: #009ace;
+  background-color: #32b6dd;
+  background: #32b6dd;
   border-radius: 10px;
+  
+  --background: #32b6dd;
+  --background-activated: var(--ion-color-primary-shade, #32b6dd);
+  --background-focused: var(--ion-color-primary-shade, #32b6dd);
+  --background-hover: var(--ion-color-primary-tint, #32b6dd);
 }

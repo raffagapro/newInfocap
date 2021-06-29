@@ -46,8 +46,8 @@
     <ion-row>
       <ion-col size="11" offset="1">
         <ion-text color="primary" class="title">
-          <b *ngIf="loadedService && loadedService.request_cost.length > 0">${{getServiceCost()}}</b>
-          <b *ngIf="loadedService && loadedService.request_cost.length == 0" class="small">Aún no se ha asignado un costo</b>
+          <b *ngIf="servicesCosts && servicesCosts.amount_client">${{getServiceCost()}}</b>
+          <b *ngIf="servicesCosts && !servicesCosts.amount_client" class="small">Aún no se ha asignado un costo</b>
         </ion-text>
       </ion-col>
     </ion-row>

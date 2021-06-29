@@ -149,6 +149,15 @@ export class ServiceReportPageComponent implements OnInit {
     return Number(this.getServiceAditional()) + Number(parseFloat(this.servicesCosts.amount_client).toFixed(2));
   }
 
+  getServiceCost() {
+		if (this.servicesCosts && this.servicesCosts.amount_client) {
+			return Number(
+				this.servicesCosts.amount_client
+			).toFixed(2);
+		}
+		return 0;
+	}
+
   goBack() {
     this.navCtrl.back();
   }
