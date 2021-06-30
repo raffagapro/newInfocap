@@ -14,7 +14,7 @@
   <ion-grid fixed *ngIf="notifications.length === 0">
     <ion-row class="ion-margin-top">
       <ion-col size="11" class="ion-text-left">
-        <ion-text class="title main-color"><b>Aún no tienes notificationes</b></ion-text>
+        <ion-text class="title main-color"><b>Aún no tienes notificaciones</b></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>
@@ -44,7 +44,7 @@
                   <p class="textSelect {{notification.type_request !== 'NORMAL' ? 'red-color' : ''}}">
                     {{ validationName(notification.customerName, notification.professionalName,
                     notification.status_name)
-                    }} {{ notification.type_request === 'NORMAL' ? notification.motive : ' ha generado una solicitud urgente, por favor atiéndela, si no puedes, no olvides rechazar.' }}
+                    }} {{ formatMotivo(notification.type_request, notification.status_id, notification.motive ) }}
                   </p>
                   <!--<small class="main-color">Cambio de chapas</small>-->
                 </ion-text>
