@@ -3051,7 +3051,7 @@ const routes = [
     },
     {
         path: "user/servicio-pagar-forma",
-        loadChildren: () => Promise.all(/*! import() | user-servicio-pagar-forma-servicio-pagar-forma-module */[__webpack_require__.e("common"), __webpack_require__.e("user-servicio-pagar-forma-servicio-pagar-forma-module")]).then(__webpack_require__.bind(null, /*! ./user/servicio-pagar-forma/servicio-pagar-forma.module */ "KPXj")).then((m) => m.ServicioPagarFormaPageModule),
+        loadChildren: () => __webpack_require__.e(/*! import() | user-servicio-pagar-forma-servicio-pagar-forma-module */ "user-servicio-pagar-forma-servicio-pagar-forma-module").then(__webpack_require__.bind(null, /*! ./user/servicio-pagar-forma/servicio-pagar-forma.module */ "KPXj")).then((m) => m.ServicioPagarFormaPageModule),
     },
     {
         path: "user/seval-prof",

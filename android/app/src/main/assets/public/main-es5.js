@@ -4980,9 +4980,9 @@
       }, {
         path: "user/servicio-pagar-forma",
         loadChildren: function loadChildren() {
-          return Promise.all(
+          return __webpack_require__.e(
           /*! import() | user-servicio-pagar-forma-servicio-pagar-forma-module */
-          [__webpack_require__.e("common"), __webpack_require__.e("user-servicio-pagar-forma-servicio-pagar-forma-module")]).then(__webpack_require__.bind(null,
+          "user-servicio-pagar-forma-servicio-pagar-forma-module").then(__webpack_require__.bind(null,
           /*! ./user/servicio-pagar-forma/servicio-pagar-forma.module */
           "KPXj")).then(function (m) {
             return m.ServicioPagarFormaPageModule;

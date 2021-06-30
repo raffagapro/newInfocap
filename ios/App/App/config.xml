@@ -6,6 +6,11 @@
     <param name="ios-package" value="CFCallNumber"/>
   </feature>
 
+  <feature name="Khenshin">
+    <param name="ios-package" value="KhenshinPlugin"/>
+    <param name="onload" value="true"/>
+  </feature>
+
   <feature name="CordovaHttpPlugin">
     <param name="ios-package" value="CordovaHttpPlugin"/>
   </feature>
