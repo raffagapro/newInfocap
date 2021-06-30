@@ -13,5 +13,6 @@ export class ProfCategory{
      public transportName: string,
      public transport_id: string,
      public work_days: string,
+     public categories: any[],
     ) {}
   }

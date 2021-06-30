@@ -22,12 +22,13 @@ import { EvaluationData } from 'src/shared/types/EvaluationData';
 })
 export class ProfesionalDetailPage implements OnInit, OnDestroy {
   selectedProCat: ProfCategory = new ProfCategory(
-    null, null, null, null, null, null, null, null, null, null, null, null, null
+    null, null, null, null, null, null, null, null, null, null, null, null, null, null
   );
   selectedProfPhoto: string;
   grabbedUser: User;
   userSub: Subscription;
   loadedImgList: string[] = [];
+  filterCategories = []
   imgListSub: Subscription;
   headers: HttpHeaders;
   editedHours: string;
@@ -92,6 +93,7 @@ export class ProfesionalDetailPage implements OnInit, OnDestroy {
       this.http.get(API + `/client/profession/${this.solServ.solicitud.proPerfil_id}`, { headers: this.headers })
         .subscribe(resData => {
           this.selectedProCat = resData['data'];
+          this.filterCategories = this.selectedProCat.categories.filter(category => category.categoryName !== this.selectedProCat.categoryName);
 
           let splitedHours = this.selectedProCat.hours.split('/');
           let startHour = splitedHours.length > 0 ? moment(splitedHours[0]).format('h:mm a') : 'ND';

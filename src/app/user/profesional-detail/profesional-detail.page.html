@@ -50,7 +50,7 @@
             </ion-badge>
             <div *ngIf="selectedProCat && selectedProCat.categories && selectedProCat.categories.length > 1"
               style="display: inline-flex">
-              <ion-badge *ngFor="let category of selectedProCat.categories.slice(1, selectedProCat.categories.length);"
+              <ion-badge *ngFor="let category of filterCategories;"
                 color="medium" class="badge-text">
                 {{ category.categoryName }}
               </ion-badge>
