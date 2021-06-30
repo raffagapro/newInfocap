@@ -263,13 +263,19 @@
       /* harmony import */
 
 
-      var cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! src/app/shared/success-modal/success-modal.component */
+      "W/u7");
+      /* harmony import */
+
+
+      var cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! cordova-khenshin/www/khenshin */
       "Dvv2");
       /* harmony import */
 
 
-      var cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_9__);
+      var cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_10__);
 
       var ServicioPagarFormaPage = /*#__PURE__*/function () {
         function ServicioPagarFormaPage(modalController, menuController, loadingController, userService, solServ) {
@@ -346,10 +352,27 @@
         }, {
           key: "submitPayment",
           value: function submitPayment() {
-            cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_9___default.a.startByPaymentId("ryqg40d9liod", function (success) {
-              return console.log(success);
+            var _this2 = this;
+
+            cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_10___default.a.startByPaymentId("ivac6pqv5qvb", function (success) {
+              console.log(success);
+              alert("Pago exitoso");
+
+              _this2.modalController.create({
+                component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_9__["SuccessModalComponent"],
+                componentProps: {
+                  message: "¡EL PAGO HA SIDO EXISTOSO!",
+                  secondMessage: "Recuerda evaluar el servicio.",
+                  redirect: true,
+                  redirectUrl: "/user/seval-prof"
+                },
+                cssClass: "modalSuccess"
+              }).then(function (modalEl) {
+                modalEl.present();
+              });
             }, function (err) {
-              return console.log(err);
+              console.log(err);
+              alert("Error con el pago");
             });
             /*
             this.modalController

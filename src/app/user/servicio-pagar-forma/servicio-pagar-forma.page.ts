@@ -65,10 +65,31 @@ export class ServicioPagarFormaPage implements OnInit {
 
 	submitPayment() {
 		khenshin.startByPaymentId(
-			"ryqg40d9liod",
-			(success) => console.log(success),
-			(err) => console.log(err)
+			"ivac6pqv5qvb",
+			(success) => {
+				console.log(success);
+				alert("Pago exitoso");
+				this.modalController
+					.create({
+						component: SuccessModalComponent,
+						componentProps: {
+							message: "¡EL PAGO HA SIDO EXISTOSO!",
+							secondMessage: "Recuerda evaluar el servicio.",
+							redirect: true,
+							redirectUrl: "/user/seval-prof",
+						},
+						cssClass: "modalSuccess",
+					})
+					.then((modalEl) => {
+						modalEl.present();
+					});
+			},
+			(err) => {
+				console.log(err);
+				alert("Error con el pago");
+			}
 		);
+
 		/*
 		this.modalController
 			.create({

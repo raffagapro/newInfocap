@@ -95,7 +95,7 @@ let EvalProfPage = class EvalProfPage {
         this.loadingController = loadingController;
         this.location = location;
         this.selectedIcons = [];
-        this.currentRate = 1;
+        this.currentRate = 0;
         this.comment_bad_services = "";
         this.isTouched = false;
     }

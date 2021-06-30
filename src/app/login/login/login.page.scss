@@ -10,8 +10,8 @@ hr {
 }
 .logo-facebook {
   background-color: #1877f2;
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   font-size: 40px;
   display: flex;
   justify-content: center;
@@ -20,8 +20,8 @@ hr {
 }
 .logo-apple {
   background-color: #000000;
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   font-size: 40px;
   display: flex;
   justify-content: center;
@@ -30,8 +30,8 @@ hr {
 }
 .logo-google {
   background-color: #f93f2d;
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   font-size: 40px;
   display: flex;
   justify-content: center;
@@ -67,4 +67,11 @@ hr {
   @media (min-width: 768px) {
     height: 25%;
   }
+}
+
+.login-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
