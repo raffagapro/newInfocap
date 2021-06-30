@@ -119,6 +119,18 @@ export class NotificacionesPage implements OnInit {
     }
   }
 
+  formatMotivo(type, status, motive) {
+    if(type === 'NORMAL') {
+      return motive
+    } else {
+      if(status === 1) {
+        return ' ha generado una solicitud urgente, por favor atiéndela, si no puedes, no olvides rechazar.'
+      } else {
+        return motive
+      }
+    }
+  }
+
   formatdate(date: string, hours: string) {
     return moment.utc(`${date} ${hours}`, 'DD-MM-YYYY hh:mm:ss').startOf('minute').fromNow();
   }

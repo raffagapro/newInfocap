@@ -2,8 +2,8 @@
   <ion-toolbar color="primary">
 
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/profesional/solicitudes/solicitudes-detail" text=""
-        icon="arrow-back"></ion-back-button>
+      <ion-back-button defaultHref="/profesional/solicitudes/solicitudes-detail" text="" icon="arrow-back">
+      </ion-back-button>
     </ion-buttons>
 
     <ion-title class="title-toolbar">DEFINICIÓN DEL SERVICIO</ion-title>
@@ -42,7 +42,7 @@
     </ion-grid>
   </div>
 
-  <ion-grid style="padding-left: 24px; padding-right: 24px;">
+  <ion-grid class="pd-20">
 
     <!-- title -->
     <ion-row>
@@ -82,21 +82,16 @@
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
             </ion-label>
 
-            <ion-datetime
-            *ngIf="loadedInfo.type === 'URGENT'"
-            cancel-text="Cancelar" done-text="Listo"
-            dayShortNames="Domingo,Lunes,Martes,Miércoles,Jueves,Viernes,Sábado" 
-            max="{{ maxDate }}"
-            monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" 
-            [min]="minDate" formControlName="dateReq" display-format="DDD D de MMM de YYYY">
+            <ion-datetime *ngIf="loadedInfo.type === 'URGENT'" cancel-text="Cancelar" done-text="Listo"
+              dayShortNames="Domingo,Lunes,Martes,Miércoles,Jueves,Viernes,Sábado" max="{{ maxDate }}"
+              monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+              [min]="minDate" formControlName="dateReq" display-format="DDD D de MMM de YYYY">
             </ion-datetime>
 
-            <ion-datetime
-            *ngIf="loadedInfo.type !== 'URGENT'"
-            cancel-text="Cancelar" done-text="Listo"
-            dayShortNames="Domingo,Lunes,Martes,Miércoles,Jueves,Viernes,Sábado" 
-            monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" 
-            [min]="minDate" formControlName="dateReq" display-format="DDD D de MMM de YYYY">
+            <ion-datetime *ngIf="loadedInfo.type !== 'URGENT'" cancel-text="Cancelar" done-text="Listo"
+              dayShortNames="Domingo,Lunes,Martes,Miércoles,Jueves,Viernes,Sábado"
+              monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+              [min]="minDate" formControlName="dateReq" display-format="DDD D de MMM de YYYY">
             </ion-datetime>
           </ion-item>
         </ion-col>
@@ -104,16 +99,20 @@
 
       <!-- Hora incial -->
       <ion-row>
-        <ion-col size="10" class="ion-text-center">
+        <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color subtitle"><b>Rango de horas <span class="red-color">*</span></b></ion-text>
         </ion-col>
+      </ion-row>
+
+      <ion-row>
         <ion-col size="6">
           <ion-item>
             <ion-label class="main-color" position="floating">
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora inicial</ion-text>
             </ion-label>
-            <ion-datetime minuteValues="0,10,20,30,40,50" cancel-text="Cancelar" done-text="Listo" formControlName="sHour" display-format="h:mm A" picker-format="h:mm A">
+            <ion-datetime minuteValues="0,10,20,30,40,50" cancelText="Cancelar" doneText="Listo"
+              formControlName="sHour" [min]="minDate.format('YYYY-MM-DD')" display-format="h:mm A" picker-format="h:mm A">
             </ion-datetime>
           </ion-item>
         </ion-col>
@@ -123,7 +122,8 @@
               <ion-icon src="/assets/icon/ic_schedule.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Hora final</ion-text>
             </ion-label>
-            <ion-datetime  minuteValues="0,10,20,30,40,50" cancel-text="Cancelar" done-text="Listo"  formControlName="eHour" display-format="h:mm A" picker-format="h:mm A">
+            <ion-datetime minuteValues="0,10,20,30,40,50" cancelText="Cancelar" doneText="Listo"
+              formControlName="eHour" [min]="minDate.format('YYYY-MM-DD')" display-format="h:mm A" picker-format="h:mm A">
             </ion-datetime>
           </ion-item>
         </ion-col>
