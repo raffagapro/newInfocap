@@ -54,6 +54,7 @@ export class FinalizadosPage implements OnInit, OnDestroy {
   }
 
   loadServices(statusID: string) {
+    this.loadedServices = []
     this.lc.create({
       message: "Cargando lista de servicios..."
     }).then(loadingEl => {
@@ -61,17 +62,23 @@ export class FinalizadosPage implements OnInit, OnDestroy {
       axios.get(API + `/supplier/requestservice/${statusID}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
         if (statusID === "5") {
-          this.loadedServices = resData.data.data;
-          this.loadedServices = lodash.orderBy(this.loadedServices, function(dateObj) {
-            return new Date(dateObj.date_required);
-          });
+          this.loadedServices = this.loadedServices.concat(resData.data.data);
+          // this.loadedServices = lodash.orderBy(this.loadedServices, function(dateObj) {
+          //   return new Date(dateObj.date_required);
+          // });
+
         }
         if (statusID === "6") {
-          this.paidServices = resData.data.data;
-          this.paidServices = lodash.orderBy(this.paidServices, function(dateObj) {
-            return new Date(dateObj.date_required);
-          });
+          this.loadedServices = this.loadedServices.concat(resData.data.data);
+          // this.paidServices = lodash.orderBy(this.paidServices, function(dateObj) {
+          //   return new Date(dateObj.date_required);
+          // });
         }
+      }).then(() => {
+        this.loadedServices = lodash.orderBy(this.loadedServices, function (dateObj) {
+          return new Date(dateObj.date_required);
+        });
+        lodash.reverse(this.loadedServices)
       }).catch(err => {
         console.log(err);
         loadingEl.dismiss();

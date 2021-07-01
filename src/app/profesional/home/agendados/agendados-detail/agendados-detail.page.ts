@@ -172,8 +172,11 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
           cssClass: 'modalSuccess',
         }).then(modalEl => {
           modalEl.present();
-        });
-      })
+        })
+      }).catch(err => {
+        console.log(err)
+        loadingEl.dismiss();
+      });
     });
   }
 
