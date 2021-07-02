@@ -269,7 +269,8 @@ let MapaPage = class MapaPage {
         this.solServ.setAddress(item.description);
         //save comuna id to solicitud service
         this.comunas.forEach(comuna => {
-            if (comuna.name === wAddress[1].substring(1).toLowerCase()) {
+            if (comuna.name.toLowerCase() === wAddress[1].substring(1).toLowerCase()) {
+                console.log('true');
                 this.solServ.setComuna(comuna.id);
             }
             else {

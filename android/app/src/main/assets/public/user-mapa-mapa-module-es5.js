@@ -461,7 +461,9 @@
             this.solServ.setAddress(item.description); //save comuna id to solicitud service
 
             this.comunas.forEach(function (comuna) {
-              if (comuna.name === wAddress[1].substring(1).toLowerCase()) {
+              if (comuna.name.toLowerCase() === wAddress[1].substring(1).toLowerCase()) {
+                console.log('true');
+
                 _this5.solServ.setComuna(comuna.id);
               } else {}
             });
