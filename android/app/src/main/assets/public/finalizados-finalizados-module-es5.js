@@ -219,6 +219,7 @@
           value: function loadServices(statusID) {
             var _this2 = this;
 
+            this.loadedServices = [];
             this.lc.create({
               message: "Cargando lista de servicios..."
             }).then(function (loadingEl) {
@@ -231,18 +232,21 @@
                 loadingEl.dismiss();
 
                 if (statusID === "5") {
-                  _this2.loadedServices = resData.data.data;
-                  _this2.loadedServices = lodash__WEBPACK_IMPORTED_MODULE_11__["orderBy"](_this2.loadedServices, function (dateObj) {
-                    return new Date(dateObj.date_required);
-                  });
+                  _this2.loadedServices = _this2.loadedServices.concat(resData.data.data); // this.loadedServices = lodash.orderBy(this.loadedServices, function(dateObj) {
+                  //   return new Date(dateObj.date_required);
+                  // });
                 }
 
                 if (statusID === "6") {
-                  _this2.paidServices = resData.data.data;
-                  _this2.paidServices = lodash__WEBPACK_IMPORTED_MODULE_11__["orderBy"](_this2.paidServices, function (dateObj) {
-                    return new Date(dateObj.date_required);
-                  });
+                  _this2.loadedServices = _this2.loadedServices.concat(resData.data.data); // this.paidServices = lodash.orderBy(this.paidServices, function(dateObj) {
+                  //   return new Date(dateObj.date_required);
+                  // });
                 }
+              }).then(function () {
+                _this2.loadedServices = lodash__WEBPACK_IMPORTED_MODULE_11__["orderBy"](_this2.loadedServices, function (dateObj) {
+                  return new Date(dateObj.date_required);
+                });
+                lodash__WEBPACK_IMPORTED_MODULE_11__["reverse"](_this2.loadedServices);
               })["catch"](function (err) {
                 console.log(err);
                 loadingEl.dismiss();
