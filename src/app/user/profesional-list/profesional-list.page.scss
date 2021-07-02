@@ -21,7 +21,10 @@
   background-repeat: no-repeat;
   background-position-x: 98%;
   background-position-y: 50%;
-  text-indent: calc(42%);
+
+  @media (min-height: 768px) {
+    text-indent: calc(42%);
+  }
 }
 .filt-icon {
   font-size: 11px;
