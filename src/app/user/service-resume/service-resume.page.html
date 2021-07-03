@@ -16,7 +16,7 @@
     <ion-grid>
       <ion-row class="ion-align-items-center">
         <!-- profile img -->
-        <ion-col size="4" offset="1">
+        <ion-col size="4" offset="1" sizeMd="2" offsetMd="2">
           <ion-avatar class="profileImg">
             <img *ngIf="loadedService.img_profile !== 'http://167.71.251.136/storage/'" src="{{ loadedService.img_profile || '/assets/images/avatar.png'}}" />
             <img *ngIf="loadedService.img_profile === 'http://167.71.251.136/storage/'" src="/assets/images/avatar.png" />

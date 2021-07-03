@@ -50,6 +50,27 @@ ServicioPagarFormaPageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__[
 
 /***/ }),
 
+/***/ "Dvv2":
+/*!*******************************************************!*\
+  !*** ./node_modules/cordova-khenshin/www/khenshin.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = {
+	startByPaymentId: function (params, successCallback, errorCallback) {
+		cordova.exec(successCallback, errorCallback, "Khenshin", "startByPaymentId", [params]);
+	},
+	startByAutomatonId: function (params, successCallback, errorCallback) {
+		cordova.exec(successCallback, errorCallback, "Khenshin", "startByAutomatonId", params);
+	},
+	createPayment: function (params, successCallback, errorCallback) {
+		cordova.exec(successCallback, errorCallback, "Khenshin", "createPayment", params);
+	}
+};
+
+/***/ }),
+
 /***/ "KPXj":
 /*!**************************************************************************!*\
   !*** ./src/app/user/servicio-pagar-forma/servicio-pagar-forma.module.ts ***!
@@ -113,6 +134,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/environments/environment */ "AytR");
 /* harmony import */ var src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/shared/success-modal/success-modal.component */ "W/u7");
+/* harmony import */ var cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! cordova-khenshin/www/khenshin */ "Dvv2");
+/* harmony import */ var cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_10__);
+
 
 
 
@@ -164,20 +188,43 @@ let ServicioPagarFormaPage = class ServicioPagarFormaPage {
         });
     }
     submitPayment() {
+        cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_10___default.a.startByPaymentId("ivac6pqv5qvb", (success) => {
+            console.log(success);
+            alert("Pago exitoso");
+            this.modalController
+                .create({
+                component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_9__["SuccessModalComponent"],
+                componentProps: {
+                    message: "¡EL PAGO HA SIDO EXISTOSO!",
+                    secondMessage: "Recuerda evaluar el servicio.",
+                    redirect: true,
+                    redirectUrl: "/user/seval-prof",
+                },
+                cssClass: "modalSuccess",
+            })
+                .then((modalEl) => {
+                modalEl.present();
+            });
+        }, (err) => {
+            console.log(err);
+            alert("Error con el pago");
+        });
+        /*
         this.modalController
             .create({
-            component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_9__["SuccessModalComponent"],
-            componentProps: {
-                message: "¡EL PAGO HA SIDO EXISTOSO!",
-                secondMessage: "Recuerda evaluar el servicio.",
-                redirect: true,
-                redirectUrl: "/user/seval-prof",
-            },
-            cssClass: "modalSuccess",
-        })
+                component: SuccessModalComponent,
+                componentProps: {
+                    message: "¡EL PAGO HA SIDO EXISTOSO!",
+          secondMessage: "Recuerda evaluar el servicio.",
+                    redirect: true,
+                    redirectUrl: "/user/seval-prof",
+                },
+                cssClass: "modalSuccess",
+            })
             .then((modalEl) => {
-            modalEl.present();
-        });
+                modalEl.present();
+            });
+            */
     }
 };
 ServicioPagarFormaPage.ctorParameters = () => [

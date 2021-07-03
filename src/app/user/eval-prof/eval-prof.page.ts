@@ -24,7 +24,7 @@ export class EvalProfPage implements OnInit {
 	grabbedUser: User;
 	userSub: Subscription;
 	selectedIcons: IconType[] = [];
-	currentRate: number = 1;
+	currentRate: number = 0;
 	error;
 	comment;
 	comment_bad_services = "";

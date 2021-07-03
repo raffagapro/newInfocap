@@ -23,12 +23,14 @@
                 loadedService.supplierName+"
                 "+loadedService.supplierLastName }} </span><br>
             </div>
-            <!-- <ion-badge color="primary" class="badge-text">{{ loadedService.categoryName }}</ion-badge>&nbsp; -->
+            <ion-badge color="primary" class="badge-text">{{ loadedService.categoryName }}</ion-badge>&nbsp;
+            <!--
             <div *ngIf="loadedService.category_id">
               <ion-badge color="{{ loadedService.category_id === cat.id ? primary : medium }}" class="badge-text"
                 *ngFor="let cat of loadedService.categories">{{ cat.categoryName }}
               </ion-badge><br>
             </div>
+            -->
             <span class="textSelect ion-text-capitalize">
               {{ loadedService.cummunename }}
             </span><br>
@@ -103,7 +105,8 @@
 
       <!-- Visita tecnica agendada  -->
       <!-- gray -->
-      <ion-row *ngIf="loadedService.status_id < 2 && loadedService.status_id < 7 && loadedService.type_request !== 'URGENT'">
+      <ion-row
+        *ngIf="loadedService.status_id < 2 && loadedService.status_id < 7 && loadedService.type_request !== 'URGENT'">
         <div class="status-cont-grey">
           <ion-icon name="checkmark" color="light" class="status-text-icon"></ion-icon>
         </div>
@@ -112,7 +115,8 @@
         </ion-col>
       </ion-row>
       <!-- active  -->
-      <ion-row *ngIf="loadedService.status_id > 1 && loadedService.status_id < 7 && loadedService.type_request !== 'URGENT'">
+      <ion-row
+        *ngIf="loadedService.status_id > 1 && loadedService.status_id < 7 && loadedService.type_request !== 'URGENT'">
         <div class="status-cont" (click)="serviceDetal(2)">
           <ion-icon name="checkmark" color="light" class="status-text-icon"></ion-icon>
         </div>
@@ -175,7 +179,7 @@
           <ion-icon src="/assets/icon/ic_engine_blue.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
-          <ion-text class="main-color status-text">SERVICIO ENPROCESO</ion-text><br>
+          <ion-text class="main-color status-text">SERVICIO EN<br />PROCESO</ion-text><br>
         </ion-col>
       </ion-row>
 

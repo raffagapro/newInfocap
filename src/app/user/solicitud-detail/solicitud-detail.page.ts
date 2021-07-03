@@ -57,6 +57,7 @@ export class SolicitudDetailPage implements OnInit {
     slidesPerView: 2,
     autoplay: true
   };
+  servicesCosts;
 
   constructor(
     private modalController: ModalController,
@@ -129,12 +130,42 @@ export class SolicitudDetailPage implements OnInit {
           this.selectedButton = 'credit';
         }
       }
+      this.loadCosts()
     } catch (error) {
       console.log(error);
     } finally {
       loader.dismiss();
     }
   }
+
+  async loadCosts() {
+		let loader = await this.loadingController.create({
+			message: "Consultando información...",
+		});
+		loader.present();
+		try {
+			let response = await axios.get(
+				`${API}/client/detailcostrequest/${this.solServ.solicitud.solicitudID}`,
+				{
+					headers: {
+						Authorization: `Bearer ${this.user.access_token}`,
+					},
+				}
+			);
+			if (response.data) {
+				let data = response.data.data;
+				if (response.data.code !== 200) {
+					alert("Error");
+					return;
+				}
+				this.servicesCosts = data;
+			}
+		} catch (error) {
+			console.log(error);
+		} finally {
+			loader.dismiss();
+		}
+	}
 
   openMenu() {
     this.menuController.open();
@@ -159,11 +190,13 @@ export class SolicitudDetailPage implements OnInit {
   }
 
   getServiceCost() {
-    if (this.loadedService && this.loadedService.request_cost.length > 0) {
-      return this.loadedService.request_cost.reduce((total, entity) => total += Number(entity.amount_client), 0).toFixed(2);
-    }
-    return 0;
-  }
+		if (this.servicesCosts && this.servicesCosts.amount_client) {
+			return Number(
+				this.servicesCosts.amount_client
+			).toFixed(2);
+		}
+		return 0;
+	}
 
   isInProcess() {
     return this.isProcess

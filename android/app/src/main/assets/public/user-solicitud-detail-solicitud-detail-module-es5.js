@@ -102,7 +102,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/solicitudes\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">{{ isInProcess() ? 'TRABAJO EN PROCESO' : 'TRABAJO AGENDADO'}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- profesional card item -->\n  <div class=\"no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"{{ loadedService.img_profile || '/assets/images/avatar.png'}}\" />\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"6\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">{{loadedService.categoryName}} de {{loadedService.supplierName}}\n              {{loadedService.supplierLastName}}</span><br>\n            <p class=\"main-color mini-text\" style=\"margin-top: 0; margin-bottom: 0;\">\n              {{formatDate(loadedService.created_date, 'DD/MM/YYYY HH:mm:ss', true)}}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Trabajo a realizar</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"titleText\">\n          {{loadedService.description}}\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Slider -->\n    <ion-row class=\"\" *ngIf=\"loadedService.img_request.length > 0\">\n      <ion-col size=\"12\">\n        <ion-slides [options]=\"slideOptions\">\n          <!-- slide -->\n          <ion-slide *ngFor=\"let image of loadedService.img_request\">\n            <img (click)=\"openImage(image.image)\" src=\"{{ image.image }}\" class=\"imgSlide\">\n          </ion-slide>\n\n        </ion-slides>\n      </ion-col>\n    </ion-row>\n\n    <br /><br />\n\n    <!-- Fecha de visita -->\n    <ion-row class=\"minusMargin\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Fecha agendada</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\"> {{formatDate(loadedService.date_required, 'DD/MM/YYYY')}}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Rango de horas -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Rango de horas</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\"> {{formatTime()}}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Costo -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Costo</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_money.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\" *ngIf=\"loadedService && loadedService.request_cost.length > 0\"> ${{getServiceCost()}}</ion-text>\n        <ion-text class=\"subText\" *ngIf=\"loadedService && loadedService.request_cost.length == 0\"> No se ha asignado un Costo</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Costo & pay BTNS-->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>¿Cómo desea pagar?</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"12\" class=\"ion-text-center\">\n        <section>\n          <!-- btn -->\n          <ion-button size=\"small\" (click)=\"setPaymentType('credit')\"\n            [fill]=\"selectedButton === 'credit' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/visa.svg\"></ion-icon>\n            Tarjeta\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('debit')\"  [fill]=\"selectedButton === 'debit' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/mastercard.svg\"></ion-icon>\n            Débito\n          </ion-button>\n          -->\n\n          <!-- btn -->\n          <ion-button size=\"small\" (click)=\"setPaymentType('cash')\"\n            [fill]=\"selectedButton === 'cash' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_dollar_blank.svg\"></ion-icon>\n            Efectivo\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('transfer')\"\n            [fill]=\"selectedButton === 'transfer' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_money_blank.svg\"></ion-icon>\n            Transferencia\n          </ion-button>\n          --> \n\n        </section>\n      </ion-col>\n\n    </ion-row>\n\n    <!-- enviar solicitud BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\" *ngIf=\"loadedService && loadedService.request_cost.length === 0\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"confirmSolicitud()\">\n          ACEPTAR VISITA\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/solicitudes\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">{{ isInProcess() ? 'TRABAJO EN PROCESO' : 'TRABAJO AGENDADO'}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n\n  <!-- profesional card item -->\n  <div class=\"no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center\">\n        <!-- profile img -->\n        <ion-col size=\"4\" offset=\"1\" sizeMd=\"2\" offsetMd=\"2\">\n          <ion-avatar class=\"profileImg\">\n            <img src=\"{{ loadedService.img_profile || '/assets/images/avatar.png'}}\" />\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"6\">\n          <ion-text>\n            <span class=\"titleSelect main-color\">{{loadedService.categoryName}} de {{loadedService.supplierName}}\n              {{loadedService.supplierLastName}}</span><br>\n            <p class=\"main-color mini-text\" style=\"margin-top: 0; margin-bottom: 0;\">\n              {{formatDate(loadedService.created_date, 'DD/MM/YYYY HH:mm:ss', true)}}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Trabajo a realizar</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"titleText\">\n          {{loadedService.description}}\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Slider -->\n    <ion-row class=\"\" *ngIf=\"loadedService.img_request.length > 0\">\n      <ion-col size=\"12\">\n        <ion-slides [options]=\"slideOptions\">\n          <!-- slide -->\n          <ion-slide *ngFor=\"let image of loadedService.img_request\">\n            <img (click)=\"openImage(image.image)\" src=\"{{ image.image }}\" class=\"imgSlide\">\n          </ion-slide>\n\n        </ion-slides>\n      </ion-col>\n    </ion-row>\n\n    <br /><br />\n\n    <!-- Fecha de visita -->\n    <ion-row class=\"minusMargin\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Fecha agendada</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\"> {{formatDate(loadedService.date_required, 'DD/MM/YYYY')}}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Rango de horas -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Rango de horas</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\"> {{formatTime()}}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Costo -->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>Costo</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-icon src=\"/assets/icon/ic_money.svg\" class=\"main-color iconFix\"></ion-icon>\n        <ion-text class=\"subText\" *ngIf=\"loadedService && loadedService.request_cost.length > 0\"> ${{getServiceCost()}}</ion-text>\n        <ion-text class=\"subText\" *ngIf=\"loadedService && loadedService.request_cost.length == 0\"> No se ha asignado un Costo</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Costo & pay BTNS-->\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\" class=\"ion-text-center\">\n        <ion-text class=\"main-color subtitle\"><b>¿Cómo desea pagar?</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"12\" class=\"ion-text-center\">\n        <section>\n          <!-- btn -->\n          <ion-button size=\"small\" (click)=\"setPaymentType('credit')\"\n            [fill]=\"selectedButton === 'credit' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/visa.svg\"></ion-icon>\n            Tarjeta\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('debit')\"  [fill]=\"selectedButton === 'debit' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"assets/icon/mastercard.svg\"></ion-icon>\n            Débito\n          </ion-button>\n          -->\n\n          <!-- btn -->\n          <ion-button size=\"small\" (click)=\"setPaymentType('cash')\"\n            [fill]=\"selectedButton === 'cash' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_dollar_blank.svg\"></ion-icon>\n            Efectivo\n          </ion-button>\n\n          <!-- btn -->\n          <!--\n          <ion-button size=\"small\" (click)=\"setSelectedButton('transfer')\"\n            [fill]=\"selectedButton === 'transfer' ? 'solid' : 'outline'\">\n            <ion-icon slot=\"start\" src=\"/assets/icon/ic_money_blank.svg\"></ion-icon>\n            Transferencia\n          </ion-button>\n          --> \n\n        </section>\n      </ion-col>\n\n    </ion-row>\n\n    <!-- enviar solicitud BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\" *ngIf=\"loadedService && loadedService.request_cost.length === 0\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"confirmSolicitud()\">\n          ACEPTAR VISITA\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -373,25 +373,94 @@
                         }
                       }
 
-                      _context2.next = 18;
+                      this.loadCosts();
+                      _context2.next = 19;
                       break;
 
-                    case 15:
-                      _context2.prev = 15;
+                    case 16:
+                      _context2.prev = 16;
                       _context2.t0 = _context2["catch"](3);
                       console.log(_context2.t0);
 
-                    case 18:
-                      _context2.prev = 18;
+                    case 19:
+                      _context2.prev = 19;
                       loader.dismiss();
-                      return _context2.finish(18);
+                      return _context2.finish(19);
 
-                    case 21:
+                    case 22:
                     case "end":
                       return _context2.stop();
                   }
                 }
-              }, _callee2, this, [[3, 15, 18, 21]]);
+              }, _callee2, this, [[3, 16, 19, 22]]);
+            }));
+          }
+        }, {
+          key: "loadCosts",
+          value: function loadCosts() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var loader, response, data;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      _context3.next = 2;
+                      return this.loadingController.create({
+                        message: "Consultando información..."
+                      });
+
+                    case 2:
+                      loader = _context3.sent;
+                      loader.present();
+                      _context3.prev = 4;
+                      _context3.next = 7;
+                      return axios__WEBPACK_IMPORTED_MODULE_10___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"], "/client/detailcostrequest/").concat(this.solServ.solicitud.solicitudID), {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.user.access_token)
+                        }
+                      });
+
+                    case 7:
+                      response = _context3.sent;
+
+                      if (!response.data) {
+                        _context3.next = 14;
+                        break;
+                      }
+
+                      data = response.data.data;
+
+                      if (!(response.data.code !== 200)) {
+                        _context3.next = 13;
+                        break;
+                      }
+
+                      alert("Error");
+                      return _context3.abrupt("return");
+
+                    case 13:
+                      this.servicesCosts = data;
+
+                    case 14:
+                      _context3.next = 19;
+                      break;
+
+                    case 16:
+                      _context3.prev = 16;
+                      _context3.t0 = _context3["catch"](4);
+                      console.log(_context3.t0);
+
+                    case 19:
+                      _context3.prev = 19;
+                      loader.dismiss();
+                      return _context3.finish(19);
+
+                    case 22:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee3, this, [[4, 16, 19, 22]]);
             }));
           }
         }, {
@@ -427,10 +496,8 @@
         }, {
           key: "getServiceCost",
           value: function getServiceCost() {
-            if (this.loadedService && this.loadedService.request_cost.length > 0) {
-              return this.loadedService.request_cost.reduce(function (total, entity) {
-                return total += Number(entity.amount_client);
-              }, 0).toFixed(2);
+            if (this.servicesCosts && this.servicesCosts.amount_client) {
+              return Number(this.servicesCosts.amount_client).toFixed(2);
             }
 
             return 0;
@@ -443,108 +510,6 @@
         }, {
           key: "confirmSolicitud",
           value: function confirmSolicitud() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-              var loader, payment_type, response;
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
-                while (1) {
-                  switch (_context3.prev = _context3.next) {
-                    case 0:
-                      _context3.next = 2;
-                      return this.loadingController.create({
-                        message: 'Actualizando solicitud...'
-                      });
-
-                    case 2:
-                      loader = _context3.sent;
-                      loader.present();
-                      _context3.prev = 4;
-                      _context3.t0 = this.selectedButton;
-                      _context3.next = _context3.t0 === 'credit' ? 8 : _context3.t0 === 'cash' ? 10 : 12;
-                      break;
-
-                    case 8:
-                      payment_type = this.paymentTypes.find(function (entry) {
-                        return entry.name === 'Tarjeta';
-                      });
-                      return _context3.abrupt("break", 13);
-
-                    case 10:
-                      payment_type = this.paymentTypes.find(function (entry) {
-                        return entry.name === 'Efectivo';
-                      });
-                      return _context3.abrupt("break", 13);
-
-                    case 12:
-                      return _context3.abrupt("return");
-
-                    case 13:
-                      if (payment_type) {
-                        _context3.next = 15;
-                        break;
-                      }
-
-                      return _context3.abrupt("return");
-
-                    case 15:
-                      _context3.next = 17;
-                      return axios__WEBPACK_IMPORTED_MODULE_10___default.a.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"], "/client/cost/paymentType/").concat(this.loadedService.request_id), {
-                        costs_type_id: 1,
-                        payment_type_id: payment_type.id,
-                        description: 'Actualización del método de pago'
-                      }, {
-                        headers: {
-                          Authorization: "Bearer ".concat(this.user.access_token)
-                        }
-                      });
-
-                    case 17:
-                      response = _context3.sent;
-                      _context3.next = 20;
-                      return loader.dismiss();
-
-                    case 20:
-                      console.log(response);
-
-                      if (!(response.data && response.data.code !== 200)) {
-                        _context3.next = 23;
-                        break;
-                      }
-
-                      return _context3.abrupt("return");
-
-                    case 23:
-                      this.modalController.create({
-                        component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
-                        componentProps: {
-                          message: 'HAZ ACEPTADO LA VISITA TÉCNICA',
-                          redirect: true,
-                          redirectUrl: '/user/solicitudes'
-                        },
-                        cssClass: 'modalSuccess'
-                      }).then(function (modalEl) {
-                        modalEl.present();
-                      });
-                      _context3.next = 31;
-                      break;
-
-                    case 26:
-                      _context3.prev = 26;
-                      _context3.t1 = _context3["catch"](4);
-                      console.log(_context3.t1);
-                      _context3.next = 31;
-                      return loader.dismiss();
-
-                    case 31:
-                    case "end":
-                      return _context3.stop();
-                  }
-                }
-              }, _callee3, this, [[4, 26]]);
-            }));
-          }
-        }, {
-          key: "setPaymentType",
-          value: function setPaymentType(type) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
               var loader, payment_type, response;
               return regeneratorRuntime.wrap(function _callee4$(_context4) {
@@ -553,14 +518,14 @@
                     case 0:
                       _context4.next = 2;
                       return this.loadingController.create({
-                        message: 'Actualizando método de pago...'
+                        message: 'Actualizando solicitud...'
                       });
 
                     case 2:
                       loader = _context4.sent;
                       loader.present();
                       _context4.prev = 4;
-                      _context4.t0 = type;
+                      _context4.t0 = this.selectedButton;
                       _context4.next = _context4.t0 === 'credit' ? 8 : _context4.t0 === 'cash' ? 10 : 12;
                       break;
 
@@ -615,6 +580,108 @@
                       return _context4.abrupt("return");
 
                     case 23:
+                      this.modalController.create({
+                        component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
+                        componentProps: {
+                          message: 'HAZ ACEPTADO LA VISITA TÉCNICA',
+                          redirect: true,
+                          redirectUrl: '/user/solicitudes'
+                        },
+                        cssClass: 'modalSuccess'
+                      }).then(function (modalEl) {
+                        modalEl.present();
+                      });
+                      _context4.next = 31;
+                      break;
+
+                    case 26:
+                      _context4.prev = 26;
+                      _context4.t1 = _context4["catch"](4);
+                      console.log(_context4.t1);
+                      _context4.next = 31;
+                      return loader.dismiss();
+
+                    case 31:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this, [[4, 26]]);
+            }));
+          }
+        }, {
+          key: "setPaymentType",
+          value: function setPaymentType(type) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var loader, payment_type, response;
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      _context5.next = 2;
+                      return this.loadingController.create({
+                        message: 'Actualizando método de pago...'
+                      });
+
+                    case 2:
+                      loader = _context5.sent;
+                      loader.present();
+                      _context5.prev = 4;
+                      _context5.t0 = type;
+                      _context5.next = _context5.t0 === 'credit' ? 8 : _context5.t0 === 'cash' ? 10 : 12;
+                      break;
+
+                    case 8:
+                      payment_type = this.paymentTypes.find(function (entry) {
+                        return entry.name === 'Tarjeta';
+                      });
+                      return _context5.abrupt("break", 13);
+
+                    case 10:
+                      payment_type = this.paymentTypes.find(function (entry) {
+                        return entry.name === 'Efectivo';
+                      });
+                      return _context5.abrupt("break", 13);
+
+                    case 12:
+                      return _context5.abrupt("return");
+
+                    case 13:
+                      if (payment_type) {
+                        _context5.next = 15;
+                        break;
+                      }
+
+                      return _context5.abrupt("return");
+
+                    case 15:
+                      _context5.next = 17;
+                      return axios__WEBPACK_IMPORTED_MODULE_10___default.a.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"], "/client/cost/paymentType/").concat(this.loadedService.request_id), {
+                        costs_type_id: 1,
+                        payment_type_id: payment_type.id,
+                        description: 'Actualización del método de pago'
+                      }, {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.user.access_token)
+                        }
+                      });
+
+                    case 17:
+                      response = _context5.sent;
+                      _context5.next = 20;
+                      return loader.dismiss();
+
+                    case 20:
+                      console.log(response);
+
+                      if (!(response.data && response.data.code !== 200)) {
+                        _context5.next = 23;
+                        break;
+                      }
+
+                      return _context5.abrupt("return");
+
+                    case 23:
                       this.selectedButton = type;
                       this.modalController.create({
                         component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
@@ -626,22 +693,22 @@
                       }).then(function (modalEl) {
                         modalEl.present();
                       });
-                      _context4.next = 32;
+                      _context5.next = 32;
                       break;
 
                     case 27:
-                      _context4.prev = 27;
-                      _context4.t1 = _context4["catch"](4);
-                      console.log(_context4.t1);
-                      _context4.next = 32;
+                      _context5.prev = 27;
+                      _context5.t1 = _context5["catch"](4);
+                      console.log(_context5.t1);
+                      _context5.next = 32;
                       return loader.dismiss();
 
                     case 32:
                     case "end":
-                      return _context4.stop();
+                      return _context5.stop();
                   }
                 }
-              }, _callee4, this, [[4, 27]]);
+              }, _callee5, this, [[4, 27]]);
             }));
           }
         }, {
@@ -653,13 +720,13 @@
         }, {
           key: "openImage",
           value: function openImage(image) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
               var successModal;
-              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context5.prev = _context5.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
-                      _context5.next = 2;
+                      _context6.next = 2;
                       return this.modalController.create({
                         component: src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_12__["ImageModalComponent"],
                         componentProps: {
@@ -669,15 +736,15 @@
                       });
 
                     case 2:
-                      successModal = _context5.sent;
+                      successModal = _context6.sent;
                       successModal.present();
 
                     case 4:
                     case "end":
-                      return _context5.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee5, this);
+              }, _callee6, this);
             }));
           }
         }]);

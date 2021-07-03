@@ -173,8 +173,7 @@
                       loader.present();
                       body = {
                         date_required: this.solicitudServicio.solicitud.date_required,
-                        hours: this.solicitudServicio.solicitud.hours,
-                        professional_id: this.grabbedUser.id
+                        hours: this.solicitudServicio.solicitud.hours
                       };
                       _context.prev = 5;
                       url = '/supplier/aprove/requestservice/';

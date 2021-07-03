@@ -11,6 +11,7 @@ import { SolicitudService } from "src/app/services/solicitud.service";
 import { UserService } from "src/app/services/user.service";
 import { API } from "src/environments/environment";
 import { SuccessModalComponent } from "src/app/shared/success-modal/success-modal.component";
+import khenshin from "cordova-khenshin/www/khenshin";
 
 @Component({
 	selector: "app-servicio-pagar-forma",
@@ -63,6 +64,33 @@ export class ServicioPagarFormaPage implements OnInit {
 	}
 
 	submitPayment() {
+		khenshin.startByPaymentId(
+			"ivac6pqv5qvb",
+			(success) => {
+				console.log(success);
+				alert("Pago exitoso");
+				this.modalController
+					.create({
+						component: SuccessModalComponent,
+						componentProps: {
+							message: "¡EL PAGO HA SIDO EXISTOSO!",
+							secondMessage: "Recuerda evaluar el servicio.",
+							redirect: true,
+							redirectUrl: "/user/seval-prof",
+						},
+						cssClass: "modalSuccess",
+					})
+					.then((modalEl) => {
+						modalEl.present();
+					});
+			},
+			(err) => {
+				console.log(err);
+				alert("Error con el pago");
+			}
+		);
+
+		/*
 		this.modalController
 			.create({
 				component: SuccessModalComponent,
@@ -77,5 +105,6 @@ export class ServicioPagarFormaPage implements OnInit {
 			.then((modalEl) => {
 				modalEl.present();
 			});
+			*/
 	}
 }

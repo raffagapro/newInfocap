@@ -16,7 +16,7 @@
     <ion-grid>
       <ion-row class="ion-align-items-center">
         <!-- profile img -->
-        <ion-col size="4" offset="1">
+        <ion-col size="4" offset="1" sizeMd="2" offsetMd="2">
           <ion-avatar class="profileImg">
             <img src="{{ loadedService.img_profile || '/assets/images/avatar.png'}}" />
           </ion-avatar>
@@ -79,8 +79,11 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color iconFix"></ion-icon>
-        <ion-text *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length === 0" class="subText"> {{formatDate(loadedService.date_required, 'DD/MM/YYYY')}}</ion-text>
-        <ion-text *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length > 0" class="subText"> {{formatDate(loadedService.request_technical[0].visit_date, 'YYYY-MM-DD')}}</ion-text>
+        <ion-text
+          *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length === 0"
+          class="subText"> {{formatDate(loadedService.date_required, 'DD/MM/YYYY')}}</ion-text>
+        <ion-text *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length > 0"
+          class="subText"> {{formatDate(loadedService.request_technical[0].visit_date, 'YYYY-MM-DD')}}</ion-text>
 
       </ion-col>
       <ion-col size="1"></ion-col>
@@ -97,8 +100,11 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_schedule.svg" class="main-color iconFix"></ion-icon>
-        <ion-text *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length === 0" class="subText"> {{formatTime()}}</ion-text>
-        <ion-text *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length > 0" class="subText"> {{formatVisitTime()}}</ion-text>
+        <ion-text
+          *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length === 0"
+          class="subText"> {{formatTime()}}</ion-text>
+        <ion-text *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length > 0"
+          class="subText"> {{formatVisitTime()}}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>

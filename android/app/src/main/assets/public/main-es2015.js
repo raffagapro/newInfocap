@@ -82,7 +82,6 @@ let ConfirmServComponent = class ConfirmServComponent {
             const body = {
                 date_required: this.solicitudServicio.solicitud.date_required,
                 hours: this.solicitudServicio.solicitud.hours,
-                professional_id: this.grabbedUser.id
             };
             try {
                 var url = '/supplier/aprove/requestservice/';

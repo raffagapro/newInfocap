@@ -34,6 +34,14 @@
         ]
         },
       {
+          "id": "cordova-khenshin.khenshin",
+          "file": "plugins/cordova-khenshin/www/khenshin.js",
+          "pluginId": "cordova-khenshin",
+        "clobbers": [
+          "khenshin"
+        ]
+        },
+      {
           "id": "cordova-plugin-nativegeocoder.NativeGeocoder",
           "file": "plugins/cordova-plugin-nativegeocoder/www/NativeGeocoder.js",
           "pluginId": "cordova-plugin-nativegeocoder",
@@ -195,8 +203,8 @@
         "runs": true
         },
       {
-          "id": "cordova-plugin-advanced-http.cookie-handler",
-          "file": "plugins/cordova-plugin-advanced-http/www/cookie-handler.js",
+          "id": "cordova-plugin-advanced-http.helpers",
+          "file": "plugins/cordova-plugin-advanced-http/www/helpers.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -215,13 +223,13 @@
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
-          "id": "cordova-plugin-advanced-http.ponyfills",
-          "file": "plugins/cordova-plugin-advanced-http/www/ponyfills.js",
+          "id": "cordova-plugin-advanced-http.tough-cookie",
+          "file": "plugins/cordova-plugin-advanced-http/www/umd-tough-cookie.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
-          "id": "cordova-plugin-advanced-http.tough-cookie",
-          "file": "plugins/cordova-plugin-advanced-http/www/umd-tough-cookie.js",
+          "id": "cordova-plugin-advanced-http.ponyfills",
+          "file": "plugins/cordova-plugin-advanced-http/www/ponyfills.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -235,8 +243,8 @@
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
-          "id": "cordova-plugin-advanced-http.dependency-validator",
-          "file": "plugins/cordova-plugin-advanced-http/www/dependency-validator.js",
+          "id": "cordova-plugin-advanced-http.cookie-handler",
+          "file": "plugins/cordova-plugin-advanced-http/www/cookie-handler.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -257,13 +265,13 @@
         "runs": true
         },
       {
-          "id": "cordova-plugin-advanced-http.error-codes",
-          "file": "plugins/cordova-plugin-advanced-http/www/error-codes.js",
+          "id": "cordova-plugin-advanced-http.dependency-validator",
+          "file": "plugins/cordova-plugin-advanced-http/www/dependency-validator.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
-          "id": "cordova-plugin-advanced-http.helpers",
-          "file": "plugins/cordova-plugin-advanced-http/www/helpers.js",
+          "id": "cordova-plugin-advanced-http.global-configs",
+          "file": "plugins/cordova-plugin-advanced-http/www/global-configs.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -273,8 +281,8 @@
         "runs": true
         },
       {
-          "id": "cordova-plugin-advanced-http.global-configs",
-          "file": "plugins/cordova-plugin-advanced-http/www/global-configs.js",
+          "id": "cordova-plugin-advanced-http.error-codes",
+          "file": "plugins/cordova-plugin-advanced-http/www/error-codes.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -312,6 +320,7 @@
     // TOP OF METADATA
     {
       "mx.ferreyra.callnumber": "0.0.2",
+      "cordova-khenshin": "0.0.24",
       "cordova-plugin-advanced-http": "3.1.0",
       "cordova-plugin-file": "6.0.2",
       "cordova-plugin-geolocation": "4.1.0",
