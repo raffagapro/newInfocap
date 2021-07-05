@@ -65,7 +65,7 @@ export class ServicioPagarFormaPage implements OnInit {
 
 	submitPayment() {
 		khenshin.startByPaymentId(
-			"ivac6pqv5qvb",
+			"ctkhfgykkcbf",
 			(success) => {
 				console.log(success);
 				alert("Pago exitoso");
