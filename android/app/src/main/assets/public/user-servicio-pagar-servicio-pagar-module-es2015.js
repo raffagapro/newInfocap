@@ -101,6 +101,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
 /* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/shared/success-modal/success-modal.component */ "W/u7");
+/* harmony import */ var cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! cordova-khenshin/www/khenshin */ "Dvv2");
+/* harmony import */ var cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_12__);
+
+
 
 
 
@@ -113,7 +118,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ServicioPagarPage = class ServicioPagarPage {
-    constructor(router, menuController, http, us, lc, solServ, route) {
+    constructor(modalController, router, menuController, http, us, lc, solServ, route) {
+        this.modalController = modalController;
         this.router = router;
         this.menuController = menuController;
         this.http = http;
@@ -270,7 +276,25 @@ let ServicioPagarPage = class ServicioPagarPage {
         this.menuController.open();
     }
     paymentForm() {
-        this.router.navigate(["/user/servicio-pagar-forma"]);
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            //this.router.navigate(["/user/servicio-pagar-forma"]);
+            try {
+                let body = {
+                    //amount: this.getTotal(),
+                    amount: 1,
+                };
+                let { data } = yield axios__WEBPACK_IMPORTED_MODULE_7___default.a.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/client/payment-id`, body, {
+                    headers: {
+                        Authorization: `Bearer ${this.grabbedUser.access_token}`,
+                    },
+                });
+                this.solServ.setPaymentId(data.data.payment_id);
+                this.openKhipu(data.data.payment_id);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
     }
     setSelectedButton(type) {
         this.selectedButton = type;
@@ -281,8 +305,51 @@ let ServicioPagarPage = class ServicioPagarPage {
     ngOnDestroy() {
         this.userSub.unsubscribe();
     }
+    openKhipu(paymentId) {
+        cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_12___default.a.startByPaymentId(paymentId, (success) => {
+            console.log(success);
+            this.createPayment();
+        }, (err) => {
+            console.log(err);
+            alert("Error con el pago");
+        });
+    }
+    createPayment() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            try {
+                let body = {
+                    request_service_id: this.solServ.solicitud.solicitudID,
+                    payment_type_id: 1,
+                    grossamount: this.getTotal(),
+                };
+                yield axios__WEBPACK_IMPORTED_MODULE_7___default.a.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/client/payment`, body, {
+                    headers: {
+                        Authorization: `Bearer ${this.grabbedUser.access_token}`,
+                    },
+                });
+                this.modalController
+                    .create({
+                    component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
+                    componentProps: {
+                        message: "¡EL PAGO HA SIDO EXISTOSO!",
+                        secondMessage: "Recuerda evaluar el servicio.",
+                        redirect: true,
+                        redirectUrl: "/user/seval-prof",
+                    },
+                    cssClass: "modalSuccess",
+                })
+                    .then((modalEl) => {
+                    modalEl.present();
+                });
+            }
+            catch (error) {
+                alert("Error al registrar el pago");
+            }
+        });
+    }
 };
 ServicioPagarPage.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ModalController"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["MenuController"] },
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },

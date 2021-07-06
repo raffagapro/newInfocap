@@ -87,30 +87,6 @@
     },
 
     /***/
-    "Dvv2":
-    /*!*******************************************************!*\
-      !*** ./node_modules/cordova-khenshin/www/khenshin.js ***!
-      \*******************************************************/
-
-    /*! no static exports found */
-
-    /***/
-    function Dvv2(module, exports) {
-      module.exports = {
-        startByPaymentId: function startByPaymentId(params, successCallback, errorCallback) {
-          cordova.exec(successCallback, errorCallback, "Khenshin", "startByPaymentId", [params]);
-        },
-        startByAutomatonId: function startByAutomatonId(params, successCallback, errorCallback) {
-          cordova.exec(successCallback, errorCallback, "Khenshin", "startByAutomatonId", params);
-        },
-        createPayment: function createPayment(params, successCallback, errorCallback) {
-          cordova.exec(successCallback, errorCallback, "Khenshin", "createPayment", params);
-        }
-      };
-      /***/
-    },
-
-    /***/
     "KPXj":
     /*!**************************************************************************!*\
       !*** ./src/app/user/servicio-pagar-forma/servicio-pagar-forma.module.ts ***!
@@ -354,7 +330,7 @@
           value: function submitPayment() {
             var _this2 = this;
 
-            cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_10___default.a.startByPaymentId("ivac6pqv5qvb", function (success) {
+            cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_10___default.a.startByPaymentId("ctkhfgykkcbf", function (success) {
               console.log(success);
               alert("Pago exitoso");
 

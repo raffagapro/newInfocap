@@ -95,7 +95,7 @@
               <ion-icon src="/assets/icon/ic_date_range_red.svg" slot="start"></ion-icon>
               <ion-text color="danger">&nbsp;&nbsp;&nbsp;Fecha requerida</ion-text>
             </ion-label>
-            <ion-datetime formControlName="date_required" placeholder="Definir fecha" [pickerFormat]="'DD MMM YYYY'"
+            <ion-datetime mode="ios" formControlName="date_required" placeholder="Definir fecha" [pickerFormat]="'DD MMM YYYY'"
               [displayFormat]="'DDDD DD de MMM de YYYY'" [min]="minDate.format('YYYY-MM-DD')"
               [max]="maxDate.format('YYYY-MM-DD')" (ngModelChange)="onDateChange($event)"
               [dayNames]="['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']"
@@ -116,7 +116,7 @@
               <ion-icon color="danger" src="/assets/icon/ic_schedule_red.svg" slot="start"></ion-icon>
               <ion-text color="danger">&nbsp;&nbsp;&nbsp;Hora inicial</ion-text>
             </ion-label>
-            <ion-datetime formControlName="sHour" display-format="h:mm A" picker-format="h:mm A" cancelText="Cancelar"
+            <ion-datetime mode="ios" formControlName="sHour" display-format="h:mm A" picker-format="h:mm A" cancelText="Cancelar"
               doneText="Listo" [min]="minDate.format('YYYY-MM-DD')" minuteValues="0,10,20,30,40,50">
             </ion-datetime>
           </ion-item>
@@ -128,7 +128,7 @@
               <ion-icon color="danger" src="/assets/icon/ic_schedule_red.svg" slot="start"></ion-icon>
               <ion-text color="danger">&nbsp;&nbsp;&nbsp;Hora final</ion-text>
             </ion-label>
-            <ion-datetime formControlName="eHour" display-format="h:mm A" picker-format="h:mm A" cancelText="Cancelar"
+            <ion-datetime mode="ios" formControlName="eHour" display-format="h:mm A" picker-format="h:mm A" cancelText="Cancelar"
               doneText="Listo" [min]="minDate.format('YYYY-MM-DD')" minuteValues="0,10,20,30,40,50">
             </ion-datetime>
           </ion-item>

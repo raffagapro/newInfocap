@@ -29,7 +29,7 @@
   <ion-grid class="top-center">
     <ion-row>
       <ion-col size="12">
-        <ion-searchbar class="search_bar_map" placeholder="¿Cuál es la dirección?" [(ngModel)]="autocomplete.input"
+        <ion-searchbar mode="ios" class="search_bar_map" placeholder="¿Cuál es la dirección?" [(ngModel)]="autocomplete.input"
           (ionChange)="updateSearchResults($event)" searchIcon="{{showIcon ? 'search-outline' : '/assets/icon/empty.svg'}}"
           (ionClear)="clearAutocomplete()" color="transparent" (ionFocus)="showSearchIcon($event, false)" (ionBlur)="showSearchIcon($event, true)">
         </ion-searchbar>

@@ -2617,28 +2617,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let BankModalComponent = class BankModalComponent {
-    constructor(us, lc, modalController) {
+    constructor(us, lc, modalController, pickerController) {
         this.us = us;
         this.lc = lc;
         this.modalController = modalController;
+        this.pickerController = pickerController;
+        this.rut = null;
         this.bancos = [
+            { id: "504", name: "BBVA" },
             { id: "001", name: "Banco de Chile" },
-            { id: "009", name: "Banco Internacional" },
-            { id: "014", name: "Scotiabank Chile" },
-            { id: "016", name: "Banco de Credito E Inversiones" },
-            { id: "028", name: "Banco Bice" },
-            { id: "031", name: "HSBC Bank" },
-            { id: "037", name: "Banco Santander-chile" },
-            { id: "039", name: "Itaú Corpbanca" },
-            { id: "049", name: "Banco Security" },
-            { id: "051", name: "Banco Falabella" },
-            { id: "053", name: "Banco Ripley" },
-            { id: "054", name: "Rabobank Chile" },
-            { id: "055", name: "Banco Consorcio" },
-            { id: "056", name: "Banco Penta" },
-            { id: "504", name: "Banco BBVA" },
-            { id: "059", name: "Banco BTG Pactual Chile" },
-            { id: "012", name: "Banco del Estado de Chile" },
+            { id: "014", name: "Scotiabank" },
+            { id: "031", name: "HSBC" },
+            { id: "037", name: "Santander" },
+        ];
+        this.tipoTarjeta = [
+            { id: 1, name: 'Visa' },
+            { id: 2, name: 'MasterCard' },
         ];
     }
     ngOnInit() {
@@ -2647,23 +2641,24 @@ let BankModalComponent = class BankModalComponent {
             this.headers = 'Bearer ' + this.grabbedUser.access_token;
         });
     }
-    validateInformation(completeName, cardNumber, clabe, banco) {
-        return completeName.length > 0 && cardNumber.length == 16 && clabe.length == 18 && banco.length > 0;
+    validateInformation(completeName, cardNumber, clabe, banco, type) {
+        return completeName.length > 0 && cardNumber.length == 16 && clabe.length == 12 && banco.length > 0 && type.length > 0;
     }
-    saveBankAccount(completeName, cardNumber, clabe, banco) {
+    saveBankAccount(completeName, cardNumber, clabe, banco, type) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             this.lc.create({
                 message: "Guardando información..."
             }).then(loadingEl => {
                 loadingEl.present();
-                let bancoSeleccionado = this.bancos.find(b => b.id === banco);
+                let bancoSeleccionado = this.bancos.find(b => b.name === banco);
+                let typeCardSelected = this.tipoTarjeta.find(b => b.name === type);
                 let data_bank = {
                     professional_profile_id: 1,
                     bank_id: bancoSeleccionado.id,
                     debit_account: cardNumber,
                     clabe: clabe,
                     name: completeName,
-                    type: 1,
+                    type: typeCardSelected.name,
                     name_bank: bancoSeleccionado.name
                 };
                 axios__WEBPACK_IMPORTED_MODULE_5___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_7__["API"] + '/supplier/bankaccount', data_bank, { headers: { Authorization: this.headers } }).then(resData => {
@@ -2673,18 +2668,84 @@ let BankModalComponent = class BankModalComponent {
                     console.log(err);
                     loadingEl.dismiss();
                 });
-                console.log(data_bank);
             }).catch(err => {
                 console.log(err);
                 this.lc.dismiss();
             });
         });
     }
+    showPicker() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            let options = {
+                mode: 'ios',
+                buttons: [
+                    {
+                        text: 'Cancelar',
+                        role: 'cancel'
+                    },
+                    {
+                        text: 'Listo',
+                        handler: (value) => {
+                            this.bancoSeleccionado = value.bank.text;
+                        }
+                    }
+                ],
+                columns: [{
+                        name: 'bank',
+                        options: this.getColumnOptions()
+                    }]
+            };
+            let picker = yield this.pickerController.create(options);
+            picker.present();
+        });
+    }
+    showPickerCardType() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            let options = {
+                mode: 'ios',
+                buttons: [
+                    {
+                        text: 'Cancelar',
+                        role: 'cancel'
+                    },
+                    {
+                        text: 'Listo',
+                        handler: (value) => {
+                            this.selectedCard = value.type.text;
+                        }
+                    }
+                ],
+                columns: [{
+                        name: 'type',
+                        options: this.getColumnCardOptions()
+                    }]
+            };
+            let picker = yield this.pickerController.create(options);
+            picker.present();
+        });
+    }
+    getColumnCardOptions() {
+        let options = [];
+        this.tipoTarjeta.forEach(x => {
+            options.push({ text: x.name, value: x.id });
+        });
+        return options;
+    }
+    getColumnOptions() {
+        let options = [];
+        this.bancos.forEach(x => {
+            options.push({ text: x.name, value: x.id });
+        });
+        return options;
+    }
+    formatRUT() {
+    }
 };
 BankModalComponent.ctorParameters = () => [
     { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_6__["UserService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PickerController"] }
 ];
 BankModalComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -3083,7 +3144,7 @@ WalletPageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid class=\"modal-bank\">\n    <ion-row class=\"modal-cont ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <div class=\"status-cont\">\n          <ion-text class=\"main-color status-text ion-text-center\"><b>DATOS BANCARIOS</b></ion-text><br>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-item class=\"no-border\">\n          <ion-label class=\"stacked-modal-label\" position=\"stacked\">NOMBRE COMPLETO</ion-label>\n          <ion-input #completeName class=\"stacked-input\" placeholder=\"José Alcarraga López\">\n          </ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-item class=\"no-border\">\n          <ion-label class=\"stacked-modal-label\" position=\"stacked\">NÚMERO DE TARJETA</ion-label>\n          <ion-input #cardNumber class=\"stacked-input\" type=\"number\" placeholder=\"1234 5678 9123 4567\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-item class=\"no-border\">\n          <ion-label class=\"stacked-modal-label\" position=\"stacked\">CLABE INTERBANCARIA</ion-label>\n          <ion-input #clabe class=\"stacked-input\" type=\"number\" placeholder=\"123456789987654321\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-item class=\"no-border\">\n          <ion-label class=\"stacked-modal-label\" position=\"stacked\">BANCO</ion-label>\n          <ion-select #banco placeholder=\"Banco\" interface=\"popover\" class=\"stacked-input\">\n            <ion-select-option value=\"001\" class=\"main-color ion-text-center\">Banco de Chile</ion-select-option>\n            <ion-select-option value=\"009\" class=\"main-color ion-text-center\">Banco Internacional</ion-select-option>\n            <ion-select-option value=\"014\" class=\"main-color ion-text-center\">Scotiabank Chile</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"016\" class=\"main-color ion-text-center\">Banco de Credito E Inversiones\n            </ion-select-option>\n            <ion-select-option value=\"028\" class=\"main-color ion-text-center\">Banco Bice</ion-select-option>\n            <ion-select-option value=\"031\" class=\"main-color ion-text-center\">HSBC Bank</ion-select-option>\n            <ion-select-option value=\"037\" class=\"main-color ion-text-center\">Banco Santander</ion-select-option>\n            <ion-select-option value=\"039\" class=\"main-color ion-text-center\">Itaú Corpbanca</ion-select-option>\n            <ion-select-option value=\"049\" class=\"main-color ion-text-center\">Banco Security</ion-select-option>\n            <ion-select-option value=\"051\" class=\"main-color ion-text-center\">Banco Falabella</ion-select-option>\n            <ion-select-option value=\"053\" class=\"main-color ion-text-center\">Banco Ripley</ion-select-option>\n            <ion-select-option value=\"055\" class=\"main-color ion-text-center\">Banco Consorcio</ion-select-option>\n            <ion-select-option value=\"054\" class=\"main-color ion-text-center\">Rabobank Chile</ion-select-option>\n            <ion-select-option value=\"056\" class=\"main-color ion-text-center\">Banco Penta</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"059\" class=\"main-color ion-text-center\">Banco BTG Pactual Chile\n            </ion-select-option>\n            <ion-select-option value=\"012\" class=\"main-color ion-text-center\">Banco del Estado de Chile\n            </ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col offset=\"1\">\n        <ion-button [disabled]=\"!validateInformation(completeName.value, cardNumber.value, clabe.value, banco.value)\"\n          size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\"\n          (click)=\"saveBankAccount(completeName.value, cardNumber.value, clabe.value, banco.value)\">\n          GUARDAR DATOS\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"2\"></ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid class=\"modal-bank\">\n    <ion-row class=\"modal-cont ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <div class=\"status-cont\">\n          <ion-text class=\"main-color status-text ion-text-center\"><b>DATOS BANCARIOS</b></ion-text><br>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">NOMBRE COMPLETO</ion-label>\n        <ion-input #completeName class=\"stacked-input\" placeholder=\"José Alcarraga López\">\n        </ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left ion-align-items-center\">\n      <ion-col size=\"8\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">NÚMERO DE TARJETA</ion-label>\n        <ion-input #cardNumber class=\"stacked-input\" type=\"tel\" maxlength=\"16\" placeholder=\"1234 5678 9123 4567\"></ion-input>\n      </ion-col>\n      <ion-col size=\"4\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Tipo</ion-label>\n        <ion-input #type class=\"stacked-input\" value=\"{{ selectedCard }}\" readonly (click)=\"showPickerCardType()\"\n          placeholder=\"Visa/MasterCard\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">RUT</ion-label>\n        <ion-input #clabe class=\"stacked-input\" type=\"tel\" maxlength=\"12\" (ionInput)=\"formatRUT()\"\n          placeholder=\"11.111.234-4\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Banco</ion-label>\n        <ion-input #banco class=\"stacked-input\" value=\"{{ bancoSeleccionado }}\" readonly (click)=\"showPicker()\"\n          placeholder=\"Banco\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col offset=\"1\">\n        <ion-button\n          [disabled]=\"!validateInformation(completeName.value, cardNumber.value, clabe.value, bancoSeleccionado, selectedCard)\"\n          size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\"\n          (click)=\"saveBankAccount(completeName.value, cardNumber.value, clabe.value, bancoSeleccionado, selectedCard)\">\n          GUARDAR DATOS\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"2\"></ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>");
 
 /***/ }),
 

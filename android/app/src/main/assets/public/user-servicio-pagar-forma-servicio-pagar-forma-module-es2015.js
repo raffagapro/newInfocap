@@ -50,27 +50,6 @@ ServicioPagarFormaPageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__[
 
 /***/ }),
 
-/***/ "Dvv2":
-/*!*******************************************************!*\
-  !*** ./node_modules/cordova-khenshin/www/khenshin.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = {
-	startByPaymentId: function (params, successCallback, errorCallback) {
-		cordova.exec(successCallback, errorCallback, "Khenshin", "startByPaymentId", [params]);
-	},
-	startByAutomatonId: function (params, successCallback, errorCallback) {
-		cordova.exec(successCallback, errorCallback, "Khenshin", "startByAutomatonId", params);
-	},
-	createPayment: function (params, successCallback, errorCallback) {
-		cordova.exec(successCallback, errorCallback, "Khenshin", "createPayment", params);
-	}
-};
-
-/***/ }),
-
 /***/ "KPXj":
 /*!**************************************************************************!*\
   !*** ./src/app/user/servicio-pagar-forma/servicio-pagar-forma.module.ts ***!
@@ -188,7 +167,7 @@ let ServicioPagarFormaPage = class ServicioPagarFormaPage {
         });
     }
     submitPayment() {
-        cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_10___default.a.startByPaymentId("ivac6pqv5qvb", (success) => {
+        cordova_khenshin_www_khenshin__WEBPACK_IMPORTED_MODULE_10___default.a.startByPaymentId("ctkhfgykkcbf", (success) => {
             console.log(success);
             alert("Pago exitoso");
             this.modalController

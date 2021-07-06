@@ -198,6 +198,27 @@ ImageModalComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 /***/ }),
 
+/***/ "Dvv2":
+/*!*******************************************************!*\
+  !*** ./node_modules/cordova-khenshin/www/khenshin.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = {
+	startByPaymentId: function (params, successCallback, errorCallback) {
+		cordova.exec(successCallback, errorCallback, "Khenshin", "startByPaymentId", [params]);
+	},
+	startByAutomatonId: function (params, successCallback, errorCallback) {
+		cordova.exec(successCallback, errorCallback, "Khenshin", "startByAutomatonId", params);
+	},
+	createPayment: function (params, successCallback, errorCallback) {
+		cordova.exec(successCallback, errorCallback, "Khenshin", "createPayment", params);
+	}
+};
+
+/***/ }),
+
 /***/ "Uqb3":
 /*!*******************************************************************!*\
   !*** ./src/app/shared/success-modal/success-modal.component.scss ***!

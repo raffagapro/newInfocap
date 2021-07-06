@@ -258,26 +258,24 @@ let PerfilPage = class PerfilPage {
             let headers = 'Bearer ' + this.grabbedUser.access_token;
             axios__WEBPACK_IMPORTED_MODULE_11___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/account', modUser, { headers: { Authorization: this.headers } }).then(resData => {
                 loadingEl.dismiss();
-                if (resData['code'] === 200) {
-                    //update user controler
-                    this.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["User"](this.grabbedUser.id, resData.data.data.name, resData.data.data.last_name, resData.data.data.img_profile, resData.data.data.email, resData.data.data.phone1, resData.data.data.phone2, this.grabbedUser.role, this.grabbedUser.access_token));
-                    //resets values after succefull update
-                    this.form.setValue({
-                        name: this.form.value.name,
-                        email: this.form.value.email,
-                        phone1: this.form.value.phone1,
-                        phone2: this.form.value.phone2,
-                        password: null,
-                        newPassword: null,
-                        confirmPassword: null,
-                    });
-                    this.modalController.create({
-                        component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
-                        cssClass: 'modalSuccess',
-                    }).then(modalEl => {
-                        modalEl.present();
-                    });
-                }
+                //update user controler
+                this.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["User"](this.grabbedUser.id, resData.data.data.name, resData.data.data.last_name, resData.data.data.img_profile, resData.data.data.email, resData.data.data.phone1, resData.data.data.phone2, this.grabbedUser.role, this.grabbedUser.access_token));
+                //resets values after succefull update
+                this.form.setValue({
+                    name: this.form.value.name,
+                    email: this.form.value.email,
+                    phone1: this.form.value.phone1,
+                    phone2: this.form.value.phone2,
+                    password: null,
+                    newPassword: null,
+                    confirmPassword: null,
+                });
+                this.modalController.create({
+                    component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
+                    cssClass: 'modalSuccess',
+                }).then(modalEl => {
+                    modalEl.present();
+                });
             }).catch(err => {
                 loadingEl.dismiss();
                 this.httpError = err['error'].message;
@@ -306,7 +304,7 @@ let PerfilPage = class PerfilPage {
         });
     }
     getUrl() {
-        if (!this.grabbedUser.img_profile || this.grabbedUser.img_profile === '') {
+        if (!this.grabbedUser.img_profile || this.grabbedUser.img_profile === '' || this.grabbedUser.img_profile === 'http://167.71.251.136/storage/') {
             return "url('assets/images/avatar.png')";
         }
         else {

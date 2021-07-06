@@ -4220,63 +4220,36 @@
       "AytR");
 
       var BankModalComponent = /*#__PURE__*/function () {
-        function BankModalComponent(us, lc, modalController) {
+        function BankModalComponent(us, lc, modalController, pickerController) {
           _classCallCheck(this, BankModalComponent);
 
           this.us = us;
           this.lc = lc;
           this.modalController = modalController;
+          this.pickerController = pickerController;
+          this.rut = null;
           this.bancos = [{
+            id: "504",
+            name: "BBVA"
+          }, {
             id: "001",
             name: "Banco de Chile"
           }, {
-            id: "009",
-            name: "Banco Internacional"
-          }, {
             id: "014",
-            name: "Scotiabank Chile"
-          }, {
-            id: "016",
-            name: "Banco de Credito E Inversiones"
-          }, {
-            id: "028",
-            name: "Banco Bice"
+            name: "Scotiabank"
           }, {
             id: "031",
-            name: "HSBC Bank"
+            name: "HSBC"
           }, {
             id: "037",
-            name: "Banco Santander-chile"
+            name: "Santander"
+          }];
+          this.tipoTarjeta = [{
+            id: 1,
+            name: 'Visa'
           }, {
-            id: "039",
-            name: "Itaú Corpbanca"
-          }, {
-            id: "049",
-            name: "Banco Security"
-          }, {
-            id: "051",
-            name: "Banco Falabella"
-          }, {
-            id: "053",
-            name: "Banco Ripley"
-          }, {
-            id: "054",
-            name: "Rabobank Chile"
-          }, {
-            id: "055",
-            name: "Banco Consorcio"
-          }, {
-            id: "056",
-            name: "Banco Penta"
-          }, {
-            id: "504",
-            name: "Banco BBVA"
-          }, {
-            id: "059",
-            name: "Banco BTG Pactual Chile"
-          }, {
-            id: "012",
-            name: "Banco del Estado de Chile"
+            id: 2,
+            name: 'MasterCard'
           }];
         }
 
@@ -4292,12 +4265,12 @@
           }
         }, {
           key: "validateInformation",
-          value: function validateInformation(completeName, cardNumber, clabe, banco) {
-            return completeName.length > 0 && cardNumber.length == 16 && clabe.length == 18 && banco.length > 0;
+          value: function validateInformation(completeName, cardNumber, clabe, banco, type) {
+            return completeName.length > 0 && cardNumber.length == 16 && clabe.length == 12 && banco.length > 0 && type.length > 0;
           }
         }, {
           key: "saveBankAccount",
-          value: function saveBankAccount(completeName, cardNumber, clabe, banco) {
+          value: function saveBankAccount(completeName, cardNumber, clabe, banco, type) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
               var _this2 = this;
 
@@ -4311,7 +4284,11 @@
                         loadingEl.present();
 
                         var bancoSeleccionado = _this2.bancos.find(function (b) {
-                          return b.id === banco;
+                          return b.name === banco;
+                        });
+
+                        var typeCardSelected = _this2.tipoTarjeta.find(function (b) {
+                          return b.name === type;
                         });
 
                         var data_bank = {
@@ -4320,7 +4297,7 @@
                           debit_account: cardNumber,
                           clabe: clabe,
                           name: completeName,
-                          type: 1,
+                          type: typeCardSelected.name,
                           name_bank: bancoSeleccionado.name
                         };
                         axios__WEBPACK_IMPORTED_MODULE_5___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_7__["API"] + '/supplier/bankaccount', data_bank, {
@@ -4335,7 +4312,6 @@
                           console.log(err);
                           loadingEl.dismiss();
                         });
-                        console.log(data_bank);
                       })["catch"](function (err) {
                         console.log(err);
 
@@ -4350,6 +4326,117 @@
               }, _callee, this);
             }));
           }
+        }, {
+          key: "showPicker",
+          value: function showPicker() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var _this3 = this;
+
+              var options, picker;
+              return regeneratorRuntime.wrap(function _callee2$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      options = {
+                        mode: 'ios',
+                        buttons: [{
+                          text: 'Cancelar',
+                          role: 'cancel'
+                        }, {
+                          text: 'Listo',
+                          handler: function handler(value) {
+                            _this3.bancoSeleccionado = value.bank.text;
+                          }
+                        }],
+                        columns: [{
+                          name: 'bank',
+                          options: this.getColumnOptions()
+                        }]
+                      };
+                      _context3.next = 3;
+                      return this.pickerController.create(options);
+
+                    case 3:
+                      picker = _context3.sent;
+                      picker.present();
+
+                    case 5:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
+        }, {
+          key: "showPickerCardType",
+          value: function showPickerCardType() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var _this4 = this;
+
+              var options, picker;
+              return regeneratorRuntime.wrap(function _callee3$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      options = {
+                        mode: 'ios',
+                        buttons: [{
+                          text: 'Cancelar',
+                          role: 'cancel'
+                        }, {
+                          text: 'Listo',
+                          handler: function handler(value) {
+                            _this4.selectedCard = value.type.text;
+                          }
+                        }],
+                        columns: [{
+                          name: 'type',
+                          options: this.getColumnCardOptions()
+                        }]
+                      };
+                      _context4.next = 3;
+                      return this.pickerController.create(options);
+
+                    case 3:
+                      picker = _context4.sent;
+                      picker.present();
+
+                    case 5:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee3, this);
+            }));
+          }
+        }, {
+          key: "getColumnCardOptions",
+          value: function getColumnCardOptions() {
+            var options = [];
+            this.tipoTarjeta.forEach(function (x) {
+              options.push({
+                text: x.name,
+                value: x.id
+              });
+            });
+            return options;
+          }
+        }, {
+          key: "getColumnOptions",
+          value: function getColumnOptions() {
+            var options = [];
+            this.bancos.forEach(function (x) {
+              options.push({
+                text: x.name,
+                value: x.id
+              });
+            });
+            return options;
+          }
+        }, {
+          key: "formatRUT",
+          value: function formatRUT() {}
         }]);
 
         return BankModalComponent;
@@ -4362,6 +4449,8 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["PickerController"]
         }];
       };
 
@@ -4531,7 +4620,7 @@
 
       var WalletPage = /*#__PURE__*/function () {
         function WalletPage(menuController, modalController, us) {
-          var _this3 = this;
+          var _this5 = this;
 
           _classCallCheck(this, WalletPage);
 
@@ -4549,9 +4638,9 @@
 
           this.clickMonth = function (event, point) {
             if (point.length > 0) {
-              _this3.graphicWeek = true;
+              _this5.graphicWeek = true;
 
-              _this3.barChartWeekMethod(point[0]);
+              _this5.barChartWeekMethod(point[0]);
             }
           };
         }
@@ -4559,11 +4648,11 @@
         _createClass(WalletPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this4 = this;
+            var _this6 = this;
 
             this.userSub = this.us.loggedUser.subscribe(function (user) {
-              _this4.grabbedUser = user;
-              _this4.headers = 'Bearer ' + _this4.grabbedUser.access_token;
+              _this6.grabbedUser = user;
+              _this6.headers = 'Bearer ' + _this6.grabbedUser.access_token;
             });
           }
         }, {
@@ -4574,25 +4663,25 @@
         }, {
           key: "barChartMethod",
           value: function barChartMethod() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var _this5 = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              var _this7 = this;
 
               var profesionalAmount, commission, taxes;
-              return regeneratorRuntime.wrap(function _callee2$(_context3) {
+              return regeneratorRuntime.wrap(function _callee4$(_context5) {
                 while (1) {
-                  switch (_context3.prev = _context3.next) {
+                  switch (_context5.prev = _context5.next) {
                     case 0:
                       profesionalAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                       commission = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                       taxes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-                      _context3.next = 5;
+                      _context5.next = 5;
                       return axios__WEBPACK_IMPORTED_MODULE_5___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/payments/years', {
                         headers: {
                           Authorization: this.headers
                         }
                       }).then(function (resData) {
-                        _this5.yearInfoTotal = resData.data.data.total;
-                        _this5.yearInfoTotalRequest = resData.data.data.requestnumber;
+                        _this7.yearInfoTotal = resData.data.data.total;
+                        _this7.yearInfoTotalRequest = resData.data.data.requestnumber;
                         resData.data.data.paymentByMount.map(function (d) {
                           profesionalAmount[d.month - 1] = d.professionalamount;
                           taxes[d.month - 1] = d.taxes;
@@ -4640,22 +4729,22 @@
 
                     case 6:
                     case "end":
-                      return _context3.stop();
+                      return _context5.stop();
                   }
                 }
-              }, _callee2, this);
+              }, _callee4, this);
             }));
           }
         }, {
           key: "barChartWeekMethod",
           value: function barChartWeekMethod(month) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-              var _this6 = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var _this8 = this;
 
               var year, firstDate, lastDate, numDays, dayOfWeekCounter, date, star_date, end_date;
-              return regeneratorRuntime.wrap(function _callee3$(_context4) {
+              return regeneratorRuntime.wrap(function _callee5$(_context6) {
                 while (1) {
-                  switch (_context4.prev = _context4.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
                       year = new Date().getFullYear();
                       this.selectedMonth = month.index;
@@ -4685,7 +4774,7 @@
                           Authorization: this.headers
                         }
                       }).then(function (resData) {
-                        _this6.totalWeek = resData.data.data.total || 0;
+                        _this8.totalWeek = resData.data.data.total || 0;
                         var profesionalAmount = [];
                         var taxes = [];
                         var commission = [];
@@ -4694,10 +4783,10 @@
                           taxes.push(d.taxes);
                           commission.push(d.commission);
                         });
-                        _this6.barChartWeek = new chart_js__WEBPACK_IMPORTED_MODULE_6__["Chart"](_this6.barChartWeek.nativeElement, {
+                        _this8.barChartWeek = new chart_js__WEBPACK_IMPORTED_MODULE_6__["Chart"](_this8.barChartWeek.nativeElement, {
                           type: 'bar',
                           data: {
-                            labels: _this6.weeksToRender[_this6.actualWeekToShow],
+                            labels: _this8.weeksToRender[_this8.actualWeekToShow],
                             datasets: [{
                               label: 'Ganancia',
                               data: profesionalAmount,
@@ -4728,15 +4817,15 @@
                           }
                         });
                       }).then(function () {
-                        _this6.barChartWeek.update();
+                        _this8.barChartWeek.update();
                       });
 
                     case 11:
                     case "end":
-                      return _context4.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee3, this);
+              }, _callee5, this);
             }));
           }
         }, {
@@ -4767,13 +4856,13 @@
         }, {
           key: "changeWeek",
           value: function changeWeek(type) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-              var _this7 = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+              var _this9 = this;
 
               var year, star_date, end_date, profesionalAmount, taxes, commission;
-              return regeneratorRuntime.wrap(function _callee4$(_context5) {
+              return regeneratorRuntime.wrap(function _callee6$(_context7) {
                 while (1) {
-                  switch (_context5.prev = _context5.next) {
+                  switch (_context7.prev = _context7.next) {
                     case 0:
                       year = new Date().getFullYear();
 
@@ -4788,7 +4877,7 @@
                       profesionalAmount = [];
                       taxes = [];
                       commission = [];
-                      _context5.next = 9;
+                      _context7.next = 9;
                       return axios__WEBPACK_IMPORTED_MODULE_5___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/payments/weak', {
                         params: {
                           "star_date": moment__WEBPACK_IMPORTED_MODULE_10__(star_date, 'D/M/YYYY').format('D/MM/YYYY'),
@@ -4798,7 +4887,7 @@
                           Authorization: this.headers
                         }
                       }).then(function (resData) {
-                        _this7.totalWeek = resData.data.data.total || 0;
+                        _this9.totalWeek = resData.data.data.total || 0;
                         resData.data.data.paymentByWeek.map(function (d) {
                           profesionalAmount.push(d.professionalamount);
                           taxes.push(d.taxes);
@@ -4828,10 +4917,10 @@
 
                     case 12:
                     case "end":
-                      return _context5.stop();
+                      return _context7.stop();
                   }
                 }
-              }, _callee4, this);
+              }, _callee6, this);
             }));
           }
         }, {
@@ -4947,7 +5036,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid class=\"modal-bank\">\n    <ion-row class=\"modal-cont ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <div class=\"status-cont\">\n          <ion-text class=\"main-color status-text ion-text-center\"><b>DATOS BANCARIOS</b></ion-text><br>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-item class=\"no-border\">\n          <ion-label class=\"stacked-modal-label\" position=\"stacked\">NOMBRE COMPLETO</ion-label>\n          <ion-input #completeName class=\"stacked-input\" placeholder=\"José Alcarraga López\">\n          </ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-item class=\"no-border\">\n          <ion-label class=\"stacked-modal-label\" position=\"stacked\">NÚMERO DE TARJETA</ion-label>\n          <ion-input #cardNumber class=\"stacked-input\" type=\"number\" placeholder=\"1234 5678 9123 4567\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-item class=\"no-border\">\n          <ion-label class=\"stacked-modal-label\" position=\"stacked\">CLABE INTERBANCARIA</ion-label>\n          <ion-input #clabe class=\"stacked-input\" type=\"number\" placeholder=\"123456789987654321\"></ion-input>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-item class=\"no-border\">\n          <ion-label class=\"stacked-modal-label\" position=\"stacked\">BANCO</ion-label>\n          <ion-select #banco placeholder=\"Banco\" interface=\"popover\" class=\"stacked-input\">\n            <ion-select-option value=\"001\" class=\"main-color ion-text-center\">Banco de Chile</ion-select-option>\n            <ion-select-option value=\"009\" class=\"main-color ion-text-center\">Banco Internacional</ion-select-option>\n            <ion-select-option value=\"014\" class=\"main-color ion-text-center\">Scotiabank Chile</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"016\" class=\"main-color ion-text-center\">Banco de Credito E Inversiones\n            </ion-select-option>\n            <ion-select-option value=\"028\" class=\"main-color ion-text-center\">Banco Bice</ion-select-option>\n            <ion-select-option value=\"031\" class=\"main-color ion-text-center\">HSBC Bank</ion-select-option>\n            <ion-select-option value=\"037\" class=\"main-color ion-text-center\">Banco Santander</ion-select-option>\n            <ion-select-option value=\"039\" class=\"main-color ion-text-center\">Itaú Corpbanca</ion-select-option>\n            <ion-select-option value=\"049\" class=\"main-color ion-text-center\">Banco Security</ion-select-option>\n            <ion-select-option value=\"051\" class=\"main-color ion-text-center\">Banco Falabella</ion-select-option>\n            <ion-select-option value=\"053\" class=\"main-color ion-text-center\">Banco Ripley</ion-select-option>\n            <ion-select-option value=\"055\" class=\"main-color ion-text-center\">Banco Consorcio</ion-select-option>\n            <ion-select-option value=\"054\" class=\"main-color ion-text-center\">Rabobank Chile</ion-select-option>\n            <ion-select-option value=\"056\" class=\"main-color ion-text-center\">Banco Penta</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"059\" class=\"main-color ion-text-center\">Banco BTG Pactual Chile\n            </ion-select-option>\n            <ion-select-option value=\"012\" class=\"main-color ion-text-center\">Banco del Estado de Chile\n            </ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n            <ion-select-option value=\"504\" class=\"main-color ion-text-center\">Banco BBVA</ion-select-option>\n\n          </ion-select>\n        </ion-item>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col offset=\"1\">\n        <ion-button [disabled]=\"!validateInformation(completeName.value, cardNumber.value, clabe.value, banco.value)\"\n          size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\"\n          (click)=\"saveBankAccount(completeName.value, cardNumber.value, clabe.value, banco.value)\">\n          GUARDAR DATOS\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"2\"></ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid class=\"modal-bank\">\n    <ion-row class=\"modal-cont ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <div class=\"status-cont\">\n          <ion-text class=\"main-color status-text ion-text-center\"><b>DATOS BANCARIOS</b></ion-text><br>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">NOMBRE COMPLETO</ion-label>\n        <ion-input #completeName class=\"stacked-input\" placeholder=\"José Alcarraga López\">\n        </ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left ion-align-items-center\">\n      <ion-col size=\"8\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">NÚMERO DE TARJETA</ion-label>\n        <ion-input #cardNumber class=\"stacked-input\" type=\"tel\" maxlength=\"16\" placeholder=\"1234 5678 9123 4567\"></ion-input>\n      </ion-col>\n      <ion-col size=\"4\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Tipo</ion-label>\n        <ion-input #type class=\"stacked-input\" value=\"{{ selectedCard }}\" readonly (click)=\"showPickerCardType()\"\n          placeholder=\"Visa/MasterCard\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">RUT</ion-label>\n        <ion-input #clabe class=\"stacked-input\" type=\"tel\" maxlength=\"12\" (ionInput)=\"formatRUT()\"\n          placeholder=\"11.111.234-4\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Banco</ion-label>\n        <ion-input #banco class=\"stacked-input\" value=\"{{ bancoSeleccionado }}\" readonly (click)=\"showPicker()\"\n          placeholder=\"Banco\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col offset=\"1\">\n        <ion-button\n          [disabled]=\"!validateInformation(completeName.value, cardNumber.value, clabe.value, bancoSeleccionado, selectedCard)\"\n          size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\"\n          (click)=\"saveBankAccount(completeName.value, cardNumber.value, clabe.value, bancoSeleccionado, selectedCard)\">\n          GUARDAR DATOS\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"2\"></ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -7508,17 +7597,17 @@
         var _super3 = _createSuper(DoughnutController);
 
         function DoughnutController(chart, datasetIndex) {
-          var _this8;
+          var _this10;
 
           _classCallCheck(this, DoughnutController);
 
-          _this8 = _super3.call(this, chart, datasetIndex);
-          _this8.enableOptionSharing = true;
-          _this8.innerRadius = undefined;
-          _this8.outerRadius = undefined;
-          _this8.offsetX = undefined;
-          _this8.offsetY = undefined;
-          return _this8;
+          _this10 = _super3.call(this, chart, datasetIndex);
+          _this10.enableOptionSharing = true;
+          _this10.innerRadius = undefined;
+          _this10.outerRadius = undefined;
+          _this10.offsetX = undefined;
+          _this10.offsetY = undefined;
+          return _this10;
         }
 
         _createClass(DoughnutController, [{
@@ -8072,14 +8161,14 @@
         var _super5 = _createSuper(PolarAreaController);
 
         function PolarAreaController(chart, datasetIndex) {
-          var _this9;
+          var _this11;
 
           _classCallCheck(this, PolarAreaController);
 
-          _this9 = _super5.call(this, chart, datasetIndex);
-          _this9.innerRadius = undefined;
-          _this9.outerRadius = undefined;
-          return _this9;
+          _this11 = _super5.call(this, chart, datasetIndex);
+          _this11.innerRadius = undefined;
+          _this11.outerRadius = undefined;
+          return _this11;
         }
 
         _createClass(PolarAreaController, [{
@@ -8162,13 +8251,13 @@
         }, {
           key: "countVisibleElements",
           value: function countVisibleElements() {
-            var _this10 = this;
+            var _this12 = this;
 
             var dataset = this.getDataset();
             var meta = this._cachedMeta;
             var count = 0;
             meta.data.forEach(function (element, index) {
-              if (!isNaN(dataset.data[index]) && _this10.chart.getDataVisibility(index)) {
+              if (!isNaN(dataset.data[index]) && _this12.chart.getDataVisibility(index)) {
                 count++;
               }
             });
@@ -9912,59 +10001,59 @@
         var _super11 = _createSuper(Scale);
 
         function Scale(cfg) {
-          var _this11;
+          var _this13;
 
           _classCallCheck(this, Scale);
 
-          _this11 = _super11.call(this);
-          _this11.id = cfg.id;
-          _this11.type = cfg.type;
-          _this11.options = undefined;
-          _this11.ctx = cfg.ctx;
-          _this11.chart = cfg.chart;
-          _this11.top = undefined;
-          _this11.bottom = undefined;
-          _this11.left = undefined;
-          _this11.right = undefined;
-          _this11.width = undefined;
-          _this11.height = undefined;
-          _this11._margins = {
+          _this13 = _super11.call(this);
+          _this13.id = cfg.id;
+          _this13.type = cfg.type;
+          _this13.options = undefined;
+          _this13.ctx = cfg.ctx;
+          _this13.chart = cfg.chart;
+          _this13.top = undefined;
+          _this13.bottom = undefined;
+          _this13.left = undefined;
+          _this13.right = undefined;
+          _this13.width = undefined;
+          _this13.height = undefined;
+          _this13._margins = {
             left: 0,
             right: 0,
             top: 0,
             bottom: 0
           };
-          _this11.maxWidth = undefined;
-          _this11.maxHeight = undefined;
-          _this11.paddingTop = undefined;
-          _this11.paddingBottom = undefined;
-          _this11.paddingLeft = undefined;
-          _this11.paddingRight = undefined;
-          _this11.axis = undefined;
-          _this11.labelRotation = undefined;
-          _this11.min = undefined;
-          _this11.max = undefined;
-          _this11._range = undefined;
-          _this11.ticks = [];
-          _this11._gridLineItems = null;
-          _this11._labelItems = null;
-          _this11._labelSizes = null;
-          _this11._length = 0;
-          _this11._maxLength = 0;
-          _this11._longestTextCache = {};
-          _this11._startPixel = undefined;
-          _this11._endPixel = undefined;
-          _this11._reversePixels = false;
-          _this11._userMax = undefined;
-          _this11._userMin = undefined;
-          _this11._suggestedMax = undefined;
-          _this11._suggestedMin = undefined;
-          _this11._ticksLength = 0;
-          _this11._borderValue = 0;
-          _this11._cache = {};
-          _this11._dataLimitsCached = false;
-          _this11.$context = undefined;
-          return _this11;
+          _this13.maxWidth = undefined;
+          _this13.maxHeight = undefined;
+          _this13.paddingTop = undefined;
+          _this13.paddingBottom = undefined;
+          _this13.paddingLeft = undefined;
+          _this13.paddingRight = undefined;
+          _this13.axis = undefined;
+          _this13.labelRotation = undefined;
+          _this13.min = undefined;
+          _this13.max = undefined;
+          _this13._range = undefined;
+          _this13.ticks = [];
+          _this13._gridLineItems = null;
+          _this13._labelItems = null;
+          _this13._labelSizes = null;
+          _this13._length = 0;
+          _this13._maxLength = 0;
+          _this13._longestTextCache = {};
+          _this13._startPixel = undefined;
+          _this13._endPixel = undefined;
+          _this13._reversePixels = false;
+          _this13._userMax = undefined;
+          _this13._userMin = undefined;
+          _this13._suggestedMax = undefined;
+          _this13._suggestedMin = undefined;
+          _this13._ticksLength = 0;
+          _this13._borderValue = 0;
+          _this13._cache = {};
+          _this13._dataLimitsCached = false;
+          _this13.$context = undefined;
+          return _this13;
         }
 
         _createClass(Scale, [{
@@ -12168,7 +12257,7 @@
 
       var Chart = /*#__PURE__*/function () {
         function Chart(item, config) {
-          var _this12 = this;
+          var _this14 = this;
 
           _classCallCheck(this, Chart);
 
@@ -12213,7 +12302,7 @@
           this._animationsDisabled = undefined;
           this.$context = undefined;
           this._doResize = Object(_chunks_helpers_segment_js__WEBPACK_IMPORTED_MODULE_0__["a8"])(function () {
-            return _this12.update('resize');
+            return _this14.update('resize');
           }, options.resizeDelay || 0);
           instances[me.id] = me;
 
@@ -13133,7 +13222,7 @@
         }, {
           key: "_eventHandler",
           value: function _eventHandler(e, replay) {
-            var _this13 = this;
+            var _this15 = this;
 
             var me = this;
             var args = {
@@ -13143,7 +13232,7 @@
             };
 
             var eventFilter = function eventFilter(plugin) {
-              return (plugin.options.events || _this13.options.events).includes(e.type);
+              return (plugin.options.events || _this15.options.events).includes(e.type);
             };
 
             if (me.notifyPlugins('beforeEvent', args, eventFilter) === false) {
@@ -13453,25 +13542,25 @@
         var _super12 = _createSuper(ArcElement);
 
         function ArcElement(cfg) {
-          var _this14;
+          var _this16;
 
           _classCallCheck(this, ArcElement);
 
-          _this14 = _super12.call(this);
-          _this14.options = undefined;
-          _this14.circumference = undefined;
-          _this14.startAngle = undefined;
-          _this14.endAngle = undefined;
-          _this14.innerRadius = undefined;
-          _this14.outerRadius = undefined;
-          _this14.pixelMargin = 0;
-          _this14.fullCircles = 0;
+          _this16 = _super12.call(this);
+          _this16.options = undefined;
+          _this16.circumference = undefined;
+          _this16.startAngle = undefined;
+          _this16.endAngle = undefined;
+          _this16.innerRadius = undefined;
+          _this16.outerRadius = undefined;
+          _this16.pixelMargin = 0;
+          _this16.fullCircles = 0;
 
           if (cfg) {
-            Object.assign(_assertThisInitialized(_this14), cfg);
+            Object.assign(_assertThisInitialized(_this16), cfg);
           }
 
-          return _this14;
+          return _this16;
         }
 
         _createClass(ArcElement, [{
@@ -13800,26 +13889,26 @@
         var _super13 = _createSuper(LineElement);
 
         function LineElement(cfg) {
-          var _this15;
+          var _this17;
 
           _classCallCheck(this, LineElement);
 
-          _this15 = _super13.call(this);
-          _this15.animated = true;
-          _this15.options = undefined;
-          _this15._loop = undefined;
-          _this15._fullLoop = undefined;
-          _this15._path = undefined;
-          _this15._points = undefined;
-          _this15._segments = undefined;
-          _this15._decimated = false;
-          _this15._pointsUpdated = false;
+          _this17 = _super13.call(this);
+          _this17.animated = true;
+          _this17.options = undefined;
+          _this17._loop = undefined;
+          _this17._fullLoop = undefined;
+          _this17._path = undefined;
+          _this17._points = undefined;
+          _this17._segments = undefined;
+          _this17._decimated = false;
+          _this17._pointsUpdated = false;
 
           if (cfg) {
-            Object.assign(_assertThisInitialized(_this15), cfg);
+            Object.assign(_assertThisInitialized(_this17), cfg);
           }
 
-          return _this15;
+          return _this17;
         }
 
         _createClass(LineElement, [{
@@ -14016,21 +14105,21 @@
         var _super14 = _createSuper(PointElement);
 
         function PointElement(cfg) {
-          var _this16;
+          var _this18;
 
           _classCallCheck(this, PointElement);
 
-          _this16 = _super14.call(this);
-          _this16.options = undefined;
-          _this16.parsed = undefined;
-          _this16.skip = undefined;
-          _this16.stop = undefined;
+          _this18 = _super14.call(this);
+          _this18.options = undefined;
+          _this18.parsed = undefined;
+          _this18.skip = undefined;
+          _this18.stop = undefined;
 
           if (cfg) {
-            Object.assign(_assertThisInitialized(_this16), cfg);
+            Object.assign(_assertThisInitialized(_this18), cfg);
           }
 
-          return _this16;
+          return _this18;
         }
 
         _createClass(PointElement, [{
@@ -14260,22 +14349,22 @@
         var _super15 = _createSuper(BarElement);
 
         function BarElement(cfg) {
-          var _this17;
+          var _this19;
 
           _classCallCheck(this, BarElement);
 
-          _this17 = _super15.call(this);
-          _this17.options = undefined;
-          _this17.horizontal = undefined;
-          _this17.base = undefined;
-          _this17.width = undefined;
-          _this17.height = undefined;
+          _this19 = _super15.call(this);
+          _this19.options = undefined;
+          _this19.horizontal = undefined;
+          _this19.base = undefined;
+          _this19.width = undefined;
+          _this19.height = undefined;
 
           if (cfg) {
-            Object.assign(_assertThisInitialized(_this17), cfg);
+            Object.assign(_assertThisInitialized(_this19), cfg);
           }
 
-          return _this17;
+          return _this19;
         }
 
         _createClass(BarElement, [{
@@ -15347,34 +15436,34 @@
         var _super16 = _createSuper(Legend);
 
         function Legend(config) {
-          var _this18;
+          var _this20;
 
           _classCallCheck(this, Legend);
 
-          _this18 = _super16.call(this);
-          _this18._added = false;
-          _this18.legendHitBoxes = [];
-          _this18._hoveredItem = null;
-          _this18.doughnutMode = false;
-          _this18.chart = config.chart;
-          _this18.options = config.options;
-          _this18.ctx = config.ctx;
-          _this18.legendItems = undefined;
-          _this18.columnSizes = undefined;
-          _this18.lineWidths = undefined;
-          _this18.maxHeight = undefined;
-          _this18.maxWidth = undefined;
-          _this18.top = undefined;
-          _this18.bottom = undefined;
-          _this18.left = undefined;
-          _this18.right = undefined;
-          _this18.height = undefined;
-          _this18.width = undefined;
-          _this18._margins = undefined;
-          _this18.position = undefined;
-          _this18.weight = undefined;
-          _this18.fullSize = undefined;
-          return _this18;
+          _this20 = _super16.call(this);
+          _this20._added = false;
+          _this20.legendHitBoxes = [];
+          _this20._hoveredItem = null;
+          _this20.doughnutMode = false;
+          _this20.chart = config.chart;
+          _this20.options = config.options;
+          _this20.ctx = config.ctx;
+          _this20.legendItems = undefined;
+          _this20.columnSizes = undefined;
+          _this20.lineWidths = undefined;
+          _this20.maxHeight = undefined;
+          _this20.maxWidth = undefined;
+          _this20.top = undefined;
+          _this20.bottom = undefined;
+          _this20.left = undefined;
+          _this20.right = undefined;
+          _this20.height = undefined;
+          _this20.width = undefined;
+          _this20._margins = undefined;
+          _this20.position = undefined;
+          _this20.weight = undefined;
+          _this20.fullSize = undefined;
+          return _this20;
         }
 
         _createClass(Legend, [{
@@ -16012,25 +16101,25 @@
         var _super17 = _createSuper(Title);
 
         function Title(config) {
-          var _this19;
+          var _this21;
 
           _classCallCheck(this, Title);
 
-          _this19 = _super17.call(this);
-          _this19.chart = config.chart;
-          _this19.options = config.options;
-          _this19.ctx = config.ctx;
-          _this19._padding = undefined;
-          _this19.top = undefined;
-          _this19.bottom = undefined;
-          _this19.left = undefined;
-          _this19.right = undefined;
-          _this19.width = undefined;
-          _this19.height = undefined;
-          _this19.position = undefined;
-          _this19.weight = undefined;
-          _this19.fullSize = undefined;
-          return _this19;
+          _this21 = _super17.call(this);
+          _this21.chart = config.chart;
+          _this21.options = config.options;
+          _this21.ctx = config.ctx;
+          _this21._padding = undefined;
+          _this21.top = undefined;
+          _this21.bottom = undefined;
+          _this21.left = undefined;
+          _this21.right = undefined;
+          _this21.width = undefined;
+          _this21.height = undefined;
+          _this21.position = undefined;
+          _this21.weight = undefined;
+          _this21.fullSize = undefined;
+          return _this21;
         }
 
         _createClass(Title, [{
@@ -16497,39 +16586,39 @@
         var _super18 = _createSuper(Tooltip);
 
         function Tooltip(config) {
-          var _this20;
+          var _this22;
 
           _classCallCheck(this, Tooltip);
 
-          _this20 = _super18.call(this);
-          _this20.opacity = 0;
-          _this20._active = [];
-          _this20._chart = config._chart;
-          _this20._eventPosition = undefined;
-          _this20._size = undefined;
-          _this20._cachedAnimations = undefined;
-          _this20._tooltipItems = [];
-          _this20.$animations = undefined;
-          _this20.$context = undefined;
-          _this20.options = config.options;
-          _this20.dataPoints = undefined;
-          _this20.title = undefined;
-          _this20.beforeBody = undefined;
-          _this20.body = undefined;
-          _this20.afterBody = undefined;
-          _this20.footer = undefined;
-          _this20.xAlign = undefined;
-          _this20.yAlign = undefined;
-          _this20.x = undefined;
-          _this20.y = undefined;
-          _this20.height = undefined;
-          _this20.width = undefined;
-          _this20.caretX = undefined;
-          _this20.caretY = undefined;
-          _this20.labelColors = undefined;
-          _this20.labelPointStyles = undefined;
-          _this20.labelTextColors = undefined;
-          return _this20;
+          _this22 = _super18.call(this);
+          _this22.opacity = 0;
+          _this22._active = [];
+          _this22._chart = config._chart;
+          _this22._eventPosition = undefined;
+          _this22._size = undefined;
+          _this22._cachedAnimations = undefined;
+          _this22._tooltipItems = [];
+          _this22.$animations = undefined;
+          _this22.$context = undefined;
+          _this22.options = config.options;
+          _this22.dataPoints = undefined;
+          _this22.title = undefined;
+          _this22.beforeBody = undefined;
+          _this22.body = undefined;
+          _this22.afterBody = undefined;
+          _this22.footer = undefined;
+          _this22.xAlign = undefined;
+          _this22.yAlign = undefined;
+          _this22.x = undefined;
+          _this22.y = undefined;
+          _this22.height = undefined;
+          _this22.width = undefined;
+          _this22.caretX = undefined;
+          _this22.caretY = undefined;
+          _this22.labelColors = undefined;
+          _this22.labelPointStyles = undefined;
+          _this22.labelTextColors = undefined;
+          return _this22;
         }
 
         _createClass(Tooltip, [{
@@ -17403,14 +17492,14 @@
         var _super19 = _createSuper(CategoryScale);
 
         function CategoryScale(cfg) {
-          var _this21;
+          var _this23;
 
           _classCallCheck(this, CategoryScale);
 
-          _this21 = _super19.call(this, cfg);
-          _this21._startValue = undefined;
-          _this21._valueRange = 0;
-          return _this21;
+          _this23 = _super19.call(this, cfg);
+          _this23._startValue = undefined;
+          _this23._valueRange = 0;
+          return _this23;
         }
 
         _createClass(CategoryScale, [{
@@ -17649,17 +17738,17 @@
         var _super20 = _createSuper(LinearScaleBase);
 
         function LinearScaleBase(cfg) {
-          var _this22;
+          var _this24;
 
           _classCallCheck(this, LinearScaleBase);
 
-          _this22 = _super20.call(this, cfg);
-          _this22.start = undefined;
-          _this22.end = undefined;
-          _this22._startValue = undefined;
-          _this22._endValue = undefined;
-          _this22._valueRange = 0;
-          return _this22;
+          _this24 = _super20.call(this, cfg);
+          _this24.start = undefined;
+          _this24.end = undefined;
+          _this24._startValue = undefined;
+          _this24._endValue = undefined;
+          _this24._valueRange = 0;
+          return _this24;
         }
 
         _createClass(LinearScaleBase, [{
@@ -17914,16 +18003,16 @@
         var _super22 = _createSuper(LogarithmicScale);
 
         function LogarithmicScale(cfg) {
-          var _this23;
+          var _this25;
 
           _classCallCheck(this, LogarithmicScale);
 
-          _this23 = _super22.call(this, cfg);
-          _this23.start = undefined;
-          _this23.end = undefined;
-          _this23._startValue = undefined;
-          _this23._valueRange = 0;
-          return _this23;
+          _this25 = _super22.call(this, cfg);
+          _this25.start = undefined;
+          _this25.end = undefined;
+          _this25._startValue = undefined;
+          _this25._valueRange = 0;
+          return _this25;
         }
 
         _createClass(LogarithmicScale, [{
@@ -18312,17 +18401,17 @@
         var _super23 = _createSuper(RadialLinearScale);
 
         function RadialLinearScale(cfg) {
-          var _this24;
+          var _this26;
 
           _classCallCheck(this, RadialLinearScale);
 
-          _this24 = _super23.call(this, cfg);
-          _this24.xCenter = undefined;
-          _this24.yCenter = undefined;
-          _this24.drawingArea = undefined;
-          _this24._pointLabels = [];
-          _this24._pointLabelItems = [];
-          return _this24;
+          _this26 = _super23.call(this, cfg);
+          _this26.xCenter = undefined;
+          _this26.yCenter = undefined;
+          _this26.drawingArea = undefined;
+          _this26._pointLabels = [];
+          _this26._pointLabelItems = [];
+          return _this26;
         }
 
         _createClass(RadialLinearScale, [{
@@ -18811,21 +18900,21 @@
         var _super24 = _createSuper(TimeScale);
 
         function TimeScale(props) {
-          var _this25;
+          var _this27;
 
           _classCallCheck(this, TimeScale);
 
-          _this25 = _super24.call(this, props);
-          _this25._cache = {
+          _this27 = _super24.call(this, props);
+          _this27._cache = {
             data: [],
             labels: [],
             all: []
           };
-          _this25._unit = 'day';
-          _this25._majorUnit = undefined;
-          _this25._offsets = {};
-          _this25._normalized = false;
-          return _this25;
+          _this27._unit = 'day';
+          _this27._majorUnit = undefined;
+          _this27._offsets = {};
+          _this27._normalized = false;
+          return _this27;
         }
 
         _createClass(TimeScale, [{
@@ -19211,14 +19300,14 @@
         var _super25 = _createSuper(TimeSeriesScale);
 
         function TimeSeriesScale(props) {
-          var _this26;
+          var _this28;
 
           _classCallCheck(this, TimeSeriesScale);
 
-          _this26 = _super25.call(this, props);
-          _this26._table = [];
-          _this26._maxIndex = undefined;
-          return _this26;
+          _this28 = _super25.call(this, props);
+          _this28._table = [];
+          _this28._maxIndex = undefined;
+          return _this28;
         }
 
         _createClass(TimeSeriesScale, [{

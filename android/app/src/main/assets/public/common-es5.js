@@ -369,6 +369,30 @@
     },
 
     /***/
+    "Dvv2":
+    /*!*******************************************************!*\
+      !*** ./node_modules/cordova-khenshin/www/khenshin.js ***!
+      \*******************************************************/
+
+    /*! no static exports found */
+
+    /***/
+    function Dvv2(module, exports) {
+      module.exports = {
+        startByPaymentId: function startByPaymentId(params, successCallback, errorCallback) {
+          cordova.exec(successCallback, errorCallback, "Khenshin", "startByPaymentId", [params]);
+        },
+        startByAutomatonId: function startByAutomatonId(params, successCallback, errorCallback) {
+          cordova.exec(successCallback, errorCallback, "Khenshin", "startByAutomatonId", params);
+        },
+        createPayment: function createPayment(params, successCallback, errorCallback) {
+          cordova.exec(successCallback, errorCallback, "Khenshin", "createPayment", params);
+        }
+      };
+      /***/
+    },
+
+    /***/
     "Uqb3":
     /*!*******************************************************************!*\
       !*** ./src/app/shared/success-modal/success-modal.component.scss ***!

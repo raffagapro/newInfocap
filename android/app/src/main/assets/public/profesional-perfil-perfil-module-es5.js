@@ -432,30 +432,27 @@
                   Authorization: _this3.headers
                 }
               }).then(function (resData) {
-                loadingEl.dismiss();
+                loadingEl.dismiss(); //update user controler
 
-                if (resData['code'] === 200) {
-                  //update user controler
-                  _this3.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["User"](_this3.grabbedUser.id, resData.data.data.name, resData.data.data.last_name, resData.data.data.img_profile, resData.data.data.email, resData.data.data.phone1, resData.data.data.phone2, _this3.grabbedUser.role, _this3.grabbedUser.access_token)); //resets values after succefull update
+                _this3.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["User"](_this3.grabbedUser.id, resData.data.data.name, resData.data.data.last_name, resData.data.data.img_profile, resData.data.data.email, resData.data.data.phone1, resData.data.data.phone2, _this3.grabbedUser.role, _this3.grabbedUser.access_token)); //resets values after succefull update
 
 
-                  _this3.form.setValue({
-                    name: _this3.form.value.name,
-                    email: _this3.form.value.email,
-                    phone1: _this3.form.value.phone1,
-                    phone2: _this3.form.value.phone2,
-                    password: null,
-                    newPassword: null,
-                    confirmPassword: null
-                  });
+                _this3.form.setValue({
+                  name: _this3.form.value.name,
+                  email: _this3.form.value.email,
+                  phone1: _this3.form.value.phone1,
+                  phone2: _this3.form.value.phone2,
+                  password: null,
+                  newPassword: null,
+                  confirmPassword: null
+                });
 
-                  _this3.modalController.create({
-                    component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
-                    cssClass: 'modalSuccess'
-                  }).then(function (modalEl) {
-                    modalEl.present();
-                  });
-                }
+                _this3.modalController.create({
+                  component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
+                  cssClass: 'modalSuccess'
+                }).then(function (modalEl) {
+                  modalEl.present();
+                });
               })["catch"](function (err) {
                 loadingEl.dismiss();
                 _this3.httpError = err['error'].message;
@@ -491,7 +488,7 @@
         }, {
           key: "getUrl",
           value: function getUrl() {
-            if (!this.grabbedUser.img_profile || this.grabbedUser.img_profile === '') {
+            if (!this.grabbedUser.img_profile || this.grabbedUser.img_profile === '' || this.grabbedUser.img_profile === 'http://167.71.251.136/storage/') {
               return "url('assets/images/avatar.png')";
             } else {
               return "url(".concat(this.grabbedUser.img_profile, ")");

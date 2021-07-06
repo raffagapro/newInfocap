@@ -87,17 +87,22 @@
         </ion-col>
 
         <!-- title -->
-        <ion-col size="6" sizeMd="7">
+        <ion-col
+          size="{{ prof.technical_capacity_everage === null && prof.puntuality_everage === null && prof.cordiality_everage === null && prof.service_and_satisfaction_everage === null ? '8' : '6' }}"
+          sizeMd="{{ prof.technical_capacity_everage === null && prof.puntuality_everage === null && prof.cordiality_everage === null && prof.service_and_satisfaction_everage === null ? '9' : '7' }}">
           <ion-text>
             <span class="titleSelect main-color ion-text-capitalize">{{ prof.supplierName }} {{ prof.supplierLastName
               }}</span><br>
-            <ion-badge color="primary" class="badge-text">{{ prof.categoryName }}</ion-badge><br>
-            <span class="textSelect">{{ prof.descProf }}</span>
+            <ion-badge color="primary" class="badge-text">{{ prof.categoryName }}</ion-badge>
+            <p class="textSelect">
+              {{ prof.descProf }}
+            </p>
           </ion-text>
         </ion-col>
 
         <!-- rating -->
-        <ion-col size="4">
+        <ion-col
+          size="{{ prof.technical_capacity_everage === null && prof.puntuality_everage === null && prof.cordiality_everage === null && prof.service_and_satisfaction_everage === null ? '2' : '4' }}">
           <ion-text class="text-center">
             <ion-row class="items-center">
               <ion-col size="12">

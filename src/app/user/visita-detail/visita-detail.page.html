@@ -81,7 +81,7 @@
         <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color iconFix"></ion-icon>
         <ion-text
           *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length === 0"
-          class="subText"> {{formatDate(loadedService.date_required, 'DD/MM/YYYY')}}</ion-text>
+          class="subText"> {{getRequiredDate()}}</ion-text>
         <ion-text *ngIf="loadedService && loadedService.request_technical && loadedService.request_technical.length > 0"
           class="subText"> {{formatDate(loadedService.request_technical[0].visit_date, 'YYYY-MM-DD')}}</ion-text>
 

@@ -72,7 +72,6 @@
           <ion-slide *ngFor="let image of loadedService.img_request">
             <img (click)="openImage(image.image)" src="{{ image.image }}" class="imgSlide">
           </ion-slide>
-
         </ion-slides>
       </ion-col>
     </ion-row>
@@ -88,7 +87,7 @@
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-icon src="/assets/icon/ic_date_range.svg" class="main-color iconFix"></ion-icon>
-        <ion-text class="subText"> {{formatDate(loadedService.date_required, 'DD-MM-YYYY')}}</ion-text>
+        <ion-text class="subText">{{getRequiredDate()}}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
     </ion-row>

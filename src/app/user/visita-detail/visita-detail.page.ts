@@ -45,6 +45,7 @@ export class VisitaDetailPage implements OnInit {
     suplierPhone1: null,
     img_request: [],
     request_technical: [],
+    history_status: []
   };
   slideOptions = {
     initialSlide: 0,
@@ -187,5 +188,20 @@ export class VisitaDetailPage implements OnInit {
     });
     successModal.present();
   }
+
+  getRequiredDate() {
+		if (
+			this.loadedService.history_status &&
+			this.loadedService.history_status.length
+		) {
+			let requestSendStatus = this.loadedService.history_status.find(
+				(status) => status.name === "VisitaTecnica"
+			);
+			if (requestSendStatus)
+				return this.formatDate(requestSendStatus.date_required, "DD/MM/YYYY");
+			return this.formatDate(this.loadedService.date_required, "DD-MM-YYYY");
+		}
+		return this.formatDate(this.loadedService.date_required, "DD-MM-YYYY");
+	}
 
 }

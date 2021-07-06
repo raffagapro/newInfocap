@@ -30,7 +30,7 @@
   font-size: 11px;
 }
 .profileImg {
-  margin-left: 10px;
+  margin: auto;
   height: 45px;
   width: 45px;
 }
@@ -57,7 +57,7 @@
 }
 .textSelect {
   font-size: 10px;
-  line-height: 0.5;
+  line-height: 1.1;
 
   @media (min-height: 768px) {
     font-size: 14px;
