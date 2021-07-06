@@ -109,8 +109,7 @@ export class PerfilPage implements OnInit, OnDestroy {
     this.ckeckUpdateUser(this.headers)
   }
 
-  async ckeckUpdateUser(token)
-  {
+  async ckeckUpdateUser(token) {
     await axios.get(API + '/account/me', { headers: { Authorization: token } }).then(res => {
       this.form.setValue({
         name: res.data.data.name + ' ' + res.data.data.last_name,
@@ -159,36 +158,34 @@ export class PerfilPage implements OnInit, OnDestroy {
       let headers = 'Bearer ' + this.grabbedUser.access_token;
       axios.put(API + '/account', modUser, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
-        if (resData['code'] === 200) {
-          //update user controler
-          this.us.setUser(new User(
-            this.grabbedUser.id,
-            resData.data.data.name,
-            resData.data.data.last_name,
-            resData.data.data.img_profile,
-            resData.data.data.email,
-            resData.data.data.phone1,
-            resData.data.data.phone2,
-            this.grabbedUser.role,
-            this.grabbedUser.access_token,
-          ));
-          //resets values after succefull update
-          this.form.setValue({
-            name: this.form.value.name,
-            email: this.form.value.email,
-            phone1: this.form.value.phone1,
-            phone2: this.form.value.phone2,
-            password: null,
-            newPassword: null,
-            confirmPassword: null,
-          });
-          this.modalController.create({
-            component: SuccessModalComponent,
-            cssClass: 'modalSuccess',
-          }).then(modalEl => {
-            modalEl.present();
-          });
-        }
+        //update user controler
+        this.us.setUser(new User(
+          this.grabbedUser.id,
+          resData.data.data.name,
+          resData.data.data.last_name,
+          resData.data.data.img_profile,
+          resData.data.data.email,
+          resData.data.data.phone1,
+          resData.data.data.phone2,
+          this.grabbedUser.role,
+          this.grabbedUser.access_token,
+        ));
+        //resets values after succefull update
+        this.form.setValue({
+          name: this.form.value.name,
+          email: this.form.value.email,
+          phone1: this.form.value.phone1,
+          phone2: this.form.value.phone2,
+          password: null,
+          newPassword: null,
+          confirmPassword: null,
+        });
+        this.modalController.create({
+          component: SuccessModalComponent,
+          cssClass: 'modalSuccess',
+        }).then(modalEl => {
+          modalEl.present();
+        });
       }).catch(err => {
         loadingEl.dismiss();
         this.httpError = err['error'].message;
@@ -219,7 +216,7 @@ export class PerfilPage implements OnInit, OnDestroy {
   }
 
   getUrl() {
-    if(!this.grabbedUser.img_profile || this.grabbedUser.img_profile === '') {
+    if (!this.grabbedUser.img_profile || this.grabbedUser.img_profile === '' || this.grabbedUser.img_profile === 'http://167.71.251.136/storage/') {
       return "url('assets/images/avatar.png')"
     } else {
       return `url(${this.grabbedUser.img_profile})`

@@ -17,14 +17,13 @@
     <ion-grid>
       <ion-row class="ion-align-items-center">
         <!-- profile img -->
-        <ion-col size="4" offset="1">
-          <ion-avatar class="profileImg">
-            <img src="{{ !loadedInfo.img_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_profile  }}" />
-          </ion-avatar>
+        <ion-col size-md="3" sizeXs="1"></ion-col>
+        <ion-col size-md="3" sizeXs="4">
+          <div class="ion-margin-start profileImg" [ngStyle]="{'background-image': getUrl()}"></div>
         </ion-col>
 
         <!-- title -->
-        <ion-col size="7">
+        <ion-col size-md="3"  sizeXs="6">
           <ion-row>
             <small class="ticket">Solicitud #{{ loadedInfo.ticket_number }}</small>
           </ion-row>
@@ -35,10 +34,10 @@
                 loadedInfo.clientLastName }}
             </span>
             <br>
-            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">{{ loadedInfo.date_required }}</p>
+            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">{{ d(loadedInfo.created_date) }}</p>
           </ion-row>
         </ion-col>
-
+        <ion-col size-md="3"  sizeXs="0"></ion-col>
       </ion-row>
     </ion-grid>
   </div>

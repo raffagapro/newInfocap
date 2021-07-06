@@ -37,7 +37,7 @@
     "chart.js": "^3.1.1",
     "cordova-android": "9.0.0",
     "cordova-ios": "6.2.0",
-    "cordova-khenshin": "git+https://github.com/khipu/cordova-khenshin.git",
+    "cordova-khenshin": "https://github.com/khipu/cordova-khenshin.git",
     "cordova-plugin-advanced-http": "^3.1.0",
     "cordova-plugin-file": "^6.0.2",
     "cordova-plugin-geolocation": "^4.1.0",

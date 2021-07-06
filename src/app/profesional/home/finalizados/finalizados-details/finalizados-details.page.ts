@@ -20,7 +20,6 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
   userSub: Subscription;
   headers: String;
   loadedInfo = {
-    img_profile: null,
     ticket_number: null,
     clientName: null,
     clientLastName: null,
@@ -30,6 +29,7 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
     images: null,
     categoryName: null,
     clientPhone1: null,
+    img_client_profile: null,
     request_cost: 0
   };
 
@@ -80,7 +80,7 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
         this.loadedInfo.description = resData.data.data.description;
         this.loadedInfo.hours = resData.data.data.hours;
         this.loadedInfo.images = resData.data.data.images;
-        this.loadedInfo.img_profile = resData.data.data.img_client_profile;
+        this.loadedInfo.img_client_profile = resData.data.data.img_client_profile;
         this.loadedInfo.ticket_number = resData.data.data.ticket_number;
         this.loadedInfo.categoryName = resData.data.data.categoryName;
         this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
@@ -132,6 +132,13 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
     }
   }
 
+  getUrl() {
+    if(!this.loadedInfo.img_client_profile || this.loadedInfo.img_client_profile === '/' || this.loadedInfo.img_client_profile === 'http://167.71.251.136/storage/') {
+      return "url('assets/images/avatar.png')"
+    } else {
+      return `url(${this.loadedInfo.img_client_profile})`
+    }
+  }
   
   rateClient(){
     this.router.navigate(['/profesional/finalizados/rate-form']);

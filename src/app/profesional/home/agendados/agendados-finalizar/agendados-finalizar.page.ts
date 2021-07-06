@@ -11,6 +11,7 @@ import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/c
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PickerOptions } from '@ionic/core'
+import * as moment from 'moment';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -58,6 +59,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     categoryName: null,
     category_id: null,
     clientPhone1: null,
+    created_date: null,
     request_cost: {}
   };
 
@@ -131,6 +133,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     this.loadedInfo.category_id = this.solicitudServicio.solicitud.category_id
     this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
     this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
+    this.loadedInfo.created_date = this.solicitudServicio.solicitud.created_date
     this.menuController.enable(true, 'profesional');
   }
 
@@ -153,8 +156,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
 
   d(date: string) {
     if (date) {
-      let wDate = date.split(" ");
-      return wDate[0];
+      return moment(date, 'DD/MM/YYYY').format('D [de] MMM [de] YYYY');
     }
   }
 
@@ -264,7 +266,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
   }
 
   getUrl() {
-    if(!this.loadedInfo.img_client_profile || this.loadedInfo.img_client_profile === '/') {
+    if(!this.loadedInfo.img_client_profile || this.loadedInfo.img_client_profile === '/' || this.loadedInfo.img_client_profile === 'http://167.71.251.136/storage/') {
       return "url('assets/images/avatar.png')"
     } else {
       return `url(${this.loadedInfo.img_client_profile})`
