@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { LoadingController, ModalController, PickerController } from '@ionic/angular';
 import axios from 'axios';
 import { Observable, Subscription } from 'rxjs';
+import { PickerOptions } from '@ionic/core'
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
@@ -13,39 +13,33 @@ import { API } from 'src/environments/environment';
   styleUrls: ['./bank-modal.component.scss'],
 })
 export class BankModalComponent implements OnInit {
+
   userSub: Subscription;
   grabbedUser: User;
-  headers: string;
-
-  completeName: string
-  cardNumber:string 
-  clabe:string; 
-  banco:string;
+  headers: string; 
+  rut = null
+  bancoSeleccionado:string
+  selectedCard:string
 
   bancos = [
+    { id: "504", name: "BBVA" },
     { id: "001", name: "Banco de Chile" },
-    { id: "009", name: "Banco Internacional" },
-    { id: "014", name: "Scotiabank Chile" },
-    { id: "016", name: "Banco de Credito E Inversiones" },
-    { id: "028", name: "Banco Bice" },
-    { id: "031", name: "HSBC Bank" },
-    { id: "037", name: "Banco Santander-chile" },
-    { id: "039", name: "Itaú Corpbanca" },
-    { id: "049", name: "Banco Security" },
-    { id: "051", name: "Banco Falabella" },
-    { id: "053", name: "Banco Ripley" },
-    { id: "054", name: "Rabobank Chile" },
-    { id: "055", name: "Banco Consorcio" },
-    { id: "056", name: "Banco Penta" },
-    { id: "504", name: "Banco BBVA" },
-    { id: "059", name: "Banco BTG Pactual Chile" },
-    { id: "012", name: "Banco del Estado de Chile" },
+    { id: "014", name: "Scotiabank" },
+    { id: "031", name: "HSBC" },
+    { id: "037", name: "Santander" },
+
   ];
+
+  tipoTarjeta = [
+    { id: 1, name: 'Visa'},
+    { id: 2, name: 'MasterCard'},
+  ]
 
   constructor(
     private us: UserService,
     private lc: LoadingController,
     private modalController: ModalController,
+    private pickerController: PickerController
   ) { }
 
   ngOnInit() {
@@ -56,17 +50,18 @@ export class BankModalComponent implements OnInit {
     });
   }
 
-  validateInformation(completeName, cardNumber, clabe, banco) {
-    return completeName.length > 0 && cardNumber.length == 16 && clabe.length == 18 && banco.length > 0
+  validateInformation(completeName, cardNumber, clabe, banco, type) {
+    return completeName.length > 0 && cardNumber.length == 16 && clabe.length == 12 && banco.length > 0 && type.length > 0
   }
 
-  async saveBankAccount(completeName, cardNumber, clabe, banco) {
+  async saveBankAccount(completeName, cardNumber, clabe, banco, type) {
     this.lc.create({
       message: "Guardando información..."
     }).then(loadingEl => {
       loadingEl.present();
 
-      let bancoSeleccionado = this.bancos.find(b => b.id === banco)
+      let bancoSeleccionado = this.bancos.find(b => b.name === banco)
+      let typeCardSelected = this.tipoTarjeta.find(b => b.name === type)
 
       let data_bank = {
         professional_profile_id: 1,
@@ -74,7 +69,7 @@ export class BankModalComponent implements OnInit {
         debit_account: cardNumber,
         clabe: clabe,
         name: completeName,
-        type: 1,
+        type: typeCardSelected.name,
         name_bank: bancoSeleccionado.name
       }
 
@@ -85,11 +80,80 @@ export class BankModalComponent implements OnInit {
         console.log(err)
         loadingEl.dismiss()
       })
-      console.log(data_bank)
     }).catch(err => {
       console.log(err)
       this.lc.dismiss()
     })
+  }
+
+  async showPicker() {
+    let options: PickerOptions = {
+      mode: 'ios',
+      buttons: [
+        {
+          text:'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text:'Listo',
+          handler:(value:any) => {
+            this.bancoSeleccionado = value.bank.text
+          }
+        }
+      ],
+      columns:[{
+        name:'bank',
+        options:this.getColumnOptions()
+      }]
+    };
+
+    let picker = await this.pickerController.create(options);
+    picker.present()
+  }
+
+  async showPickerCardType() {
+    let options: PickerOptions = {
+      mode: 'ios',
+      buttons: [
+        {
+          text:'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text:'Listo',
+          handler:(value:any) => {
+            this.selectedCard = value.type.text
+          }
+        }
+      ],
+      columns:[{
+        name:'type',
+        options:this.getColumnCardOptions()
+      }]
+    };
+
+    let picker = await this.pickerController.create(options);
+    picker.present()
+  }
+
+  getColumnCardOptions(){
+    let options = [];
+    this.tipoTarjeta.forEach(x => {
+      options.push({text: x.name, value: x.id});
+    });
+    return options;
+  }
+
+  getColumnOptions(){
+    let options = [];
+    this.bancos.forEach(x => {
+      options.push({text: x.name, value: x.id});
+    });
+    return options;
+  }
+
+  formatRUT(){
+    
   }
 
 }

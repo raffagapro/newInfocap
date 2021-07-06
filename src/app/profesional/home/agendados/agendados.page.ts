@@ -89,7 +89,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
         var ticket_format = r.ticket_number.toString().substr(-3)
 
         let new_event = {
-          title: { id: r.id, ticket: `#${ticket_format}` },
+          title: { id: r.id, ticket: `#${ticket_format}`, type: r.type },
           startTime: startTime,
           endTime: endTime,
           allDay: false
@@ -114,7 +114,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
         var ticket_format = r.ticket_number.toString().substr(-3)
   
         let new_event = {
-          title: { id: r.id, ticket: `#${ticket_format}` },
+          title: { id: r.id, ticket: `#${ticket_format}`, type: r.type },
           startTime: startTime,
           endTime: endTime,
           allDay: false

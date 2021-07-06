@@ -17,16 +17,13 @@
     <ion-grid>
       <ion-row class="ion-align-items-center">
         <!-- profile img -->
-        <ion-col size="4" offset="1">
-          <ion-avatar class="profileImg">
-            <ion-img
-              src="{{ !loadedInfo.img_client_profile || loadedInfo.img_client_profile === '/' ? 'assets/images/avatar.png' : loadedInfo.img_client_profile  }}">
-            </ion-img>
-          </ion-avatar>
+        <ion-col size-md="3" sizeXs="1"></ion-col>
+        <ion-col size-md="3" sizeXs="4">
+          <div class="ion-margin-start profileImg" [ngStyle]="{'background-image': getUrl()}"></div>
         </ion-col>
 
         <!-- title -->
-        <ion-col size="6">
+        <ion-col size-md="3" sizeXs="6">
           <ion-text>
             <small class="ticket">Ticket #{{ loadedInfo.ticket_number }}</small><br>
             <span class="titleSelect main-color ion-text-capitalize">{{ loadedInfo.categoryName }} para<br>
@@ -37,7 +34,7 @@
             </p>
           </ion-text>
         </ion-col>
-
+        <ion-col size-md="3"  sizeXs="0"></ion-col>
       </ion-row>
     </ion-grid>
   </div>

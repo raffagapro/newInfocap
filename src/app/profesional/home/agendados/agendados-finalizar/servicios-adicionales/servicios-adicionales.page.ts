@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
+import * as moment from 'moment';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -61,6 +62,8 @@ export class ServiciosAdicionalesPage implements OnInit {
     categoryName: null,
     clientPhone1: null,
     category_id: null,
+    img_client_profile: null,
+    created_date: null,
     request_cost: {
 
     }
@@ -177,6 +180,8 @@ export class ServiciosAdicionalesPage implements OnInit {
     this.loadedInfo.category_id = this.solicitudServicio.solicitud.category_id
     this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
     this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
+    this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg
+    this.loadedInfo.created_date = this.solicitudServicio.solicitud.created_date
 
     var aditionalCost = null
     if(this.solicitudServicio.solicitud.cost != null) {
@@ -237,6 +242,20 @@ export class ServiciosAdicionalesPage implements OnInit {
         console.log(err)
       })
     })
+  }
+
+  getUrl() {
+    if(!this.loadedInfo.img_client_profile || this.loadedInfo.img_client_profile === '/' || this.loadedInfo.img_client_profile === 'http://167.71.251.136/storage/') {
+      return "url('assets/images/avatar.png')"
+    } else {
+      return `url(${this.loadedInfo.img_client_profile})`
+    }
+  }
+
+  d(date: string) {
+    if (date) {
+      return moment(date, 'DD/MM/YYYY').format('D [de] MMM [de] YYYY');
+    }
   }
 
 }
