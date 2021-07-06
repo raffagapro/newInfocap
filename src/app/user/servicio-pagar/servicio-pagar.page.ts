@@ -1,7 +1,11 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { LoadingController, MenuController } from "@ionic/angular";
+import {
+	LoadingController,
+	MenuController,
+	ModalController,
+} from "@ionic/angular";
 import axios from "axios";
 import { Subscription } from "rxjs";
 import { User } from "src/app/model/user.model";
@@ -9,6 +13,8 @@ import { SolicitudService } from "src/app/services/solicitud.service";
 import { UserService } from "src/app/services/user.service";
 import { API } from "src/environments/environment";
 import { PaymentMethodType } from "../solicitud-detail/solicitud-detail.page";
+import { SuccessModalComponent } from "src/app/shared/success-modal/success-modal.component";
+import khenshin from "cordova-khenshin/www/khenshin";
 
 @Component({
 	selector: "app-servicio-pagar",
@@ -52,6 +58,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 	isFinished = false;
 
 	constructor(
+		private modalController: ModalController,
 		private router: Router,
 		private menuController: MenuController,
 		private http: HttpClient,
@@ -169,9 +176,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 
 	getServiceCost() {
 		if (this.servicesCosts && this.servicesCosts.amount_client) {
-			return Number(
-				this.servicesCosts.amount_client
-			).toFixed(2);
+			return Number(this.servicesCosts.amount_client).toFixed(2);
 		}
 		return 0;
 	}
@@ -190,7 +195,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 
 	getTotal() {
 		if (!this.servicesCosts) {
-			return this.getServiceCost()
+			return this.getServiceCost();
 		}
 		return (
 			Number(this.getServiceAditional()) +
@@ -202,8 +207,24 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 		this.menuController.open();
 	}
 
-	paymentForm() {
-		this.router.navigate(["/user/servicio-pagar-forma"]);
+	async paymentForm() {
+		//this.router.navigate(["/user/servicio-pagar-forma"]);
+
+		try {
+			let body = {
+				//amount: this.getTotal(),
+				amount: 1,
+			};
+			let { data } = await axios.post(`${API}/client/payment-id`, body, {
+				headers: {
+					Authorization: `Bearer ${this.grabbedUser.access_token}`,
+				},
+			});
+			this.solServ.setPaymentId(data.data.payment_id);
+			this.openKhipu(data.data.payment_id)
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	setSelectedButton(type: PaymentMethodType) {
@@ -216,5 +237,50 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 
 	ngOnDestroy() {
 		this.userSub.unsubscribe();
+	}
+
+	openKhipu(paymentId: string) {
+		khenshin.startByPaymentId(
+			paymentId,
+			(success) => {
+				console.log(success);
+				this.createPayment();
+			},
+			(err) => {
+				console.log(err);
+				alert("Error con el pago");
+			}
+		);
+	}
+
+	async createPayment() {
+		try {
+			let body = {
+				request_service_id: this.solServ.solicitud.solicitudID,
+				payment_type_id: 1,
+				grossamount: this.getTotal(),
+			};
+			await axios.post(`${API}/client/payment`, body, {
+				headers: {
+					Authorization: `Bearer ${this.grabbedUser.access_token}`,
+				},
+			});
+			this.modalController
+				.create({
+					component: SuccessModalComponent,
+					componentProps: {
+						message: "¡EL PAGO HA SIDO EXISTOSO!",
+						secondMessage: "Recuerda evaluar el servicio.",
+						redirect: true,
+						redirectUrl: "/user/seval-prof",
+					},
+					cssClass: "modalSuccess",
+				})
+				.then((modalEl) => {
+					modalEl.present();
+				});
+		} catch (error) {
+			alert("Error al registrar el pago");
+		}
 	}
 }
