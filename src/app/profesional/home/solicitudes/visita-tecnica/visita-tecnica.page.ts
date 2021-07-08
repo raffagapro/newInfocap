@@ -88,7 +88,7 @@ export class VisitaTecnicaPage implements OnInit {
     this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
     this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
     this.loadedInfo.created_date = this.solicitudServicio.solicitud.created_date
-    this.menuController.enable(true, 'user');
+    this.menuController.enable(true, 'profesional');
   }
 
   openMenu() {

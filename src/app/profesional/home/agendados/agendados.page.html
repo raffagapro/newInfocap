@@ -105,7 +105,7 @@
   </ng-template>
 
   <ng-template #eventAgended let-displayEvent="displayEvent">
-    <div class="calendar-event-inner" (click)="solicitudDetail(displayEvent.event.title.id)">
+    <div class="calendar-event-inner" (click)="solicitudDetailTecnical(displayEvent.event.title.id, displayEvent.event.title.request_technical)">
       <div class="category-event-inner">
         {{displayEvent.event.title.ticket}}
       </div>

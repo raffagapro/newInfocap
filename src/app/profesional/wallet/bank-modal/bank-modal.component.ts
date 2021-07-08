@@ -17,8 +17,7 @@ export class BankModalComponent implements OnInit {
   userSub: Subscription;
   grabbedUser: User;
   headers: string; 
-  rut = null
-  bancoSeleccionado:string
+  disabledForm = true
   selectedCard:string
 
   bancos = [
@@ -50,27 +49,30 @@ export class BankModalComponent implements OnInit {
     });
   }
 
-  validateInformation(completeName, cardNumber, clabe, banco, type) {
-    return completeName.length > 0 && cardNumber.length == 16 && clabe.length == 12 && banco.length > 0 && type.length > 0
+  validateInformation(completeName, cardNumber, rut, banco, type) {
+    this.disabledForm = completeName.length > 0 
+      && cardNumber.length == 16
+      && rut.length == 12 
+      && banco.length > 0 
+      && type.length > 0
   }
 
-  async saveBankAccount(completeName, cardNumber, clabe, banco, type) {
+  async saveBankAccount(completeName, cardNumber, rut, banco, type) {
     this.lc.create({
       message: "Guardando información..."
     }).then(loadingEl => {
       loadingEl.present();
 
-      let bancoSeleccionado = this.bancos.find(b => b.name === banco)
       let typeCardSelected = this.tipoTarjeta.find(b => b.name === type)
 
       let data_bank = {
         professional_profile_id: 1,
-        bank_id: bancoSeleccionado.id,
+        bank_id: "1",
         debit_account: cardNumber,
-        clabe: clabe,
+        clabe: rut,
         name: completeName,
         type: typeCardSelected.name,
-        name_bank: bancoSeleccionado.name
+        name_bank: banco
       }
 
       axios.post(API + '/supplier/bankaccount', data_bank, { headers: { Authorization: this.headers } }).then(resData => {
@@ -84,31 +86,6 @@ export class BankModalComponent implements OnInit {
       console.log(err)
       this.lc.dismiss()
     })
-  }
-
-  async showPicker() {
-    let options: PickerOptions = {
-      mode: 'ios',
-      buttons: [
-        {
-          text:'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text:'Listo',
-          handler:(value:any) => {
-            this.bancoSeleccionado = value.bank.text
-          }
-        }
-      ],
-      columns:[{
-        name:'bank',
-        options:this.getColumnOptions()
-      }]
-    };
-
-    let picker = await this.pickerController.create(options);
-    picker.present()
   }
 
   async showPickerCardType() {
@@ -150,10 +127,6 @@ export class BankModalComponent implements OnInit {
       options.push({text: x.name, value: x.id});
     });
     return options;
-  }
-
-  formatRUT(){
-    
   }
 
 }

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { LoadingController, ModalController } from '@ionic/angular';
 import axios from 'axios'
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
-import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { VisitaTecnicaService } from 'src/app/services/visita-tecnica.service';
 import { API } from 'src/environments/environment';
@@ -28,9 +26,7 @@ export class ConfirmVisitaComponent implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private router: Router,
     private lc: LoadingController,
-    private solServ: SolicitudService,
     private solicitudServicio: ProSolicitudService,
     private visitaT: VisitaTecnicaService,
     private us: UserService,
@@ -48,19 +44,8 @@ export class ConfirmVisitaComponent implements OnInit {
     }
   }
 
-  // cancelSolicitud(){
-  //   this.modalController.dismiss();
-  //   this.modalController.create({
-  //     component: ConfirmSuccessComponent,
-  //     cssClass: 'modalSuccess',
-  //   }).then(modalEl => {
-  //     modalEl.present();
-  //   });
-  // }
-
   dismiss() {
     this.modalController.dismiss();
-    // this.router.navigate(['/profesional/home/home-tabs/finalizados/']);
   }
 
   formatDate(date: string) {

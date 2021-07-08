@@ -30,84 +30,87 @@
     </ion-row>
   </ion-grid>
 
-  <!-- solicitud card item -->
-  <div class="prof-cont no-border" *ngFor="let service of loadedServices">
-    <ion-item-sliding>
-      <ion-item-options side="start">
-        <ion-item-option fill="outline" color="danger" (click)="rechazarSolicitud(service.id)">
-          <ion-icon slot="start" name="close" class="iconSize"></ion-icon> Rechazar
-        </ion-item-option>
-      </ion-item-options>
+  <ion-grid fixed>
+    <!-- solicitud card item -->
+    <div class="prof-cont no-border" *ngFor="let service of loadedServices">
+      <ion-item-sliding>
+        <ion-item-options side="start">
+          <ion-item-option fill="outline" color="danger" (click)="rechazarSolicitud(service.id)">
+            <ion-icon slot="start" name="close" class="iconSize"></ion-icon> Rechazar
+          </ion-item-option>
+        </ion-item-options>
 
-      <ion-item class="ion-no-padding ion-item-solicitudes" button
-        (click)="aceptarSolicitud(service.id, service.type_request)" *ngIf="service.type_request != 'URGENT'">
-        <ion-grid>
-          <ion-row class="ion-align-items-center">
-            <!-- title -->
-            <ion-col size="12" class="ion-justify-content-center">
-              <ion-text>
-                <ion-badge color="primary" class="titleSelect ion-text-capitalize">{{ service.categoryName }}
-                </ion-badge>
-                <br>
-                <ion-text class="mainText">
-                  {{ service.adress }}
-                </ion-text>
-                <br>
-
-                <ion-text class="miniText textSelect" color="primary">{{ service.description }}</ion-text>
-              </ion-text>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-
-      <ion-item class="ion-no-padding ion-item-solicitudes" button
-        (click)="aceptarSolicitud(service.id, service.type_request)" *ngIf="service.type_request === 'URGENT'">
-        <ion-grid>
-          <ion-row class="ion-align-items-center">
-            <!-- title -->
-            <ion-col size="8" class="ion-justify-content-center">
-              <ion-text>
-                <ion-row class="ion-align-items-center">
-                  <ion-badge color="danger" class="titleSelect ion-text-capitalize">{{ service.categoryName }}
+        <ion-item class="ion-no-padding ion-item-solicitudes" button
+          (click)="aceptarSolicitud(service.id, service.type_request)" *ngIf="service.type_request != 'URGENT'">
+          <ion-grid>
+            <ion-row class="ion-align-items-center">
+              <!-- title -->
+              <ion-col size="12" class="ion-justify-content-center">
+                <ion-text>
+                  <ion-badge color="primary" class="titleSelect ion-text-capitalize">{{ service.categoryName }}
                   </ion-badge>
-                  <ion-icon src="/assets/icon/ic_error.svg" color="primary" class="iconFix"></ion-icon>
-                </ion-row>
-                <ion-text class="mainText">
-                  {{ service.adress }}
+                  <br>
+                  <ion-text class="mainText">
+                    {{ service.adress }}
+                  </ion-text>
+                  <br>
+
+                  <ion-text class="miniText textSelect" color="primary">{{ service.description }}</ion-text>
                 </ion-text>
-                <br>
-                <ion-row>
-                  <ion-col class="ion-no-padding" size="12">
-                    <ion-text class="miniText textSelect" color="danger">{{ service.description }}
-                    </ion-text>
-                  </ion-col>
-                  <!-- <ion-col size="6">
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+        <ion-item class="ion-no-padding ion-item-solicitudes" button
+          (click)="aceptarSolicitud(service.id, service.type_request)" *ngIf="service.type_request === 'URGENT'">
+          <ion-grid>
+            <ion-row class="ion-align-items-center">
+              <!-- title -->
+              <ion-col size="8" class="ion-justify-content-center">
+                <ion-text>
+                  <ion-row class="ion-align-items-center">
+                    <ion-badge color="danger" class="titleSelect ion-text-capitalize">{{ service.categoryName }}
+                    </ion-badge>
+                    <ion-icon src="/assets/icon/ic_error.svg" color="primary" class="iconFix"></ion-icon>
+                  </ion-row>
+                  <ion-text class="mainText">
+                    {{ service.adress }}
+                  </ion-text>
+                  <br>
+                  <ion-row>
+                    <ion-col class="ion-no-padding" size="12">
+                      <ion-text class="miniText textSelect" color="danger">{{ service.description }}
+                      </ion-text>
+                    </ion-col>
+                    <!-- <ion-col size="6">
                     <ion-text class="miniText urgent-text" color="danger">
                       <ion-icon src="/assets/icon/ic_date_range_red.svg" color="primary" class="iconFix"></ion-icon>
                       {{ formatDate(service.date_required) }}
                     </ion-text>
                   </ion-col> -->
-                </ion-row>
-              </ion-text>
-            </ion-col>
-            <ion-col size="4">
-              <ion-text class="miniText urgent-text" color="danger">
-                <ion-icon src="/assets/icon/ic_date_range_red.svg" color="primary" class="iconFix"></ion-icon>
-                {{ formatDate(service.date_required) }}
-              </ion-text>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
+                  </ion-row>
+                </ion-text>
+              </ion-col>
+              <ion-col size="4">
+                <ion-text class="miniText urgent-text" color="danger">
+                  <ion-icon src="/assets/icon/ic_date_range_red.svg" color="primary" class="iconFix"></ion-icon>
+                  {{ formatDate(service.date_required) }}
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
 
-      <ion-item-options side="end">
-        <ion-item-option color="success" (click)="aceptarSolicitud(service.id, service.type_request)">
-          <ion-icon slot="start" name="checkmark" class="iconSize"></ion-icon> Aceptar
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-  </div>
+        <ion-item-options side="end">
+          <ion-item-option color="success" (click)="aceptarSolicitud(service.id, service.type_request)">
+            <ion-icon slot="start" name="checkmark" class="iconSize"></ion-icon> Aceptar
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </div>
+
+  </ion-grid>
 
   <!-- solicitud rechazada card item -->
   <!-- <div class="prof-cont no-border">

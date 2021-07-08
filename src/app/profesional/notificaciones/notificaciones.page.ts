@@ -111,19 +111,22 @@ export class NotificacionesPage implements OnInit {
     }
   }
 
-  validationName(customerName, supplierName, status) {
-    if(status == 'ServicioAgendado' || status == 'VisitaTecnica' || status == 'ServicioRechazado') {
-      return supplierName
-    } else {
-      return customerName
-    }
+  validationName(customerName, supplierName, status, prodId) {
+      if (status !== 1) {
+        if(supplierName !== 'No definido') {
+          return supplierName
+        }
+      } else {
+        return customerName
+      }
   }
 
   formatMotivo(type, status, motive) {
-    if(type === 'NORMAL') {
+    if (type === 'NORMAL') {
+      motive = motive.replace('Se genero', 'generó')
       return motive
     } else {
-      if(status === 1) {
+      if (status === 1) {
         return ' ha generado una solicitud urgente, por favor atiéndela, si no puedes, no olvides rechazar.'
       } else {
         return motive
