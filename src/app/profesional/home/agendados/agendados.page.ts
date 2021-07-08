@@ -41,10 +41,10 @@ export class AgendadosPage implements OnInit, OnDestroy {
     mode: 'week',
     currentDate: new Date(),
     dateFormatter: {
-      formatWeekViewHourColumn: function(date:Date) {
+      formatWeekViewHourColumn: function (date: Date) {
         let format_date = moment(date).format('h a');
         return format_date;
-    },
+      },
     }
   }
 
@@ -75,21 +75,20 @@ export class AgendadosPage implements OnInit, OnDestroy {
 
   async formatEvents(data, type) {
     data.map(r => {
-
-      if(type === "2") {
+      if (type === "2") {
         var date = r.request_technical[0].visit_date.substring(0, 10).split('-')
         var hour = r.request_technical[0].visit_hours.split(' - ')
         var hoursTime = hour[0].split(':')
         var hoursFinish = hour[1].split(':')
 
         var startTime = new Date(date[0], date[1] - 1, date[2], hoursTime[0], hoursTime[1]);
-  
+
         var endTime = new Date(date[0], date[1] - 1, date[2], hoursFinish[0], hoursFinish[1]);
 
         var ticket_format = r.ticket_number.toString().substr(-3)
 
         let new_event = {
-          title: { id: r.id, ticket: `#${ticket_format}`, type: r.type },
+          title: { id: r.id, ticket: `#${ticket_format}`, type: r.type_request, request_technical: r.request_technical[0] },
           startTime: startTime,
           endTime: endTime,
           allDay: false
@@ -100,21 +99,21 @@ export class AgendadosPage implements OnInit, OnDestroy {
       } else {
         var date = r.date_required.split('-')
         var hour = r.hours.split('/')
-  
+
         var startHour = hour[0].substring(11, 13)
         var startMinute = hour[0].substring(14, 16)
-  
+
         var endHour = hour[1].substring(11, 13)
         var endMinute = hour[1].substring(14, 16)
-  
+
         var startTime = new Date(date[0], date[1] - 1, date[2], startHour, startMinute);
-  
+
         var endTime = new Date(date[0], date[1] - 1, date[2], endHour, endMinute);
-  
+
         var ticket_format = r.ticket_number.toString().substr(-3)
-  
+
         let new_event = {
-          title: { id: r.id, ticket: `#${ticket_format}`, type: r.type },
+          title: { id: r.id, ticket: `#${ticket_format}`, type: r.type_request },
           startTime: startTime,
           endTime: endTime,
           allDay: false
@@ -125,13 +124,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
   }
 
   formatDate(date: string, type: string) {
-    
-    if(type === 'NORMAL') {
-      return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
-    } else {
-      return moment(date, 'DD-MM-YYYY').format('DD MMM YYYY');
-    }
-    
+    return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
   }
 
   formatDateTecnical(tecnical) {
@@ -156,7 +149,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
         loadingEl.dismiss();
         if (statusID === "3") {
           this.loadedServices = resData.data.data;
-          this.loadedServices = lodash.orderBy(this.loadedServices, function(dateObj) {
+          this.loadedServices = lodash.orderBy(this.loadedServices, function (dateObj) {
             return new Date(dateObj.date_required);
           });
           this.formatEvents(resData.data.data, "3")
@@ -164,7 +157,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
         }
         if (statusID === "4") {
           this.loadedStartedServices = resData.data.data;
-          this.loadedStartedServices = lodash.orderBy(this.loadedStartedServices, function(dateObj) {
+          this.loadedStartedServices = lodash.orderBy(this.loadedStartedServices, function (dateObj) {
             return new Date(dateObj.date_required);
           });
           this.formatEvents(resData.data.data, "4")
@@ -172,7 +165,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
         }
         if (statusID === "2") {
           this.loadedVisits = resData.data.data;
-          this.loadedVisits = lodash.orderBy(this.loadedVisits, function(dateObj) {
+          this.loadedVisits = lodash.orderBy(this.loadedVisits, function (dateObj) {
             return new Date(dateObj.date_required);
           });
           this.formatEvents(resData.data.data, "2")

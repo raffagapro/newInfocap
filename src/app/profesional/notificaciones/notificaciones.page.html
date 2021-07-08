@@ -43,7 +43,7 @@
                     *ngIf="notification.type_request !== 'NORMAL'"></ion-icon>
                   <p class="textSelect {{notification.type_request !== 'NORMAL' ? 'red-color' : ''}}">
                     {{ validationName(notification.customerName, notification.professionalName,
-                    notification.status_name)
+                    notification.status_id, notification.professional_id)
                     }} {{ formatMotivo(notification.type_request, notification.status_id, notification.motive ) }}
                   </p>
                   <!--<small class="main-color">Cambio de chapas</small>-->

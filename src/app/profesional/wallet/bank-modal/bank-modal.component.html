@@ -10,16 +10,16 @@
 
     <ion-row class="ion-margin-left">
       <ion-col size="12">
-        <ion-label class="stacked-modal-label" position="stacked">NOMBRE COMPLETO</ion-label>
-        <ion-input #completeName class="stacked-input" placeholder="José Alcarraga López">
+        <ion-label class="stacked-modal-label" position="stacked">Nombre completo</ion-label>
+        <ion-input #completeName class="stacked-input" placeholder="José Alcarraga López" (ionInput)="validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)">
         </ion-input>
       </ion-col>
     </ion-row>
 
     <ion-row class="ion-margin-left ion-align-items-center">
       <ion-col size="8">
-        <ion-label class="stacked-modal-label" position="stacked">NÚMERO DE TARJETA</ion-label>
-        <ion-input #cardNumber class="stacked-input" type="tel" maxlength="16" placeholder="1234 5678 9123 4567"></ion-input>
+        <ion-label class="stacked-modal-label" position="stacked">Número de tarjeta</ion-label>
+        <ion-input #cardNumber class="stacked-input" type="tel" maxlength="16" placeholder="1234 5678 9123 4567" (ionInput)="validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)"></ion-input>
       </ion-col>
       <ion-col size="4">
         <ion-label class="stacked-modal-label" position="stacked">Tipo</ion-label>
@@ -31,25 +31,23 @@
     <ion-row class="ion-margin-left">
       <ion-col size="12">
         <ion-label class="stacked-modal-label" position="stacked">RUT</ion-label>
-        <ion-input #clabe class="stacked-input" type="tel" maxlength="12" (ionInput)="formatRUT()"
-          placeholder="11.111.234-4"></ion-input>
+        <ion-input #rut class="stacked-input" type="tel" maxlength="12" placeholder="11.111.234-4" (ionInput)="validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)"></ion-input>
       </ion-col>
     </ion-row>
 
     <ion-row class="ion-margin-left">
       <ion-col size="12">
         <ion-label class="stacked-modal-label" position="stacked">Banco</ion-label>
-        <ion-input #banco class="stacked-input" value="{{ bancoSeleccionado }}" readonly (click)="showPicker()"
-          placeholder="Banco"></ion-input>
+        <ion-input #banco class="stacked-input" placeholder="Banco" (ionInput)="validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)"></ion-input>
       </ion-col>
     </ion-row>
 
     <ion-row class="ion-margin-left">
       <ion-col offset="1">
         <ion-button
-          [disabled]="!validateInformation(completeName.value, cardNumber.value, clabe.value, bancoSeleccionado, selectedCard)"
+          [disabled]="!disabledForm"
           size="5" expand="block" class="ion-text-uppercase" type="submit"
-          (click)="saveBankAccount(completeName.value, cardNumber.value, clabe.value, bancoSeleccionado, selectedCard)">
+          (click)="saveBankAccount(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)">
           GUARDAR DATOS
         </ion-button>
       </ion-col>
