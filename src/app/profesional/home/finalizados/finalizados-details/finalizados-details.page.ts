@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { LoadingController, MenuController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user.model';
-import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import axios from 'axios'
@@ -30,7 +29,7 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
     categoryName: null,
     clientPhone1: null,
     img_client_profile: null,
-    request_cost: 0
+    request_cost: null
   };
 
   slideOptions = {
@@ -72,7 +71,6 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
         this.solicitudServicio.setCategoryID(resData.data.data.categoryName)
         this.solicitudServicio.setStatusID(resData.data.data.status_id)
         this.solicitudServicio.setClientPhone(resData.data.data.clientPhone1)
-        this.solicitudServicio.setCosto(resData.data.data.request_cost[0] && resData.data.data.request_cost[0]);
 
         this.loadedInfo.clientLastName = resData.data.data.clientLastName;
         this.loadedInfo.clientName = resData.data.data.clientName;
@@ -87,6 +85,10 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
       }).catch(err => {
         console.log(err)
         loadingEl.dismiss();
+      })
+
+      axios.get(API + `/client/detailcostrequest/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
+        this.solicitudServicio.setCosto(resData.data.data);
       })
 
       axios.get(API + `/client/evaluation/done/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(response => {
@@ -143,6 +145,10 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
   rateClient(){
     this.router.navigate(['/profesional/finalizados/rate-form']);
   }
+
+  goToReport() {
+		this.router.navigate(["/profesional/finalizados/service-report"]);
+	}
 
   ngOnDestroy(){
     this.userSub.unsubscribe();
