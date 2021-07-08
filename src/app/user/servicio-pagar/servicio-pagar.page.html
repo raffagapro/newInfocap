@@ -16,7 +16,8 @@
     <ion-row class="ion-margin-bottom" *ngIf="loadedService && loadedService.type_request !== 'URGENT'">
       <ion-col size="1"></ion-col>
       <ion-col>
-        <ion-button size="5" expand="block" fill="outline" (click)="goToReport()" *ngIf="loadedService && loadedService.request_cost.length > 0">
+        <ion-button size="5" expand="block" fill="outline" (click)="goToReport()"
+          *ngIf="loadedService && loadedService.request_cost.length > 0">
           <ion-icon slot="start" name="document-text-outline"></ion-icon>
           Ver informe de los servicios
         </ion-button>
@@ -94,7 +95,8 @@
       <ion-col size="11" offset="1">
         <ion-text color="danger" class="title">
           <b *ngIf="loadedService && loadedService.request_cost.length > 0">${{getTotal()}}</b>
-          <b *ngIf="loadedService && loadedService.request_cost.length === 0" class="small">No se ha asignado un costo</b>
+          <b *ngIf="loadedService && loadedService.request_cost.length === 0" class="small">No se ha asignado un
+            costo</b>
         </ion-text>
       </ion-col>
     </ion-row>
@@ -103,15 +105,16 @@
     <ion-row class="ion-margin-top">
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color subtitle"><b>{{isFinished ? 'Método de pago aplicado' : '¿Cómo desea pagar?'}}</b></ion-text>
+        <ion-text class="main-color subtitle"><b>{{isFinished ? 'Método de pago aplicado' : 'Métodos disponibles de pago'}}</b>
+        </ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
 
       <ion-col size="12" class="ion-text-center">
         <section>
           <!-- btn -->
-          <ion-button size="small"
-            [fill]="selectedButton === 'credit' ? 'solid' : 'outline'" *ngIf="isFinished && selectedButton === 'credit'">
+          <ion-button size="small" [fill]="selectedButton === 'credit' ? 'outline' : 'outline'"
+            *ngIf="isFinished && selectedButton === 'credit'">
             <ion-icon slot="start" src="assets/icon/visa.svg"></ion-icon>
             Tarjeta
           </ion-button>
@@ -125,8 +128,8 @@
           -->
 
           <!-- btn -->
-          <ion-button size="small"
-            [fill]="selectedButton === 'cash' ? 'solid' : 'outline'" *ngIf="isFinished && selectedButton === 'cash'">
+          <ion-button size="small" [fill]="selectedButton === 'cash' ? 'outline' : 'outline'"
+            *ngIf="isFinished && selectedButton === 'cash'">
             <ion-icon slot="start" src="/assets/icon/ic_dollar_blank.svg"></ion-icon>
             Efectivo
           </ion-button>
@@ -148,10 +151,22 @@
     <!-- CONFIRMAR BTN -->
     <ion-row class="ion-margin-top" *ngIf="!isFinished">
       <ion-col size="1"></ion-col>
-      <ion-col> <!-- [disabled]="!servicesCosts" -->
-        <ion-button  size="5" expand="block" class="ion-text-uppercase"
-          (click)="paymentForm()">
+      <ion-col>
+        <!-- [disabled]="!servicesCosts" -->
+        <ion-button size="5" expand="block" class="ion-text-uppercase" (click)="paymentForm()">
           PAGAR
+        </ion-button>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="isFinished" style="margin-top: 20px;">
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-button size="10" [disabled]="!showRateProfessional" expand="block" fill="solid"
+          class="ion-text-uppercase btn-rate" (click)="goToRateProfessional()">
+          <ion-icon src="/assets/icon/ic_like.svg" color="#ffffff" class="main-color margin-right"></ion-icon>
+          &nbsp;&nbsp;{{showRateProfessional ? 'CALIFICAR EL SERVICIO' : 'YA HAS CALIFICADO AL PROFESIONAL'}}
         </ion-button>
       </ion-col>
       <ion-col size="1"></ion-col>

@@ -22,7 +22,7 @@
   background-position-x: 98%;
   background-position-y: 50%;
 
-  @media (min-height: 768px) {
+  @media (min-width: 768px) {
     text-indent: calc(42%);
   }
 }

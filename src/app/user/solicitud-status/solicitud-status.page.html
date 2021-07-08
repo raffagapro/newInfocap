@@ -88,7 +88,10 @@
       <!-- solicitud enviada  -->
       <ion-row>
         <div class="status-cont" (click)="serviceDetal(1)">
-          <ion-icon src="/assets/icon/ic_send.svg" color="light" class="status-text-icon"></ion-icon>
+          <ion-icon src="/assets/icon/ic_send.svg" color="light" class="status-text-icon"
+            *ngIf="loadedService.status_id <= 1 && loadedService.status_id !== 5"></ion-icon>
+            <ion-icon src="/assets/icon/ic_send_disabled.svg" color="light" class="status-text-icon"
+            *ngIf="loadedService.status_id <= 1 || loadedService.status_id >= 5"></ion-icon>
         </div>
         <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color status-text">SOLICITUD<br />ENVIADA</ion-text>
@@ -106,7 +109,7 @@
       <!-- Visita tecnica agendada  -->
       <!-- gray -->
       <ion-row
-        *ngIf="loadedService.status_id < 2 && loadedService.status_id < 7 && loadedService.type_request !== 'URGENT'">
+        *ngIf="loadedService.status_id < 2 && loadedService.status_id < 7 && loadedService.type_request !== 'URGENT' || loadedService.status_id >= 5">
         <div class="status-cont-grey">
           <ion-icon name="checkmark" color="light" class="status-text-icon"></ion-icon>
         </div>
@@ -116,7 +119,7 @@
       </ion-row>
       <!-- active  -->
       <ion-row
-        *ngIf="loadedService.status_id > 1 && loadedService.status_id < 7 && loadedService.type_request !== 'URGENT'">
+        *ngIf="loadedService.status_id > 1 && loadedService.status_id < 7 && loadedService.type_request !== 'URGENT' && loadedService.status_id < 5">
         <div class="status-cont" (click)="serviceDetal(2)">
           <ion-icon name="checkmark" color="light" class="status-text-icon"></ion-icon>
         </div>
@@ -135,7 +138,7 @@
 
       <!-- Servicio agendado  -->
       <!-- gray  -->
-      <ion-row *ngIf="loadedService.status_id < 3 && loadedService.status_id !== 7">
+      <ion-row *ngIf="loadedService.status_id < 3 && loadedService.status_id !== 7 || loadedService.status_id >= 5">
         <div class="status-cont-grey">
           <ion-icon src="/assets/icon/ic_calendar_circle_disabled.svg" color="light" class="status-text-icon">
           </ion-icon>
@@ -146,7 +149,7 @@
         </ion-col>
       </ion-row>
       <!-- active  -->
-      <ion-row *ngIf="loadedService.status_id > 2 && loadedService.status_id !== 7">
+      <ion-row *ngIf="loadedService.status_id > 2 && loadedService.status_id !== 7 && loadedService.status_id < 5">
         <div class="status-cont" (click)="serviceDetal(3)">
           <ion-icon src="/assets/icon/ic_calendar_circle.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
@@ -165,7 +168,7 @@
 
       <!-- SERVICIO ENPROCESO  -->
       <!-- grey  -->
-      <ion-row *ngIf="loadedService.status_id < 4 && loadedService.status_id !== 7">
+      <ion-row *ngIf="loadedService.status_id < 4 && loadedService.status_id !== 7 || loadedService.status_id >= 5">
         <div class="status-cont-grey">
           <ion-icon src="/assets/icon/ic_engine_disabled.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
@@ -174,7 +177,7 @@
         </ion-col>
       </ion-row>
       <!-- active  -->
-      <ion-row *ngIf="loadedService.status_id > 3 && loadedService.status_id !== 7">
+      <ion-row *ngIf="loadedService.status_id > 3 && loadedService.status_id !== 7 && loadedService.status_id < 5">
         <div class="status-cont" (click)="serviceDetal(4)">
           <ion-icon src="/assets/icon/ic_engine_blue.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
@@ -232,7 +235,7 @@
         </ion-col>
       </ion-row>
       <!-- active  -->
-      <ion-row *ngIf="loadedService.status_id > 5 && loadedService.status_id !== 7">
+      <ion-row *ngIf="loadedService.status_id > 5 && loadedService.status_id !== 7 && loadedService.status_id !== 5">
         <div class="status-cont" (click)="serviceDetal(6)">
           <ion-icon src="/assets/icon/ic_card_blue.svg" color="light" class="status-text-icon"></ion-icon>
         </div>

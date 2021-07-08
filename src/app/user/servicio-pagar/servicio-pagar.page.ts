@@ -56,6 +56,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 	selectedButton: PaymentMethodType = "credit";
 	paymentTypes = [];
 	isFinished = false;
+	showRateProfessional = false;
 
 	constructor(
 		private modalController: ModalController,
@@ -136,6 +137,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 							}
 
 							this.loadCosts();
+							this.validateIfRatingYet();
 						},
 						(err) => {
 							loadingEl.dismiss();
@@ -221,7 +223,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 				},
 			});
 			this.solServ.setPaymentId(data.data.payment_id);
-			this.openKhipu(data.data.payment_id)
+			this.openKhipu(data.data.payment_id);
 		} catch (error) {
 			console.log(error);
 		}
@@ -253,8 +255,14 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 		);
 	}
 
+	goToRateProfessional() {
+		this.router.navigate(["/user/seval-prof"]);
+	}
+
 	async createPayment() {
 		try {
+			let loader = await this.lc.create({ message: "Cargando ID de pago...." });
+			loader.present();
 			let body = {
 				request_service_id: this.solServ.solicitud.solicitudID,
 				payment_type_id: 1,
@@ -265,6 +273,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 					Authorization: `Bearer ${this.grabbedUser.access_token}`,
 				},
 			});
+			await loader.dismiss();
 			this.modalController
 				.create({
 					component: SuccessModalComponent,
@@ -281,6 +290,27 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 				});
 		} catch (error) {
 			alert("Error al registrar el pago");
+		}
+	}
+
+	async validateIfRatingYet() {
+		try {
+			let response = await axios.get(
+				`${API}/supplier/evaluation/done/${this.solServ.solicitud.solicitudID}`,
+				{
+					headers: {
+						Authorization: `Bearer ${this.grabbedUser.access_token}`,
+					},
+				}
+			);
+			if (response.data && response.data.code === 200) {
+				if (response.data.data && response.data.data.length > 0) {
+					this.showRateProfessional = response.data.data[0].evaluate === 0;
+					console.log(this.showRateProfessional);
+				}
+			}
+		} catch (error) {
+			this.showRateProfessional = false;
 		}
 	}
 }

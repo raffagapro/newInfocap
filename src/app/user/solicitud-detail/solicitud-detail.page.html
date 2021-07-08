@@ -123,15 +123,15 @@
     <ion-row>
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color subtitle"><b>¿Cómo desea pagar?</b></ion-text>
+        <ion-text class="main-color subtitle"><b>Métodos disponibles de pago</b></ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
 
       <ion-col size="12" class="ion-text-center">
         <section>
           <!-- btn -->
-          <ion-button size="small" (click)="setPaymentType('credit')"
-            [fill]="selectedButton === 'credit' ? 'solid' : 'outline'">
+          <ion-button size="small"
+            [fill]="selectedButton === 'credit' ? 'outline' : 'outline'">
             <ion-icon slot="start" src="assets/icon/visa.svg"></ion-icon>
             Tarjeta
           </ion-button>
@@ -145,8 +145,8 @@
           -->
 
           <!-- btn -->
-          <ion-button size="small" (click)="setPaymentType('cash')"
-            [fill]="selectedButton === 'cash' ? 'solid' : 'outline'">
+          <ion-button size="small"
+            [fill]="selectedButton === 'cash' ? 'outline' : 'outline'">
             <ion-icon slot="start" src="/assets/icon/ic_dollar_blank.svg"></ion-icon>
             Efectivo
           </ion-button>
