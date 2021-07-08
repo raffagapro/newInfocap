@@ -60,7 +60,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     category_id: null,
     clientPhone1: null,
     created_date: null,
-    request_cost: {}
+    request_cost: null
   };
 
   @ViewChild('hiddenImgInput') hiddenImgInputRef: ElementRef<HTMLInputElement>;
@@ -77,6 +77,8 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
   categories = []
   categorySelected: string
   categoryIDSelected = null
+  paymentSelected: string
+  paymentIDSelected = null
   paymentTypes = [];
 
   constructor(
@@ -110,6 +112,10 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
       this.grabbedUser = user;
     });
     this.headers = 'Bearer ' + this.grabbedUser.access_token;
+
+    axios.get(API + '/payments/type', { headers: { Authorization: this.headers } }).then(type => {
+      this.paymentTypes = type.data.data
+    })
 
     this.formFinalizar = new FormGroup({
 
@@ -178,13 +184,20 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     }).then(loadingEl => {
       loadingEl.present();
       axios.post(API + `/supplier/finalize/requestservice/${this.solicitudServicio.solicitud.id}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
-        loadingEl.dismiss();
-        this.modalController.create({
-          component: ConfirmSuccessModalComponent,
-          cssClass: 'modalSuccess',
-        }).then(modalEl => {
-          modalEl.present();
-        });
+        let body_cost_request = {
+          amount: this.loadedInfo.request_cost.amount_suplier,
+          costs_type_id: 1,
+          payment_type_id: this.paymentIDSelected
+        }
+        axios.put(API + `/supplier/cost/requestservice/${this.solicitudServicio.solicitud.id}`, body_cost_request ,{ headers: { Authorization: this.headers } }).then(resData => {
+          loadingEl.dismiss();
+          this.modalController.create({
+            component: ConfirmSuccessModalComponent,
+            cssClass: 'modalSuccess',
+          }).then(modalEl => {
+            modalEl.present();
+          });
+        })
       }).catch(err => {
         loadingEl.dismiss();
         console.log(err)
@@ -208,25 +221,25 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     this.loadedImagesDisplay = this.loadedImagesDisplay.filter((image: any, index: number) => index !== imageIndex)
   }
 
-  async showPicker() {
+  async showPickerPyments() {
     let options: PickerOptions = {
       mode: 'ios',
       buttons: [
         {
-          text:'Cancelar',
+          text: 'Cancelar',
           role: 'cancel'
         },
         {
-          text:'Listo',
-          handler:(value:any) => {
-            this.categorySelected = value.category.text
-            this.categoryIDSelected = value.category.value
+          text: 'Listo',
+          handler: (value: any) => {
+            this.paymentSelected = value.payment.text
+            this.paymentIDSelected = value.payment.value
           }
         }
       ],
-      columns:[{
-        name:'category',
-        options:this.getColumnOptions()
+      columns: [{
+        name: 'payment',
+        options: this.getColumnOptionsPayments()
       }]
     };
 
@@ -234,11 +247,45 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     picker.present()
   }
 
-  getColumnOptions(){
+  getColumnOptionsPayments() {
+    let options = [];
+    this.paymentTypes.forEach(x => {
+      options.push({ text: x.name, value: x.id });
+    });
+    return options;
+  }
+
+  async showPicker() {
+    let options: PickerOptions = {
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Listo',
+          handler: (value: any) => {
+            this.categorySelected = value.category.text
+            this.categoryIDSelected = value.category.value
+          }
+        }
+      ],
+      columns: [{
+        name: 'category',
+        options: this.getColumnOptions()
+      }]
+    };
+
+    let picker = await this.pickerController.create(options);
+    picker.present()
+  }
+
+  getColumnOptions() {
     let options = [];
     console.log()
     this.categories.forEach(x => {
-      options.push({text: x.name, value: x.categorization_id});
+      options.push({ text: x.name, value: x.categorization_id });
     });
     return options;
   }
@@ -266,7 +313,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
   }
 
   getUrl() {
-    if(!this.loadedInfo.img_client_profile || this.loadedInfo.img_client_profile === '/' || this.loadedInfo.img_client_profile === 'http://167.71.251.136/storage/') {
+    if (!this.loadedInfo.img_client_profile || this.loadedInfo.img_client_profile === '/' || this.loadedInfo.img_client_profile === 'http://167.71.251.136/storage/') {
       return "url('assets/images/avatar.png')"
     } else {
       return `url(${this.loadedInfo.img_client_profile})`
@@ -305,8 +352,8 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
   }
 
   formatInfo(request_cost) {
-    if(request_cost.total) {
+    if (request_cost !== null && request_cost.total) {
       return request_cost.total[0].total
-    }      
+    }
   }
 }

@@ -307,6 +307,14 @@ const routes: Routes = [
 		// canLoad: [AuthGuard, ProGuard],
 	},
 	{
+		path: "profesional/finalizados/service-report",
+		loadChildren: () =>
+			import(
+				"./profesional/home/finalizados/service-report/service-report.module"
+			).then((m) => m.ServiceReportPageModule),
+		// canLoad: [AuthGuard, ProGuard],
+	},
+	{
 		path: "profesional/finalizados/rate-form",
 		loadChildren: () =>
 			import("./profesional/home/finalizados/rate-form/rate-form.module").then(
