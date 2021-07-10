@@ -35,9 +35,7 @@
                 <ion-badge color="{{notification.type_request !== 'URGENT' ? 'primary' : 'danger'}}"
                   class="titleSelect">{{notification.category}}</ion-badge>&nbsp;
                 <ion-icon color="primary" src="{{getStatusIcon(notification.status_id)}}" class="icon-size"
-                  *ngIf="notification.type_request === 'NORMAL' && notification.status_id !== 2 && notification.status_id !== 7"></ion-icon>
-                <ion-icon color="primary" name="checkmark" class="icon-size"
-                  *ngIf="notification.type_request === 'NORMAL' && notification.status_id === 2"></ion-icon>
+                  *ngIf="notification.type_request === 'NORMAL' && notification.status_id !== 7"></ion-icon>
                   <ion-icon name="close-outline" class="icon-size icon-bg"
                   *ngIf="notification.type_request === 'NORMAL' && notification.status_id === 7"></ion-icon>
                 <ion-icon color="danger" name="alert-circle" class="icon-size"

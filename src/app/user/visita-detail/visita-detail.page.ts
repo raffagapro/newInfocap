@@ -132,8 +132,6 @@ export class VisitaDetailPage implements OnInit {
     let hours = this.loadedService.request_technical[0].visit_hours.replace(' ', '').split('-');
     let startHour = moment.utc(hours[0], 'HH:mm');
     let endHour = moment.utc(hours[1], 'HH:mm');
-    console.log(startHour)
-    console.log(endHour)
     return `${startHour.format('h:mm a')} - ${endHour.format('h:mm a')}`;
   }
 

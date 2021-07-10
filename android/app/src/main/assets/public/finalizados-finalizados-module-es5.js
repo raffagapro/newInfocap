@@ -232,20 +232,13 @@
                 loadingEl.dismiss();
 
                 if (statusID === "5") {
-                  _this2.loadedServices = _this2.loadedServices.concat(resData.data.data); // this.loadedServices = lodash.orderBy(this.loadedServices, function(dateObj) {
-                  //   return new Date(dateObj.date_required);
-                  // });
+                  _this2.loadedServices = _this2.loadedServices.concat(resData.data.data);
                 }
 
                 if (statusID === "6") {
-                  _this2.loadedServices = _this2.loadedServices.concat(resData.data.data); // this.paidServices = lodash.orderBy(this.paidServices, function(dateObj) {
-                  //   return new Date(dateObj.date_required);
-                  // });
+                  _this2.loadedServices = _this2.loadedServices.concat(resData.data.data);
                 }
               }).then(function () {
-                _this2.loadedServices = lodash__WEBPACK_IMPORTED_MODULE_11__["orderBy"](_this2.loadedServices, function (dateObj) {
-                  return new Date(dateObj.date_required);
-                });
                 lodash__WEBPACK_IMPORTED_MODULE_11__["reverse"](_this2.loadedServices);
               })["catch"](function (err) {
                 console.log(err);

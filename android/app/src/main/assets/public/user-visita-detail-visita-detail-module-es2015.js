@@ -247,8 +247,6 @@ let VisitaDetailPage = class VisitaDetailPage {
         let hours = this.loadedService.request_technical[0].visit_hours.replace(' ', '').split('-');
         let startHour = moment__WEBPACK_IMPORTED_MODULE_10__["utc"](hours[0], 'HH:mm');
         let endHour = moment__WEBPACK_IMPORTED_MODULE_10__["utc"](hours[1], 'HH:mm');
-        console.log(startHour);
-        console.log(endHour);
         return `${startHour.format('h:mm a')} - ${endHour.format('h:mm a')}`;
     }
     confirmVisit(client_accepted) {

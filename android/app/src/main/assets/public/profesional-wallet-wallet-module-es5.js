@@ -4227,7 +4227,7 @@
           this.lc = lc;
           this.modalController = modalController;
           this.pickerController = pickerController;
-          this.rut = null;
+          this.disabledForm = true;
           this.bancos = [{
             id: "504",
             name: "BBVA"
@@ -4265,12 +4265,12 @@
           }
         }, {
           key: "validateInformation",
-          value: function validateInformation(completeName, cardNumber, clabe, banco, type) {
-            return completeName.length > 0 && cardNumber.length == 16 && clabe.length == 12 && banco.length > 0 && type.length > 0;
+          value: function validateInformation(completeName, cardNumber, rut, banco, type) {
+            this.disabledForm = completeName.length > 0 && cardNumber.length == 16 && rut.length == 12 && banco.length > 0 && type.length > 0;
           }
         }, {
           key: "saveBankAccount",
-          value: function saveBankAccount(completeName, cardNumber, clabe, banco, type) {
+          value: function saveBankAccount(completeName, cardNumber, rut, banco, type) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
               var _this2 = this;
 
@@ -4283,22 +4283,18 @@
                       }).then(function (loadingEl) {
                         loadingEl.present();
 
-                        var bancoSeleccionado = _this2.bancos.find(function (b) {
-                          return b.name === banco;
-                        });
-
                         var typeCardSelected = _this2.tipoTarjeta.find(function (b) {
                           return b.name === type;
                         });
 
                         var data_bank = {
                           professional_profile_id: 1,
-                          bank_id: bancoSeleccionado.id,
+                          bank_id: "1",
                           debit_account: cardNumber,
-                          clabe: clabe,
+                          clabe: rut,
                           name: completeName,
                           type: typeCardSelected.name,
-                          name_bank: bancoSeleccionado.name
+                          name_bank: banco
                         };
                         axios__WEBPACK_IMPORTED_MODULE_5___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_7__["API"] + '/supplier/bankaccount', data_bank, {
                           headers: {
@@ -4327,8 +4323,8 @@
             }));
           }
         }, {
-          key: "showPicker",
-          value: function showPicker() {
+          key: "showPickerCardType",
+          value: function showPickerCardType() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
               var _this3 = this;
 
@@ -4345,12 +4341,12 @@
                         }, {
                           text: 'Listo',
                           handler: function handler(value) {
-                            _this3.bancoSeleccionado = value.bank.text;
+                            _this3.selectedCard = value.type.text;
                           }
                         }],
                         columns: [{
-                          name: 'bank',
-                          options: this.getColumnOptions()
+                          name: 'type',
+                          options: this.getColumnCardOptions()
                         }]
                       };
                       _context3.next = 3;
@@ -4366,48 +4362,6 @@
                   }
                 }
               }, _callee2, this);
-            }));
-          }
-        }, {
-          key: "showPickerCardType",
-          value: function showPickerCardType() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-              var _this4 = this;
-
-              var options, picker;
-              return regeneratorRuntime.wrap(function _callee3$(_context4) {
-                while (1) {
-                  switch (_context4.prev = _context4.next) {
-                    case 0:
-                      options = {
-                        mode: 'ios',
-                        buttons: [{
-                          text: 'Cancelar',
-                          role: 'cancel'
-                        }, {
-                          text: 'Listo',
-                          handler: function handler(value) {
-                            _this4.selectedCard = value.type.text;
-                          }
-                        }],
-                        columns: [{
-                          name: 'type',
-                          options: this.getColumnCardOptions()
-                        }]
-                      };
-                      _context4.next = 3;
-                      return this.pickerController.create(options);
-
-                    case 3:
-                      picker = _context4.sent;
-                      picker.present();
-
-                    case 5:
-                    case "end":
-                      return _context4.stop();
-                  }
-                }
-              }, _callee3, this);
             }));
           }
         }, {
@@ -4434,9 +4388,6 @@
             });
             return options;
           }
-        }, {
-          key: "formatRUT",
-          value: function formatRUT() {}
         }]);
 
         return BankModalComponent;
@@ -4620,7 +4571,7 @@
 
       var WalletPage = /*#__PURE__*/function () {
         function WalletPage(menuController, modalController, us) {
-          var _this5 = this;
+          var _this4 = this;
 
           _classCallCheck(this, WalletPage);
 
@@ -4638,9 +4589,9 @@
 
           this.clickMonth = function (event, point) {
             if (point.length > 0) {
-              _this5.graphicWeek = true;
+              _this4.graphicWeek = true;
 
-              _this5.barChartWeekMethod(point[0]);
+              _this4.barChartWeekMethod(point[0]);
             }
           };
         }
@@ -4648,11 +4599,11 @@
         _createClass(WalletPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this6 = this;
+            var _this5 = this;
 
             this.userSub = this.us.loggedUser.subscribe(function (user) {
-              _this6.grabbedUser = user;
-              _this6.headers = 'Bearer ' + _this6.grabbedUser.access_token;
+              _this5.grabbedUser = user;
+              _this5.headers = 'Bearer ' + _this5.grabbedUser.access_token;
             });
           }
         }, {
@@ -4663,25 +4614,25 @@
         }, {
           key: "barChartMethod",
           value: function barChartMethod() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-              var _this7 = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var _this6 = this;
 
               var profesionalAmount, commission, taxes;
-              return regeneratorRuntime.wrap(function _callee4$(_context5) {
+              return regeneratorRuntime.wrap(function _callee3$(_context4) {
                 while (1) {
-                  switch (_context5.prev = _context5.next) {
+                  switch (_context4.prev = _context4.next) {
                     case 0:
                       profesionalAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                       commission = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                       taxes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-                      _context5.next = 5;
+                      _context4.next = 5;
                       return axios__WEBPACK_IMPORTED_MODULE_5___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/payments/years', {
                         headers: {
                           Authorization: this.headers
                         }
                       }).then(function (resData) {
-                        _this7.yearInfoTotal = resData.data.data.total;
-                        _this7.yearInfoTotalRequest = resData.data.data.requestnumber;
+                        _this6.yearInfoTotal = resData.data.data.total;
+                        _this6.yearInfoTotalRequest = resData.data.data.requestnumber;
                         resData.data.data.paymentByMount.map(function (d) {
                           profesionalAmount[d.month - 1] = d.professionalamount;
                           taxes[d.month - 1] = d.taxes;
@@ -4729,22 +4680,22 @@
 
                     case 6:
                     case "end":
-                      return _context5.stop();
+                      return _context4.stop();
                   }
                 }
-              }, _callee4, this);
+              }, _callee3, this);
             }));
           }
         }, {
           key: "barChartWeekMethod",
           value: function barChartWeekMethod(month) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-              var _this8 = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              var _this7 = this;
 
               var year, firstDate, lastDate, numDays, dayOfWeekCounter, date, star_date, end_date;
-              return regeneratorRuntime.wrap(function _callee5$(_context6) {
+              return regeneratorRuntime.wrap(function _callee4$(_context5) {
                 while (1) {
-                  switch (_context6.prev = _context6.next) {
+                  switch (_context5.prev = _context5.next) {
                     case 0:
                       year = new Date().getFullYear();
                       this.selectedMonth = month.index;
@@ -4774,7 +4725,7 @@
                           Authorization: this.headers
                         }
                       }).then(function (resData) {
-                        _this8.totalWeek = resData.data.data.total || 0;
+                        _this7.totalWeek = resData.data.data.total || 0;
                         var profesionalAmount = [];
                         var taxes = [];
                         var commission = [];
@@ -4783,10 +4734,10 @@
                           taxes.push(d.taxes);
                           commission.push(d.commission);
                         });
-                        _this8.barChartWeek = new chart_js__WEBPACK_IMPORTED_MODULE_6__["Chart"](_this8.barChartWeek.nativeElement, {
+                        _this7.barChartWeek = new chart_js__WEBPACK_IMPORTED_MODULE_6__["Chart"](_this7.barChartWeek.nativeElement, {
                           type: 'bar',
                           data: {
-                            labels: _this8.weeksToRender[_this8.actualWeekToShow],
+                            labels: _this7.weeksToRender[_this7.actualWeekToShow],
                             datasets: [{
                               label: 'Ganancia',
                               data: profesionalAmount,
@@ -4817,15 +4768,15 @@
                           }
                         });
                       }).then(function () {
-                        _this8.barChartWeek.update();
+                        _this7.barChartWeek.update();
                       });
 
                     case 11:
                     case "end":
-                      return _context6.stop();
+                      return _context5.stop();
                   }
                 }
-              }, _callee5, this);
+              }, _callee4, this);
             }));
           }
         }, {
@@ -4856,13 +4807,13 @@
         }, {
           key: "changeWeek",
           value: function changeWeek(type) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-              var _this9 = this;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var _this8 = this;
 
               var year, star_date, end_date, profesionalAmount, taxes, commission;
-              return regeneratorRuntime.wrap(function _callee6$(_context7) {
+              return regeneratorRuntime.wrap(function _callee5$(_context6) {
                 while (1) {
-                  switch (_context7.prev = _context7.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
                       year = new Date().getFullYear();
 
@@ -4877,7 +4828,7 @@
                       profesionalAmount = [];
                       taxes = [];
                       commission = [];
-                      _context7.next = 9;
+                      _context6.next = 9;
                       return axios__WEBPACK_IMPORTED_MODULE_5___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/payments/weak', {
                         params: {
                           "star_date": moment__WEBPACK_IMPORTED_MODULE_10__(star_date, 'D/M/YYYY').format('D/MM/YYYY'),
@@ -4887,7 +4838,7 @@
                           Authorization: this.headers
                         }
                       }).then(function (resData) {
-                        _this9.totalWeek = resData.data.data.total || 0;
+                        _this8.totalWeek = resData.data.data.total || 0;
                         resData.data.data.paymentByWeek.map(function (d) {
                           profesionalAmount.push(d.professionalamount);
                           taxes.push(d.taxes);
@@ -4917,10 +4868,10 @@
 
                     case 12:
                     case "end":
-                      return _context7.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee6, this);
+              }, _callee5, this);
             }));
           }
         }, {
@@ -5036,7 +4987,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid class=\"modal-bank\">\n    <ion-row class=\"modal-cont ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <div class=\"status-cont\">\n          <ion-text class=\"main-color status-text ion-text-center\"><b>DATOS BANCARIOS</b></ion-text><br>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">NOMBRE COMPLETO</ion-label>\n        <ion-input #completeName class=\"stacked-input\" placeholder=\"José Alcarraga López\">\n        </ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left ion-align-items-center\">\n      <ion-col size=\"8\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">NÚMERO DE TARJETA</ion-label>\n        <ion-input #cardNumber class=\"stacked-input\" type=\"tel\" maxlength=\"16\" placeholder=\"1234 5678 9123 4567\"></ion-input>\n      </ion-col>\n      <ion-col size=\"4\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Tipo</ion-label>\n        <ion-input #type class=\"stacked-input\" value=\"{{ selectedCard }}\" readonly (click)=\"showPickerCardType()\"\n          placeholder=\"Visa/MasterCard\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">RUT</ion-label>\n        <ion-input #clabe class=\"stacked-input\" type=\"tel\" maxlength=\"12\" (ionInput)=\"formatRUT()\"\n          placeholder=\"11.111.234-4\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Banco</ion-label>\n        <ion-input #banco class=\"stacked-input\" value=\"{{ bancoSeleccionado }}\" readonly (click)=\"showPicker()\"\n          placeholder=\"Banco\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col offset=\"1\">\n        <ion-button\n          [disabled]=\"!validateInformation(completeName.value, cardNumber.value, clabe.value, bancoSeleccionado, selectedCard)\"\n          size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\"\n          (click)=\"saveBankAccount(completeName.value, cardNumber.value, clabe.value, bancoSeleccionado, selectedCard)\">\n          GUARDAR DATOS\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"2\"></ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid class=\"modal-bank\">\n    <ion-row class=\"modal-cont ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <div class=\"status-cont\">\n          <ion-text class=\"main-color status-text ion-text-center\"><b>DATOS BANCARIOS</b></ion-text><br>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Nombre completo</ion-label>\n        <ion-input #completeName class=\"stacked-input\" placeholder=\"José Alcarraga López\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\">\n        </ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left ion-align-items-center\">\n      <ion-col size=\"8\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Número de tarjeta</ion-label>\n        <ion-input #cardNumber class=\"stacked-input\" type=\"tel\" maxlength=\"16\" placeholder=\"1234 5678 9123 4567\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\"></ion-input>\n      </ion-col>\n      <ion-col size=\"4\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Tipo</ion-label>\n        <ion-input #type class=\"stacked-input\" value=\"{{ selectedCard }}\" readonly (click)=\"showPickerCardType()\"\n          placeholder=\"Visa/MasterCard\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">RUT</ion-label>\n        <ion-input #rut class=\"stacked-input\" type=\"tel\" maxlength=\"12\" placeholder=\"11.111.234-4\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Banco</ion-label>\n        <ion-input #banco class=\"stacked-input\" placeholder=\"Banco\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col offset=\"1\">\n        <ion-button\n          [disabled]=\"!disabledForm\"\n          size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\"\n          (click)=\"saveBankAccount(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\">\n          GUARDAR DATOS\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"2\"></ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -7597,17 +7548,17 @@
         var _super3 = _createSuper(DoughnutController);
 
         function DoughnutController(chart, datasetIndex) {
-          var _this10;
+          var _this9;
 
           _classCallCheck(this, DoughnutController);
 
-          _this10 = _super3.call(this, chart, datasetIndex);
-          _this10.enableOptionSharing = true;
-          _this10.innerRadius = undefined;
-          _this10.outerRadius = undefined;
-          _this10.offsetX = undefined;
-          _this10.offsetY = undefined;
-          return _this10;
+          _this9 = _super3.call(this, chart, datasetIndex);
+          _this9.enableOptionSharing = true;
+          _this9.innerRadius = undefined;
+          _this9.outerRadius = undefined;
+          _this9.offsetX = undefined;
+          _this9.offsetY = undefined;
+          return _this9;
         }
 
         _createClass(DoughnutController, [{
@@ -8161,14 +8112,14 @@
         var _super5 = _createSuper(PolarAreaController);
 
         function PolarAreaController(chart, datasetIndex) {
-          var _this11;
+          var _this10;
 
           _classCallCheck(this, PolarAreaController);
 
-          _this11 = _super5.call(this, chart, datasetIndex);
-          _this11.innerRadius = undefined;
-          _this11.outerRadius = undefined;
-          return _this11;
+          _this10 = _super5.call(this, chart, datasetIndex);
+          _this10.innerRadius = undefined;
+          _this10.outerRadius = undefined;
+          return _this10;
         }
 
         _createClass(PolarAreaController, [{
@@ -8251,13 +8202,13 @@
         }, {
           key: "countVisibleElements",
           value: function countVisibleElements() {
-            var _this12 = this;
+            var _this11 = this;
 
             var dataset = this.getDataset();
             var meta = this._cachedMeta;
             var count = 0;
             meta.data.forEach(function (element, index) {
-              if (!isNaN(dataset.data[index]) && _this12.chart.getDataVisibility(index)) {
+              if (!isNaN(dataset.data[index]) && _this11.chart.getDataVisibility(index)) {
                 count++;
               }
             });
@@ -10001,59 +9952,59 @@
         var _super11 = _createSuper(Scale);
 
         function Scale(cfg) {
-          var _this13;
+          var _this12;
 
           _classCallCheck(this, Scale);
 
-          _this13 = _super11.call(this);
-          _this13.id = cfg.id;
-          _this13.type = cfg.type;
-          _this13.options = undefined;
-          _this13.ctx = cfg.ctx;
-          _this13.chart = cfg.chart;
-          _this13.top = undefined;
-          _this13.bottom = undefined;
-          _this13.left = undefined;
-          _this13.right = undefined;
-          _this13.width = undefined;
-          _this13.height = undefined;
-          _this13._margins = {
+          _this12 = _super11.call(this);
+          _this12.id = cfg.id;
+          _this12.type = cfg.type;
+          _this12.options = undefined;
+          _this12.ctx = cfg.ctx;
+          _this12.chart = cfg.chart;
+          _this12.top = undefined;
+          _this12.bottom = undefined;
+          _this12.left = undefined;
+          _this12.right = undefined;
+          _this12.width = undefined;
+          _this12.height = undefined;
+          _this12._margins = {
             left: 0,
             right: 0,
             top: 0,
             bottom: 0
           };
-          _this13.maxWidth = undefined;
-          _this13.maxHeight = undefined;
-          _this13.paddingTop = undefined;
-          _this13.paddingBottom = undefined;
-          _this13.paddingLeft = undefined;
-          _this13.paddingRight = undefined;
-          _this13.axis = undefined;
-          _this13.labelRotation = undefined;
-          _this13.min = undefined;
-          _this13.max = undefined;
-          _this13._range = undefined;
-          _this13.ticks = [];
-          _this13._gridLineItems = null;
-          _this13._labelItems = null;
-          _this13._labelSizes = null;
-          _this13._length = 0;
-          _this13._maxLength = 0;
-          _this13._longestTextCache = {};
-          _this13._startPixel = undefined;
-          _this13._endPixel = undefined;
-          _this13._reversePixels = false;
-          _this13._userMax = undefined;
-          _this13._userMin = undefined;
-          _this13._suggestedMax = undefined;
-          _this13._suggestedMin = undefined;
-          _this13._ticksLength = 0;
-          _this13._borderValue = 0;
-          _this13._cache = {};
-          _this13._dataLimitsCached = false;
-          _this13.$context = undefined;
-          return _this13;
+          _this12.maxWidth = undefined;
+          _this12.maxHeight = undefined;
+          _this12.paddingTop = undefined;
+          _this12.paddingBottom = undefined;
+          _this12.paddingLeft = undefined;
+          _this12.paddingRight = undefined;
+          _this12.axis = undefined;
+          _this12.labelRotation = undefined;
+          _this12.min = undefined;
+          _this12.max = undefined;
+          _this12._range = undefined;
+          _this12.ticks = [];
+          _this12._gridLineItems = null;
+          _this12._labelItems = null;
+          _this12._labelSizes = null;
+          _this12._length = 0;
+          _this12._maxLength = 0;
+          _this12._longestTextCache = {};
+          _this12._startPixel = undefined;
+          _this12._endPixel = undefined;
+          _this12._reversePixels = false;
+          _this12._userMax = undefined;
+          _this12._userMin = undefined;
+          _this12._suggestedMax = undefined;
+          _this12._suggestedMin = undefined;
+          _this12._ticksLength = 0;
+          _this12._borderValue = 0;
+          _this12._cache = {};
+          _this12._dataLimitsCached = false;
+          _this12.$context = undefined;
+          return _this12;
         }
 
         _createClass(Scale, [{
@@ -12257,7 +12208,7 @@
 
       var Chart = /*#__PURE__*/function () {
         function Chart(item, config) {
-          var _this14 = this;
+          var _this13 = this;
 
           _classCallCheck(this, Chart);
 
@@ -12302,7 +12253,7 @@
           this._animationsDisabled = undefined;
           this.$context = undefined;
           this._doResize = Object(_chunks_helpers_segment_js__WEBPACK_IMPORTED_MODULE_0__["a8"])(function () {
-            return _this14.update('resize');
+            return _this13.update('resize');
           }, options.resizeDelay || 0);
           instances[me.id] = me;
 
@@ -13222,7 +13173,7 @@
         }, {
           key: "_eventHandler",
           value: function _eventHandler(e, replay) {
-            var _this15 = this;
+            var _this14 = this;
 
             var me = this;
             var args = {
@@ -13232,7 +13183,7 @@
             };
 
             var eventFilter = function eventFilter(plugin) {
-              return (plugin.options.events || _this15.options.events).includes(e.type);
+              return (plugin.options.events || _this14.options.events).includes(e.type);
             };
 
             if (me.notifyPlugins('beforeEvent', args, eventFilter) === false) {
@@ -13542,25 +13493,25 @@
         var _super12 = _createSuper(ArcElement);
 
         function ArcElement(cfg) {
-          var _this16;
+          var _this15;
 
           _classCallCheck(this, ArcElement);
 
-          _this16 = _super12.call(this);
-          _this16.options = undefined;
-          _this16.circumference = undefined;
-          _this16.startAngle = undefined;
-          _this16.endAngle = undefined;
-          _this16.innerRadius = undefined;
-          _this16.outerRadius = undefined;
-          _this16.pixelMargin = 0;
-          _this16.fullCircles = 0;
+          _this15 = _super12.call(this);
+          _this15.options = undefined;
+          _this15.circumference = undefined;
+          _this15.startAngle = undefined;
+          _this15.endAngle = undefined;
+          _this15.innerRadius = undefined;
+          _this15.outerRadius = undefined;
+          _this15.pixelMargin = 0;
+          _this15.fullCircles = 0;
 
           if (cfg) {
-            Object.assign(_assertThisInitialized(_this16), cfg);
+            Object.assign(_assertThisInitialized(_this15), cfg);
           }
 
-          return _this16;
+          return _this15;
         }
 
         _createClass(ArcElement, [{
@@ -13889,26 +13840,26 @@
         var _super13 = _createSuper(LineElement);
 
         function LineElement(cfg) {
-          var _this17;
+          var _this16;
 
           _classCallCheck(this, LineElement);
 
-          _this17 = _super13.call(this);
-          _this17.animated = true;
-          _this17.options = undefined;
-          _this17._loop = undefined;
-          _this17._fullLoop = undefined;
-          _this17._path = undefined;
-          _this17._points = undefined;
-          _this17._segments = undefined;
-          _this17._decimated = false;
-          _this17._pointsUpdated = false;
+          _this16 = _super13.call(this);
+          _this16.animated = true;
+          _this16.options = undefined;
+          _this16._loop = undefined;
+          _this16._fullLoop = undefined;
+          _this16._path = undefined;
+          _this16._points = undefined;
+          _this16._segments = undefined;
+          _this16._decimated = false;
+          _this16._pointsUpdated = false;
 
           if (cfg) {
-            Object.assign(_assertThisInitialized(_this17), cfg);
+            Object.assign(_assertThisInitialized(_this16), cfg);
           }
 
-          return _this17;
+          return _this16;
         }
 
         _createClass(LineElement, [{
@@ -14105,21 +14056,21 @@
         var _super14 = _createSuper(PointElement);
 
         function PointElement(cfg) {
-          var _this18;
+          var _this17;
 
           _classCallCheck(this, PointElement);
 
-          _this18 = _super14.call(this);
-          _this18.options = undefined;
-          _this18.parsed = undefined;
-          _this18.skip = undefined;
-          _this18.stop = undefined;
+          _this17 = _super14.call(this);
+          _this17.options = undefined;
+          _this17.parsed = undefined;
+          _this17.skip = undefined;
+          _this17.stop = undefined;
 
           if (cfg) {
-            Object.assign(_assertThisInitialized(_this18), cfg);
+            Object.assign(_assertThisInitialized(_this17), cfg);
           }
 
-          return _this18;
+          return _this17;
         }
 
         _createClass(PointElement, [{
@@ -14349,22 +14300,22 @@
         var _super15 = _createSuper(BarElement);
 
         function BarElement(cfg) {
-          var _this19;
+          var _this18;
 
           _classCallCheck(this, BarElement);
 
-          _this19 = _super15.call(this);
-          _this19.options = undefined;
-          _this19.horizontal = undefined;
-          _this19.base = undefined;
-          _this19.width = undefined;
-          _this19.height = undefined;
+          _this18 = _super15.call(this);
+          _this18.options = undefined;
+          _this18.horizontal = undefined;
+          _this18.base = undefined;
+          _this18.width = undefined;
+          _this18.height = undefined;
 
           if (cfg) {
-            Object.assign(_assertThisInitialized(_this19), cfg);
+            Object.assign(_assertThisInitialized(_this18), cfg);
           }
 
-          return _this19;
+          return _this18;
         }
 
         _createClass(BarElement, [{
@@ -15436,34 +15387,34 @@
         var _super16 = _createSuper(Legend);
 
         function Legend(config) {
-          var _this20;
+          var _this19;
 
           _classCallCheck(this, Legend);
 
-          _this20 = _super16.call(this);
-          _this20._added = false;
-          _this20.legendHitBoxes = [];
-          _this20._hoveredItem = null;
-          _this20.doughnutMode = false;
-          _this20.chart = config.chart;
-          _this20.options = config.options;
-          _this20.ctx = config.ctx;
-          _this20.legendItems = undefined;
-          _this20.columnSizes = undefined;
-          _this20.lineWidths = undefined;
-          _this20.maxHeight = undefined;
-          _this20.maxWidth = undefined;
-          _this20.top = undefined;
-          _this20.bottom = undefined;
-          _this20.left = undefined;
-          _this20.right = undefined;
-          _this20.height = undefined;
-          _this20.width = undefined;
-          _this20._margins = undefined;
-          _this20.position = undefined;
-          _this20.weight = undefined;
-          _this20.fullSize = undefined;
-          return _this20;
+          _this19 = _super16.call(this);
+          _this19._added = false;
+          _this19.legendHitBoxes = [];
+          _this19._hoveredItem = null;
+          _this19.doughnutMode = false;
+          _this19.chart = config.chart;
+          _this19.options = config.options;
+          _this19.ctx = config.ctx;
+          _this19.legendItems = undefined;
+          _this19.columnSizes = undefined;
+          _this19.lineWidths = undefined;
+          _this19.maxHeight = undefined;
+          _this19.maxWidth = undefined;
+          _this19.top = undefined;
+          _this19.bottom = undefined;
+          _this19.left = undefined;
+          _this19.right = undefined;
+          _this19.height = undefined;
+          _this19.width = undefined;
+          _this19._margins = undefined;
+          _this19.position = undefined;
+          _this19.weight = undefined;
+          _this19.fullSize = undefined;
+          return _this19;
         }
 
         _createClass(Legend, [{
@@ -16101,25 +16052,25 @@
         var _super17 = _createSuper(Title);
 
         function Title(config) {
-          var _this21;
+          var _this20;
 
           _classCallCheck(this, Title);
 
-          _this21 = _super17.call(this);
-          _this21.chart = config.chart;
-          _this21.options = config.options;
-          _this21.ctx = config.ctx;
-          _this21._padding = undefined;
-          _this21.top = undefined;
-          _this21.bottom = undefined;
-          _this21.left = undefined;
-          _this21.right = undefined;
-          _this21.width = undefined;
-          _this21.height = undefined;
-          _this21.position = undefined;
-          _this21.weight = undefined;
-          _this21.fullSize = undefined;
-          return _this21;
+          _this20 = _super17.call(this);
+          _this20.chart = config.chart;
+          _this20.options = config.options;
+          _this20.ctx = config.ctx;
+          _this20._padding = undefined;
+          _this20.top = undefined;
+          _this20.bottom = undefined;
+          _this20.left = undefined;
+          _this20.right = undefined;
+          _this20.width = undefined;
+          _this20.height = undefined;
+          _this20.position = undefined;
+          _this20.weight = undefined;
+          _this20.fullSize = undefined;
+          return _this20;
         }
 
         _createClass(Title, [{
@@ -16586,39 +16537,39 @@
         var _super18 = _createSuper(Tooltip);
 
         function Tooltip(config) {
-          var _this22;
+          var _this21;
 
           _classCallCheck(this, Tooltip);
 
-          _this22 = _super18.call(this);
-          _this22.opacity = 0;
-          _this22._active = [];
-          _this22._chart = config._chart;
-          _this22._eventPosition = undefined;
-          _this22._size = undefined;
-          _this22._cachedAnimations = undefined;
-          _this22._tooltipItems = [];
-          _this22.$animations = undefined;
-          _this22.$context = undefined;
-          _this22.options = config.options;
-          _this22.dataPoints = undefined;
-          _this22.title = undefined;
-          _this22.beforeBody = undefined;
-          _this22.body = undefined;
-          _this22.afterBody = undefined;
-          _this22.footer = undefined;
-          _this22.xAlign = undefined;
-          _this22.yAlign = undefined;
-          _this22.x = undefined;
-          _this22.y = undefined;
-          _this22.height = undefined;
-          _this22.width = undefined;
-          _this22.caretX = undefined;
-          _this22.caretY = undefined;
-          _this22.labelColors = undefined;
-          _this22.labelPointStyles = undefined;
-          _this22.labelTextColors = undefined;
-          return _this22;
+          _this21 = _super18.call(this);
+          _this21.opacity = 0;
+          _this21._active = [];
+          _this21._chart = config._chart;
+          _this21._eventPosition = undefined;
+          _this21._size = undefined;
+          _this21._cachedAnimations = undefined;
+          _this21._tooltipItems = [];
+          _this21.$animations = undefined;
+          _this21.$context = undefined;
+          _this21.options = config.options;
+          _this21.dataPoints = undefined;
+          _this21.title = undefined;
+          _this21.beforeBody = undefined;
+          _this21.body = undefined;
+          _this21.afterBody = undefined;
+          _this21.footer = undefined;
+          _this21.xAlign = undefined;
+          _this21.yAlign = undefined;
+          _this21.x = undefined;
+          _this21.y = undefined;
+          _this21.height = undefined;
+          _this21.width = undefined;
+          _this21.caretX = undefined;
+          _this21.caretY = undefined;
+          _this21.labelColors = undefined;
+          _this21.labelPointStyles = undefined;
+          _this21.labelTextColors = undefined;
+          return _this21;
         }
 
         _createClass(Tooltip, [{
@@ -17492,14 +17443,14 @@
         var _super19 = _createSuper(CategoryScale);
 
         function CategoryScale(cfg) {
-          var _this23;
+          var _this22;
 
           _classCallCheck(this, CategoryScale);
 
-          _this23 = _super19.call(this, cfg);
-          _this23._startValue = undefined;
-          _this23._valueRange = 0;
-          return _this23;
+          _this22 = _super19.call(this, cfg);
+          _this22._startValue = undefined;
+          _this22._valueRange = 0;
+          return _this22;
         }
 
         _createClass(CategoryScale, [{
@@ -17738,17 +17689,17 @@
         var _super20 = _createSuper(LinearScaleBase);
 
         function LinearScaleBase(cfg) {
-          var _this24;
+          var _this23;
 
           _classCallCheck(this, LinearScaleBase);
 
-          _this24 = _super20.call(this, cfg);
-          _this24.start = undefined;
-          _this24.end = undefined;
-          _this24._startValue = undefined;
-          _this24._endValue = undefined;
-          _this24._valueRange = 0;
-          return _this24;
+          _this23 = _super20.call(this, cfg);
+          _this23.start = undefined;
+          _this23.end = undefined;
+          _this23._startValue = undefined;
+          _this23._endValue = undefined;
+          _this23._valueRange = 0;
+          return _this23;
         }
 
         _createClass(LinearScaleBase, [{
@@ -18003,16 +17954,16 @@
         var _super22 = _createSuper(LogarithmicScale);
 
         function LogarithmicScale(cfg) {
-          var _this25;
+          var _this24;
 
           _classCallCheck(this, LogarithmicScale);
 
-          _this25 = _super22.call(this, cfg);
-          _this25.start = undefined;
-          _this25.end = undefined;
-          _this25._startValue = undefined;
-          _this25._valueRange = 0;
-          return _this25;
+          _this24 = _super22.call(this, cfg);
+          _this24.start = undefined;
+          _this24.end = undefined;
+          _this24._startValue = undefined;
+          _this24._valueRange = 0;
+          return _this24;
         }
 
         _createClass(LogarithmicScale, [{
@@ -18401,17 +18352,17 @@
         var _super23 = _createSuper(RadialLinearScale);
 
         function RadialLinearScale(cfg) {
-          var _this26;
+          var _this25;
 
           _classCallCheck(this, RadialLinearScale);
 
-          _this26 = _super23.call(this, cfg);
-          _this26.xCenter = undefined;
-          _this26.yCenter = undefined;
-          _this26.drawingArea = undefined;
-          _this26._pointLabels = [];
-          _this26._pointLabelItems = [];
-          return _this26;
+          _this25 = _super23.call(this, cfg);
+          _this25.xCenter = undefined;
+          _this25.yCenter = undefined;
+          _this25.drawingArea = undefined;
+          _this25._pointLabels = [];
+          _this25._pointLabelItems = [];
+          return _this25;
         }
 
         _createClass(RadialLinearScale, [{
@@ -18900,21 +18851,21 @@
         var _super24 = _createSuper(TimeScale);
 
         function TimeScale(props) {
-          var _this27;
+          var _this26;
 
           _classCallCheck(this, TimeScale);
 
-          _this27 = _super24.call(this, props);
-          _this27._cache = {
+          _this26 = _super24.call(this, props);
+          _this26._cache = {
             data: [],
             labels: [],
             all: []
           };
-          _this27._unit = 'day';
-          _this27._majorUnit = undefined;
-          _this27._offsets = {};
-          _this27._normalized = false;
-          return _this27;
+          _this26._unit = 'day';
+          _this26._majorUnit = undefined;
+          _this26._offsets = {};
+          _this26._normalized = false;
+          return _this26;
         }
 
         _createClass(TimeScale, [{
@@ -19300,14 +19251,14 @@
         var _super25 = _createSuper(TimeSeriesScale);
 
         function TimeSeriesScale(props) {
-          var _this28;
+          var _this27;
 
           _classCallCheck(this, TimeSeriesScale);
 
-          _this28 = _super25.call(this, props);
-          _this28._table = [];
-          _this28._maxIndex = undefined;
-          return _this28;
+          _this27 = _super25.call(this, props);
+          _this27._table = [];
+          _this27._maxIndex = undefined;
+          return _this27;
         }
 
         _createClass(TimeSeriesScale, [{

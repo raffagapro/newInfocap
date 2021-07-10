@@ -306,7 +306,6 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 			if (response.data && response.data.code === 200) {
 				if (response.data.data && response.data.data.length > 0) {
 					this.showRateProfessional = response.data.data[0].evaluate === 0;
-					console.log(this.showRateProfessional);
 				}
 			}
 		} catch (error) {

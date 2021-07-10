@@ -513,22 +513,21 @@
                       return _context2.abrupt("return");
 
                     case 6:
-                      console.log(response.data.data, 'evaluations');
                       this.evaluationsData = response.data.data;
-                      _context2.next = 13;
+                      _context2.next = 12;
                       break;
 
-                    case 10:
-                      _context2.prev = 10;
+                    case 9:
+                      _context2.prev = 9;
                       _context2.t0 = _context2["catch"](0);
                       console.log(_context2.t0);
 
-                    case 13:
+                    case 12:
                     case "end":
                       return _context2.stop();
                   }
                 }
-              }, _callee2, this, [[0, 10]]);
+              }, _callee2, this, [[0, 9]]);
             }));
           }
         }, {

@@ -307,7 +307,6 @@ let ProfesionalDetailPage = class ProfesionalDetailPage {
                     //TODO: Maybe show an error message
                     return;
                 }
-                console.log(response.data.data, 'evaluations');
                 this.evaluationsData = response.data.data;
             }
             catch (error) {

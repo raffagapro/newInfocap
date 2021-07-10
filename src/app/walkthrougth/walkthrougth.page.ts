@@ -22,7 +22,6 @@ export class Walkthrougth implements OnInit {
 
 	ngOnInit() {
 		this.showSlider = true;
-		console.log(this.mainSlider)
 	}
 
 	onLastSlide(event, active = false) {
@@ -35,7 +34,6 @@ export class Walkthrougth implements OnInit {
 
 	updateSlider() {
 		this.mainSlider.update()
-		console.log(this.mainSlider)
 	}
 
 	goToLogin() {

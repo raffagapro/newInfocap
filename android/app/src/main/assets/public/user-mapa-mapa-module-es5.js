@@ -276,16 +276,17 @@
           this.us = us;
           this.solServ = solServ;
           this.platform = platform; // lat: string;
-          // long: string;  
+          // long: string;
 
           this.autocomplete = {
-            input: '-'
+            input: "-"
           };
           this.comunas = [];
           this.showIcon = true;
+          this.Geocoder = new google.maps.Geocoder();
           this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
           this.autocomplete = {
-            input: ''
+            input: ""
           };
           this.autocompleteItems = [];
         }
@@ -298,22 +299,22 @@
             this.userSub = this.us.loggedUser.subscribe(function (user) {
               _this.grabbedUser = user;
               _this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]();
-              _this.headers = _this.headers.set('Authorization', 'Bearer ' + user.access_token);
+              _this.headers = _this.headers.set("Authorization", "Bearer " + user.access_token);
 
               _this.getComunes();
             }); // form
 
             this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormGroup"]({
               address: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"](null, {
-                updateOn: 'blur',
+                updateOn: "blur",
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]
               }),
               addressDirection: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"](null, {
-                updateOn: 'blur',
+                updateOn: "blur",
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]
               }),
               addressInstructions: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"](null, {
-                updateOn: 'blur'
+                updateOn: "blur"
               })
             });
           }
@@ -328,7 +329,7 @@
             var _this2 = this;
 
             this.lc.create({
-              message: 'Generando mapa...'
+              message: "Generando mapa..."
             }).then(function (loadingEl) {
               return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
                 var _this3 = this;
@@ -340,7 +341,7 @@
                       case 0:
                         loadingEl.present();
 
-                        if (!(this.platform.is('mobile') && !this.platform.is('hybrid') || this.platform.is('desktop'))) {
+                        if (!(this.platform.is("mobile") && !this.platform.is("hybrid") || this.platform.is("desktop"))) {
                           _context.next = 5;
                           break;
                         }
@@ -376,7 +377,7 @@
                         // this.getAddressFromCords(res.coords.latitude, res.coords.longitude);
 
                         this.map = new google.maps.Map(this.mapRef.nativeElement, mapOptions);
-                        this.map.addListener('tilesloaded', function () {}); //marker
+                        this.map.addListener("tilesloaded", function () {}); //marker
 
                         this.marker = new google.maps.Marker({
                           position: latLng,
@@ -385,7 +386,7 @@
                         });
                         this.marker.setMap(this.map); //click
 
-                        this.map.addListener('click', function (e) {
+                        this.map.addListener("click", function (e) {
                           _this3.addMarker(e.latLng, _this3.map);
                         });
                         loadingEl.dismiss();
@@ -426,16 +427,16 @@
           value: function updateSearchResults() {
             var _this4 = this;
 
-            if (this.autocomplete.input == '') {
+            if (this.autocomplete.input == "") {
               this.autocompleteItems = [];
               return;
             }
 
             this.GoogleAutocomplete.getPlacePredictions({
               input: this.autocomplete.input,
-              types: ['address'],
+              types: ["address"],
               componentRestrictions: {
-                country: 'cl'
+                country: "cl"
               }
             }, function (predictions, status) {
               _this4.autocompleteItems = [];
@@ -453,33 +454,41 @@
             var _this5 = this;
 
             this.placeid = item.place_id;
-            var wAddress = item.description.split(',');
+            var wAddress = item.description.split(",");
             this.form.patchValue({
-              'address': item.description
+              address: item.description
             }); //save to solicitud service
 
             this.solServ.setAddress(item.description); //save comuna id to solicitud service
 
             this.comunas.forEach(function (comuna) {
               if (comuna.name.toLowerCase() === wAddress[1].substring(1).toLowerCase()) {
-                console.log('true');
-
                 _this5.solServ.setComuna(comuna.id);
               } else {}
             });
             this.clearAutocomplete();
+            this.Geocoder.geocode({
+              placeId: item.place_id
+            }, function (responses, status) {
+              if (status == "OK") {
+                var lat = responses[0].geometry.location.lat();
+                var lng = responses[0].geometry.location.lng();
+                var center = new google.maps.LatLng(lat, lng);
+                this.map.setCenter(center);
+              }
+            });
           }
         }, {
           key: "clearAutocomplete",
           value: function clearAutocomplete() {
             this.autocompleteItems = [];
-            this.autocomplete.input = '';
+            this.autocomplete.input = "";
           }
         }, {
           key: "searchPro",
           value: function searchPro() {
             this.solServ.setInstructions(this.form.value.addressInstructions);
-            this.router.navigate(['/user/profesional-list']);
+            this.router.navigate(["/user/profesional-list"]);
           }
         }, {
           key: "ngOnDestroy",
@@ -553,14 +562,14 @@
       MapaPage.propDecorators = {
         mapRef: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"],
-          args: ['map', {
+          args: ["map", {
             read: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ElementRef"],
             "static": false
           }]
         }]
       };
       MapaPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
-        selector: 'app-mapa',
+        selector: "app-mapa",
         template: _raw_loader_mapa_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_mapa_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], MapaPage);

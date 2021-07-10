@@ -113,20 +113,11 @@ let FinalizadosPage = class FinalizadosPage {
                 loadingEl.dismiss();
                 if (statusID === "5") {
                     this.loadedServices = this.loadedServices.concat(resData.data.data);
-                    // this.loadedServices = lodash.orderBy(this.loadedServices, function(dateObj) {
-                    //   return new Date(dateObj.date_required);
-                    // });
                 }
                 if (statusID === "6") {
                     this.loadedServices = this.loadedServices.concat(resData.data.data);
-                    // this.paidServices = lodash.orderBy(this.paidServices, function(dateObj) {
-                    //   return new Date(dateObj.date_required);
-                    // });
                 }
             }).then(() => {
-                this.loadedServices = lodash__WEBPACK_IMPORTED_MODULE_11__["orderBy"](this.loadedServices, function (dateObj) {
-                    return new Date(dateObj.date_required);
-                });
                 lodash__WEBPACK_IMPORTED_MODULE_11__["reverse"](this.loadedServices);
             }).catch(err => {
                 console.log(err);

@@ -2622,7 +2622,7 @@ let BankModalComponent = class BankModalComponent {
         this.lc = lc;
         this.modalController = modalController;
         this.pickerController = pickerController;
-        this.rut = null;
+        this.disabledForm = true;
         this.bancos = [
             { id: "504", name: "BBVA" },
             { id: "001", name: "Banco de Chile" },
@@ -2641,25 +2641,28 @@ let BankModalComponent = class BankModalComponent {
             this.headers = 'Bearer ' + this.grabbedUser.access_token;
         });
     }
-    validateInformation(completeName, cardNumber, clabe, banco, type) {
-        return completeName.length > 0 && cardNumber.length == 16 && clabe.length == 12 && banco.length > 0 && type.length > 0;
+    validateInformation(completeName, cardNumber, rut, banco, type) {
+        this.disabledForm = completeName.length > 0
+            && cardNumber.length == 16
+            && rut.length == 12
+            && banco.length > 0
+            && type.length > 0;
     }
-    saveBankAccount(completeName, cardNumber, clabe, banco, type) {
+    saveBankAccount(completeName, cardNumber, rut, banco, type) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             this.lc.create({
                 message: "Guardando información..."
             }).then(loadingEl => {
                 loadingEl.present();
-                let bancoSeleccionado = this.bancos.find(b => b.name === banco);
                 let typeCardSelected = this.tipoTarjeta.find(b => b.name === type);
                 let data_bank = {
                     professional_profile_id: 1,
-                    bank_id: bancoSeleccionado.id,
+                    bank_id: "1",
                     debit_account: cardNumber,
-                    clabe: clabe,
+                    clabe: rut,
                     name: completeName,
                     type: typeCardSelected.name,
-                    name_bank: bancoSeleccionado.name
+                    name_bank: banco
                 };
                 axios__WEBPACK_IMPORTED_MODULE_5___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_7__["API"] + '/supplier/bankaccount', data_bank, { headers: { Authorization: this.headers } }).then(resData => {
                     loadingEl.dismiss();
@@ -2672,31 +2675,6 @@ let BankModalComponent = class BankModalComponent {
                 console.log(err);
                 this.lc.dismiss();
             });
-        });
-    }
-    showPicker() {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            let options = {
-                mode: 'ios',
-                buttons: [
-                    {
-                        text: 'Cancelar',
-                        role: 'cancel'
-                    },
-                    {
-                        text: 'Listo',
-                        handler: (value) => {
-                            this.bancoSeleccionado = value.bank.text;
-                        }
-                    }
-                ],
-                columns: [{
-                        name: 'bank',
-                        options: this.getColumnOptions()
-                    }]
-            };
-            let picker = yield this.pickerController.create(options);
-            picker.present();
         });
     }
     showPickerCardType() {
@@ -2737,8 +2715,6 @@ let BankModalComponent = class BankModalComponent {
             options.push({ text: x.name, value: x.id });
         });
         return options;
-    }
-    formatRUT() {
     }
 };
 BankModalComponent.ctorParameters = () => [
@@ -3144,7 +3120,7 @@ WalletPageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid class=\"modal-bank\">\n    <ion-row class=\"modal-cont ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <div class=\"status-cont\">\n          <ion-text class=\"main-color status-text ion-text-center\"><b>DATOS BANCARIOS</b></ion-text><br>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">NOMBRE COMPLETO</ion-label>\n        <ion-input #completeName class=\"stacked-input\" placeholder=\"José Alcarraga López\">\n        </ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left ion-align-items-center\">\n      <ion-col size=\"8\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">NÚMERO DE TARJETA</ion-label>\n        <ion-input #cardNumber class=\"stacked-input\" type=\"tel\" maxlength=\"16\" placeholder=\"1234 5678 9123 4567\"></ion-input>\n      </ion-col>\n      <ion-col size=\"4\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Tipo</ion-label>\n        <ion-input #type class=\"stacked-input\" value=\"{{ selectedCard }}\" readonly (click)=\"showPickerCardType()\"\n          placeholder=\"Visa/MasterCard\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">RUT</ion-label>\n        <ion-input #clabe class=\"stacked-input\" type=\"tel\" maxlength=\"12\" (ionInput)=\"formatRUT()\"\n          placeholder=\"11.111.234-4\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Banco</ion-label>\n        <ion-input #banco class=\"stacked-input\" value=\"{{ bancoSeleccionado }}\" readonly (click)=\"showPicker()\"\n          placeholder=\"Banco\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col offset=\"1\">\n        <ion-button\n          [disabled]=\"!validateInformation(completeName.value, cardNumber.value, clabe.value, bancoSeleccionado, selectedCard)\"\n          size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\"\n          (click)=\"saveBankAccount(completeName.value, cardNumber.value, clabe.value, bancoSeleccionado, selectedCard)\">\n          GUARDAR DATOS\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"2\"></ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid class=\"modal-bank\">\n    <ion-row class=\"modal-cont ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <div class=\"status-cont\">\n          <ion-text class=\"main-color status-text ion-text-center\"><b>DATOS BANCARIOS</b></ion-text><br>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Nombre completo</ion-label>\n        <ion-input #completeName class=\"stacked-input\" placeholder=\"José Alcarraga López\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\">\n        </ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left ion-align-items-center\">\n      <ion-col size=\"8\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Número de tarjeta</ion-label>\n        <ion-input #cardNumber class=\"stacked-input\" type=\"tel\" maxlength=\"16\" placeholder=\"1234 5678 9123 4567\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\"></ion-input>\n      </ion-col>\n      <ion-col size=\"4\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Tipo</ion-label>\n        <ion-input #type class=\"stacked-input\" value=\"{{ selectedCard }}\" readonly (click)=\"showPickerCardType()\"\n          placeholder=\"Visa/MasterCard\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">RUT</ion-label>\n        <ion-input #rut class=\"stacked-input\" type=\"tel\" maxlength=\"12\" placeholder=\"11.111.234-4\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Banco</ion-label>\n        <ion-input #banco class=\"stacked-input\" placeholder=\"Banco\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col offset=\"1\">\n        <ion-button\n          [disabled]=\"!disabledForm\"\n          size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\"\n          (click)=\"saveBankAccount(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\">\n          GUARDAR DATOS\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"2\"></ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>");
 
 /***/ }),
 

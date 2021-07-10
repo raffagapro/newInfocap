@@ -451,7 +451,7 @@ ConfirmSuccessComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>SE HA REALIZADO LA SOLICITUD</b></ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid style=\"height: 100%;\">\n\n    <!-- SERVICIO REALIZADO  -->\n    <div class=\"modal-cont\">\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"12\" class=\"text-center\">\n          <div class=\"status-cont\">\n            <ion-icon name=\"checkmark\" color=\"light\" class=\"status-text-icon\"></ion-icon>\n          </div>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center ion-margin-top\">\n          <ion-text class=\"main-color status-text\"><b>SE HA AGENDADO VISITA TÉCNICA</b></ion-text><br>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text>\n            <hr>\n          </ion-text>\n        </ion-col>\n        <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n          <ion-text class=\"main-color mini-text\" (click)=\"dismiss()\">ACEPTAR</ion-text><br>\n        </ion-col>\n      </ion-row>\n    </div>\n  </ion-grid>\n</ion-content>");
 
 /***/ }),
 
@@ -3132,6 +3132,10 @@ const routes = [
         loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-finalizados-finalizados-details-finalizados-details-module */ "profesional-home-finalizados-finalizados-details-finalizados-details-module").then(__webpack_require__.bind(null, /*! ./profesional/home/finalizados/finalizados-details/finalizados-details.module */ "CeUq")).then((m) => m.FinalizadosDetailsPageModule),
     },
     {
+        path: "profesional/finalizados/service-report",
+        loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-finalizados-service-report-service-report-module */ "profesional-home-finalizados-service-report-service-report-module").then(__webpack_require__.bind(null, /*! ./profesional/home/finalizados/service-report/service-report.module */ "XIwu")).then((m) => m.ServiceReportPageModule),
+    },
+    {
         path: "profesional/finalizados/rate-form",
         loadChildren: () => __webpack_require__.e(/*! import() | profesional-home-finalizados-rate-form-rate-form-module */ "profesional-home-finalizados-rate-form-rate-form-module").then(__webpack_require__.bind(null, /*! ./profesional/home/finalizados/rate-form/rate-form.module */ "OCis")).then((m) => m.RateFormPageModule),
     },
@@ -3219,20 +3223,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _raw_loader_confirm_visita_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./confirm-visita.component.html */ "VJJK");
 /* harmony import */ var _confirm_visita_component_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./confirm-visita.component.scss */ "b9Pc");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! axios */ "vDqi");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
-/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
-/* harmony import */ var src_app_services_visita_tecnica_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/visita-tecnica.service */ "CrNw");
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/environments/environment */ "AytR");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! moment */ "wd/R");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../confirm-success/confirm-success.component */ "55u6");
-/* harmony import */ var src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/services/pro-solicitud.service */ "zMwU");
-
-
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "vDqi");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_app_services_visita_tecnica_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/visita-tecnica.service */ "CrNw");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! moment */ "wd/R");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../confirm-success/confirm-success.component */ "55u6");
+/* harmony import */ var src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/pro-solicitud.service */ "zMwU");
 
 
 
@@ -3246,11 +3246,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ConfirmVisitaComponent = class ConfirmVisitaComponent {
-    constructor(modalController, router, lc, solServ, solicitudServicio, visitaT, us) {
+    constructor(modalController, lc, solicitudServicio, visitaT, us) {
         this.modalController = modalController;
-        this.router = router;
         this.lc = lc;
-        this.solServ = solServ;
         this.solicitudServicio = solicitudServicio;
         this.visitaT = visitaT;
         this.us = us;
@@ -3265,21 +3263,11 @@ let ConfirmVisitaComponent = class ConfirmVisitaComponent {
             visit_hours: this.visitaT.visitaTecnica.hours
         };
     }
-    // cancelSolicitud(){
-    //   this.modalController.dismiss();
-    //   this.modalController.create({
-    //     component: ConfirmSuccessComponent,
-    //     cssClass: 'modalSuccess',
-    //   }).then(modalEl => {
-    //     modalEl.present();
-    //   });
-    // }
     dismiss() {
         this.modalController.dismiss();
-        // this.router.navigate(['/profesional/home/home-tabs/finalizados/']);
     }
     formatDate(date) {
-        return moment__WEBPACK_IMPORTED_MODULE_11__(date, 'DD/M/YYYY').format('dddd D [de] MMMM [de] YYYY');
+        return moment__WEBPACK_IMPORTED_MODULE_9__(date, 'DD/M/YYYY').format('dddd D [de] MMMM [de] YYYY');
     }
     confirmVisita() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -3288,9 +3276,9 @@ let ConfirmVisitaComponent = class ConfirmVisitaComponent {
                 message: "Cargando informacion del servicio..."
             }).then(loadingEl => {
                 loadingEl.present();
-                axios__WEBPACK_IMPORTED_MODULE_6___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + `/supplier/visit/requestservice/${this.solicitudServicio.solicitud.id}`, this.visita_tecnica, { headers: { Authorization: this.headers } }).then(resData => {
+                axios__WEBPACK_IMPORTED_MODULE_5___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + `/supplier/visit/requestservice/${this.solicitudServicio.solicitud.id}`, this.visita_tecnica, { headers: { Authorization: this.headers } }).then(resData => {
                     this.modalController.create({
-                        component: _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_12__["ConfirmSuccessComponent"],
+                        component: _confirm_success_confirm_success_component__WEBPACK_IMPORTED_MODULE_10__["ConfirmSuccessComponent"],
                         cssClass: 'modalSuccess',
                     }).then(success => {
                         success.present();
@@ -3308,13 +3296,11 @@ let ConfirmVisitaComponent = class ConfirmVisitaComponent {
     }
 };
 ConfirmVisitaComponent.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"] },
-    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_7__["SolicitudService"] },
-    { type: src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_13__["ProSolicitudService"] },
-    { type: src_app_services_visita_tecnica_service__WEBPACK_IMPORTED_MODULE_9__["VisitaTecnicaService"] },
-    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
+    { type: src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_11__["ProSolicitudService"] },
+    { type: src_app_services_visita_tecnica_service__WEBPACK_IMPORTED_MODULE_7__["VisitaTecnicaService"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_6__["UserService"] }
 ];
 ConfirmVisitaComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

@@ -447,8 +447,6 @@
             var hours = this.loadedService.request_technical[0].visit_hours.replace(' ', '').split('-');
             var startHour = moment__WEBPACK_IMPORTED_MODULE_10__["utc"](hours[0], 'HH:mm');
             var endHour = moment__WEBPACK_IMPORTED_MODULE_10__["utc"](hours[1], 'HH:mm');
-            console.log(startHour);
-            console.log(endHour);
             return "".concat(startHour.format('h:mm a'), " - ").concat(endHour.format('h:mm a'));
           }
         }, {
