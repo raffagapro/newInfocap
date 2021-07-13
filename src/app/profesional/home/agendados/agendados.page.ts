@@ -59,6 +59,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
     route.params.subscribe(val => {
       this.eventSourceAgended = []
       this.eventSource = []
+      this.loadedServices = []
       this.userSub = this.us.loggedUser.subscribe(user => {
         this.grabbedUser = user;
         this.headers = 'Bearer ' + this.grabbedUser.access_token
@@ -148,18 +149,15 @@ export class AgendadosPage implements OnInit, OnDestroy {
       axios.get(API + `/supplier/requestservice/${statusID}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
         if (statusID === "3") {
-          this.loadedServices = resData.data.data;
-          this.loadedServices = lodash.orderBy(this.loadedServices, function (dateObj) {
-            return new Date(dateObj.date_required);
-          });
+          this.loadedServices = this.loadedServices.concat(resData.data.data);
           this.formatEvents(resData.data.data, "3")
           this.myCal.loadEvents();
         }
         if (statusID === "4") {
-          this.loadedStartedServices = resData.data.data;
-          this.loadedStartedServices = lodash.orderBy(this.loadedStartedServices, function (dateObj) {
-            return new Date(dateObj.date_required);
-          });
+          this.loadedServices = this.loadedServices.concat(resData.data.data);
+          // this.loadedStartedServices = lodash.orderBy(this.loadedStartedServices, function (dateObj) {
+          //   return new Date(dateObj.date_required);
+          // });
           this.formatEvents(resData.data.data, "4")
           this.myCal.loadEvents();
         }
@@ -171,6 +169,10 @@ export class AgendadosPage implements OnInit, OnDestroy {
           this.formatEvents(resData.data.data, "2")
           this.myCalAgended.loadEvents();
         }
+      }).then(() => {
+        this.loadedServices = lodash.orderBy(this.loadedServices, function (dateObj) {
+          return new Date(dateObj.date_required);
+        });
       }).catch(err => {
         if (statusID === "3") {
           this.loadedServices = []
