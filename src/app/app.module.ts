@@ -39,6 +39,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NotificationsService } from './services/notifications-service';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { Facebook } from '@ionic-native/facebook/ngx';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
     Geolocation,
     NativeGeocoder,
     NotificationsService,
-    ScreenOrientation
+    ScreenOrientation,
+    Facebook
   ],
   bootstrap: [AppComponent]
 })

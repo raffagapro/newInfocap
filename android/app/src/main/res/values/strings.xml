@@ -4,4 +4,6 @@
     <string name="title_activity_main">Workin</string>
     <string name="package_name">cl.dtispa.infocap.workin</string>
     <string name="custom_url_scheme">cl.dtispa.infocap.workin</string>
+    <string name="fb_app_id">813740722780146</string>
+    <string name="fb_app_name">Workin</string>
 </resources>

@@ -516,8 +516,8 @@ const environment = {
 };
 const WEB_KEY = 'com.googleusercontent.apps.30514470553-9iop802o4obarpv3no5s1ng5kcnblne7';
 //export const API = 'http://workintest.herokuapp.com/api';
-const API = 'http://167.71.251.136/api';
-const PATH = 'http://167.71.251.136/';
+const API = 'http://192.168.0.13:8000/api';
+const PATH = 'http://192.168.0.13:8000/';
 const PHONE_PREFIX = '52';
 // export const API = 'http://127.0.0.1:8000/api';
 //export const PATH = 'http://workintest.herokuapp.com';
@@ -1694,6 +1694,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @angular/common */ "ofXK");
 /* harmony import */ var _services_notifications_service__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./services/notifications-service */ "wBcA");
 /* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "0QAI");
+/* harmony import */ var _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @ionic-native/facebook/ngx */ "GGTb");
 
 
 
@@ -1704,6 +1705,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // geolocation and native-geocoder
+
 
 
 
@@ -1779,7 +1781,8 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_9__["Geolocation"],
             _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_10__["NativeGeocoder"],
             _services_notifications_service__WEBPACK_IMPORTED_MODULE_36__["NotificationsService"],
-            _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_37__["ScreenOrientation"]
+            _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_37__["ScreenOrientation"],
+            _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_38__["Facebook"]
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"]]
     })

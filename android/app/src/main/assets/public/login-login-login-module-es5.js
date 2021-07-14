@@ -107,9 +107,15 @@
       var src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! src/app/services/notifications-service */
       "wBcA");
+      /* harmony import */
+
+
+      var _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      /*! @ionic-native/facebook/ngx */
+      "GGTb");
 
       var LoginPage = /*#__PURE__*/function () {
-        function LoginPage(navController, router, http, as, us, lc, notificationService) {
+        function LoginPage(navController, router, http, as, us, lc, notificationService, fb) {
           _classCallCheck(this, LoginPage);
 
           this.navController = navController;
@@ -119,12 +125,24 @@
           this.us = us;
           this.lc = lc;
           this.notificationService = notificationService;
-          this.passwordTypeInput = 'password';
+          this.fb = fb;
+          this.passwordTypeInput = "password";
         }
 
         _createClass(LoginPage, [{
           key: "ngOnInit",
           value: function ngOnInit() {}
+        }, {
+          key: "checkFacebookLoginStatus",
+          value: function checkFacebookLoginStatus() {
+            this.fb.getLoginStatus().then(function (res) {
+              console.log(res.status);
+
+              if (res.status === "connect") {} else {}
+            })["catch"](function (e) {
+              return console.log(e);
+            });
+          }
         }, {
           key: "login",
           value: function login(form) {
@@ -147,7 +165,7 @@
                       password = form.value.password;
                       _context.next = 6;
                       return this.lc.create({
-                        message: 'Validando credenciales...'
+                        message: "Validando credenciales..."
                       });
 
                     case 6:
@@ -170,8 +188,8 @@
                         user = responseData.user, roles = responseData.roles, access_token = responseData.access_token;
                         id = user.id, name = user.name, last_name = user.last_name, _email = user.email, phone1 = user.phone1, phone2 = user.phone2, img_profile = user.img_profile; //save user info to store NEEDS WORK IN HERE
 
-                        if (img_profile === null || img_profile === 'http://167.71.251.136/storage/') {
-                          img = 'assets/images/avatar.png';
+                        if (img_profile === null || img_profile === "http://167.71.251.136/storage/") {
+                          img = "assets/images/avatar.png";
                         } else {
                           img = img_profile;
                         }
@@ -182,24 +200,24 @@
                         form.control.reset();
                         loader.dismiss();
 
-                        if (roles[0] === 'usuario') {
-                          this.router.navigate(['/user/home'], {
+                        if (roles[0] === "usuario") {
+                          this.router.navigate(["/user/home"], {
                             replaceUrl: true
                           });
-                          this.loadNotifications('client');
+                          this.loadNotifications("client");
                         } else {
-                          this.router.navigate(['/profesional/home'], {
+                          this.router.navigate(["/profesional/home"], {
                             replaceUrl: true
                           });
-                          this.loadNotifications('supplier');
+                          this.loadNotifications("supplier");
                         }
                       } else {
-                        errorMessage = message === 'Unauthorized' ? 'Credenciales inválidas' : 'Ocurrió un error';
+                        errorMessage = message === "Unauthorized" ? "Credenciales inválidas" : "Ocurrió un error";
                         this.error = errorMessage;
                         form.reset();
                         form.setValue({
                           email: email,
-                          password: ''
+                          password: ""
                         });
                         loader.dismiss();
                       }
@@ -211,7 +229,7 @@
                       _context.prev = 18;
                       _context.t0 = _context["catch"](8);
                       console.log(_context.t0);
-                      _message = 'Ocurrió un error';
+                      _message = "Ocurrió un error";
 
                       if (_context.t0.response) {
                         _message = _context.t0.response.data.message;
@@ -221,7 +239,7 @@
                       form.reset();
                       form.setValue({
                         email: email,
-                        password: ''
+                        password: ""
                       });
                       loader.dismiss();
 
@@ -278,7 +296,7 @@
         }, {
           key: "loginProfesional",
           value: function loginProfesional() {
-            this.router.navigate(['/profesional/home']);
+            this.router.navigate(["/profesional/home"]);
           }
         }, {
           key: "loginGoogle",
@@ -290,13 +308,173 @@
           }
         }, {
           key: "loginFacebook",
-          value: function loginFacebook() {// do seomthing swesome 
+          value: function loginFacebook() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var response;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      _context3.prev = 0;
+                      _context3.next = 3;
+                      return this.fb.login(["public_profile", "email"]);
+
+                    case 3:
+                      response = _context3.sent;
+
+                      if (response.status === "connected") {
+                        this.getUserDetail(response.authResponse.userID);
+                      } else {
+                        alert("No se puede iniciar sesión en Facebook con tu cuenta");
+                      }
+
+                      _context3.next = 11;
+                      break;
+
+                    case 7:
+                      _context3.prev = 7;
+                      _context3.t0 = _context3["catch"](0);
+                      console.log("Error logging into Facebook", _context3.t0);
+                      alert("No se ha iniciado sesión con Workin");
+
+                    case 11:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee3, this, [[0, 7]]);
+            }));
+          }
+        }, {
+          key: "getUserDetail",
+          value: function getUserDetail(userid) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              var loader, response, id, email, first_name, last_name, body, _response, data, responseData, message, user, roles, access_token, _id, name, _last_name, _email2, phone1, phone2, img_profile, img, errorMessage;
+
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      _context4.prev = 0;
+                      _context4.next = 3;
+                      return this.lc.create({
+                        message: "Iniciando sesión..."
+                      });
+
+                    case 3:
+                      loader = _context4.sent;
+                      _context4.next = 6;
+                      return loader.present();
+
+                    case 6:
+                      _context4.next = 8;
+                      return this.fb.api("/".concat(userid, "/?fields=id,email,first_name,last_name"), ["public_profile"]);
+
+                    case 8:
+                      response = _context4.sent;
+                      id = response.id, email = response.email, first_name = response.first_name, last_name = response.last_name;
+                      body = {
+                        name: first_name,
+                        last_name: last_name,
+                        email: email,
+                        password: id
+                      };
+                      _context4.prev = 11;
+                      _context4.next = 14;
+                      return axios__WEBPACK_IMPORTED_MODULE_11___default.a.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/auth/facebook"), body, {
+                        headers: {
+                          "Content-Type": "application/json",
+                          "X-Requested-With": "XMLHttpRequest"
+                        }
+                      });
+
+                    case 14:
+                      _response = _context4.sent;
+                      data = _response.data;
+                      responseData = data.data, message = data.message;
+
+                      if (!responseData) {
+                        _context4.next = 29;
+                        break;
+                      }
+
+                      user = responseData.user, roles = responseData.roles, access_token = responseData.access_token;
+                      _id = user.id, name = user.name, _last_name = user.last_name, _email2 = user.email, phone1 = user.phone1, phone2 = user.phone2, img_profile = user.img_profile; //save user info to store NEEDS WORK IN HERE
+
+                      if (img_profile === null || img_profile === "http://167.71.251.136/storage/") {
+                        img = "assets/images/avatar.png";
+                      } else {
+                        img = img_profile;
+                      }
+
+                      this.grabbedUSer = new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__["User"](_id, name, _last_name, img, _email2, phone1, phone2, roles[0], access_token);
+                      this.us.setUser(this.grabbedUSer);
+                      this.as.login();
+                      _context4.next = 26;
+                      return loader.dismiss();
+
+                    case 26:
+                      if (roles[0] === "usuario") {
+                        this.router.navigate(["/user/home"], {
+                          replaceUrl: true
+                        });
+                        this.loadNotifications("client");
+                      } else {
+                        this.router.navigate(["/profesional/home"], {
+                          replaceUrl: true
+                        });
+                        this.loadNotifications("supplier");
+                      }
+
+                      _context4.next = 33;
+                      break;
+
+                    case 29:
+                      errorMessage = message === "Unauthorized" ? "Credenciales inválidas" : "Ocurrió un error";
+                      this.error = errorMessage;
+                      _context4.next = 33;
+                      return loader.dismiss();
+
+                    case 33:
+                      _context4.next = 35;
+                      return loader.dismiss();
+
+                    case 35:
+                      _context4.next = 42;
+                      break;
+
+                    case 37:
+                      _context4.prev = 37;
+                      _context4.t0 = _context4["catch"](11);
+                      _context4.next = 41;
+                      return loader.dismiss();
+
+                    case 41:
+                      console.log(_context4.t0);
+
+                    case 42:
+                      _context4.next = 48;
+                      break;
+
+                    case 44:
+                      _context4.prev = 44;
+                      _context4.t1 = _context4["catch"](0);
+                      console.log("Error logging into Facebook", _context4.t1);
+                      alert(_context4.t1);
+
+                    case 48:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this, [[0, 44], [11, 37]]);
+            }));
           }
         }, {
           key: "togglePasswordMode",
           value: function togglePasswordMode() {
-            this.passwordTypeInput = this.passwordTypeInput === 'text' ? 'password' : 'text';
-            var nativeEl = this.passwordEye.nativeElement.querySelector('input');
+            this.passwordTypeInput = this.passwordTypeInput === "text" ? "password" : "text";
+            var nativeEl = this.passwordEye.nativeElement.querySelector("input");
             var inputSelection = nativeEl.selectionStart;
             nativeEl.focus();
             setTimeout(function () {
@@ -323,19 +501,21 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
         }, {
           type: src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_12__["NotificationsService"]
+        }, {
+          type: _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_13__["Facebook"]
         }];
       };
 
       LoginPage.propDecorators = {
         passwordEye: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"],
-          args: ['passwordEyeRegister', {
+          args: ["passwordEyeRegister", {
             read: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ElementRef"]
           }]
         }]
       };
       LoginPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-login',
+        selector: "app-login",
         template: _raw_loader_login_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_login_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], LoginPage);

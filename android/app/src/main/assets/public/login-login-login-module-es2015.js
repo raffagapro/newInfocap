@@ -24,6 +24,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! axios */ "vDqi");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/services/notifications-service */ "wBcA");
+/* harmony import */ var _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/facebook/ngx */ "GGTb");
+
 
 
 
@@ -38,7 +40,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let LoginPage = class LoginPage {
-    constructor(navController, router, http, as, us, lc, notificationService) {
+    constructor(navController, router, http, as, us, lc, notificationService, fb) {
         this.navController = navController;
         this.router = router;
         this.http = http;
@@ -46,9 +48,21 @@ let LoginPage = class LoginPage {
         this.us = us;
         this.lc = lc;
         this.notificationService = notificationService;
-        this.passwordTypeInput = 'password';
+        this.fb = fb;
+        this.passwordTypeInput = "password";
     }
-    ngOnInit() {
+    ngOnInit() { }
+    checkFacebookLoginStatus() {
+        this.fb
+            .getLoginStatus()
+            .then((res) => {
+            console.log(res.status);
+            if (res.status === "connect") {
+            }
+            else {
+            }
+        })
+            .catch((e) => console.log(e));
     }
     login(form) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -58,7 +72,7 @@ let LoginPage = class LoginPage {
             const email = form.value.email;
             const password = form.value.password;
             const loader = yield this.lc.create({
-                message: 'Validando credenciales...'
+                message: "Validando credenciales...",
             });
             loader.present();
             try {
@@ -74,8 +88,9 @@ let LoginPage = class LoginPage {
                     const { id, name, last_name, email, phone1, phone2, img_profile } = user;
                     //save user info to store NEEDS WORK IN HERE
                     let img;
-                    if (img_profile === null || img_profile === 'http://167.71.251.136/storage/') {
-                        img = 'assets/images/avatar.png';
+                    if (img_profile === null ||
+                        img_profile === "http://167.71.251.136/storage/") {
+                        img = "assets/images/avatar.png";
                     }
                     else {
                         img = img_profile;
@@ -85,29 +100,31 @@ let LoginPage = class LoginPage {
                     this.as.login();
                     form.control.reset();
                     loader.dismiss();
-                    if (roles[0] === 'usuario') {
-                        this.router.navigate(['/user/home'], { replaceUrl: true });
-                        this.loadNotifications('client');
+                    if (roles[0] === "usuario") {
+                        this.router.navigate(["/user/home"], { replaceUrl: true });
+                        this.loadNotifications("client");
                     }
                     else {
-                        this.router.navigate(['/profesional/home'], { replaceUrl: true });
-                        this.loadNotifications('supplier');
+                        this.router.navigate(["/profesional/home"], { replaceUrl: true });
+                        this.loadNotifications("supplier");
                     }
                 }
                 else {
-                    const errorMessage = message === 'Unauthorized' ? 'Credenciales inválidas' : 'Ocurrió un error';
+                    const errorMessage = message === "Unauthorized"
+                        ? "Credenciales inválidas"
+                        : "Ocurrió un error";
                     this.error = errorMessage;
                     form.reset();
                     form.setValue({
                         email: email,
-                        password: '',
+                        password: "",
                     });
                     loader.dismiss();
                 }
             }
             catch (error) {
                 console.log(error);
-                let message = 'Ocurrió un error';
+                let message = "Ocurrió un error";
                 if (error.response) {
                     message = error.response.data.message;
                 }
@@ -115,7 +132,7 @@ let LoginPage = class LoginPage {
                 form.reset();
                 form.setValue({
                     email: email,
-                    password: '',
+                    password: "",
                 });
                 loader.dismiss();
             }
@@ -126,8 +143,8 @@ let LoginPage = class LoginPage {
             try {
                 let response = yield axios__WEBPACK_IMPORTED_MODULE_11___default.a.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/${type}/notification`, {
                     headers: {
-                        Authorization: `Bearer ${this.grabbedUSer.access_token}`
-                    }
+                        Authorization: `Bearer ${this.grabbedUSer.access_token}`,
+                    },
                 });
                 const { data } = response;
                 const { data: notificationsData } = data;
@@ -141,7 +158,7 @@ let LoginPage = class LoginPage {
         });
     }
     loginProfesional() {
-        this.router.navigate(['/profesional/home']);
+        this.router.navigate(["/profesional/home"]);
     }
     loginGoogle() {
         // do comething awesome
@@ -150,11 +167,93 @@ let LoginPage = class LoginPage {
         // do something awesome
     }
     loginFacebook() {
-        // do seomthing swesome 
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            try {
+                const response = yield this.fb.login(["public_profile", "email"]);
+                if (response.status === "connected") {
+                    this.getUserDetail(response.authResponse.userID);
+                }
+                else {
+                    alert("No se puede iniciar sesión en Facebook con tu cuenta");
+                }
+            }
+            catch (error) {
+                console.log("Error logging into Facebook", error);
+                alert("No se ha iniciado sesión con Workin");
+            }
+        });
+    }
+    getUserDetail(userid) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            try {
+                const loader = yield this.lc.create({ message: "Iniciando sesión..." });
+                yield loader.present();
+                const response = yield this.fb.api(`/${userid}/?fields=id,email,first_name,last_name`, ["public_profile"]);
+                const { id, email, first_name, last_name } = response;
+                const body = {
+                    name: first_name,
+                    last_name,
+                    email,
+                    password: id,
+                };
+                try {
+                    let response = yield axios__WEBPACK_IMPORTED_MODULE_11___default.a.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/auth/facebook`, body, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-Requested-With": "XMLHttpRequest",
+                        },
+                    });
+                    const { data } = response;
+                    const { data: responseData, message } = data;
+                    if (responseData) {
+                        const { user, roles, access_token } = responseData;
+                        const { id, name, last_name, email, phone1, phone2, img_profile } = user;
+                        //save user info to store NEEDS WORK IN HERE
+                        let img;
+                        if (img_profile === null ||
+                            img_profile === "http://167.71.251.136/storage/") {
+                            img = "assets/images/avatar.png";
+                        }
+                        else {
+                            img = img_profile;
+                        }
+                        this.grabbedUSer = new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__["User"](id, name, last_name, img, email, phone1, phone2, roles[0], access_token);
+                        this.us.setUser(this.grabbedUSer);
+                        this.as.login();
+                        yield loader.dismiss();
+                        if (roles[0] === "usuario") {
+                            this.router.navigate(["/user/home"], { replaceUrl: true });
+                            this.loadNotifications("client");
+                        }
+                        else {
+                            this.router.navigate(["/profesional/home"], { replaceUrl: true });
+                            this.loadNotifications("supplier");
+                        }
+                    }
+                    else {
+                        const errorMessage = message === "Unauthorized"
+                            ? "Credenciales inválidas"
+                            : "Ocurrió un error";
+                        this.error = errorMessage;
+                        yield loader.dismiss();
+                    }
+                    yield loader.dismiss();
+                }
+                catch (error) {
+                    yield loader.dismiss();
+                    console.log(error);
+                }
+            }
+            catch (error) {
+                console.log("Error logging into Facebook", error);
+                alert(error);
+            }
+        });
     }
     togglePasswordMode() {
-        this.passwordTypeInput = this.passwordTypeInput === 'text' ? 'password' : 'text';
-        const nativeEl = this.passwordEye.nativeElement.querySelector('input');
+        this.passwordTypeInput =
+            this.passwordTypeInput === "text" ? "password" : "text";
+        const nativeEl = this.passwordEye.nativeElement.querySelector("input");
         const inputSelection = nativeEl.selectionStart;
         nativeEl.focus();
         setTimeout(() => {
@@ -169,14 +268,15 @@ LoginPage.ctorParameters = () => [
     { type: src_app_services_auth_service__WEBPACK_IMPORTED_MODULE_7__["AuthService"] },
     { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
-    { type: src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_12__["NotificationsService"] }
+    { type: src_app_services_notifications_service__WEBPACK_IMPORTED_MODULE_12__["NotificationsService"] },
+    { type: _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_13__["Facebook"] }
 ];
 LoginPage.propDecorators = {
-    passwordEye: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"], args: ['passwordEyeRegister', { read: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ElementRef"] },] }]
+    passwordEye: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"], args: ["passwordEyeRegister", { read: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ElementRef"] },] }]
 };
 LoginPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-login',
+        selector: "app-login",
         template: _raw_loader_login_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_login_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
     })

@@ -933,8 +933,8 @@
       };
       var WEB_KEY = 'com.googleusercontent.apps.30514470553-9iop802o4obarpv3no5s1ng5kcnblne7'; //export const API = 'http://workintest.herokuapp.com/api';
 
-      var API = 'http://167.71.251.136/api';
-      var PATH = 'http://167.71.251.136/';
+      var API = 'http://192.168.0.13:8000/api';
+      var PATH = 'http://192.168.0.13:8000/';
       var PHONE_PREFIX = '52'; // export const API = 'http://127.0.0.1:8000/api';
       //export const PATH = 'http://workintest.herokuapp.com';
 
@@ -2946,7 +2946,13 @@
 
       var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(
       /*! @ionic-native/screen-orientation/ngx */
-      "0QAI"); // geolocation and native-geocoder
+      "0QAI");
+      /* harmony import */
+
+
+      var _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(
+      /*! @ionic-native/facebook/ngx */
+      "GGTb"); // geolocation and native-geocoder
 
 
       var AppModule = function AppModule() {
@@ -2960,7 +2966,7 @@
         providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_8__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_7__["SplashScreen"], _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_33__["CallNumber"], {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicRouteStrategy"]
-        }, _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_9__["Geolocation"], _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_10__["NativeGeocoder"], _services_notifications_service__WEBPACK_IMPORTED_MODULE_36__["NotificationsService"], _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_37__["ScreenOrientation"]],
+        }, _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_9__["Geolocation"], _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_10__["NativeGeocoder"], _services_notifications_service__WEBPACK_IMPORTED_MODULE_36__["NotificationsService"], _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_37__["ScreenOrientation"], _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_38__["Facebook"]],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"]]
       })], AppModule);
       /***/

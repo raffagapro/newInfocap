@@ -34,6 +34,14 @@
         ]
         },
       {
+          "id": "cordova-plugin-facebook4.FacebookConnectPlugin",
+          "file": "plugins/cordova-plugin-facebook4/www/facebook-native.js",
+          "pluginId": "cordova-plugin-facebook4",
+        "clobbers": [
+          "facebookConnectPlugin"
+        ]
+        },
+      {
           "id": "cordova-khenshin.khenshin",
           "file": "plugins/cordova-khenshin/www/khenshin.js",
           "pluginId": "cordova-khenshin",
@@ -322,6 +330,7 @@
       "mx.ferreyra.callnumber": "0.0.2",
       "cordova-khenshin": "0.0.24",
       "cordova-plugin-advanced-http": "3.1.0",
+      "cordova-plugin-facebook4": "6.4.0",
       "cordova-plugin-file": "6.0.2",
       "cordova-plugin-geolocation": "4.1.0",
       "cordova-plugin-nativegeocoder": "3.4.1",
