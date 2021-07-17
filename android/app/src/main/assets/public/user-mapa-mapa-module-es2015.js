@@ -280,14 +280,25 @@ let MapaPage = class MapaPage {
             }
         });
         this.clearAutocomplete();
+        const map = this.map;
+        let marker = this.marker;
         this.Geocoder.geocode({
             placeId: item.place_id,
-        }, function (responses, status) {
+        }, (responses, status) => {
             if (status == "OK") {
                 var lat = responses[0].geometry.location.lat();
                 var lng = responses[0].geometry.location.lng();
                 const center = new google.maps.LatLng(lat, lng);
                 this.map.setCenter(center);
+                if (this.marker) {
+                    this.marker.setMap(null);
+                }
+                this.marker = new google.maps.Marker({
+                    position: center,
+                    draggable: true,
+                    map: map,
+                });
+                this.marker.setMap(this.map);
             }
         });
     }

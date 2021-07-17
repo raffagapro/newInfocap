@@ -1,78 +1,77 @@
-.border{
-    border: 1px solid #009ACE;
-    border-radius: 15px;
-    font-size: 12px;
-    height: 35px;
-  }
-  .prof-cont{
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  }
-  .no-border{
-    padding-top: 2px;
-    padding-bottom: 2px;
-  }
-  .profileImg{
-    margin-left: 10px;
-    height: 75px;
-    width: 75px;
-  }
-  .titleSelect{
-    font-size: 16px;
-    font-weight: bold;
-  }
-  .badge-text{
-    font-size: 7px;
-  }
-  .textSelect{
-    font-size: 10px;
-    line-height: .5;
-  }
-  .ratingText{
-    font-size: 12px;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .locate-cont{
-    margin-top: 5px;
-    border-radius: 50px;
-    height: 30px;
-    width: 30px;
-    display: inline-flex;
-    align-items: center;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #009ACE;
-  }
-  .rating-text{
-    font-size: 12px;
-    margin-left: auto;
-    margin-right: auto;
-    display: inline-flex;
-  }
-  .ticket{
-    color: red;
-    font-size: 11px;
-  }
-  .green-color{
-    color: #39AE50;
-  }
-  .bg-green-color{
-    background-color: #39AE50;
-  }
-  
-  .grey-color{
-    color: #8E8C89;
-  }
-  .bg-grey-color{
-    background-color: #8E8C89;
-  }
-  
-  .red-color{
-    color: red;
-  }
-  .bg-red-color{
-    background-color: red;
-  }
-  
+.border {
+  border: 1px solid #009ace;
+  border-radius: 15px;
+  font-size: 12px;
+  height: 35px;
+}
+.prof-cont {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.no-border {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.profileImg {
+  margin-left: 10px;
+  height: 75px;
+  width: 75px;
+}
+.titleSelect {
+  font-size: 16px;
+  font-weight: bold;
+}
+.badge-text {
+  font-size: 7px;
+}
+.textSelect {
+  font-size: 10px;
+  line-height: 1.4;
+  margin-bottom: 2px;
+}
+.ratingText {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+.locate-cont {
+  margin-top: 5px;
+  border-radius: 50px;
+  height: 30px;
+  width: 30px;
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #009ace;
+}
+.rating-text {
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-flex;
+}
+.ticket {
+  color: red;
+  font-size: 11px;
+}
+.green-color {
+  color: #39ae50;
+}
+.bg-green-color {
+  background-color: #39ae50;
+}
+
+.grey-color {
+  color: #8e8c89;
+}
+.bg-grey-color {
+  background-color: #8e8c89;
+}
+
+.red-color {
+  color: red;
+}
+.bg-red-color {
+  background-color: red;
+}

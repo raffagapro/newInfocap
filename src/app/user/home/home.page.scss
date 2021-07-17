@@ -26,9 +26,10 @@ hr {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  padding-left: 40px;
+  padding-left: 20px;
 
   @media (min-width: 768px) {
+    padding-left: 30px;
     height: 120px;
   }
 }

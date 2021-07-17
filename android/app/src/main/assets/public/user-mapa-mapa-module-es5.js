@@ -467,6 +467,8 @@
               } else {}
             });
             this.clearAutocomplete();
+            var map = this.map;
+            var marker = this.marker;
             this.Geocoder.geocode({
               placeId: item.place_id
             }, function (responses, status) {
@@ -474,7 +476,20 @@
                 var lat = responses[0].geometry.location.lat();
                 var lng = responses[0].geometry.location.lng();
                 var center = new google.maps.LatLng(lat, lng);
-                this.map.setCenter(center);
+
+                _this5.map.setCenter(center);
+
+                if (_this5.marker) {
+                  _this5.marker.setMap(null);
+                }
+
+                _this5.marker = new google.maps.Marker({
+                  position: center,
+                  draggable: true,
+                  map: map
+                });
+
+                _this5.marker.setMap(_this5.map);
               }
             });
           }

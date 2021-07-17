@@ -530,7 +530,7 @@
                 return '/assets/icon/ic_send.svg';
 
               case ERequestStatus.SOLICITUD_VISITA:
-                return '/assets/icon/ic_calendar_circle.svg';
+                return '/assets/icon/ic_send.svg';
 
               case ERequestStatus.SERVICIO_ACEPTADO:
                 return '/assets/icon/ic_calendar_circle.svg';

@@ -933,8 +933,8 @@
       };
       var WEB_KEY = 'com.googleusercontent.apps.30514470553-9iop802o4obarpv3no5s1ng5kcnblne7'; //export const API = 'http://workintest.herokuapp.com/api';
 
-      var API = 'http://192.168.0.13:8000/api';
-      var PATH = 'http://192.168.0.13:8000/';
+      var API = 'http://167.71.251.136/api';
+      var PATH = 'http://167.71.251.136/';
       var PHONE_PREFIX = '52'; // export const API = 'http://127.0.0.1:8000/api';
       //export const PATH = 'http://workintest.herokuapp.com';
 
