@@ -183,7 +183,7 @@
         <ion-row class="ion-align-items-center" *ngIf="service.status_id == '4'">
 
           <!-- title -->
-          <ion-col size="8" class="ion-justify-content-center">
+          <ion-col size="8" class="ion-justify-content-center" (click)="solicitudDetail(service.id)">
             <ion-text>
               <span *ngIf="service.type_request == 'NORMAL'" class="titleSelect main-color ion-text-capitalize"
                 color="danger">{{service.clientName+" "+ service.clientLastName}}&nbsp;&nbsp;
