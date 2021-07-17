@@ -5080,7 +5080,7 @@
         loadChildren: function loadChildren() {
           return Promise.all(
           /*! import() | profesional-notificaciones-notificaciones-module */
-          [__webpack_require__.e("default~agendados-agendados-module~finalizados-finalizados-module~profesional-notificaciones-notific~62cb1172"), __webpack_require__.e("profesional-notificaciones-notificaciones-module")]).then(__webpack_require__.bind(null,
+          [__webpack_require__.e("default~agendados-agendados-module~profesional-notificaciones-notificaciones-module~solicitudes-soli~75ed993a"), __webpack_require__.e("profesional-notificaciones-notificaciones-module")]).then(__webpack_require__.bind(null,
           /*! ./profesional/notificaciones/notificaciones.module */
           "q60K")).then(function (m) {
             return m.NotificacionesPageModule;

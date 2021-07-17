@@ -168,16 +168,6 @@
       var src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! src/app/services/pro-solicitud.service */
       "zMwU");
-      /* harmony import */
-
-
-      var lodash__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
-      /*! lodash */
-      "LvDl");
-      /* harmony import */
-
-
-      var lodash__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_11__);
 
       var FinalizadosPage = /*#__PURE__*/function () {
         function FinalizadosPage(router, menuController, us, lc, solServ, solicitudServicio, route) {
@@ -238,8 +228,6 @@
                 if (statusID === "6") {
                   _this2.loadedServices = _this2.loadedServices.concat(resData.data.data);
                 }
-              }).then(function () {
-                lodash__WEBPACK_IMPORTED_MODULE_11__["reverse"](_this2.loadedServices);
               })["catch"](function (err) {
                 console.log(err);
                 loadingEl.dismiss();

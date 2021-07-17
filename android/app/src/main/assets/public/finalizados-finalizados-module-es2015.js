@@ -64,9 +64,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! axios */ "vDqi");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/pro-solicitud.service */ "zMwU");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lodash */ "LvDl");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_11__);
-
 
 
 
@@ -117,8 +114,6 @@ let FinalizadosPage = class FinalizadosPage {
                 if (statusID === "6") {
                     this.loadedServices = this.loadedServices.concat(resData.data.data);
                 }
-            }).then(() => {
-                lodash__WEBPACK_IMPORTED_MODULE_11__["reverse"](this.loadedServices);
             }).catch(err => {
                 console.log(err);
                 loadingEl.dismiss();
