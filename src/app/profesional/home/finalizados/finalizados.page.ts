@@ -67,8 +67,6 @@ export class FinalizadosPage implements OnInit, OnDestroy {
         if (statusID === "6") {
           this.loadedServices = this.loadedServices.concat(resData.data.data);
         }
-      }).then(() => {
-        lodash.reverse(this.loadedServices)
       }).catch(err => {
         console.log(err);
         loadingEl.dismiss();

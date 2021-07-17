@@ -74,13 +74,13 @@ export class ServiceReportPage implements OnInit {
 
   getServiceCost() {
     if(this.loadedInfo.request_cost !== null && this.loadedInfo.request_cost.total) {
-      return this.loadedInfo.request_cost.total[0].total
+      return Math.ceil(this.loadedInfo.request_cost.total[0].total)
     }
   }
 
   getServiceAditional() {
     if (this.loadedInfo && this.loadedInfo.request_cost !== null && this.loadedInfo.request_cost.addittional.length > 0) {
-      return Number(this.loadedInfo.request_cost.addittional.reduce((total, entity) => total += Number(entity.amount_client), 0)).toFixed(2);
+      return Math.ceil(Number(this.loadedInfo.request_cost.addittional.reduce((total, entity) => total += Number(entity.amount_client), 0)));
     }
     return 0;
   }
