@@ -178,19 +178,21 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 
 	getServiceCost() {
 		if (this.servicesCosts && this.servicesCosts.amount_client) {
-			return Number(this.servicesCosts.amount_client).toFixed(2);
+			return Math.floor(Number(this.servicesCosts.amount_client))
 		}
 		return 0;
 	}
 
 	getServiceAditional() {
 		if (this.servicesCosts && this.servicesCosts.addittional.length > 0) {
-			return Number(
-				this.servicesCosts.addittional.reduce(
-					(total, entity) => (total += Number(entity.amount_client)),
-					0
+			return Math.floor(
+				Number(
+					this.servicesCosts.addittional.reduce(
+						(total, entity) => (total += Number(entity.amount_client)),
+						0
+					)
 				)
-			).toFixed(2);
+			);
 		}
 		return 0;
 	}
@@ -199,9 +201,9 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 		if (!this.servicesCosts) {
 			return this.getServiceCost();
 		}
-		return (
+		return Math.floor(
 			Number(this.getServiceAditional()) +
-			Number(parseFloat(this.servicesCosts.amount_client).toFixed(2))
+			Number(parseFloat(this.servicesCosts.amount_client))
 		);
 	}
 

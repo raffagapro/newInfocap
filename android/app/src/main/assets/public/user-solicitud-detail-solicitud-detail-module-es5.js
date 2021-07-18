@@ -223,7 +223,7 @@
           this.menuController = menuController;
           this.solServ = solServ;
           this.route = route;
-          this.selectedButton = 'credit';
+          this.selectedButton = "credit";
           this.paymentTypes = [];
           this.loadedService = {
             categoryName: null,
@@ -280,7 +280,7 @@
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
-            this.menuController.enable(true, 'user');
+            this.menuController.enable(true, "user");
           }
         }, {
           key: "loadPaymentTypes",
@@ -334,7 +334,7 @@
                     case 0:
                       _context2.next = 2;
                       return this.loadingController.create({
-                        message: ''
+                        message: ""
                       });
 
                     case 2:
@@ -366,10 +366,10 @@
                           return paymentType.id === firstCost.payment_type_id;
                         });
 
-                        if (paymentType.name === 'Efectivo') {
-                          this.selectedButton = 'cash';
+                        if (paymentType.name === "Efectivo") {
+                          this.selectedButton = "cash";
                         } else {
-                          this.selectedButton = 'credit';
+                          this.selectedButton = "credit";
                         }
                       }
 
@@ -471,7 +471,7 @@
         }, {
           key: "formatDate",
           value: function formatDate(date) {
-            var dateFormat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY-MM-DD';
+            var dateFormat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "YYYY-MM-DD";
             var useTimezone = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
             var momentDate = moment__WEBPACK_IMPORTED_MODULE_8__["utc"](date, dateFormat);
 
@@ -479,25 +479,25 @@
               momentDate.tz(moment__WEBPACK_IMPORTED_MODULE_8__["tz"].guess());
             }
 
-            return momentDate.format('dddd D [de] MMMM [de] YYYY');
+            return momentDate.format("dddd D [de] MMMM [de] YYYY");
           }
         }, {
           key: "formatTime",
           value: function formatTime() {
             if (!this.loadedService.hours_requestservice) {
-              return 'ND';
+              return "ND";
             }
 
-            var hours = this.loadedService.hours_requestservice.split('/');
+            var hours = this.loadedService.hours_requestservice.split("/");
             var startHour = moment__WEBPACK_IMPORTED_MODULE_8__(hours[0]);
             var endHour = moment__WEBPACK_IMPORTED_MODULE_8__(hours[1]);
-            return "".concat(startHour.format('h:mm a'), " - ").concat(endHour.format('h:mm a'));
+            return "".concat(startHour.format("h:mm a"), " - ").concat(endHour.format("h:mm a"));
           }
         }, {
           key: "getServiceCost",
           value: function getServiceCost() {
             if (this.servicesCosts && this.servicesCosts.amount_client) {
-              return Number(this.servicesCosts.amount_client).toFixed(2);
+              return Math.floor(Number(this.servicesCosts.amount_client));
             }
 
             return 0;
@@ -518,7 +518,7 @@
                     case 0:
                       _context4.next = 2;
                       return this.loadingController.create({
-                        message: 'Actualizando solicitud...'
+                        message: "Actualizando solicitud..."
                       });
 
                     case 2:
@@ -526,18 +526,18 @@
                       loader.present();
                       _context4.prev = 4;
                       _context4.t0 = this.selectedButton;
-                      _context4.next = _context4.t0 === 'credit' ? 8 : _context4.t0 === 'cash' ? 10 : 12;
+                      _context4.next = _context4.t0 === "credit" ? 8 : _context4.t0 === "cash" ? 10 : 12;
                       break;
 
                     case 8:
                       payment_type = this.paymentTypes.find(function (entry) {
-                        return entry.name === 'Tarjeta';
+                        return entry.name === "Tarjeta";
                       });
                       return _context4.abrupt("break", 13);
 
                     case 10:
                       payment_type = this.paymentTypes.find(function (entry) {
-                        return entry.name === 'Efectivo';
+                        return entry.name === "Efectivo";
                       });
                       return _context4.abrupt("break", 13);
 
@@ -557,7 +557,7 @@
                       return axios__WEBPACK_IMPORTED_MODULE_10___default.a.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"], "/client/cost/paymentType/").concat(this.loadedService.request_id), {
                         costs_type_id: 1,
                         payment_type_id: payment_type.id,
-                        description: 'Actualización del método de pago'
+                        description: "Actualización del método de pago"
                       }, {
                         headers: {
                           Authorization: "Bearer ".concat(this.user.access_token)
@@ -583,11 +583,11 @@
                       this.modalController.create({
                         component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
                         componentProps: {
-                          message: 'HAZ ACEPTADO LA VISITA TÉCNICA',
+                          message: "HAZ ACEPTADO LA VISITA TÉCNICA",
                           redirect: true,
-                          redirectUrl: '/user/solicitudes'
+                          redirectUrl: "/user/solicitudes"
                         },
-                        cssClass: 'modalSuccess'
+                        cssClass: "modalSuccess"
                       }).then(function (modalEl) {
                         modalEl.present();
                       });
@@ -620,7 +620,7 @@
                     case 0:
                       _context5.next = 2;
                       return this.loadingController.create({
-                        message: 'Actualizando método de pago...'
+                        message: "Actualizando método de pago..."
                       });
 
                     case 2:
@@ -628,18 +628,18 @@
                       loader.present();
                       _context5.prev = 4;
                       _context5.t0 = type;
-                      _context5.next = _context5.t0 === 'credit' ? 8 : _context5.t0 === 'cash' ? 10 : 12;
+                      _context5.next = _context5.t0 === "credit" ? 8 : _context5.t0 === "cash" ? 10 : 12;
                       break;
 
                     case 8:
                       payment_type = this.paymentTypes.find(function (entry) {
-                        return entry.name === 'Tarjeta';
+                        return entry.name === "Tarjeta";
                       });
                       return _context5.abrupt("break", 13);
 
                     case 10:
                       payment_type = this.paymentTypes.find(function (entry) {
-                        return entry.name === 'Efectivo';
+                        return entry.name === "Efectivo";
                       });
                       return _context5.abrupt("break", 13);
 
@@ -659,7 +659,7 @@
                       return axios__WEBPACK_IMPORTED_MODULE_10___default.a.put("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"], "/client/cost/paymentType/").concat(this.loadedService.request_id), {
                         costs_type_id: 1,
                         payment_type_id: payment_type.id,
-                        description: 'Actualización del método de pago'
+                        description: "Actualización del método de pago"
                       }, {
                         headers: {
                           Authorization: "Bearer ".concat(this.user.access_token)
@@ -686,10 +686,10 @@
                       this.modalController.create({
                         component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
                         componentProps: {
-                          message: 'HAZ ACTUALIZADO EL MÉTODO DE PAGO',
+                          message: "HAZ ACTUALIZADO EL MÉTODO DE PAGO",
                           redirect: false
                         },
-                        cssClass: 'modalSuccess'
+                        cssClass: "modalSuccess"
                       }).then(function (modalEl) {
                         modalEl.present();
                       });
@@ -732,7 +732,7 @@
                         componentProps: {
                           image: image
                         },
-                        cssClass: 'modalImage'
+                        cssClass: "modalImage"
                       });
 
                     case 2:
@@ -771,7 +771,7 @@
       };
 
       SolicitudDetailPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-solicitud-detail',
+        selector: "app-solicitud-detail",
         template: _raw_loader_solicitud_detail_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_solicitud_detail_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], SolicitudDetailPage);

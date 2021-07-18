@@ -40,7 +40,7 @@
       <ion-row class="ion-align-items-center">
 
         <!-- title -->
-        <ion-col size="9" sizeMd="10" class="ion-justify-content-center">
+        <ion-col size="8" sizeMd="10" class="ion-justify-content-center">
           <ion-text>
             <span *ngIf="service.type_request !== 'URGENT'" class="titleSelect main-color ion-text-capitalize">{{
               service.supplierName+"
@@ -59,7 +59,7 @@
         </ion-col>
 
         <!-- rating -->
-        <ion-col size="3" sizeMd="2" class="ion-text-center">
+        <ion-col size="4" sizeMd="2" class="ion-text-center">
           <div class="ion-text-center">
             <small class="ticket">#{{ service.ticket_number }}</small>
           </div>
@@ -72,7 +72,7 @@
               <ion-icon src="/assets/icon/ic_send.svg" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText main-color ion-text-center">
-              SOLICITUD ENVIADA
+              SOLICITUD<br />ENVIADA
             </small>
           </ion-text>
 
@@ -80,10 +80,10 @@
           <ion-text *ngIf="service.status_id === 2">
             <!-- icons -->
             <div class="locate-cont bg-main-color">
-              <ion-icon src="/assets/icon/ic_send.svg" color="light" class="rating-text"></ion-icon>
+              <ion-icon name="checkmark" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText main-color ion-text-center">
-              SOLICITUD VISITA
+              SOLICITUD<br />VISITA
             </small>
           </ion-text>
 
@@ -94,7 +94,7 @@
               <ion-icon src="/assets/icon/ic_calendar_circle.svg" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText main-color ion-text-center">
-              SERVICIO ACEPTADO
+              SERVICIO<br />ACEPTADO
             </small>
           </ion-text>
 
@@ -105,7 +105,7 @@
               <ion-icon name="close" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText red-color ion-text-center">
-              SOLICITUD RECHAZADA
+              SOLICITUD<br />RECHAZADA
             </small>
           </ion-text>
 
@@ -116,7 +116,7 @@
               <ion-icon src="/assets/icon/ic_engine_green.svg" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText green-color ion-text-center">
-              SERVICIO EN PROCESO
+              SERVICIO EN<br />PROCESO
             </small>
           </ion-text>
 
@@ -127,7 +127,7 @@
               <ion-icon src="/assets/icon/ic_engine_disabled.svg" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText grey-color ion-text-center">
-              SERVICIO REALIZADO
+              SERVICIO<br />REALIZADO
             </small>
           </ion-text>
 
@@ -138,7 +138,7 @@
               <ion-icon src="/assets/icon/ic_engine_disabled.svg" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText grey-color ion-text-center">
-              PAGO FINALIZADO
+              PAGO<br />FINALIZADO
             </small>
           </ion-text>
 

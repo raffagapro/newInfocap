@@ -110,7 +110,7 @@ let SolicitudDetailPage = class SolicitudDetailPage {
         this.menuController = menuController;
         this.solServ = solServ;
         this.route = route;
-        this.selectedButton = 'credit';
+        this.selectedButton = "credit";
         this.paymentTypes = [];
         this.loadedService = {
             categoryName: null,
@@ -143,31 +143,30 @@ let SolicitudDetailPage = class SolicitudDetailPage {
         this.slideOptions = {
             initialSlide: 0,
             slidesPerView: 2,
-            autoplay: true
+            autoplay: true,
         };
     }
     ngOnInit() {
-        this.userSubscription = this.userService.loggedUser.subscribe(user => {
+        this.userSubscription = this.userService.loggedUser.subscribe((user) => {
             this.user = user;
             this.loadPaymentTypes();
         });
-        this.route.queryParamMap
-            .subscribe((params) => {
+        this.route.queryParamMap.subscribe((params) => {
             var _a;
             let queryParams = Object.assign({}, params);
             this.isProcess = ((_a = queryParams.params) === null || _a === void 0 ? void 0 : _a.inProcess) === "true";
         });
     }
     ionViewWillEnter() {
-        this.menuController.enable(true, 'user');
+        this.menuController.enable(true, "user");
     }
     loadPaymentTypes() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             try {
                 let response = yield axios__WEBPACK_IMPORTED_MODULE_10___default.a.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"]}/payments/type`, {
                     headers: {
-                        Authorization: `Bearer ${this.user.access_token}`
-                    }
+                        Authorization: `Bearer ${this.user.access_token}`,
+                    },
                 });
                 this.paymentTypes = response.data.data;
             }
@@ -181,13 +180,13 @@ let SolicitudDetailPage = class SolicitudDetailPage {
     }
     loadService() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            let loader = yield this.loadingController.create({ message: '' });
+            let loader = yield this.loadingController.create({ message: "" });
             try {
                 yield loader.present();
                 let response = yield axios__WEBPACK_IMPORTED_MODULE_10___default.a.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"]}/client/requestservice/${this.solServ.solicitud.solicitudID}`, {
                     headers: {
-                        Authorization: `Bearer ${this.user.access_token}`
-                    }
+                        Authorization: `Bearer ${this.user.access_token}`,
+                    },
                 });
                 this.solServ.setServiceObj(response.data.data);
                 this.loadedService = response.data.data;
@@ -197,11 +196,11 @@ let SolicitudDetailPage = class SolicitudDetailPage {
                 if (this.loadedService.request_cost.length > 0) {
                     let firstCost = this.loadedService.request_cost[0];
                     let paymentType = this.paymentTypes.find((paymentType) => paymentType.id === firstCost.payment_type_id);
-                    if (paymentType.name === 'Efectivo') {
-                        this.selectedButton = 'cash';
+                    if (paymentType.name === "Efectivo") {
+                        this.selectedButton = "cash";
                     }
                     else {
-                        this.selectedButton = 'credit';
+                        this.selectedButton = "credit";
                     }
                 }
                 this.loadCosts();
@@ -246,25 +245,25 @@ let SolicitudDetailPage = class SolicitudDetailPage {
     openMenu() {
         this.menuController.open();
     }
-    formatDate(date, dateFormat = 'YYYY-MM-DD', useTimezone = false) {
+    formatDate(date, dateFormat = "YYYY-MM-DD", useTimezone = false) {
         let momentDate = moment__WEBPACK_IMPORTED_MODULE_8__["utc"](date, dateFormat);
         if (useTimezone) {
             momentDate.tz(moment__WEBPACK_IMPORTED_MODULE_8__["tz"].guess());
         }
-        return momentDate.format('dddd D [de] MMMM [de] YYYY');
+        return momentDate.format("dddd D [de] MMMM [de] YYYY");
     }
     formatTime() {
         if (!this.loadedService.hours_requestservice) {
-            return 'ND';
+            return "ND";
         }
-        let hours = this.loadedService.hours_requestservice.split('/');
+        let hours = this.loadedService.hours_requestservice.split("/");
         let startHour = moment__WEBPACK_IMPORTED_MODULE_8__(hours[0]);
         let endHour = moment__WEBPACK_IMPORTED_MODULE_8__(hours[1]);
-        return `${startHour.format('h:mm a')} - ${endHour.format('h:mm a')}`;
+        return `${startHour.format("h:mm a")} - ${endHour.format("h:mm a")}`;
     }
     getServiceCost() {
         if (this.servicesCosts && this.servicesCosts.amount_client) {
-            return Number(this.servicesCosts.amount_client).toFixed(2);
+            return Math.floor(Number(this.servicesCosts.amount_client));
         }
         return 0;
     }
@@ -273,16 +272,18 @@ let SolicitudDetailPage = class SolicitudDetailPage {
     }
     confirmSolicitud() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            let loader = yield this.loadingController.create({ message: 'Actualizando solicitud...' });
+            let loader = yield this.loadingController.create({
+                message: "Actualizando solicitud...",
+            });
             loader.present();
             try {
                 let payment_type;
                 switch (this.selectedButton) {
-                    case 'credit':
-                        payment_type = this.paymentTypes.find((entry) => entry.name === 'Tarjeta');
+                    case "credit":
+                        payment_type = this.paymentTypes.find((entry) => entry.name === "Tarjeta");
                         break;
-                    case 'cash':
-                        payment_type = this.paymentTypes.find((entry) => entry.name === 'Efectivo');
+                    case "cash":
+                        payment_type = this.paymentTypes.find((entry) => entry.name === "Efectivo");
                         break;
                     default:
                         return;
@@ -293,11 +294,11 @@ let SolicitudDetailPage = class SolicitudDetailPage {
                 let response = yield axios__WEBPACK_IMPORTED_MODULE_10___default.a.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"]}/client/cost/paymentType/${this.loadedService.request_id}`, {
                     costs_type_id: 1,
                     payment_type_id: payment_type.id,
-                    description: 'Actualización del método de pago'
+                    description: "Actualización del método de pago",
                 }, {
                     headers: {
-                        Authorization: `Bearer ${this.user.access_token}`
-                    }
+                        Authorization: `Bearer ${this.user.access_token}`,
+                    },
                 });
                 yield loader.dismiss();
                 console.log(response);
@@ -305,15 +306,17 @@ let SolicitudDetailPage = class SolicitudDetailPage {
                     // TODO: Set error logic
                     return;
                 }
-                this.modalController.create({
+                this.modalController
+                    .create({
                     component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
                     componentProps: {
-                        message: 'HAZ ACEPTADO LA VISITA TÉCNICA',
+                        message: "HAZ ACEPTADO LA VISITA TÉCNICA",
                         redirect: true,
-                        redirectUrl: '/user/solicitudes'
+                        redirectUrl: "/user/solicitudes",
                     },
-                    cssClass: 'modalSuccess',
-                }).then(modalEl => {
+                    cssClass: "modalSuccess",
+                })
+                    .then((modalEl) => {
                     modalEl.present();
                 });
             }
@@ -325,16 +328,18 @@ let SolicitudDetailPage = class SolicitudDetailPage {
     }
     setPaymentType(type) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            let loader = yield this.loadingController.create({ message: 'Actualizando método de pago...' });
+            let loader = yield this.loadingController.create({
+                message: "Actualizando método de pago...",
+            });
             loader.present();
             try {
                 let payment_type;
                 switch (type) {
-                    case 'credit':
-                        payment_type = this.paymentTypes.find((entry) => entry.name === 'Tarjeta');
+                    case "credit":
+                        payment_type = this.paymentTypes.find((entry) => entry.name === "Tarjeta");
                         break;
-                    case 'cash':
-                        payment_type = this.paymentTypes.find((entry) => entry.name === 'Efectivo');
+                    case "cash":
+                        payment_type = this.paymentTypes.find((entry) => entry.name === "Efectivo");
                         break;
                     default:
                         return;
@@ -345,11 +350,11 @@ let SolicitudDetailPage = class SolicitudDetailPage {
                 let response = yield axios__WEBPACK_IMPORTED_MODULE_10___default.a.put(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"]}/client/cost/paymentType/${this.loadedService.request_id}`, {
                     costs_type_id: 1,
                     payment_type_id: payment_type.id,
-                    description: 'Actualización del método de pago'
+                    description: "Actualización del método de pago",
                 }, {
                     headers: {
-                        Authorization: `Bearer ${this.user.access_token}`
-                    }
+                        Authorization: `Bearer ${this.user.access_token}`,
+                    },
                 });
                 yield loader.dismiss();
                 console.log(response);
@@ -358,14 +363,16 @@ let SolicitudDetailPage = class SolicitudDetailPage {
                     return;
                 }
                 this.selectedButton = type;
-                this.modalController.create({
+                this.modalController
+                    .create({
                     component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
                     componentProps: {
-                        message: 'HAZ ACTUALIZADO EL MÉTODO DE PAGO',
+                        message: "HAZ ACTUALIZADO EL MÉTODO DE PAGO",
                         redirect: false,
                     },
-                    cssClass: 'modalSuccess',
-                }).then(modalEl => {
+                    cssClass: "modalSuccess",
+                })
+                    .then((modalEl) => {
                     modalEl.present();
                 });
             }
@@ -386,7 +393,7 @@ let SolicitudDetailPage = class SolicitudDetailPage {
                 componentProps: {
                     image,
                 },
-                cssClass: 'modalImage',
+                cssClass: "modalImage",
             });
             successModal.present();
         });
@@ -403,7 +410,7 @@ SolicitudDetailPage.ctorParameters = () => [
 ];
 SolicitudDetailPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-solicitud-detail',
+        selector: "app-solicitud-detail",
         template: _raw_loader_solicitud_detail_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_solicitud_detail_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
     })

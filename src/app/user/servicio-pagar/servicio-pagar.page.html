@@ -101,6 +101,24 @@
       </ion-col>
     </ion-row>
 
+    <!-- servicios adicionales  -->
+    <ion-row *ngIf="isFinished">
+      <ion-col size="11" offset="1">
+        <ion-text class="text ion-text-uppercase">
+          <b>REFERENCIA</b>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- costo  -->
+    <ion-row *ngIf="isFinished">
+      <ion-col size="11" offset="1">
+        <ion-text color="danger" class="title">
+          <b>{{loadedService && loadedService.reference ? loadedService.reference : 'N/D'}}</b>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
     <!-- Costo & pay BTNS-->
     <ion-row class="ion-margin-top">
       <ion-col size="1"></ion-col>
