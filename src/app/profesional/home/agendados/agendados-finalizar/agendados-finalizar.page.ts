@@ -353,7 +353,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
 
   formatInfo(request_cost) {
     if (request_cost !== null && request_cost.total) {
-      return request_cost.total[0].total
+      return Math.round(request_cost.total[0].total)
     }
   }
 }

@@ -61,7 +61,7 @@ export class SolicitudesPage implements OnInit, OnDestroy {
       loadingEl.present();
       axios.get(API + `/supplier/requestservice/${statusID}`, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
-        this.loadedServices = resData.data.data.filter(s => s.hours_creation == "0");
+        this.loadedServices = resData.data.data
         this.loadedServices = lodash.sortBy(this.loadedServices, ['id'])
         this.loadedServices = lodash.reverse(this.loadedServices)
       }).catch(err => {

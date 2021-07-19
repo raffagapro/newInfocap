@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Plugins } from '@capacitor/core';
 import { CallNumber } from '@ionic-native/call-number/ngx';
-import { LoadingController, MenuController, ModalController } from '@ionic/angular';
+import { LoadingController, MenuController, ModalController, Platform } from '@ionic/angular';
 import axios from 'axios';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
@@ -12,12 +13,22 @@ import { UserService } from 'src/app/services/user.service';
 import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
 import { API, PHONE_PREFIX } from 'src/environments/environment';
 
+const { Geolocation } = Plugins;
+declare var google: any;
 @Component({
   selector: 'app-solicitudes-detail',
   templateUrl: './solicitudes-detail.page.html',
   styleUrls: ['./solicitudes-detail.page.scss'],
 })
 export class SolicitudesDetailPage implements OnInit, OnDestroy {
+
+  @ViewChild("map", { read: ElementRef, static: false }) mapRef: ElementRef;
+  map: any;
+  marker: any;
+  GoogleAutocomplete: any;
+  Geocoder: any;
+  latLng = { lat: 0, lng: 0 }
+
   grabbedUser: User;
   userSub: Subscription;
   headers: String;
@@ -34,7 +45,10 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
     categoryName: null,
     clientPhone1: null,
     type: null,
-    request_cost: 0
+    address: null,
+    request_cost: 0,
+    adress_detail: null,
+    extra_instruccion: null,
   };
 
   slideOptions = {
@@ -51,7 +65,10 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
     private lc: LoadingController,
     private callNumber: CallNumber,
     private modalController: ModalController,
-  ) { }
+  ) {
+    this.Geocoder = new google.maps.Geocoder();
+    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+  }
 
   async ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
@@ -74,7 +91,8 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
         this.solicitudServicio.setImages(resData.data.data.images)
         this.solicitudServicio.setClientImg(resData.data.data.img_client_profile)
         this.solicitudServicio.setTicketNumber(resData.data.data.ticket_number)
-        this.solicitudServicio.setCategoryID(resData.data.data.categoryName)
+        this.solicitudServicio.setCategoryID(resData.data.data.category_id)
+        this.solicitudServicio.setCategoryName(resData.data.data.categoryName)
         this.solicitudServicio.setStatusID(resData.data.data.status_id)
         this.solicitudServicio.setClientPhone(resData.data.data.clientPhone1)
         this.solicitudServicio.setCosto(resData.data.data.request_cost[0] && resData.data.data.request_cost[0]);
@@ -91,6 +109,11 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
         this.loadedInfo.categoryName = resData.data.data.categoryName;
         this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
         this.loadedInfo.type = this.solicitudServicio.solicitud.type
+        this.loadedInfo.address = resData.data.data.adress
+        this.loadedInfo.adress_detail = resData.data.data.adress_detail
+        this.loadedInfo.extra_instruccion = resData.data.extra_instructions
+      }).then(() => {
+        this.loadMap(this.loadedInfo.address);
       }).catch(err => {
         console.log(err);
         loadingEl.dismiss();
@@ -100,6 +123,62 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
 
   ionViewWillEnter() {
     this.menuController.enable(true, 'profesional');
+  }
+
+  async loadMap(address) {
+    this.lc
+      .create({
+        message: "Generando mapa...",
+      })
+      .then(async (loadingEl) => {
+        loadingEl.present();
+        let latLng
+        await this.GoogleAutocomplete.getPlacePredictions(
+          {
+            input: address,
+            types: ["address"],
+            componentRestrictions: { country: "cl" },
+          },
+          (predictions, status) => {
+            if (predictions.length > 0) {
+              this.Geocoder.geocode(
+                {
+                  placeId: predictions[0].place_id,
+                },
+                (responses, status) => {
+                  if (status == "OK") {
+                    latLng = new google.maps.LatLng(
+                      responses[0].geometry.location.lat(),
+                      responses[0].geometry.location.lng()
+                    );
+
+                    let mapOptions = {
+                      center: latLng,
+                      zoom: 15,
+                      zoomControl: false,
+                      streetViewControl: false,
+                      mapTypeControl: false,
+                      fullscreenControl: false,
+                      mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    };
+                    this.map = new google.maps.Map(this.mapRef.nativeElement, mapOptions);
+                    this.marker = new google.maps.Marker({
+                      position: latLng,
+                      draggable: true,
+                      map: this.map,
+                    });
+                  }
+                }
+              );
+            }
+          }
+        );
+        loadingEl.dismiss();
+      })
+      .catch((error) => {
+        console.log(error);
+        this.lc.dismiss();
+      });
   }
 
   formatDate(date: string) {
@@ -161,7 +240,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
   }
 
   getUrl() {
-    if(!this.loadedInfo.img_client_profile || this.loadedInfo.img_client_profile === '/' || this.loadedInfo.img_client_profile === 'http://167.71.251.136/storage/' ) {
+    if (!this.loadedInfo.img_client_profile || this.loadedInfo.img_client_profile === '/' || this.loadedInfo.img_client_profile === 'http://167.71.251.136/storage/') {
       return "url('assets/images/avatar.png')"
     } else {
       return `url(${this.loadedInfo.img_client_profile})`

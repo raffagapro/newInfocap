@@ -69,7 +69,8 @@
 
           <!-- slide -->
           <ion-slide *ngFor="let image of loadedInfo.images">
-            <div (click)="openImage(image.image)" class="ion-margin-start imgSlide" [ngStyle]="{'background-image': 'url(' + image.image + ')'}"></div>
+            <div (click)="openImage(image.image)" class="ion-margin-start imgSlide"
+              [ngStyle]="{'background-image': 'url(' + image.image + ')'}"></div>
           </ion-slide>
 
         </ion-slides>
@@ -162,6 +163,33 @@
         </a>
         <div class="locate-cont" (click)="openWhatsapp()">
           <ion-icon src="/assets/icon/ic_whatsapp.svg" color="light" class="rating-text"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color subtitle"><b>Ubicación</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="titleText">{{ loadedInfo.adress_detail }}</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col *ngIf="loadedInfo.extra_instruccion !== 'null'" size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="titleText">{{ loadedInfo.extra_instruccion }}</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col class="ion-text-center center-map" size="10">
+        <div #map id="map">
         </div>
       </ion-col>
       <ion-col size="1"></ion-col>

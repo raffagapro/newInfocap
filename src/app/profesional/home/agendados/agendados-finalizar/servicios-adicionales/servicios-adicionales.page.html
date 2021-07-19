@@ -2,8 +2,8 @@
   <ion-toolbar color="primary">
 
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="profesional/agendados/agendados-finalizar" text=""
-        icon="arrow-back"></ion-back-button>
+      <ion-back-button defaultHref="profesional/agendados/agendados-finalizar" text="" icon="arrow-back">
+      </ion-back-button>
     </ion-buttons>
 
     <ion-title class="title-toolbar">SERVICIOS ADICIONALES</ion-title>
@@ -23,21 +23,20 @@
         </ion-col>
 
         <!-- title -->
-        <ion-col size-md="3"  sizeXs="6">
+        <ion-col size-md="3" sizeXs="6">
           <ion-row>
             <small class="ticket">Solicitud #{{ loadedInfo.ticket_number }}</small>
           </ion-row>
           <ion-row>
-            <span class="titleSelect main-color">
-              {{ loadedInfo.categoryName }} para<br>
-              {{ loadedInfo.clientName }} {{
-                loadedInfo.clientLastName }}
-            </span>
-            <br>
-            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">{{ d(loadedInfo.created_date) }}</p>
+            <span class="titleSelect main-color ion-text-capitalize">{{ loadedInfo.categoryName }} para<br>
+              <span class="ion-text-capitalize titleName">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName
+                }}</span>
+            </span><br>
+            <p class="textSelect main-color" style="margin-top: 0; margin-bottom: 0;">{{ d(loadedInfo.created_date) }}
+            </p>
           </ion-row>
         </ion-col>
-        <ion-col size-md="3"  sizeXs="0"></ion-col>
+        <ion-col size-md="3" sizeXs="0"></ion-col>
       </ion-row>
     </ion-grid>
   </div>
@@ -46,32 +45,32 @@
     <form [formGroup]="formAdicional" (ngSubmit)="saveExtra()">
       <!-- text -->
       <ion-row>
-        
+
         <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color regText"><b>Detalles del trabajo adicional</b></ion-text>
         </ion-col>
-        
+
       </ion-row>
 
       <!-- text-area -->
       <ion-row class="ion-margin-top">
-        
+
         <ion-col size="12" class="border ion-text-center">
           <ion-item lines="none">
             <ion-textarea formControlName="detailes" rows="3" cols="20"
               placeholder="Describe los trabajos adicionales. Máximo 250 caracteres con espacios."></ion-textarea>
           </ion-item>
         </ion-col>
-        
+
       </ion-row>
 
       <!-- title -->
       <ion-row class="ion-margin-top ta-center">
-        
+
         <ion-col size="12">
           <ion-text class="main-color title"><b>Fotografías del trabajo realizado</b></ion-text>
         </ion-col>
-        
+
       </ion-row>
 
       <!-- images -->
@@ -107,16 +106,16 @@
 
       <!-- title -->
       <ion-row>
-        
+
         <ion-col size="12" class="ion-text-center">
           <ion-text class="main-color title"><b>Captura el costo <span class="redText">*</span></b></ion-text>
         </ion-col>
-        
+
       </ion-row>
 
       <!-- costo -->
       <ion-row>
-        
+
         <ion-col size="12">
           <ion-item>
             <ion-label position="floating">
@@ -126,18 +125,19 @@
             <ion-input formControlName="price" type="number"></ion-input>
           </ion-item>
         </ion-col>
-        
+
       </ion-row>
 
       <!-- GUARDAR trabajo BTN -->
       <ion-row class="ion-margin-top ion-margin-bottom">
-        
+
         <ion-col>
-          <ion-button [disabled]="!formAdicional.valid" size="5" type="submit" expand="block" class="ion-text-uppercase" color="primary">
+          <ion-button [disabled]="!formAdicional.valid" size="5" type="submit" expand="block" class="ion-text-uppercase"
+            color="primary">
             GUARDAR
           </ion-button>
         </ion-col>
-        
+
       </ion-row>
     </form>
   </ion-grid>

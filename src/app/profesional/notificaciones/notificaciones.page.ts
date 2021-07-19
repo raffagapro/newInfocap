@@ -71,9 +71,10 @@ export class NotificacionesPage implements OnInit {
     }
   }
 
-  async goToRequestDetail(solicitudId: string, notificationId: number) {
+  async goToRequestDetail(solicitudId: string, notificationId: number, type: string, status_id: number) {
     axios.put(API + `/notification/view/${notificationId}`, { viewed: 1, }, { headers: { Authorization: `Bearer ${this.grabbedUser.access_token}` } }).then(resData => {
       this.solicitudServicio.setID(solicitudId);
+      this.solicitudServicio.setSolicitudType(type);
 
 
       let updatedNotifications = this.notifications.map((notification: Notification) => {
@@ -85,7 +86,12 @@ export class NotificacionesPage implements OnInit {
 
 
       this.notificationService.setNotifications(updatedNotifications);
-      this.router.navigate(['profesional/agendados/agendados-detail']);
+      if (status_id > 1) {
+        this.router.navigate(['profesional/agendados/agendados-detail']);
+      } else {
+        this.router.navigate(['/profesional/solicitudes/solicitudes-detail']);
+      }
+
     }).catch(err => {
       console.log(err)
     })
@@ -112,13 +118,13 @@ export class NotificacionesPage implements OnInit {
   }
 
   validationName(customerName, supplierName, status, prodId) {
-      if (status !== 1) {
-        if(supplierName !== 'No definido') {
-          return supplierName
-        }
-      } else {
-        return customerName
+    if (status !== 1) {
+      if (supplierName !== 'No definido') {
+        return supplierName
       }
+    } else {
+      return customerName
+    }
   }
 
   formatMotivo(type, status, motive) {

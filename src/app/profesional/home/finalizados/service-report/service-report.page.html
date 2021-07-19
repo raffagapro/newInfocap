@@ -46,8 +46,8 @@
       </ion-col>
 
       <ion-col size="4" class="ion-text-right">
-        <ion-text class="text" color="danger">
-          <b>${{getServiceCost()}}</b>
+        <ion-text class="text main-color">
+          <b>${{getAmountClient()}}</b>
         </ion-text>
       </ion-col>
     </ion-row>
@@ -70,7 +70,7 @@
       </ion-col>
 
       <ion-col size="4" class="ion-text-right">
-        <ion-text class="text" color="danger">
+        <ion-text class="text main-color">
           <b>${{getServiceAditional()}}</b>
         </ion-text>
       </ion-col>
@@ -115,6 +115,21 @@
             </ion-img>
           </ion-slide>
         </ion-slides>
+      </ion-col>
+    </ion-row>
+
+    <!-- Total -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="8" class="ion-text-left">
+        <ion-text style="font-size: 24px;"  class="text main-color">
+          <b>Total</b>
+        </ion-text>
+      </ion-col>
+
+      <ion-col size="4" class="ion-text-right">
+        <ion-text class="text" style="font-size: 24px;" color="danger">
+          <b>${{getServiceCost()}}</b>
+        </ion-text>
       </ion-col>
     </ion-row>
 
