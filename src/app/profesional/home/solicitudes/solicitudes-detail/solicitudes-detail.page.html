@@ -18,12 +18,12 @@
       <ion-row class="ion-align-items-center">
         <!-- profile img -->
         <ion-col size-md="3" sizeXs="1"></ion-col>
-        <ion-col size-md="3"  sizeXs="4">
+        <ion-col size-md="3" sizeXs="4">
           <div class="ion-margin-start profileImg" [ngStyle]="{'background-image': getUrl()}"></div>
         </ion-col>
 
         <!-- title -->
-        <ion-col size-md="3"  sizeXs="6">
+        <ion-col size-md="3" sizeXs="6">
           <ion-text>
             <small class="ticket">Solicitud #{{ loadedInfo.ticket_number }}</small><br>
             <span class="titleSelect main-color ion-text-capitalize">{{ loadedInfo.categoryName }} para<br>
@@ -34,8 +34,8 @@
             </p>
           </ion-text>
         </ion-col>
-        
-        <ion-col size-md="3"  sizeXs="0"></ion-col>
+
+        <ion-col size-md="3" sizeXs="0"></ion-col>
       </ion-row>
     </ion-grid>
   </div>
@@ -65,7 +65,8 @@
 
           <!-- slide -->
           <ion-slide *ngFor="let image of loadedInfo.images">
-            <div (click)="openImage(image.image)" class="ion-margin-start imgSlide" [ngStyle]="{'background-image': 'url(' + image.image + ')'}"></div>
+            <div (click)="openImage(image.image)" class="ion-margin-start imgSlide"
+              [ngStyle]="{'background-image': 'url(' + image.image + ')'}"></div>
           </ion-slide>
 
         </ion-slides>
@@ -141,6 +142,36 @@
       <ion-col size="1"></ion-col>
     </ion-row>
 
+    <ion-row>
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="main-color subtitle"><b>Ubicación</b></ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="titleText">{{ loadedInfo.adress_detail }}</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col *ngIf="loadedInfo.extra_instruccion !== 'null'" size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
+        <ion-text class="titleText">{{ loadedInfo.extra_instruccion }}</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col class="ion-text-center center-map" size="10">
+        <div #map id="map">
+        </div>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+    </ion-row>
+
+
+
     <br />
     <!-- Visita de valoracion -->
     <ion-row *ngIf="loadedInfo.type == 'NORMAL'">
@@ -151,8 +182,7 @@
       <ion-col size="1"></ion-col>
       <ion-col size="1"></ion-col>
       <ion-col>
-        <ion-button size="10" expand="block" class="btn-val ion-text-uppercase" fill="outline"
-          (click)="confirmVisit()">
+        <ion-button size="10" expand="block" class="btn-val ion-text-uppercase" fill="outline" (click)="confirmVisit()">
           <ion-icon slot="start" src="/assets/icon/ic_event_available.svg"></ion-icon>
           <ion-text class="main-color">VISITA DE VALORACIÓN</ion-text>
         </ion-button>

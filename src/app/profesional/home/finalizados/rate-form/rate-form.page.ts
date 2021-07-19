@@ -35,6 +35,7 @@ export class RateFormPage implements OnInit {
     images: null,
     categoryName: null,
     clientPhone1: null,
+    img_client_profile: null,
     request_cost: {}
   };
 
@@ -84,6 +85,7 @@ export class RateFormPage implements OnInit {
     this.loadedInfo.categoryName = this.solicitudServicio.solicitud.category_id
     this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
     this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
+    this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg
     this.menuController.enable(true, 'profesional');
   }
 
@@ -94,6 +96,14 @@ export class RateFormPage implements OnInit {
   changeStars(s) {
     this.rate = s
     this.isRated = true
+  }
+
+  getUrl() {
+    if(!this.loadedInfo.img_client_profile || this.loadedInfo.img_client_profile === '/' || this.loadedInfo.img_client_profile === 'http://167.71.251.136/storage/') {
+      return "url('assets/images/avatar.png')"
+    } else {
+      return `url(${this.loadedInfo.img_client_profile})`
+    }
   }
 
   sendRate() {
