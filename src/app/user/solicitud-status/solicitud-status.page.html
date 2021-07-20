@@ -221,7 +221,7 @@
 
       <!-- Pago Finalizado  -->
       <!-- grey  -->
-      <ion-row *ngIf="loadedService.status_id < 6 && loadedService.status_id !== 7">
+      <ion-row *ngIf="loadedService.status_id < 9 && loadedService.status_id !== 7">
         <div class="status-cont-grey">
           <ion-icon src="/assets/icon/ic_card_disabled.svg" color="light" class="status-text-icon"></ion-icon>
         </div>
@@ -232,7 +232,7 @@
         </ion-col>
       </ion-row>
       <!-- active  -->
-      <ion-row *ngIf="loadedService.status_id > 5 && loadedService.status_id !== 7">
+      <ion-row *ngIf="loadedService.status_id > 7 && loadedService.status_id !== 7 && loadedService.status_id !== 9">
         <div class="status-cont" (click)="serviceDetal(6)">
           <ion-icon src="/assets/icon/ic_card_blue.svg" color="light" class="status-text-icon"></ion-icon>
         </div>

@@ -29,4 +29,7 @@ export enum ServiceStatus {
 	ServicioRealizado = 5,
 	ServicioFinalizado = 6,
 	ServicioRechazado = 7,
+	ServicioPagado = 8,
+	ServicioPendienteDePago = 9,
+	TicketCancelado = 11,
 }
