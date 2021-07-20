@@ -71,7 +71,7 @@ export class NotificacionesPage implements OnInit {
     }
   }
 
-  async goToRequestDetail(solicitudId: string, notificationId: number, type: string, status_id: number) {
+  async goToRequestDetail(solicitudId: string, notificationId: number, type: string) {
     axios.put(API + `/notification/view/${notificationId}`, { viewed: 1, }, { headers: { Authorization: `Bearer ${this.grabbedUser.access_token}` } }).then(resData => {
       this.solicitudServicio.setID(solicitudId);
       this.solicitudServicio.setSolicitudType(type);
@@ -86,12 +86,15 @@ export class NotificacionesPage implements OnInit {
 
 
       this.notificationService.setNotifications(updatedNotifications);
-      if (status_id > 1) {
-        this.router.navigate(['profesional/agendados/agendados-detail']);
-      } else {
-        this.router.navigate(['/profesional/solicitudes/solicitudes-detail']);
-      }
 
+    }).then(() => {
+      axios.get(API + `/supplier/requestservicedetail/${solicitudId}`, { headers: { Authorization: `Bearer ${this.grabbedUser.access_token}` } }).then(resData => {
+        if (resData.data.data.status_id > 1) {
+          this.router.navigate(['/profesional/agendados/agendados-detail']);
+        } else {
+          this.router.navigate(['/profesional/solicitudes/solicitudes-detail']);
+        }
+      })
     }).catch(err => {
       console.log(err)
     })
