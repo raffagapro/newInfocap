@@ -25,7 +25,7 @@
     <ion-grid>
       <ion-item-sliding no-lines>
         <ion-item class="ion-no-padding ion-item-notificaciones" no-lines
-          (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id, notification.type_request, notification.status_id)">
+          (click)="goToRequestDetail(notification.request_service_id, notification.notification_Id, notification.type_request)">
           <div class="marker" *ngIf="!notification.viewed">&nbsp;</div>
           <ion-grid>
             <ion-row class="ion-align-items-center">

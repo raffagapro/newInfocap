@@ -190,7 +190,7 @@ export class ServiciosAdicionalesPage implements OnInit {
     
     this.formAdicional.patchValue({
       detailes: aditionalCost.addittional[0] && aditionalCost.addittional[0].description,
-      price: aditionalCost.addittional[0] && aditionalCost.addittional[0].amount_suplier
+      price: Math.round(aditionalCost.addittional[0] && aditionalCost.addittional[0].amount_suplier)
     })
 
     aditionalCost.img_addittional.forEach(img => {
@@ -228,7 +228,7 @@ export class ServiciosAdicionalesPage implements OnInit {
       this.solicitudServicio.setCosto(parseFloat(this.formAdicional.value.price))
 
       
-    if (this.loadedImages.length === 0) {
+    if (this.loadedImages.length === 0 && this.loadedImagesDisplay.length === 0) {
       alert('Debes agregar al menos una foto a la solicitud.');
       loadingEl.dismiss();
       return
