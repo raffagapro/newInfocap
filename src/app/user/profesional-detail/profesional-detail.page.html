@@ -160,7 +160,7 @@
           <p class="ratingText main-color ion-text-right">
             de {{evaluationsData.worknumber}}
             &nbsp;<ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>&nbsp;
-            / 0
+            / {{evaluationsData ? evaluationsData.technical_capacity_everage : 0}}
             &nbsp;<ion-icon src="/assets/icon/ic_engine_circle.svg" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
@@ -181,7 +181,7 @@
           <p class="ratingText main-color ion-text-right">
             de {{evaluationsData.worknumber}}
             &nbsp;<ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>&nbsp;
-            / 0
+            / {{evaluationsData ? evaluationsData.puntuality_everage : 0}}
             &nbsp;<ion-icon src="/assets/icon/ic_time_circle.svg" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
@@ -202,7 +202,7 @@
           <p class="ratingText main-color ion-text-right">
             de {{evaluationsData.worknumber}}
             &nbsp;<ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>&nbsp;
-            / 0
+            / {{ evaluationsData ? evaluationsData.cordiality_everage : 0}}
             &nbsp;<ion-icon src="/assets/icon/ic_heart_circle.svg" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
@@ -223,7 +223,7 @@
           <p class="ratingText main-color ion-text-right">
             de {{evaluationsData.worknumber}}
             &nbsp;<ion-icon src="/assets/icon/ic_hands.svg" class="iconEnd"></ion-icon>&nbsp;
-            / 0
+            / {{ evaluationsData ? evaluationsData.service_and_satisfaction_everage : 0}}
             &nbsp;<ion-icon src="/assets/icon/ic_diamont_circle.svg" class="iconEnd"></ion-icon>
           </p>
         </ion-text>
