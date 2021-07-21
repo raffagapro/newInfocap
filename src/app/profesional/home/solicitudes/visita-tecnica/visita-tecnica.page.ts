@@ -84,7 +84,7 @@ export class VisitaTecnicaPage implements OnInit {
     this.loadedInfo.images = this.solicitudServicio.solicitud.images
     this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg
     this.loadedInfo.ticket_number = this.solicitudServicio.solicitud.ticket_number
-    this.loadedInfo.categoryName = this.solicitudServicio.solicitud.category_id
+    this.loadedInfo.categoryName = this.solicitudServicio.solicitud.categoryName
     this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
     this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
     this.loadedInfo.created_date = this.solicitudServicio.solicitud.created_date
