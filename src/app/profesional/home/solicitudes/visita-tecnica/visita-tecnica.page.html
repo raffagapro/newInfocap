@@ -31,8 +31,10 @@
         <ion-col size-md="3" sizeXs="6">
           <ion-text>
             <small class="ticket">Solicitud #{{ loadedInfo.ticket_number }}</small><br>
-            <span class="titleSelect main-color">{{ loadedInfo.categoryName }} para <br> {{ loadedInfo.clientName }} {{
-              loadedInfo.clientLastName }}</span><br>
+            <span class="titleSelect main-color ion-text-capitalize">{{ loadedInfo.categoryName }} para<br>
+              <span class="ion-text-capitalize titleName">{{ loadedInfo.clientName+" "+loadedInfo.clientLastName
+                }}</span>
+            </span><br>
             <p class="main-color mini-text" style="margin-top: 0; margin-bottom: 0;">{{ formatDate(loadedInfo.created_date) }}</p>
           </ion-text>
         </ion-col>
@@ -123,7 +125,7 @@
       <!-- enviar solicitud BTN -->
       <ion-row class="ion-margin-top ion-margin-bottom">
         <ion-col>
-          <ion-button type="submit" size="12" expand="block" class="ion-text-uppercase">
+          <ion-button [disabled]="!formVisitaTecnica.valid" type="submit" size="12" expand="block" class="ion-text-uppercase">
             NOTIFICAR AL CLIENTE
           </ion-button>
         </ion-col>
