@@ -466,7 +466,7 @@
         }, {
           key: "formatdate",
           value: function formatdate(date, hours) {
-            return moment__WEBPACK_IMPORTED_MODULE_7__["utc"]("".concat(date, " ").concat(hours), "DD-MM-YYYY hh:mm:ss").startOf("minute").fromNow();
+            return moment__WEBPACK_IMPORTED_MODULE_7__("".concat(date, " ").concat(hours), "DD-MM-YYYY hh:mm:ss").startOf("minute").fromNow();
           }
         }, {
           key: "deleteNotification",

@@ -163,9 +163,7 @@
                 }
               }).then(function (resData) {
                 loadingEl.dismiss();
-                _this2.loadedServices = resData.data.data.filter(function (s) {
-                  return s.hours_creation == "0";
-                });
+                _this2.loadedServices = resData.data.data;
                 _this2.loadedServices = lodash__WEBPACK_IMPORTED_MODULE_11__["sortBy"](_this2.loadedServices, ['id']);
                 _this2.loadedServices = lodash__WEBPACK_IMPORTED_MODULE_11__["reverse"](_this2.loadedServices);
               })["catch"](function (err) {

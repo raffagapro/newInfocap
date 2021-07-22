@@ -252,7 +252,7 @@ let ProfilePagePage = class ProfilePagePage {
             quality: 100,
             source: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraSource"].Prompt,
             correctOrientation: true,
-            //height: 150,
+            height: 450,
             // width: 200,
             resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraResultType"].DataUrl,
             promptLabelPhoto: 'Fotos',

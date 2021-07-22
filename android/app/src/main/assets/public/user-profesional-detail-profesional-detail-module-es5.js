@@ -124,7 +124,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/profesional-list\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">TU PROFESIONAL</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"main-font\">\n\n  <!-- Slider -->\n  <ion-grid>\n    <ion-row class=\"ion-align-items-center ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <ion-slides>\n          <!-- slide -->\n          <ion-slide *ngFor=\"let image of loadedImgList\">\n            <img src=\"{{ image.image }}\" class=\"imgSlide\">\n          </ion-slide>\n\n        </ion-slides>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n  <div style=\"height: 30px;\" *ngIf=\"loadedImgList.length === 0\"></div>\n\n  <!-- profesional card item -->\n  <div class=\"no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center ion-margin-top\">\n        <!-- profile img -->\n        <ion-col size=\"4\" sizeMd=\"2\">\n          <ion-avatar class=\"profileImg\">\n            <ion-img src=\"{{ !selectedProfPhoto ? 'assets/images/avatar.png' : selectedProfPhoto }}\"></ion-img>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"8\" sizeMd=\"10\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">\n              {{ selectedProCat.supplierName }} {{ selectedProCat.supplierLastName }}\n            </span><br>\n            <!-- se necesita extra codigo para mostar todas la profesiones  -->\n            <ion-badge color=\"primary\" class=\"badge-text\">\n              {{ selectedProCat.categoryName }}\n            </ion-badge>\n            <div *ngIf=\"selectedProCat && selectedProCat.categories && selectedProCat.categories.length > 1\"\n              style=\"display: inline-flex\">\n              <ion-badge *ngFor=\"let category of filterCategories;\"\n                color=\"medium\" class=\"badge-text\">\n                {{ category.categoryName }}\n              </ion-badge>\n            </div>\n            <br>\n            <!-- <ion-badge color=\"medium\" class=\"badge-text\">Gasfiter</ion-badge>\n            <ion-badge color=\"medium\" class=\"badge-text\">Eléctrico</ion-badge><br> -->\n            <!--<p class=\"textSelect main-color ion-text-capitalize\" style=\"margin-top: 0; margin-bottom: 0;\">Vehículo: {{\n              selectedProCat.transportName}}</p>-->\n            <p class=\"textSelect main-color\" style=\"margin-top: 0; margin-bottom: 0;\">Horario: {{ editedHours }}</p>\n            <p class=\"textSelect main-color\" style=\"margin-top: 0; margin-bottom: 0;\">Dias: {{ editedDays }}</p>\n            <p class=\"textSelect main-color ion-text-capitalize\" style=\"margin-top: 0; margin-bottom: 0;\">{{\n              selectedProCat.communeName }}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid class=\"content-padding\">\n\n    <!-- desc pro -->\n    <ion-row class=\"\">\n      <ion-col size=\"12\">\n        <ion-text>\n          <p class=\"regText ion-text-left\">\n            {{ selectedProCat.description }}\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- mdesc of -->\n    <!--\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\">\n        <ion-text>\n          <p class=\"regText ion-text-capitalize ion-text-center\">\n            {{ selectedProCat.description }}\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n    -->\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\" offset=\"1\"></ion-col>\n      <ion-col size=\"8\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Evaluaciones generales</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- trabajos realizados -->\n    <ion-row class=\"border-bot\">\n      <!-- Text -->\n      <ion-col size=\"9\">\n        <ion-text>\n          <p class=\"itemText\">Cantidad de trabajos realizados</p>\n        </ion-text>\n      </ion-col>\n      <!-- icon -->\n      <ion-col size=\"3\">\n        <ion-text>\n          <p class=\"ratingText main-color ion-text-right\">\n            {{evaluationsData.worknumber}} &nbsp;\n            <ion-icon src=\"/assets/icon/ic_hands.svg\" class=\"iconEnd\"></ion-icon>\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- valoracion -->\n    <ion-row class=\"border-bot\">\n      <!-- Text -->\n      <ion-col size=\"9\">\n        <ion-text>\n          <p class=\"itemText\">Valoraciones en relación al trabajo</p>\n        </ion-text>\n      </ion-col>\n      <!-- icon -->\n      <ion-col size=\"3\">\n        <ion-text>\n          <p class=\"ratingText main-color ion-text-right\">\n            {{evaluationsData.stars_everage}}\n            &nbsp;\n            <ion-icon src=\"/assets/icon/ic_star.svg\" class=\"iconEnd\"></ion-icon>\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- capacidad tecnica -->\n    <ion-row class=\"border-bot\">\n      <!-- Text -->\n      <ion-col size=\"7\">\n        <ion-text>\n          <p class=\"itemText\">Capacidad Técnica</p>\n        </ion-text>\n      </ion-col>\n      <!-- icon -->\n      <ion-col size=\"5\">\n        <ion-text>\n          <p class=\"ratingText main-color ion-text-right\">\n            de {{evaluationsData.worknumber}}\n            &nbsp;<ion-icon src=\"/assets/icon/ic_hands.svg\" class=\"iconEnd\"></ion-icon>&nbsp;\n            / 0\n            &nbsp;<ion-icon src=\"/assets/icon/ic_engine_circle.svg\" class=\"iconEnd\"></ion-icon>\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Puntualidad -->\n    <ion-row class=\"border-bot\">\n      <!-- Text -->\n      <ion-col size=\"7\">\n        <ion-text>\n          <p class=\"itemText\">Puntualidad</p>\n        </ion-text>\n      </ion-col>\n      <!-- icon -->\n      <ion-col size=\"5\">\n        <ion-text>\n          <p class=\"ratingText main-color ion-text-right\">\n            de {{evaluationsData.worknumber}}\n            &nbsp;<ion-icon src=\"/assets/icon/ic_hands.svg\" class=\"iconEnd\"></ion-icon>&nbsp;\n            / 0\n            &nbsp;<ion-icon src=\"/assets/icon/ic_time_circle.svg\" class=\"iconEnd\"></ion-icon>\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Cordialidad -->\n    <ion-row class=\"border-bot\">\n      <!-- Text -->\n      <ion-col size=\"7\">\n        <ion-text>\n          <p class=\"itemText\">Cordialidad</p>\n        </ion-text>\n      </ion-col>\n      <!-- icon -->\n      <ion-col size=\"5\">\n        <ion-text>\n          <p class=\"ratingText main-color ion-text-right\">\n            de {{evaluationsData.worknumber}}\n            &nbsp;<ion-icon src=\"/assets/icon/ic_hands.svg\" class=\"iconEnd\"></ion-icon>&nbsp;\n            / 0\n            &nbsp;<ion-icon src=\"/assets/icon/ic_heart_circle.svg\" class=\"iconEnd\"></ion-icon>\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Servicio y Satisfacción -->\n    <ion-row class=\"border-bot\">\n      <!-- Text -->\n      <ion-col size=\"7\">\n        <ion-text>\n          <p class=\"itemText\">Servicio y Satisfacción</p>\n        </ion-text>\n      </ion-col>\n      <!-- icon -->\n      <ion-col size=\"5\">\n        <ion-text>\n          <p class=\"ratingText main-color ion-text-right\">\n            de {{evaluationsData.worknumber}}\n            &nbsp;<ion-icon src=\"/assets/icon/ic_hands.svg\" class=\"iconEnd\"></ion-icon>&nbsp;\n            / 0\n            &nbsp;<ion-icon src=\"/assets/icon/ic_diamont_circle.svg\" class=\"iconEnd\"></ion-icon>\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- footer text -->\n    <ion-row class=\"subtitle ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"lastText main-color\"><b>\n            ¿Quieres enviarle una solicitud de servicio a\n            <span class=\"ion-text-capitalize\"> {{ selectedProCat.supplierName }} {{ selectedProCat.supplierLastName\n              }}?</span>\n          </b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- enviar solicitud BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"sendRequest()\">\n          ENVIAR SOLICITUD\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/profesional-list\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">TU PROFESIONAL</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"main-font\">\n\n  <!-- Slider -->\n  <ion-grid>\n    <ion-row class=\"ion-align-items-center ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <ion-slides>\n          <!-- slide -->\n          <ion-slide *ngFor=\"let image of loadedImgList\">\n            <img src=\"{{ image.image }}\" class=\"imgSlide\">\n          </ion-slide>\n\n        </ion-slides>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n  <div style=\"height: 30px;\" *ngIf=\"loadedImgList.length === 0\"></div>\n\n  <!-- profesional card item -->\n  <div class=\"no-border\">\n    <ion-grid>\n      <ion-row class=\"ion-align-items-center ion-margin-top\">\n        <!-- profile img -->\n        <ion-col size=\"4\" sizeMd=\"2\">\n          <ion-avatar class=\"profileImg\">\n            <ion-img src=\"{{ !selectedProfPhoto ? 'assets/images/avatar.png' : selectedProfPhoto }}\"></ion-img>\n          </ion-avatar>\n        </ion-col>\n\n        <!-- title -->\n        <ion-col size=\"8\" sizeMd=\"10\">\n          <ion-text>\n            <span class=\"titleSelect main-color ion-text-capitalize\">\n              {{ selectedProCat.supplierName }} {{ selectedProCat.supplierLastName }}\n            </span><br>\n            <!-- se necesita extra codigo para mostar todas la profesiones  -->\n            <ion-badge color=\"primary\" class=\"badge-text\">\n              {{ selectedProCat.categoryName }}\n            </ion-badge>\n            <div *ngIf=\"selectedProCat && selectedProCat.categories && selectedProCat.categories.length > 1\"\n              style=\"display: inline-flex\">\n              <ion-badge *ngFor=\"let category of filterCategories;\"\n                color=\"medium\" class=\"badge-text\">\n                {{ category.categoryName }}\n              </ion-badge>\n            </div>\n            <br>\n            <!-- <ion-badge color=\"medium\" class=\"badge-text\">Gasfiter</ion-badge>\n            <ion-badge color=\"medium\" class=\"badge-text\">Eléctrico</ion-badge><br> -->\n            <!--<p class=\"textSelect main-color ion-text-capitalize\" style=\"margin-top: 0; margin-bottom: 0;\">Vehículo: {{\n              selectedProCat.transportName}}</p>-->\n            <p class=\"textSelect main-color\" style=\"margin-top: 0; margin-bottom: 0;\">Horario: {{ editedHours }}</p>\n            <p class=\"textSelect main-color\" style=\"margin-top: 0; margin-bottom: 0;\">Dias: {{ editedDays }}</p>\n            <p class=\"textSelect main-color ion-text-capitalize\" style=\"margin-top: 0; margin-bottom: 0;\">{{\n              selectedProCat.communeName }}</p>\n          </ion-text>\n        </ion-col>\n\n      </ion-row>\n    </ion-grid>\n  </div>\n\n  <ion-grid class=\"content-padding\">\n\n    <!-- desc pro -->\n    <ion-row class=\"\">\n      <ion-col size=\"12\">\n        <ion-text>\n          <p class=\"regText ion-text-left\">\n            {{ selectedProCat.description }}\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- mdesc of -->\n    <!--\n    <ion-row>\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"10\">\n        <ion-text>\n          <p class=\"regText ion-text-capitalize ion-text-center\">\n            {{ selectedProCat.description }}\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n    -->\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\" offset=\"1\"></ion-col>\n      <ion-col size=\"8\" class=\"ion-text-center\">\n        <ion-text class=\"main-color title\"><b>Evaluaciones generales</b></ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- trabajos realizados -->\n    <ion-row class=\"border-bot\">\n      <!-- Text -->\n      <ion-col size=\"9\">\n        <ion-text>\n          <p class=\"itemText\">Cantidad de trabajos realizados</p>\n        </ion-text>\n      </ion-col>\n      <!-- icon -->\n      <ion-col size=\"3\">\n        <ion-text>\n          <p class=\"ratingText main-color ion-text-right\">\n            {{evaluationsData.worknumber}} &nbsp;\n            <ion-icon src=\"/assets/icon/ic_hands.svg\" class=\"iconEnd\"></ion-icon>\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- valoracion -->\n    <ion-row class=\"border-bot\">\n      <!-- Text -->\n      <ion-col size=\"9\">\n        <ion-text>\n          <p class=\"itemText\">Valoraciones en relación al trabajo</p>\n        </ion-text>\n      </ion-col>\n      <!-- icon -->\n      <ion-col size=\"3\">\n        <ion-text>\n          <p class=\"ratingText main-color ion-text-right\">\n            {{evaluationsData.stars_everage}}\n            &nbsp;\n            <ion-icon src=\"/assets/icon/ic_star.svg\" class=\"iconEnd\"></ion-icon>\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- capacidad tecnica -->\n    <ion-row class=\"border-bot\">\n      <!-- Text -->\n      <ion-col size=\"7\">\n        <ion-text>\n          <p class=\"itemText\">Capacidad Técnica</p>\n        </ion-text>\n      </ion-col>\n      <!-- icon -->\n      <ion-col size=\"5\">\n        <ion-text>\n          <p class=\"ratingText main-color ion-text-right\">\n            de {{evaluationsData.worknumber}}\n            &nbsp;<ion-icon src=\"/assets/icon/ic_hands.svg\" class=\"iconEnd\"></ion-icon>&nbsp;\n            / {{evaluationsData ? evaluationsData.technical_capacity_everage : 0}}\n            &nbsp;<ion-icon src=\"/assets/icon/ic_engine_circle.svg\" class=\"iconEnd\"></ion-icon>\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Puntualidad -->\n    <ion-row class=\"border-bot\">\n      <!-- Text -->\n      <ion-col size=\"7\">\n        <ion-text>\n          <p class=\"itemText\">Puntualidad</p>\n        </ion-text>\n      </ion-col>\n      <!-- icon -->\n      <ion-col size=\"5\">\n        <ion-text>\n          <p class=\"ratingText main-color ion-text-right\">\n            de {{evaluationsData.worknumber}}\n            &nbsp;<ion-icon src=\"/assets/icon/ic_hands.svg\" class=\"iconEnd\"></ion-icon>&nbsp;\n            / {{evaluationsData ? evaluationsData.puntuality_everage : 0}}\n            &nbsp;<ion-icon src=\"/assets/icon/ic_time_circle.svg\" class=\"iconEnd\"></ion-icon>\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Cordialidad -->\n    <ion-row class=\"border-bot\">\n      <!-- Text -->\n      <ion-col size=\"7\">\n        <ion-text>\n          <p class=\"itemText\">Cordialidad</p>\n        </ion-text>\n      </ion-col>\n      <!-- icon -->\n      <ion-col size=\"5\">\n        <ion-text>\n          <p class=\"ratingText main-color ion-text-right\">\n            de {{evaluationsData.worknumber}}\n            &nbsp;<ion-icon src=\"/assets/icon/ic_hands.svg\" class=\"iconEnd\"></ion-icon>&nbsp;\n            / {{ evaluationsData ? evaluationsData.cordiality_everage : 0}}\n            &nbsp;<ion-icon src=\"/assets/icon/ic_heart_circle.svg\" class=\"iconEnd\"></ion-icon>\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Servicio y Satisfacción -->\n    <ion-row class=\"border-bot\">\n      <!-- Text -->\n      <ion-col size=\"7\">\n        <ion-text>\n          <p class=\"itemText\">Servicio y Satisfacción</p>\n        </ion-text>\n      </ion-col>\n      <!-- icon -->\n      <ion-col size=\"5\">\n        <ion-text>\n          <p class=\"ratingText main-color ion-text-right\">\n            de {{evaluationsData.worknumber}}\n            &nbsp;<ion-icon src=\"/assets/icon/ic_hands.svg\" class=\"iconEnd\"></ion-icon>&nbsp;\n            / {{ evaluationsData ? evaluationsData.service_and_satisfaction_everage : 0}}\n            &nbsp;<ion-icon src=\"/assets/icon/ic_diamont_circle.svg\" class=\"iconEnd\"></ion-icon>\n          </p>\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- footer text -->\n    <ion-row class=\"subtitle ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <ion-text class=\"lastText main-color\"><b>\n            ¿Quieres enviarle una solicitud de servicio a\n            <span class=\"ion-text-capitalize\"> {{ selectedProCat.supplierName }} {{ selectedProCat.supplierLastName\n              }}?</span>\n          </b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- enviar solicitud BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"sendRequest()\">\n          ENVIAR SOLICITUD\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -321,23 +321,13 @@
       /* harmony import */
 
 
-      var moment__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
-      /*! moment */
-      "wd/R");
-      /* harmony import */
-
-
-      var moment__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_13__);
-      /* harmony import */
-
-
-      var axios__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      var axios__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! axios */
       "vDqi");
       /* harmony import */
 
 
-      var axios__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_14__);
+      var axios__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_13__);
 
       var ProfesionalDetailPage = /*#__PURE__*/function () {
         function ProfesionalDetailPage(router, menuController, solServ, http, us, lc, ils) {
@@ -353,7 +343,7 @@
           this.selectedProCat = new src_app_model_profCategory_model__WEBPACK_IMPORTED_MODULE_7__["ProfCategory"](null, null, null, null, null, null, null, null, null, null, null, null, null, null);
           this.loadedImgList = [];
           this.filterCategories = [];
-          this.editedDays = '';
+          this.editedDays = "";
           this.slideOptions = {
             initialSlide: 0,
             slidesPerView: 2,
@@ -383,7 +373,7 @@
                       this.userSub = this.us.loggedUser.subscribe(function (user) {
                         if (user) {
                           _this.grabbedUser = user;
-                          _this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + _this.grabbedUser.access_token);
+                          _this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set("Authorization", "Bearer " + _this.grabbedUser.access_token);
 
                           _this.getProf();
 
@@ -407,7 +397,7 @@
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
-            this.menuController.enable(true, 'user');
+            this.menuController.enable(true, "user");
             this.selectedProfPhoto = this.solServ.solicitud.proPhoto;
 
             if (this.selectedProfPhoto === src_shared_constants__WEBPACK_IMPORTED_MODULE_12__["IMAGE_URL_BLANK"]) {
@@ -417,117 +407,102 @@
         }, {
           key: "getProf",
           value: function getProf() {
-            var _this2 = this;
-
-            this.lc.create({
-              message: 'Cargando informacion del profesional...'
-            }).then(function (loadingEl) {
-              loadingEl.present();
-
-              _this2.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + "/client/profession/".concat(_this2.solServ.solicitud.proPerfil_id), {
-                headers: _this2.headers
-              }).subscribe(function (resData) {
-                _this2.selectedProCat = resData['data'];
-                _this2.filterCategories = _this2.selectedProCat.categories.filter(function (category) {
-                  return category.categoryName !== _this2.selectedProCat.categoryName;
-                });
-
-                var splitedHours = _this2.selectedProCat.hours.split('/');
-
-                var startHour = splitedHours.length > 0 ? moment__WEBPACK_IMPORTED_MODULE_13__(splitedHours[0]).format('h:mm a') : 'ND';
-                var endHour = splitedHours.length > 1 ? moment__WEBPACK_IMPORTED_MODULE_13__(splitedHours[1]).format('h:mm a') : 'ND'; //this.editedHours = `${startHour} / ${endHour}`;
-
-                _this2.editedHours = _this2.selectedProCat.hours;
-                _this2.editedDays = _this2.selectedProCat.work_days;
-                /*
-                let workingDays = this.selectedProCat.work_days.split('-');
-                this.editedDays = '';
-                workingDays.forEach(day => {
-                  switch (day) {
-                    case 'l':
-                      this.editedDays += 'Lun ';
-                      break;
-                    case 'm':
-                      this.editedDays += 'Mar ';
-                      break;
-                    case 'mi':
-                      this.editedDays += 'Mie ';
-                      break;
-                    case 'j':
-                      this.editedDays += 'Jue ';
-                      break;
-                    case 'v':
-                      this.editedDays += 'Vie ';
-                      break;
-                    case 's':
-                      this.editedDays += 'Sab ';
-                      break;
-                    case 'd':
-                      this.editedDays += 'Dom ';
-                      break;
-                  }
-                });
-                */
-                //loading images
-                // let listArr: [] = [];
-                // resData['data'].images.forEach(image => {
-                //   listArr.push(image.image);
-                // });
-
-                _this2.ils.setImgList(resData['data'].images);
-
-                loadingEl.dismiss();
-              }, function (e) {
-                console.log(e);
-                loadingEl.dismiss(); // this.router.navigate(['/user/profesional-list']);
-              });
-            }).then(function (err) {
-              _this2.lc.dismiss();
-            });
-          }
-        }, {
-          key: "getEvaluations",
-          value: function getEvaluations() {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              var response;
+              var loader, response;
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
                 while (1) {
                   switch (_context2.prev = _context2.next) {
                     case 0:
-                      _context2.prev = 0;
-                      _context2.next = 3;
-                      return axios__WEBPACK_IMPORTED_MODULE_14___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/supplier/evaluation/").concat(this.solServ.solicitud.proPerfil_id), {
+                      _context2.next = 2;
+                      return this.lc.create({
+                        message: "Cargando información del profesional..."
+                      });
+
+                    case 2:
+                      loader = _context2.sent;
+                      _context2.next = 5;
+                      return loader.present();
+
+                    case 5:
+                      _context2.prev = 5;
+                      _context2.next = 8;
+                      return axios__WEBPACK_IMPORTED_MODULE_13___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/client/profession/").concat(this.solServ.solicitud.proPerfil_id), {
+                        headers: {
+                          Authorization: "Bearer ".concat(this.grabbedUser.access_token)
+                        }
+                      });
+
+                    case 8:
+                      response = _context2.sent;
+                      this.selectedProCat = response.data.data;
+                      this.editedHours = this.selectedProCat.hours;
+                      this.editedDays = this.selectedProCat.work_days;
+                      this.ils.setImgList(response.data.data.images);
+                      _context2.next = 15;
+                      return loader.dismiss();
+
+                    case 15:
+                      _context2.next = 22;
+                      break;
+
+                    case 17:
+                      _context2.prev = 17;
+                      _context2.t0 = _context2["catch"](5);
+                      alert(_context2.t0.message);
+                      _context2.next = 22;
+                      return loader.dismiss();
+
+                    case 22:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this, [[5, 17]]);
+            }));
+          }
+        }, {
+          key: "getEvaluations",
+          value: function getEvaluations() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var response;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      _context3.prev = 0;
+                      _context3.next = 3;
+                      return axios__WEBPACK_IMPORTED_MODULE_13___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"], "/supplier/evaluation/").concat(this.solServ.solicitud.proPerfil_id), {
                         headers: {
                           Authorization: "Bearer ".concat(this.grabbedUser.access_token)
                         }
                       });
 
                     case 3:
-                      response = _context2.sent;
+                      response = _context3.sent;
 
                       if (!(response.data && response.data.code !== 200)) {
-                        _context2.next = 6;
+                        _context3.next = 6;
                         break;
                       }
 
-                      return _context2.abrupt("return");
+                      return _context3.abrupt("return");
 
                     case 6:
                       this.evaluationsData = response.data.data;
-                      _context2.next = 12;
+                      _context3.next = 12;
                       break;
 
                     case 9:
-                      _context2.prev = 9;
-                      _context2.t0 = _context2["catch"](0);
-                      console.log(_context2.t0);
+                      _context3.prev = 9;
+                      _context3.t0 = _context3["catch"](0);
+                      console.log(_context3.t0);
 
                     case 12:
                     case "end":
-                      return _context2.stop();
+                      return _context3.stop();
                   }
                 }
-              }, _callee2, this, [[0, 9]]);
+              }, _callee3, this, [[0, 9]]);
             }));
           }
         }, {
@@ -539,7 +514,7 @@
           key: "sendRequest",
           value: function sendRequest() {
             this.solServ.setProPerfilObj(this.selectedProCat);
-            this.router.navigate(['/user/solicitud-servicio']);
+            this.router.navigate(["/user/solicitud-servicio"]);
           }
         }, {
           key: "ngOnDestroy",
@@ -571,7 +546,7 @@
       };
 
       ProfesionalDetailPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
-        selector: 'app-profesional-detail',
+        selector: "app-profesional-detail",
         template: _raw_loader_profesional_detail_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_profesional_detail_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], ProfesionalDetailPage);

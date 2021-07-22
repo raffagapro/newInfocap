@@ -69,7 +69,7 @@ let SolicitudesPage = class SolicitudesPage {
             loadingEl.present();
             axios__WEBPACK_IMPORTED_MODULE_6___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + `/supplier/requestservice/${statusID}`, { headers: { Authorization: this.headers } }).then(resData => {
                 loadingEl.dismiss();
-                this.loadedServices = resData.data.data.filter(s => s.hours_creation == "0");
+                this.loadedServices = resData.data.data;
                 this.loadedServices = lodash__WEBPACK_IMPORTED_MODULE_11__["sortBy"](this.loadedServices, ['id']);
                 this.loadedServices = lodash__WEBPACK_IMPORTED_MODULE_11__["reverse"](this.loadedServices);
             }).catch(err => {

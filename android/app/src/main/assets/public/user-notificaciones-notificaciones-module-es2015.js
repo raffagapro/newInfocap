@@ -240,7 +240,7 @@ let NotificacionesPage = class NotificacionesPage {
         });
     }
     formatdate(date, hours) {
-        return moment__WEBPACK_IMPORTED_MODULE_7__["utc"](`${date} ${hours}`, "DD-MM-YYYY hh:mm:ss")
+        return moment__WEBPACK_IMPORTED_MODULE_7__(`${date} ${hours}`, "DD-MM-YYYY hh:mm:ss")
             .startOf("minute")
             .fromNow();
     }
