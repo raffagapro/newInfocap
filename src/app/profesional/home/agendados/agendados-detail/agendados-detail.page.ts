@@ -100,6 +100,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.solicitudServicio.setStatusID(resData.data.data.status_id)
         this.solicitudServicio.setClientPhone(resData.data.data.clientPhone1)
         this.solicitudServicio.setCosto(resData.data.data.request_cost[0] && resData.data.data.request_cost[0]);
+        this.solicitudServicio.setSolicitudType(resData.data.data.type_request);
 
         this.loadedInfo.clientLastName = resData.data.data.clientLastName;
         this.loadedInfo.clientName = resData.data.data.clientName;
@@ -112,7 +113,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.loadedInfo.ticket_number = resData.data.data.ticket_number;
         this.loadedInfo.categoryName = resData.data.data.categoryName;
         this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
-        this.loadedInfo.type = this.solicitudServicio.solicitud.type;
+        this.loadedInfo.type = resData.data.data.type_request;
         this.loadedInfo.status_id = resData.data.data.status_id;
         this.loadedInfo.tecnical = this.solicitudServicio.solicitud.evaluationService
         this.loadedInfo.address = resData.data.data.adress
