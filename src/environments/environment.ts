@@ -11,7 +11,7 @@ export const WEB_KEY = 'com.googleusercontent.apps.30514470553-9iop802o4obarpv3n
 //export const API = 'http://workintest.herokuapp.com/api';
 export const API = 'http://167.71.251.136/api';
 export const PATH = 'http://167.71.251.136/';
-export const PHONE_PREFIX = '52';
+export const PHONE_PREFIX = '56';
 // export const API = 'http://127.0.0.1:8000/api';
 //export const PATH = 'http://workintest.herokuapp.com';
 

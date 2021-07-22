@@ -82,9 +82,9 @@
             <!-- slide -->
             <ion-slide class="slide" *ngFor="let image of loadedImagesDisplay; let i = index"
               [loadedImagesDisplay]='loadedImagesDisplay'>
-              <ion-img (click)="openImage(image)" src="{{ image }}" class="imgSlide">
+              <ion-img (click)="openImage(image)" src="{{ image.img }}" class="imgSlide">
               </ion-img>
-              <ion-button (click)="removeImage(i)" size="small" shape="round" color="danger" class="deleteBtn">
+              <ion-button (click)="removeImage(i, image.id)" size="small" shape="round" color="danger" class="deleteBtn">
                 <ion-icon name="close-circle-outline"></ion-icon>
               </ion-button>
             </ion-slide>

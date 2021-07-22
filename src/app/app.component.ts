@@ -24,7 +24,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 })
 export class AppComponent {
 	imageBlank = IMAGE_URL_BLANK;
-	whatsappPhone = `${PHONE_PREFIX}9992781314`;
+	whatsappPhone = `${PHONE_PREFIX}939304991`;
 	firstLoad = false;
 	logged: Observable<boolean>;
 	user: User;

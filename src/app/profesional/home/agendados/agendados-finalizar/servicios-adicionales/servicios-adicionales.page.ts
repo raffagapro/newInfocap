@@ -64,9 +64,7 @@ export class ServiciosAdicionalesPage implements OnInit {
     category_id: null,
     img_client_profile: null,
     created_date: null,
-    request_cost: {
-
-    }
+    request_cost: {}
   };
 
   constructor(
@@ -143,7 +141,7 @@ export class ServiciosAdicionalesPage implements OnInit {
     //converting images to blob for diplaying
     const fr = new FileReader();
     fr.onload = () => {
-      this.loadedImagesDisplay.push(fr.result.toString());
+      this.loadedImagesDisplay.push({id: null, img: fr.result.toString()});
     };
     fr.readAsDataURL((e.target as HTMLInputElement).files[0]);
   }
@@ -162,7 +160,7 @@ export class ServiciosAdicionalesPage implements OnInit {
     }
 
     this.loadedImages.push(imgFile);
-    this.loadedImagesDisplay.push(URL.createObjectURL(imgFile));
+    this.loadedImagesDisplay.push({id: null, img: URL.createObjectURL(imgFile)});
 
     this.formAdicional.patchValue({ image: imgFile })
   }
@@ -194,15 +192,17 @@ export class ServiciosAdicionalesPage implements OnInit {
     })
 
     aditionalCost.img_addittional.forEach(img => {
-      this.loadedImagesDisplay.push(img.image)
+      this.loadedImagesDisplay.push({id: img.id, img: img.image})
     });
 
     this.menuController.enable(true, 'profesional');
   }
 
-  removeImage(imageIndex: number) {
+  async removeImage(imageIndex: number, id: number) {
     this.loadedImages = this.loadedImages.filter((image: any, index: number) => index !== imageIndex)
     this.loadedImagesDisplay = this.loadedImagesDisplay.filter((image: any, index: number) => index !== imageIndex)
+
+    axios.delete(API + `/supplier/deletedadditionalworkimage/${this.solicitudServicio.solicitud.id}/${id}`, { headers: { Authorization: this.headers } } )
   }
 
   openMenu() {
