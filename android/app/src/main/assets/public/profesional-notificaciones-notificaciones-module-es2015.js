@@ -152,7 +152,9 @@ let NotificacionesPage = class NotificacionesPage {
         }
     }
     formatdate(date, hours) {
-        return moment__WEBPACK_IMPORTED_MODULE_11__["utc"](`${date} ${hours}`, 'DD-MM-YYYY hh:mm:ss').startOf('minute').fromNow();
+        return moment__WEBPACK_IMPORTED_MODULE_11__(`${date} ${hours}`, "DD-MM-YYYY hh:mm:ss")
+            .startOf("minute")
+            .fromNow();
     }
     ionViewWillEnter() {
         this.menuController.enable(true, 'profesional');

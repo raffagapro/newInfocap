@@ -935,7 +935,7 @@
 
       var API = 'http://167.71.251.136/api';
       var PATH = 'http://167.71.251.136/';
-      var PHONE_PREFIX = '52'; // export const API = 'http://127.0.0.1:8000/api';
+      var PHONE_PREFIX = '56'; // export const API = 'http://127.0.0.1:8000/api';
       //export const PATH = 'http://workintest.herokuapp.com';
 
       /*
@@ -2177,7 +2177,7 @@
           this.notificationService = notificationService;
           this.screenOrientation = screenOrientation;
           this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_13__["IMAGE_URL_BLANK"];
-          this.whatsappPhone = "".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["PHONE_PREFIX"], "9992781314");
+          this.whatsappPhone = "".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["PHONE_PREFIX"], "939304991");
           this.firstLoad = false;
           this.notificationCount = 0;
           this.notifications = [];

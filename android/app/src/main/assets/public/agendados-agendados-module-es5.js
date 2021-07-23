@@ -365,9 +365,7 @@
                 }
 
                 if (statusID === "4") {
-                  _this3.loadedServices = _this3.loadedServices.concat(resData.data.data); // this.loadedStartedServices = lodash.orderBy(this.loadedStartedServices, function (dateObj) {
-                  //   return new Date(dateObj.date_required);
-                  // });
+                  _this3.loadedServices = _this3.loadedServices.concat(resData.data.data);
 
                   _this3.formatEvents(resData.data.data, "4");
 
@@ -376,9 +374,6 @@
 
                 if (statusID === "2") {
                   _this3.loadedVisits = resData.data.data;
-                  _this3.loadedVisits = lodash__WEBPACK_IMPORTED_MODULE_12__["orderBy"](_this3.loadedVisits, function (dateObj) {
-                    return new Date(dateObj.date_required);
-                  });
 
                   _this3.formatEvents(resData.data.data, "2");
 
@@ -386,6 +381,9 @@
                 }
               }).then(function () {
                 _this3.loadedServices = lodash__WEBPACK_IMPORTED_MODULE_12__["orderBy"](_this3.loadedServices, function (dateObj) {
+                  return new Date(dateObj.date_required);
+                });
+                _this3.loadedVisits = lodash__WEBPACK_IMPORTED_MODULE_12__["orderBy"](_this3.loadedVisits, function (dateObj) {
                   return new Date(dateObj.date_required);
                 });
               })["catch"](function (err) {

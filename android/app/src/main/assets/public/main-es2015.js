@@ -518,7 +518,7 @@ const WEB_KEY = 'com.googleusercontent.apps.30514470553-9iop802o4obarpv3no5s1ng5
 //export const API = 'http://workintest.herokuapp.com/api';
 const API = 'http://167.71.251.136/api';
 const PATH = 'http://167.71.251.136/';
-const PHONE_PREFIX = '52';
+const PHONE_PREFIX = '56';
 // export const API = 'http://127.0.0.1:8000/api';
 //export const PATH = 'http://workintest.herokuapp.com';
 /*
@@ -1330,7 +1330,7 @@ let AppComponent = class AppComponent {
         this.notificationService = notificationService;
         this.screenOrientation = screenOrientation;
         this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_13__["IMAGE_URL_BLANK"];
-        this.whatsappPhone = `${src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["PHONE_PREFIX"]}9992781314`;
+        this.whatsappPhone = `${src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["PHONE_PREFIX"]}939304991`;
         this.firstLoad = false;
         this.notificationCount = 0;
         this.notifications = [];
