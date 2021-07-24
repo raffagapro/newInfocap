@@ -81,9 +81,7 @@
       </ion-row>
 
       <!-- separating line -->
-      <ion-row class="ion-no-margin">
-        <ion-col size="12" class="ion-text-center ion-no-padding redLine">|</ion-col>
-      </ion-row>
+      <div class="vl-short"></div>
 
       <!-- solicitud enviada  -->
       <ion-row>
@@ -95,13 +93,8 @@
         </ion-col>
       </ion-row>
 
-      <!-- separating line -->
-      <ion-row class="ion-no-margin">
-        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
-      </ion-row>
-      <ion-row class="ion-no-margin">
-        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
-      </ion-row>
+      <!-- vertical line -->
+      <div class="vl"></div>
 
       <!-- Visita tecnica agendada  -->
       <!-- gray -->
@@ -125,13 +118,8 @@
         </ion-col>
       </ion-row>
 
-      <!-- separating line -->
-      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id < 7 && loadedService.type_request !== 'URGENT'">
-        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
-      </ion-row>
-      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id < 7 && loadedService.type_request !== 'URGENT'">
-        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
-      </ion-row>
+       <!-- vertical line -->
+       <div class="vl"></div>
 
       <!-- Servicio agendado  -->
       <!-- gray  -->
@@ -155,13 +143,8 @@
         </ion-col>
       </ion-row>
 
-      <!-- separating line -->
-      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id < 7">
-        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
-      </ion-row>
-      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id < 7">
-        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
-      </ion-row>
+       <!-- vertical line -->
+       <div class="vl"></div>
 
       <!-- SERVICIO ENPROCESO  -->
       <!-- grey  -->
@@ -183,13 +166,8 @@
         </ion-col>
       </ion-row>
 
-      <!-- separating line -->
-      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id < 7">
-        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
-      </ion-row>
-      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id < 7">
-        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
-      </ion-row>
+       <!-- vertical line -->
+       <div class="vl"></div>
 
       <!-- SERVICIO REALIZADO  -->
       <!-- grey  -->
@@ -213,13 +191,8 @@
         </ion-col>
       </ion-row>
 
-      <!-- separating line -->
-      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id < 7">
-        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
-      </ion-row>
-      <ion-row class="ion-no-margin" *ngIf="loadedService.status_id < 7">
-        <ion-col size="12" class="ion-text-center ion-no-margin ion-no-padding redLine">|</ion-col>
-      </ion-row>
+      <!-- vertical line -->
+      <div class="vl"></div>
 
       <!-- Pago Finalizado  -->
       <!-- grey  -->
