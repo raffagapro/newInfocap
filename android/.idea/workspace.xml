@@ -55,13 +55,8 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es2015.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es5.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es5.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitudes-solicitudes-module-es2015.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitudes-solicitudes-module-es2015.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitudes-solicitudes-module-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitudes-solicitudes-module-es2015.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitudes-solicitudes-module-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitudes-solicitudes-module-es5.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitudes-solicitudes-module-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitudes-solicitudes-module-es5.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ios/App/App.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/App/App.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-status.page.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-status.page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-status.page.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-status.page.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

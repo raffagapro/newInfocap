@@ -119,7 +119,7 @@
       </ion-row>
 
        <!-- vertical line -->
-       <div class="vl"></div>
+       <div class="vl" *ngIf="loadedService.status_id < 7 && loadedService.type_request !== 'URGENT'"></div>
 
       <!-- Servicio agendado  -->
       <!-- gray  -->
