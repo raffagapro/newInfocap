@@ -79,9 +79,13 @@
 }
 .status-text,
 .status-text-grey,
-.status-text-red {
+.status-text-red,
+.paid-text {
     font-family: "Poppins";
     font-weight: bold;
+}
+.paid-text {
+    line-height: 0;
 }
 .status-text {
     font-size: 13px;

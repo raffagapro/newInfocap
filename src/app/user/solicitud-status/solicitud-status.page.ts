@@ -55,10 +55,13 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
 		work_days: null,
 		suplierPhone1: null,
 		history_status: [],
+		request_cost: [],
 	};
 	serviceId: string;
 	wDate;
 	showRateProfessional: boolean = false;
+	isCash = false;
+	paymentTypes = [];
 
 	constructor(
 		private modalController: ModalController,
@@ -84,7 +87,22 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
 			"Bearer " + this.grabbedUser.access_token
 		);
 		this.serviceId = this.solServ.solicitud.solicitudID;
-		this.loadService(this.solServ.solicitud.solicitudID);
+		this.loadPaymentTypes();
+	}
+
+	async loadPaymentTypes() {
+		try {
+			let response = await axios.get(`${API}/payments/type`, {
+				headers: {
+					Authorization: `Bearer ${this.grabbedUser.access_token}`,
+				},
+			});
+			this.paymentTypes = response.data.data;
+		} catch (error) {
+			console.log(error);
+		} finally {
+			this.loadService(this.solServ.solicitud.solicitudID);
+		}
 	}
 
 	loadService(solicitudId: string) {
@@ -108,6 +126,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
 								.tz(moment.tz.guess())
 								.format("DD MMMM YYYY");
 							this.validateIfRatingYet();
+							this.validatePaymentType();
 						},
 						(err) => {
 							loadingEl.dismiss();
@@ -272,6 +291,17 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
 			}
 		} catch (error) {
 			this.showRateProfessional = false;
+		}
+	}
+
+	validatePaymentType() {
+		if (this.loadedService.request_cost.length > 0) {
+			let firstCost = this.loadedService.request_cost[0];
+			let paymentType = this.paymentTypes.find(
+				(paymentType) => paymentType.id === firstCost.payment_type_id
+			);
+			this.isCash = paymentType.name === "Efectivo";
+			console.log(this.isCash)
 		}
 	}
 }

@@ -134,11 +134,33 @@
           <!-- finalizado  -->
           <ion-text *ngIf="service.status_id === 6">
             <!-- icons -->
+            <div class="locate-cont">
+              <ion-icon src="/assets/icon/ic_engine.svg" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText grey-color ion-text-center">
+              SERVICIO<br />FINALIZADO
+            </small>
+          </ion-text>
+
+          <!-- pago finalizado  -->
+          <ion-text *ngIf="service.status_id === 8">
+            <!-- icons -->
+            <div class="locate-cont">
+              <ion-icon src="/assets/icon/ic_engine.svg" color="light" class="rating-text"></ion-icon>
+            </div><br>
+            <small class="ratingText grey-color ion-text-center">
+              PAGO<br />FINALIZADO
+            </small>
+          </ion-text>
+
+          <!-- pago finalizado  -->
+          <ion-text *ngIf="service.status_id === 9">
+            <!-- icons -->
             <div class="locate-cont bg-grey-color">
               <ion-icon src="/assets/icon/ic_engine_disabled.svg" color="light" class="rating-text"></ion-icon>
             </div><br>
             <small class="ratingText grey-color ion-text-center">
-              PAGO<br />FINALIZADO
+              PENDIENTE DE<br/>PAGO
             </small>
           </ion-text>
 
