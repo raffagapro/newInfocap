@@ -15,7 +15,8 @@ import { IMAGE_URL_BLANK } from "src/shared/constants";
 import { Notification } from "src/shared/types/Notification";
 import axios from "axios";
 import { NotificationsService } from "./services/notifications-service";
-import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { ScreenOrientation } from "@ionic-native/screen-orientation/ngx";
+import { GoogleService } from "./services/google/google.service";
 
 @Component({
 	selector: "app-root",
@@ -41,7 +42,8 @@ export class AppComponent {
 		private as: AuthService,
 		private us: UserService,
 		private notificationService: NotificationsService,
-		private screenOrientation: ScreenOrientation
+		private screenOrientation: ScreenOrientation,
+		private googleService: GoogleService
 	) {
 		this.logged = this.as.userIsAuthenticated;
 		this.initializeApp();
@@ -50,9 +52,7 @@ export class AppComponent {
 
 	initializeApp() {
 		this.platform.ready().then(() => {
-			this.screenOrientation.lock(
-				'portrait'
-			);
+			this.screenOrientation.lock("portrait");
 			// this.statusBar.styleDefault();
 			if (Capacitor.isPluginAvailable("SplashScreen")) {
 				Plugins.SplashScreen.hide();
@@ -103,6 +103,7 @@ export class AppComponent {
 		this.menuCtrl.enable(false, UserRoles.USER);
 		this.as.logout();
 		this.router.navigateByUrl("/", { replaceUrl: true });
+		this.googleService.disconnect();
 	}
 
 	profile() {

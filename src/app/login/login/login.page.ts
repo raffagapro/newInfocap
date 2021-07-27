@@ -11,6 +11,7 @@ import { API } from "src/environments/environment";
 import axios from "axios";
 import { NotificationsService } from "src/app/services/notifications-service";
 import { Facebook, FacebookLoginResponse } from "@ionic-native/facebook/ngx";
+import { GoogleService } from "src/app/services/google/google.service";
 
 @Component({
 	selector: "app-login",
@@ -32,7 +33,8 @@ export class LoginPage implements OnInit {
 		private us: UserService,
 		private lc: LoadingController,
 		private notificationService: NotificationsService,
-		private fb: Facebook
+		private fb: Facebook,
+		private googleService: GoogleService
 	) {}
 
 	ngOnInit() {}
@@ -158,8 +160,27 @@ export class LoginPage implements OnInit {
 		this.router.navigate(["/profesional/home"]);
 	}
 
-	loginGoogle() {
-		// do comething awesome
+	async loginGoogle() {
+		const loading = await this.lc.create({
+			message: "Iniciando sesión...",
+		});
+		loading.present();
+		try {
+			let googleResponse = await this.googleService.login();
+			let { givenName, familyName, email, userId } = googleResponse;
+			const body = {
+				name: givenName,
+				last_name: familyName,
+				email,
+				password: userId,
+			};
+			this.doLoginWithSocialMedia(body);
+		} catch (error) {
+			console.log(error);
+			alert("No se pudo iniciar sesión con Google");
+		} finally {
+			await loading.dismiss();
+		}
 	}
 
 	loginApple() {
@@ -182,9 +203,9 @@ export class LoginPage implements OnInit {
 	}
 
 	async getUserDetail(userid: any) {
+		const loader = await this.lc.create({ message: "Iniciando sesión..." });
 		try {
-			const loader = await this.lc.create({ message: "Iniciando sesión..." });
-      await loader.present()
+			await loader.present();
 			const response = await this.fb.api(
 				`/${userid}/?fields=id,email,first_name,last_name`,
 				["public_profile"]
@@ -196,69 +217,11 @@ export class LoginPage implements OnInit {
 				email,
 				password: id,
 			};
-
-			try {
-				let response = await axios.post(`${API}/auth/facebook`, body, {
-					headers: {
-						"Content-Type": "application/json",
-						"X-Requested-With": "XMLHttpRequest",
-					},
-				});
-				const { data } = response;
-				const { data: responseData, message } = data;
-
-				if (responseData) {
-					const { user, roles, access_token } = responseData;
-					const { id, name, last_name, email, phone1, phone2, img_profile } =
-						user;
-					//save user info to store NEEDS WORK IN HERE
-					let img: string;
-					if (
-						img_profile === null ||
-						img_profile === "http://167.71.251.136/storage/"
-					) {
-						img = "assets/images/avatar.png";
-					} else {
-						img = img_profile;
-					}
-					this.grabbedUSer = new User(
-						id,
-						name,
-						last_name,
-						img,
-						email,
-						phone1,
-						phone2,
-						roles[0],
-						access_token
-					);
-
-					this.us.setUser(this.grabbedUSer);
-					this.as.login();
-					await loader.dismiss();
-					if (roles[0] === "usuario") {
-						this.router.navigate(["/user/home"], { replaceUrl: true });
-						this.loadNotifications("client");
-					} else {
-						this.router.navigate(["/profesional/home"], { replaceUrl: true });
-						this.loadNotifications("supplier");
-					}
-				} else {
-					const errorMessage =
-						message === "Unauthorized"
-							? "Credenciales inválidas"
-							: "Ocurrió un error";
-					this.error = errorMessage;
-					await loader.dismiss();
-				}
-				await loader.dismiss();
-			} catch (error) {
-				await loader.dismiss();
-				console.log(error);
-			}
+			this.doLoginWithSocialMedia(body);
 		} catch (error) {
 			console.log("Error logging into Facebook", error);
-			alert(error);
+			alert(error.message);
+			await loader.dismiss();
 		}
 	}
 
@@ -271,5 +234,54 @@ export class LoginPage implements OnInit {
 		setTimeout(() => {
 			nativeEl.setSelectionRange(inputSelection, inputSelection);
 		}, 1);
+	}
+
+	async doLoginWithSocialMedia(body) {
+		let response = await axios.post(`${API}/auth/facebook`, body, {
+			headers: {
+				"Content-Type": "application/json",
+				"X-Requested-With": "XMLHttpRequest",
+			},
+		});
+		const { data } = response;
+		const { data: responseData, message } = data;
+
+		if (responseData) {
+			const { user, roles, access_token } = responseData;
+			const { id, name, last_name, email, phone1, phone2, img_profile } = user;
+			//save user info to store NEEDS WORK IN HERE
+			let img: string;
+			if (
+				img_profile === null ||
+				img_profile === "http://167.71.251.136/storage/"
+			) {
+				img = "assets/images/avatar.png";
+			} else {
+				img = img_profile;
+			}
+			this.grabbedUSer = new User(
+				id,
+				name,
+				last_name,
+				img,
+				email,
+				phone1,
+				phone2,
+				roles[0],
+				access_token
+			);
+
+			this.us.setUser(this.grabbedUSer);
+			this.as.login();
+			if (roles[0] === "usuario") {
+				this.router.navigate(["/user/home"], { replaceUrl: true });
+				this.loadNotifications("client");
+			} else {
+				this.router.navigate(["/profesional/home"], { replaceUrl: true });
+				this.loadNotifications("supplier");
+			}
+		} else {
+			throw new Error("No se pudo iniciar sesión");
+		}
 	}
 }
