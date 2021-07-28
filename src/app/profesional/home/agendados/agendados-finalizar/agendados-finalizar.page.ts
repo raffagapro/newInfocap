@@ -7,7 +7,8 @@ import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
 import { ConfirmSuccessModalComponent } from './confirm-success-modal/confirm-success-modal.component';
 import axios from 'axios'
-import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
+import { Capacitor, Plugins } from '@capacitor/core';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ProSolicitudService } from 'src/app/services/pro-solicitud.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PickerOptions } from '@ionic/core'
@@ -295,7 +296,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
       this.hiddenImgInputRef.nativeElement.click();
       return;
     }
-    Plugins.Camera.getPhoto({
+    Camera.getPhoto({
       quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,

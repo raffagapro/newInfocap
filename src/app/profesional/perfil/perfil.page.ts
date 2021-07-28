@@ -2,8 +2,8 @@ import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChi
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ModalController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
-
+import {  Capacitor, Plugins } from '@capacitor/core';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { API } from 'src/environments/environment';
@@ -198,7 +198,7 @@ export class PerfilPage implements OnInit, OnDestroy {
       this.hiddenImgInputRef.nativeElement.click();
       return;
     }
-    Plugins.Camera.getPhoto({
+    Camera.getPhoto({
       quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,

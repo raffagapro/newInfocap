@@ -1,5 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { LoadingController, NavController } from "@ionic/angular";
+import {
+	AlertController,
+	LoadingController,
+	NavController,
+} from "@ionic/angular";
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { NgForm } from "@angular/forms";
@@ -10,8 +14,14 @@ import { User } from "src/app/model/user.model";
 import { API } from "src/environments/environment";
 import axios from "axios";
 import { NotificationsService } from "src/app/services/notifications-service";
-import { Facebook, FacebookLoginResponse } from "@ionic-native/facebook/ngx";
+import { Facebook } from "@ionic-native/facebook/ngx";
 import { GoogleService } from "src/app/services/google/google.service";
+import { Device } from "@capacitor/device";
+import {
+	SignInWithApple,
+	SignInWithAppleResponse,
+} from "@capacitor-community/apple-sign-in";
+import { Storage } from "@capacitor/storage";
 
 @Component({
 	selector: "app-login",
@@ -24,6 +34,7 @@ export class LoginPage implements OnInit {
 	error: any;
 	grabbedUSer: User;
 	passwordTypeInput = "password";
+	showAppleSignIn = false;
 
 	constructor(
 		private navController: NavController,
@@ -34,16 +45,25 @@ export class LoginPage implements OnInit {
 		private lc: LoadingController,
 		private notificationService: NotificationsService,
 		private fb: Facebook,
-		private googleService: GoogleService
+		private googleService: GoogleService,
+		private alertController: AlertController
 	) {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.validateShowAppleSignin();
+	}
+
+	async validateShowAppleSignin() {
+		// Only show the Apple sign in button on iOS
+
+		let device = await Device.getInfo();
+		this.showAppleSignIn = device.platform === "ios";
+	}
 
 	checkFacebookLoginStatus() {
 		this.fb
 			.getLoginStatus()
 			.then((res) => {
-				console.log(res.status);
 				if (res.status === "connect") {
 				} else {
 				}
@@ -184,7 +204,38 @@ export class LoginPage implements OnInit {
 	}
 
 	loginApple() {
-		// do something awesome
+		SignInWithApple.authorize({
+			clientId: "com.shapp.workintest",
+			redirectURI: "/login",
+			scopes: "email name",
+		})
+			.then(async (res: SignInWithAppleResponse) => {
+				if (res.response && res.response.identityToken) {
+					const {
+						response: { email, familyName, givenName, user },
+					} = res;
+					const appleEmail = await this.getAppleEmail();
+					const appleIdendityToken = await this.getIdentityToken();
+					const body = {
+						name: givenName,
+						last_name: familyName,
+						email: email || appleEmail,
+						password: user || appleIdendityToken,
+					};
+					console.log(body)
+					if (email && user) {
+						await this.setAppleEmail(email);
+						await this.setIdentityToken(user);
+					}
+					this.doLoginWithSocialMedia(body);
+				} else {
+					this.presentAlert();
+				}
+			})
+			.catch((response) => {
+				console.log(response);
+				this.presentAlert();
+			});
 	}
 
 	async loginFacebook() {
@@ -244,7 +295,7 @@ export class LoginPage implements OnInit {
 			},
 		});
 		const { data } = response;
-		const { data: responseData, message } = data;
+		const { data: responseData } = data;
 
 		if (responseData) {
 			const { user, roles, access_token } = responseData;
@@ -283,5 +334,38 @@ export class LoginPage implements OnInit {
 		} else {
 			throw new Error("No se pudo iniciar sesión");
 		}
+	}
+
+	async presentAlert() {
+		const alert = await this.alertController.create({
+			header: "Error al iniciar sesión con Apple",
+			message: "Por favor, intenta más tarde",
+			buttons: ["Cerrar"],
+		});
+		await alert.present();
+	}
+
+	async setAppleEmail(email: string) {
+		await Storage.set({
+			key: "appleEmail",
+			value: email,
+		});
+	}
+
+	async getAppleEmail() {
+		const { value } = await Storage.get({ key: "appleEmail" });
+		return value;
+	}
+
+	async setIdentityToken(token: string) {
+		await Storage.set({
+			key: "identityToken",
+			value: token,
+		});
+	}
+
+	async getIdentityToken() {
+		const { value } = await Storage.get({ key: "identityToken" });
+		return value;
 	}
 }

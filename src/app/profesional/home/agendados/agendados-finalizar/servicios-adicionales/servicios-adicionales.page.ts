@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController, ModalController, Platform } from '@ionic/angular';
-import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
+import { Capacitor, Plugins } from '@capacitor/core';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import axios from 'axios';
 import { API } from 'src/environments/environment';
@@ -107,7 +108,7 @@ export class ServiciosAdicionalesPage implements OnInit {
       this.hiddenImgInputRef.nativeElement.click();
       return;
     }
-    Plugins.Camera.getPhoto({
+    Camera.getPhoto({
       quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,

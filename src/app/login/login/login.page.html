@@ -40,13 +40,11 @@
           </div>
         </ion-col>
         <!-- apple -->
-        <ion-col size="1"></ion-col>
-        <ion-col size="2" sizeMd="1">
+        <ion-col size="4" sizeMd="1" *ngIf="showAppleSignIn">
           <div class="logo-apple">
             <ion-icon name="logo-apple" (click)="loginApple()" color="light"></ion-icon>
           </div>
         </ion-col>
-        <ion-col size="1"></ion-col>
         <!-- google -->
         <ion-col size="2" sizeMd="1">
           <div class="logo-google">

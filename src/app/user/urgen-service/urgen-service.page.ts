@@ -5,8 +5,8 @@ import { LoadingController, MenuController, ModalController, Platform } from "@i
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CameraResultType, CameraSource, Capacitor, Plugins } from '@capacitor/core';
-
+import { Capacitor, Plugins } from '@capacitor/core';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { User } from 'src/app/model/user.model';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UserService } from 'src/app/services/user.service';
@@ -120,7 +120,7 @@ export class UrgenServicePage implements OnInit {
       this.hiddenImgInputRef.nativeElement.click();
       return;
     }
-    Plugins.Camera.getPhoto({
+    Camera.getPhoto({
       quality: 100,
       source: CameraSource.Prompt,
       correctOrientation: true,
