@@ -17,7 +17,8 @@ export class Solicitud {
 		public profId: string,
 		public newDate: string,
 		public newTime: string,
-		public instructions: string
+		public instructions: string,
+		public address_detail: string,
 	) {}
 }
 

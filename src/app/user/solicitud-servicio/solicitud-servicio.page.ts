@@ -118,6 +118,9 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
       adress: new FormControl(this.solServ.solicitud.address, {
         updateOn: 'blur',
       }),
+      address_detail: new FormControl(this.solServ.solicitud.address_detail, {
+        updateOn: 'blur',
+      }),
     });
   }
 
@@ -197,10 +200,11 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
     formData.append('cummune_id', this.solServ.solicitud.comuna_id);
     formData.append('description', this.form.value.description);
     formData.append('adress', this.form.value.adress);
-    formData.append('adress_detail', this.form.value.adress);
+    formData.append('adress_detail', this.form.value.address_detail);
     formData.append('extra_instructions', this.solServ.solicitud.instructions);
     formData.append('date_required', wDate);
-    formData.append('hours', this.form.value.sHour + "/" + this.form.value.eHour);
+    formData.append('hours', moment(this.form.value.sHour).format('HH:mm:ss'));
+    formData.append('hours_final', moment(this.form.value.eHour).format('HH:mm:ss'));
     formData.append('professional_profile_id', this.solServ.solicitud.proPerfil_id);
 
     let startHour = moment(this.form.value.sHour);

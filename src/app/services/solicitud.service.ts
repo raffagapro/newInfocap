@@ -21,6 +21,7 @@ export class SolicitudService {
 		null,
 		null,
 		null,
+		null,
 		null
 	);
 
@@ -77,12 +78,17 @@ export class SolicitudService {
 		this._solicitud.instructions = instructions;
 	}
 
+	setAddressDetail(address_detail: string) {
+		this._solicitud.address_detail = address_detail;
+	}
+
 	setPaymentId(paymentId: string) {
 		this._solicitud.paymentId = paymentId;
 	}
 
 	clearSolicitud() {
 		this._solicitud = new Solicitud(
+			null,
 			null,
 			null,
 			null,

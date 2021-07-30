@@ -1,145 +1,143 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { LoadingController, ModalController } from '@ionic/angular';
-import { API } from 'src/environments/environment';
-import { SuccessModalComponent } from './success-modal/success-modal.component';
-import axios from 'axios';
-import { Router } from '@angular/router';
-
+import { HttpClient } from "@angular/common/http";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { NgForm } from "@angular/forms";
+import { LoadingController, ModalController } from "@ionic/angular";
+import { API } from "src/environments/environment";
+import { SuccessModalComponent } from "./success-modal/success-modal.component";
+import axios from "axios";
+import { Router } from "@angular/router";
+import { StatusBar } from "@capacitor/status-bar";
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+	selector: "app-register",
+	templateUrl: "./register.page.html",
+	styleUrls: ["./register.page.scss"],
 })
 export class RegisterPage implements OnInit {
-  @ViewChild('passwordEyeRegister', { read: ElementRef }) passwordEye: ElementRef;
-  passwordTypeInput = 'password';
-  errors: any = {
-    name: [],
-    last_name: [],
-    email: [],
-    password: [],
-    phone1: [],
-  };
+	@ViewChild("passwordEyeRegister", { read: ElementRef })
+	passwordEye: ElementRef;
+	passwordTypeInput = "password";
+	errors: any = {
+		name: [],
+		last_name: [],
+		email: [],
+		password: [],
+		phone1: [],
+	};
 
-  constructor(
-    private modalController: ModalController,
-    private http: HttpClient,
-    private lc: LoadingController,
-    private router: Router,
-  ) { }
+	constructor(
+		private modalController: ModalController,
+		private http: HttpClient,
+		private lc: LoadingController,
+		private router: Router
+	) {}
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+		StatusBar.hide();
+	}
 
-  async onRegister(form: NgForm) {
-    if (!form.valid) {
-      return;
-    }
-    let name = form.value.name;
-    let wName = name.split(" ");
-    name = wName[0];
-    let l_name = wName[1];
-    if (wName[2] !== undefined) {
-      l_name += " " + wName[2];
-    }
-    const email = form.value.email;
-    const password = form.value.password;
-    const phone1 = form.value.phone1;
-    const confirm_password = form.value.confirm_password;
+	async onRegister(form: NgForm) {
+		if (!form.valid) {
+			return;
+		}
+		let name = form.value.name;
+		let wName = name.split(" ");
+		name = wName[0];
+		let l_name = wName[1];
+		if (wName[2] !== undefined) {
+			l_name += " " + wName[2];
+		}
+		const email = form.value.email;
+		const password = form.value.password;
+		const phone1 = form.value.phone1;
+		const confirm_password = form.value.confirm_password;
 
-    if (password !== confirm_password) {
-      this.errors.password = ['Las contraseñas no coinciden'];
-      return;
-    }
+		if (password !== confirm_password) {
+			this.errors.password = ["Las contraseñas no coinciden"];
+			return;
+		}
 
-    const loader = await this.lc.create({
-      message: 'Registrando tu usuario...'
-    });
+		const loader = await this.lc.create({
+			message: "Registrando tu usuario...",
+		});
 
-    loader.present();
+		loader.present();
 
-    const body = {
-      name,
-      last_name: l_name,
-      email,
-      phone1,
-      password,
-    }
+		const body = {
+			name,
+			last_name: l_name,
+			email,
+			phone1,
+			password,
+		};
 
-    try {
-      let response = await axios.post(
-        `${API}/auth/register`,
-        body,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-          }
-        }
-      );
-      const { success, data } = response.data
-      loader.dismiss();
+		try {
+			let response = await axios.post(`${API}/auth/register`, body, {
+				headers: {
+					"Content-Type": "application/json",
+					"X-Requested-With": "XMLHttpRequest",
+				},
+			});
+			const { success, data } = response.data;
+			loader.dismiss();
 
-      if (success) {
-        this.clearErrors();
-        form.reset();
-        // modal for succes
-        const successModal = await this.modalController.create({
-          component: SuccessModalComponent,
-          cssClass: 'modalSuccess',
-        });
-        successModal.present();
-      } else {
-        if (data.length) {
-          this.errors.email = data;
-        }
-      }
+			if (success) {
+				this.clearErrors();
+				form.reset();
+				// modal for succes
+				const successModal = await this.modalController.create({
+					component: SuccessModalComponent,
+					cssClass: "modalSuccess",
+				});
+				successModal.present();
+			} else {
+				if (data.length) {
+					this.errors.email = data;
+				}
+			}
+		} catch (error) {
+			const { response } = error;
+			if (response) {
+				const { errors } = response.data;
 
-    } catch (error) {
-      const { response } = error;
-      if (response) {
-        const { errors } = response.data;
+				this.errors.name = [];
+				if (errors.name !== undefined) {
+					this.errors.name = errors.name;
+				}
+				this.errors.last_name = [];
+				if (errors.last_name !== undefined) {
+					this.errors.last_name = errors.last_name;
+				}
+				this.errors.email = [];
+				if (errors.email !== undefined) {
+					this.errors.email = errors.email;
+				}
+				this.errors.password = [];
+				if (errors.password !== undefined) {
+					this.errors.password = errors.password;
+				}
+			}
 
-        this.errors.name = [];
-        if (errors.name !== undefined) {
-          this.errors.name = errors.name;
-        }
-        this.errors.last_name = [];
-        if (errors.last_name !== undefined) {
-          this.errors.last_name = errors.last_name;
-        }
-        this.errors.email = [];
-        if (errors.email !== undefined) {
-          this.errors.email = errors.email;
-        }
-        this.errors.password = [];
-        if (errors.password !== undefined) {
-          this.errors.password = errors.password;
-        }
-      }
+			loader.dismiss();
+		}
+	}
 
-      loader.dismiss();
-    }
-  }
+	clearErrors() {
+		this.errors.name = [];
+		this.errors.last_name = [];
+		this.errors.email = [];
+		this.errors.password = [];
+	}
 
-  clearErrors() {
-    this.errors.name = [];
-    this.errors.last_name = [];
-    this.errors.email = [];
-    this.errors.password = [];
-  }
+	goToTerms() {
+		this.router.navigate(["/terms"]);
+	}
 
-  goToTerms() {
-    this.router.navigate(['/terms']);
-  }
-
-  goToPrivacy() {
-    this.router.navigate(['/privacy']);
-  }
-  togglePasswordMode() {
-    this.passwordTypeInput = this.passwordTypeInput === 'text' ? 'password' : 'text';
-  }
+	goToPrivacy() {
+		this.router.navigate(["/privacy"]);
+	}
+	togglePasswordMode() {
+		this.passwordTypeInput =
+			this.passwordTypeInput === "text" ? "password" : "text";
+	}
 }

@@ -22,6 +22,7 @@ import {
 	SignInWithAppleResponse,
 } from "@capacitor-community/apple-sign-in";
 import { Storage } from "@capacitor/storage";
+import { StatusBar } from '@capacitor/status-bar';
 
 @Component({
 	selector: "app-login",
@@ -51,6 +52,7 @@ export class LoginPage implements OnInit {
 
 	ngOnInit() {
 		this.validateShowAppleSignin();
+		StatusBar.hide();
 	}
 
 	async validateShowAppleSignin() {
