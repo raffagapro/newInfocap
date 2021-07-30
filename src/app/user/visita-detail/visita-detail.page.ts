@@ -1,193 +1,217 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoadingController, MenuController, ModalController } from '@ionic/angular';
-import axios from 'axios';
-import { SolicitudService } from 'src/app/services/solicitud.service';
-import { API } from 'src/environments/environment';
-import { Subscription } from 'rxjs';
-import { User } from 'src/app/model/user.model';
-import { UserService } from 'src/app/services/user.service';
-import { Moment } from 'moment';
-import * as moment from 'moment';
-import { SuccessModalComponent } from 'src/app/shared/success-modal/success-modal.component';
-import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import {
+	LoadingController,
+	MenuController,
+	ModalController,
+} from "@ionic/angular";
+import axios from "axios";
+import { SolicitudService } from "src/app/services/solicitud.service";
+import { API } from "src/environments/environment";
+import { Subscription } from "rxjs";
+import { User } from "src/app/model/user.model";
+import { UserService } from "src/app/services/user.service";
+import { Moment } from "moment";
+import * as moment from "moment";
+import { SuccessModalComponent } from "src/app/shared/success-modal/success-modal.component";
+import { ImageModalComponent } from "src/app/shared/image-modal/image-modal.component";
+import { IMAGE_URL_BLANK } from "src/shared/constants";
 
 @Component({
-  selector: 'app-visita-detail',
-  templateUrl: './visita-detail.page.html',
-  styleUrls: ['./visita-detail.page.scss'],
+	selector: "app-visita-detail",
+	templateUrl: "./visita-detail.page.html",
+	styleUrls: ["./visita-detail.page.scss"],
 })
 export class VisitaDetailPage implements OnInit {
-  userSubscription: Subscription;
-  user: User;
-  loadedService = {
-    categoryName: null,
-    cummunename: null,
-    category_id: null,
-    created_date: null,
-    date_required: null,
-    descProf: null,
-    description: null,
-    hours_professional: null,
-    hours_requestservice: null,
-    img_profile: null,
-    professional_profiles_id: null,
-    request_id: null,
-    status_id: null,
-    status_name: null,
-    status_order: null,
-    supplierLastName: null,
-    supplierName: null,
-    supplier_id: null,
-    ticket_number: null,
-    user_client_id: null,
-    work_days: null,
-    suplierPhone1: null,
-    img_request: [],
-    request_technical: [],
-    history_status: []
-  };
-  slideOptions = {
-    initialSlide: 0,
-    slidesPerView: 2,
-    autoplay: true
-  };
+	userSubscription: Subscription;
+	user: User;
+	loadedService = {
+		categoryName: null,
+		cummunename: null,
+		category_id: null,
+		created_date: null,
+		date_required: null,
+		descProf: null,
+		description: null,
+		hours_professional: null,
+		hours_requestservice: null,
+    hours_final: null,
+		img_profile: null,
+		professional_profiles_id: null,
+		request_id: null,
+		status_id: null,
+		status_name: null,
+		status_order: null,
+		supplierLastName: null,
+		supplierName: null,
+		supplier_id: null,
+		ticket_number: null,
+		user_client_id: null,
+		work_days: null,
+		suplierPhone1: null,
+		img_request: [],
+		request_technical: [],
+		history_status: [],
+	};
+	slideOptions = {
+		initialSlide: 0,
+		slidesPerView: 2,
+		autoplay: true,
+	};
 
-  showButtons: boolean = true;
-  error: boolean = false;
-  errorMessage: string = '';
+	showButtons: boolean = true;
+	error: boolean = false;
+	errorMessage: string = "";
+	selectedProfPhoto: string;
 
-  constructor(
-    private modalController: ModalController,
-    private router: Router,
-    private loadingController: LoadingController,
-    private userService: UserService,
-    private menuController: MenuController,
-    private solServ: SolicitudService,
-  ) { }
+	constructor(
+		private modalController: ModalController,
+		private router: Router,
+		private loadingController: LoadingController,
+		private userService: UserService,
+		private menuController: MenuController,
+		private solServ: SolicitudService
+	) {}
 
-  ngOnInit() {
-    this.userSubscription = this.userService.loggedUser.subscribe(user => {
-      this.user = user;
-      this.loadService();
-    });
-  }
+	ngOnInit() {
+		this.userSubscription = this.userService.loggedUser.subscribe((user) => {
+			this.user = user;
+			this.loadService();
+		});
+	}
 
-  ionViewWillEnter() {
-    this.menuController.enable(true, 'user');
-  }
+	ionViewWillEnter() {
+		this.menuController.enable(true, "user");
+	}
 
-  async loadService() {
-    let loader = await this.loadingController.create({ message: '' });
+	async loadService() {
+		let loader = await this.loadingController.create({ message: "" });
 
-    try {
-      await loader.present();
-      let response = await axios.get(
-        `${API}/client/requestservice/${this.solServ.solicitud.solicitudID}`,
-        {
-          headers: {
-            Authorization: `Bearer ${this.user.access_token}`
-          }
-        }
-      );
-      this.solServ.setServiceObj(response.data.data);
-      this.loadedService = response.data.data;
-      if (this.loadedService.img_request.length < 2) {
-        this.slideOptions.slidesPerView = 1;
-      }
-      this.showButtons = this.loadedService.status_id === 2
-    } catch (error) {
-      console.log(error);
-    } finally {
-      loader.dismiss();
-    }
-  }
+		try {
+			await loader.present();
+			let response = await axios.get(
+				`${API}/client/requestservice/${this.solServ.solicitud.solicitudID}`,
+				{
+					headers: {
+						Authorization: `Bearer ${this.user.access_token}`,
+					},
+				}
+			);
+			this.solServ.setServiceObj(response.data.data);
+			this.loadedService = response.data.data;
+			if (this.loadedService.img_request.length < 2) {
+				this.slideOptions.slidesPerView = 1;
+			}
+			this.showButtons = false//this.loadedService.status_id === 2;
 
-  openMenu() {
-    this.menuController.open();
-  }
+			this.selectedProfPhoto = this.solServ.solicitud.proPhoto;
 
-  formatDate(date: Moment, dateFormat: any = 'YYYY-MM-DD', useTimezone: boolean = false) {
-    let momentDate = moment.utc(date, dateFormat);
-    if (useTimezone) {
-      momentDate.tz(moment.tz.guess())
-    }
-    return momentDate.format('dddd D [de] MMMM [de] YYYY');
-  }
+			if (this.selectedProfPhoto === IMAGE_URL_BLANK) {
+				this.selectedProfPhoto = null;
+			}
+		} catch (error) {
+			console.log(error);
+		} finally {
+			loader.dismiss();
+		}
+	}
 
-  formatTime() {
-    if (!this.loadedService.hours_requestservice) {
-      return 'ND';
-    }
-    let hours = this.loadedService.hours_requestservice.split('/');
-    let startHour = moment.utc(hours[0]);
-    let endHour = moment.utc(hours[1]);
-    return `${startHour.format('h:mm a')} - ${endHour.format('h:mm a')}`;
-  }
+	openMenu() {
+		this.menuController.open();
+	}
 
-  formatVisitTime() {
-    if (!this.loadedService.request_technical || this.loadedService.request_technical.length == 0) {
-      return 'ND';
-    }
-    let hours = this.loadedService.request_technical[0].visit_hours.replace(' ', '').split('-');
-    let startHour = moment.utc(hours[0], 'HH:mm');
-    let endHour = moment.utc(hours[1], 'HH:mm');
-    return `${startHour.format('h:mm a')} - ${endHour.format('h:mm a')}`;
-  }
+	formatDate(
+		date: Moment,
+		dateFormat: any = "YYYY-MM-DD",
+		useTimezone: boolean = false
+	) {
+		let momentDate = moment.utc(date, dateFormat);
+		if (useTimezone) {
+			momentDate.tz(moment.tz.guess());
+		}
+		return momentDate.format("dddd D [de] MMMM [de] YYYY");
+	}
 
-  async confirmVisit(client_accepted: number) {
-    let loader = await this.loadingController.create({
-      message: 'Enviando información...'
-    });
-    loader.present();
-    try {
-      let response = await axios.post(
-        `${API}/client/requesttechnical/${this.solServ.solicitud.solicitudID}`,
-        {
-          client_accepted,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${this.user.access_token}`
-          }
-        }
-      );
-      if (response.data && response.data.status !== 200) {
-        this.error = false;
-        this.errorMessage = 'Ocurrió un error al enviar la solicitud.';
-      }
-    } catch (error) {
-      this.error = true;
-    }
-    loader.dismiss();
+	formatTime() {
+		if (!this.loadedService.hours_requestservice) {
+			return "ND";
+		}
+		let startHour = moment.utc(this.loadedService.hours_requestservice, 'HH:mm:ss');
+		let endHour = moment.utc(this.loadedService.hours_final, 'HH:mm:ss');
+		return `${startHour.format("h:mm a")} - ${endHour.format("h:mm a")}`;
+	}
 
-    if (!this.error) {
-      this.showButtons = false;
-      let message = client_accepted === 1 ? 'HAZ ACEPTADO LA VISITA TÉCNICA' : 'HAZ OMITIDO LA VISITA TÉCNICA';
-      const successModal = await this.modalController.create({
-        component: SuccessModalComponent,
-        componentProps: {
-          message,
-          redirect: false,
-        },
-        cssClass: 'modalSuccess',
-      });
-      successModal.present();
-    }
-  }
+	formatVisitTime() {
+		if (
+			!this.loadedService.request_technical ||
+			this.loadedService.request_technical.length == 0
+		) {
+			return "ND";
+		}
+		let hours = this.loadedService.request_technical[0].visit_hours
+			.replace(" ", "")
+			.split("-");
+		let startHour = moment.utc(hours[0], "HH:mm");
+		let endHour = moment.utc(hours[1], "HH:mm");
+		return `${startHour.format("h:mm a")} - ${endHour.format("h:mm a")}`;
+	}
 
-  async openImage(image: string) {
-    const successModal = await this.modalController.create({
-      component: ImageModalComponent,
-      componentProps: {
-        image,
-      },
-      cssClass: 'modalImage',
-    });
-    successModal.present();
-  }
+	async confirmVisit(client_accepted: number) {
+		let loader = await this.loadingController.create({
+			message: "Enviando información...",
+		});
+		loader.present();
+		try {
+			let response = await axios.post(
+				`${API}/client/requesttechnical/${this.solServ.solicitud.solicitudID}`,
+				{
+					client_accepted,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${this.user.access_token}`,
+					},
+				}
+			);
+			if (response.data && response.data.status !== 200) {
+				this.error = false;
+				this.errorMessage = "Ocurrió un error al enviar la solicitud.";
+			}
+		} catch (error) {
+			this.error = true;
+		}
+		loader.dismiss();
 
-  getRequiredDate() {
+		if (!this.error) {
+			this.showButtons = false;
+			let message =
+				client_accepted === 1
+					? "HAZ ACEPTADO LA VISITA TÉCNICA"
+					: "HAZ OMITIDO LA VISITA TÉCNICA";
+			const successModal = await this.modalController.create({
+				component: SuccessModalComponent,
+				componentProps: {
+					message,
+					redirect: false,
+				},
+				cssClass: "modalSuccess",
+			});
+			successModal.present();
+		}
+	}
+
+	async openImage(image: string) {
+		const successModal = await this.modalController.create({
+			component: ImageModalComponent,
+			componentProps: {
+				image,
+			},
+			cssClass: "modalImage",
+		});
+		successModal.present();
+	}
+
+	getRequiredDate() {
 		if (
 			this.loadedService.history_status &&
 			this.loadedService.history_status.length
@@ -201,5 +225,4 @@ export class VisitaDetailPage implements OnInit {
 		}
 		return this.formatDate(this.loadedService.date_required, "DD-MM-YYYY");
 	}
-
 }

@@ -15,6 +15,7 @@ import { API } from "src/environments/environment";
 import axios from "axios";
 import { SuccessModalComponent } from "src/app/shared/success-modal/success-modal.component";
 import { ImageModalComponent } from "src/app/shared/image-modal/image-modal.component";
+import { IMAGE_URL_BLANK } from "src/shared/constants";
 
 export type PaymentMethodType = "credit" | "debit" | "cash" | "transfer";
 @Component({
@@ -37,6 +38,7 @@ export class SolicitudDetailPage implements OnInit {
 		description: null,
 		hours_professional: null,
 		hours_requestservice: null,
+		hours_final: null,
 		img_profile: null,
 		professional_profiles_id: null,
 		request_id: null,
@@ -61,6 +63,7 @@ export class SolicitudDetailPage implements OnInit {
 		autoplay: true,
 	};
 	servicesCosts;
+	selectedProfPhoto: string;
 
 	constructor(
 		private modalController: ModalController,
@@ -117,6 +120,13 @@ export class SolicitudDetailPage implements OnInit {
 			);
 			this.solServ.setServiceObj(response.data.data);
 			this.loadedService = response.data.data;
+
+			this.selectedProfPhoto = this.solServ.solicitud.proPhoto;
+
+			if (this.selectedProfPhoto === IMAGE_URL_BLANK) {
+				this.selectedProfPhoto = null;
+			}
+
 			if (this.loadedService.img_request.length < 2) {
 				this.slideOptions.slidesPerView = 1;
 			}
@@ -188,9 +198,8 @@ export class SolicitudDetailPage implements OnInit {
 		if (!this.loadedService.hours_requestservice) {
 			return "ND";
 		}
-		let hours = this.loadedService.hours_requestservice.split("/");
-		let startHour = moment(hours[0]);
-		let endHour = moment(hours[1]);
+		let startHour = moment(this.loadedService.hours_requestservice, 'HH:mm:ss');
+		let endHour = moment(this.loadedService.hours_final, 'HH:mm:ss');
 		return `${startHour.format("h:mm a")} - ${endHour.format("h:mm a")}`;
 	}
 

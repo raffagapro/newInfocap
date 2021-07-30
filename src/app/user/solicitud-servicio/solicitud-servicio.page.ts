@@ -13,6 +13,7 @@ import { API } from 'src/environments/environment';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { ImageModalComponent } from 'src/app/shared/image-modal/image-modal.component';
+import { IMAGE_URL_BLANK } from 'src/shared/constants';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -91,6 +92,11 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
     this.selectedProfesional.communeName = this.solServ.solicitud.proPerfil.communeName;
 
     this.selectedProfPhoto = this.solServ.solicitud.proPhoto;
+
+		if (this.selectedProfPhoto === IMAGE_URL_BLANK) {
+			this.selectedProfPhoto = null;
+		}
+    
     this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
     // platfrom Checker
     if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
@@ -216,8 +222,8 @@ export class SolicitudServicioPage implements OnInit, OnDestroy {
     this.showError = false;
 
     if (this.loadedImages.length === 0) {
-      alert('Debes agregar al menos una foto a la solicitud.');
-      return
+      //alert('Debes agregar al menos una foto a la solicitud.');
+      //return
     }
 
     this.lc.create({

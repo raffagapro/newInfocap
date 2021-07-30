@@ -1,97 +1,109 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LoadingController, MenuController, ModalController } from "@ionic/angular";
-import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User, UserRoles } from 'src/app/model/user.model';
-import { UserService } from 'src/app/services/user.service';
-import { Subscription } from 'rxjs';
-import { CategoryService } from 'src/app/services/category.service';
-import { API, PATH } from 'src/environments/environment';
-import { SolicitudService } from 'src/app/services/solicitud.service';
-import axios from 'axios';
-import { SuggestCategoryModalComponent } from './suggest-category-modal/suggest-category-modal.component';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import {
+	LoadingController,
+	MenuController,
+	ModalController,
+} from "@ionic/angular";
+import { Router } from "@angular/router";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { User, UserRoles } from "src/app/model/user.model";
+import { UserService } from "src/app/services/user.service";
+import { Subscription } from "rxjs";
+import { CategoryService } from "src/app/services/category.service";
+import { API, PATH } from "src/environments/environment";
+import { SolicitudService } from "src/app/services/solicitud.service";
+import axios from "axios";
+import { SuggestCategoryModalComponent } from "./suggest-category-modal/suggest-category-modal.component";
 
 interface Categories {
-  id: string,
-  name: string,
-  description: string,
-  rating: string,
-  image: string
+	id: string;
+	name: string;
+	description: string;
+	rating: string;
+	image: string;
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+	selector: "app-home",
+	templateUrl: "./home.page.html",
+	styleUrls: ["./home.page.scss"],
 })
 export class HomePage implements OnInit, OnDestroy {
-  categories: Categories[];
-  grabbedUser: User;
-  userSub: Subscription;
-  urlServer: string = PATH;
+	categories: Categories[];
+	grabbedUser: User;
+	userSub: Subscription;
+	urlServer: string = PATH;
 
-  constructor(
-    private modalController: ModalController,
-    private menuController: MenuController,
-    private router: Router,
-    private http: HttpClient,
-    private lc: LoadingController,
-    private us: UserService,
-    private cs: CategoryService,
-    private solServ: SolicitudService,
-  ) { }
+	constructor(
+		private modalController: ModalController,
+		private menuController: MenuController,
+		private router: Router,
+		private http: HttpClient,
+		private lc: LoadingController,
+		private us: UserService,
+		private cs: CategoryService,
+		private solServ: SolicitudService
+	) {}
 
-  ngOnInit() {
-    this.userSub = this.us.loggedUser.subscribe(user => {
-      this.grabbedUser = user;
-      this.menuController.enable(user.role === UserRoles.PROFESSIONAL, UserRoles.PROFESSIONAL);
-      this.menuController.enable(user.role === UserRoles.USER, UserRoles.USER);
-    });
-  }
+	ngOnInit() {
+		this.userSub = this.us.loggedUser.subscribe((user) => {
+			this.grabbedUser = user;
+			this.menuController.enable(
+				user.role === UserRoles.PROFESSIONAL,
+				UserRoles.PROFESSIONAL
+			);
+			this.menuController.enable(user.role === UserRoles.USER, UserRoles.USER);
+		});
+	}
 
-  ionViewWillEnter() {
-    this.loadCategories()
-  }
+	ionViewWillEnter() {
+		this.loadCategories();
+	}
 
-  async loadCategories() {
-    const loader = await this.lc.create({
-      message: 'Cargando servicios disponibles...'
-    });
-    try {
-      const response = await axios.get(
-        `${API}/categories`,
-        {
-          headers: {
-            authorization: `Bearer ${this.grabbedUser.access_token}`
-          }
-        }
-      );
-      loader.dismiss();
-      this.categories = response.data.data;
-    } catch (error) {
-      loader.dismiss();
-      console.log(error);
-    }
-  }
+	async loadCategories() {
+		const loader = await this.lc.create({
+			message: "Cargando servicios disponibles...",
+		});
+		try {
+			const response = await axios.get(`${API}/categories`, {
+				headers: {
+					authorization: `Bearer ${this.grabbedUser.access_token}`,
+				},
+			});
+			loader.dismiss();
+			this.categories = response.data.data.sort((category, nextCategory) => {
+				if (category.name[0] < nextCategory.name[0]) {
+					return -1;
+				}
+				if (category.name[0] > nextCategory.name[0]) {
+					return 1;
+				}
+				return 0;
+			});
+		} catch (error) {
+			loader.dismiss();
+			console.log(error);
+		}
+	}
 
-  map(catId: string) {
-    this.solServ.setCat(catId);
-    this.router.navigate(['/user/map']);
-  }
+	map(catId: string) {
+		this.solServ.setCat(catId);
+		this.router.navigate(["/user/map"]);
+	}
 
-  login() {
-    // do something cool 
-  }
+	login() {
+		// do something cool
+	}
 
-  ngOnDestroy() {
-    this.userSub.unsubscribe();
-  }
+	ngOnDestroy() {
+		this.userSub.unsubscribe();
+	}
 
-  async openSuggesModal() {
-    let modal = await this.modalController.create({
-      component: SuggestCategoryModalComponent,
-      cssClass: 'modalSuccess',
-    });
-    modal.present();
-  }
+	async openSuggesModal() {
+		let modal = await this.modalController.create({
+			component: SuggestCategoryModalComponent,
+			cssClass: "modalSuccess",
+		});
+		modal.present();
+	}
 }

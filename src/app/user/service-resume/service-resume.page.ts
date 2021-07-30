@@ -33,6 +33,7 @@ export class ServiceResumePage implements OnInit {
 		description: null,
 		hours_professional: null,
 		hours_requestservice: null,
+		hours_final: null,
 		img_profile: null,
 		professional_profiles_id: null,
 		request_id: null,
@@ -120,9 +121,8 @@ export class ServiceResumePage implements OnInit {
 		if (!this.loadedService.hours_requestservice) {
 			return "ND";
 		}
-		let hours = this.loadedService.hours_requestservice.split("/");
-		let startHour = moment(hours[0]);
-		let endHour = moment(hours[1]);
+		let startHour = moment(this.loadedService.hours_requestservice, 'HH:mm:ss');
+		let endHour = moment(this.loadedService.hours_final, 'HH:mm:ss');
 		return `${startHour.format("h:mm a")} - ${endHour.format("h:mm a")}`;
 	}
 

@@ -18,9 +18,7 @@ import { User } from "src/app/model/user.model";
 import { SolicitudService } from "src/app/services/solicitud.service";
 import { UserService } from "src/app/services/user.service";
 import { API } from "src/environments/environment";
-
-const { Geolocation } = Plugins;
-// import {google} from 'google-maps';
+import { Geolocation } from '@capacitor/geolocation';
 declare var google: any;
 
 @Component({
@@ -105,26 +103,34 @@ export class MapaPage implements OnInit, OnDestroy {
 					(this.platform.is("mobile") && !this.platform.is("hybrid")) ||
 					this.platform.is("desktop")
 				) {
-					Geolocation.getCurrentPosition().then(
-						(resData) => {
-							loadingEl.dismiss();
-							latLng = new google.maps.LatLng(
-								resData.coords.latitude,
-								resData.coords.longitude
-							);
-						},
-						(err) => {
-							loadingEl.dismiss();
-							latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
-						}
-					);
+					try {
+						Geolocation.getCurrentPosition().then(
+							(resData) => {
+								loadingEl.dismiss();
+								latLng = new google.maps.LatLng(
+									resData.coords.latitude,
+									resData.coords.longitude
+								);
+							},
+							(err) => {
+								loadingEl.dismiss();
+								latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
+							}
+						);
+					} catch (error) {
+						latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
+					}
 				} else {
-					// get location from device
-					const coords = await Geolocation.getCurrentPosition();
-					latLng = new google.maps.LatLng(
-						coords.coords.latitude,
-						coords.coords.longitude
-					);
+					try {
+						// get location from device
+						const coords = await Geolocation.getCurrentPosition();
+						latLng = new google.maps.LatLng(
+							coords.coords.latitude,
+							coords.coords.longitude
+						);
+					} catch (err) {
+						latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
+					}
 				}
 
 				let mapOptions = {
@@ -251,7 +257,7 @@ export class MapaPage implements OnInit, OnDestroy {
 	}
 
 	searchPro() {
-		this.solServ.setAddressDetail(this.form.value.addressDirection)
+		this.solServ.setAddressDetail(this.form.value.addressDirection);
 		this.solServ.setInstructions(this.form.value.addressInstructions);
 		this.router.navigate(["/user/profesional-list"]);
 	}

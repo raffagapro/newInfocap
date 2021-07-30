@@ -144,7 +144,7 @@
       </ion-row>
 
        <!-- vertical line -->
-       <div class="vl"></div>
+       <div class="vl" *ngIf="loadedService && loadedService.status_id !== 7"></div>
 
       <!-- SERVICIO ENPROCESO  -->
       <!-- grey  -->
@@ -167,7 +167,7 @@
       </ion-row>
 
        <!-- vertical line -->
-       <div class="vl"></div>
+       <div class="vl" *ngIf="loadedService && loadedService.status_id !== 7"></div>
 
       <!-- SERVICIO REALIZADO  -->
       <!-- grey  -->
@@ -192,7 +192,7 @@
       </ion-row>
 
       <!-- vertical line -->
-      <div class="vl"></div>
+      <div class="vl" *ngIf="loadedService && loadedService.status_id !== 7"></div>
 
       <!-- Pago Finalizado  -->
       <!-- grey  -->

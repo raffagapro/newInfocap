@@ -85,7 +85,7 @@ export class ProfContactadosListPage implements OnInit {
 	}
 
 	p(passingDate: string) {
-		return moment.utc(passingDate, 'DD/MM/YYYY hh:mm:ss').startOf('minute').fromNow();
+		return moment(passingDate, 'DD/MM/YYYY hh:mm:ss').startOf('minute').fromNow();
 	}
 
 	openMenu() {

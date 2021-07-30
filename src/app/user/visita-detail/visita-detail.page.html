@@ -18,7 +18,7 @@
         <!-- profile img -->
         <ion-col size="4" offset="1" sizeMd="2" offsetMd="2">
           <ion-avatar class="profileImg">
-            <img src="{{ loadedService.img_profile || '/assets/images/avatar.png'}}" />
+            <img src="{{ !selectedProfPhoto ? 'assets/images/avatar.png' : selectedProfPhoto }}" />
           </ion-avatar>
         </ion-col>
 
