@@ -126,7 +126,6 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     wDate = wDate.split('-');
     wDate = wDate[2] + '/' + wDate[1] + '/' + wDate[0];
 
-    console.log(wDate)
     this.solicitudServicio.setDateRequired(wDate);
     this.solicitudServicio.setHours(this.form.value.sHour + '/' + this.form.value.eHour);
     this.solicitudServicio.setCosto(this.form.value.costo)
@@ -138,6 +137,9 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
       this.showError = true;
       return;
     }
+    console.log({
+      sHour: this.form.value.sHour, fHour: this.form.value.eHour
+    })
     this.modalController.create({
       component: ConfirmServComponent,
       cssClass: 'modalSE',

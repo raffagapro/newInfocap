@@ -111,7 +111,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
         this.loadedInfo.type = this.solicitudServicio.solicitud.type
         this.loadedInfo.address = resData.data.data.adress
         this.loadedInfo.adress_detail = resData.data.data.adress_detail
-        this.loadedInfo.extra_instruccion = resData.data.extra_instructions
+        this.loadedInfo.extra_instruccion = resData.data.data.extra_instructions
       }).then(() => {
         this.loadMap(this.loadedInfo.address);
       }).catch(err => {

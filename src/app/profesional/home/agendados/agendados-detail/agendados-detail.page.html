@@ -177,11 +177,17 @@
 
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
+        <ion-text class="titleText">{{ loadedInfo.address }}</ion-text>
+      </ion-col>
+      <ion-col size="1"></ion-col>
+
+      <ion-col size="1"></ion-col>
+      <ion-col size="10" class="ion-text-center">
         <ion-text class="titleText">{{ loadedInfo.adress_detail }}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
 
-      <ion-col *ngIf="loadedInfo.extra_instruccion !== 'null'" size="1"></ion-col>
+      <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-text class="titleText">{{ loadedInfo.extra_instruccion }}</ion-text>
       </ion-col>
