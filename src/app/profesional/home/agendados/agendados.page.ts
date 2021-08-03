@@ -186,12 +186,11 @@ export class AgendadosPage implements OnInit, OnDestroy {
     });
   }
 
-  formatTime(hours: string) {
+  formatTime(hours: string, hoursFinal: string) {
     if (hours) {
       let startHour = moment(hours, 'hh:mm:ss').format('h:mm A');
-      // let endHour = moment(wHours[1]).format('h:mm A');
-      // - ${endHour}
-      return `${startHour}`;
+      let endHour = moment(hoursFinal, 'hh:mm:ss').format('h:mm A');  
+      return `${startHour} - ${endHour}`;
     }
   }
 
