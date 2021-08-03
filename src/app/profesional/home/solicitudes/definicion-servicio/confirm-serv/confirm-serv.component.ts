@@ -21,6 +21,7 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
   loadedInfo = {
     date_required: null,
     hours: null,
+    hours_final: null,
     type: null,
   };
 
@@ -39,16 +40,15 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
 
   ionViewWillEnter() {
     this.loadedInfo.hours = this.solicitudServicio.solicitud.hours
+    this.loadedInfo.hours_final = this.solicitudServicio.solicitud.hours_final
     this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
     this.loadedInfo.type = this.solicitudServicio.solicitud.type
   }
 
-  p(hours: string) {
+  p(hours: string, hoursFinal: string) {
     if (hours) {
-      let wHours = hours.split("/");
-
-      let startHour = moment(wHours[0]).format('h:mm A');
-      let endHour = moment(wHours[1]).format('h:mm A');
+      let startHour = moment(hours, 'hh:mm:ss').format('h:mm A');
+      let endHour = moment(hoursFinal, 'hh:mm:ss').format('h:mm A');
 
       return `${startHour} - ${endHour}`;
     }
@@ -73,6 +73,7 @@ export class ConfirmServComponent implements OnInit, OnDestroy {
     const body = {
       date_required: this.solicitudServicio.solicitud.date_required,
       hours: this.solicitudServicio.solicitud.hours,
+      hours_final: this.solicitudServicio.solicitud.hours_final
     }
 
     try {

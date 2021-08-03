@@ -168,7 +168,6 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
 
   getColumnOptions(){
     let options = [];
-    console.log()
     this.profCategories.forEach(x => {
       options.push({text: x.categoryName, value: x.id});
     });
@@ -343,7 +342,6 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
       loadingEl.present();
       axios.post(API + `/supplier/profession/${this.selectedProPerfilID}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
         loadingEl.dismiss();
-        console.log('Enter')
         this.modalController.create({
           component: SuccessModalComponent,
           cssClass: 'modalSuccess',
@@ -391,14 +389,12 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
   }
 
   removeImage(imageIndex: number) {
-    // this.loadedImages = this.loadedImages.filter((image: any, index: number) => index !== imageIndex)
     this.proCategoryImg = this.proCategoryImg.filter((image: any, index: number) => index !== imageIndex)
   }
 
   onLoadImgFromInput(e: Event) {
     const loadedFile = (e.target as HTMLInputElement).files[0];
     this.saveImgToApi(loadedFile);
-    //save img to api
   }
 
   saveImgToApi(imageData: string | File) {
@@ -418,39 +414,6 @@ export class CatPerfilesPage implements OnInit, OnDestroy {
     this.proCategoryImgSave.push(imgFile);
 
     this.form.patchValue({ image: imgFile });
-    // this.lc.create({
-    //   message: 'Guardando imagen...'
-    // }).then(loadingEl => {
-    //   loadingEl.present();
-    //   //check to see if we are loading a profile img
-    //   if (this.profilePhoto) {
-    //     const formData = new FormData();
-    //     formData.append('image', imgFile);
-    //     axios.post(API + '/account/image', formData, { headers: { Authorization: this.headers } }).then(resData => {
-    //       loadingEl.dismiss();
-    //       this.modalController.create({
-    //         component: SuccessModalComponent,
-    //         cssClass: 'modalSuccess',
-    //       }).then(modalEl => {
-    //         modalEl.present();
-    //       });
-    //     }).catch(err => {
-    //       console.log(err)
-    //       loadingEl.dismiss();
-    //     })
-    //   } else {
-    //     const formData = new FormData();
-    //     console.log(this.selectedCatId)
-    //     formData.append('images[]', imgFile);
-    //     formData.append('category_id', this.proCategoryProfile.category_id);
-    //     formData.append('transport_id', this.proCategoryProfile.transports);
-    //     axios.post(API + `/supplier/profession/${this.selectedProPerfil}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
-    //       loadingEl.dismiss();
-    //     }).catch(err => {
-    //       loadingEl.dismiss();
-    //     })
-    //   }
-    // });
   }
 
   ngOnDestroy() {

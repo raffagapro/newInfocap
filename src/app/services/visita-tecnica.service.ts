@@ -5,7 +5,7 @@ import { VisitaTecnica } from '../model/visitaTecnica.model';
   providedIn: 'root'
 })
 export class VisitaTecnicaService {
-  private _visitaTecnica: VisitaTecnica = new VisitaTecnica(null, null)
+  private _visitaTecnica: VisitaTecnica = new VisitaTecnica(null, null, null)
 
   constructor() { }
 
@@ -21,9 +21,13 @@ export class VisitaTecnicaService {
     this._visitaTecnica.hours = hours;
   }
 
+  setHoursFinal(hours:string) {
+    this._visitaTecnica.hours_final = hours;
+  }
+
   clearSolicitud(){
     this._visitaTecnica = new VisitaTecnica(
-      null, null
+      null, null, null
       );
   }
 

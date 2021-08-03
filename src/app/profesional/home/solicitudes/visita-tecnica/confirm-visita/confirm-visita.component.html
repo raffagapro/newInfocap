@@ -36,7 +36,7 @@
       <ion-col size="10"  offset="1" class="ion-text-center ion-margin-top">
         <ion-icon src="/assets/icon/ic_schedule.svg" color="primary" class="iconSet"></ion-icon>
         <br>
-        <ion-text class="subtitle" color="primary">{{ visita_tecnica.visit_hours }} horas</ion-text>
+        <ion-text class="subtitle" color="primary">{{ formatTime(visita_tecnica.visit_hours, visita_tecnica.visit_hours_final) }} horas</ion-text>
       </ion-col>
     </ion-row>
 

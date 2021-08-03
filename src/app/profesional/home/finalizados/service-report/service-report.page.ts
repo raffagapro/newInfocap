@@ -42,7 +42,6 @@ export class ServiceReportPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    console.log(this.solicitudServicio.solicitud)
     this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName
     this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName
     this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
