@@ -1,4 +1,3 @@
-// import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import axios from 'axios';
@@ -19,7 +18,6 @@ export class ServiceRejectModalComponent implements OnInit, OnDestroy {
   showError = false;
   grabbedUser: User;
   userSub: Subscription;
-  // headers: HttpHeaders;
   rejectDesc: string;
   loadedInfo = {
     img_client_profile: null,
@@ -40,39 +38,13 @@ export class ServiceRejectModalComponent implements OnInit, OnDestroy {
     private modalController: ModalController,
     private solicitudServicio: ProSolicitudService,
     private us: UserService,
-    // private http: HttpClient,
     private lc: LoadingController,
   ) { }
 
   ngOnInit() {
     this.userSub = this.us.loggedUser.subscribe(user => {
       this.grabbedUser = user;
-      // this.headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-      // this.loadService();
     });
-  }
-
-  loadService() {
-    //loadin service
-    // this.lc.create({
-    //   message: "Cargando informacion del servicio..."
-    // }).then(loadingEl => {
-    //   loadingEl.present();
-    //   this.http.get(API + `/supplier/requestservicedetail/${this.solicitudServicio.solicitud.id}`, { headers: this.headers })
-    //     .subscribe(resData => {
-    //       loadingEl.dismiss();
-    //       this.loadedInfo.img_client_profile = resData['data'].img_client_profile;
-    //       this.loadedInfo.clientName = resData['data'].clientName;
-    //       this.loadedInfo.clientLastName = resData['data'].clientLastName;
-    //       this.loadedInfo.date_required = resData['data'].date_required;
-    //       this.loadedInfo.ticket_number = resData['data'].ticket_number;
-    //       this.loadedInfo.categoryName = resData['data'].categoryName;
-    //     }, err => {
-    //       console.log(err);
-    //       loadingEl.dismiss();
-
-    //     });
-    // });
   }
 
   ionViewWillEnter() {
@@ -139,7 +111,6 @@ export class ServiceRejectModalComponent implements OnInit, OnDestroy {
 
   dismiss() {
     this.modalController.dismiss();
-    // this.router.navigate(['/profesional/home/home-tabs/agendados/']);
   }
 
   ngOnDestroy() {

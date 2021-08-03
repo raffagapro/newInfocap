@@ -11,6 +11,7 @@ export class ProSolicitud{
         public created_date: string,      
         public description: string,
         public hours: string,
+        public hours_final: string,
         public id: string,
         public status_id: number,
         public cost: {},

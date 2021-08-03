@@ -102,6 +102,15 @@ export class VisitaTecnicaPage implements OnInit {
     }
   }
 
+  formatTime(hours: string, hoursFinal: string) {
+    if (hours) {
+      let startHour = moment(hours, 'hh:mm:ss').format('h:mm A');
+      let endHour = moment(hoursFinal, 'hh:mm:ss').format('h:mm A');
+
+      return `${startHour} - ${endHour}`;
+    }
+  }
+
   async openImage(image: string) {
     const successModal = await this.modalController.create({
       component: ImageModalComponent,
@@ -115,10 +124,11 @@ export class VisitaTecnicaPage implements OnInit {
 
   confirmRequest() {
     let date = moment(this.formVisitaTecnica.value.requiredDate).format('l');
-    let startTime = moment(this.formVisitaTecnica.value.startTime).format('LT');
-    let endTime = moment(this.formVisitaTecnica.value.endTime).format('LT');
+    let startTime = moment(this.formVisitaTecnica.value.startTime).format('hh:mm:ss');
+    let endTime = moment(this.formVisitaTecnica.value.endTime).format('hh:mm:ss');
     this.visitaT.setDate(date)
-    this.visitaT.setHours(`${startTime} - ${endTime}`)
+    this.visitaT.setHours(startTime)
+    this.visitaT.setHoursFinal(endTime)
     
     this.modalController.create({
       component: ConfirmVisitaComponent,

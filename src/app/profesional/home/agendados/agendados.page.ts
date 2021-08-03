@@ -78,13 +78,13 @@ export class AgendadosPage implements OnInit, OnDestroy {
     data.map(r => {
       if (type === "2") {
         var date = r.request_technical[0].visit_date.substring(0, 10).split('-')
-        var hour = r.request_technical[0].visit_hours.split(' - ')
-        var hoursTime = hour[0].split(':')
-        var hoursFinish = hour[1].split(':')
+        var hour = r.request_technical[0].visit_hours
+        var hoursTime = hour.split(':')
+        var hoursFinish = hour.split(':')
 
         var startTime = new Date(date[0], date[1] - 1, date[2], hoursTime[0], hoursTime[1]);
 
-        var endTime = new Date(date[0], date[1] - 1, date[2], hoursFinish[0], hoursFinish[1]);
+        var endTime = new Date(date[0], date[1] - 1, date[2], hoursFinish[0] + 1 , hoursFinish[1]);
 
         var ticket_format = r.ticket_number.toString().substr(-3)
 
@@ -99,13 +99,13 @@ export class AgendadosPage implements OnInit, OnDestroy {
 
       } else {
         var date = r.date_required.split('-')
-        var hour = r.hours.split('/')
+        var hour = r.hours.split(':')
 
-        var startHour = hour[0].substring(11, 13)
-        var startMinute = hour[0].substring(14, 16)
+        var startHour = hour[0]
+        var startMinute = hour[1]
 
-        var endHour = hour[1].substring(11, 13)
-        var endMinute = hour[1].substring(14, 16)
+        var endHour = hour[0] + 1
+        var endMinute = hour[1]
 
         var startTime = new Date(date[0], date[1] - 1, date[2], startHour, startMinute);
 
@@ -134,7 +134,8 @@ export class AgendadosPage implements OnInit, OnDestroy {
   }
 
   formatTimeTecnical(tecnical) {
-    return tecnical.visit_hours
+    let startTime = moment(tecnical.visit_hours, 'hh:mm:ss').format('h:mm A')
+    return `${startTime}`
   }
 
   ionViewWillEnter() {
@@ -187,12 +188,10 @@ export class AgendadosPage implements OnInit, OnDestroy {
 
   formatTime(hours: string) {
     if (hours) {
-      let wHours = hours.split("/");
-
-      let startHour = moment(wHours[0]).format('h:mm A');
-      let endHour = moment(wHours[1]).format('h:mm A');
-
-      return `${startHour} - ${endHour}`;
+      let startHour = moment(hours, 'hh:mm:ss').format('h:mm A');
+      // let endHour = moment(wHours[1]).format('h:mm A');
+      // - ${endHour}
+      return `${startHour}`;
     }
   }
 
@@ -258,7 +257,6 @@ export class AgendadosPage implements OnInit, OnDestroy {
   }
 
   viewHour(i) {
-    console.log(i)
     return i
   }
 

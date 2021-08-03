@@ -107,7 +107,7 @@
 
       <ion-col size="1"></ion-col>
       <ion-col *ngIf="loadedInfo.status_id !== 2" size="10" class="ion-text-center">
-        <ion-text class="subText"> {{ formatTime(loadedInfo.hours) }}</ion-text>
+        <ion-text class="subText"> {{ formatTime(loadedInfo.hours, loadedInfo.hours_final) }}</ion-text>
       </ion-col>
       <ion-col *ngIf="loadedInfo.status_id === 2" size="10" class="ion-text-center">
         <ion-text> {{ formatTimeTecnical(loadedInfo.tecnical) }}</ion-text>
@@ -189,7 +189,7 @@
 
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="titleText">{{ loadedInfo.extra_instruccion }}</ion-text>
+        <ion-text *ngIf="loadedInfo.extra_instruccion !== 'null'" class="titleText">{{ loadedInfo.extra_instruccion }}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
 

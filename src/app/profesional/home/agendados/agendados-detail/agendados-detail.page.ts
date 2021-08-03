@@ -41,6 +41,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     date_required: null,
     create_date: null,
     hours: null,
+    hours_final: null,
     description: null,
     images: null,
     categoryName: null,
@@ -92,6 +93,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.solicitudServicio.setDateCreated(resData.data.data.created_date)
         this.solicitudServicio.setDescription(resData.data.data.description)
         this.solicitudServicio.setHours(resData.data.data.hours)
+        this.solicitudServicio.setHoursFinal(resData.data.data.hours_final)
         this.solicitudServicio.setImages(resData.data.data.images)
         this.solicitudServicio.setClientImg(resData.data.data.img_client_profile)
         this.solicitudServicio.setTicketNumber(resData.data.data.ticket_number)
@@ -108,6 +110,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.loadedInfo.created_date = resData.data.data.created_date
         this.loadedInfo.description = resData.data.data.description;
         this.loadedInfo.hours = resData.data.data.hours;
+        this.loadedInfo.hours_final = resData.data.data.hours_final;
         this.loadedInfo.images = resData.data.data.images;
         this.loadedInfo.img_client_profile = resData.data.data.img_client_profile;
         this.loadedInfo.ticket_number = resData.data.data.ticket_number;
@@ -156,12 +159,10 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     return moment(date, 'DD-MM-YYYY').format('dddd D [de] MMMM [de] YYYY');
   }
 
-  formatTime(hours: string) {
+  formatTime(hours: string, hoursFinal: string) {
     if (hours) {
-      let wHours = hours.split("/");
-
-      let startHour = moment(wHours[0]).format('h:mm A');
-      let endHour = moment(wHours[1]).format('h:mm A');
+      let startHour = moment(hours, 'hh:mm:ss').format('h:mm A');
+      let endHour = moment(hoursFinal, 'hh:mm:ss').format('h:mm A');
 
       return `${startHour} - ${endHour}`;
     }
@@ -180,7 +181,8 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
   }
 
   formatTimeTecnical(tecnical) {
-    return tecnical.visit_hours
+    let startTime = moment(tecnical.visit_hours, 'hh:mm:ss').format('h:mm A')
+    return `${startTime}`
   }
 
   startSolicitud() {

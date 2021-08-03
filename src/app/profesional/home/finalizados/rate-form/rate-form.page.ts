@@ -69,7 +69,6 @@ export class RateFormPage implements OnInit {
   }
 
   formatDate(date: string) {
-    console.log(date)
     return moment(date, 'DD/M/YYYY').format('D [de] MMM [de] YYYY');
   }
 

@@ -21,7 +21,8 @@ export class ConfirmVisitaComponent implements OnInit {
   headers: string;
   visita_tecnica: {
     visit_date: string,
-    visit_hours: string
+    visit_hours: string,
+    visit_hours_final: string
   }
 
   constructor(
@@ -40,7 +41,17 @@ export class ConfirmVisitaComponent implements OnInit {
 
     this.visita_tecnica = {
       visit_date: this.visitaT.visitaTecnica.date_required,
-      visit_hours: this.visitaT.visitaTecnica.hours
+      visit_hours: this.visitaT.visitaTecnica.hours,
+      visit_hours_final:  this.visitaT.visitaTecnica.hours_final
+    }
+  }
+
+  formatTime(hours: string, hoursFinal: string) {
+    if (hours) {
+      let startHour = moment(hours, 'hh:mm:ss').format('h:mm A');
+      let endHour = moment(hoursFinal, 'hh:mm:ss').format('h:mm A');
+
+      return `${startHour} - ${endHour}`;
     }
   }
 

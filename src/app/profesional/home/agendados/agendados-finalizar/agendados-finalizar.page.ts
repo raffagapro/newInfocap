@@ -175,10 +175,10 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     formData.append('work_report', this.formFinalizar.value.work_report)
     formData.append('categorization_id', this.categoryIDSelected)
 
-    if (this.loadedImages.length === 0) {
-      alert('Debes agregar al menos una foto a la solicitud.');
-      return
-    }
+    // if (this.loadedImages.length === 0) {
+    //   alert('Debes agregar al menos una foto a la solicitud.');
+    //   return
+    // }
 
     this.lc.create({
       message: 'Finalizando Trabajo...'
@@ -284,7 +284,6 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
 
   getColumnOptions() {
     let options = [];
-    console.log()
     this.categories.forEach(x => {
       options.push({ text: x.name, value: x.categorization_id });
     });

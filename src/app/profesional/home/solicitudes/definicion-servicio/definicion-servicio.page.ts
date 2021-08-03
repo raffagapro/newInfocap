@@ -28,6 +28,7 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     clientLastName: null,
     date_required: null,
     hours: null,
+    hours_final: null,
     description: null,
     images: null,
     categoryName: null,
@@ -81,7 +82,8 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName
     this.loadedInfo.description = this.solicitudServicio.solicitud.description
     this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
-    this.loadedInfo.hours = this.solicitudServicio.solicitud.hours.split("/")
+    this.loadedInfo.hours = this.solicitudServicio.solicitud.hours
+    this.loadedInfo.hours_final = this.solicitudServicio.solicitud.hours_final
     this.loadedInfo.images = this.solicitudServicio.solicitud.images
     this.loadedInfo.img_client_profile = this.solicitudServicio.solicitud.clientImg
     this.loadedInfo.ticket_number = this.solicitudServicio.solicitud.ticket_number
@@ -90,11 +92,9 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
     this.loadedInfo.type = this.solicitudServicio.solicitud.type
 
-    console.log(this.loadedInfo)
-
     this.form.patchValue({
-      sHour: this.loadedInfo.hours[0],
-      eHour: this.loadedInfo.hours[1],
+      sHour: this.loadedInfo.hours,
+      eHour: this.loadedInfo.hours_final,
       dateReq: moment(this.loadedInfo.date_required, 'DD/MM/YYYY').format('YYYY-MM-DD'),
     });
     this.menuController.enable(true, 'user');
@@ -127,7 +127,8 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     wDate = wDate[2] + '/' + wDate[1] + '/' + wDate[0];
 
     this.solicitudServicio.setDateRequired(wDate);
-    this.solicitudServicio.setHours(this.form.value.sHour + '/' + this.form.value.eHour);
+    this.solicitudServicio.setHours(this.form.value.sHour);
+    this.solicitudServicio.setHoursFinal(this.form.value.eHour)
     this.solicitudServicio.setCosto(this.form.value.costo)
 
     let starHour = moment(this.form.value.sHour);
@@ -137,9 +138,6 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
       this.showError = true;
       return;
     }
-    console.log({
-      sHour: this.form.value.sHour, fHour: this.form.value.eHour
-    })
     this.modalController.create({
       component: ConfirmServComponent,
       cssClass: 'modalSE',
