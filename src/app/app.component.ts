@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
 import { Platform } from "@ionic/angular";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
-import { StatusBar } from "@ionic-native/status-bar/ngx";
+import { StatusBar } from "@capacitor/status-bar";
 import { Observable, Subject, Subscription } from "rxjs";
 import { Plugins, Capacitor } from "@capacitor/core";
 
@@ -36,7 +36,6 @@ export class AppComponent {
 	constructor(
 		private platform: Platform,
 		private splashScreen: SplashScreen,
-		private statusBar: StatusBar,
 		private router: Router,
 		private menuCtrl: MenuController,
 		private as: AuthService,
@@ -53,7 +52,6 @@ export class AppComponent {
 	initializeApp() {
 		this.platform.ready().then(() => {
 			this.screenOrientation.lock("portrait");
-			// this.statusBar.styleDefault();
 			if (Capacitor.isPluginAvailable("SplashScreen")) {
 				Plugins.SplashScreen.hide();
 			}

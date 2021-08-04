@@ -201,15 +201,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
-/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
-/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/environments/environment */ "AytR");
-/* harmony import */ var _empty_modal_empty_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./empty-modal/empty-modal.component */ "pvjW");
-/* harmony import */ var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./success-modal/success-modal.component */ "VbkS");
-/* harmony import */ var src_shared_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/shared/constants */ "p1Kg");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! axios */ "vDqi");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/shared/image-modal/image-modal.component */ "BPum");
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @capacitor/core */ "FUe0");
+/* harmony import */ var _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @capacitor/camera */ "/s3u");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var _empty_modal_empty_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./empty-modal/empty-modal.component */ "pvjW");
+/* harmony import */ var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./success-modal/success-modal.component */ "VbkS");
+/* harmony import */ var src_shared_constants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/shared/constants */ "p1Kg");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! axios */ "vDqi");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/shared/image-modal/image-modal.component */ "BPum");
+
 
 
 
@@ -250,7 +252,7 @@ let CatPerfilesPage = class CatPerfilesPage {
         this.platform = platform;
         this.menuController = menuController;
         this.pickerController = pickerController;
-        this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_11__["IMAGE_URL_BLANK"];
+        this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_12__["IMAGE_URL_BLANK"];
         this.categories = [];
         this.profCategories = [];
         this.grabbedUser = null;
@@ -282,7 +284,7 @@ let CatPerfilesPage = class CatPerfilesPage {
         });
         //api headers
         //categories list
-        axios__WEBPACK_IMPORTED_MODULE_12___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/supplier/categories', { headers: { Authorization: this.headers } }).then((resData) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+        axios__WEBPACK_IMPORTED_MODULE_13___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/supplier/categories', { headers: { Authorization: this.headers } }).then((resData) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             this.categories = resData.data.data;
         }));
         //form
@@ -347,7 +349,6 @@ let CatPerfilesPage = class CatPerfilesPage {
     }
     getColumnOptions() {
         let options = [];
-        console.log();
         this.profCategories.forEach(x => {
             options.push({ text: x.categoryName, value: x.id });
         });
@@ -355,11 +356,11 @@ let CatPerfilesPage = class CatPerfilesPage {
     }
     ionViewWillEnter() {
         //prof categories list
-        axios__WEBPACK_IMPORTED_MODULE_12___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/supplier/professions', { headers: { Authorization: this.headers } }).then(resData => {
+        axios__WEBPACK_IMPORTED_MODULE_13___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/supplier/professions', { headers: { Authorization: this.headers } }).then(resData => {
             if (resData.data.code === 200) {
                 if (resData.data.data.length === 0) {
                     this.modalController.create({
-                        component: _empty_modal_empty_modal_component__WEBPACK_IMPORTED_MODULE_9__["EmptyModalComponent"],
+                        component: _empty_modal_empty_modal_component__WEBPACK_IMPORTED_MODULE_10__["EmptyModalComponent"],
                         cssClass: 'modalServRechazado',
                     }).then(modalEl => {
                         modalEl.present();
@@ -386,7 +387,7 @@ let CatPerfilesPage = class CatPerfilesPage {
             message: 'Cargando informacion...'
         }).then(loadingEl => {
             loadingEl.present();
-            axios__WEBPACK_IMPORTED_MODULE_12___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + `/supplier/profession/${profileID}`, { headers: { Authorization: this.headers } }).then(resData => {
+            axios__WEBPACK_IMPORTED_MODULE_13___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + `/supplier/profession/${profileID}`, { headers: { Authorization: this.headers } }).then(resData => {
                 loadingEl.dismiss();
                 this.updateForm(resData.data.data);
                 this.proCategoryProfile = resData.data.data;
@@ -509,11 +510,10 @@ let CatPerfilesPage = class CatPerfilesPage {
             message: 'Actualizando la informacion...'
         }).then(loadingEl => {
             loadingEl.present();
-            axios__WEBPACK_IMPORTED_MODULE_12___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + `/supplier/profession/${this.selectedProPerfilID}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
+            axios__WEBPACK_IMPORTED_MODULE_13___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + `/supplier/profession/${this.selectedProPerfilID}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
                 loadingEl.dismiss();
-                console.log('Enter');
                 this.modalController.create({
-                    component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
+                    component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
                     cssClass: 'modalSuccess',
                 }).then(modalEl => {
                     modalEl.present();
@@ -529,12 +529,12 @@ let CatPerfilesPage = class CatPerfilesPage {
             this.hiddenImgInputRef.nativeElement.click();
             return;
         }
-        _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Plugins"].Camera.getPhoto({
+        _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["Camera"].getPhoto({
             quality: 100,
-            source: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraSource"].Prompt,
+            source: _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["CameraSource"].Prompt,
             correctOrientation: true,
             width: 500,
-            resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraResultType"].DataUrl,
+            resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl,
             promptLabelPhoto: 'Fotos',
             promptLabelPicture: 'Cámara',
             promptLabelCancel: 'Cancelar'
@@ -547,7 +547,7 @@ let CatPerfilesPage = class CatPerfilesPage {
     openImage(image) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             const successModal = yield this.modalController.create({
-                component: src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_13__["ImageModalComponent"],
+                component: src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_14__["ImageModalComponent"],
                 componentProps: {
                     image,
                 },
@@ -557,13 +557,11 @@ let CatPerfilesPage = class CatPerfilesPage {
         });
     }
     removeImage(imageIndex) {
-        // this.loadedImages = this.loadedImages.filter((image: any, index: number) => index !== imageIndex)
         this.proCategoryImg = this.proCategoryImg.filter((image, index) => index !== imageIndex);
     }
     onLoadImgFromInput(e) {
         const loadedFile = e.target.files[0];
         this.saveImgToApi(loadedFile);
-        //save img to api
     }
     saveImgToApi(imageData) {
         let imgFile;
@@ -582,39 +580,6 @@ let CatPerfilesPage = class CatPerfilesPage {
         this.proCategoryImg.unshift({ image: URL.createObjectURL(imgFile) });
         this.proCategoryImgSave.push(imgFile);
         this.form.patchValue({ image: imgFile });
-        // this.lc.create({
-        //   message: 'Guardando imagen...'
-        // }).then(loadingEl => {
-        //   loadingEl.present();
-        //   //check to see if we are loading a profile img
-        //   if (this.profilePhoto) {
-        //     const formData = new FormData();
-        //     formData.append('image', imgFile);
-        //     axios.post(API + '/account/image', formData, { headers: { Authorization: this.headers } }).then(resData => {
-        //       loadingEl.dismiss();
-        //       this.modalController.create({
-        //         component: SuccessModalComponent,
-        //         cssClass: 'modalSuccess',
-        //       }).then(modalEl => {
-        //         modalEl.present();
-        //       });
-        //     }).catch(err => {
-        //       console.log(err)
-        //       loadingEl.dismiss();
-        //     })
-        //   } else {
-        //     const formData = new FormData();
-        //     console.log(this.selectedCatId)
-        //     formData.append('images[]', imgFile);
-        //     formData.append('category_id', this.proCategoryProfile.category_id);
-        //     formData.append('transport_id', this.proCategoryProfile.transports);
-        //     axios.post(API + `/supplier/profession/${this.selectedProPerfil}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
-        //       loadingEl.dismiss();
-        //     }).catch(err => {
-        //       loadingEl.dismiss();
-        //     })
-        //   }
-        // });
     }
     ngOnDestroy() {
         this.userSub.unsubscribe();
@@ -622,7 +587,7 @@ let CatPerfilesPage = class CatPerfilesPage {
 };
 CatPerfilesPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"] },
-    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"] },

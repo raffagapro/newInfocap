@@ -160,6 +160,73 @@
     },
 
     /***/
+    "R6Ch":
+    /*!*********************************************************************!*\
+      !*** ./node_modules/@capacitor/geolocation/dist/esm/definitions.js ***!
+      \*********************************************************************/
+
+    /*! no exports provided */
+
+    /***/
+    function R6Ch(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__); //# sourceMappingURL=definitions.js.map
+
+      /***/
+
+    },
+
+    /***/
+    "aa/T":
+    /*!***************************************************************!*\
+      !*** ./node_modules/@capacitor/geolocation/dist/esm/index.js ***!
+      \***************************************************************/
+
+    /*! exports provided: Geolocation */
+
+    /***/
+    function aaT(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "Geolocation", function () {
+        return Geolocation;
+      });
+      /* harmony import */
+
+
+      var _capacitor_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! @capacitor/core */
+      "FUe0");
+      /* harmony import */
+
+
+      var _definitions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./definitions */
+      "R6Ch");
+      /* empty/unused harmony star reexport */
+
+
+      var Geolocation = Object(_capacitor_core__WEBPACK_IMPORTED_MODULE_0__["registerPlugin"])('Geolocation', {
+        web: function web() {
+          return Promise.all(
+          /*! import() | web */
+          [__webpack_require__.e("common"), __webpack_require__.e("web")]).then(__webpack_require__.bind(null,
+          /*! ./web */
+          "7ogy")).then(function (m) {
+            return new m.GeolocationWeb();
+          });
+        }
+      }); //# sourceMappingURL=index.js.map
+
+      /***/
+    },
+
+    /***/
     "fJbc":
     /*!****************************************!*\
       !*** ./src/app/user/mapa/mapa.page.ts ***!
@@ -223,45 +290,43 @@
       /* harmony import */
 
 
-      var _capacitor_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-      /*! @capacitor/core */
-      "gcOT");
-      /* harmony import */
-
-
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @ionic/angular */
       "TEn/");
       /* harmony import */
 
 
-      var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! axios */
       "vDqi");
       /* harmony import */
 
 
-      var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
+      var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
       /* harmony import */
 
 
-      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/app/services/solicitud.service */
       "rLtr");
       /* harmony import */
 
 
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
+      /* harmony import */
 
-      var Geolocation = _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["Plugins"].Geolocation;
+
+      var _capacitor_geolocation__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! @capacitor/geolocation */
+      "aa/T");
 
       var MapaPage = /*#__PURE__*/function () {
         function MapaPage( // private geolocation: Geolocation,
@@ -346,25 +411,38 @@
                           break;
                         }
 
-                        Geolocation.getCurrentPosition().then(function (resData) {
-                          loadingEl.dismiss();
-                          latLng = new google.maps.LatLng(resData.coords.latitude, resData.coords.longitude);
-                        }, function (err) {
-                          loadingEl.dismiss();
+                        try {
+                          _capacitor_geolocation__WEBPACK_IMPORTED_MODULE_12__["Geolocation"].getCurrentPosition().then(function (resData) {
+                            loadingEl.dismiss();
+                            latLng = new google.maps.LatLng(resData.coords.latitude, resData.coords.longitude);
+                          }, function (err) {
+                            loadingEl.dismiss();
+                            latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
+                          });
+                        } catch (error) {
                           latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
-                        });
-                        _context.next = 9;
+                        }
+
+                        _context.next = 15;
                         break;
 
                       case 5:
-                        _context.next = 7;
-                        return Geolocation.getCurrentPosition();
+                        _context.prev = 5;
+                        _context.next = 8;
+                        return _capacitor_geolocation__WEBPACK_IMPORTED_MODULE_12__["Geolocation"].getCurrentPosition();
 
-                      case 7:
+                      case 8:
                         coords = _context.sent;
                         latLng = new google.maps.LatLng(coords.coords.latitude, coords.coords.longitude);
+                        _context.next = 15;
+                        break;
 
-                      case 9:
+                      case 12:
+                        _context.prev = 12;
+                        _context.t0 = _context["catch"](5);
+                        latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
+
+                      case 15:
                         mapOptions = {
                           center: latLng,
                           zoom: 15,
@@ -391,12 +469,12 @@
                         });
                         loadingEl.dismiss();
 
-                      case 16:
+                      case 22:
                       case "end":
                         return _context.stop();
                     }
                   }
-                }, _callee, this);
+                }, _callee, this, [[5, 12]]);
               }));
             })["catch"](function (error) {
               console.log(error);
@@ -502,6 +580,7 @@
         }, {
           key: "searchPro",
           value: function searchPro() {
+            this.solServ.setAddressDetail(this.form.value.addressDirection);
             this.solServ.setInstructions(this.form.value.addressInstructions);
             this.router.navigate(["/user/profesional-list"]);
           }
@@ -521,7 +600,7 @@
                     case 0:
                       _context2.prev = 0;
                       _context2.next = 3;
-                      return axios__WEBPACK_IMPORTED_MODULE_9___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["API"], "/location/communes"), {
+                      return axios__WEBPACK_IMPORTED_MODULE_8___default.a.get("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"], "/location/communes"), {
                         headers: {
                           Authorization: "Bearer ".concat(this.grabbedUser.access_token)
                         }
@@ -558,7 +637,7 @@
 
       MapaPage.ctorParameters = function () {
         return [{
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["LoadingController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"]
         }, {
           type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]
         }, {
@@ -566,11 +645,11 @@
         }, {
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
         }, {
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_11__["UserService"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"]
         }, {
-          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__["SolicitudService"]
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__["SolicitudService"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"]
         }];
       };
 

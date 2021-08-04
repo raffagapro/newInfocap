@@ -79,13 +79,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
-/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
-/* harmony import */ var src_app_model_user_model__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/model/user.model */ "UbF0");
-/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/environments/environment */ "AytR");
-/* harmony import */ var src_shared_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/shared/constants */ "p1Kg");
-/* harmony import */ var src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/shared/success-modal/success-modal.component */ "W/u7");
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @capacitor/core */ "FUe0");
+/* harmony import */ var _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @capacitor/camera */ "/s3u");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/model/user.model */ "UbF0");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var src_shared_constants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/shared/constants */ "p1Kg");
+/* harmony import */ var src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/shared/success-modal/success-modal.component */ "W/u7");
+
 
 
 
@@ -210,12 +212,12 @@ let ProfilePagePage = class ProfilePagePage {
         }).then(loadingEl => {
             loadingEl.present();
             let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
-            this.http.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account', modUser, { headers: headers })
+            this.http.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"] + '/account', modUser, { headers: headers })
                 .subscribe(resData => {
                 loadingEl.dismiss();
                 if (resData['code'] === 200) {
                     //update user controler
-                    this.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_8__["User"](this.grabbedUser.id, resData['data'].name, resData['data'].last_name, resData['data'].img_profile, resData['data'].email, resData['data'].phone1, resData['data'].phone2, this.grabbedUser.role, this.grabbedUser.access_token));
+                    this.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__["User"](this.grabbedUser.id, resData['data'].name, resData['data'].last_name, resData['data'].img_profile, resData['data'].email, resData['data'].phone1, resData['data'].phone2, this.grabbedUser.role, this.grabbedUser.access_token));
                     //resets values after succefull update
                     this.form.setValue({
                         name: this.form.value.name,
@@ -227,7 +229,7 @@ let ProfilePagePage = class ProfilePagePage {
                         confirmPassword: null,
                     });
                     this.modalController.create({
-                        component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_12__["SuccessModalComponent"],
+                        component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_13__["SuccessModalComponent"],
                         componentProps: {
                             message: 'INFORMACIÓN ACTUALIZADA',
                             redirect: false,
@@ -248,13 +250,13 @@ let ProfilePagePage = class ProfilePagePage {
             this.hiddenImgInputRef.nativeElement.click();
             return;
         }
-        _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Plugins"].Camera.getPhoto({
+        _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["Camera"].getPhoto({
             quality: 100,
-            source: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraSource"].Prompt,
+            source: _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["CameraSource"].Prompt,
             correctOrientation: true,
             height: 450,
             // width: 200,
-            resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraResultType"].DataUrl,
+            resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl,
             promptLabelPhoto: 'Fotos',
             promptLabelPicture: 'Cámara',
             promptLabelCancel: 'Cancelar'
@@ -286,11 +288,11 @@ let ProfilePagePage = class ProfilePagePage {
         this.form.patchValue({ image: imgFile });
         const formData = new FormData();
         formData.append('image', imgFile);
-        this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account/image', formData, { headers: this.headers })
+        this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"] + '/account/image', formData, { headers: this.headers })
             .subscribe(resData => {
             this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
             this.modalController.create({
-                component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_12__["SuccessModalComponent"],
+                component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_13__["SuccessModalComponent"],
                 componentProps: {
                     message: 'INFORMACIÓN ACTUALIZADA',
                     redirect: false,
@@ -307,14 +309,14 @@ let ProfilePagePage = class ProfilePagePage {
         this.userSub.unsubscribe();
     }
     getProfilePicture() {
-        if (this.grabbedUser.img_profile && this.grabbedUser.img_profile !== src_shared_constants__WEBPACK_IMPORTED_MODULE_11__["IMAGE_URL_BLANK"]) {
+        if (this.grabbedUser.img_profile && this.grabbedUser.img_profile !== src_shared_constants__WEBPACK_IMPORTED_MODULE_12__["IMAGE_URL_BLANK"]) {
             return this.grabbedUser.img_profile;
         }
         return 'assets/images/avatar.png';
     }
     dbUserGrab(token, role) {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + token);
-        this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account/me', { headers: headers })
+        this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"] + '/account/me', { headers: headers })
             .subscribe(resData => {
             let img;
             if (resData['data'].img_profile === null) {
@@ -328,11 +330,11 @@ let ProfilePagePage = class ProfilePagePage {
     }
 };
 ProfilePagePage.ctorParameters = () => [
-    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["LoadingController"] },
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["ModalController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["ModalController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"] }
 ];
 ProfilePagePage.propDecorators = {
     imgPick: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["Output"] }],

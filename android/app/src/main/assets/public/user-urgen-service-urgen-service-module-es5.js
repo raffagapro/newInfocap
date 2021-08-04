@@ -78,45 +78,51 @@
 
       var _capacitor_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @capacitor/core */
-      "gcOT");
+      "FUe0");
       /* harmony import */
 
 
-      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _capacitor_camera__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! @capacitor/camera */
+      "/s3u");
+      /* harmony import */
+
+
+      var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! src/app/services/solicitud.service */
       "rLtr");
       /* harmony import */
 
 
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
       /* harmony import */
 
 
-      var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! @angular/forms */
       "3Pt+");
       /* harmony import */
 
 
-      var moment__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      var moment__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
       /*! moment */
       "wd/R");
       /* harmony import */
 
 
-      var moment__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_13__);
+      var moment__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_14__);
       /* harmony import */
 
 
-      var src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      var src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
       /*! src/app/shared/image-modal/image-modal.component */
       "BPum");
 
@@ -157,8 +163,8 @@
           this.us = us;
           this.lc = lc;
           this.platform = platform;
-          this.minDate = moment__WEBPACK_IMPORTED_MODULE_13__().add('hour', 1);
-          this.maxDate = moment__WEBPACK_IMPORTED_MODULE_13__().add('hour', 24);
+          this.minDate = moment__WEBPACK_IMPORTED_MODULE_14__().add('hour', 1);
+          this.maxDate = moment__WEBPACK_IMPORTED_MODULE_14__().add('hour', 24);
           this.useInputPicker = false;
           this.loadedImages = [];
           this.loadedImagesDisplay = [];
@@ -185,24 +191,24 @@
             } //form
 
 
-            this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormGroup"]({
-              description: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"](null, {
+            this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormGroup"]({
+              description: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](null, {
                 updateOn: 'blur',
-                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required]
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required]
               }),
-              date_required: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"](null, {
+              date_required: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](null, {
                 updateOn: 'blur',
-                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required]
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required]
               }),
-              sHour: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"](null, {
+              sHour: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](null, {
                 updateOn: 'blur',
-                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required]
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required]
               }),
-              eHour: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"](null, {
+              eHour: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](null, {
                 updateOn: 'blur',
-                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required]
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required]
               }),
-              adress: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"](this.solServ.solicitud.address, {
+              adress: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](this.solServ.solicitud.address, {
                 updateOn: 'blur'
               })
             });
@@ -227,13 +233,13 @@
               return;
             }
 
-            _capacitor_core__WEBPACK_IMPORTED_MODULE_8__["Plugins"].Camera.getPhoto({
+            _capacitor_camera__WEBPACK_IMPORTED_MODULE_9__["Camera"].getPhoto({
               quality: 100,
-              source: _capacitor_core__WEBPACK_IMPORTED_MODULE_8__["CameraSource"].Prompt,
+              source: _capacitor_camera__WEBPACK_IMPORTED_MODULE_9__["CameraSource"].Prompt,
               correctOrientation: true,
               //height: 500,
               width: 500,
-              resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_8__["CameraResultType"].DataUrl,
+              resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_9__["CameraResultType"].DataUrl,
               promptLabelPhoto: 'Fotos',
               promptLabelPicture: 'Cámara',
               promptLabelCancel: 'Cancelar'
@@ -309,10 +315,11 @@
             formData.append('adress_detail', this.form.value.adress);
             formData.append('extra_instructions', this.solServ.solicitud.instructions);
             formData.append('date_required', wDate);
-            formData.append('hours', this.form.value.sHour + "/" + this.form.value.eHour);
+            formData.append('hours', moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.sHour).format('HH:mm:ss'));
+            formData.append('hours_final', moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.eHour).format('HH:mm:ss'));
             formData.append('category_id', this.solServ.solicitud.category_id);
-            var startHour = moment__WEBPACK_IMPORTED_MODULE_13__(this.form.value.sHour);
-            var endHour = moment__WEBPACK_IMPORTED_MODULE_13__(this.form.value.eHour);
+            var startHour = moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.sHour);
+            var endHour = moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.eHour);
 
             if (startHour.isAfter(endHour)) {
               this.showError = true;
@@ -331,7 +338,7 @@
             }).then(function (loadingEl) {
               loadingEl.present();
 
-              _this4.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"], "/client/requestserviceurgent"), formData, {
+              _this4.http.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["API"], "/client/requestserviceurgent"), formData, {
                 headers: _this4.headers
               }).subscribe(function (resData) {
                 loadingEl.dismiss();
@@ -364,7 +371,7 @@
                     case 0:
                       _context.next = 2;
                       return this.modalController.create({
-                        component: src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_14__["ImageModalComponent"],
+                        component: src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_15__["ImageModalComponent"],
                         componentProps: {
                           image: image
                         },
@@ -401,11 +408,11 @@
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["MenuController"]
         }, {
-          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__["SolicitudService"]
+          type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__["SolicitudService"]
         }, {
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClient"]
         }, {
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_11__["UserService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
         }, {

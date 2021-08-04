@@ -267,11 +267,11 @@
                       data.map(function (r) {
                         if (type === "2") {
                           var date = r.request_technical[0].visit_date.substring(0, 10).split('-');
-                          var hour = r.request_technical[0].visit_hours.split(' - ');
-                          var hoursTime = hour[0].split(':');
-                          var hoursFinish = hour[1].split(':');
+                          var hour = r.request_technical[0].visit_hours;
+                          var hoursTime = hour.split(':');
+                          var hoursFinish = hour.split(':');
                           var startTime = new Date(date[0], date[1] - 1, date[2], hoursTime[0], hoursTime[1]);
-                          var endTime = new Date(date[0], date[1] - 1, date[2], hoursFinish[0], hoursFinish[1]);
+                          var endTime = new Date(date[0], date[1] - 1, date[2], hoursFinish[0] + 1, hoursFinish[1]);
                           var ticket_format = r.ticket_number.toString().substr(-3);
                           var new_event = {
                             title: {
@@ -288,11 +288,11 @@
                           _this2.eventSourceAgended.push(new_event);
                         } else {
                           var date = r.date_required.split('-');
-                          var hour = r.hours.split('/');
-                          var startHour = hour[0].substring(11, 13);
-                          var startMinute = hour[0].substring(14, 16);
-                          var endHour = hour[1].substring(11, 13);
-                          var endMinute = hour[1].substring(14, 16);
+                          var hour = r.hours.split(':');
+                          var startHour = hour[0];
+                          var startMinute = hour[1];
+                          var endHour = hour[0] + 1;
+                          var endMinute = hour[1];
                           var startTime = new Date(date[0], date[1] - 1, date[2], startHour, startMinute);
                           var endTime = new Date(date[0], date[1] - 1, date[2], endHour, endMinute);
                           var ticket_format = r.ticket_number.toString().substr(-3);
@@ -333,7 +333,8 @@
         }, {
           key: "formatTimeTecnical",
           value: function formatTimeTecnical(tecnical) {
-            return tecnical.visit_hours;
+            var startTime = moment__WEBPACK_IMPORTED_MODULE_10__(tecnical.visit_hours, 'hh:mm:ss').format('h:mm A');
+            return "".concat(startTime);
           }
         }, {
           key: "ionViewWillEnter",
@@ -407,10 +408,10 @@
           key: "formatTime",
           value: function formatTime(hours) {
             if (hours) {
-              var wHours = hours.split("/");
-              var startHour = moment__WEBPACK_IMPORTED_MODULE_10__(wHours[0]).format('h:mm A');
-              var endHour = moment__WEBPACK_IMPORTED_MODULE_10__(wHours[1]).format('h:mm A');
-              return "".concat(startHour, " - ").concat(endHour);
+              var startHour = moment__WEBPACK_IMPORTED_MODULE_10__(hours, 'hh:mm:ss').format('h:mm A'); // let endHour = moment(wHours[1]).format('h:mm A');
+              // - ${endHour}
+
+              return "".concat(startHour);
             }
           }
         }, {
@@ -467,7 +468,6 @@
         }, {
           key: "viewHour",
           value: function viewHour(i) {
-            console.log(i);
             return i;
           }
         }, {

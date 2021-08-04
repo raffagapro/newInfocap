@@ -109,13 +109,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
-/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
-/* harmony import */ var src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/model/user.model */ "UbF0");
-/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/environments/environment */ "AytR");
-/* harmony import */ var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./success-modal/success-modal.component */ "yw4M");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! axios */ "vDqi");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @capacitor/core */ "FUe0");
+/* harmony import */ var _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @capacitor/camera */ "/s3u");
+/* harmony import */ var src_app_model_user_model__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/model/user.model */ "UbF0");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./success-modal/success-modal.component */ "yw4M");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! axios */ "vDqi");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
+
 
 
 
@@ -211,7 +213,7 @@ let PerfilPage = class PerfilPage {
     }
     ckeckUpdateUser(token) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            yield axios__WEBPACK_IMPORTED_MODULE_11___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/account/me', { headers: { Authorization: token } }).then(res => {
+            yield axios__WEBPACK_IMPORTED_MODULE_12___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account/me', { headers: { Authorization: token } }).then(res => {
                 this.form.setValue({
                     name: res.data.data.name + ' ' + res.data.data.last_name,
                     email: res.data.data.email,
@@ -256,10 +258,10 @@ let PerfilPage = class PerfilPage {
         }).then(loadingEl => {
             loadingEl.present();
             let headers = 'Bearer ' + this.grabbedUser.access_token;
-            axios__WEBPACK_IMPORTED_MODULE_11___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/account', modUser, { headers: { Authorization: this.headers } }).then(resData => {
+            axios__WEBPACK_IMPORTED_MODULE_12___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account', modUser, { headers: { Authorization: this.headers } }).then(resData => {
                 loadingEl.dismiss();
                 //update user controler
-                this.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["User"](this.grabbedUser.id, resData.data.data.name, resData.data.data.last_name, resData.data.data.img_profile, resData.data.data.email, resData.data.data.phone1, resData.data.data.phone2, this.grabbedUser.role, this.grabbedUser.access_token));
+                this.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_8__["User"](this.grabbedUser.id, resData.data.data.name, resData.data.data.last_name, resData.data.data.img_profile, resData.data.data.email, resData.data.data.phone1, resData.data.data.phone2, this.grabbedUser.role, this.grabbedUser.access_token));
                 //resets values after succefull update
                 this.form.setValue({
                     name: this.form.value.name,
@@ -271,7 +273,7 @@ let PerfilPage = class PerfilPage {
                     confirmPassword: null,
                 });
                 this.modalController.create({
-                    component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
+                    component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
                     cssClass: 'modalSuccess',
                 }).then(modalEl => {
                     modalEl.present();
@@ -287,13 +289,13 @@ let PerfilPage = class PerfilPage {
             this.hiddenImgInputRef.nativeElement.click();
             return;
         }
-        _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Plugins"].Camera.getPhoto({
+        _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["Camera"].getPhoto({
             quality: 100,
-            source: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraSource"].Prompt,
+            source: _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["CameraSource"].Prompt,
             correctOrientation: true,
             // height: 500,
             width: 500,
-            resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraResultType"].DataUrl,
+            resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl,
             promptLabelPhoto: 'Fotos',
             promptLabelPicture: 'Cámara',
             promptLabelCancel: 'Cancelar'
@@ -333,10 +335,10 @@ let PerfilPage = class PerfilPage {
         this.form.patchValue({ image: imgFile });
         const formData = new FormData();
         formData.append('image', imgFile);
-        axios__WEBPACK_IMPORTED_MODULE_11___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/account/image', formData, { headers: { Authorization: this.headers } }).then(resData => {
+        axios__WEBPACK_IMPORTED_MODULE_12___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account/image', formData, { headers: { Authorization: this.headers } }).then(resData => {
             this.us.dbUserGrab(this.grabbedUser.access_token, this.grabbedUser.role);
             this.modalController.create({
-                component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
+                component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
                 cssClass: 'modalSuccess',
             }).then(modalEl => {
                 modalEl.present();
@@ -350,7 +352,7 @@ let PerfilPage = class PerfilPage {
     }
 };
 PerfilPage.ctorParameters = () => [
-    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] }

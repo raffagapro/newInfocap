@@ -1,5 +1,33 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["common"],{
 
+/***/ "/s3u":
+/*!**********************************************************!*\
+  !*** ./node_modules/@capacitor/camera/dist/esm/index.js ***!
+  \**********************************************************/
+/*! exports provided: CameraSource, CameraDirection, CameraResultType, Camera */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Camera", function() { return Camera; });
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @capacitor/core */ "FUe0");
+/* harmony import */ var _definitions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./definitions */ "dTEF");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CameraSource", function() { return _definitions__WEBPACK_IMPORTED_MODULE_1__["CameraSource"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CameraDirection", function() { return _definitions__WEBPACK_IMPORTED_MODULE_1__["CameraDirection"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CameraResultType", function() { return _definitions__WEBPACK_IMPORTED_MODULE_1__["CameraResultType"]; });
+
+
+const Camera = Object(_capacitor_core__WEBPACK_IMPORTED_MODULE_0__["registerPlugin"])('Camera', {
+    web: () => Promise.all(/*! import() | web */[__webpack_require__.e("common"), __webpack_require__.e("web")]).then(__webpack_require__.bind(null, /*! ./web */ "wzPO")).then(m => new m.CameraWeb()),
+});
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
 /***/ "0/6H":
 /*!*********************************************************************!*\
   !*** ./node_modules/@ionic/core/dist/esm/button-active-a6787d69.js ***!
@@ -348,6 +376,67 @@ const detachComponent = (delegate, element) => {
 
 /***/ }),
 
+/***/ "cnT8":
+/*!**************************************************************!*\
+  !*** ./node_modules/@capacitor/status-bar/dist/esm/index.js ***!
+  \**************************************************************/
+/*! exports provided: Style, Animation, StatusBarAnimation, StatusBarStyle, StatusBar */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StatusBar", function() { return StatusBar; });
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @capacitor/core */ "FUe0");
+/* harmony import */ var _definitions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./definitions */ "rFhC");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Style", function() { return _definitions__WEBPACK_IMPORTED_MODULE_1__["Style"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Animation", function() { return _definitions__WEBPACK_IMPORTED_MODULE_1__["Animation"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StatusBarAnimation", function() { return _definitions__WEBPACK_IMPORTED_MODULE_1__["StatusBarAnimation"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StatusBarStyle", function() { return _definitions__WEBPACK_IMPORTED_MODULE_1__["StatusBarStyle"]; });
+
+
+const StatusBar = Object(_capacitor_core__WEBPACK_IMPORTED_MODULE_0__["registerPlugin"])('StatusBar');
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "dTEF":
+/*!****************************************************************!*\
+  !*** ./node_modules/@capacitor/camera/dist/esm/definitions.js ***!
+  \****************************************************************/
+/*! exports provided: CameraSource, CameraDirection, CameraResultType */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CameraSource", function() { return CameraSource; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CameraDirection", function() { return CameraDirection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CameraResultType", function() { return CameraResultType; });
+var CameraSource;
+(function (CameraSource) {
+    CameraSource["Prompt"] = "PROMPT";
+    CameraSource["Camera"] = "CAMERA";
+    CameraSource["Photos"] = "PHOTOS";
+})(CameraSource || (CameraSource = {}));
+var CameraDirection;
+(function (CameraDirection) {
+    CameraDirection["Rear"] = "REAR";
+    CameraDirection["Front"] = "FRONT";
+})(CameraDirection || (CameraDirection = {}));
+var CameraResultType;
+(function (CameraResultType) {
+    CameraResultType["Uri"] = "uri";
+    CameraResultType["Base64"] = "base64";
+    CameraResultType["DataUrl"] = "dataUrl";
+})(CameraResultType || (CameraResultType = {}));
+//# sourceMappingURL=definitions.js.map
+
+/***/ }),
+
 /***/ "h3R7":
 /*!***********************************************************************!*\
   !*** ./node_modules/@ionic/core/dist/esm/spinner-configs-cd7845af.js ***!
@@ -606,6 +695,79 @@ const hapticImpact = (options) => {
 
 
 
+
+/***/ }),
+
+/***/ "rFhC":
+/*!********************************************************************!*\
+  !*** ./node_modules/@capacitor/status-bar/dist/esm/definitions.js ***!
+  \********************************************************************/
+/*! exports provided: Style, Animation, StatusBarAnimation, StatusBarStyle */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Style", function() { return Style; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Animation", function() { return Animation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StatusBarAnimation", function() { return StatusBarAnimation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StatusBarStyle", function() { return StatusBarStyle; });
+var Style;
+(function (Style) {
+    /**
+     * Light text for dark backgrounds.
+     *
+     * @since 1.0.0
+     */
+    Style["Dark"] = "DARK";
+    /**
+     * Dark text for light backgrounds.
+     *
+     * @since 1.0.0
+     */
+    Style["Light"] = "LIGHT";
+    /**
+     * On iOS 13 and newer the style is based on the device appearance.
+     * If the device is using Dark mode, the statusbar text will be light.
+     * If the device is using Light mode, the statusbar text will be dark.
+     * On iOS 12 and older the statusbar text will be dark.
+     * On Android the default will be the one the app was launched with.
+     *
+     * @since 1.0.0
+     */
+    Style["Default"] = "DEFAULT";
+})(Style || (Style = {}));
+var Animation;
+(function (Animation) {
+    /**
+     * No animation during show/hide.
+     *
+     * @since 1.0.0
+     */
+    Animation["None"] = "NONE";
+    /**
+     * Slide animation during show/hide.
+     *
+     * @since 1.0.0
+     */
+    Animation["Slide"] = "SLIDE";
+    /**
+     * Fade animation during show/hide.
+     *
+     * @since 1.0.0
+     */
+    Animation["Fade"] = "FADE";
+})(Animation || (Animation = {}));
+/**
+ * @deprecated Use `Animation`.
+ * @since 1.0.0
+ */
+const StatusBarAnimation = Animation;
+/**
+ * @deprecated Use `Style`.
+ * @since 1.0.0
+ */
+const StatusBarStyle = Style;
+//# sourceMappingURL=definitions.js.map
 
 /***/ })
 

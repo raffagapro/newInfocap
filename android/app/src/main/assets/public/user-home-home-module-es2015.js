@@ -302,7 +302,7 @@ let HomePage = class HomePage {
         this.urlServer = src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["PATH"];
     }
     ngOnInit() {
-        this.userSub = this.us.loggedUser.subscribe(user => {
+        this.userSub = this.us.loggedUser.subscribe((user) => {
             this.grabbedUser = user;
             this.menuController.enable(user.role === src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].PROFESSIONAL, src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].PROFESSIONAL);
             this.menuController.enable(user.role === src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].USER, src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["UserRoles"].USER);
@@ -314,16 +314,24 @@ let HomePage = class HomePage {
     loadCategories() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             const loader = yield this.lc.create({
-                message: 'Cargando servicios disponibles...'
+                message: "Cargando servicios disponibles...",
             });
             try {
                 const response = yield axios__WEBPACK_IMPORTED_MODULE_12___default.a.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"]}/categories`, {
                     headers: {
-                        authorization: `Bearer ${this.grabbedUser.access_token}`
-                    }
+                        authorization: `Bearer ${this.grabbedUser.access_token}`,
+                    },
                 });
                 loader.dismiss();
-                this.categories = response.data.data;
+                this.categories = response.data.data.sort((category, nextCategory) => {
+                    if (category.name[0] < nextCategory.name[0]) {
+                        return -1;
+                    }
+                    if (category.name[0] > nextCategory.name[0]) {
+                        return 1;
+                    }
+                    return 0;
+                });
             }
             catch (error) {
                 loader.dismiss();
@@ -333,10 +341,10 @@ let HomePage = class HomePage {
     }
     map(catId) {
         this.solServ.setCat(catId);
-        this.router.navigate(['/user/map']);
+        this.router.navigate(["/user/map"]);
     }
     login() {
-        // do something cool 
+        // do something cool
     }
     ngOnDestroy() {
         this.userSub.unsubscribe();
@@ -345,7 +353,7 @@ let HomePage = class HomePage {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             let modal = yield this.modalController.create({
                 component: _suggest_category_modal_suggest_category_modal_component__WEBPACK_IMPORTED_MODULE_13__["SuggestCategoryModalComponent"],
-                cssClass: 'modalSuccess',
+                cssClass: "modalSuccess",
             });
             modal.present();
         });
@@ -363,7 +371,7 @@ HomePage.ctorParameters = () => [
 ];
 HomePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-home',
+        selector: "app-home",
         template: _raw_loader_home_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_home_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
     })

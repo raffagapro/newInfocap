@@ -197,11 +197,11 @@ let AgendadosPage = class AgendadosPage {
             data.map(r => {
                 if (type === "2") {
                     var date = r.request_technical[0].visit_date.substring(0, 10).split('-');
-                    var hour = r.request_technical[0].visit_hours.split(' - ');
-                    var hoursTime = hour[0].split(':');
-                    var hoursFinish = hour[1].split(':');
+                    var hour = r.request_technical[0].visit_hours;
+                    var hoursTime = hour.split(':');
+                    var hoursFinish = hour.split(':');
                     var startTime = new Date(date[0], date[1] - 1, date[2], hoursTime[0], hoursTime[1]);
-                    var endTime = new Date(date[0], date[1] - 1, date[2], hoursFinish[0], hoursFinish[1]);
+                    var endTime = new Date(date[0], date[1] - 1, date[2], hoursFinish[0] + 1, hoursFinish[1]);
                     var ticket_format = r.ticket_number.toString().substr(-3);
                     let new_event = {
                         title: { id: r.id, ticket: `#${ticket_format}`, type: r.type_request, request_technical: r.request_technical[0] },
@@ -213,11 +213,11 @@ let AgendadosPage = class AgendadosPage {
                 }
                 else {
                     var date = r.date_required.split('-');
-                    var hour = r.hours.split('/');
-                    var startHour = hour[0].substring(11, 13);
-                    var startMinute = hour[0].substring(14, 16);
-                    var endHour = hour[1].substring(11, 13);
-                    var endMinute = hour[1].substring(14, 16);
+                    var hour = r.hours.split(':');
+                    var startHour = hour[0];
+                    var startMinute = hour[1];
+                    var endHour = hour[0] + 1;
+                    var endMinute = hour[1];
                     var startTime = new Date(date[0], date[1] - 1, date[2], startHour, startMinute);
                     var endTime = new Date(date[0], date[1] - 1, date[2], endHour, endMinute);
                     var ticket_format = r.ticket_number.toString().substr(-3);
@@ -240,7 +240,8 @@ let AgendadosPage = class AgendadosPage {
         return moment__WEBPACK_IMPORTED_MODULE_10__(date[0], 'YYYY-MM-DD').format('DD MMM YYYY');
     }
     formatTimeTecnical(tecnical) {
-        return tecnical.visit_hours;
+        let startTime = moment__WEBPACK_IMPORTED_MODULE_10__(tecnical.visit_hours, 'hh:mm:ss').format('h:mm A');
+        return `${startTime}`;
     }
     ionViewWillEnter() {
         this.menuController.enable(true, 'profesional');
@@ -290,10 +291,10 @@ let AgendadosPage = class AgendadosPage {
     }
     formatTime(hours) {
         if (hours) {
-            let wHours = hours.split("/");
-            let startHour = moment__WEBPACK_IMPORTED_MODULE_10__(wHours[0]).format('h:mm A');
-            let endHour = moment__WEBPACK_IMPORTED_MODULE_10__(wHours[1]).format('h:mm A');
-            return `${startHour} - ${endHour}`;
+            let startHour = moment__WEBPACK_IMPORTED_MODULE_10__(hours, 'hh:mm:ss').format('h:mm A');
+            // let endHour = moment(wHours[1]).format('h:mm A');
+            // - ${endHour}
+            return `${startHour}`;
         }
     }
     openMaps(address) {
@@ -332,7 +333,6 @@ let AgendadosPage = class AgendadosPage {
         return date;
     }
     viewHour(i) {
-        console.log(i);
         return i;
     }
     changeView(type) {

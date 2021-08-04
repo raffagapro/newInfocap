@@ -186,7 +186,8 @@ export class UrgenServicePage implements OnInit {
     formData.append('adress_detail', this.form.value.adress);
     formData.append('extra_instructions', this.solServ.solicitud.instructions);
     formData.append('date_required', wDate);
-    formData.append('hours', this.form.value.sHour + "/" + this.form.value.eHour);
+    formData.append('hours', moment(this.form.value.sHour).format('HH:mm:ss'));
+    formData.append('hours_final', moment(this.form.value.eHour).format('HH:mm:ss'));
     formData.append('category_id', this.solServ.solicitud.category_id);
 
     let startHour = moment(this.form.value.sHour);

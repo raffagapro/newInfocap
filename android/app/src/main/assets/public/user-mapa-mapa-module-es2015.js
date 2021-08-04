@@ -93,6 +93,42 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "R6Ch":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@capacitor/geolocation/dist/esm/definitions.js ***!
+  \*********************************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+
+//# sourceMappingURL=definitions.js.map
+
+/***/ }),
+
+/***/ "aa/T":
+/*!***************************************************************!*\
+  !*** ./node_modules/@capacitor/geolocation/dist/esm/index.js ***!
+  \***************************************************************/
+/*! exports provided: Geolocation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Geolocation", function() { return Geolocation; });
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @capacitor/core */ "FUe0");
+/* harmony import */ var _definitions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./definitions */ "R6Ch");
+/* empty/unused harmony star reexport */
+const Geolocation = Object(_capacitor_core__WEBPACK_IMPORTED_MODULE_0__["registerPlugin"])('Geolocation', {
+    web: () => Promise.all(/*! import() | web */[__webpack_require__.e("common"), __webpack_require__.e("web")]).then(__webpack_require__.bind(null, /*! ./web */ "7ogy")).then(m => new m.GeolocationWeb()),
+});
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
 /***/ "fJbc":
 /*!****************************************!*\
   !*** ./src/app/user/mapa/mapa.page.ts ***!
@@ -110,13 +146,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "tyNb");
-/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! axios */ "vDqi");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
-/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "vDqi");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/solicitud.service */ "rLtr");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/user.service */ "qfBg");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/environments/environment */ "AytR");
+/* harmony import */ var _capacitor_geolocation__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @capacitor/geolocation */ "aa/T");
 
 
 
@@ -130,7 +166,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const { Geolocation } = _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["Plugins"];
 let MapaPage = class MapaPage {
     constructor(
     // private geolocation: Geolocation,
@@ -188,18 +223,28 @@ let MapaPage = class MapaPage {
             let latLng;
             if ((this.platform.is("mobile") && !this.platform.is("hybrid")) ||
                 this.platform.is("desktop")) {
-                Geolocation.getCurrentPosition().then((resData) => {
-                    loadingEl.dismiss();
-                    latLng = new google.maps.LatLng(resData.coords.latitude, resData.coords.longitude);
-                }, (err) => {
-                    loadingEl.dismiss();
+                try {
+                    _capacitor_geolocation__WEBPACK_IMPORTED_MODULE_12__["Geolocation"].getCurrentPosition().then((resData) => {
+                        loadingEl.dismiss();
+                        latLng = new google.maps.LatLng(resData.coords.latitude, resData.coords.longitude);
+                    }, (err) => {
+                        loadingEl.dismiss();
+                        latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
+                    });
+                }
+                catch (error) {
                     latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
-                });
+                }
             }
             else {
-                // get location from device
-                const coords = yield Geolocation.getCurrentPosition();
-                latLng = new google.maps.LatLng(coords.coords.latitude, coords.coords.longitude);
+                try {
+                    // get location from device
+                    const coords = yield _capacitor_geolocation__WEBPACK_IMPORTED_MODULE_12__["Geolocation"].getCurrentPosition();
+                    latLng = new google.maps.LatLng(coords.coords.latitude, coords.coords.longitude);
+                }
+                catch (err) {
+                    latLng = new google.maps.LatLng(-33.5615548, -71.6251603);
+                }
             }
             let mapOptions = {
                 center: latLng,
@@ -307,6 +352,7 @@ let MapaPage = class MapaPage {
         this.autocomplete.input = "";
     }
     searchPro() {
+        this.solServ.setAddressDetail(this.form.value.addressDirection);
         this.solServ.setInstructions(this.form.value.addressInstructions);
         this.router.navigate(["/user/profesional-list"]);
     }
@@ -316,7 +362,7 @@ let MapaPage = class MapaPage {
     getComunes() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             try {
-                let response = yield axios__WEBPACK_IMPORTED_MODULE_9___default.a.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["API"]}/location/communes`, {
+                let response = yield axios__WEBPACK_IMPORTED_MODULE_8___default.a.get(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"]}/location/communes`, {
                     headers: {
                         Authorization: `Bearer ${this.grabbedUser.access_token}`,
                     },
@@ -333,13 +379,13 @@ let MapaPage = class MapaPage {
     }
 };
 MapaPage.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["LoadingController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["NgZone"] },
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
-    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_11__["UserService"] },
-    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_10__["SolicitudService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"] }
+    { type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"] },
+    { type: src_app_services_solicitud_service__WEBPACK_IMPORTED_MODULE_9__["SolicitudService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"] }
 ];
 MapaPage.propDecorators = {
     mapRef: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"], args: ["map", { read: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ElementRef"], static: false },] }]

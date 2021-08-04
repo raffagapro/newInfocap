@@ -606,7 +606,7 @@
                     case 0:
                       _context2.next = 2;
                       return this.lc.create({
-                        message: 'Cargando servicios disponibles...'
+                        message: "Cargando servicios disponibles..."
                       });
 
                     case 2:
@@ -622,7 +622,17 @@
                     case 6:
                       response = _context2.sent;
                       loader.dismiss();
-                      this.categories = response.data.data;
+                      this.categories = response.data.data.sort(function (category, nextCategory) {
+                        if (category.name[0] < nextCategory.name[0]) {
+                          return -1;
+                        }
+
+                        if (category.name[0] > nextCategory.name[0]) {
+                          return 1;
+                        }
+
+                        return 0;
+                      });
                       _context2.next = 15;
                       break;
 
@@ -644,11 +654,11 @@
           key: "map",
           value: function map(catId) {
             this.solServ.setCat(catId);
-            this.router.navigate(['/user/map']);
+            this.router.navigate(["/user/map"]);
           }
         }, {
           key: "login",
-          value: function login() {// do something cool 
+          value: function login() {// do something cool
           }
         }, {
           key: "ngOnDestroy",
@@ -667,7 +677,7 @@
                       _context3.next = 2;
                       return this.modalController.create({
                         component: _suggest_category_modal_suggest_category_modal_component__WEBPACK_IMPORTED_MODULE_13__["SuggestCategoryModalComponent"],
-                        cssClass: 'modalSuccess'
+                        cssClass: "modalSuccess"
                       });
 
                     case 2:
@@ -708,7 +718,7 @@
       };
 
       HomePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-home',
+        selector: "app-home",
         template: _raw_loader_home_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_home_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], HomePage);

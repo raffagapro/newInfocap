@@ -34,6 +34,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "vDqi");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @capacitor/status-bar */ "cnT8");
+
 
 
 
@@ -50,7 +52,7 @@ let RegisterPage = class RegisterPage {
         this.http = http;
         this.lc = lc;
         this.router = router;
-        this.passwordTypeInput = 'password';
+        this.passwordTypeInput = "password";
         this.errors = {
             name: [],
             last_name: [],
@@ -60,6 +62,7 @@ let RegisterPage = class RegisterPage {
         };
     }
     ngOnInit() {
+        _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_10__["StatusBar"].hide();
     }
     onRegister(form) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -78,11 +81,11 @@ let RegisterPage = class RegisterPage {
             const phone1 = form.value.phone1;
             const confirm_password = form.value.confirm_password;
             if (password !== confirm_password) {
-                this.errors.password = ['Las contraseñas no coinciden'];
+                this.errors.password = ["Las contraseñas no coinciden"];
                 return;
             }
             const loader = yield this.lc.create({
-                message: 'Registrando tu usuario...'
+                message: "Registrando tu usuario...",
             });
             loader.present();
             const body = {
@@ -95,9 +98,9 @@ let RegisterPage = class RegisterPage {
             try {
                 let response = yield axios__WEBPACK_IMPORTED_MODULE_8___default.a.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"]}/auth/register`, body, {
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
+                        "Content-Type": "application/json",
+                        "X-Requested-With": "XMLHttpRequest",
+                    },
                 });
                 const { success, data } = response.data;
                 loader.dismiss();
@@ -107,7 +110,7 @@ let RegisterPage = class RegisterPage {
                     // modal for succes
                     const successModal = yield this.modalController.create({
                         component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_7__["SuccessModalComponent"],
-                        cssClass: 'modalSuccess',
+                        cssClass: "modalSuccess",
                     });
                     successModal.present();
                 }
@@ -149,13 +152,14 @@ let RegisterPage = class RegisterPage {
         this.errors.password = [];
     }
     goToTerms() {
-        this.router.navigate(['/terms']);
+        this.router.navigate(["/terms"]);
     }
     goToPrivacy() {
-        this.router.navigate(['/privacy']);
+        this.router.navigate(["/privacy"]);
     }
     togglePasswordMode() {
-        this.passwordTypeInput = this.passwordTypeInput === 'text' ? 'password' : 'text';
+        this.passwordTypeInput =
+            this.passwordTypeInput === "text" ? "password" : "text";
     }
 };
 RegisterPage.ctorParameters = () => [
@@ -165,11 +169,11 @@ RegisterPage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_9__["Router"] }
 ];
 RegisterPage.propDecorators = {
-    passwordEye: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"], args: ['passwordEyeRegister', { read: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ElementRef"] },] }]
+    passwordEye: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"], args: ["passwordEyeRegister", { read: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ElementRef"] },] }]
 };
 RegisterPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
-        selector: 'app-register',
+        selector: "app-register",
         template: _raw_loader_register_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_register_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
     })

@@ -14,5 +14,7 @@ xmlns:amazon="http://schemas.amazon.com/apk/res/android">
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 <uses-feature android:name="android.hardware.location.gps" android:required="true"/>
+<uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+<uses-permission android:name="android.permission.USE_CREDENTIALS"/>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 </manifest>

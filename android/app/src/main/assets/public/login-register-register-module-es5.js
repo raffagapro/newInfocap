@@ -109,6 +109,12 @@
       var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @angular/router */
       "tyNb");
+      /* harmony import */
+
+
+      var _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! @capacitor/status-bar */
+      "cnT8");
 
       var RegisterPage = /*#__PURE__*/function () {
         function RegisterPage(modalController, http, lc, router) {
@@ -118,7 +124,7 @@
           this.http = http;
           this.lc = lc;
           this.router = router;
-          this.passwordTypeInput = 'password';
+          this.passwordTypeInput = "password";
           this.errors = {
             name: [],
             last_name: [],
@@ -130,7 +136,9 @@
 
         _createClass(RegisterPage, [{
           key: "ngOnInit",
-          value: function ngOnInit() {}
+          value: function ngOnInit() {
+            _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_10__["StatusBar"].hide();
+          }
         }, {
           key: "onRegister",
           value: function onRegister(form) {
@@ -168,13 +176,13 @@
                         break;
                       }
 
-                      this.errors.password = ['Las contraseñas no coinciden'];
+                      this.errors.password = ["Las contraseñas no coinciden"];
                       return _context.abrupt("return");
 
                     case 14:
                       _context.next = 16;
                       return this.lc.create({
-                        message: 'Registrando tu usuario...'
+                        message: "Registrando tu usuario..."
                       });
 
                     case 16:
@@ -191,8 +199,8 @@
                       _context.next = 22;
                       return axios__WEBPACK_IMPORTED_MODULE_8___default.a.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"], "/auth/register"), body, {
                         headers: {
-                          'Content-Type': 'application/json',
-                          'X-Requested-With': 'XMLHttpRequest'
+                          "Content-Type": "application/json",
+                          "X-Requested-With": "XMLHttpRequest"
                         }
                       });
 
@@ -212,7 +220,7 @@
                       _context.next = 30;
                       return this.modalController.create({
                         component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_7__["SuccessModalComponent"],
-                        cssClass: 'modalSuccess'
+                        cssClass: "modalSuccess"
                       });
 
                     case 30:
@@ -283,17 +291,17 @@
         }, {
           key: "goToTerms",
           value: function goToTerms() {
-            this.router.navigate(['/terms']);
+            this.router.navigate(["/terms"]);
           }
         }, {
           key: "goToPrivacy",
           value: function goToPrivacy() {
-            this.router.navigate(['/privacy']);
+            this.router.navigate(["/privacy"]);
           }
         }, {
           key: "togglePasswordMode",
           value: function togglePasswordMode() {
-            this.passwordTypeInput = this.passwordTypeInput === 'text' ? 'password' : 'text';
+            this.passwordTypeInput = this.passwordTypeInput === "text" ? "password" : "text";
           }
         }]);
 
@@ -315,13 +323,13 @@
       RegisterPage.propDecorators = {
         passwordEye: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"],
-          args: ['passwordEyeRegister', {
+          args: ["passwordEyeRegister", {
             read: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ElementRef"]
           }]
         }]
       };
       RegisterPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
-        selector: 'app-register',
+        selector: "app-register",
         template: _raw_loader_register_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_register_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], RegisterPage);

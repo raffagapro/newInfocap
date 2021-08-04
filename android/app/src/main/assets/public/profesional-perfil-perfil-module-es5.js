@@ -220,41 +220,47 @@
 
       var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @capacitor/core */
-      "gcOT");
+      "FUe0");
       /* harmony import */
 
 
-      var src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! @capacitor/camera */
+      "/s3u");
+      /* harmony import */
+
+
+      var src_app_model_user_model__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! src/app/model/user.model */
       "UbF0");
       /* harmony import */
 
 
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
       /* harmony import */
 
 
-      var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! ./success-modal/success-modal.component */
       "yw4M");
       /* harmony import */
 
 
-      var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! axios */
       "vDqi");
       /* harmony import */
 
 
-      var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
+      var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
 
       function base64toBlob(base64Data, contentType) {
         contentType = contentType || '';
@@ -364,7 +370,7 @@
                   switch (_context.prev = _context.next) {
                     case 0:
                       _context.next = 2;
-                      return axios__WEBPACK_IMPORTED_MODULE_11___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/account/me', {
+                      return axios__WEBPACK_IMPORTED_MODULE_12___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account/me', {
                         headers: {
                           Authorization: token
                         }
@@ -427,14 +433,14 @@
             }).then(function (loadingEl) {
               loadingEl.present();
               var headers = 'Bearer ' + _this3.grabbedUser.access_token;
-              axios__WEBPACK_IMPORTED_MODULE_11___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/account', modUser, {
+              axios__WEBPACK_IMPORTED_MODULE_12___default.a.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account', modUser, {
                 headers: {
                   Authorization: _this3.headers
                 }
               }).then(function (resData) {
                 loadingEl.dismiss(); //update user controler
 
-                _this3.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_7__["User"](_this3.grabbedUser.id, resData.data.data.name, resData.data.data.last_name, resData.data.data.img_profile, resData.data.data.email, resData.data.data.phone1, resData.data.data.phone2, _this3.grabbedUser.role, _this3.grabbedUser.access_token)); //resets values after succefull update
+                _this3.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_8__["User"](_this3.grabbedUser.id, resData.data.data.name, resData.data.data.last_name, resData.data.data.img_profile, resData.data.data.email, resData.data.data.phone1, resData.data.data.phone2, _this3.grabbedUser.role, _this3.grabbedUser.access_token)); //resets values after succefull update
 
 
                 _this3.form.setValue({
@@ -448,7 +454,7 @@
                 });
 
                 _this3.modalController.create({
-                  component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
+                  component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
                   cssClass: 'modalSuccess'
                 }).then(function (modalEl) {
                   modalEl.present();
@@ -469,13 +475,13 @@
               return;
             }
 
-            _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Plugins"].Camera.getPhoto({
+            _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["Camera"].getPhoto({
               quality: 100,
-              source: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraSource"].Prompt,
+              source: _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["CameraSource"].Prompt,
               correctOrientation: true,
               // height: 500,
               width: 500,
-              resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraResultType"].DataUrl,
+              resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl,
               promptLabelPhoto: 'Fotos',
               promptLabelPicture: 'Cámara',
               promptLabelCancel: 'Cancelar'
@@ -523,7 +529,7 @@
             });
             var formData = new FormData();
             formData.append('image', imgFile);
-            axios__WEBPACK_IMPORTED_MODULE_11___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/account/image', formData, {
+            axios__WEBPACK_IMPORTED_MODULE_12___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_10__["API"] + '/account/image', formData, {
               headers: {
                 Authorization: this.headers
               }
@@ -531,7 +537,7 @@
               _this5.us.dbUserGrab(_this5.grabbedUser.access_token, _this5.grabbedUser.role);
 
               _this5.modalController.create({
-                component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
+                component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
                 cssClass: 'modalSuccess'
               }).then(function (modalEl) {
                 modalEl.present();
@@ -552,7 +558,7 @@
 
       PerfilPage.ctorParameters = function () {
         return [{
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
         }, {

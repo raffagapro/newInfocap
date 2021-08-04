@@ -111,6 +111,7 @@
           this.loadedInfo = {
             date_required: null,
             hours: null,
+            hours_final: null,
             type: null
           };
         }
@@ -128,16 +129,16 @@
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
             this.loadedInfo.hours = this.solicitudServicio.solicitud.hours;
+            this.loadedInfo.hours_final = this.solicitudServicio.solicitud.hours_final;
             this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required;
             this.loadedInfo.type = this.solicitudServicio.solicitud.type;
           }
         }, {
           key: "p",
-          value: function p(hours) {
+          value: function p(hours, hoursFinal) {
             if (hours) {
-              var wHours = hours.split("/");
-              var startHour = moment__WEBPACK_IMPORTED_MODULE_9__(wHours[0]).format('h:mm A');
-              var endHour = moment__WEBPACK_IMPORTED_MODULE_9__(wHours[1]).format('h:mm A');
+              var startHour = moment__WEBPACK_IMPORTED_MODULE_9__(hours, 'hh:mm:ss').format('h:mm A');
+              var endHour = moment__WEBPACK_IMPORTED_MODULE_9__(hoursFinal, 'hh:mm:ss').format('h:mm A');
               return "".concat(startHour, " - ").concat(endHour);
             }
           }
@@ -173,7 +174,8 @@
                       loader.present();
                       body = {
                         date_required: this.solicitudServicio.solicitud.date_required,
-                        hours: this.solicitudServicio.solicitud.hours
+                        hours: this.solicitudServicio.solicitud.hours,
+                        hours_final: this.solicitudServicio.solicitud.hours_final
                       };
                       _context.prev = 5;
                       url = '/supplier/aprove/requestservice/';
@@ -569,7 +571,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE SERVICIO</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre el trabajo a realizar</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Fecha: {{ formatDate(loadedInfo.date_required) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Horario: {{ p(loadedInfo.hours) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmServicio()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE SERVICIO</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre el trabajo a realizar</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente.</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Fecha: {{ formatDate(loadedInfo.date_required) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">Horario: {{ p(loadedInfo.hours, loadedInfo.hours_final) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmServicio()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n";
       /***/
     },
 
@@ -970,11 +972,12 @@
         return VisitaTecnica;
       });
 
-      var VisitaTecnica = function VisitaTecnica(date_required, hours) {
+      var VisitaTecnica = function VisitaTecnica(date_required, hours, hours_final) {
         _classCallCheck(this, VisitaTecnica);
 
         this.date_required = date_required;
         this.hours = hours;
+        this.hours_final = hours_final;
       };
       /***/
 
@@ -1022,7 +1025,7 @@
         function VisitaTecnicaService() {
           _classCallCheck(this, VisitaTecnicaService);
 
-          this._visitaTecnica = new _model_visitaTecnica_model__WEBPACK_IMPORTED_MODULE_2__["VisitaTecnica"](null, null);
+          this._visitaTecnica = new _model_visitaTecnica_model__WEBPACK_IMPORTED_MODULE_2__["VisitaTecnica"](null, null, null);
         }
 
         _createClass(VisitaTecnicaService, [{
@@ -1041,9 +1044,14 @@
             this._visitaTecnica.hours = hours;
           }
         }, {
+          key: "setHoursFinal",
+          value: function setHoursFinal(hours) {
+            this._visitaTecnica.hours_final = hours;
+          }
+        }, {
           key: "clearSolicitud",
           value: function clearSolicitud() {
-            this._visitaTecnica = new _model_visitaTecnica_model__WEBPACK_IMPORTED_MODULE_2__["VisitaTecnica"](null, null);
+            this._visitaTecnica = new _model_visitaTecnica_model__WEBPACK_IMPORTED_MODULE_2__["VisitaTecnica"](null, null, null);
           }
         }]);
 
@@ -1520,7 +1528,7 @@
       /*! src/app/services/solicitud.service */
       "rLtr");
 
-      moment__WEBPACK_IMPORTED_MODULE_6__["locale"]('es');
+      moment__WEBPACK_IMPORTED_MODULE_6__["locale"]("es");
 
       var SolicitudEnviadaModalComponent = /*#__PURE__*/function () {
         function SolicitudEnviadaModalComponent(modalController, router, solServ, ils) {
@@ -1555,16 +1563,15 @@
           }
         }, {
           key: "formatTime",
-          value: function formatTime(hours) {
-            var wHours = hours.split("/");
-            var startHour = moment__WEBPACK_IMPORTED_MODULE_6__(wHours[0]);
-            var endHour = moment__WEBPACK_IMPORTED_MODULE_6__(wHours[1]);
-            return "".concat(startHour.format('h:mm a'), " - ").concat(endHour.format('h:mm a'));
+          value: function formatTime(hours, final_hour) {
+            var startHour = moment__WEBPACK_IMPORTED_MODULE_6__(hours, "HH:mm:ss");
+            var endHour = moment__WEBPACK_IMPORTED_MODULE_6__(final_hour, "HH:mm:ss");
+            return "".concat(startHour.format("h:mm a"), " - ").concat(endHour.format("h:mm a"));
           }
         }, {
           key: "formatDate",
           value: function formatDate(date) {
-            return moment__WEBPACK_IMPORTED_MODULE_6__(date, 'YYYY-MM-DD').format('DD MMMM YYYY');
+            return moment__WEBPACK_IMPORTED_MODULE_6__(date, "YYYY-MM-DD").format("DD MMMM YYYY");
           }
         }, {
           key: "dismiss",
@@ -1598,7 +1605,7 @@
       };
 
       SolicitudEnviadaModalComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-solicitud-enviada-modal',
+        selector: "app-solicitud-enviada-modal",
         template: _raw_loader_solicitud_enviada_modal_component_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_solicitud_enviada_modal_component_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], SolicitudEnviadaModalComponent);
@@ -2109,7 +2116,7 @@
 
       var _capacitor_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @capacitor/core */
-      "gcOT");
+      "FUe0");
       /* harmony import */
 
 
@@ -2162,9 +2169,15 @@
       var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
       /*! @ionic-native/screen-orientation/ngx */
       "0QAI");
+      /* harmony import */
+
+
+      var _services_google_google_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
+      /*! ./services/google/google.service */
+      "fPD/");
 
       var AppComponent = /*#__PURE__*/function () {
-        function AppComponent(platform, splashScreen, statusBar, router, menuCtrl, as, us, notificationService, screenOrientation) {
+        function AppComponent(platform, splashScreen, statusBar, router, menuCtrl, as, us, notificationService, screenOrientation, googleService) {
           _classCallCheck(this, AppComponent);
 
           this.platform = platform;
@@ -2176,6 +2189,7 @@
           this.us = us;
           this.notificationService = notificationService;
           this.screenOrientation = screenOrientation;
+          this.googleService = googleService;
           this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_13__["IMAGE_URL_BLANK"];
           this.whatsappPhone = "".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["PHONE_PREFIX"], "939304991");
           this.firstLoad = false;
@@ -2192,8 +2206,10 @@
             var _this3 = this;
 
             this.platform.ready().then(function () {
-              _this3.screenOrientation.lock('portrait'); // this.statusBar.styleDefault();
+              _this3.screenOrientation.lock("portrait"); // this.statusBar.styleDefault();
 
+
+              _this3.statusBar.backgroundColorByHexString('#009ace');
 
               if (_capacitor_core__WEBPACK_IMPORTED_MODULE_8__["Capacitor"].isPluginAvailable("SplashScreen")) {
                 _capacitor_core__WEBPACK_IMPORTED_MODULE_8__["Plugins"].SplashScreen.hide();
@@ -2258,6 +2274,7 @@
             this.router.navigateByUrl("/", {
               replaceUrl: true
             });
+            this.googleService.disconnect();
           }
         }, {
           key: "profile",
@@ -2341,6 +2358,8 @@
           type: _services_notifications_service__WEBPACK_IMPORTED_MODULE_15__["NotificationsService"]
         }, {
           type: _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_16__["ScreenOrientation"]
+        }, {
+          type: _services_google_google_service__WEBPACK_IMPORTED_MODULE_17__["GoogleService"]
         }];
       };
 
@@ -2532,7 +2551,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE VISITA TÉCNICA</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre tu visita de valoración</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ formatDate(visita_tecnica.visit_date) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ visita_tecnica.visit_hours }} horas</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmVisita()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n    <!-- SERVICIO REALIZADO  -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"status-text\" color=\"primary\"><b>CONFIRMACIÓN DE VISITA TÉCNICA</b></ion-text><br>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid fixed>\n    <!-- subtitle  -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\">Estos son los datos que quedarán registrados sobre tu visita de valoración</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-text class=\"subtitle\" color=\"primary\">Debes haberlo acordado previamente con el cliente</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- date of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_date_range.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ formatDate(visita_tecnica.visit_date) }}</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- time of work -->\n    <ion-row>\n      <ion-col size=\"10\"  offset=\"1\" class=\"ion-text-center ion-margin-top\">\n        <ion-icon src=\"/assets/icon/ic_schedule.svg\" color=\"primary\" class=\"iconSet\"></ion-icon>\n        <br>\n        <ion-text class=\"subtitle\" color=\"primary\">{{ formatTime(visita_tecnica.visit_hours, visita_tecnica.visit_hours_final) }} horas</ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- finalizar trabajo BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" fill=\"outline\" color=\"primary\" (click)=\"dismiss()\">\n          REGRESAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"5\">\n        <ion-button expand=\"block\" class=\"btn-text ion-text-uppercase\" color=\"primary\" (click)=\"confirmVisita()\">\n          CONFIRMAR\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n";
       /***/
     },
 
@@ -2952,7 +2971,13 @@
 
       var _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(
       /*! @ionic-native/facebook/ngx */
-      "GGTb"); // geolocation and native-geocoder
+      "GGTb");
+      /* harmony import */
+
+
+      var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(
+      /*! @ionic-native/google-plus/ngx */
+      "up+p"); // geolocation and native-geocoder
 
 
       var AppModule = function AppModule() {
@@ -2966,7 +2991,7 @@
         providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_8__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_7__["SplashScreen"], _ionic_native_call_number_ngx__WEBPACK_IMPORTED_MODULE_33__["CallNumber"], {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["IonicRouteStrategy"]
-        }, _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_9__["Geolocation"], _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_10__["NativeGeocoder"], _services_notifications_service__WEBPACK_IMPORTED_MODULE_36__["NotificationsService"], _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_37__["ScreenOrientation"], _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_38__["Facebook"]],
+        }, _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_9__["Geolocation"], _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_10__["NativeGeocoder"], _services_notifications_service__WEBPACK_IMPORTED_MODULE_36__["NotificationsService"], _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_37__["ScreenOrientation"], _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_38__["Facebook"], _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_39__["GooglePlus"]],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"]]
       })], AppModule);
       /***/
@@ -2992,7 +3017,7 @@
         return ProSolicitud;
       });
 
-      var ProSolicitud = function ProSolicitud(clientLastName, clientName, clientImg, clientPhone, images, category_id, categoryName, date_required, created_date, description, hours, id, status_id, cost, supplierLastName, supplierName, ticket_number, aditional, evaluationService, type) {
+      var ProSolicitud = function ProSolicitud(clientLastName, clientName, clientImg, clientPhone, images, category_id, categoryName, date_required, created_date, description, hours, hours_final, id, status_id, cost, supplierLastName, supplierName, ticket_number, aditional, evaluationService, type) {
         _classCallCheck(this, ProSolicitud);
 
         this.clientLastName = clientLastName;
@@ -3006,6 +3031,7 @@
         this.created_date = created_date;
         this.description = description;
         this.hours = hours;
+        this.hours_final = hours_final;
         this.id = id;
         this.status_id = status_id;
         this.cost = cost;
@@ -3101,6 +3127,99 @@
     },
 
     /***/
+    "fPD/":
+    /*!***************************************************!*\
+      !*** ./src/app/services/google/google.service.ts ***!
+      \***************************************************/
+
+    /*! exports provided: GoogleService */
+
+    /***/
+    function fPD(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "GoogleService", function () {
+        return GoogleService;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @ionic-native/google-plus/ngx */
+      "up+p");
+      /* harmony import */
+
+
+      var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! ../../../environments/environment */
+      "AytR");
+
+      var GoogleService = /*#__PURE__*/function () {
+        function GoogleService(google) {
+          _classCallCheck(this, GoogleService);
+
+          this.google = google;
+          this.appSetting = {
+            'scopes': 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
+            'webClient': _environments_environment__WEBPACK_IMPORTED_MODULE_3__["WEB_KEY"],
+            'offline': true
+          };
+        }
+
+        _createClass(GoogleService, [{
+          key: "login",
+          value: function login() {
+            return this.google.login(this.appSetting);
+          }
+        }, {
+          key: "silentLogin",
+          value: function silentLogin() {
+            return this.google.trySilentLogin(this.appSetting);
+          }
+        }, {
+          key: "logout",
+          value: function logout() {
+            return this.google.logout();
+          }
+        }, {
+          key: "disconnect",
+          value: function disconnect() {
+            return this.google.disconnect();
+          }
+        }]);
+
+        return GoogleService;
+      }();
+
+      GoogleService.ctorParameters = function () {
+        return [{
+          type: _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_2__["GooglePlus"]
+        }];
+      };
+
+      GoogleService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+      })], GoogleService);
+      /***/
+    },
+
+    /***/
     "g7Fz":
     /*!********************************************************************************************************************************************!*\
       !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/user/solicitud-status/solicitud-enviada-modal/solicitud-enviada-modal.component.html ***!
@@ -3116,7 +3235,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n\n    <!-- ticket & date  -->\n    <ion-row>\n      <ion-col size=\"12\">\n        <ion-text color=\"danger\" class=\"ticketText\">\n          #{{ loadedService.ticket_number }}\n        </ion-text>\n        <br>\n        <ion-text color=\"primary\" class=\"dateText\">\n          {{ wDate }}\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Trabajo requerido -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <div class=\"icon-cont\">\n          <ion-icon name=\"build\" color=\"light\" class=\"icon-opts\" *ngIf=\"loadedService.status_id !== 2\"></ion-icon>\n          <ion-icon name=\"calendar\" color=\"light\" class=\"icon-opts\" *ngIf=\"loadedService.status_id === 2\"></ion-icon>\n        </div>\n        <ion-text class=\"main-color title\" *ngIf=\"loadedService.status_id !== 2\"><b> Trabajo requerido</b></ion-text>\n        <ion-text class=\"main-color title\" *ngIf=\"loadedService.status_id === 2\"><b> Visita agendada</b></ion-text>\n        <br>\n        <ion-text class=\"subtitle\">{{ loadedService.description }}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Slider -->\n    <ion-row class=\"\">\n      <ion-col size=\"12\">\n        <ion-slides [options]=\"slideOptions\">\n\n          <!-- slide -->\n          <ion-slide *ngFor=\"let image of loadedImgList\">\n            <img\n              src=\"{{ image.image }}\"\n              class=\"imgSlide\"\n            >\n          </ion-slide>\n\n        </ion-slides>\n      </ion-col>\n    </ion-row>\n\n    <!-- Fecha de realizacion -->\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <!-- <div class=\"icon-cont\" (click)=\"seModal()\">\n          <ion-icon name=\"calendar\" color=\"light\" class=\"icon-opts\"></ion-icon>\n        </div> -->\n        <ion-icon name=\"calendar-outline\" color=\"primary\" class=\"icon-only\"></ion-icon>\n        <ion-text class=\"main-color title\"><b> Fecha de realización</b></ion-text>\n        <br>\n        <ion-text class=\"subtitle\">{{ formatDate(loadedService.date_required) }}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n     <!-- Rango de horas -->\n     <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <!-- <div class=\"icon-cont\" (click)=\"seModal()\">\n          <ion-icon name=\"calendar\" color=\"light\" class=\"icon-opts\"></ion-icon>\n        </div> -->\n        <ion-icon name=\"time-outline\" color=\"primary\" class=\"icon-only\"></ion-icon>\n        <ion-text class=\"main-color title\"><b> Rango de horas</b></ion-text>\n        <br>\n        <ion-text class=\"subtitle\">{{ formatTime(loadedService.hours_requestservice) }}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- enviar solicitud BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"dismiss()\">\n          ENTENDIDO\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n";
+      __webpack_exports__["default"] = "<ion-content>\n  <ion-grid fixed>\n\n    <!-- ticket & date  -->\n    <ion-row>\n      <ion-col size=\"12\">\n        <ion-text color=\"danger\" class=\"ticketText\">\n          #{{ loadedService.ticket_number }}\n        </ion-text>\n        <br>\n        <ion-text color=\"primary\" class=\"dateText\">\n          {{ wDate }}\n        </ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Trabajo requerido -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <div class=\"icon-cont\">\n          <ion-icon name=\"build\" color=\"light\" class=\"icon-opts\" *ngIf=\"loadedService.status_id !== 2\"></ion-icon>\n          <ion-icon name=\"calendar\" color=\"light\" class=\"icon-opts\" *ngIf=\"loadedService.status_id === 2\"></ion-icon>\n        </div>\n        <ion-text class=\"main-color title\" *ngIf=\"loadedService.status_id !== 2\"><b> Trabajo requerido</b></ion-text>\n        <ion-text class=\"main-color title\" *ngIf=\"loadedService.status_id === 2\"><b> Visita agendada</b></ion-text>\n        <br>\n        <ion-text class=\"subtitle\">{{ loadedService.description }}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Slider -->\n    <ion-row class=\"\">\n      <ion-col size=\"12\">\n        <ion-slides [options]=\"slideOptions\">\n\n          <!-- slide -->\n          <ion-slide *ngFor=\"let image of loadedImgList\">\n            <img\n              src=\"{{ image.image }}\"\n              class=\"imgSlide\"\n            >\n          </ion-slide>\n\n        </ion-slides>\n      </ion-col>\n    </ion-row>\n\n    <!-- Fecha de realizacion -->\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <!-- <div class=\"icon-cont\" (click)=\"seModal()\">\n          <ion-icon name=\"calendar\" color=\"light\" class=\"icon-opts\"></ion-icon>\n        </div> -->\n        <ion-icon name=\"calendar-outline\" color=\"primary\" class=\"icon-only\"></ion-icon>\n        <ion-text class=\"main-color title\"><b> Fecha de realización</b></ion-text>\n        <br>\n        <ion-text class=\"subtitle\">{{ formatDate(loadedService.date_required) }}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n     <!-- Rango de horas -->\n     <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\" class=\"ion-text-center\">\n        <!-- <div class=\"icon-cont\" (click)=\"seModal()\">\n          <ion-icon name=\"calendar\" color=\"light\" class=\"icon-opts\"></ion-icon>\n        </div> -->\n        <ion-icon name=\"time-outline\" color=\"primary\" class=\"icon-only\"></ion-icon>\n        <ion-text class=\"main-color title\"><b> Rango de horas</b></ion-text>\n        <br>\n        <ion-text class=\"subtitle\">{{ formatTime(loadedService.hours_requestservice, loadedService.hours_final) }}</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- enviar solicitud BTN -->\n    <ion-row class=\"ion-margin-top ion-margin-bottom\">\n      <ion-col size=\"1\"></ion-col>\n      <ion-col>\n        <ion-button size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" (click)=\"dismiss()\">\n          ENTENDIDO\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n  </ion-grid>\n</ion-content>\n\n";
       /***/
     },
 
@@ -4481,7 +4600,7 @@
         function SolicitudService() {
           _classCallCheck(this, SolicitudService);
 
-          this._solicitud = new _model_solicitud_model__WEBPACK_IMPORTED_MODULE_2__["Solicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null);
+          this._solicitud = new _model_solicitud_model__WEBPACK_IMPORTED_MODULE_2__["Solicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         }
 
         _createClass(SolicitudService, [{
@@ -4555,6 +4674,11 @@
             this._solicitud.instructions = instructions;
           }
         }, {
+          key: "setAddressDetail",
+          value: function setAddressDetail(address_detail) {
+            this._solicitud.address_detail = address_detail;
+          }
+        }, {
           key: "setPaymentId",
           value: function setPaymentId(paymentId) {
             this._solicitud.paymentId = paymentId;
@@ -4562,7 +4686,7 @@
         }, {
           key: "clearSolicitud",
           value: function clearSolicitud() {
-            this._solicitud = new _model_solicitud_model__WEBPACK_IMPORTED_MODULE_2__["Solicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null);
+            this._solicitud = new _model_solicitud_model__WEBPACK_IMPORTED_MODULE_2__["Solicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null);
           }
         }]);
 
@@ -4605,7 +4729,7 @@
         return ServiceStatus;
       });
 
-      var Solicitud = function Solicitud(category_id, comuna_id, address, proPerfil_id, proPerfil, proPhoto, solicitudID, solicitudOBJ, solicitudProOBJ, profId, newDate, newTime, instructions) {
+      var Solicitud = function Solicitud(category_id, comuna_id, address, proPerfil_id, proPerfil, proPhoto, solicitudID, solicitudOBJ, solicitudProOBJ, profId, newDate, newTime, instructions, address_detail) {
         _classCallCheck(this, Solicitud);
 
         this.category_id = category_id;
@@ -4621,6 +4745,7 @@
         this.newDate = newDate;
         this.newTime = newTime;
         this.instructions = instructions;
+        this.address_detail = address_detail;
       };
 
       var ServiceStatus;
@@ -4809,9 +4934,9 @@
       }, {
         path: "register",
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | login-register-register-module */
-          "login-register-register-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("login-register-register-module")]).then(__webpack_require__.bind(null,
           /*! ./login/register/register.module */
           "dymE")).then(function (m) {
             return m.RegisterPageModule;
@@ -4820,9 +4945,9 @@
       }, {
         path: "login",
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | login-login-login-module */
-          "login-login-login-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("login-login-login-module")]).then(__webpack_require__.bind(null,
           /*! ./login/login/login.module */
           "Ktwe")).then(function (m) {
             return m.LoginPageModule;
@@ -4831,9 +4956,9 @@
       }, {
         path: "recovery",
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | login-recovery-recovery-module */
-          "login-recovery-recovery-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("login-recovery-recovery-module")]).then(__webpack_require__.bind(null,
           /*! ./login/recovery/recovery.module */
           "XhiX")).then(function (m) {
             return m.RecoveryPageModule;
@@ -5114,9 +5239,9 @@
       }, {
         path: "profesional/perfil",
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | profesional-perfil-perfil-module */
-          "profesional-perfil-perfil-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("profesional-perfil-perfil-module")]).then(__webpack_require__.bind(null,
           /*! ./profesional/perfil/perfil.module */
           "gr1p")).then(function (m) {
             return m.PerfilPageModule;
@@ -5180,9 +5305,9 @@
       }, {
         path: "profesional/agendados/agendados-finalizar",
         loadChildren: function loadChildren() {
-          return __webpack_require__.e(
+          return Promise.all(
           /*! import() | profesional-home-agendados-agendados-finalizar-agendados-finalizar-module */
-          "profesional-home-agendados-agendados-finalizar-agendados-finalizar-module").then(__webpack_require__.bind(null,
+          [__webpack_require__.e("common"), __webpack_require__.e("profesional-home-agendados-agendados-finalizar-agendados-finalizar-module")]).then(__webpack_require__.bind(null,
           /*! ./profesional/home/agendados/agendados-finalizar/agendados-finalizar.module */
           "TGXy")).then(function (m) {
             return m.AgendadosFinalizarPageModule;
@@ -5460,8 +5585,18 @@
             });
             this.visita_tecnica = {
               visit_date: this.visitaT.visitaTecnica.date_required,
-              visit_hours: this.visitaT.visitaTecnica.hours
+              visit_hours: this.visitaT.visitaTecnica.hours,
+              visit_hours_final: this.visitaT.visitaTecnica.hours_final
             };
+          }
+        }, {
+          key: "formatTime",
+          value: function formatTime(hours, hoursFinal) {
+            if (hours) {
+              var startHour = moment__WEBPACK_IMPORTED_MODULE_9__(hours, 'hh:mm:ss').format('h:mm A');
+              var endHour = moment__WEBPACK_IMPORTED_MODULE_9__(hoursFinal, 'hh:mm:ss').format('h:mm A');
+              return "".concat(startHour, " - ").concat(endHour);
+            }
           }
         }, {
           key: "dismiss",
@@ -5887,7 +6022,7 @@
         function ProSolicitudService() {
           _classCallCheck(this, ProSolicitudService);
 
-          this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
+          this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
         }
 
         _createClass(ProSolicitudService, [{
@@ -5946,6 +6081,11 @@
             this._solicitud.hours = hours;
           }
         }, {
+          key: "setHoursFinal",
+          value: function setHoursFinal(hours) {
+            this._solicitud.hours_final = hours;
+          }
+        }, {
           key: "setDescription",
           value: function setDescription(description) {
             this._solicitud.description = description;
@@ -5998,7 +6138,7 @@
         }, {
           key: "clearSolcitud",
           value: function clearSolcitud() {
-            this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
+            this._solicitud = new _model_proSolicitud_model__WEBPACK_IMPORTED_MODULE_2__["ProSolicitud"](null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 'NORMAL');
           }
         }]);
 

@@ -379,51 +379,57 @@
 
       var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @capacitor/core */
-      "gcOT");
+      "FUe0");
       /* harmony import */
 
 
-      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! @capacitor/camera */
+      "/s3u");
+      /* harmony import */
+
+
+      var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! src/app/services/user.service */
       "qfBg");
       /* harmony import */
 
 
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! src/environments/environment */
       "AytR");
       /* harmony import */
 
 
-      var _empty_modal_empty_modal_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _empty_modal_empty_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! ./empty-modal/empty-modal.component */
       "pvjW");
       /* harmony import */
 
 
-      var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! ./success-modal/success-modal.component */
       "VbkS");
       /* harmony import */
 
 
-      var src_shared_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var src_shared_constants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! src/shared/constants */
       "p1Kg");
       /* harmony import */
 
 
-      var axios__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var axios__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! axios */
       "vDqi");
       /* harmony import */
 
 
-      var axios__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_12__);
+      var axios__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_13__);
       /* harmony import */
 
 
-      var src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      var src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
       /*! src/app/shared/image-modal/image-modal.component */
       "BPum");
 
@@ -462,7 +468,7 @@
           this.platform = platform;
           this.menuController = menuController;
           this.pickerController = pickerController;
-          this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_11__["IMAGE_URL_BLANK"];
+          this.imageBlank = src_shared_constants__WEBPACK_IMPORTED_MODULE_12__["IMAGE_URL_BLANK"];
           this.categories = [];
           this.profCategories = [];
           this.grabbedUser = null;
@@ -499,7 +505,7 @@
             }); //api headers
             //categories list
 
-            axios__WEBPACK_IMPORTED_MODULE_12___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/supplier/categories', {
+            axios__WEBPACK_IMPORTED_MODULE_13___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/supplier/categories', {
               headers: {
                 Authorization: this.headers
               }
@@ -602,7 +608,6 @@
           key: "getColumnOptions",
           value: function getColumnOptions() {
             var options = [];
-            console.log();
             this.profCategories.forEach(function (x) {
               options.push({
                 text: x.categoryName,
@@ -617,7 +622,7 @@
             var _this3 = this;
 
             //prof categories list
-            axios__WEBPACK_IMPORTED_MODULE_12___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + '/supplier/professions', {
+            axios__WEBPACK_IMPORTED_MODULE_13___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + '/supplier/professions', {
               headers: {
                 Authorization: this.headers
               }
@@ -625,7 +630,7 @@
               if (resData.data.code === 200) {
                 if (resData.data.data.length === 0) {
                   _this3.modalController.create({
-                    component: _empty_modal_empty_modal_component__WEBPACK_IMPORTED_MODULE_9__["EmptyModalComponent"],
+                    component: _empty_modal_empty_modal_component__WEBPACK_IMPORTED_MODULE_10__["EmptyModalComponent"],
                     cssClass: 'modalServRechazado'
                   }).then(function (modalEl) {
                     modalEl.present();
@@ -657,7 +662,7 @@
               message: 'Cargando informacion...'
             }).then(function (loadingEl) {
               loadingEl.present();
-              axios__WEBPACK_IMPORTED_MODULE_12___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + "/supplier/profession/".concat(profileID), {
+              axios__WEBPACK_IMPORTED_MODULE_13___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/supplier/profession/".concat(profileID), {
                 headers: {
                   Authorization: _this4.headers
                 }
@@ -815,16 +820,15 @@
               message: 'Actualizando la informacion...'
             }).then(function (loadingEl) {
               loadingEl.present();
-              axios__WEBPACK_IMPORTED_MODULE_12___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + "/supplier/profession/".concat(_this6.selectedProPerfilID), formData, {
+              axios__WEBPACK_IMPORTED_MODULE_13___default.a.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_9__["API"] + "/supplier/profession/".concat(_this6.selectedProPerfilID), formData, {
                 headers: {
                   Authorization: _this6.headers
                 }
               }).then(function (resData) {
                 loadingEl.dismiss();
-                console.log('Enter');
 
                 _this6.modalController.create({
-                  component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_10__["SuccessModalComponent"],
+                  component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_11__["SuccessModalComponent"],
                   cssClass: 'modalSuccess'
                 }).then(function (modalEl) {
                   modalEl.present();
@@ -846,12 +850,12 @@
               return;
             }
 
-            _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Plugins"].Camera.getPhoto({
+            _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["Camera"].getPhoto({
               quality: 100,
-              source: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraSource"].Prompt,
+              source: _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["CameraSource"].Prompt,
               correctOrientation: true,
               width: 500,
-              resultType: _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["CameraResultType"].DataUrl,
+              resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl,
               promptLabelPhoto: 'Fotos',
               promptLabelPicture: 'Cámara',
               promptLabelCancel: 'Cancelar'
@@ -872,7 +876,7 @@
                     case 0:
                       _context3.next = 2;
                       return this.modalController.create({
-                        component: src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_13__["ImageModalComponent"],
+                        component: src_app_shared_image_modal_image_modal_component__WEBPACK_IMPORTED_MODULE_14__["ImageModalComponent"],
                         componentProps: {
                           image: image
                         },
@@ -894,7 +898,6 @@
         }, {
           key: "removeImage",
           value: function removeImage(imageIndex) {
-            // this.loadedImages = this.loadedImages.filter((image: any, index: number) => index !== imageIndex)
             this.proCategoryImg = this.proCategoryImg.filter(function (image, index) {
               return index !== imageIndex;
             });
@@ -903,7 +906,7 @@
           key: "onLoadImgFromInput",
           value: function onLoadImgFromInput(e) {
             var loadedFile = e.target.files[0];
-            this.saveImgToApi(loadedFile); //save img to api
+            this.saveImgToApi(loadedFile);
           }
         }, {
           key: "saveImgToApi",
@@ -927,39 +930,7 @@
             this.proCategoryImgSave.push(imgFile);
             this.form.patchValue({
               image: imgFile
-            }); // this.lc.create({
-            //   message: 'Guardando imagen...'
-            // }).then(loadingEl => {
-            //   loadingEl.present();
-            //   //check to see if we are loading a profile img
-            //   if (this.profilePhoto) {
-            //     const formData = new FormData();
-            //     formData.append('image', imgFile);
-            //     axios.post(API + '/account/image', formData, { headers: { Authorization: this.headers } }).then(resData => {
-            //       loadingEl.dismiss();
-            //       this.modalController.create({
-            //         component: SuccessModalComponent,
-            //         cssClass: 'modalSuccess',
-            //       }).then(modalEl => {
-            //         modalEl.present();
-            //       });
-            //     }).catch(err => {
-            //       console.log(err)
-            //       loadingEl.dismiss();
-            //     })
-            //   } else {
-            //     const formData = new FormData();
-            //     console.log(this.selectedCatId)
-            //     formData.append('images[]', imgFile);
-            //     formData.append('category_id', this.proCategoryProfile.category_id);
-            //     formData.append('transport_id', this.proCategoryProfile.transports);
-            //     axios.post(API + `/supplier/profession/${this.selectedProPerfil}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
-            //       loadingEl.dismiss();
-            //     }).catch(err => {
-            //       loadingEl.dismiss();
-            //     })
-            //   }
-            // });
+            });
           }
         }, {
           key: "ngOnDestroy",
@@ -975,7 +946,7 @@
         return [{
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"]
         }, {
-          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_7__["UserService"]
+          type: src_app_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"]
         }, {

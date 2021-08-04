@@ -320,7 +320,7 @@
         }, {
           key: "p",
           value: function p(passingDate) {
-            return moment__WEBPACK_IMPORTED_MODULE_7___default.a.utc(passingDate, 'DD/MM/YYYY hh:mm:ss').startOf('minute').fromNow();
+            return moment__WEBPACK_IMPORTED_MODULE_7___default()(passingDate, 'DD/MM/YYYY hh:mm:ss').startOf('minute').fromNow();
           }
         }, {
           key: "openMenu",

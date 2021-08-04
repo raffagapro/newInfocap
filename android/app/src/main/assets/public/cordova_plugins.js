@@ -181,6 +181,14 @@
         ]
         },
       {
+          "id": "cordova-plugin-googleplus.GooglePlus",
+          "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
+          "pluginId": "cordova-plugin-googleplus",
+        "clobbers": [
+          "window.plugins.googleplus"
+        ]
+        },
+      {
           "id": "cordova-plugin-file.ProgressEvent",
           "file": "plugins/cordova-plugin-file/www/ProgressEvent.js",
           "pluginId": "cordova-plugin-file",
@@ -205,14 +213,13 @@
         ]
         },
       {
-          "id": "cordova-plugin-file.isChrome",
-          "file": "plugins/cordova-plugin-file/www/browser/isChrome.js",
-          "pluginId": "cordova-plugin-file",
-        "runs": true
-        },
-      {
           "id": "cordova-plugin-advanced-http.helpers",
           "file": "plugins/cordova-plugin-advanced-http/www/helpers.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
+          "id": "cordova-plugin-advanced-http.url-util",
+          "file": "plugins/cordova-plugin-advanced-http/www/url-util.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -236,18 +243,13 @@
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
-          "id": "cordova-plugin-advanced-http.ponyfills",
-          "file": "plugins/cordova-plugin-advanced-http/www/ponyfills.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
           "id": "cordova-plugin-file.fileSystems",
           "file": "plugins/cordova-plugin-file/www/fileSystems.js",
           "pluginId": "cordova-plugin-file"
         },
       {
-          "id": "cordova-plugin-advanced-http.public-interface",
-          "file": "plugins/cordova-plugin-advanced-http/www/public-interface.js",
+          "id": "cordova-plugin-advanced-http.ponyfills",
+          "file": "plugins/cordova-plugin-advanced-http/www/ponyfills.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -256,15 +258,15 @@
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
+          "id": "cordova-plugin-file.isChrome",
+          "file": "plugins/cordova-plugin-file/www/browser/isChrome.js",
+          "pluginId": "cordova-plugin-file",
+        "runs": true
+        },
+      {
           "id": "cordova-plugin-advanced-http.js-util",
           "file": "plugins/cordova-plugin-advanced-http/www/js-util.js",
           "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
-          "id": "es6-promise-plugin.Promise",
-          "file": "plugins/es6-promise-plugin/www/promise.js",
-          "pluginId": "es6-promise-plugin",
-        "runs": true
         },
       {
           "id": "cordova-plugin-file.fileSystems-roots",
@@ -273,9 +275,10 @@
         "runs": true
         },
       {
-          "id": "cordova-plugin-advanced-http.dependency-validator",
-          "file": "plugins/cordova-plugin-advanced-http/www/dependency-validator.js",
-          "pluginId": "cordova-plugin-advanced-http"
+          "id": "es6-promise-plugin.Promise",
+          "file": "plugins/es6-promise-plugin/www/promise.js",
+          "pluginId": "es6-promise-plugin",
+        "runs": true
         },
       {
           "id": "cordova-plugin-advanced-http.global-configs",
@@ -289,13 +292,18 @@
         "runs": true
         },
       {
+          "id": "cordova-plugin-advanced-http.public-interface",
+          "file": "plugins/cordova-plugin-advanced-http/www/public-interface.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
           "id": "cordova-plugin-advanced-http.error-codes",
           "file": "plugins/cordova-plugin-advanced-http/www/error-codes.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
-          "id": "cordova-plugin-advanced-http.url-util",
-          "file": "plugins/cordova-plugin-advanced-http/www/url-util.js",
+          "id": "cordova-plugin-advanced-http.dependency-validator",
+          "file": "plugins/cordova-plugin-advanced-http/www/dependency-validator.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -333,6 +341,7 @@
       "cordova-plugin-facebook4": "6.4.0",
       "cordova-plugin-file": "6.0.2",
       "cordova-plugin-geolocation": "4.1.0",
+      "cordova-plugin-googleplus": "8.5.2",
       "cordova-plugin-nativegeocoder": "3.4.1",
       "cordova-plugin-screen-orientation": "3.0.2",
       "es6-promise-plugin": "4.2.2",
