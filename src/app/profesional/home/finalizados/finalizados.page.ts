@@ -40,6 +40,7 @@ export class FinalizadosPage implements OnInit, OnDestroy {
         this.headers = 'Bearer ' + this.grabbedUser.access_token;
         this.loadServices("5");
         this.loadServices("6");
+        this.loadServices("8");
       });
     })
   }
@@ -65,6 +66,9 @@ export class FinalizadosPage implements OnInit, OnDestroy {
           this.loadedServices = this.loadedServices.concat(resData.data.data);
         }
         if (statusID === "6") {
+          this.loadedServices = this.loadedServices.concat(resData.data.data);
+        }
+        if (statusID === "8") {
           this.loadedServices = this.loadedServices.concat(resData.data.data);
         }
       }).catch(err => {
