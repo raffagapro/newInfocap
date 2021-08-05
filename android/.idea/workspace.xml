@@ -51,12 +51,17 @@
   <component name="ChangeListManager">
     <list default="true" id="7eea4e82-8e52-4d43-8031-2554de7195ca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es2015.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es2015.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es2015.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es5.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-solicitud-status-solicitud-status-module-es5.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/App/App.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/App/App.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-status.page.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/user/solicitud-status/solicitud-status.page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/capacitor-cordova-android-plugins/android.capacitor-cordova-android-plugins.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/capacitor-cordova-android-plugins/android.capacitor-cordova-android-plugins.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/variables.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/variables.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +110,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="memory.settings.postsync.last.time.stamp" value="1626920476829" />
+    <property name="memory.settings.postsync.last.time.stamp" value="1628135785543" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
