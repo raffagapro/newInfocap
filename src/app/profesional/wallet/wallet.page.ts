@@ -38,6 +38,10 @@ export class WalletPage implements OnInit {
   yearInfoTotal = 0;
   yearInfoTotalRequest = 0;
 
+  comisionTotal = 0
+  taxesTotal = 0
+  profitTotal = 0
+
   totalWeek: 0
   days = ['D', 'L', 'M', 'M', 'J', 'V', 'S']
   months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -61,18 +65,24 @@ export class WalletPage implements OnInit {
 
   async barChartMethod() {
 
-    var profesionalAmount = [0,0,0,0,0,0,0,0,0,0,0,0]
-    var commission = [0,0,0,0,0,0,0,0,0,0,0,0]
-    var taxes = [0,0,0,0,0,0,0,0,0,0,0,0]
+    var profesionalAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    var commission = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    var taxes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     await axios.get(API + '/payments/years', { headers: { Authorization: this.headers } }).then(resData => {
-      this.yearInfoTotal = resData.data.data.total
-      this.yearInfoTotalRequest = resData.data.data.requestnumber
-      resData.data.data.paymentByMount.map(d => {
-        profesionalAmount[d.month - 1] = d.professionalamount
-        taxes[d.month - 1] = d.taxes
-        commission[d.month - 1] = d.commission
-      })
+      console.log(resData.data.data)
+      if (resData.data.data.length > 0) {
+        this.yearInfoTotal = resData.data.data[0].total
+        this.yearInfoTotalRequest = resData.data.data[0].requestnumber
+        resData.data.data[0].paymentByMount.map(d => {
+          this.profitTotal += parseFloat(d.professionalamount)
+          this.taxesTotal += parseFloat(d.taxes)
+          this.comisionTotal += parseFloat(d.commission)
+          profesionalAmount[d.month - 1] = d.professionalamount
+          taxes[d.month - 1] = d.taxes
+          commission[d.month - 1] = d.commission
+        })
+      }
     }).catch(err => {
       console.log(err)
     })
@@ -82,29 +92,29 @@ export class WalletPage implements OnInit {
       data: {
         labels: ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'],
         datasets: [{
-            label: 'Ganancia',
-            data: profesionalAmount,
-            backgroundColor: [
-              'rgba(50, 182, 221)',
-            ],
-            borderWidth: 1,
-          },
-          {
-            label: 'Comisiones',
-            data: commission,
-            backgroundColor: [
-              'rgba(50, 182, 221)',
-            ],
-            borderWidth: 1
-          },
-          {
-            label: 'Impuestos',
-            data: taxes,
-            backgroundColor: [
-              'rgba(50, 182, 221)',
-            ],
-            borderWidth: 1
-          }]
+          label: 'Ganancia',
+          data: profesionalAmount,
+          backgroundColor: [
+            'rgba(77, 175, 142)',
+          ],
+          borderWidth: 1,
+        },
+        {
+          label: 'Comisiones',
+          data: commission,
+          backgroundColor: [
+            'rgba(50, 182, 221)',
+          ],
+          borderWidth: 1
+        },
+        {
+          label: 'Impuestos',
+          data: taxes,
+          backgroundColor: [
+            'rgba(207, 0, 15)',
+          ],
+          borderWidth: 1
+        }]
       },
       options: {
         onClick: this.clickMonth,
@@ -171,7 +181,7 @@ export class WalletPage implements OnInit {
             label: 'Ganancia',
             data: profesionalAmount,
             backgroundColor: [
-              'rgba(50, 182, 221)',
+              'rgba(77, 175, 142)',
             ],
             borderWidth: 1,
           },
@@ -187,7 +197,7 @@ export class WalletPage implements OnInit {
             label: 'Impuestos',
             data: taxes,
             backgroundColor: [
-              'rgba(50, 182, 221)',
+              'rgba(207, 0, 15)',
             ],
             borderWidth: 1
           }]
@@ -210,7 +220,7 @@ export class WalletPage implements OnInit {
   }
 
   clickMonth = (event, point) => {
-    if(point.length > 0) {
+    if (point.length > 0) {
       this.graphicWeek = true
       this.barChartWeekMethod(point[0])
     }
@@ -254,7 +264,7 @@ export class WalletPage implements OnInit {
     var profesionalAmount = []
     var taxes = []
     var commission = []
-    
+
     await axios.get(API + '/payments/weak', {
       params: {
         "star_date": moment(star_date, 'D/M/YYYY').format('D/MM/YYYY'),
@@ -277,7 +287,7 @@ export class WalletPage implements OnInit {
       label: 'Ganancia',
       data: profesionalAmount,
       backgroundColor: [
-        'rgba(50, 182, 221)',
+        'rgba(77, 175, 142)',
       ],
       borderWidth: 1,
     },
@@ -293,7 +303,7 @@ export class WalletPage implements OnInit {
       label: 'Impuestos',
       data: taxes,
       backgroundColor: [
-        'rgba(50, 182, 221)',
+        'rgba(207, 0, 15)',
       ],
       borderWidth: 1
     }]

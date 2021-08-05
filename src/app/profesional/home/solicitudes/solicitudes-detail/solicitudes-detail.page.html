@@ -162,7 +162,7 @@
 
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text *nfIf="loadedInfo.extra_instruccion != 'null'" class="titleText">{{ loadedInfo.extra_instruccion }}</ion-text>
+        <ion-text *ngIf="loadedInfo.extra_instruccion != 'null'" class="titleText">{{ loadedInfo.extra_instruccion }}</ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
 

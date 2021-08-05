@@ -202,6 +202,21 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
             modalEl.present();
           });
         })
+
+      }).then(() => {
+        if (this.paymentIDSelected == 2) {
+          let payment_request = {
+            request_service_id: this.solicitudServicio.solicitud.id,
+            payment_type_id: this.paymentIDSelected,
+            grossamount: this.loadedInfo.request_cost.amount_suplier,
+            comment: ''
+          }
+          axios.post(API + '/client/payment', payment_request, { headers: { Authorization: this.headers } }).then(resData => {
+
+          }).catch(err => {
+            console.log(err)
+          })
+        }
       }).catch(err => {
         loadingEl.dismiss();
         console.log(err)
@@ -359,7 +374,6 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
       if (this.loadedInfo.request_cost.addittional && this.loadedInfo.request_cost.addittional.length == 0) {
         return true
       } else {
-        console.log('Enter')
         if (!this.loadedInfo.request_cost.total) {
           return true
         }

@@ -41,6 +41,34 @@
       </ion-col>
     </ion-row>
 
+    <!-- <ion-row>
+      <ion-col size="1" offset="1">
+        <div style="background: rgba(207, 0, 15); width: 1rem; height: 1rem"></div>
+      </ion-col>
+      <ion-col size="10">
+        <strong>Impuestos: $ {{ taxesTotal }}</strong>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="1" offset="1">
+        <div style="background: rgba(50, 182, 221); width: 1rem; height: 1rem"></div>
+      </ion-col>
+      <ion-col size="10">
+        <strong>Comision: $ {{ comisionTotal }}</strong>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col size="1" offset="1">
+        <div style="background: rgba(77, 175, 142); width: 1rem; height: 1rem"></div>
+      </ion-col>
+      <ion-col size="10">
+        <strong>Ganancias: $ {{ profitTotal }}</strong>
+      </ion-col>
+    </ion-row> -->
+
     <ion-row>
       <ion-col size="12">
         <canvas #barChart></canvas>
@@ -72,15 +100,22 @@
 
     <ion-row>
       <ion-col size="4">
-        <ion-button (click)="changeWeek('rest')" [disabled]="actualWeekToShow === 0" class="btn-week-wallet"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+        <ion-button (click)="changeWeek('rest')" [disabled]="actualWeekToShow === 0" class="btn-week-wallet">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
       </ion-col>
       <ion-col size="4" style="display: flex; flex-direction: column;">
-        <ion-text class="main-color" *ngIf="weeksToRender[actualWeekToShow]">{{ months[selectedMonth] }} {{ weeksToRender[actualWeekToShow][0] }} - {{ weeksToRender[actualWeekToShow][weeksToRender[actualWeekToShow].length - 1] }}</ion-text>
+        <ion-text class="main-color" *ngIf="weeksToRender[actualWeekToShow]">{{ months[selectedMonth] }} {{
+          weeksToRender[actualWeekToShow][0] }} - {{
+          weeksToRender[actualWeekToShow][weeksToRender[actualWeekToShow].length - 1] }}</ion-text>
         <ion-text class="titleUnder main-color"><b>$ {{ totalWeek }}</b></ion-text>
         <ion-text class="main-color">TARIFA NETA</ion-text>
       </ion-col>
       <ion-col size="4">
-        <ion-button (click)="changeWeek('add')" [disabled]="actualWeekToShow === weeksToRender.length - 1" class="btn-week-wallet"><ion-icon name="arrow-forward-outline"></ion-icon></ion-button>
+        <ion-button (click)="changeWeek('add')" [disabled]="actualWeekToShow === weeksToRender.length - 1"
+          class="btn-week-wallet">
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </ion-button>
       </ion-col>
     </ion-row>
 
