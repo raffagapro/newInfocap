@@ -44,7 +44,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function base64toBlob(base64Data, contentType) {
-    contentType = contentType || '';
+    contentType = contentType || "";
     const sliceSize = 1024;
     const byteCharacters = atob(base64Data);
     const bytesLength = byteCharacters.length;
@@ -71,8 +71,8 @@ let UrgenServicePage = class UrgenServicePage {
         this.us = us;
         this.lc = lc;
         this.platform = platform;
-        this.minDate = moment__WEBPACK_IMPORTED_MODULE_14__().add('hour', 1);
-        this.maxDate = moment__WEBPACK_IMPORTED_MODULE_14__().add('hour', 24);
+        this.minDate = moment__WEBPACK_IMPORTED_MODULE_14__().add("hour", 1);
+        this.maxDate = moment__WEBPACK_IMPORTED_MODULE_14__().add("hour", 24);
         this.useInputPicker = false;
         this.loadedImages = [];
         this.loadedImagesDisplay = [];
@@ -80,49 +80,53 @@ let UrgenServicePage = class UrgenServicePage {
         this.slideOptions = {
             initialSlide: 0,
             slidesPerView: 2,
-            autoplay: true
+            autoplay: true,
         };
     }
     ngOnInit() {
-        this.userSub = this.us.loggedUser.subscribe(user => {
+        this.userSub = this.us.loggedUser.subscribe((user) => {
             this.grabbedUser = user;
-            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token);
+            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpHeaders"]().set("Authorization", "Bearer " + this.grabbedUser.access_token);
         });
         // platfrom Checker
-        if ((this.platform.is('mobile') && !this.platform.is('hybrid')) || this.platform.is('desktop')) {
+        if ((this.platform.is("mobile") && !this.platform.is("hybrid")) ||
+            this.platform.is("desktop")) {
             this.useInputPicker = true;
         }
         //form
         this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormGroup"]({
             description: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](null, {
-                updateOn: 'blur',
-                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required]
+                updateOn: "blur",
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required],
             }),
             date_required: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](null, {
-                updateOn: 'blur',
-                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required]
+                updateOn: "blur",
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required],
             }),
             sHour: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](null, {
-                updateOn: 'blur',
-                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required]
+                updateOn: "blur",
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required],
             }),
             eHour: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](null, {
-                updateOn: 'blur',
-                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required]
+                updateOn: "blur",
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required],
             }),
             adress: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](this.solServ.solicitud.address, {
+                updateOn: "blur",
+            }),
+            address_detail: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](this.solServ.solicitud.address_detail, {
                 updateOn: 'blur',
             }),
         });
     }
     ionViewWillEnter() {
-        this.menuController.enable(true, 'user');
+        this.menuController.enable(true, "user");
     }
     openMenu() {
         this.menuController.open();
     }
     onLoadImg() {
-        if (!_capacitor_core__WEBPACK_IMPORTED_MODULE_8__["Capacitor"].isPluginAvailable('Camera') || this.useInputPicker) {
+        if (!_capacitor_core__WEBPACK_IMPORTED_MODULE_8__["Capacitor"].isPluginAvailable("Camera") || this.useInputPicker) {
             this.hiddenImgInputRef.nativeElement.click();
             return;
         }
@@ -133,12 +137,14 @@ let UrgenServicePage = class UrgenServicePage {
             //height: 500,
             width: 500,
             resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_9__["CameraResultType"].DataUrl,
-            promptLabelPhoto: 'Fotos',
-            promptLabelPicture: 'Cámara',
-            promptLabelCancel: 'Cancelar'
-        }).then(image => {
+            promptLabelPhoto: "Fotos",
+            promptLabelPicture: "Cámara",
+            promptLabelCancel: "Cancelar",
+        })
+            .then((image) => {
             this.saveImgToApi(image.dataUrl);
-        }).catch(e => {
+        })
+            .catch((e) => {
             console.log(e);
         });
     }
@@ -155,9 +161,9 @@ let UrgenServicePage = class UrgenServicePage {
     }
     saveImgToApi(imageData) {
         let imgFile;
-        if (typeof imageData === 'string') {
+        if (typeof imageData === "string") {
             try {
-                imgFile = base64toBlob(imageData.replace('data:image/jpeg;base64,', ''), 'image/jpeg');
+                imgFile = base64toBlob(imageData.replace("data:image/jpeg;base64,", ""), "image/jpeg");
             }
             catch (e) {
                 console.log(e);
@@ -176,23 +182,23 @@ let UrgenServicePage = class UrgenServicePage {
     }
     confirmRequest() {
         //format date
-        let wDate = this.form.value.date_required.split('T');
+        let wDate = this.form.value.date_required.split("T");
         wDate = wDate[0];
-        wDate = wDate.split('-');
-        wDate = wDate[2] + '/' + wDate[1] + '/' + wDate[0];
+        wDate = wDate.split("-");
+        wDate = wDate[2] + "/" + wDate[1] + "/" + wDate[0];
         const formData = new FormData();
-        this.loadedImages.forEach(image => {
-            formData.append('images[]', image);
+        this.loadedImages.forEach((image) => {
+            formData.append("images[]", image);
         });
-        formData.append('cummune_id', this.solServ.solicitud.comuna_id);
-        formData.append('description', this.form.value.description);
-        formData.append('adress', this.form.value.adress);
-        formData.append('adress_detail', this.form.value.adress);
-        formData.append('extra_instructions', this.solServ.solicitud.instructions);
-        formData.append('date_required', wDate);
-        formData.append('hours', moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.sHour).format('HH:mm:ss'));
-        formData.append('hours_final', moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.eHour).format('HH:mm:ss'));
-        formData.append('category_id', this.solServ.solicitud.category_id);
+        formData.append("cummune_id", this.solServ.solicitud.comuna_id);
+        formData.append("description", this.form.value.description);
+        formData.append("adress", this.form.value.adress);
+        formData.append('adress_detail', this.form.value.address_detail);
+        formData.append("extra_instructions", this.solServ.solicitud.instructions);
+        formData.append("date_required", wDate);
+        formData.append("hours", moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.sHour).format("HH:mm:ss"));
+        formData.append("hours_final", moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.eHour).format("HH:mm:ss"));
+        formData.append("category_id", this.solServ.solicitud.category_id);
         let startHour = moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.sHour);
         let endHour = moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.eHour);
         if (startHour.isAfter(endHour)) {
@@ -201,28 +207,35 @@ let UrgenServicePage = class UrgenServicePage {
         }
         this.showError = false;
         if (this.loadedImages.length === 0) {
-            alert('Debes agregar al menos una foto a la solicitud.');
+            alert("Debes agregar al menos una foto a la solicitud.");
             return;
         }
-        this.lc.create({
-            message: 'Creando su solicitud...'
-        }).then(loadingEl => {
+        this.lc
+            .create({
+            message: "Creando su solicitud...",
+        })
+            .then((loadingEl) => {
             loadingEl.present();
-            this.http.post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["API"]}/client/requestserviceurgent`, formData, { headers: this.headers })
-                .subscribe(resData => {
+            this.http
+                .post(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["API"]}/client/requestserviceurgent`, formData, {
+                headers: this.headers,
+            })
+                .subscribe((resData) => {
                 loadingEl.dismiss();
-                this.modalController.create({
+                this.modalController
+                    .create({
                     component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_3__["SuccessModalComponent"],
                     componentProps: {
-                        message: 'PRONTO UN PROFESIONAL SE CONTACTARÁ CONTIGO',
+                        message: "PRONTO UN PROFESIONAL SE CONTACTARÁ CONTIGO",
                         redirect: true,
-                        redirectUrl: '/user/solicitudes'
+                        redirectUrl: "/user/solicitudes",
                     },
-                    cssClass: 'modalSuccess',
-                }).then(modalEl => {
+                    cssClass: "modalSuccess",
+                })
+                    .then((modalEl) => {
                     modalEl.present();
                 });
-            }, err => {
+            }, (err) => {
                 loadingEl.dismiss();
                 console.log(err);
             });
@@ -235,7 +248,7 @@ let UrgenServicePage = class UrgenServicePage {
                 componentProps: {
                     image,
                 },
-                cssClass: 'modalImage',
+                cssClass: "modalImage",
             });
             successModal.present();
         });
@@ -255,11 +268,11 @@ UrgenServicePage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] }
 ];
 UrgenServicePage.propDecorators = {
-    hiddenImgInputRef: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"], args: ['hiddenImgInput',] }]
+    hiddenImgInputRef: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"], args: ["hiddenImgInput",] }]
 };
 UrgenServicePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
-        selector: 'app-urgen-service',
+        selector: "app-urgen-service",
         template: _raw_loader_urgen_service_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_urgen_service_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
     })
