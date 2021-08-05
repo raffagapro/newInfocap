@@ -115,9 +115,9 @@ export class UrgenServicePage implements OnInit {
 			adress: new FormControl(this.solServ.solicitud.address, {
 				updateOn: "blur",
 			}),
-      address_detail: new FormControl(this.solServ.solicitud.address_detail, {
-        updateOn: 'blur',
-      }),
+			address_detail: new FormControl(this.solServ.solicitud.address_detail, {
+				updateOn: "blur",
+			}),
 		});
 	}
 
@@ -206,7 +206,7 @@ export class UrgenServicePage implements OnInit {
 		formData.append("cummune_id", this.solServ.solicitud.comuna_id);
 		formData.append("description", this.form.value.description);
 		formData.append("adress", this.form.value.adress);
-		formData.append('adress_detail', this.form.value.address_detail);
+		formData.append("adress_detail", this.form.value.address_detail);
 		formData.append("extra_instructions", this.solServ.solicitud.instructions);
 		formData.append("date_required", wDate);
 		formData.append("hours", moment(this.form.value.sHour).format("HH:mm:ss"));
@@ -225,10 +225,10 @@ export class UrgenServicePage implements OnInit {
 		}
 		this.showError = false;
 
-		// if (this.loadedImages.length === 0) {
-		// 	alert("Debes agregar al menos una foto a la solicitud.");
-		// 	return;
-		// }
+		if (this.loadedImages.length === 0) {
+			alert("Debes agregar al menos una foto a la solicitud.");
+			return;
+		}
 
 		this.lc
 			.create({
