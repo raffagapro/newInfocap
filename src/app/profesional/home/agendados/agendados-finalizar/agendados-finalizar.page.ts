@@ -100,6 +100,9 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
       axios.get(API + `/client/detailcostrequest/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
         this.solicitudServicio.setCosto(resData.data.data);
         this.loadedInfo.request_cost = resData.data.data
+      }).catch(err => {
+        console.log(err)
+        this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
       })
 
       axios.get(API + '/supplier/categorization', { headers: { Authorization: this.headers } }).then(cat => {
@@ -190,7 +193,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
           costs_type_id: 1,
           payment_type_id: this.paymentIDSelected
         }
-        axios.put(API + `/supplier/cost/requestservice/${this.solicitudServicio.solicitud.id}`, body_cost_request ,{ headers: { Authorization: this.headers } }).then(resData => {
+        axios.put(API + `/supplier/cost/requestservice/${this.solicitudServicio.solicitud.id}`, body_cost_request, { headers: { Authorization: this.headers } }).then(resData => {
           loadingEl.dismiss();
           this.modalController.create({
             component: ConfirmSuccessModalComponent,
@@ -351,9 +354,26 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     }
   }
 
+  validateExtraChargeButtom() {
+    if (this.loadedInfo.request_cost !== null) {
+      if (this.loadedInfo.request_cost.addittional && this.loadedInfo.request_cost.addittional.length == 0) {
+        return true
+      } else {
+        console.log('Enter')
+        if (!this.loadedInfo.request_cost.total) {
+          return true
+        }
+      }
+    }
+  }
+
   formatInfo(request_cost) {
-    if (request_cost !== null && request_cost.total) {
-      return Math.round(request_cost.total[0].total)
+    if (request_cost !== null) {
+      if (request_cost.total) {
+        return Math.round(request_cost.total[0].total)
+      } else {
+        return Math.round(request_cost.amount_client)
+      }
     }
   }
 }

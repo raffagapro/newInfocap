@@ -125,7 +125,11 @@ export class AgendadosPage implements OnInit, OnDestroy {
   }
 
   formatDate(date: string, type: string) {
-    return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
+    if(type === 'NORMAL') {
+      return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
+    } else {
+      return moment(date, 'DD/MM/YYYY').format('DD MMM YYYY');
+    }
   }
 
   formatDateTecnical(tecnical) {
