@@ -127,7 +127,7 @@
           <ion-text class="subMiniTex ion-padding-top">{{ formatInfo(loadedInfo.request_cost) }}</ion-text>
         </ion-col>
         <ion-col size="1">
-          <ion-icon *ngIf="loadedInfo.request_cost !== null && loadedInfo.request_cost.addittional && loadedInfo.request_cost.addittional.length == 0"
+          <ion-icon *ngIf="validateExtraChargeButtom()"
             color="danger" name="add-circle" class="addIcon" (click)="extraCharge()"></ion-icon>
           <div class="request-null"
             *ngIf="loadedInfo.request_cost !== null &&  loadedInfo.request_cost.addittional && loadedInfo.request_cost.addittional.length > 0">
