@@ -4469,7 +4469,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">MI BILLETERA</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid [hidden]=\"graphicWeek\" fixed>\n\n    <!-- Ingresos semanales -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"title\"><b>Total</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"titleUnder main-color\"><b>$ {{ yearInfoTotal }}</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Servicios realizados -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"title\"><b>Servicios realizados</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"titleUnder main-color\"><b>{{ yearInfoTotalRequest }}</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"12\">\n        <canvas #barChart></canvas>\n      </ion-col>\n    </ion-row>\n\n    <!-- buttons -->\n    <ion-row class=\"ion-text-center\">\n      <!-- <ion-col size=\"5\" offset=\"1\">\n        <ion-button (click)=\"onClick()\" expand=\"block\" fill=\"outline\" class=\"btnTitle\">\n          Balance general\n        </ion-button>\n      </ion-col> -->\n\n      <ion-col size=\"3\"></ion-col>\n\n      <ion-col size=\"6\">\n        <ion-button (click)=\"openBankDataModal()\" expand=\"block\" fill=\"outline\" class=\"btnTitle\">\n          Datos bancarios\n        </ion-button>\n      </ion-col>\n    </ion-row>\n\n    <ion-col size=\"3\"></ion-col>\n\n\n  </ion-grid>\n  <ion-grid [hidden]=\"!graphicWeek\" fixed style=\"text-align: center;\">\n\n    <ion-row>\n      <ion-col size=\"4\">\n        <ion-button (click)=\"changeWeek('rest')\" [disabled]=\"actualWeekToShow === 0\" class=\"btn-week-wallet\"><ion-icon name=\"arrow-back-outline\"></ion-icon></ion-button>\n      </ion-col>\n      <ion-col size=\"4\" style=\"display: flex; flex-direction: column;\">\n        <ion-text class=\"main-color\" *ngIf=\"weeksToRender[actualWeekToShow]\">{{ months[selectedMonth] }} {{ weeksToRender[actualWeekToShow][0] }} - {{ weeksToRender[actualWeekToShow][weeksToRender[actualWeekToShow].length - 1] }}</ion-text>\n        <ion-text class=\"titleUnder main-color\"><b>$ {{ totalWeek }}</b></ion-text>\n        <ion-text class=\"main-color\">TARIFA NETA</ion-text>\n      </ion-col>\n      <ion-col size=\"4\">\n        <ion-button (click)=\"changeWeek('add')\" [disabled]=\"actualWeekToShow === weeksToRender.length - 1\" class=\"btn-week-wallet\"><ion-icon name=\"arrow-forward-outline\"></ion-icon></ion-button>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"12\">\n        <canvas #barChartWeek></canvas>\n      </ion-col>\n    </ion-row>\n\n    <ion-col size=\"5\">\n      <ion-button (click)=\"backWalletMain()\" expand=\"block\" fill=\"outline\" class=\"btnTitle\">\n        Regresar\n      </ion-button>\n    </ion-col>\n  </ion-grid>\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar color=\"primary\">\n\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/profesional/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n      <ion-button class=\"homeBtn\" (click)=\"openMenu()\">\n        <ion-icon name=\"menu\" class=\"homeBtn\"></ion-icon>\n      </ion-button>\n    </ion-buttons>\n\n    <ion-title class=\"title-toolbar\">MI BILLETERA</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid [hidden]=\"graphicWeek\" fixed>\n\n    <!-- Ingresos semanales -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"title\"><b>Total</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"titleUnder main-color\"><b>$ {{ yearInfoTotal }}</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- Servicios realizados -->\n    <ion-row class=\"ion-margin-top\">\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"title\"><b>Servicios realizados</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"10\" offset=\"1\">\n        <ion-text class=\"titleUnder main-color\"><b>{{ yearInfoTotalRequest }}</b></ion-text>\n      </ion-col>\n    </ion-row>\n\n    <!-- <ion-row>\n      <ion-col size=\"1\" offset=\"1\">\n        <div style=\"background: rgba(207, 0, 15); width: 1rem; height: 1rem\"></div>\n      </ion-col>\n      <ion-col size=\"10\">\n        <strong>Impuestos: $ {{ taxesTotal }}</strong>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"1\" offset=\"1\">\n        <div style=\"background: rgba(50, 182, 221); width: 1rem; height: 1rem\"></div>\n      </ion-col>\n      <ion-col size=\"10\">\n        <strong>Comision: $ {{ comisionTotal }}</strong>\n      </ion-col>\n    </ion-row>\n\n\n    <ion-row>\n      <ion-col size=\"1\" offset=\"1\">\n        <div style=\"background: rgba(77, 175, 142); width: 1rem; height: 1rem\"></div>\n      </ion-col>\n      <ion-col size=\"10\">\n        <strong>Ganancias: $ {{ profitTotal }}</strong>\n      </ion-col>\n    </ion-row> -->\n\n    <ion-row>\n      <ion-col size=\"12\">\n        <canvas #barChart></canvas>\n      </ion-col>\n    </ion-row>\n\n    <!-- buttons -->\n    <ion-row class=\"ion-text-center\">\n      <!-- <ion-col size=\"5\" offset=\"1\">\n        <ion-button (click)=\"onClick()\" expand=\"block\" fill=\"outline\" class=\"btnTitle\">\n          Balance general\n        </ion-button>\n      </ion-col> -->\n\n      <ion-col size=\"3\"></ion-col>\n\n      <ion-col size=\"6\">\n        <ion-button (click)=\"openBankDataModal()\" expand=\"block\" fill=\"outline\" class=\"btnTitle\">\n          Datos bancarios\n        </ion-button>\n      </ion-col>\n    </ion-row>\n\n    <ion-col size=\"3\"></ion-col>\n\n\n  </ion-grid>\n  <ion-grid [hidden]=\"!graphicWeek\" fixed style=\"text-align: center;\">\n\n    <ion-row>\n      <ion-col size=\"4\">\n        <ion-button (click)=\"changeWeek('rest')\" [disabled]=\"actualWeekToShow === 0\" class=\"btn-week-wallet\">\n          <ion-icon name=\"arrow-back-outline\"></ion-icon>\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"4\" style=\"display: flex; flex-direction: column;\">\n        <ion-text class=\"main-color\" *ngIf=\"weeksToRender[actualWeekToShow]\">{{ months[selectedMonth] }} {{\n          weeksToRender[actualWeekToShow][0] }} - {{\n          weeksToRender[actualWeekToShow][weeksToRender[actualWeekToShow].length - 1] }}</ion-text>\n        <ion-text class=\"titleUnder main-color\"><b>$ {{ totalWeek }}</b></ion-text>\n        <ion-text class=\"main-color\">TARIFA NETA</ion-text>\n      </ion-col>\n      <ion-col size=\"4\">\n        <ion-button (click)=\"changeWeek('add')\" [disabled]=\"actualWeekToShow === weeksToRender.length - 1\"\n          class=\"btn-week-wallet\">\n          <ion-icon name=\"arrow-forward-outline\"></ion-icon>\n        </ion-button>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col size=\"12\">\n        <canvas #barChartWeek></canvas>\n      </ion-col>\n    </ion-row>\n\n    <ion-col size=\"5\">\n      <ion-button (click)=\"backWalletMain()\" expand=\"block\" fill=\"outline\" class=\"btnTitle\">\n        Regresar\n      </ion-button>\n    </ion-col>\n  </ion-grid>\n\n</ion-content>";
       /***/
     },
 
@@ -4584,6 +4584,9 @@
           this.actualWeekToShow = 0;
           this.yearInfoTotal = 0;
           this.yearInfoTotalRequest = 0;
+          this.comisionTotal = 0;
+          this.taxesTotal = 0;
+          this.profitTotal = 0;
           this.days = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
           this.months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
@@ -4631,13 +4634,20 @@
                           Authorization: this.headers
                         }
                       }).then(function (resData) {
-                        _this6.yearInfoTotal = resData.data.data.total;
-                        _this6.yearInfoTotalRequest = resData.data.data.requestnumber;
-                        resData.data.data.paymentByMount.map(function (d) {
-                          profesionalAmount[d.month - 1] = d.professionalamount;
-                          taxes[d.month - 1] = d.taxes;
-                          commission[d.month - 1] = d.commission;
-                        });
+                        console.log(resData.data.data);
+
+                        if (resData.data.data.length > 0) {
+                          _this6.yearInfoTotal = resData.data.data[0].total;
+                          _this6.yearInfoTotalRequest = resData.data.data[0].requestnumber;
+                          resData.data.data[0].paymentByMount.map(function (d) {
+                            _this6.profitTotal += parseFloat(d.professionalamount);
+                            _this6.taxesTotal += parseFloat(d.taxes);
+                            _this6.comisionTotal += parseFloat(d.commission);
+                            profesionalAmount[d.month - 1] = d.professionalamount;
+                            taxes[d.month - 1] = d.taxes;
+                            commission[d.month - 1] = d.commission;
+                          });
+                        }
                       })["catch"](function (err) {
                         console.log(err);
                       });
@@ -4650,7 +4660,7 @@
                           datasets: [{
                             label: 'Ganancia',
                             data: profesionalAmount,
-                            backgroundColor: ['rgba(50, 182, 221)'],
+                            backgroundColor: ['rgba(77, 175, 142)'],
                             borderWidth: 1
                           }, {
                             label: 'Comisiones',
@@ -4660,7 +4670,7 @@
                           }, {
                             label: 'Impuestos',
                             data: taxes,
-                            backgroundColor: ['rgba(50, 182, 221)'],
+                            backgroundColor: ['rgba(207, 0, 15)'],
                             borderWidth: 1
                           }]
                         },
@@ -4741,7 +4751,7 @@
                             datasets: [{
                               label: 'Ganancia',
                               data: profesionalAmount,
-                              backgroundColor: ['rgba(50, 182, 221)'],
+                              backgroundColor: ['rgba(77, 175, 142)'],
                               borderWidth: 1
                             }, {
                               label: 'Comisiones',
@@ -4751,7 +4761,7 @@
                             }, {
                               label: 'Impuestos',
                               data: taxes,
-                              backgroundColor: ['rgba(50, 182, 221)'],
+                              backgroundColor: ['rgba(207, 0, 15)'],
                               borderWidth: 1
                             }]
                           },
@@ -4851,7 +4861,7 @@
                       this.barChartWeek.data.datasets = [{
                         label: 'Ganancia',
                         data: profesionalAmount,
-                        backgroundColor: ['rgba(50, 182, 221)'],
+                        backgroundColor: ['rgba(77, 175, 142)'],
                         borderWidth: 1
                       }, {
                         label: 'Comisiones',
@@ -4861,7 +4871,7 @@
                       }, {
                         label: 'Impuestos',
                         data: taxes,
-                        backgroundColor: ['rgba(50, 182, 221)'],
+                        backgroundColor: ['rgba(207, 0, 15)'],
                         borderWidth: 1
                       }];
                       this.barChartWeek.update();

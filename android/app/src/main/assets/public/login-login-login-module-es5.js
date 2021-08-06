@@ -277,6 +277,8 @@
                         form.control.reset();
                         loader.dismiss();
 
+                        _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_18__["StatusBar"].show();
+
                         if (roles[0] === "usuario") {
                           this.router.navigate(["/user/home"], {
                             replaceUrl: true
@@ -631,7 +633,7 @@
                       responseData = data.data;
 
                       if (!responseData) {
-                        _context8.next = 15;
+                        _context8.next = 16;
                         break;
                       }
 
@@ -648,6 +650,8 @@
                       this.us.setUser(this.grabbedUSer);
                       this.as.login();
 
+                      _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_18__["StatusBar"].show();
+
                       if (roles[0] === "usuario") {
                         this.router.navigate(["/user/home"], {
                           replaceUrl: true
@@ -660,13 +664,13 @@
                         this.loadNotifications("supplier");
                       }
 
-                      _context8.next = 16;
+                      _context8.next = 17;
                       break;
 
-                    case 15:
+                    case 16:
                       throw new Error("No se pudo iniciar sesión");
 
-                    case 16:
+                    case 17:
                     case "end":
                       return _context8.stop();
                   }

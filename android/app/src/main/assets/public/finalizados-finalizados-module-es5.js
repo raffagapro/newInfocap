@@ -192,6 +192,8 @@
               _this.loadServices("5");
 
               _this.loadServices("6");
+
+              _this.loadServices("8");
             });
           });
         }
@@ -226,6 +228,10 @@
                 }
 
                 if (statusID === "6") {
+                  _this2.loadedServices = _this2.loadedServices.concat(resData.data.data);
+                }
+
+                if (statusID === "8") {
                   _this2.loadedServices = _this2.loadedServices.concat(resData.data.data);
                 }
               })["catch"](function (err) {

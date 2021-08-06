@@ -124,6 +124,7 @@ export class LoginPage implements OnInit {
 				this.as.login();
 				form.control.reset();
 				loader.dismiss();
+				StatusBar.show();
 				if (roles[0] === "usuario") {
 					this.router.navigate(["/user/home"], { replaceUrl: true });
 					this.loadNotifications("client");
@@ -326,6 +327,7 @@ export class LoginPage implements OnInit {
 
 			this.us.setUser(this.grabbedUSer);
 			this.as.login();
+			StatusBar.show();
 			if (roles[0] === "usuario") {
 				this.router.navigate(["/user/home"], { replaceUrl: true });
 				this.loadNotifications("client");

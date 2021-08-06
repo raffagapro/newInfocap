@@ -136,6 +136,7 @@ let LoginPage = class LoginPage {
                     this.as.login();
                     form.control.reset();
                     loader.dismiss();
+                    _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_18__["StatusBar"].show();
                     if (roles[0] === "usuario") {
                         this.router.navigate(["/user/home"], { replaceUrl: true });
                         this.loadNotifications("client");
@@ -329,6 +330,7 @@ let LoginPage = class LoginPage {
                 this.grabbedUSer = new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__["User"](id, name, last_name, img, email, phone1, phone2, roles[0], access_token);
                 this.us.setUser(this.grabbedUSer);
                 this.as.login();
+                _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_18__["StatusBar"].show();
                 if (roles[0] === "usuario") {
                     this.router.navigate(["/user/home"], { replaceUrl: true });
                     this.loadNotifications("client");

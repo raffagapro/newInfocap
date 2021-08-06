@@ -212,7 +212,7 @@
                 updateOn: "blur"
               }),
               address_detail: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](this.solServ.solicitud.address_detail, {
-                updateOn: 'blur'
+                updateOn: "blur"
               })
             });
           }
@@ -315,7 +315,7 @@
             formData.append("cummune_id", this.solServ.solicitud.comuna_id);
             formData.append("description", this.form.value.description);
             formData.append("adress", this.form.value.adress);
-            formData.append('adress_detail', this.form.value.address_detail);
+            formData.append("adress_detail", this.form.value.address_detail);
             formData.append("extra_instructions", this.solServ.solicitud.instructions);
             formData.append("date_required", wDate);
             formData.append("hours", moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.sHour).format("HH:mm:ss"));

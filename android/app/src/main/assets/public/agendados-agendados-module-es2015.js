@@ -233,12 +233,7 @@ let AgendadosPage = class AgendadosPage {
         });
     }
     formatDate(date, type) {
-        if (type === 'NORMAL') {
-            return moment__WEBPACK_IMPORTED_MODULE_10__(date, 'YYYY-MM-DD').format('DD MMM YYYY');
-        }
-        else {
-            return moment__WEBPACK_IMPORTED_MODULE_10__(date, 'DD/MM/YYYY').format('DD MMM YYYY');
-        }
+        return moment__WEBPACK_IMPORTED_MODULE_10__(date, 'YYYY-MM-DD').format('DD MMM YYYY');
     }
     formatDateTecnical(tecnical) {
         let date = tecnical.visit_date.split(' ');
