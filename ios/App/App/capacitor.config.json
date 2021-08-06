@@ -1,16 +1,20 @@
 {
-  "appId": "cl.dtispa.infocap.workin",
-  "appName": "Workin",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0
-    }
-  },
-  "ios": {
-    "minVersion": "12.3"
-  },
-  "cordova": {}
+	"appId": "cl.dtispa.infocap.workin",
+	"appName": "Workin",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "www",
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 2000
+		},
+		"Keyboard": {
+			"resize": "body",
+			"style": "dark"
+		}
+	},
+	"ios": {
+		"minVersion": "12.3"
+	},
+	"cordova": {}
 }

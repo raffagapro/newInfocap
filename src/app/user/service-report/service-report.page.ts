@@ -14,6 +14,7 @@ import { UserService } from "src/app/services/user.service";
 import { ImageModalComponent } from "src/app/shared/image-modal/image-modal.component";
 import { API } from "src/environments/environment";
 import { Location } from "@angular/common";
+import { IMAGE_URL_BLANK } from "src/shared/constants";
 
 @Component({
 	selector: "app-service-report",
@@ -47,6 +48,7 @@ export class ServiceReportPageComponent implements OnInit {
 		user_client_id: null,
 		work_days: null,
 		img_request: [],
+		request_cost: [],
 	};
 	serviceId: string;
 	servicesCosts;
@@ -56,6 +58,9 @@ export class ServiceReportPageComponent implements OnInit {
 		slidesPerView: 2,
 		autoplay: true,
 	};
+	selectedProfPhoto: string;
+	isCash = false;
+	paymentTypes = [];
 
 	constructor(
 		private modalController: ModalController,
@@ -70,7 +75,7 @@ export class ServiceReportPageComponent implements OnInit {
 	ngOnInit() {
 		this.userSubscription = this.userService.loggedUser.subscribe((user) => {
 			this.user = user;
-			this.loadService();
+			this.loadPaymentTypes();
 		});
 	}
 
@@ -92,6 +97,12 @@ export class ServiceReportPageComponent implements OnInit {
 					},
 				}
 			);
+			this.selectedProfPhoto = this.solServ.solicitud.proPhoto;
+
+			if (this.selectedProfPhoto === IMAGE_URL_BLANK) {
+				this.selectedProfPhoto = null;
+			}
+			
 			this.loadedService = response.data.data;
 			await this.loadCosts();
 		} catch (error) {
@@ -123,7 +134,8 @@ export class ServiceReportPageComponent implements OnInit {
 					return;
 				}
 				this.servicesCosts = data;
-				this.imagesToDisplay = this.servicesCosts.img_addittional.map(
+				let images = this.loadedService.img_request.concat(this.servicesCosts.img_addittional);
+				this.imagesToDisplay = images.map(
 					(image) => image.image
 				);
 				if (this.imagesToDisplay.length === 1) {
@@ -134,6 +146,21 @@ export class ServiceReportPageComponent implements OnInit {
 			console.log(error);
 		} finally {
 			loader.dismiss();
+		}
+	}
+
+	async loadPaymentTypes() {
+		try {
+			let response = await axios.get(`${API}/payments/type`, {
+				headers: {
+					Authorization: `Bearer ${this.user.access_token}`,
+				},
+			});
+			this.paymentTypes = response.data.data;
+		} catch (error) {
+			console.log(error);
+		} finally {
+			this.loadService();
 		}
 	}
 
@@ -179,5 +206,15 @@ export class ServiceReportPageComponent implements OnInit {
 
 	goBack() {
 		this.navCtrl.back();
+	}
+
+	validatePaymentType() {
+		if (this.loadedService.request_cost.length > 0) {
+			let firstCost = this.loadedService.request_cost[0];
+			let paymentType = this.paymentTypes.find(
+				(paymentType) => paymentType.id === firstCost.payment_type_id
+			);
+			this.isCash = paymentType.name === "Efectivo";
+		}
 	}
 }

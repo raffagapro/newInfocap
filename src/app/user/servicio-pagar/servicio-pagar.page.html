@@ -123,7 +123,7 @@
     <ion-row class="ion-margin-top">
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
-        <ion-text class="main-color subtitle"><b>{{isFinished ? 'Método de pago aplicado' : 'Métodos disponibles de pago'}}</b>
+        <ion-text class="main-color subtitle"><b>{{isFinished ? 'Método de pago aplicado' : isFinished && selectedButton === 'credit' ? 'Métodos disponibles de pago' : ''}}</b>
         </ion-text>
       </ion-col>
       <ion-col size="1"></ion-col>
@@ -167,7 +167,7 @@
     </ion-row>
 
     <!-- CONFIRMAR BTN -->
-    <ion-row class="ion-margin-top" *ngIf="!isFinished">
+    <ion-row class="ion-margin-top" *ngIf="!isFinished && selectedButton === 'credit'">
       <ion-col size="1"></ion-col>
       <ion-col>
         <!-- [disabled]="!servicesCosts" -->

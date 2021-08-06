@@ -19,7 +19,7 @@
         <ion-col size="4" offset="1">
           <ion-avatar class="profileImg">
             <img
-              src="{{ loadedService && loadedService.img_profile ? loadedService.img_profile : 'assets/images/avatar.png' }}" />
+            src="{{ !selectedProfPhoto ? 'assets/images/avatar.png' : selectedProfPhoto }}" />
           </ion-avatar>
         </ion-col>
 
@@ -102,7 +102,7 @@
     <ion-row class="ion-margin-top" *ngIf="servicesCosts && servicesCosts.addittional.length > 0">
       <ion-col size="12" class="ion-text-left">
         <ion-text class="text main-color">
-          <b>Fotografías de los adicionales</b>
+          <b>Fotografías</b>
         </ion-text>
       </ion-col>
     </ion-row>
@@ -118,6 +118,21 @@
             </ion-img>
           </ion-slide>
         </ion-slides>
+      </ion-col>
+    </ion-row>
+
+    <!-- Total -->
+    <ion-row class="ion-margin-top">
+      <ion-col size="8" class="ion-text-left">
+        <ion-text style="font-size: 24px;"  class="text main-color">
+          <b>Total</b>
+        </ion-text>
+      </ion-col>
+
+      <ion-col size="4" class="ion-text-right">
+        <ion-text class="text" style="font-size: 24px;" color="danger">
+          <b>${{getTotal()}}</b>
+        </ion-text>
       </ion-col>
     </ion-row>
 

@@ -99,7 +99,7 @@
       <!-- Visita tecnica agendada  -->
       <!-- gray -->
       <ion-row
-        *ngIf="loadedService.status_id < 2 && loadedService.status_id < 7 && loadedService.type_request !== 'URGENT'">
+        *ngIf="loadedService.status_id < 2 && loadedService.status_id !== 7 && loadedService.type_request !== 'URGENT'">
         <div class="status-cont-grey">
           <ion-icon name="checkmark" color="light" class="status-text-icon"></ion-icon>
         </div>
@@ -109,7 +109,7 @@
       </ion-row>
       <!-- active  -->
       <ion-row
-        *ngIf="loadedService.status_id > 1 && loadedService.status_id < 7 && loadedService.type_request !== 'URGENT'">
+        *ngIf="loadedService.status_id > 1 && loadedService.status_id !== 7 && loadedService.type_request !== 'URGENT'">
         <div class="status-cont" (click)="serviceDetal(2)">
           <ion-icon name="checkmark" color="light" class="status-text-icon"></ion-icon>
         </div>
@@ -119,7 +119,7 @@
       </ion-row>
 
        <!-- vertical line -->
-       <div class="vl" *ngIf="loadedService.status_id < 7 && loadedService.type_request !== 'URGENT'"></div>
+       <div class="vl" *ngIf="loadedService.status_id !== 7 && loadedService.type_request !== 'URGENT'"></div>
 
       <!-- Servicio agendado  -->
       <!-- gray  -->
