@@ -259,6 +259,9 @@ export class UrgenServicePage implements OnInit {
 						},
 						(err) => {
 							loadingEl.dismiss();
+							alert(
+								"No puede generar un servicio urgente por que no hay profesionales en la zona, por favor selecciona otra"
+							);
 							console.log(err);
 						}
 					);
