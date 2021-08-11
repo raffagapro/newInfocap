@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, MenuController, ModalController, Platform } from '@ionic/angular';
+import { LoadingController, MenuController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 
@@ -53,6 +53,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     address: null,
     adress_detail: null,
     extra_instruccion: null,
+    profesional: null
   };
 
   slideOptions = {
@@ -69,7 +70,6 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
     private us: UserService,
     private lc: LoadingController,
     private callNumber: CallNumber,
-    private platform: Platform
   ) {
     this.Geocoder = new google.maps.Geocoder();
 		this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
@@ -119,6 +119,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
         this.loadedInfo.type = resData.data.data.type_request;
         this.loadedInfo.status_id = resData.data.data.status_id;
         this.loadedInfo.tecnical = this.solicitudServicio.solicitud.evaluationService
+        this.loadedInfo.profesional = this.solicitudServicio.solicitud.prof
         this.loadedInfo.address = resData.data.data.adress
         this.loadedInfo.adress_detail = resData.data.data.adress_detail
         this.loadedInfo.extra_instruccion = resData.data.data.extra_instructions

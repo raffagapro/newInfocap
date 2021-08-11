@@ -4,6 +4,7 @@ export class ProSolicitud{
         public clientName: string,
         public clientImg: string,
         public clientPhone: string,
+        public prof: number,
         public images: [],
         public category_id: string,
         public categoryName: string,
