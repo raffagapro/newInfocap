@@ -155,7 +155,7 @@
               <small>
                 <ion-icon src="/assets/icon/ic_date_range.svg"
                   [color]="service.type_request == 'URGENT' ? 'danger' : 'primary'" class="iconFix"></ion-icon>
-                {{ formatDate(service.date_required, service.type_request) }}
+                {{ formatDate(service.date_required) }}
                 <ion-icon src="/assets/icon/ic_schedule.svg"
                   [color]="service.type_request == 'URGENT' ? 'danger' : 'primary'" class="iconFix"></ion-icon>
                 {{ formatTime(service.hours, service.hours_final) }}
@@ -199,7 +199,7 @@
               <small>
                 <ion-icon src="/assets/icon/ic_date_range.svg"
                   [color]="service.type_request == 'URGENT' ? 'danger' : 'primary'" class="iconFix"></ion-icon>
-                {{ formatDate(service.date_required, service.type_request) }}
+                {{ formatDate(service.date_required) }}
                 <ion-icon src="/assets/icon/ic_schedule.svg"
                   [color]="service.type_request == 'URGENT' ? 'danger' : 'primary'" class="iconFix"></ion-icon>
                 {{ formatTime(service.hours, service.hours_final) }}

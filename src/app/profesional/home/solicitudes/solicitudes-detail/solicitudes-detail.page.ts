@@ -50,6 +50,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
     adress_detail: null,
     extra_instruccion: null,
     hours_final: null,
+    profesional: null
   };
 
   slideOptions = {
@@ -112,6 +113,7 @@ export class SolicitudesDetailPage implements OnInit, OnDestroy {
         this.loadedInfo.categoryName = resData.data.data.categoryName;
         this.loadedInfo.clientPhone1 = resData.data.data.clientPhone1;
         this.loadedInfo.type = this.solicitudServicio.solicitud.type
+        this.loadedInfo.profesional = this.solicitudServicio.solicitud.prof
         this.loadedInfo.address = resData.data.data.adress
         this.loadedInfo.adress_detail = resData.data.data.adress_detail
         this.loadedInfo.extra_instruccion = resData.data.data.extra_instructions

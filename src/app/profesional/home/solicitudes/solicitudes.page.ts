@@ -138,6 +138,7 @@ export class SolicitudesPage implements OnInit, OnDestroy {
   aceptarSolicitud(solicitudID: string, type: string) {
     this.solicitudServicio.setID(solicitudID)
     this.solicitudServicio.setSolicitudType(type)
+    this.solicitudServicio.setProfesional(1);
     this.router.navigate(['/profesional/solicitudes/solicitudes-detail']);
   }
 

@@ -84,7 +84,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
 
         var startTime = new Date(date[0], date[1] - 1, date[2], hoursTime[0], hoursTime[1]);
 
-        var endTime = new Date(date[0], date[1] - 1, date[2], hoursFinish[0] + 1 , hoursFinish[1]);
+        var endTime = new Date(date[0], date[1] - 1, date[2], hoursFinish[0] + 1, hoursFinish[1]);
 
         var ticket_format = r.ticket_number.toString().substr(-3)
 
@@ -100,17 +100,12 @@ export class AgendadosPage implements OnInit, OnDestroy {
       } else {
         var date = r.date_required.split('-')
         var hour = r.hours.split(':')
-
         var startHour = hour[0]
         var startMinute = hour[1]
-
         var endHour = hour[0] + 1
         var endMinute = hour[1]
-
         var startTime = new Date(date[0], date[1] - 1, date[2], startHour, startMinute);
-
         var endTime = new Date(date[0], date[1] - 1, date[2], endHour, endMinute);
-
         var ticket_format = r.ticket_number.toString().substr(-3)
 
         let new_event = {
@@ -124,8 +119,13 @@ export class AgendadosPage implements OnInit, OnDestroy {
     })
   }
 
-  formatDate(date: string, type: string) {
+  formatDate(date: string) {
+    if (date.includes('-')) {
       return moment(date, 'YYYY-MM-DD').format('DD MMM YYYY');
+    } else {
+      return moment(date, 'DD/MM/YYYY').format('DD MMM YYYY');
+    }
+
   }
 
   formatDateTecnical(tecnical) {
@@ -165,9 +165,16 @@ export class AgendadosPage implements OnInit, OnDestroy {
           this.myCalAgended.loadEvents();
         }
       }).then(() => {
-        this.loadedServices = lodash.orderBy(this.loadedServices, function (dateObj) {
-          return new Date(dateObj.date_required);
-        });
+        this.loadedServices.map(r => {
+          r.timeFrom = Math.abs(moment(this.formatDate(r.date_required), 'DD MMM YYYY').diff(moment()));
+        })
+
+
+      }).then(() => {
+        this.loadedServices = lodash.orderBy(this.loadedServices, ['timeFrom'])
+        // this.loadedServices = lodash.orderBy(this.loadedServices, function (dateObj) {
+        //   return new Date(dateObj.date_required);
+        // });
         this.loadedVisits = lodash.orderBy(this.loadedVisits, function (dateObj) {
           return new Date(dateObj.date_required);
         });
@@ -189,7 +196,7 @@ export class AgendadosPage implements OnInit, OnDestroy {
   formatTime(hours: string, hoursFinal: string) {
     if (hours) {
       let startHour = moment(hours, 'hh:mm:ss').format('h:mm A');
-      let endHour = moment(hoursFinal, 'hh:mm:ss').format('h:mm A');  
+      let endHour = moment(hoursFinal, 'hh:mm:ss').format('h:mm A');
       return `${startHour} - ${endHour}`;
     }
   }
@@ -204,12 +211,14 @@ export class AgendadosPage implements OnInit, OnDestroy {
 
   solicitudDetail(serviceID: string) {
     this.solicitudServicio.setID(serviceID);
+    this.solicitudServicio.setProfesional(1);
     this.router.navigate(['profesional/agendados/agendados-detail']);
   }
 
   solicitudDetailTecnical(serviceID: string, tecnical: object) {
     this.solicitudServicio.setID(serviceID);
     this.solicitudServicio.setEvaluateService(tecnical);
+    this.solicitudServicio.setProfesional(1);
     this.router.navigate(['profesional/agendados/agendados-detail']);
   }
 

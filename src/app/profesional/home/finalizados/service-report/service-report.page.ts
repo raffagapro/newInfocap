@@ -57,6 +57,7 @@ export class ServiceReportPage implements OnInit {
     this.loadedInfo.created_date = this.solicitudServicio.solicitud.created_date
 
     this.imagesToDisplay = this.loadedInfo.request_cost.img_addittional.map(image => image.image);
+    this.imagesToDisplay.concat(this.loadedInfo.images.map(image => image.image));
     if (this.imagesToDisplay.length === 1) {
       this.slideOptions.slidesPerView = 1;
     }

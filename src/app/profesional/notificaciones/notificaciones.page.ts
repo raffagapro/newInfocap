@@ -71,11 +71,15 @@ export class NotificacionesPage implements OnInit {
     }
   }
 
-  async goToRequestDetail(solicitudId: string, notificationId: number, type: string) {
+  async goToRequestDetail(solicitudId: string, notificationId: number, type: string, motive: string) {
     axios.put(API + `/notification/view/${notificationId}`, { viewed: 1, }, { headers: { Authorization: `Bearer ${this.grabbedUser.access_token}` } }).then(resData => {
       this.solicitudServicio.setID(solicitudId);
       this.solicitudServicio.setSolicitudType(type);
-
+      if(motive.includes('ocupada por un profesional')) {
+        this.solicitudServicio.setProfesional(0);
+      } else{
+        this.solicitudServicio.setProfesional(1);
+      }
 
       let updatedNotifications = this.notifications.map((notification: Notification) => {
         if (notification.notification_Id === notificationId) {

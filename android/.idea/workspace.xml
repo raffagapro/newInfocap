@@ -8,6 +8,9 @@
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -50,42 +53,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7eea4e82-8e52-4d43-8031-2554de7195ca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/capacitor.build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/capacitor.build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-module-es2015.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-module-es2015.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-module-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-module-es2015.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-module-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-module-es5.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-module-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/agendados-agendados-module-es5.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es2015.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es2015.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es2015.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es5.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/finalizados-finalizados-module-es5.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/login-login-login-module-es2015.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/login-login-login-module-es2015.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/login-login-login-module-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/login-login-login-module-es2015.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/login-login-login-module-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/login-login-login-module-es5.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/login-login-login-module-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/login-login-login-module-es5.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/profesional-wallet-wallet-module-es2015.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/profesional-wallet-wallet-module-es2015.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/profesional-wallet-wallet-module-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/profesional-wallet-wallet-module-es2015.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/profesional-wallet-wallet-module-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/profesional-wallet-wallet-module-es5.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/profesional-wallet-wallet-module-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/profesional-wallet-wallet-module-es5.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-urgen-service-urgen-service-module-es2015.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-urgen-service-urgen-service-module-es2015.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-urgen-service-urgen-service-module-es2015.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-urgen-service-urgen-service-module-es2015.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-urgen-service-urgen-service-module-es5.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-urgen-service-urgen-service-module-es5.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/public/user-urgen-service-urgen-service-module-es5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/public/user-urgen-service-urgen-service-module-es5.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/capacitor.settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/capacitor.settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../capacitor.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../capacitor.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/App/Podfile" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/App/Podfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/login/login/login.page.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/login/login/login.page.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/service-report/service-report.page.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/finalizados/service-report/service-report.page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/visita-tecnica/confirm-visita/confirm-visita.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/profesional/home/solicitudes/visita-tecnica/confirm-visita/confirm-visita.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[VirtualDevicePath@C:\Users\arman\.android\avd\Nexus.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -126,6 +106,7 @@
     <property name="ExportApk.SignV2" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="memory.settings.postsync.last.time.stamp" value="1628135785543" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
@@ -147,6 +128,7 @@
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />

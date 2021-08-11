@@ -179,7 +179,7 @@
 
     <br />
     <!-- Visita de valoracion -->
-    <ion-row *ngIf="loadedInfo.type == 'NORMAL'">
+    <ion-row *ngIf="loadedInfo.type == 'NORMAL' && loadedInfo.profesional == 1">
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-text class="main-color subtitle"><b>¿Requieres una visita de valoración?</b></ion-text>
@@ -196,7 +196,7 @@
     </ion-row>
 
     <!-- Visita de valoracion -->
-    <ion-row *ngIf="loadedInfo.type == 'NORMAL'">
+    <ion-row *ngIf="loadedInfo.type == 'NORMAL'  && loadedInfo.profesional == 1">
       <ion-col size="1"></ion-col>
       <ion-col size="10" class="ion-text-center">
         <ion-text class="main-color">Si no requieres una visita de valoración, agenda el trabajo final.</ion-text>
@@ -204,7 +204,7 @@
       <ion-col size="1"></ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row *ngIf="loadedInfo.profesional == 1">
       <ion-col size="1"></ion-col>
       <ion-col>
         <ion-button size="10" expand="block" color="success" class="ion-text-uppercase" (click)="accceptSolicitud()">
