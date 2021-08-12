@@ -19,7 +19,7 @@
     <ion-row class="ion-margin-left ion-align-items-center">
       <ion-col size="8">
         <ion-label class="stacked-modal-label" position="stacked">Número de tarjeta</ion-label>
-        <ion-input #cardNumber class="stacked-input" type="tel" maxlength="16" placeholder="1234 5678 9123 4567" (ionInput)="validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)"></ion-input>
+        <ion-input #cardNumber value="{{ creditCard }}" class="stacked-input" type="tel" maxlength="16" placeholder="1234 5678 9123 4567" (ionInput)="validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)"></ion-input>
       </ion-col>
       <ion-col size="4">
         <ion-label class="stacked-modal-label" position="stacked">Tipo</ion-label>
@@ -31,14 +31,14 @@
     <ion-row class="ion-margin-left">
       <ion-col size="12">
         <ion-label class="stacked-modal-label" position="stacked">RUT</ion-label>
-        <ion-input #rut class="stacked-input" type="tel" maxlength="12" placeholder="11.111.234-4" (ionInput)="validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)"></ion-input>
+        <ion-input #rut class="stacked-input" value="{{ rutAccount }}" type="tel" maxlength="12" placeholder="11.111.234-4" (ionInput)="validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)"></ion-input>
       </ion-col>
     </ion-row>
 
     <ion-row class="ion-margin-left">
       <ion-col size="12">
         <ion-label class="stacked-modal-label" position="stacked">Banco</ion-label>
-        <ion-input #banco class="stacked-input" placeholder="Banco" (ionInput)="validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)"></ion-input>
+        <ion-input #banco value="{{ bank }}" class="stacked-input" placeholder="Banco" (ionInput)="validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)"></ion-input>
       </ion-col>
     </ion-row>
 

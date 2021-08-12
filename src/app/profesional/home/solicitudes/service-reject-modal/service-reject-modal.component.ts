@@ -139,7 +139,17 @@ export class ServiceRejectModalComponent implements OnInit, OnDestroy {
     // this.router.navigate(['/profesional/home/home-tabs/agendados/']);
   }
 
+  getUrl() {
+    if(!this.loadedInfo.img_client_profile || this.loadedInfo.img_client_profile === '/' || this.loadedInfo.img_client_profile === 'http://167.71.251.136/storage/') {
+      return "url('assets/images/avatar.png')"
+    } else {
+      return `url(${this.loadedInfo.img_client_profile})`
+    }
+  }
+
   ngOnDestroy() {
     this.userSub.unsubscribe();
   }
+
+  
 }
