@@ -7,7 +7,7 @@
         <ion-row class="imgCont">
           <ion-col>
             <ion-avatar class="ion-margin-start profileImg">
-              <ion-img src="{{ !user || user.img_profile === '/' ? 'assets/images/avatar.png' : user.img_profile }}">
+              <ion-img src="{{ !user || user.img_profile === '/' || user.img_profile === 'http://167.71.251.136/storage/' ? 'assets/images/avatar.png' : user.img_profile }}">
               </ion-img>
             </ion-avatar>
           </ion-col>

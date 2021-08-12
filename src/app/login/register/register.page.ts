@@ -17,6 +17,7 @@ export class RegisterPage implements OnInit {
 	@ViewChild("passwordEyeRegister", { read: ElementRef })
 	passwordEye: ElementRef;
 	passwordTypeInput = "password";
+	countryCodes = [];
 	errors: any = {
 		name: [],
 		last_name: [],
@@ -34,9 +35,11 @@ export class RegisterPage implements OnInit {
 
 	ngOnInit() {
 		StatusBar.hide();
+		this.getCountryCodes();
 	}
 
 	async onRegister(form: NgForm) {
+		console.log(form)
 		if (!form.valid) {
 			return;
 		}
@@ -49,7 +52,7 @@ export class RegisterPage implements OnInit {
 		}
 		const email = form.value.email;
 		const password = form.value.password;
-		const phone1 = form.value.phone1;
+		const phone1 = `${form.value.countryCode} ${form.value.phone1}`;
 		const confirm_password = form.value.confirm_password;
 
 		if (password !== confirm_password) {
@@ -119,6 +122,18 @@ export class RegisterPage implements OnInit {
 			}
 
 			loader.dismiss();
+		}
+	}
+
+	async getCountryCodes() {
+		try {
+			let response = await axios.get(
+				"https://restcountries.eu/rest/v2/region/Americas"
+			);
+			this.countryCodes = response.data;
+			console.log(this.countryCodes);
+		} catch (error) {
+			console.log(error);
 		}
 	}
 
