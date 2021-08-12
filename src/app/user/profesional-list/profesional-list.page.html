@@ -49,7 +49,7 @@
   </ion-row>
 
   <!-- emergency message -->
-  <div class="prof-cont ion-margin-top no-border" (click)="eRequest()">
+  <div *ngIf="profList && profList.length > 0" class="prof-cont ion-margin-top no-border" (click)="eRequest()">
     <ion-grid>
       <ion-row class="ion-align-items-center" style="min-height: 85px;">
         <ion-col size="2" sizeMd="1">
