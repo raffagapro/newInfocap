@@ -41,7 +41,7 @@ export class ServiceReportPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.loadedInfo.clientLastName = this.solicitudServicio.solicitud.clientLastName
     this.loadedInfo.clientName = this.solicitudServicio.solicitud.clientName
     this.loadedInfo.date_required = this.solicitudServicio.solicitud.date_required
@@ -56,10 +56,14 @@ export class ServiceReportPage implements OnInit {
     this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
     this.loadedInfo.created_date = this.solicitudServicio.solicitud.created_date
 
-    this.imagesToDisplay = this.loadedInfo.request_cost.img_addittional.map(image => image.image);
-    this.imagesToDisplay.concat(this.loadedInfo.images.map(image => image.image));
+    let images = this.loadedInfo.images.concat(this.loadedInfo.request_cost.img_addittional)
+
+    this.imagesToDisplay = images.map((image) => image.image)
+
     if (this.imagesToDisplay.length === 1) {
       this.slideOptions.slidesPerView = 1;
+    } else {
+      this.slideOptions.slidesPerView = 2;
     }
     this.menuController.enable(true, 'profesional');
   }

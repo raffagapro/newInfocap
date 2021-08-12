@@ -18,7 +18,14 @@ export class BankModalComponent implements OnInit {
   grabbedUser: User;
   headers: string; 
   disabledForm = true
+  profCategories = [];
+  selectedProPerfilID;
+
   selectedCard:string
+  completeName:string
+  creditCard:string
+  rutAccount:string
+  bank:string
 
   bancos = [
     { id: "504", name: "BBVA" },
@@ -26,7 +33,6 @@ export class BankModalComponent implements OnInit {
     { id: "014", name: "Scotiabank" },
     { id: "031", name: "HSBC" },
     { id: "037", name: "Santander" },
-
   ];
 
   tipoTarjeta = [
@@ -47,6 +53,21 @@ export class BankModalComponent implements OnInit {
       this.grabbedUser = user;
       this.headers = 'Bearer ' + this.grabbedUser.access_token;
     });
+
+    axios.get(API + '/supplier/getbankaccount', { headers: { Authorization: this.headers }}).then(resData => {
+      if(resData.data.data != null) {
+        this.selectedCard = resData.data.data.type
+        this.creditCard = resData.data.data.debit_account
+        this.rutAccount = resData.data.data.rut || resData.data.data.clabe
+        this.bank = resData.data.data.name_bank
+        this.validateInformation('', this.creditCard, this.rutAccount, this.bank, this.selectedCard);
+      }
+    })
+
+    axios.get(API + '/supplier/professions', { headers: { Authorization: this.headers } }).then(resData => {
+      this.profCategories = resData.data.data;
+      this.selectedProPerfilID = this.profCategories[0].id
+    })
   }
 
   validateInformation(completeName, cardNumber, rut, banco, type) {
@@ -66,10 +87,11 @@ export class BankModalComponent implements OnInit {
       let typeCardSelected = this.tipoTarjeta.find(b => b.name === type)
 
       let data_bank = {
-        professional_profile_id: 1,
+        professional_profile_id: this.selectedProPerfilID,
         bank_id: "1",
         debit_account: cardNumber,
         clabe: rut,
+        rut: rut,
         name: completeName,
         type: typeCardSelected.name,
         name_bank: banco
