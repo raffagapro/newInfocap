@@ -142,7 +142,7 @@ export class SolicitudStatusPage implements OnInit, OnDestroy {
 			return;
 		}
 		window.open(
-			`https://api.whatsapp.com/send?phone=${PHONE_PREFIX}${this.loadedService.suplierPhone1}`
+			`https://api.whatsapp.com/send?phone=${this.loadedService.suplierPhone1.replace(/\s/g, '')}`
 		);
 	}
 
