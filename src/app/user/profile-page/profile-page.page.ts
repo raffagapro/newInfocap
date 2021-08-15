@@ -58,7 +58,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 	selectedImage: string;
 	@ViewChild("hiddenImgInput") hiddenImgInputRef: ElementRef<HTMLInputElement>;
 	useInputPicker = false;
-  countryCodes = [];
+	countryCodes = [];
 
 	constructor(
 		private us: UserService,
@@ -69,7 +69,9 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit() {
-    this.getCountryCodes();
+		this.getCountryCodes();
+		this.loadFlags = this.loadFlags.bind(this);
+
 		this.userSub = this.us.loggedUser.subscribe((user) => {
 			this.grabbedUser = user;
 			//api headers
@@ -81,18 +83,18 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 
 		let phone1: string;
 		let phone2: string;
-    let countryCode: string;
+		let countryCode: string;
 
 		if (this.grabbedUser.phone1 === "-") {
 			phone1 = null;
 		} else {
 			let splitedPhone = this.grabbedUser.phone1.split(" ");
-      console.log(splitedPhone)
-      console.log(splitedPhone.length )
+			console.log(splitedPhone);
+			console.log(splitedPhone.length);
 			if (splitedPhone.length <= 1) {
 				phone1 = splitedPhone[0];
 			} else {
-        countryCode = splitedPhone[0];
+				countryCode = splitedPhone[0];
 				phone1 = splitedPhone[1];
 			}
 		}
@@ -264,13 +266,12 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 		//save img to api
 	}
 
-  async getCountryCodes() {
+	async getCountryCodes() {
 		try {
 			let response = await axios.get(
 				"https://restcountries.eu/rest/v2/region/Americas"
 			);
 			this.countryCodes = response.data;
-			console.log(this.countryCodes);
 		} catch (error) {
 			console.log(error);
 		}
@@ -327,11 +328,11 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 	}
 
 	getProfilePicture() {
-		console.log(this.grabbedUser)
+		console.log(this.grabbedUser);
 		if (
 			this.grabbedUser.img_profile &&
-			this.grabbedUser.img_profile !== IMAGE_URL_BLANK && 
-			this.grabbedUser.img_profile !== '/'
+			this.grabbedUser.img_profile !== IMAGE_URL_BLANK &&
+			this.grabbedUser.img_profile !== "/"
 		) {
 			return this.grabbedUser.img_profile;
 		}
@@ -351,5 +352,17 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 				}
 				this.grabbedUser = resData["data"];
 			});
+	}
+
+	loadFlags() {
+		setTimeout(() => {
+			let radios = document.getElementsByClassName(
+				"alert-radio-label sc-ion-alert-md"
+			);
+			for (let index = 0; index < radios.length; index++) {
+				let element = radios[index];
+				element.innerHTML = `<img class="country-image" style="width: 30px;height:16px;" src="${this.countryCodes[index].flag}" /> ${element.innerHTML}`;
+			}
+		}, 100);
 	}
 }

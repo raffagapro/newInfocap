@@ -36,10 +36,11 @@ export class RegisterPage implements OnInit {
 	ngOnInit() {
 		StatusBar.hide();
 		this.getCountryCodes();
+		this.loadFlags = this.loadFlags.bind(this);
 	}
 
 	async onRegister(form: NgForm) {
-		console.log(form)
+		console.log(form);
 		if (!form.valid) {
 			return;
 		}
@@ -131,7 +132,6 @@ export class RegisterPage implements OnInit {
 				"https://restcountries.eu/rest/v2/region/Americas"
 			);
 			this.countryCodes = response.data;
-			console.log(this.countryCodes);
 		} catch (error) {
 			console.log(error);
 		}
@@ -154,5 +154,17 @@ export class RegisterPage implements OnInit {
 	togglePasswordMode() {
 		this.passwordTypeInput =
 			this.passwordTypeInput === "text" ? "password" : "text";
+	}
+
+	loadFlags() {
+		setTimeout(() => {
+			let radios = document.getElementsByClassName(
+				"alert-radio-label sc-ion-alert-md"
+			);
+			for (let index = 0; index < radios.length; index++) {
+				let element = radios[index];
+				element.innerHTML = `<img class="country-image" style="width: 30px;height:16px;" src="${this.countryCodes[index].flag}" /> ${element.innerHTML}`;
+			}
+		}, 100);
 	}
 }
