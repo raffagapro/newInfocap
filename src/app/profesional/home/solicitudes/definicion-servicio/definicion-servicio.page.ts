@@ -92,21 +92,14 @@ export class DefinicionServicioPage implements OnInit, OnDestroy {
     this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
     this.loadedInfo.type = this.solicitudServicio.solicitud.type
 
+    console.log(this.solicitudServicio.solicitud.hours)
+
     this.form.patchValue({
-      sHour: this.loadedInfo.hours,
-      eHour: this.loadedInfo.hours_final,
+      sHour: this.solicitudServicio.solicitud.hours,
+      eHour: this.solicitudServicio.solicitud.hours_final,
       dateReq: moment(this.loadedInfo.date_required, 'DD/MM/YYYY').format('YYYY-MM-DD'),
     });
-    this.menuController.enable(true, 'user');
-  }
-
-  formatTime(hours: string) {
-    if (hours) {
-      let wHours = hours.split("/");
-      let starHour = moment(wHours[0]).format('h:mm a');
-      let endHour = moment(wHours[1]).format('h:mm a');
-      return `${starHour} - ${endHour}`;
-    }
+    this.menuController.enable(true, 'profesional');
   }
 
   d(date: string) {

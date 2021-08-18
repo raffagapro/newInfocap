@@ -165,8 +165,8 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
 
   formatTime(hours: string, hoursFinal: string) {
     if (hours) {
-      let startHour = moment(hours, 'hh:mm:ss').format('h:mm A');
-      let endHour = moment(hoursFinal, 'hh:mm:ss').format('h:mm A');
+      let startHour = moment(hours, 'hh:mm:ss A').format('h:mm A');
+      let endHour = moment(hoursFinal, 'hh:mm:ss A').format('h:mm A');
 
       return `${startHour} - ${endHour}`;
     }
@@ -185,7 +185,7 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
   }
 
   formatTimeTecnical(tecnical) {
-    let startTime = moment(tecnical.visit_hours, 'hh:mm:ss').format('h:mm A')
+    let startTime = moment(tecnical.visit_hours, 'hh:mm:ss A').format('h:mm A')
     return `${startTime}`
   }
 
@@ -221,6 +221,8 @@ export class AgendadosDetailPage implements OnInit, OnDestroy {
   }
 
   startScheduled() {
+    this.solicitudServicio.setHours(moment(this.solicitudServicio.solicitud.hours, 'h:mm:ss A').format('H:mm:ss'))
+    this.solicitudServicio.setHoursFinal(moment(this.solicitudServicio.solicitud.hours_final, 'h:mm:ss A').format('H:mm:ss'))
     this.lc.create({
       message: 'Registrando tiempo de inicio...'
     }).then(loadingEl => {

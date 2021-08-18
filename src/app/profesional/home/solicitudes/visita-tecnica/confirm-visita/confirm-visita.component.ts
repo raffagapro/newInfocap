@@ -48,8 +48,8 @@ export class ConfirmVisitaComponent implements OnInit {
 
   formatTime(hours: string, hoursFinal: string) {
     if (hours) {
-      let startHour = moment(hours, 'hh:mm:ss').format('h:mm A');
-      let endHour = moment(hoursFinal, 'hh:mm:ss').format('h:mm A');
+      let startHour = moment(hours, 'hh:mm:ss A').format('h:mm A');
+      let endHour = moment(hoursFinal, 'hh:mm:ss A').format('h:mm A');
 
       return `${startHour} - ${endHour}`;
     }
