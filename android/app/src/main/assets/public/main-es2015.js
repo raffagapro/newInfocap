@@ -59,9 +59,12 @@ let ConfirmServComponent = class ConfirmServComponent {
         this.loadedInfo.type = this.solicitudServicio.solicitud.type;
     }
     p(hours, hoursFinal) {
+        console.log({
+            hours, hoursFinal
+        });
         if (hours) {
-            let startHour = moment__WEBPACK_IMPORTED_MODULE_9__(hours, 'hh:mm:ss').format('h:mm A');
-            let endHour = moment__WEBPACK_IMPORTED_MODULE_9__(hoursFinal, 'hh:mm:ss').format('h:mm A');
+            let startHour = moment__WEBPACK_IMPORTED_MODULE_9__(hours, 'hh:mm:ss A').format('h:mm A');
+            let endHour = moment__WEBPACK_IMPORTED_MODULE_9__(hoursFinal, 'hh:mm:ss A').format('h:mm A');
             return `${startHour} - ${endHour}`;
         }
     }
@@ -3347,8 +3350,8 @@ let ConfirmVisitaComponent = class ConfirmVisitaComponent {
     }
     formatTime(hours, hoursFinal) {
         if (hours) {
-            let startHour = moment__WEBPACK_IMPORTED_MODULE_9__(hours, 'hh:mm:ss').format('h:mm A');
-            let endHour = moment__WEBPACK_IMPORTED_MODULE_9__(hoursFinal, 'hh:mm:ss').format('h:mm A');
+            let startHour = moment__WEBPACK_IMPORTED_MODULE_9__(hours, 'hh:mm:ss A').format('h:mm A');
+            let endHour = moment__WEBPACK_IMPORTED_MODULE_9__(hoursFinal, 'hh:mm:ss A').format('h:mm A');
             return `${startHour} - ${endHour}`;
         }
     }

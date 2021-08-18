@@ -136,9 +136,14 @@
         }, {
           key: "p",
           value: function p(hours, hoursFinal) {
+            console.log({
+              hours: hours,
+              hoursFinal: hoursFinal
+            });
+
             if (hours) {
-              var startHour = moment__WEBPACK_IMPORTED_MODULE_9__(hours, 'hh:mm:ss').format('h:mm A');
-              var endHour = moment__WEBPACK_IMPORTED_MODULE_9__(hoursFinal, 'hh:mm:ss').format('h:mm A');
+              var startHour = moment__WEBPACK_IMPORTED_MODULE_9__(hours, 'hh:mm:ss A').format('h:mm A');
+              var endHour = moment__WEBPACK_IMPORTED_MODULE_9__(hoursFinal, 'hh:mm:ss A').format('h:mm A');
               return "".concat(startHour, " - ").concat(endHour);
             }
           }
@@ -5595,8 +5600,8 @@
           key: "formatTime",
           value: function formatTime(hours, hoursFinal) {
             if (hours) {
-              var startHour = moment__WEBPACK_IMPORTED_MODULE_9__(hours, 'hh:mm:ss').format('h:mm A');
-              var endHour = moment__WEBPACK_IMPORTED_MODULE_9__(hoursFinal, 'hh:mm:ss').format('h:mm A');
+              var startHour = moment__WEBPACK_IMPORTED_MODULE_9__(hours, 'hh:mm:ss A').format('h:mm A');
+              var endHour = moment__WEBPACK_IMPORTED_MODULE_9__(hoursFinal, 'hh:mm:ss A').format('h:mm A');
               return "".concat(startHour, " - ").concat(endHour);
             }
           }
