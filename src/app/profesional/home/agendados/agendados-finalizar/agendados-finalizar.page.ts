@@ -204,10 +204,10 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
         })
 
       }).then(() => {
-        if (this.paymentIDSelected == 2) {
+        // if (this.paymentIDSelected == 2) {
           let payment_request = {
             request_service_id: this.solicitudServicio.solicitud.id,
-            payment_type_id: this.paymentIDSelected,
+            payment_type_id: 2, //this.paymentIDSelected,
             grossamount: this.loadedInfo.request_cost.amount_suplier,
             comment: ''
           }
@@ -216,7 +216,7 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
           }).catch(err => {
             console.log(err)
           })
-        }
+        // }
       }).catch(err => {
         loadingEl.dismiss();
         console.log(err)

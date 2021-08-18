@@ -124,8 +124,8 @@ export class VisitaTecnicaPage implements OnInit {
 
   confirmRequest() {
     let date = moment(this.formVisitaTecnica.value.requiredDate).format('l');
-    let startTime = moment(this.formVisitaTecnica.value.startTime).format('hh:mm:ss');
-    let endTime = moment(this.formVisitaTecnica.value.endTime).format('hh:mm:ss');
+    let startTime = moment(this.formVisitaTecnica.value.startTime).format('hh:mm:ss A');
+    let endTime = moment(this.formVisitaTecnica.value.endTime).format('hh:mm:ss A');
     this.visitaT.setDate(date)
     this.visitaT.setHours(startTime)
     this.visitaT.setHoursFinal(endTime)

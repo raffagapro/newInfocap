@@ -22,7 +22,7 @@ export class BankModalComponent implements OnInit {
   selectedProPerfilID;
 
   selectedCard:string
-  completeName:string
+  bankAccounName:string
   creditCard:string
   rutAccount:string
   bank:string
@@ -60,7 +60,8 @@ export class BankModalComponent implements OnInit {
         this.creditCard = resData.data.data.debit_account
         this.rutAccount = resData.data.data.rut || resData.data.data.clabe
         this.bank = resData.data.data.name_bank
-        this.validateInformation('', this.creditCard, this.rutAccount, this.bank, this.selectedCard);
+        this.bankAccounName = resData.data.data.name
+        this.validateInformation(this.bankAccounName, this.creditCard, this.rutAccount, this.bank, this.selectedCard);
       }
     })
 

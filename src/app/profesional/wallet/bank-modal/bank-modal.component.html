@@ -11,7 +11,7 @@
     <ion-row class="ion-margin-left">
       <ion-col size="12">
         <ion-label class="stacked-modal-label" position="stacked">Nombre completo</ion-label>
-        <ion-input #completeName class="stacked-input" placeholder="José Alcarraga López" (ionInput)="validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)">
+        <ion-input #completeName value="{{ bankAccounName }}" class="stacked-input" placeholder="José Alcarraga López" (ionInput)="validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)">
         </ion-input>
       </ion-col>
     </ion-row>
