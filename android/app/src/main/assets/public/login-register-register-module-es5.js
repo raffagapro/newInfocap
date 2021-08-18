@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n    <ion-title class=\"ion-text-uppercase main-color title-toolbar\">Registrarse</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"ion-padding\">\n  <div class=\"spacing\"></div>\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\" offset=\"1\"></ion-col>\n      <ion-col size=\"8\" class=\"ion-text-center\">\n        <ion-text class=\"main-color ion-text-uppercase title\">INGRESA TUS DATOS PERSONALES</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\" offset=\"1\"></ion-col>\n      <ion-col size=\"8\" class=\"ion-text-center\">\n        <ion-text>\n          <hr>\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Register Inputs -->\n    <form #f=\"ngForm\" (ngSubmit)=\"onRegister(f)\">\n      <!-- nombre -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"person\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Nombre\n              </ion-text>\n            </ion-label>\n            <ion-input ngModel name=\"name\" required #nameCtrl=\"ngModel\" type=\"text\">\n            </ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!nameCtrl.valid && nameCtrl.touched\" class=\"errorMess text-center\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El nombre es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!--  httpo name error  -->\n          <ion-label *ngIf=\"errors.name[0] !== undefined\" class=\"errorMess text-center\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.name[0] }}</small>\n            </ion-text><br>\n          </ion-label>\n          <!-- http last name error  -->\n          <ion-label *ngIf=\"errors.last_name[0] !== undefined\" class=\"errorMess text-center\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.last_name[0] }}</small>\n            </ion-text><br>\n          </ion-label>\n\n        </ion-col>\n      </ion-row>\n\n      <!-- email -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_mail.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Email\n              </ion-text>\n            </ion-label>\n            <ion-input ngModel name=\"email\" required email #emailCtrl=\"ngModel\" type=\"email\">\n            </ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!emailCtrl.valid && emailCtrl.touched\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El email es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!-- http email error  -->\n          <ion-label *ngIf=\"errors.email[0] !== undefined\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small class=\"error-text\"> {{ errors.email[0] }}</small>\n            </ion-text><br>\n          </ion-label>\n\n\n        </ion-col>\n      </ion-row>\n\n      <!-- phone -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_phone.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Teléfono</ion-text>\n            </ion-label>\n            <ion-input ngModel name=\"phone1\" minlength=\"9\" maxlength=\"9\" required #phone1Ctrl=\"ngModel\" type=\"tel\">\n            </ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!phone1Ctrl.valid && phone1Ctrl.touched\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El teléfono debe ser de 9 dígitos</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- password -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_lock.svg\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Contraseña</ion-text>\n            </ion-label>\n            <ion-input ngModel name=\"password\" minlength=\"8\" required #passwordCtrl=\"ngModel\"\n              [type]=\"passwordTypeInput\">\n            </ion-input>\n            <button item-end class=\"btn_eye_icon\" type=\"button\" (click)=\"togglePasswordMode()\">\n              <ion-icon [name]=\"(passwordTypeInput === 'text')?'eye':'eye-off'\"></ion-icon>\n            </button>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!passwordCtrl.valid && passwordCtrl.touched\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El password es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!-- http password error  -->\n          <ion-label *ngIf=\"errors.password[0] !== undefined\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.password[0] }}</small>\n            </ion-text>\n          </ion-label>\n\n        </ion-col>\n      </ion-row>\n\n      <!-- password confirm -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_lock.svg\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Repetir contraseña</ion-text>\n            </ion-label>\n            <ion-input ngModel name=\"confirm_password\" minlength=\"8\" required [type]=\"passwordTypeInput\">\n            </ion-input>\n            <button item-end class=\"btn_eye_icon\" type=\"button\" (click)=\"togglePasswordMode()\">\n              <ion-icon [name]=\"(passwordTypeInput === 'text')?'eye':'eye-off'\"></ion-icon>\n            </button>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- Registrar BTN -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col class=\"ion-margin-top\" size=\"12\">\n          <ion-button expand=\"block\" type=\"submit\" [disabled]=\"!f.valid\" class=\"ion-text-uppercase\">\n            Registrarme\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-text class=\"privacy-text\">\n            <p>\n              Al continuar e iniciar sesión usted acepta nuestra <span (click)=\"goToPrivacy()\">Política de\n                privacidad</span> y los\n              <span (click)=\"goToTerms()\">Términos\n                y condiciones</span>\n            </p>\n          </ion-text>\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n    <ion-title class=\"ion-text-uppercase main-color title-toolbar\">Registrarse</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content class=\"ion-padding\">\n  <div class=\"spacing\"></div>\n  <ion-grid>\n\n    <!-- title -->\n    <ion-row>\n      <ion-col size=\"1\" offset=\"1\"></ion-col>\n      <ion-col size=\"8\" class=\"ion-text-center\">\n        <ion-text class=\"main-color ion-text-uppercase title\">INGRESA TUS DATOS PERSONALES</ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n\n      <ion-col size=\"1\" offset=\"1\"></ion-col>\n      <ion-col size=\"8\" class=\"ion-text-center\">\n        <ion-text>\n          <hr>\n        </ion-text>\n      </ion-col>\n      <ion-col size=\"1\"></ion-col>\n    </ion-row>\n\n    <!-- Register Inputs -->\n    <form #f=\"ngForm\" (ngSubmit)=\"onRegister(f)\">\n      <!-- nombre -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"person\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Nombre\n              </ion-text>\n            </ion-label>\n            <ion-input ngModel name=\"name\" required #nameCtrl=\"ngModel\" type=\"text\">\n            </ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!nameCtrl.valid && nameCtrl.touched\" class=\"errorMess text-center\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El nombre es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!--  httpo name error  -->\n          <ion-label *ngIf=\"errors.name[0] !== undefined\" class=\"errorMess text-center\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.name[0] }}</small>\n            </ion-text><br>\n          </ion-label>\n          <!-- http last name error  -->\n          <ion-label *ngIf=\"errors.last_name[0] !== undefined\" class=\"errorMess text-center\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.last_name[0] }}</small>\n            </ion-text><br>\n          </ion-label>\n\n        </ion-col>\n      </ion-row>\n\n      <!-- email -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_mail.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Email\n              </ion-text>\n            </ion-label>\n            <ion-input ngModel name=\"email\" required email #emailCtrl=\"ngModel\" type=\"email\">\n            </ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!emailCtrl.valid && emailCtrl.touched\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El email es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!-- http email error  -->\n          <ion-label *ngIf=\"errors.email[0] !== undefined\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small class=\"error-text\"> {{ errors.email[0] }}</small>\n            </ion-text><br>\n          </ion-label>\n\n\n        </ion-col>\n      </ion-row>\n\n      <!-- phone -->\n      <ion-row>\n        <ion-col size=\"5\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_phone.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Código</ion-text>\n            </ion-label>\n            <ion-select (click)=\"loadFlags()\" ngModel name=\"countryCode\" required #phone1Ctrl=\"ngModel\"\n              placeholder=\"Código\" [cancelText]=\"'Cancelar'\" [okText]=\"'Aceptar'\">\n              <ion-select-option mode=\"ios\" *ngFor=\"let country of countryCodes\" value=\"+{{country.callingCodes[0]}}\">\n                {{country.alpha2Code}} +{{country.callingCodes[0]}}\n              </ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"7\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_phone.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Teléfono</ion-text>\n            </ion-label>\n            <ion-input ngModel name=\"phone1\" minlength=\"9\" maxlength=\"9\" required #phone1Ctrl=\"ngModel\" type=\"tel\">\n            </ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!phone1Ctrl.valid && phone1Ctrl.touched\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El teléfono debe ser de 9 dígitos</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- password -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_lock.svg\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Contraseña</ion-text>\n            </ion-label>\n            <ion-input ngModel name=\"password\" minlength=\"8\" required #passwordCtrl=\"ngModel\"\n              [type]=\"passwordTypeInput\">\n            </ion-input>\n            <button item-end class=\"btn_eye_icon\" type=\"button\" (click)=\"togglePasswordMode()\">\n              <ion-icon [name]=\"(passwordTypeInput === 'text')?'eye':'eye-off'\"></ion-icon>\n            </button>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"!passwordCtrl.valid && passwordCtrl.touched\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El password es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!-- http password error  -->\n          <ion-label *ngIf=\"errors.password[0] !== undefined\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ errors.password[0] }}</small>\n            </ion-text>\n          </ion-label>\n\n        </ion-col>\n      </ion-row>\n\n      <!-- password confirm -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_lock.svg\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Repetir contraseña</ion-text>\n            </ion-label>\n            <ion-input ngModel name=\"confirm_password\" minlength=\"8\" required [type]=\"passwordTypeInput\">\n            </ion-input>\n            <button item-end class=\"btn_eye_icon\" type=\"button\" (click)=\"togglePasswordMode()\">\n              <ion-icon [name]=\"(passwordTypeInput === 'text')?'eye':'eye-off'\"></ion-icon>\n            </button>\n          </ion-item>\n        </ion-col>\n      </ion-row>\n\n      <!-- Registrar BTN -->\n      <ion-row class=\"ion-margin-top\">\n        <ion-col class=\"ion-margin-top\" size=\"12\">\n          <ion-button expand=\"block\" type=\"submit\" [disabled]=\"!f.valid\" class=\"ion-text-uppercase\">\n            Registrarme\n          </ion-button>\n        </ion-col>\n        <ion-col size=\"12\">\n          <ion-text class=\"privacy-text\">\n            <p>\n              Al continuar e iniciar sesión usted acepta nuestra <span (click)=\"goToPrivacy()\">Política de\n                privacidad</span> y los\n              <span (click)=\"goToTerms()\">Términos\n                y condiciones</span>\n            </p>\n          </ion-text>\n        </ion-col>\n      </ion-row>\n\n    </form>\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -125,6 +125,7 @@
           this.lc = lc;
           this.router = router;
           this.passwordTypeInput = "password";
+          this.countryCodes = [];
           this.errors = {
             name: [],
             last_name: [],
@@ -138,6 +139,9 @@
           key: "ngOnInit",
           value: function ngOnInit() {
             _capacitor_status_bar__WEBPACK_IMPORTED_MODULE_10__["StatusBar"].hide();
+
+            this.getCountryCodes();
+            this.loadFlags = this.loadFlags.bind(this);
           }
         }, {
           key: "onRegister",
@@ -149,14 +153,16 @@
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
+                      console.log(form);
+
                       if (form.valid) {
-                        _context.next = 2;
+                        _context.next = 3;
                         break;
                       }
 
                       return _context.abrupt("return");
 
-                    case 2:
+                    case 3:
                       name = form.value.name;
                       wName = name.split(" ");
                       name = wName[0];
@@ -168,24 +174,24 @@
 
                       email = form.value.email;
                       password = form.value.password;
-                      phone1 = form.value.phone1;
+                      phone1 = "".concat(form.value.countryCode, " ").concat(form.value.phone1);
                       confirm_password = form.value.confirm_password;
 
                       if (!(password !== confirm_password)) {
-                        _context.next = 14;
+                        _context.next = 15;
                         break;
                       }
 
                       this.errors.password = ["Las contraseñas no coinciden"];
                       return _context.abrupt("return");
 
-                    case 14:
-                      _context.next = 16;
+                    case 15:
+                      _context.next = 17;
                       return this.lc.create({
                         message: "Registrando tu usuario..."
                       });
 
-                    case 16:
+                    case 17:
                       loader = _context.sent;
                       loader.present();
                       body = {
@@ -195,8 +201,8 @@
                         phone1: phone1,
                         password: password
                       };
-                      _context.prev = 19;
-                      _context.next = 22;
+                      _context.prev = 20;
+                      _context.next = 23;
                       return axios__WEBPACK_IMPORTED_MODULE_8___default.a.post("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_6__["API"], "/auth/register"), body, {
                         headers: {
                           "Content-Type": "application/json",
@@ -204,43 +210,43 @@
                         }
                       });
 
-                    case 22:
+                    case 23:
                       response = _context.sent;
                       _response$data = response.data, success = _response$data.success, data = _response$data.data;
                       loader.dismiss();
 
                       if (!success) {
-                        _context.next = 34;
+                        _context.next = 35;
                         break;
                       }
 
                       this.clearErrors();
                       form.reset(); // modal for succes
 
-                      _context.next = 30;
+                      _context.next = 31;
                       return this.modalController.create({
                         component: _success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_7__["SuccessModalComponent"],
                         cssClass: "modalSuccess"
                       });
 
-                    case 30:
+                    case 31:
                       successModal = _context.sent;
                       successModal.present();
-                      _context.next = 35;
+                      _context.next = 36;
                       break;
 
-                    case 34:
+                    case 35:
                       if (data.length) {
                         this.errors.email = data;
                       }
 
-                    case 35:
-                      _context.next = 42;
+                    case 36:
+                      _context.next = 43;
                       break;
 
-                    case 37:
-                      _context.prev = 37;
-                      _context.t0 = _context["catch"](19);
+                    case 38:
+                      _context.prev = 38;
+                      _context.t0 = _context["catch"](20);
                       _response = _context.t0.response;
 
                       if (_response) {
@@ -272,12 +278,44 @@
 
                       loader.dismiss();
 
-                    case 42:
+                    case 43:
                     case "end":
                       return _context.stop();
                   }
                 }
-              }, _callee, this, [[19, 37]]);
+              }, _callee, this, [[20, 38]]);
+            }));
+          }
+        }, {
+          key: "getCountryCodes",
+          value: function getCountryCodes() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var response;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.prev = 0;
+                      _context2.next = 3;
+                      return axios__WEBPACK_IMPORTED_MODULE_8___default.a.get("https://restcountries.eu/rest/v2/region/Americas");
+
+                    case 3:
+                      response = _context2.sent;
+                      this.countryCodes = response.data;
+                      _context2.next = 10;
+                      break;
+
+                    case 7:
+                      _context2.prev = 7;
+                      _context2.t0 = _context2["catch"](0);
+                      console.log(_context2.t0);
+
+                    case 10:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this, [[0, 7]]);
             }));
           }
         }, {
@@ -302,6 +340,20 @@
           key: "togglePasswordMode",
           value: function togglePasswordMode() {
             this.passwordTypeInput = this.passwordTypeInput === "text" ? "password" : "text";
+          }
+        }, {
+          key: "loadFlags",
+          value: function loadFlags() {
+            var _this = this;
+
+            setTimeout(function () {
+              var radios = document.getElementsByClassName("alert-radio-label sc-ion-alert-md");
+
+              for (var index = 0; index < radios.length; index++) {
+                var element = radios[index];
+                element.innerHTML = "<img class=\"country-image\" style=\"width: 30px;height:16px;\" src=\"".concat(_this.countryCodes[index].flag, "\" /> ").concat(element.innerHTML);
+              }
+            }, 100);
           }
         }]);
 

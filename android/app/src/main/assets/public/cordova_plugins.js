@@ -213,13 +213,33 @@
         ]
         },
       {
+          "id": "cordova-plugin-advanced-http.cookie-handler",
+          "file": "plugins/cordova-plugin-advanced-http/www/cookie-handler.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
+          "id": "cordova-plugin-advanced-http.dependency-validator",
+          "file": "plugins/cordova-plugin-advanced-http/www/dependency-validator.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
+          "id": "cordova-plugin-advanced-http.error-codes",
+          "file": "plugins/cordova-plugin-advanced-http/www/error-codes.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
+          "id": "cordova-plugin-advanced-http.global-configs",
+          "file": "plugins/cordova-plugin-advanced-http/www/global-configs.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
           "id": "cordova-plugin-advanced-http.helpers",
           "file": "plugins/cordova-plugin-advanced-http/www/helpers.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
-          "id": "cordova-plugin-advanced-http.url-util",
-          "file": "plugins/cordova-plugin-advanced-http/www/url-util.js",
+          "id": "cordova-plugin-advanced-http.js-util",
+          "file": "plugins/cordova-plugin-advanced-http/www/js-util.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -238,8 +258,23 @@
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
+          "id": "cordova-plugin-advanced-http.ponyfills",
+          "file": "plugins/cordova-plugin-advanced-http/www/ponyfills.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
+          "id": "cordova-plugin-advanced-http.public-interface",
+          "file": "plugins/cordova-plugin-advanced-http/www/public-interface.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
           "id": "cordova-plugin-advanced-http.tough-cookie",
           "file": "plugins/cordova-plugin-advanced-http/www/umd-tough-cookie.js",
+          "pluginId": "cordova-plugin-advanced-http"
+        },
+      {
+          "id": "cordova-plugin-advanced-http.url-util",
+          "file": "plugins/cordova-plugin-advanced-http/www/url-util.js",
           "pluginId": "cordova-plugin-advanced-http"
         },
       {
@@ -248,25 +283,10 @@
           "pluginId": "cordova-plugin-file"
         },
       {
-          "id": "cordova-plugin-advanced-http.ponyfills",
-          "file": "plugins/cordova-plugin-advanced-http/www/ponyfills.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
-          "id": "cordova-plugin-advanced-http.cookie-handler",
-          "file": "plugins/cordova-plugin-advanced-http/www/cookie-handler.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
           "id": "cordova-plugin-file.isChrome",
           "file": "plugins/cordova-plugin-file/www/browser/isChrome.js",
           "pluginId": "cordova-plugin-file",
         "runs": true
-        },
-      {
-          "id": "cordova-plugin-advanced-http.js-util",
-          "file": "plugins/cordova-plugin-advanced-http/www/js-util.js",
-          "pluginId": "cordova-plugin-advanced-http"
         },
       {
           "id": "cordova-plugin-file.fileSystems-roots",
@@ -275,36 +295,16 @@
         "runs": true
         },
       {
-          "id": "es6-promise-plugin.Promise",
-          "file": "plugins/es6-promise-plugin/www/promise.js",
-          "pluginId": "es6-promise-plugin",
-        "runs": true
-        },
-      {
-          "id": "cordova-plugin-advanced-http.global-configs",
-          "file": "plugins/cordova-plugin-advanced-http/www/global-configs.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
           "id": "cordova-plugin-geolocation.PositionError",
           "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
           "pluginId": "cordova-plugin-geolocation",
         "runs": true
         },
       {
-          "id": "cordova-plugin-advanced-http.public-interface",
-          "file": "plugins/cordova-plugin-advanced-http/www/public-interface.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
-          "id": "cordova-plugin-advanced-http.error-codes",
-          "file": "plugins/cordova-plugin-advanced-http/www/error-codes.js",
-          "pluginId": "cordova-plugin-advanced-http"
-        },
-      {
-          "id": "cordova-plugin-advanced-http.dependency-validator",
-          "file": "plugins/cordova-plugin-advanced-http/www/dependency-validator.js",
-          "pluginId": "cordova-plugin-advanced-http"
+          "id": "es6-promise-plugin.Promise",
+          "file": "plugins/es6-promise-plugin/www/promise.js",
+          "pluginId": "es6-promise-plugin",
+        "runs": true
         },
       {
           "id": "cordova-plugin-file.fileSystemPaths",

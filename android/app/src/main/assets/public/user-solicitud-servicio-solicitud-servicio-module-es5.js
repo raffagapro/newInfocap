@@ -213,7 +213,7 @@
       "p1Kg");
 
       function base64toBlob(base64Data, contentType) {
-        contentType = contentType || '';
+        contentType = contentType || "";
         var sliceSize = 1024;
         var byteCharacters = atob(base64Data);
         var bytesLength = byteCharacters.length;
@@ -252,7 +252,7 @@
           //   null, null, null, null, null, null, null, null, null, null, null, null, null
           // );
 
-          this.minDate = moment__WEBPACK_IMPORTED_MODULE_14__().add('hour', 1);
+          this.minDate = moment__WEBPACK_IMPORTED_MODULE_14__().add("hour", 1);
           this.selectedProfesional = {
             supplierName: null,
             supplierLastName: null,
@@ -289,42 +289,42 @@
               this.selectedProfPhoto = null;
             }
 
-            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpHeaders"]().set('Authorization', 'Bearer ' + this.grabbedUser.access_token); // platfrom Checker
+            this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpHeaders"]().set("Authorization", "Bearer " + this.grabbedUser.access_token); // platfrom Checker
 
-            if (this.platform.is('mobile') && !this.platform.is('hybrid') || this.platform.is('desktop')) {
+            if (this.platform.is("mobile") && !this.platform.is("hybrid") || this.platform.is("desktop")) {
               this.useInputPicker = true;
             } //form
 
 
             this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormGroup"]({
               description: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](null, {
-                updateOn: 'blur',
+                updateOn: "blur",
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required]
               }),
               date_required: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](null, {
-                updateOn: 'blur',
+                updateOn: "blur",
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required]
               }),
               sHour: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](null, {
-                updateOn: 'blur',
+                updateOn: "blur",
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required]
               }),
               eHour: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](null, {
-                updateOn: 'blur',
+                updateOn: "blur",
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required]
               }),
               adress: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](this.solServ.solicitud.address, {
-                updateOn: 'blur'
+                updateOn: "blur"
               }),
               address_detail: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"](this.solServ.solicitud.address_detail, {
-                updateOn: 'blur'
+                updateOn: "blur"
               })
             });
           }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
-            this.menuController.enable(true, 'user');
+            this.menuController.enable(true, "user");
           }
         }, {
           key: "openMenu",
@@ -336,7 +336,7 @@
           value: function onLoadImg() {
             var _this2 = this;
 
-            if (!_capacitor_core__WEBPACK_IMPORTED_MODULE_7__["Capacitor"].isPluginAvailable('Camera') || this.useInputPicker) {
+            if (!_capacitor_core__WEBPACK_IMPORTED_MODULE_7__["Capacitor"].isPluginAvailable("Camera") || this.useInputPicker) {
               this.hiddenImgInputRef.nativeElement.click();
               return;
             }
@@ -348,13 +348,13 @@
               //height: 500,
               width: 500,
               resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_8__["CameraResultType"].DataUrl,
-              promptLabelPhoto: 'Fotos',
-              promptLabelPicture: 'Cámara',
-              promptLabelCancel: 'Cancelar'
+              promptLabelPhoto: "Fotos",
+              promptLabelPicture: "Cámara",
+              promptLabelCancel: "Cancelar"
             }).then(function (image) {
               _this2.saveImgToApi(image.dataUrl);
             })["catch"](function (e) {
-              console.log(e, 'error');
+              console.log(e, "error");
             });
           }
         }, {
@@ -379,9 +379,9 @@
           value: function saveImgToApi(imageData) {
             var imgFile;
 
-            if (typeof imageData === 'string') {
+            if (typeof imageData === "string") {
               try {
-                imgFile = base64toBlob(imageData.replace('data:image/jpeg;base64,', ''), 'image/jpeg');
+                imgFile = base64toBlob(imageData.replace("data:image/jpeg;base64,", ""), "image/jpeg");
               } catch (e) {
                 console.log(e);
                 return;
@@ -409,23 +409,23 @@
             var _this4 = this;
 
             //format date
-            var wDate = this.form.value.date_required.split('T');
+            var wDate = this.form.value.date_required.split("T");
             wDate = wDate[0];
-            wDate = wDate.split('-');
-            wDate = wDate[2] + '/' + wDate[1] + '/' + wDate[0];
+            wDate = wDate.split("-");
+            wDate = wDate[2] + "/" + wDate[1] + "/" + wDate[0];
             var formData = new FormData();
             this.loadedImages.forEach(function (image) {
-              formData.append('images[]', image);
+              formData.append("images[]", image);
             });
-            formData.append('cummune_id', this.solServ.solicitud.comuna_id);
-            formData.append('description', this.form.value.description);
-            formData.append('adress', this.form.value.adress);
-            formData.append('adress_detail', this.form.value.address_detail);
-            formData.append('extra_instructions', this.solServ.solicitud.instructions);
-            formData.append('date_required', wDate);
-            formData.append('hours', moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.sHour).format('HH:mm:ss'));
-            formData.append('hours_final', moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.eHour).format('HH:mm:ss'));
-            formData.append('professional_profile_id', this.solServ.solicitud.proPerfil_id);
+            formData.append("cummune_id", this.solServ.solicitud.comuna_id);
+            formData.append("description", this.form.value.description);
+            formData.append("adress", this.form.value.adress);
+            formData.append("adress_detail", this.form.value.address_detail);
+            formData.append("extra_instructions", this.solServ.solicitud.instructions);
+            formData.append("date_required", wDate);
+            formData.append("hours", moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.sHour).format("HH:mm:ss"));
+            formData.append("hours_final", moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.eHour).format("HH:mm:ss"));
+            formData.append("professional_profile_id", this.solServ.solicitud.proPerfil_id);
             var startHour = moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.sHour);
             var endHour = moment__WEBPACK_IMPORTED_MODULE_14__(this.form.value.eHour);
 
@@ -441,23 +441,24 @@
             }
 
             this.lc.create({
-              message: 'Creando su solicitud...'
+              message: "Creando su solicitud..."
             }).then(function (loadingEl) {
               loadingEl.present();
 
-              _this4.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["API"] + '/client/requestservice', formData, {
+              _this4.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_12__["API"] + "/client/requestservice", formData, {
                 headers: _this4.headers
               }).subscribe(function (resData) {
                 loadingEl.dismiss();
 
                 _this4.modalController.create({
                   component: _confirm_success_modal_confirm_success_modal_component__WEBPACK_IMPORTED_MODULE_9__["ConfirmSuccessModalComponent"],
-                  cssClass: 'modalSuccess'
+                  cssClass: "modalSuccess"
                 }).then(function (modalEl) {
                   modalEl.present();
                 });
               }, function (err) {
                 loadingEl.dismiss();
+                alert("No puede generar un servicio urgente por que no hay profesionales en la zona, por favor selecciona otra");
                 console.log(err);
               });
             });
@@ -477,7 +478,7 @@
                         componentProps: {
                           image: image
                         },
-                        cssClass: 'modalImage'
+                        cssClass: "modalImage"
                       });
 
                     case 2:
@@ -525,11 +526,11 @@
       SolicitudServicioPage.propDecorators = {
         hiddenImgInputRef: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"],
-          args: ['hiddenImgInput']
+          args: ["hiddenImgInput"]
         }]
       };
       SolicitudServicioPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-solicitud-servicio',
+        selector: "app-solicitud-servicio",
         template: _raw_loader_solicitud_servicio_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_solicitud_servicio_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], SolicitudServicioPage);

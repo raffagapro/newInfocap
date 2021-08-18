@@ -82,7 +82,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n    <ion-title class=\"title-toolbar\">EDITAR USUARIO</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid>\n\n    <!-- profile Img -->\n    <ion-row class=\"imgCont\">\n      <ion-col>\n        <ion-avatar class=\"ion-margin-start profileImg\">\n          <ion-img [src]=\"getProfilePicture()\"></ion-img>\n        </ion-avatar>\n      </ion-col>\n    </ion-row>\n    <!-- edit icon -->\n    <ion-row>\n      <ion-col>\n        <div class=\"rate-cont\" *ngIf=\"grabbedUser.id !== null\" (click)=\"onLoadImg()\">\n          <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <!-- hidden file input -->\n    <div style=\"display: none;\">\n      <input type=\"file\" #hiddenImgInput *ngIf=\"useInputPicker\" (change)=\"onLoadImgFromInput($event)\">\n    </div>\n\n    <!-- Register Inputs -->\n    <form [formGroup]=\"form\" (ngSubmit)=\"onUpdateUser()\">\n      <!-- nombre -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"person\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Nombre</ion-text>\n            </ion-label>\n            <ion-input type=\"text\" formControlName=\"name\"></ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"form.get('name').hasError('required')\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El nombre es requerido</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- email -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_mail.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Email</ion-text>\n            </ion-label>\n            <ion-input type=\"text\" disabled formControlName=\"email\"></ion-input>\n          </ion-item>\n          <!-- error requerido  -->\n          <ion-label *ngIf=\"form.get('email').hasError('required')\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El email es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!-- error email  -->\n          <ion-label *ngIf=\"form.get('email').hasError('email')\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El email no tiene el formato correcto</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- Número de contacto 1 -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_phone.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Número de contacto</ion-text>\n            </ion-label>\n            <ion-input type=\"number\" pattern=\"\\d*\" formControlName=\"phone1\"></ion-input>\n          </ion-item>\n          <!-- error requerido  -->\n          <ion-label *ngIf=\"form.get('phone1').hasError('required')\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El Numero de contacto es requerido</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- Número de contacto 2 -->\n      <!-- <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"call\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Número de contacto 2</ion-text>\n            </ion-label>\n            <ion-input type=\"string\" formControlName=\"phone2\"></ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row> -->\n\n\n      <!-- title -->\n      <div style=\"height: 30px;\"></div>\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\" offset=\"1\"></ion-col>\n        <ion-col size=\"8\" class=\"ion-text-center\">\n          <ion-text class=\"main-color ion-text-uppercase title\"><b>CAMBIAR CONTRASEÑA</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- Contraseña actual -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_lock.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Contraseña actual</ion-text>\n            </ion-label>\n            <ion-input type=\"password\" formControlName=\"password\"></ion-input>\n          </ion-item>\n          <!-- http error  -->\n          <ion-label *ngIf=\"httpError\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ httpError }}</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- Nueva contraseña -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_lock.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Nueva contraseña</ion-text>\n            </ion-label>\n            <ion-input type=\"password\" formControlName=\"newPassword\"></ion-input>\n          </ion-item>\n          <!-- password error  -->\n          <ion-label *ngIf=\"passError\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ passError }}</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- Repetir nueva contraseña -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_lock.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Repetir nueva contraseña</ion-text>\n            </ion-label>\n            <ion-input type=\"password\" formControlName=\"confirmPassword\"></ion-input>\n          </ion-item>\n          <!-- password error  -->\n          <ion-label *ngIf=\"passError\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ passError }}</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- BTN -->\n      <ion-row class=\"ion-margin-top ion-margin-bottom ion-align-items-center\" style=\"justify-content: center\">\n        <ion-col size=\"10\">\n          <ion-button expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\" [disabled]=\"!form.valid\">\n            GUARDAR CAMBIOS\n          </ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n\n\n  </ion-grid>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar mode=\"ios\" color=\"primary\">\n    <ion-buttons slot=\"start\">\n      <ion-back-button defaultHref=\"/user/home\" text=\"\" icon=\"arrow-back\"></ion-back-button>\n    </ion-buttons>\n    <ion-title class=\"title-toolbar\">EDITAR USUARIO</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-grid>\n\n    <!-- profile Img -->\n    <ion-row class=\"imgCont\">\n      <ion-col>\n        <ion-avatar class=\"ion-margin-start profileImg\">\n          <ion-img [src]=\"getProfilePicture()\"></ion-img>\n        </ion-avatar>\n      </ion-col>\n    </ion-row>\n    <!-- edit icon -->\n    <ion-row>\n      <ion-col>\n        <div class=\"rate-cont\" *ngIf=\"grabbedUser.id !== null\" (click)=\"onLoadImg()\">\n          <ion-icon name=\"pencil\" class=\"profileIcon\"></ion-icon>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <!-- hidden file input -->\n    <div style=\"display: none;\">\n      <input type=\"file\" #hiddenImgInput *ngIf=\"useInputPicker\" (change)=\"onLoadImgFromInput($event)\">\n    </div>\n\n    <!-- Register Inputs -->\n    <form [formGroup]=\"form\" (ngSubmit)=\"onUpdateUser()\">\n      <!-- nombre -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"person\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Nombre</ion-text>\n            </ion-label>\n            <ion-input type=\"text\" formControlName=\"name\"></ion-input>\n          </ion-item>\n          <!-- error  -->\n          <ion-label *ngIf=\"form.get('name').hasError('required')\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El nombre es requerido</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- email -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_mail.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Email</ion-text>\n            </ion-label>\n            <ion-input type=\"text\" disabled formControlName=\"email\"></ion-input>\n          </ion-item>\n          <!-- error requerido  -->\n          <ion-label *ngIf=\"form.get('email').hasError('required')\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El email es requerido</small>\n            </ion-text>\n          </ion-label>\n          <!-- error email  -->\n          <ion-label *ngIf=\"form.get('email').hasError('email')\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El email no tiene el formato correcto</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- Número de contacto 1 -->\n      <ion-row>\n        <ion-col size=\"5\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\">\n              <ion-icon src=\"/assets/icon/ic_phone.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Código</ion-text>\n            </ion-label>\n            <ion-select (click)=\"loadFlags()\" formControlName=\"countryCode\" required placeholder=\"Código\"\n              [cancelText]=\"'Cancelar'\" [okText]=\"'Aceptar'\">\n              <ion-select-option *ngFor=\"let country of countryCodes\" value=\"+{{country.callingCodes[0]}}\">\n                {{country.alpha2Code}} +{{country.callingCodes[0]}}</ion-select-option>\n            </ion-select>\n          </ion-item>\n        </ion-col>\n        <ion-col size=\"7\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_phone.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Número de contacto</ion-text>\n            </ion-label>\n            <ion-input type=\"number\" pattern=\"\\d*\" formControlName=\"phone1\"></ion-input>\n          </ion-item>\n          <!-- error requerido  -->\n          <ion-label *ngIf=\"form.get('phone1').hasError('required')\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> El Numero de contacto es requerido</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- Número de contacto 2 -->\n      <!-- <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon name=\"call\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Número de contacto 2</ion-text>\n            </ion-label>\n            <ion-input type=\"string\" formControlName=\"phone2\"></ion-input>\n          </ion-item>\n        </ion-col>\n      </ion-row> -->\n\n\n      <!-- title -->\n      <div style=\"height: 30px;\"></div>\n      <ion-row class=\"ion-margin-top\">\n        <ion-col size=\"1\" offset=\"1\"></ion-col>\n        <ion-col size=\"8\" class=\"ion-text-center\">\n          <ion-text class=\"main-color ion-text-uppercase title\"><b>CAMBIAR CONTRASEÑA</b></ion-text>\n        </ion-col>\n        <ion-col size=\"1\"></ion-col>\n      </ion-row>\n\n      <!-- Contraseña actual -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_lock.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Contraseña actual</ion-text>\n            </ion-label>\n            <ion-input type=\"password\" formControlName=\"password\"></ion-input>\n          </ion-item>\n          <!-- http error  -->\n          <ion-label *ngIf=\"httpError\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ httpError }}</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- Nueva contraseña -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_lock.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Nueva contraseña</ion-text>\n            </ion-label>\n            <ion-input type=\"password\" formControlName=\"newPassword\"></ion-input>\n          </ion-item>\n          <!-- password error  -->\n          <ion-label *ngIf=\"passError\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ passError }}</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- Repetir nueva contraseña -->\n      <ion-row>\n        <ion-col size=\"12\">\n          <ion-item class=\"ion-no-padding\">\n            <ion-label position=\"floating\" class=\"main-color\">\n              <ion-icon src=\"/assets/icon/ic_lock.svg\" slot=\"start\" class=\"main-color\"></ion-icon>\n              <ion-text class=\"main-color\">&nbsp;&nbsp;&nbsp;Repetir nueva contraseña</ion-text>\n            </ion-label>\n            <ion-input type=\"password\" formControlName=\"confirmPassword\"></ion-input>\n          </ion-item>\n          <!-- password error  -->\n          <ion-label *ngIf=\"passError\" class=\"errorMess\">\n            <ion-icon name=\"alert-circle-outline\" class=\"iconFixG\" color=\"danger\"></ion-icon>\n            <ion-text color=\"danger\">\n              <small> {{ passError }}</small>\n            </ion-text>\n          </ion-label>\n        </ion-col>\n      </ion-row>\n\n      <!-- BTN -->\n      <ion-row class=\"ion-margin-top ion-margin-bottom ion-align-items-center\" style=\"justify-content: center\">\n        <ion-col size=\"10\">\n          <ion-button expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\" [disabled]=\"!form.valid\">\n            GUARDAR CAMBIOS\n          </ion-button>\n        </ion-col>\n      </ion-row>\n    </form>\n\n\n  </ion-grid>\n</ion-content>";
       /***/
     },
 
@@ -209,9 +209,19 @@
       var src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
       /*! src/app/shared/success-modal/success-modal.component */
       "W/u7");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      /*! axios */
+      "vDqi");
+      /* harmony import */
+
+
+      var axios__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_14__);
 
       function base64toBlob(base64Data, contentType) {
-        contentType = contentType || '';
+        contentType = contentType || "";
         var sliceSize = 1024;
         var byteCharacters = atob(base64Data);
         var bytesLength = byteCharacters.length;
@@ -246,6 +256,7 @@
           this.platform = platform;
           this.imgPick = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"]();
           this.useInputPicker = false;
+          this.countryCodes = [];
         }
 
         _createClass(ProfilePagePage, [{
@@ -253,54 +264,70 @@
           value: function ngOnInit() {
             var _this = this;
 
+            this.getCountryCodes();
+            this.loadFlags = this.loadFlags.bind(this);
             this.userSub = this.us.loggedUser.subscribe(function (user) {
               _this.grabbedUser = user; //api headers
 
-              _this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + _this.grabbedUser.access_token);
+              _this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set("Authorization", "Bearer " + _this.grabbedUser.access_token);
             });
             var phone1;
             var phone2;
+            var countryCode;
 
-            if (this.grabbedUser.phone1 === '-') {
+            if (this.grabbedUser.phone1 === "-") {
               phone1 = null;
             } else {
-              phone1 = this.grabbedUser.phone1;
+              var splitedPhone = this.grabbedUser.phone1.split(" ");
+              console.log(splitedPhone);
+              console.log(splitedPhone.length);
+
+              if (splitedPhone.length <= 1) {
+                phone1 = splitedPhone[0];
+              } else {
+                countryCode = splitedPhone[0];
+                phone1 = splitedPhone[1];
+              }
             }
 
-            if (this.grabbedUser.phone2 === '-') {
+            if (this.grabbedUser.phone2 === "-") {
               phone2 = null;
             } else {
               phone2 = this.grabbedUser.phone2;
             }
 
             this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormGroup"]({
-              name: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"](this.grabbedUser.name + ' ' + this.grabbedUser.last_name, {
-                updateOn: 'blur',
+              name: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"](this.grabbedUser.name + " " + this.grabbedUser.last_name, {
+                updateOn: "blur",
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]
               }),
               email: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"](this.grabbedUser.email, {
-                updateOn: 'blur',
+                updateOn: "blur",
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].email]
               }),
+              countryCode: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"](countryCode, {
+                updateOn: "blur",
+                validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]
+              }),
               phone1: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"](phone1, {
-                updateOn: 'blur',
+                updateOn: "blur",
                 validators: [_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]
               }),
               phone2: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"](phone2, {
-                updateOn: 'blur'
+                updateOn: "blur"
               }),
               password: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"](null, {
-                updateOn: 'blur'
+                updateOn: "blur"
               }),
               newPassword: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"](null, {
-                updateOn: 'blur'
+                updateOn: "blur"
               }),
               confirmPassword: new _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormControl"](null, {
-                updateOn: 'blur'
+                updateOn: "blur"
               })
             }); // platfrom check
 
-            if (this.platform.is('mobile') && !this.platform.is('hybrid') || this.platform.is('desktop')) {
+            if (this.platform.is("mobile") && !this.platform.is("hybrid") || this.platform.is("desktop")) {
               this.useInputPicker = true;
             }
           }
@@ -315,7 +342,7 @@
             var lname = name[1];
 
             if (name.length > 2) {
-              lname += ' ' + name[2];
+              lname += " " + name[2];
             }
 
             var modUser = {
@@ -324,7 +351,7 @@
               email: this.form.value.email,
               password: this.form.value.newPassword,
               current_password: this.form.value.password,
-              phone1: this.form.value.phone1,
+              phone1: "".concat(this.form.value.countryCode, " ").concat(this.form.value.phone1),
               phone2: this.form.value.phone2
             };
 
@@ -333,25 +360,25 @@
               delete modUser.current_password;
             } else {
               if (this.form.value.newPassword !== this.form.value.confirmPassword) {
-                this.passError = 'Las contraseñas no concuerdan';
+                this.passError = "Las contraseñas no concuerdan";
                 return;
               }
             }
 
             this.lc.create({
-              message: 'Alcualizando la informacion...'
+              message: "Alcualizando la informacion..."
             }).then(function (loadingEl) {
               loadingEl.present();
-              var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + _this2.grabbedUser.access_token);
+              var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set("Authorization", "Bearer " + _this2.grabbedUser.access_token);
 
-              _this2.http.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"] + '/account', modUser, {
+              _this2.http.put(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"] + "/account", modUser, {
                 headers: headers
               }).subscribe(function (resData) {
                 loadingEl.dismiss();
 
-                if (resData['code'] === 200) {
+                if (resData["code"] === 200) {
                   //update user controler
-                  _this2.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__["User"](_this2.grabbedUser.id, resData['data'].name, resData['data'].last_name, resData['data'].img_profile, resData['data'].email, resData['data'].phone1, resData['data'].phone2, _this2.grabbedUser.role, _this2.grabbedUser.access_token)); //resets values after succefull update
+                  _this2.us.setUser(new src_app_model_user_model__WEBPACK_IMPORTED_MODULE_9__["User"](_this2.grabbedUser.id, resData["data"].name, resData["data"].last_name, resData["data"].img_profile, resData["data"].email, resData["data"].phone1, resData["data"].phone2, _this2.grabbedUser.role, _this2.grabbedUser.access_token)); //resets values after succefull update
 
 
                   _this2.form.setValue({
@@ -367,17 +394,17 @@
                   _this2.modalController.create({
                     component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_13__["SuccessModalComponent"],
                     componentProps: {
-                      message: 'INFORMACIÓN ACTUALIZADA',
+                      message: "INFORMACIÓN ACTUALIZADA",
                       redirect: false
                     },
-                    cssClass: 'modalSuccess'
+                    cssClass: "modalSuccess"
                   }).then(function (modalEl) {
                     modalEl.present();
                   });
                 }
               }, function (e) {
                 loadingEl.dismiss();
-                _this2.httpError = e['error'].message;
+                _this2.httpError = e["error"].message;
               });
             });
           }
@@ -386,7 +413,7 @@
           value: function onLoadImg() {
             var _this3 = this;
 
-            if (!_capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Capacitor"].isPluginAvailable('Camera') || this.useInputPicker) {
+            if (!_capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Capacitor"].isPluginAvailable("Camera") || this.useInputPicker) {
               this.hiddenImgInputRef.nativeElement.click();
               return;
             }
@@ -398,9 +425,9 @@
               height: 450,
               // width: 200,
               resultType: _capacitor_camera__WEBPACK_IMPORTED_MODULE_7__["CameraResultType"].DataUrl,
-              promptLabelPhoto: 'Fotos',
-              promptLabelPicture: 'Cámara',
-              promptLabelCancel: 'Cancelar'
+              promptLabelPhoto: "Fotos",
+              promptLabelPicture: "Cámara",
+              promptLabelCancel: "Cancelar"
             }).then(function (image) {
               _this3.saveImgToApi(image.dataUrl);
             })["catch"](function (e) {
@@ -414,15 +441,47 @@
             this.saveImgToApi(loadedFile); //save img to api
           }
         }, {
+          key: "getCountryCodes",
+          value: function getCountryCodes() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var response;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.prev = 0;
+                      _context.next = 3;
+                      return axios__WEBPACK_IMPORTED_MODULE_14___default.a.get("https://restcountries.eu/rest/v2/region/Americas");
+
+                    case 3:
+                      response = _context.sent;
+                      this.countryCodes = response.data;
+                      _context.next = 10;
+                      break;
+
+                    case 7:
+                      _context.prev = 7;
+                      _context.t0 = _context["catch"](0);
+                      console.log(_context.t0);
+
+                    case 10:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this, [[0, 7]]);
+            }));
+          }
+        }, {
           key: "saveImgToApi",
           value: function saveImgToApi(imageData) {
             var _this4 = this;
 
             var imgFile;
 
-            if (typeof imageData === 'string') {
+            if (typeof imageData === "string") {
               try {
-                imgFile = base64toBlob(imageData.replace('data:image/jpeg;base64,', ''), 'image/jpeg');
+                imgFile = base64toBlob(imageData.replace("data:image/jpeg;base64,", ""), "image/jpeg");
               } catch (e) {
                 console.log(e);
                 return;
@@ -435,8 +494,8 @@
               image: imgFile
             });
             var formData = new FormData();
-            formData.append('image', imgFile);
-            this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"] + '/account/image', formData, {
+            formData.append("image", imgFile);
+            this.http.post(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"] + "/account/image", formData, {
               headers: this.headers
             }).subscribe(function (resData) {
               _this4.us.dbUserGrab(_this4.grabbedUser.access_token, _this4.grabbedUser.role);
@@ -444,10 +503,10 @@
               _this4.modalController.create({
                 component: src_app_shared_success_modal_success_modal_component__WEBPACK_IMPORTED_MODULE_13__["SuccessModalComponent"],
                 componentProps: {
-                  message: 'INFORMACIÓN ACTUALIZADA',
+                  message: "INFORMACIÓN ACTUALIZADA",
                   redirect: false
                 },
-                cssClass: 'modalSuccess'
+                cssClass: "modalSuccess"
               }).then(function (modalEl) {
                 modalEl.present();
               });
@@ -463,31 +522,47 @@
         }, {
           key: "getProfilePicture",
           value: function getProfilePicture() {
-            if (this.grabbedUser.img_profile && this.grabbedUser.img_profile !== src_shared_constants__WEBPACK_IMPORTED_MODULE_12__["IMAGE_URL_BLANK"]) {
+            console.log(this.grabbedUser);
+
+            if (this.grabbedUser.img_profile && this.grabbedUser.img_profile !== src_shared_constants__WEBPACK_IMPORTED_MODULE_12__["IMAGE_URL_BLANK"] && this.grabbedUser.img_profile !== "/") {
               return this.grabbedUser.img_profile;
             }
 
-            return 'assets/images/avatar.png';
+            return "assets/images/avatar.png";
           }
         }, {
           key: "dbUserGrab",
           value: function dbUserGrab(token, role) {
             var _this5 = this;
 
-            var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set('Authorization', 'Bearer ' + token);
-            this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"] + '/account/me', {
+            var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]().set("Authorization", "Bearer " + token);
+            this.http.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["API"] + "/account/me", {
               headers: headers
             }).subscribe(function (resData) {
               var img;
 
-              if (resData['data'].img_profile === null) {
+              if (resData["data"].img_profile === null) {
                 img = null;
               } else {
-                img = resData['data'].img_profile;
+                img = resData["data"].img_profile;
               }
 
-              _this5.grabbedUser = resData['data'];
+              _this5.grabbedUser = resData["data"];
             });
+          }
+        }, {
+          key: "loadFlags",
+          value: function loadFlags() {
+            var _this6 = this;
+
+            setTimeout(function () {
+              var radios = document.getElementsByClassName("alert-radio-label sc-ion-alert-md");
+
+              for (var index = 0; index < radios.length; index++) {
+                var element = radios[index];
+                element.innerHTML = "<img class=\"country-image\" style=\"width: 30px;height:16px;\" src=\"".concat(_this6.countryCodes[index].flag, "\" /> ").concat(element.innerHTML);
+              }
+            }, 100);
           }
         }]);
 
@@ -514,11 +589,11 @@
         }],
         hiddenImgInputRef: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"],
-          args: ['hiddenImgInput']
+          args: ["hiddenImgInput"]
         }]
       };
       ProfilePagePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["Component"])({
-        selector: 'app-profile-page',
+        selector: "app-profile-page",
         template: _raw_loader_profile_page_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_profile_page_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
       })], ProfilePagePage);

@@ -10,6 +10,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/capacitor-cordova-android-plugins/android.capacitor-cordova-android-plugins.iml" filepath="$PROJECT_DIR$/.idea/modules/capacitor-cordova-android-plugins/android.capacitor-cordova-android-plugins.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2019711384/android.capacitor-device.iml" filepath="$PROJECT_DIR$/.idea/modules/-2019711384/android.capacitor-device.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-658608140/android.capacitor-geolocation.iml" filepath="$PROJECT_DIR$/.idea/modules/-658608140/android.capacitor-geolocation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-535890311/android.capacitor-keyboard.iml" filepath="$PROJECT_DIR$/.idea/modules/-535890311/android.capacitor-keyboard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-147277568/android.capacitor-splash-screen.iml" filepath="$PROJECT_DIR$/.idea/modules/-147277568/android.capacitor-splash-screen.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1317655754/android.capacitor-status-bar.iml" filepath="$PROJECT_DIR$/.idea/modules/1317655754/android.capacitor-status-bar.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-948660631/android.capacitor-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/-948660631/android.capacitor-storage.iml" />
     </modules>

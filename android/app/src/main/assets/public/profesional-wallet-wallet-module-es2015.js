@@ -2623,6 +2623,7 @@ let BankModalComponent = class BankModalComponent {
         this.modalController = modalController;
         this.pickerController = pickerController;
         this.disabledForm = true;
+        this.profCategories = [];
         this.bancos = [
             { id: "504", name: "BBVA" },
             { id: "001", name: "Banco de Chile" },
@@ -2640,6 +2641,19 @@ let BankModalComponent = class BankModalComponent {
             this.grabbedUser = user;
             this.headers = 'Bearer ' + this.grabbedUser.access_token;
         });
+        axios__WEBPACK_IMPORTED_MODULE_5___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_7__["API"] + '/supplier/getbankaccount', { headers: { Authorization: this.headers } }).then(resData => {
+            if (resData.data.data != null) {
+                this.selectedCard = resData.data.data.type;
+                this.creditCard = resData.data.data.debit_account;
+                this.rutAccount = resData.data.data.rut || resData.data.data.clabe;
+                this.bank = resData.data.data.name_bank;
+                this.validateInformation('', this.creditCard, this.rutAccount, this.bank, this.selectedCard);
+            }
+        });
+        axios__WEBPACK_IMPORTED_MODULE_5___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_7__["API"] + '/supplier/professions', { headers: { Authorization: this.headers } }).then(resData => {
+            this.profCategories = resData.data.data;
+            this.selectedProPerfilID = this.profCategories[0].id;
+        });
     }
     validateInformation(completeName, cardNumber, rut, banco, type) {
         this.disabledForm = completeName.length > 0
@@ -2656,10 +2670,11 @@ let BankModalComponent = class BankModalComponent {
                 loadingEl.present();
                 let typeCardSelected = this.tipoTarjeta.find(b => b.name === type);
                 let data_bank = {
-                    professional_profile_id: 1,
+                    professional_profile_id: this.selectedProPerfilID,
                     bank_id: "1",
                     debit_account: cardNumber,
                     clabe: rut,
+                    rut: rut,
                     name: completeName,
                     type: typeCardSelected.name,
                     name_bank: banco
@@ -3129,7 +3144,7 @@ WalletPageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid class=\"modal-bank\">\n    <ion-row class=\"modal-cont ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <div class=\"status-cont\">\n          <ion-text class=\"main-color status-text ion-text-center\"><b>DATOS BANCARIOS</b></ion-text><br>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Nombre completo</ion-label>\n        <ion-input #completeName class=\"stacked-input\" placeholder=\"José Alcarraga López\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\">\n        </ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left ion-align-items-center\">\n      <ion-col size=\"8\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Número de tarjeta</ion-label>\n        <ion-input #cardNumber class=\"stacked-input\" type=\"tel\" maxlength=\"16\" placeholder=\"1234 5678 9123 4567\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\"></ion-input>\n      </ion-col>\n      <ion-col size=\"4\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Tipo</ion-label>\n        <ion-input #type class=\"stacked-input\" value=\"{{ selectedCard }}\" readonly (click)=\"showPickerCardType()\"\n          placeholder=\"Visa/MasterCard\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">RUT</ion-label>\n        <ion-input #rut class=\"stacked-input\" type=\"tel\" maxlength=\"12\" placeholder=\"11.111.234-4\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Banco</ion-label>\n        <ion-input #banco class=\"stacked-input\" placeholder=\"Banco\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col offset=\"1\">\n        <ion-button\n          [disabled]=\"!disabledForm\"\n          size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\"\n          (click)=\"saveBankAccount(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\">\n          GUARDAR DATOS\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"2\"></ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content>\n  <ion-grid class=\"modal-bank\">\n    <ion-row class=\"modal-cont ion-margin-bottom\">\n      <ion-col size=\"12\">\n        <div class=\"status-cont\">\n          <ion-text class=\"main-color status-text ion-text-center\"><b>DATOS BANCARIOS</b></ion-text><br>\n        </div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Nombre completo</ion-label>\n        <ion-input #completeName class=\"stacked-input\" placeholder=\"José Alcarraga López\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\">\n        </ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left ion-align-items-center\">\n      <ion-col size=\"8\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Número de tarjeta</ion-label>\n        <ion-input #cardNumber value=\"{{ creditCard }}\" class=\"stacked-input\" type=\"tel\" maxlength=\"16\" placeholder=\"1234 5678 9123 4567\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\"></ion-input>\n      </ion-col>\n      <ion-col size=\"4\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Tipo</ion-label>\n        <ion-input #type class=\"stacked-input\" value=\"{{ selectedCard }}\" readonly (click)=\"showPickerCardType()\"\n          placeholder=\"Visa/MasterCard\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">RUT</ion-label>\n        <ion-input #rut class=\"stacked-input\" value=\"{{ rutAccount }}\" type=\"tel\" maxlength=\"12\" placeholder=\"11.111.234-4\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col size=\"12\">\n        <ion-label class=\"stacked-modal-label\" position=\"stacked\">Banco</ion-label>\n        <ion-input #banco value=\"{{ bank }}\" class=\"stacked-input\" placeholder=\"Banco\" (ionInput)=\"validateInformation(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\"></ion-input>\n      </ion-col>\n    </ion-row>\n\n    <ion-row class=\"ion-margin-left\">\n      <ion-col offset=\"1\">\n        <ion-button\n          [disabled]=\"!disabledForm\"\n          size=\"5\" expand=\"block\" class=\"ion-text-uppercase\" type=\"submit\"\n          (click)=\"saveBankAccount(completeName.value, cardNumber.value, rut.value, banco.value, selectedCard)\">\n          GUARDAR DATOS\n        </ion-button>\n      </ion-col>\n      <ion-col size=\"2\"></ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>");
 
 /***/ }),
 
