@@ -106,7 +106,7 @@
               <ion-icon src="/assets/icon/ic_phone.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Código</ion-text>
             </ion-label>
-            <ion-select (click)="loadFlags()" ngModel name="countryCode" required #phone1Ctrl="ngModel"
+            <ion-select (click)="loadFlags()" ngModel name="countryCode" required #countryCodeCtrl="ngModel"
               placeholder="Código" [cancelText]="'Cancelar'" [okText]="'Aceptar'">
               <ion-select-option mode="ios" *ngFor="let country of countryCodes" value="+{{country.callingCodes[0]}}">
                 {{country.alpha2Code}} +{{country.callingCodes[0]}}
@@ -120,7 +120,7 @@
               <ion-icon src="/assets/icon/ic_phone.svg" slot="start" class="main-color"></ion-icon>
               <ion-text class="main-color">&nbsp;&nbsp;&nbsp;Teléfono</ion-text>
             </ion-label>
-            <ion-input ngModel name="phone1" minlength="9" maxlength="9" required #phone1Ctrl="ngModel" type="tel">
+            <ion-input ngModel name="phone1" pattern="\d*" required #phone1Ctrl="ngModel" type="tel">
             </ion-input>
           </ion-item>
           <!-- error  -->
