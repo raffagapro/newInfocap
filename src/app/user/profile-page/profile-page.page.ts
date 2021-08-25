@@ -69,7 +69,6 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit() {
-		this.getCountryCodes();
 		this.loadFlags = this.loadFlags.bind(this);
 
 		this.userSub = this.us.loggedUser.subscribe((user) => {
@@ -79,8 +78,11 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 				"Authorization",
 				"Bearer " + this.grabbedUser.access_token
 			);
+			this.getCountryCodes();
 		});
+	}
 
+	initializeForm() {
 		let phone1: string;
 		let phone2: string;
 		let countryCode: string;
@@ -89,8 +91,6 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 			phone1 = null;
 		} else {
 			let splitedPhone = this.grabbedUser.phone1.split(" ");
-			console.log(splitedPhone);
-			console.log(splitedPhone.length);
 			if (splitedPhone.length <= 1) {
 				phone1 = splitedPhone[0];
 			} else {
@@ -136,6 +136,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 				updateOn: "blur",
 			}),
 		});
+		this.form.patchValue({ countryCode });
 		// platfrom check
 		if (
 			(this.platform.is("mobile") && !this.platform.is("hybrid")) ||
@@ -272,6 +273,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 				"https://restcountries.eu/rest/v2/region/Americas"
 			);
 			this.countryCodes = response.data;
+			setTimeout(() => this.initializeForm(), 500);
 		} catch (error) {
 			console.log(error);
 		}
@@ -328,7 +330,6 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 	}
 
 	getProfilePicture() {
-		console.log(this.grabbedUser);
 		if (
 			this.grabbedUser.img_profile &&
 			this.grabbedUser.img_profile !== IMAGE_URL_BLANK &&
@@ -357,7 +358,7 @@ export class ProfilePagePage implements OnInit, OnDestroy {
 	loadFlags() {
 		setTimeout(() => {
 			let radios = document.getElementsByClassName(
-				"alert-radio-label sc-ion-alert-md"
+				"alert-radio-label"
 			);
 			for (let index = 0; index < radios.length; index++) {
 				let element = radios[index];

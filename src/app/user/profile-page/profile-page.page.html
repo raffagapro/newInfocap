@@ -33,7 +33,7 @@
     </div>
 
     <!-- Register Inputs -->
-    <form [formGroup]="form" (ngSubmit)="onUpdateUser()">
+    <form [formGroup]="form" (ngSubmit)="onUpdateUser()" *ngIf="form">
       <!-- nombre -->
       <ion-row>
         <ion-col size="12">

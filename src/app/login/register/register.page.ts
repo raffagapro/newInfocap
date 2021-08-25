@@ -159,7 +159,7 @@ export class RegisterPage implements OnInit {
 	loadFlags() {
 		setTimeout(() => {
 			let radios = document.getElementsByClassName(
-				"alert-radio-label sc-ion-alert-md"
+				"alert-radio-label"
 			);
 			for (let index = 0; index < radios.length; index++) {
 				let element = radios[index];
