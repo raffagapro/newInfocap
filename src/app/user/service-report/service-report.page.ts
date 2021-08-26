@@ -175,33 +175,27 @@ export class ServiceReportPageComponent implements OnInit {
 		successModal.present();
 	}
 
+	getServiceCost() {
+		let total: number = this.loadedService.request_cost.reduce(
+			(total, cost) => total + (cost.costs_type_id === 1 ? Number(cost.amount_client) : 0),
+			0
+		);
+		return Math.floor(total);
+	}
+
 	getServiceAditional() {
-		if (this.servicesCosts && this.servicesCosts.addittional.length > 0) {
-			return Math.floor(
-				Number(
-					this.servicesCosts.addittional.reduce(
-						(total, entity) => (total += Number(entity.amount_client)),
-						0
-					)
-				)
-			);
-		}
-		return 0;
+		let total: number = this.loadedService.request_cost.reduce(
+			(total, cost) => total + (cost.costs_type_id === 2 ? Number(cost.amount_client) : 0),
+			0
+		);
+		return Math.floor(total);
 	}
 
 	getTotal() {
-		if (!this.servicesCosts) return 0;
 		return Math.floor(
 			Number(this.getServiceAditional()) +
-				Number(parseFloat(this.servicesCosts.amount_client).toFixed(2))
+			Number(this.getServiceCost())
 		);
-	}
-
-	getServiceCost() {
-		if (this.servicesCosts && this.servicesCosts.amount_client) {
-			return Math.floor(Number(this.servicesCosts.amount_client));
-		}
-		return 0;
 	}
 
 	goBack() {

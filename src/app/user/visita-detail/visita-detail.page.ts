@@ -148,11 +148,10 @@ export class VisitaDetailPage implements OnInit {
 		) {
 			return "ND";
 		}
-		let hours = this.loadedService.request_technical[0].visit_hours
-			.replace(" ", "")
-			.split("-");
-		let startHour = moment.utc(hours[0], "HH:mm");
-		let endHour = moment.utc(hours[1], "HH:mm");
+		let visitHistory = this.loadedService.history_status.find((history) => history.name === 'VisitaTecnica');
+
+		let startHour = moment(visitHistory.hours_required, 'hh:mm:ss a');
+		let endHour = moment(visitHistory.hours_final, 'hh:mm:ss a');
 		return `${startHour.format("h:mm a")} - ${endHour.format("h:mm a")}`;
 	}
 

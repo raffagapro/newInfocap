@@ -47,8 +47,8 @@
     <ion-row>
       <ion-col size="11" offset="1">
         <ion-text color="primary" class="title">
-          <b *ngIf="servicesCosts && servicesCosts.amount_client">${{getServiceCost()}}</b>
-          <b *ngIf="servicesCosts && !servicesCosts.amount_client" class="small">Aún no se ha asignado un costo</b>
+          <b *ngIf="getServiceCost() !== 0">${{getServiceCost()}}</b>
+          <b *ngIf="getServiceCost() === 0" class="small">Aún no se ha asignado un costo</b>
         </ion-text>
       </ion-col>
     </ion-row>
@@ -63,17 +63,17 @@
     </ion-row>
 
     <!-- costo  -->
-    <ion-row *ngIf="servicesCosts && servicesCosts.addittional.length > 0 && loadedService.type_request !== 'URGENT'">
+    <ion-row *ngIf="loadedService && loadedService.request_cost.length > 0 && loadedService.type_request !== 'URGENT'">
       <ion-col size="11" offset="1">
         <ion-text color="primary" class="title">
-          <b *ngIf="servicesCosts">${{getServiceAditional()}}</b>
-          <b *ngIf="!servicesCosts" class="small">Aún no se ha asignado un costo</b>
+          <b *ngIf="getServiceAditional() !== 0">${{getServiceAditional()}}</b>
+          <b *ngIf="getServiceAditional() === 0" class="small">Aún no se ha asignado un costo</b>
         </ion-text>
       </ion-col>
     </ion-row>
 
     <!-- empty aditionals  -->
-    <ion-row *ngIf="servicesCosts && servicesCosts.addittional.length === 0 && loadedService.type_request !== 'URGENT'">
+    <ion-row *ngIf="loadedService && loadedService.request_cost.length === 0 && loadedService.type_request !== 'URGENT'">
       <ion-col size="11" offset="1">
         <ion-text color="primary" class="title">
           <b class="small">No se tienen adicionales</b>
@@ -102,6 +102,7 @@
     </ion-row>
 
     <!-- servicios adicionales  -->
+    <!--
     <ion-row *ngIf="isFinished">
       <ion-col size="11" offset="1">
         <ion-text class="text ion-text-uppercase">
@@ -109,8 +110,10 @@
         </ion-text>
       </ion-col>
     </ion-row>
+    -->
 
     <!-- costo  -->
+    <!--
     <ion-row *ngIf="isFinished">
       <ion-col size="11" offset="1">
         <ion-text color="danger" class="title">
@@ -118,6 +121,7 @@
         </ion-text>
       </ion-col>
     </ion-row>
+    -->
 
     <!-- Costo & pay BTNS-->
     <ion-row class="ion-margin-top">

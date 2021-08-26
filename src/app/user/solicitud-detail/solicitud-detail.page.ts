@@ -198,16 +198,17 @@ export class SolicitudDetailPage implements OnInit {
 		if (!this.loadedService.hours_requestservice) {
 			return "ND";
 		}
-		let startHour = moment(this.loadedService.hours_requestservice, 'HH:mm:ss');
-		let endHour = moment(this.loadedService.hours_final, 'HH:mm:ss');
+		let startHour = moment(this.loadedService.hours_requestservice, "HH:mm:ss");
+		let endHour = moment(this.loadedService.hours_final, "HH:mm:ss");
 		return `${startHour.format("h:mm a")} - ${endHour.format("h:mm a")}`;
 	}
 
 	getServiceCost() {
-		if (this.servicesCosts && this.servicesCosts.amount_client) {
-			return Math.floor(Number(this.servicesCosts.amount_client));
-		}
-		return 0;
+		let total: number = this.loadedService.request_cost.reduce(
+			(total, cost) => total + (cost.costs_type_id === 1 ? Number(cost.amount_client) : 0),
+			0
+		);
+		return Math.floor(total);
 	}
 
 	isInProcess() {
@@ -254,7 +255,6 @@ export class SolicitudDetailPage implements OnInit {
 			);
 			await loader.dismiss();
 
-			console.log(response);
 			if (response.data && response.data.code !== 200) {
 				// TODO: Set error logic
 				return;
@@ -319,7 +319,6 @@ export class SolicitudDetailPage implements OnInit {
 			);
 			await loader.dismiss();
 
-			console.log(response);
 			if (response.data && response.data.code !== 200) {
 				// TODO: Set error logic
 				return;

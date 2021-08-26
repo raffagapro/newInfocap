@@ -196,7 +196,7 @@
 
       <!-- Pago Finalizado  -->
       <!-- grey  -->
-      <ion-row *ngIf="(loadedService.status_id < 9 && loadedService.status_id !== 7 && !isCash) || (loadedService.status_id < 5 && loadedService.status_id !== 7)">
+      <ion-row *ngIf="((loadedService.status_id < 9 && loadedService.status_id !== 7 && !isCash) || (loadedService.status_id < 5 && loadedService.status_id !== 7)) && loadedService.status_id !== 8">
         <div class="status-cont-grey">
           <ion-icon src="/assets/icon/ic_card_disabled.svg" color="light" class="status-text-icon"></ion-icon>
         </div>

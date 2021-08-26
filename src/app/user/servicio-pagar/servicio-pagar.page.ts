@@ -53,7 +53,7 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 	serviceId: string;
 	wDate;
 	servicesCosts;
-	selectedButton: PaymentMethodType = "credit";
+	selectedButton: PaymentMethodType = "cash";
 	paymentTypes = [];
 	isFinished = false;
 	showRateProfessional = false;
@@ -129,11 +129,13 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 								let paymentType = this.paymentTypes.find(
 									(paymentType) => paymentType.id === firstCost.payment_type_id
 								);
+								/*
 								if (paymentType.name === "Efectivo") {
 									this.selectedButton = "cash";
 								} else {
 									this.selectedButton = "credit";
 								}
+								*/
 							}
 
 							this.loadCosts();
@@ -177,33 +179,25 @@ export class ServicioPagarPage implements OnInit, OnDestroy {
 	}
 
 	getServiceCost() {
-		if (this.servicesCosts && this.servicesCosts.amount_client) {
-			return Math.floor(Number(this.servicesCosts.amount_client))
-		}
-		return 0;
+		let total: number = this.loadedService.request_cost.reduce(
+			(total, cost) => total + (cost.costs_type_id === 1 ? Number(cost.amount_client) : 0),
+			0
+		);
+		return Math.floor(total);
 	}
 
 	getServiceAditional() {
-		if (this.servicesCosts && this.servicesCosts.addittional.length > 0) {
-			return Math.floor(
-				Number(
-					this.servicesCosts.addittional.reduce(
-						(total, entity) => (total += Number(entity.amount_client)),
-						0
-					)
-				)
-			);
-		}
-		return 0;
+		let total: number = this.loadedService.request_cost.reduce(
+			(total, cost) => total + (cost.costs_type_id === 2 ? Number(cost.amount_client) : 0),
+			0
+		);
+		return Math.floor(total);
 	}
 
 	getTotal() {
-		if (!this.servicesCosts) {
-			return this.getServiceCost();
-		}
 		return Math.floor(
 			Number(this.getServiceAditional()) +
-			Number(parseFloat(this.servicesCosts.amount_client))
+			Number(this.getServiceCost())
 		);
 	}
 
