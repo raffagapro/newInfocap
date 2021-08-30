@@ -160,7 +160,6 @@ export class WalletPage implements OnInit {
         "end_date": moment(end_date, 'D/M/YYYY').format('D/MM/YYYY')
       }, headers: { Authorization: this.headers }
     }).then(resData => {
-
       this.totalWeek = resData.data.data.total || 0
 
       let profesionalAmount = []
@@ -168,9 +167,10 @@ export class WalletPage implements OnInit {
       let commission = []
 
       resData.data.data.paymentByWeek.map(d => {
-        profesionalAmount.push(d.professionalamount)
-        taxes.push(d.taxes)
-        commission.push(d.commission)
+        const index = this.weeksToRender[this.actualWeekToShow].indexOf(d.days)
+        profesionalAmount[index] = d.professionalamount
+        taxes[index] = d.taxes
+        commission[index] = d.commission
       })
 
       this.barChartWeek = new Chart(this.barChartWeek.nativeElement, {
@@ -275,9 +275,11 @@ export class WalletPage implements OnInit {
       this.totalWeek = resData.data.data.total || 0
 
       resData.data.data.paymentByWeek.map(d => {
-        profesionalAmount.push(d.professionalamount)
-        taxes.push(d.taxes)
-        commission.push(d.commission)
+
+        const index = this.weeksToRender[this.actualWeekToShow].indexOf(d.days)
+        profesionalAmount[index] = d.professionalamount
+        taxes[index] = d.taxes
+        commission[index] = d.commission
       })
     })
 

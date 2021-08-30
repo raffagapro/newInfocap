@@ -222,18 +222,10 @@ export class ServiciosAdicionalesPage implements OnInit {
 
       formData.append('description', this.formAdicional.value.detailes)
       formData.append('amount', this.formAdicional.value.price)
-      formData.append('payment_type_id', '1')
+      formData.append('payment_type_id', '2')
       formData.append('request_services_id', this.solicitudServicio.solicitud.id)
 
-      
       this.solicitudServicio.setCosto(parseFloat(this.formAdicional.value.price))
-
-      
-    // if (this.loadedImages.length === 0 && this.loadedImagesDisplay.length === 0) {
-    //   alert('Debes agregar al menos una foto a la solicitud.');
-    //   loadingEl.dismiss();
-    //   return
-    // }
 
       axios.post(API + '/supplier/additionalrequest', formData, { headers: { Authorization: this.headers } } ).then(resData => {
         this.router.navigate(['profesional/agendados/agendados-finalizar']);

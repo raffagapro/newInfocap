@@ -322,6 +322,11 @@ const routes: Routes = [
 			),
 		// canLoad: [AuthGuard, ProGuard],
 	},
+//   {
+//     path: 'example',
+//     // loadChildren: () => import('./example/example.module').then( m => m.ExamplePageModule)
+//   },
+
 ];
 
 @NgModule({

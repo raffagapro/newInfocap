@@ -78,7 +78,7 @@
 
     <!-- description  -->
     <ion-row class="margin-top">
-      <ion-col size="12" class="ion-text-left" *ngIf="loadedInfo && loadedInfo.request_cost !== null && loadedInfo.request_cost.addittional.length === 0">
+      <ion-col size="12" class="ion-text-left" *ngIf="loadedInfo && loadedInfo.request_cost !== null && !additionalDetected">
         <ion-text class="description">
           No se tienen adicionales
         </ion-text>
@@ -86,8 +86,8 @@
     </ion-row>
 
     <!-- description  -->
-    <div *ngIf="loadedInfo && loadedInfo.request_cost !== null && loadedInfo.request_cost.addittional.length > 0">
-      <ion-row class="margin-top"  *ngFor="let additional of loadedInfo.request_cost.addittional">
+    <div *ngIf="loadedInfo && loadedInfo.request_cost !== null && additionalDetected">
+      <ion-row class="margin-top"  *ngFor="let additional of loadedInfo.aditional.addittional">
         <ion-col size="12" class="ion-text-left">
           <ion-text class="description">
             {{additional.description}}
@@ -97,7 +97,7 @@
     </div>
 
     <!-- additional services  -->
-    <ion-row class="ion-margin-top" *ngIf="loadedInfo && loadedInfo.request_cost !== null && loadedInfo.request_cost.addittional.length > 0">
+    <ion-row class="ion-margin-top" *ngIf="loadedInfo && loadedInfo.request_cost !== null">
       <ion-col size="12" class="ion-text-left">
         <ion-text class="text main-color">
           <b>Fotografías</b>

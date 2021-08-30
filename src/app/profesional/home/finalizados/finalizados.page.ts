@@ -34,7 +34,8 @@ export class FinalizadosPage implements OnInit, OnDestroy {
     private solicitudServicio: ProSolicitudService,
     route: ActivatedRoute
   ) {
-    route.params.subscribe(val => {
+    route.params.subscribe(async val => {
+      this.loadedServices = []
       this.userSub = this.us.loggedUser.subscribe(user => {
         this.grabbedUser = user;
         this.headers = 'Bearer ' + this.grabbedUser.access_token;
@@ -55,7 +56,6 @@ export class FinalizadosPage implements OnInit, OnDestroy {
   }
 
   loadServices(statusID: string) {
-    this.loadedServices = []
     this.lc.create({
       message: "Cargando lista de servicios..."
     }).then(loadingEl => {
@@ -71,6 +71,11 @@ export class FinalizadosPage implements OnInit, OnDestroy {
         if (statusID === "8") {
           this.loadedServices = this.loadedServices.concat(resData.data.data);
         }
+        this.loadedServices = lodash.orderBy(this.loadedServices, function (dateObj) {
+          const dateSplit = dateObj.date_last_modification.split('-');
+          return new Date(`${dateSplit[1]}-${dateSplit[0]}-${dateSplit[2]}-`);
+        }, ['desc']);
+        console.log(this.loadedServices)
       }).catch(err => {
         console.log(err);
         loadingEl.dismiss();
