@@ -2952,9 +2952,10 @@ let WalletPage = class WalletPage {
                 let taxes = [];
                 let commission = [];
                 resData.data.data.paymentByWeek.map(d => {
-                    profesionalAmount.push(d.professionalamount);
-                    taxes.push(d.taxes);
-                    commission.push(d.commission);
+                    const index = this.weeksToRender[this.actualWeekToShow].indexOf(d.days);
+                    profesionalAmount[index] = d.professionalamount;
+                    taxes[index] = d.taxes;
+                    commission[index] = d.commission;
                 });
                 this.barChartWeek = new chart_js__WEBPACK_IMPORTED_MODULE_6__["Chart"](this.barChartWeek.nativeElement, {
                     type: 'bar',
@@ -3041,9 +3042,10 @@ let WalletPage = class WalletPage {
             }).then(resData => {
                 this.totalWeek = resData.data.data.total || 0;
                 resData.data.data.paymentByWeek.map(d => {
-                    profesionalAmount.push(d.professionalamount);
-                    taxes.push(d.taxes);
-                    commission.push(d.commission);
+                    const index = this.weeksToRender[this.actualWeekToShow].indexOf(d.days);
+                    profesionalAmount[index] = d.professionalamount;
+                    taxes[index] = d.taxes;
+                    commission[index] = d.commission;
                 });
             });
             this.barChartWeek.data.labels = this.weeksToRender[this.actualWeekToShow];

@@ -64,6 +64,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! axios */ "vDqi");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/pro-solicitud.service */ "zMwU");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lodash */ "LvDl");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_11__);
+
 
 
 
@@ -86,7 +89,8 @@ let FinalizadosPage = class FinalizadosPage {
         this.loadedServices = [];
         this.paidServices = [];
         this.parsedHours = null;
-        route.params.subscribe(val => {
+        route.params.subscribe((val) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            this.loadedServices = [];
             this.userSub = this.us.loggedUser.subscribe(user => {
                 this.grabbedUser = user;
                 this.headers = 'Bearer ' + this.grabbedUser.access_token;
@@ -94,7 +98,7 @@ let FinalizadosPage = class FinalizadosPage {
                 this.loadServices("6");
                 this.loadServices("8");
             });
-        });
+        }));
     }
     ngOnInit() {
     }
@@ -102,7 +106,6 @@ let FinalizadosPage = class FinalizadosPage {
         this.menuController.enable(true, 'profesional');
     }
     loadServices(statusID) {
-        this.loadedServices = [];
         this.lc.create({
             message: "Cargando lista de servicios..."
         }).then(loadingEl => {
@@ -118,6 +121,11 @@ let FinalizadosPage = class FinalizadosPage {
                 if (statusID === "8") {
                     this.loadedServices = this.loadedServices.concat(resData.data.data);
                 }
+                this.loadedServices = lodash__WEBPACK_IMPORTED_MODULE_11__["orderBy"](this.loadedServices, function (dateObj) {
+                    const dateSplit = dateObj.date_last_modification.split('-');
+                    return new Date(`${dateSplit[1]}-${dateSplit[0]}-${dateSplit[2]}-`);
+                }, ['desc']);
+                console.log(this.loadedServices);
             }).catch(err => {
                 console.log(err);
                 loadingEl.dismiss();

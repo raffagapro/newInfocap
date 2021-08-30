@@ -168,6 +168,16 @@
       var src_app_services_pro_solicitud_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
       /*! src/app/services/pro-solicitud.service */
       "zMwU");
+      /* harmony import */
+
+
+      var lodash__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      /*! lodash */
+      "LvDl");
+      /* harmony import */
+
+
+      var lodash__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_11__);
 
       var FinalizadosPage = /*#__PURE__*/function () {
         function FinalizadosPage(router, menuController, us, lc, solServ, solicitudServicio, route) {
@@ -185,16 +195,32 @@
           this.paidServices = [];
           this.parsedHours = null;
           route.params.subscribe(function (val) {
-            _this.userSub = _this.us.loggedUser.subscribe(function (user) {
-              _this.grabbedUser = user;
-              _this.headers = 'Bearer ' + _this.grabbedUser.access_token;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var _this2 = this;
 
-              _this.loadServices("5");
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      this.loadedServices = [];
+                      this.userSub = this.us.loggedUser.subscribe(function (user) {
+                        _this2.grabbedUser = user;
+                        _this2.headers = 'Bearer ' + _this2.grabbedUser.access_token;
 
-              _this.loadServices("6");
+                        _this2.loadServices("5");
 
-              _this.loadServices("8");
-            });
+                        _this2.loadServices("6");
+
+                        _this2.loadServices("8");
+                      });
+
+                    case 2:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
           });
         }
 
@@ -209,31 +235,36 @@
         }, {
           key: "loadServices",
           value: function loadServices(statusID) {
-            var _this2 = this;
+            var _this3 = this;
 
-            this.loadedServices = [];
             this.lc.create({
               message: "Cargando lista de servicios..."
             }).then(function (loadingEl) {
               loadingEl.present();
               axios__WEBPACK_IMPORTED_MODULE_9___default.a.get(src_environments_environment__WEBPACK_IMPORTED_MODULE_8__["API"] + "/supplier/requestservice/".concat(statusID), {
                 headers: {
-                  Authorization: _this2.headers
+                  Authorization: _this3.headers
                 }
               }).then(function (resData) {
                 loadingEl.dismiss();
 
                 if (statusID === "5") {
-                  _this2.loadedServices = _this2.loadedServices.concat(resData.data.data);
+                  _this3.loadedServices = _this3.loadedServices.concat(resData.data.data);
                 }
 
                 if (statusID === "6") {
-                  _this2.loadedServices = _this2.loadedServices.concat(resData.data.data);
+                  _this3.loadedServices = _this3.loadedServices.concat(resData.data.data);
                 }
 
                 if (statusID === "8") {
-                  _this2.loadedServices = _this2.loadedServices.concat(resData.data.data);
+                  _this3.loadedServices = _this3.loadedServices.concat(resData.data.data);
                 }
+
+                _this3.loadedServices = lodash__WEBPACK_IMPORTED_MODULE_11__["orderBy"](_this3.loadedServices, function (dateObj) {
+                  var dateSplit = dateObj.date_last_modification.split('-');
+                  return new Date("".concat(dateSplit[1], "-").concat(dateSplit[0], "-").concat(dateSplit[2], "-"));
+                }, ['desc']);
+                console.log(_this3.loadedServices);
               })["catch"](function (err) {
                 console.log(err);
                 loadingEl.dismiss();

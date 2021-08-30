@@ -251,11 +251,9 @@ let VisitaDetailPage = class VisitaDetailPage {
             this.loadedService.request_technical.length == 0) {
             return "ND";
         }
-        let hours = this.loadedService.request_technical[0].visit_hours
-            .replace(" ", "")
-            .split("-");
-        let startHour = moment__WEBPACK_IMPORTED_MODULE_10__["utc"](hours[0], "HH:mm");
-        let endHour = moment__WEBPACK_IMPORTED_MODULE_10__["utc"](hours[1], "HH:mm");
+        let visitHistory = this.loadedService.history_status.find((history) => history.name === 'VisitaTecnica');
+        let startHour = moment__WEBPACK_IMPORTED_MODULE_10__(visitHistory.hours_required, 'hh:mm:ss a');
+        let endHour = moment__WEBPACK_IMPORTED_MODULE_10__(visitHistory.hours_final, 'hh:mm:ss a');
         return `${startHour.format("h:mm a")} - ${endHour.format("h:mm a")}`;
     }
     confirmVisit(client_accepted) {

@@ -4765,9 +4765,11 @@
                         var taxes = [];
                         var commission = [];
                         resData.data.data.paymentByWeek.map(function (d) {
-                          profesionalAmount.push(d.professionalamount);
-                          taxes.push(d.taxes);
-                          commission.push(d.commission);
+                          var index = _this7.weeksToRender[_this7.actualWeekToShow].indexOf(d.days);
+
+                          profesionalAmount[index] = d.professionalamount;
+                          taxes[index] = d.taxes;
+                          commission[index] = d.commission;
                         });
                         _this7.barChartWeek = new chart_js__WEBPACK_IMPORTED_MODULE_6__["Chart"](_this7.barChartWeek.nativeElement, {
                           type: 'bar',
@@ -4875,9 +4877,11 @@
                       }).then(function (resData) {
                         _this8.totalWeek = resData.data.data.total || 0;
                         resData.data.data.paymentByWeek.map(function (d) {
-                          profesionalAmount.push(d.professionalamount);
-                          taxes.push(d.taxes);
-                          commission.push(d.commission);
+                          var index = _this8.weeksToRender[_this8.actualWeekToShow].indexOf(d.days);
+
+                          profesionalAmount[index] = d.professionalamount;
+                          taxes[index] = d.taxes;
+                          commission[index] = d.commission;
                         });
                       });
 

@@ -457,9 +457,11 @@
               return "ND";
             }
 
-            var hours = this.loadedService.request_technical[0].visit_hours.replace(" ", "").split("-");
-            var startHour = moment__WEBPACK_IMPORTED_MODULE_10__["utc"](hours[0], "HH:mm");
-            var endHour = moment__WEBPACK_IMPORTED_MODULE_10__["utc"](hours[1], "HH:mm");
+            var visitHistory = this.loadedService.history_status.find(function (history) {
+              return history.name === 'VisitaTecnica';
+            });
+            var startHour = moment__WEBPACK_IMPORTED_MODULE_10__(visitHistory.hours_required, 'hh:mm:ss a');
+            var endHour = moment__WEBPACK_IMPORTED_MODULE_10__(visitHistory.hours_final, 'hh:mm:ss a');
             return "".concat(startHour.format("h:mm a"), " - ").concat(endHour.format("h:mm a"));
           }
         }, {
