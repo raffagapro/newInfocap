@@ -22,7 +22,8 @@ export class ServiceReportPage implements OnInit {
     category_id: null,
     clientPhone1: null,
     created_date: null,
-    request_cost: null
+    request_cost: null,
+    aditional: null
   };
 
   imagesToDisplay: string[] = [];
@@ -31,6 +32,8 @@ export class ServiceReportPage implements OnInit {
     slidesPerView: 2,
     autoplay: true
   };
+
+  additionalDetected = false
 
   constructor(
     private solicitudServicio: ProSolicitudService,
@@ -55,10 +58,19 @@ export class ServiceReportPage implements OnInit {
     this.loadedInfo.clientPhone1 = this.solicitudServicio.solicitud.clientPhone
     this.loadedInfo.request_cost = this.solicitudServicio.solicitud.cost
     this.loadedInfo.created_date = this.solicitudServicio.solicitud.created_date
+    this.loadedInfo.aditional = this.solicitudServicio.solicitud.aditional
 
-    let images = this.loadedInfo.images.concat(this.loadedInfo.request_cost.img_addittional)
+    var images = null;
+    
+    if(this.loadedInfo.aditional.addittional.length > 0) 
+    {
+      this.additionalDetected = true
+      images = this.loadedInfo.images.concat(this.loadedInfo.aditional.img_addittional)
+    } else {
+      images = this.loadedInfo.images
+    }
 
-    this.imagesToDisplay = images.map((image) => image.image)
+    this.imagesToDisplay = images.map((image) => image && image.image)
 
     if (this.imagesToDisplay.length === 1) {
       this.slideOptions.slidesPerView = 1;
@@ -77,22 +89,26 @@ export class ServiceReportPage implements OnInit {
   }
 
   getServiceCost() {
-    if(this.loadedInfo.request_cost !== null && this.loadedInfo.request_cost.total) {
-      return Math.round(this.loadedInfo.request_cost.total[0].total)
+    if(this.loadedInfo.request_cost && this.loadedInfo.request_cost !== null) {
+      const amounts = this.loadedInfo.request_cost.map(am => am.amount_suplier);
+      return amounts.reduce((accumulate, currentValue) => parseFloat(accumulate) + parseFloat(currentValue), 0)
     }
   }
 
   getAmountClient() {
-    if(this.loadedInfo && this.loadedInfo.request_cost !== null && this.loadedInfo.request_cost.amount_client) {
-      return Math.round(this.loadedInfo.request_cost.amount_client);
+    if(this.loadedInfo && this.loadedInfo.request_cost !== null && this.loadedInfo.request_cost) {
+      const client = this.loadedInfo.request_cost.filter(a => a.costs_type_id === 1);
+      const amountsClient = client.map(am => am.amount_suplier);
+      return amountsClient.reduce((accumulate, currentValue) => parseFloat(accumulate) + parseFloat(currentValue), 0)
     }
   }
 
   getServiceAditional() {
-    if (this.loadedInfo && this.loadedInfo.request_cost !== null && this.loadedInfo.request_cost.addittional.length > 0) {
-      return Math.round(Number(this.loadedInfo.request_cost.addittional.reduce((total, entity) => total += Number(entity.amount_client), 0)));
+    if (this.loadedInfo && this.loadedInfo.request_cost !== null) {
+      const aditionals = this.loadedInfo.request_cost.filter(a => a.costs_type_id > 1);
+      const additionalsAmounts = aditionals.map(am => am.amount_suplier);
+      return additionalsAmounts.reduce((accumulate, currentValue) => parseFloat(accumulate) + parseFloat(currentValue), 0)
     }
-    return 0;
   }
 
   goBack() {

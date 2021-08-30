@@ -178,20 +178,18 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
     formData.append('work_report', this.formFinalizar.value.work_report)
     formData.append('categorization_id', this.categoryIDSelected)
 
-    // if (this.loadedImages.length === 0) {
-    //   alert('Debes agregar al menos una foto a la solicitud.');
-    //   return
-    // }
-
     this.lc.create({
       message: 'Finalizando Trabajo...'
     }).then(loadingEl => {
       loadingEl.present();
+
+
       axios.post(API + `/supplier/finalize/requestservice/${this.solicitudServicio.solicitud.id}`, formData, { headers: { Authorization: this.headers } }).then(resData => {
-        let body_cost_request = {
+
+        const body_cost_request = {
           amount: this.loadedInfo.request_cost.amount_suplier,
           costs_type_id: 1,
-          payment_type_id: this.paymentIDSelected
+          payment_type_id: 2
         }
         axios.put(API + `/supplier/cost/requestservice/${this.solicitudServicio.solicitud.id}`, body_cost_request, { headers: { Authorization: this.headers } }).then(resData => {
           loadingEl.dismiss();
@@ -205,10 +203,13 @@ export class AgendadosFinalizarPage implements OnInit, OnDestroy {
 
       }).then(() => {
         // if (this.paymentIDSelected == 2) {
+          const amounts_additional = this.loadedInfo.request_cost.addittional.map(a => a.amount_suplier)
+          let aditional_costo = amounts_additional.reduce((accumalator, currentValue) => accumalator + currentValue, 0)
+
           let payment_request = {
             request_service_id: this.solicitudServicio.solicitud.id,
             payment_type_id: 2, //this.paymentIDSelected,
-            grossamount: this.loadedInfo.request_cost.amount_suplier,
+            grossamount: (parseFloat(aditional_costo) + parseFloat(this.loadedInfo.request_cost.amount_suplier)).toFixed(0),
             comment: ''
           }
           axios.post(API + '/client/payment', payment_request, { headers: { Authorization: this.headers } }).then(resData => {

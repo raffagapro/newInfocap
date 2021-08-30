@@ -28,9 +28,9 @@
     </ion-row>
   </ion-grid>
 
-  <ion-grid class="pd-8">
+  <ion-grid class="pd-8" >
     <!-- profile Img -->
-    <ion-row class="imgCont">
+    <!-- <ion-row class="imgCont">
       <ion-col>
         <ion-avatar class="ion-margin-start profileImg">
           <ion-img
@@ -39,14 +39,14 @@
         </ion-avatar>
       </ion-col>
     </ion-row>
-    <!-- edit icon -->
+ 
     <ion-row>
       <ion-col>
         <div class="rate-cont" *ngIf="grabbedUser.id !== null" (click)="onLoadImg(true)">
           <ion-icon name="pencil" class="profileIcon"></ion-icon>
         </div>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <form [formGroup]="form" (ngSubmit)="onUpdateCatProfile()">
       <!-- title -->

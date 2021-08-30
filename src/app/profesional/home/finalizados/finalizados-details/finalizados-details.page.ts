@@ -71,6 +71,7 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
         this.solicitudServicio.setCategoryID(resData.data.data.categoryName)
         this.solicitudServicio.setStatusID(resData.data.data.status_id)
         this.solicitudServicio.setClientPhone(resData.data.data.clientPhone1)
+        this.solicitudServicio.setCosto(resData.data.data.request_cost)
 
         this.loadedInfo.clientLastName = resData.data.data.clientLastName;
         this.loadedInfo.clientName = resData.data.data.clientName;
@@ -88,7 +89,9 @@ export class FinalizadosDetailsPage implements OnInit, OnDestroy {
       })
 
       axios.get(API + `/client/detailcostrequest/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(resData => {
-        this.solicitudServicio.setCosto(resData.data.data);
+        this.solicitudServicio.setAditional(resData.data.data);
+      }).catch(err => {
+        console.log(err)
       })
 
       axios.get(API + `/client/evaluation/done/${this.solicitudServicio.solicitud.id}`, { headers: { Authorization: this.headers } }).then(response => {
