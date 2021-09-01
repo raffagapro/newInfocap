@@ -172,22 +172,11 @@ export class AgendadosPage implements OnInit, OnDestroy {
 
       }).then(() => {
         this.loadedServices = lodash.orderBy(this.loadedServices, ['timeFrom'])
-        // this.loadedServices = lodash.orderBy(this.loadedServices, function (dateObj) {
-        //   return new Date(dateObj.date_required);
-        // });
         this.loadedVisits = lodash.orderBy(this.loadedVisits, function (dateObj) {
           return new Date(dateObj.date_required);
         });
       }).catch(err => {
-        if (statusID === "3") {
-          this.loadedServices = []
-        }
-        if (statusID === "4") {
-          this.loadedStartedServices = []
-        }
-        if (statusID === "2") {
-          this.loadedVisits = [];
-        }
+        console.log(err)
         loadingEl.dismiss();
       })
     });

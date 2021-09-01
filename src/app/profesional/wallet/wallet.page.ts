@@ -26,6 +26,7 @@ export class WalletPage implements OnInit {
 
   @ViewChild('barChart') barChart;
   @ViewChild('barChartWeek') barChartWeek;
+  @ViewChild('barChartWeek') originalbarChartWeek;
 
   headers: string
   userSub: Subscription;
@@ -70,7 +71,6 @@ export class WalletPage implements OnInit {
     var taxes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     await axios.get(API + '/payments/years', { headers: { Authorization: this.headers } }).then(resData => {
-      console.log(resData.data.data)
       if (resData.data.data.length > 0) {
         this.yearInfoTotal = resData.data.data[0].total
         this.yearInfoTotalRequest = resData.data.data[0].requestnumber
@@ -245,12 +245,14 @@ export class WalletPage implements OnInit {
 
   backWalletMain() {
     this.graphicWeek = false
+    this.barChartWeek.destroy()
+    this.barChartWeek = this.originalbarChartWeek
+    this.actualWeekToShow = 0
   }
 
   async changeWeek(type) {
 
     var year = new Date().getFullYear()
-
 
     if (type === 'add') {
       this.actualWeekToShow = this.actualWeekToShow + 1

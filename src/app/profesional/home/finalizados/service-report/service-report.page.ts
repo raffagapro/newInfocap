@@ -62,7 +62,7 @@ export class ServiceReportPage implements OnInit {
 
     var images = null;
     
-    if(this.loadedInfo.aditional.addittional.length > 0) 
+    if(this.loadedInfo.aditional != null && this.loadedInfo.aditional.addittional.length > 0) 
     {
       this.additionalDetected = true
       images = this.loadedInfo.images.concat(this.loadedInfo.aditional.img_addittional)
